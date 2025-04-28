@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Home
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='css/home.css') }}">
+{% endblock links %}
+
+
+{% block nav %}
+    <div class="nav-links">
+        <a href="/authorization" class="auth-button">Реєстрація</a>
+        <a href="/login" class ="login-button">Увійти</a>
+    </div>
+{% endblock nav %}
+
+{% block content %}
+    <section class="join-section">
+        <div class="join-game">
+            <h1>Привіт!</h1>
+            <p>Готовий кинути виклик своєму мозку?<br>Впиши код та приєднуйся до гри – тестуй свої знання, змагайся з<br>друзями та відкривай нове!</p>
+
+            <form class="input-code" method="post">
+                <input type="text" placeholder="Enter a join code">
+                <button type="submit">Join</button>
+            </form>
+        </div>
+    </section>
+
+    <section class="cards-section">
+        <!-- тут будут карточки тестов -->
+    </section>
+    
+{% endblock %}

@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}Authorization{% endblock %}
+
+{% block content %}
+    
+    <div class="registration">
+        <h3>Registration form</h3>
+        <form action="" method="post">
+            <input type="text" name="name" placeholder="Enter your name">
+            <input type="text" name="surname" placeholder="Enter your surname">
+            <input type="number" name="phone_number" placeholder="Enter your phone number">
+            <input type="email" name="email" placeholder="Enter your email">
+
+            <input type="password" name="password" placeholder="Enter your password">
+            <span class="password">🫣</span>
+
+            <button class="send_data" type="submit">SEND</button>
+        </form>
+
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
+    </div>
+    
+    <script src="{{ url_for('registration.static', filename='js/registration.js') }}"></script>
+{% endblock %}
+

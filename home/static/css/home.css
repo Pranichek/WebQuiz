@@ -1,0 +1,93 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #3C3C3C;
+    color: white;
+    align-items: center;
+}
+
+header{
+    background-color: #343434;
+    display: flex;
+    height: 10vh;
+    color: #ffffff;
+    align-items: center;
+    justify-content: space-between;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    margin-right: 12vw;
+}
+
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-left: 14px;
+}
+
+
+.nav-links .auth-button {
+    background-color: #C48AF7;
+    color: #ffffff;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 10px;
+    padding: 9px 3px;
+    display: inline-block;
+    min-width: 150px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.nav-links .login-button {
+    background-color: #C48AF7;
+    color: #ffffff;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 10px;
+    padding: 9px 3px;
+    display: inline-block;
+    min-width: 100px;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+.join-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+    text-align: center;
+}
+
+.join-game h1 {
+    font-size: 2.5em;
+}
+
+.join-game p {
+    font-size: 1.2em;
+}
+
+.input-code input {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    margin-top: 10px;
+}
+
+.input-code button {
+    padding: 10px 20px;
+    background-color: #C48AF7;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+
