@@ -7,21 +7,14 @@ body {
     align-items: center;
 }
 
-header{
+/* header{
     background-color: #343434;
     display: flex;
     height: 10vh;
     color: #ffffff;
     align-items: center;
     justify-content: space-between;
-}
-
-nav {
-    display: flex;
-    align-items: center;
-    margin-right: 12vw;
-}
-
+} */
 
 .logo {
     font-size: 1.5em;
@@ -29,39 +22,20 @@ nav {
     margin-left: 14px;
 }
 
-
-.nav-links .auth-button {
-    background-color: #C48AF7;
-    color: #ffffff;
-    border-radius: 5px;
-    text-decoration: none;
-    margin: 10px;
-    padding: 9px 3px;
-    display: inline-block;
-    min-width: 150px;
-    text-align: center;
-    font-weight: bold;
+.join-game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 50px;
 }
-
-.nav-links .login-button {
-    background-color: #C48AF7;
-    color: #ffffff;
-    border-radius: 5px;
-    text-decoration: none;
-    margin: 10px;
-    padding: 9px 3px;
-    display: inline-block;
-    min-width: 100px;
-    text-align: center;
-    font-weight: bold;
-}
-
 
 .join-section {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 60vh;
+    margin-top: 50px;
     text-align: center;
 }
 
@@ -73,21 +47,31 @@ nav {
     font-size: 1.2em;
 }
 
+.input-code {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    max-width: 400px;
+    background-color: white;
+    padding: 5px;
+    gap: 10px;
+}
+
 .input-code input {
     padding: 10px;
     border-radius: 5px;
     border: none;
-    margin-top: 10px;
 }
 
 .input-code button {
     padding: 10px 20px;
     background-color: #C48AF7;
-    color: white;
+    color: black;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    margin-left: 10px;
 }
-
-
+.input-code, .input-code input, .input-code button{
+    border: solid 1px black;
+    border-radius: 10px;
+}

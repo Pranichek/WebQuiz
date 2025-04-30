@@ -8,6 +8,7 @@ home_app = flask.Blueprint(
     static_url_path = "/home/static"
 )
 
+
 registration = flask.Blueprint(
     name = "registration",
     import_name = "home",

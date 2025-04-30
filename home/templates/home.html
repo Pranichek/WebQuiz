@@ -9,14 +9,8 @@
 {% endblock links %}
 
 {% block nav %}
-    {% if is_authenticated %}
-        <p>Ви увійшли у акаунт</p>
-    {% else %}
-        <div class="nav-links">
-            <a href="/authorization" class="auth-button">Реєстрація</a>
-            <a href="/login" class ="login-button">Увійти</a>
-        </div>
-    {% endif %}
+    <a href="/registration">Registration</a>
+    <a href="/login">login</a>
 {% endblock nav %}
 
 {% block content %}
@@ -33,7 +27,14 @@
     </section>
 
     <section class="cards-section">
-        <!-- тут будут карточки тестов -->
+        <div class="card">
+            <span class="card-details">
+                <p class="subject">Програмування</p>
+                <p class="quantity">20+ тестів з цьго предмету!</p>
+                <p class="wishes">Перевір свої знання та стань профі!</p>
+                <a class="point-here">Тисни сюди, щоб дізнатися більше!</a>
+            </span>
+        </div>
     </section>
     
 {% endblock %}

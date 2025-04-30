@@ -7,7 +7,7 @@ home.home_app.add_url_rule(
 )
 
 home.registration.add_url_rule(
-    rule = "/authorization",
+    rule = "/registration",
     view_func = home.render_registration,
     methods = ["GET", "POST"]
 )

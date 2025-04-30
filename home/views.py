@@ -4,9 +4,10 @@ from Project.db import DATABASE
 import flask_login
 
 def render_home():
-    is_authenticated = flask_login.current_user.is_authenticated
-
-    return flask.render_template(template_name_or_list = "home.html", is_authenticated = is_authenticated)
+    if not flask_login.current_user.is_authenticated:
+        return flask.render_template(template_name_or_list = "home.html")
+    else:
+        return flask.render_template(template_name_or_list = "home_auth.html")
 
 def render_registration():
     message = ''

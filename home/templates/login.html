@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="{{ url_for('login.static', filename='css/login.css') }}">
 {% endblock links %}
 
+{% block nav %}
+    <div class="nav-links">
+        <a href="/" class="test-button">Приєднатися до тесту</a>
+    </div>
+{% endblock nav %}
 
 {% block content %}
     <h1>Welcome to the Login Page</h1>
