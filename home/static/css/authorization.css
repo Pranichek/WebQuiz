@@ -1,0 +1,102 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #343434;
+    display: flex;
+    height: 10vh;
+    color: #ffffff;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed; 
+    top: 0; 
+    width: 100%; 
+}
+
+.nav-links .test-button {
+    background-color: #C48AF7;
+    color: #ffffff;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 10px;
+    padding: 9px 3px;
+    display: inline-block;
+    min-width: 150px;
+    text-align: center;
+    font-weight: bold;
+}
+
+body {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    background-color: #3C3C3C;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+}
+
+.registration-container {
+    background: linear-gradient(to right, #D3D5F8, #83BBFF, #B9BDF5); 
+    border-radius: 34px;
+    width: 35vw;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 20%; 
+}
+
+.registration {
+    background-color: #343434;
+    border-radius: 30px;
+    width: 60%;
+    height: 70%;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.text-auth h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input {
+    background-color: #B9BDF5;
+    font-weight: bold;
+    border-radius: 10px;
+    border: 1px solid black;
+    width: 90%;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+input[type="radio"] {
+    padding: 0;
+    margin: 0;
+}
+
+.password {
+    cursor: pointer;
+}
+
+.send-data {
+    position: absolute;
+    bottom: 0;
+    background-color: #343434;
+    margin-bottom: 10px;
+    width: 60%;
+    border-radius: 10px;
+    border: 1px solid black;
+    background-color: #B9BDF5;
+    height: 6%;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-left: 14px;
+}

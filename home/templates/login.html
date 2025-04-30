@@ -2,6 +2,24 @@
 
 {% block title %}Login{% endblock %}
 
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('login.static', filename='css/login.css') }}">
+{% endblock links %}
+
+
 {% block content %}
     <h1>Welcome to the Login Page</h1>
+    <div class="login">
+        <h3>Login form</h3>
+        <form action="" method="post">
+            <input type="email" name="email" placeholder="Enter your email">
+
+            <input type="password" name="password" placeholder="Enter your password">
+            <span class="password">🫣</span>
+
+            <button class="send_data" type="submit">SEND</button>
+        </form>
+    </div>
+
+    <script src="{{ url_for('login.static', filename='js/login.js') }}"></script>
 {% endblock %}

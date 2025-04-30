@@ -2,25 +2,62 @@
 
 {% block title %}Authorization{% endblock %}
 
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('registration.static', filename='css/authorization.css') }}">
+{% endblock links %}
+
+{% block nav %}
+    <div class="nav-links">
+        <a href="/" class="test-button">Приєднатися до тесту</a>
+    </div>
+{% endblock nav %}
+
+
 {% block content %}
+    <div class ="registration-container">
+        <div class = "registration">
+            <div class="text-auth">
+                <h3>Реєстрація</h3>
+            </div>
+            <form action="" method="post">
+                <div class = "input-name">
+                    <input type="text" name="name" placeholder="Enter your name">
+                </div>
+                <div class="input-surname">
+                    <input type="text" name="surname" placeholder="Enter your surname">
+                </div>
+                <div class="input-number">
+                    <input type="number" name="phone_number" placeholder="Enter your phone number">
+                </div>
+                <div class="input-email">
+                    <input type="email" name="email" placeholder="Enter your email">
+                </div>
+                
+                <div class="input-password">
+                    <input type="password" name="password" placeholder="Enter your password">
+                    <span class="password">🫣</span>
+                </div>
+        
+                <div class="radion-mentor">
+                    <label for="radion1">
+                        <input type="radio" name="mentor" value="True" required>
+                        <label for="mentor">mentor</label>
+                    </label>
+                </div>
     
-    <div class="registration">
-        <h3>Registration form</h3>
-        <form action="" method="post">
-            <input type="text" name="name" placeholder="Enter your name">
-            <input type="text" name="surname" placeholder="Enter your surname">
-            <input type="number" name="phone_number" placeholder="Enter your phone number">
-            <input type="email" name="email" placeholder="Enter your email">
-
-            <input type="password" name="password" placeholder="Enter your password">
-            <span class="password">🫣</span>
-
-            <button class="send_data" type="submit">SEND</button>
-        </form>
-
-        {% if message %}
-            <p>{{ message }}</p>
-        {% endif %}
+                <div class="radio-student">
+                    <label for="radion2">
+                        <input type="radio" name="mentor" value="False">
+                        <label for="student">student</label>
+                    </label>
+                </div>
+                <button class="send-data" type="submit">SEND</button>
+            </form>
+    
+            {% if message %}
+                <p>{{ message }}</p>
+            {% endif %}
+        </div>
     </div>
     
     <script src="{{ url_for('registration.static', filename='js/registration.js') }}"></script>

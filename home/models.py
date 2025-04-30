@@ -2,7 +2,6 @@ import flask_login
 from Project.db import DATABASE
 
 class User(DATABASE.Model, flask_login.UserMixin):
-    __tablename__ = "users"
     id = DATABASE.Column(DATABASE.Integer, primary_key = True)
 
     name = DATABASE.Column(DATABASE.String(150), nullable = False)
