@@ -16,13 +16,15 @@ def render_registration():
         name_form = flask.request.form["name"]
         surname_form = flask.request.form["surname"]
         mentor_form = flask.request.form["mentor"]
-        if User.query.filter_by(email = email_form).first() is None and User.query.filter_by(phone_number = number_form).first() is None:
+
+        if User.query.filter_by(email = email_form) is None and User.query.filter_by(phone_number = number_form) is None:
             if name_form != '' and surname_form != '':
                 is_mentor = None
                 if mentor_form == 'True':
                     is_mentor = True
                 else:
                     is_mentor = False
+
                 user = User(
                     name = flask.request.form["name"],
                     password = flask.request.form["password"],
@@ -31,9 +33,9 @@ def render_registration():
                     surname = flask.request.form["surname"],
                     is_mentor = is_mentor
                 )
-
                 DATABASE.session.add(user)
                 DATABASE.session.commit()
+
                 return flask.redirect("/")
             else:
                 message = "Please fill in all the fields"

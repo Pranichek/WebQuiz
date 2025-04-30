@@ -13,3 +13,4 @@ def execute():
 
         os.system(os.environ["DB_MIGRATE"])
         os.system(os.environ["DB_UPGRADE"])
+
