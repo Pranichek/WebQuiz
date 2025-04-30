@@ -8,17 +8,6 @@
     <link rel="stylesheet" href="{{ url_for('home.static', filename='css/home.css') }}">
 {% endblock links %}
 
-{% block nav %}
-    {% if is_authenticated %}
-        <p>Ви увійшли у акаунт</p>
-    {% else %}
-        <div class="nav-links">
-            <a href="/authorization" class="auth-button">Реєстрація</a>
-            <a href="/login" class ="login-button">Увійти</a>
-        </div>
-    {% endif %}
-{% endblock nav %}
-
 {% block content %}
     <section class="join-section">
         <div class="join-game">
@@ -33,7 +22,15 @@
     </section>
 
     <section class="cards-section">
-        <!-- тут будут карточки тестов -->
+        <div class="card">
+            <img src="{{ url_for('ho') }}" alt="" class="card-img">
+            <span class="card-details">
+                <p class="subject">Програмування</p>
+                <p class="quantity">20+ тестів з цьго предмету!</p>
+                <p class="wishes">Перевір свої знання та стань профі!</p>
+                <a class="point-here">Тисни сюди, щоб дізнатися більше!</a>
+            </span>
+        </div>
     </section>
     
 {% endblock %}

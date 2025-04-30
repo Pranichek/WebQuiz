@@ -2,7 +2,7 @@ import Project
 
 def main():
     try:
-        Project.execute()
+        # Project.execute()
         Project.project.run(debug = True)
     except Exception as error:
         print(error)
