@@ -1,9 +1,18 @@
 import flask
 from .models import User
 from Project.db import DATABASE
+from Project.settings import s, mail
+from itsdangerous import SignatureExpired
+import flask_mail
+import random
 import flask_login
 
 def render_home():
+    if flask.request.method == "POST":
+        DATABASE.session.close()
+        flask_login.current_user.email = "kjdf"
+        DATABASE.session.commit()
+        flask_login.logout_user()
     if not flask_login.current_user.is_authenticated:
         return flask.render_template(template_name_or_list = "home.html")
     else:
@@ -17,8 +26,7 @@ def render_registration():
         name_form = flask.request.form["name"]
         surname_form = flask.request.form["surname"]
         mentor_form = flask.request.form["mentor"]
-
-        if User.query.filter_by(email = email_form) is None and User.query.filter_by(phone_number = number_form) is None:
+        if User.query.filter_by(email = email_form).first() is None and  User.query.filter_by(phone_number = number_form).first() is None:
             if name_form != '' and surname_form != '':
                 is_mentor = None
                 if mentor_form == 'True':
@@ -36,6 +44,16 @@ def render_registration():
                 )
                 DATABASE.session.add(user)
                 DATABASE.session.commit()
+                # email = flask.request.form["email"]
+                # token = s.dumps(email, salt = "emmail-confirm")
+
+                # msg = flask_mail.Message(subject = "Confirm Email", recipients = [email])
+
+                # # link = flask.url_for("registration.confirm_email", token = token, _external = True)
+                # random_number = random.randint(000000, 999999)
+                # msg.body = f"Your code is {random_number}"
+
+                # mail.send(msg)
 
                 return flask.redirect("/")
             else:
@@ -44,6 +62,7 @@ def render_registration():
             message = "User already exists"
         
     return flask.render_template(template_name_or_list = "registration.html", message = message)
+
 
 def render_login():
     if flask.request.method == "POST":

@@ -1,24 +1,33 @@
+<!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{% block title %}{% endblock %}</title>
-        {% block links %}{% endblock %}
-        <link rel="stylesheet" href="{{ url_for('static', filename= 'base.css')}}">
-    </head>
-    <body>
-        <header>
-            <div class = "logo">Tester</div>
-            <nav>
-                {% block nav %}
-                    
-                {% endblock nav %}
-            </nav>
-        </header>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}{% endblock %}</title>
+    {% block links %}{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">Tester</div>
+        <nav>
+            {% if is_authenticated %}
+                <p>Ви увійшли у акаунт</p>
+            {% else %}
+                <div class="nav-links">
+                    <a href="/registration" class="auth-button">Реєстрація</a>
+                    <a href="/login" class="login-button">Увійти</a>
+                    <div class="listener">
+                        <img src="{{ url_for('static', filename='images/open-panel.png') }}" alt="menu" class="open-panel" />
+                    </div>
+                </div>
+            {% endif %}
 
-        <main class="main">
-            {% block content %}
-            {% endblock %}
-        </main>
-    </body>
+        </nav>
+    </header>
+
+    <main class="main">
+        {% block content %}{% endblock %}
+    </main>
+</body>
 </html>

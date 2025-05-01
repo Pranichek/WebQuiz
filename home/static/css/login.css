@@ -1,17 +1,20 @@
-* {
-    margin: 0;
-    padding: 0;
-}
-
 .password {
     cursor: pointer;
+} 
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    color: black;
 }
 
-header{
-    background-color: #343434;
-    display: flex;
-    height: 10vh;
-    color: #ffffff;
-    align-items: center;
-    justify-content: space-between;
+input {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
 }

@@ -12,6 +12,8 @@ home.registration.add_url_rule(
     methods = ["GET", "POST"]
 )
 
+
+
 home.login.add_url_rule(
     rule = "/login",
     view_func = home.render_login,
