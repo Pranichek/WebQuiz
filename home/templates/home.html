@@ -8,11 +8,6 @@
     <link rel="stylesheet" href="{{ url_for('home.static', filename='css/home.css') }}">
 {% endblock links %}
 
-{% block nav %}
-    <a href="/registration">Registration</a>
-    <a href="/login">login</a>
-{% endblock nav %}
-
 {% block content %}
     <section class="join-section">
         <div class="join-game">
@@ -28,8 +23,27 @@
 
     <section class="cards-section">
         <div class="card">
+            <img class="card-image" src="{{ url_for('home.static', filename='images/temporary-image.jpg') }}" alt="">
             <span class="card-details">
-                <p class="subject">Програмування</p>
+                <p class="subject">Програмування1</p>
+                <p class="quantity">20+ тестів з цьго предмету!</p>
+                <p class="wishes">Перевір свої знання та стань профі!</p>
+                <a class="point-here">Тисни сюди, щоб дізнатися більше!</a>
+            </span>
+        </div>
+        <div class="card">
+            <img class="card-image" src="{{ url_for('home.static', filename='images/temporary-image.jpg') }}" alt="">
+            <span class="card-details">
+                <p class="subject">Програмування2</p>
+                <p class="quantity">20+ тестів з цьго предмету!</p>
+                <p class="wishes">Перевір свої знання та стань профі!</p>
+                <a class="point-here">Тисни сюди, щоб дізнатися більше!</a>
+            </span>
+        </div>
+        <div class="card">
+            <img class="card-image" src="{{ url_for('home.static', filename='images/temporary-image.jpg') }}" alt="">
+            <span class="card-details">
+                <p class="subject">Програмування3</p>
                 <p class="quantity">20+ тестів з цьго предмету!</p>
                 <p class="wishes">Перевір свої знання та стань профі!</p>
                 <a class="point-here">Тисни сюди, щоб дізнатися більше!</a>

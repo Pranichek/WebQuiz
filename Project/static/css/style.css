@@ -1,11 +1,7 @@
 *{
-    /* Зовнішній отступ */
     margin: 0; 
-    /* Внутрішній отступ */
     padding: 0;
     box-sizing: border-box;
-
-    display: flex;
     justify-content: center;
     align-items: center;
 }
@@ -21,6 +17,7 @@ header {
     position: fixed; 
     top: 0; 
     width: 100%;
+    z-index: 3;
     /* background-color: aqua; */
 }
 
