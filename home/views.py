@@ -3,7 +3,8 @@ from .models import User
 from Project.db import DATABASE
 from Project.settings import s, mail
 from itsdangerous import SignatureExpired
-import flask_mail
+from flask_mail import Message
+from validate_email import validate_email
 import random
 import flask_login
 
@@ -18,11 +19,12 @@ def render_home():
         return flask.redirect("/home_auth")
     
 #головна сторінка коли користувач увійшов у акаунт
-def render_home_auth():
+def render_home_auth():    
     if flask_login.current_user.is_authenticated:
         return flask.render_template("home_auth.html")
     else:
         return flask.redirect("/")
+    
 
 def render_registration():
     message = ''
@@ -32,36 +34,37 @@ def render_registration():
         name_form = flask.request.form["name"]
         surname_form = flask.request.form["surname"]
         mentor_form = flask.request.form["mentor"]
-        if User.query.filter_by(email = email_form).first() is None and  User.query.filter_by(phone_number = number_form).first() is None:
+        if User.query.filter_by(phone_number = number_form).first() is None:
             if name_form != '' and surname_form != '':
                 is_mentor = None
                 if mentor_form == 'True':
                     is_mentor = True
                 else:
                     is_mentor = False
+                random_code = random.randint(000000, 999999)
+                flask.session["code"] = random_code
+                flask.session["email"] = email_form
+                flask.session["name"] = name_form
+                flask.session["surname"] = surname_form
+                flask.session["check_mentor"] = is_mentor
+                flask.session["phone_number"] = number_form
+                flask.session["password"] = flask.request.form["password"]
+                flask.session["attempts_auth"] = 3
 
-                user = User(
-                    name = flask.request.form["name"],
-                    password = flask.request.form["password"],
-                    email = flask.request.form["email"],
-                    phone_number = flask.request.form["phone_number"],
-                    surname = flask.request.form["surname"],
-                    is_mentor = is_mentor
+                # token = s.dumps(email_form, salt = "email-confirm")
+
+                email = flask.request.form["email"]
+
+                msg = Message(
+                    subject='Hello from the other side!', 
+                    sender='vovagrinchenko19@gmail.com',  
+                    recipients=[str(email)]  # Replace with actual recipient's email
                 )
-                DATABASE.session.add(user)
-                DATABASE.session.commit()
-                # email = flask.request.form["email"]
-                # token = s.dumps(email, salt = "emmail-confirm")
+                msg.body = "Привіт, ось твій код підтвердження пошти:{}".format(flask.session["code"])
+                # msg.body = "Привіт, ось твій код підтвердження пошти:{}".format(token)
+                mail.send(msg)
 
-                # msg = flask_mail.Message(subject = "Confirm Email", recipients = [email])
-
-                # # link = flask.url_for("registration.confirm_email", token = token, _external = True)
-                # random_number = random.randint(000000, 999999)
-                # msg.body = f"Your code is {random_number}"
-
-                # mail.send(msg)
-
-                return flask.redirect("/")
+                return flask.redirect("/verify_code")
             else:
                 message = "Please fill in all the fields"
         else:
@@ -73,6 +76,32 @@ def render_registration():
         registration_page = True
     )
 
+def render_code():
+    if flask.request.method == "POST":
+        if int(flask.session["code"]) == int(flask.request.form["verify_code"]):
+            user = User(
+                    name = flask.session["name"],
+                    password = flask.session["password"],
+                    email = flask.session["email"],
+                    phone_number = flask.session["phone_number"],
+                    surname = flask.session["surname"],
+                    is_mentor = flask.session["check_mentor"]
+                )
+            
+            DATABASE.session.add(user)
+            DATABASE.session.commit()
+            flask_login.login_user(user)
+
+            flask.session.clear()
+            return flask.redirect("/")
+        elif flask.session["code"] != flask.request.form["verify_code"]:
+            flask.session["attempts_auth"] -= 1
+
+    if flask.session["attempts_auth"] == 0:
+        flask.session.clear()
+        return flask.redirect("/")
+    else:
+        return flask.render_template(template_name_or_list = "verify_code.html", session_code = flask.session["code"])    
 
 def render_login():
     if flask.request.method == "POST":

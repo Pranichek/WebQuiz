@@ -1,4 +1,4 @@
-.block-registration{
+/* .block-registration{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,4 +44,83 @@ button {
 
 .password {
     cursor: pointer;
+} */
+
+.content-registration{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    background-color: #3C3C3C;
+    height: 90vh;
+    align-items: center;
+    gap: 10px;
 }
+
+.registration{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #343434;
+    padding: 20px;
+    border-width: 2px;
+    border-radius: 30px;
+    border-color: #B9BDF5;
+    height: 90%;
+    width: 30%;
+    justify-content: center;
+    align-items: center;
+    margin-left: 20px;
+}
+
+
+.img-avatar {
+    height: 30%;
+}
+
+.registration form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 70%;
+    gap: 15px;
+    align-items: center;
+}
+
+.registration input {
+    color: #414141;
+    width: 80%;
+}
+
+
+/* .registration form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+    align-items: center;
+}
+.registration input,
+.registration button {
+    width: 100%;
+    max-width: 300px;
+    padding: 10px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+}
+.registration button {
+    background-color: #B9BDF5;
+    color: black;
+    font-weight: bold;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.registration button:hover {
+    background-color: #a0a4f0;
+}
+.registration .img-avatar img {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 50%;
+} */
