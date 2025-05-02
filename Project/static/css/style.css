@@ -171,7 +171,7 @@ header {
 }
 
 .auth-button,
-.login-button {
+.login-button, .enter-code {
     font-size: 20px;
     font-weight: lighter;
     text-decoration: none;
@@ -242,3 +242,4 @@ header {
     height: 190px;
     align-self: center;
 }
+

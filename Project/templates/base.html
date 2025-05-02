@@ -15,8 +15,18 @@
                 <p>Ви увійшли у акаунт</p>
             {% else %}
                 <div class="nav-links">
-                    <a href="/registration" class="auth-button">Реєстрація</a>
-                    <a href="/login" class="login-button">Увійти</a>
+                    {% if home_page %}
+                        <a href="/registration" class="auth-button">Реєстрація</a>
+                        <a href="/login" class="login-button">Увійти</a>
+                    {% endif %}
+                    {% if registration_page %}
+                        <a href="/" class="enter-code">Приєднатися</a>
+                        <a href="/login" class="login-button">Увійти</a>
+                    {% endif %}
+                    {% if login_page %}
+                        <a href="/" class="enter-code">Приєднатися</a>
+                        <a href="/registration" class="auth-button">Реєстрація</a>
+                    {% endif %}
                     <div class="listener">
                         <img src="{{ url_for('static', filename='images/open-panel.png') }}" alt="menu" class="open-panel" />
                     </div>

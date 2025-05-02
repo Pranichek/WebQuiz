@@ -10,19 +10,20 @@ import flask_login
 #Просто головна сторінка
 def render_home():
     if not flask_login.current_user.is_authenticated:
-        return flask.render_template(template_name_or_list = "home.html")
+        return flask.render_template(
+            template_name_or_list = "home.html", 
+            home_page = True
+        )
     else:
         return flask.redirect("/home_auth")
     
 #головна сторінка коли користувач увійшов у акаунт
 def render_home_auth():
-    if flask.request.method == "POST":
-        DATABASE.session.close()
-        flask_login.current_user.email = "kjdf"
-        DATABASE.session.commit() 
-        flask_login.logout_user()
+    if flask_login.current_user.is_authenticated:
+        return flask.render_template("home_auth.html")
+    else:
+        return flask.redirect("/")
 
-    return flask.render_template("home_auth.html")
 def render_registration():
     message = ''
     if flask.request.method == "POST":
@@ -66,7 +67,11 @@ def render_registration():
         else:
             message = "User already exists"
         
-    return flask.render_template(template_name_or_list = "registration.html", message = message)
+    return flask.render_template(
+        template_name_or_list = "registration.html", 
+        message = message, 
+        registration_page = True
+    )
 
 
 def render_login():
@@ -81,6 +86,9 @@ def render_login():
                 flask_login.login_user(user)
 
     if not flask_login.current_user.is_authenticated:
-        return flask.render_template(template_name_or_list = "login.html")
+        return flask.render_template(
+            template_name_or_list = "login.html", 
+            login_page = True
+            )
     else:
         return flask.redirect("/")
