@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <h1>Welcome to the Verify code page</h1>
+    <form action="" method="post">
+        <input type="number" name="verify_code" placeholder="Уведіть код з пошти">
+        <button class="send_code" type="submit">SEND</button>
+    </form>
+
+    {% if session_code %}
+        <p>{{ session_code }}</p>
+    {% endif %}
+
+{% endblock %}
