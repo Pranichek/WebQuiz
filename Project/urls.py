@@ -6,12 +6,17 @@ home.home_app.add_url_rule(
     methods = ["GET", "POST"]
 )
 
+home.home_app.add_url_rule(
+    rule="/home_auth",
+    view_func = home.render_home_auth,
+    methods = ["GET", "POST"]
+)
+
 home.registration.add_url_rule(
     rule = "/registration",
     view_func = home.render_registration,
     methods = ["GET", "POST"]
 )
-
 
 
 home.login.add_url_rule(

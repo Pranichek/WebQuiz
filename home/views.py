@@ -7,17 +7,22 @@ import flask_mail
 import random
 import flask_login
 
+#Просто головна сторінка
 def render_home():
-    if flask.request.method == "POST":
-        DATABASE.session.close()
-        flask_login.current_user.email = "kjdf"
-        DATABASE.session.commit()
-        flask_login.logout_user()
     if not flask_login.current_user.is_authenticated:
         return flask.render_template(template_name_or_list = "home.html")
     else:
-        return flask.render_template(template_name_or_list = "home_auth.html")
+        return flask.redirect("/home_auth")
+    
+#головна сторінка коли користувач увійшов у акаунт
+def render_home_auth():
+    if flask.request.method == "POST":
+        DATABASE.session.close()
+        flask_login.current_user.email = "kjdf"
+        DATABASE.session.commit() 
+        flask_login.logout_user()
 
+    return flask.render_template("home_auth.html")
 def render_registration():
     message = ''
     if flask.request.method == "POST":
