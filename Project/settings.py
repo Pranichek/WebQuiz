@@ -11,12 +11,13 @@ project = flask.Flask(
 )
 
 project.config['MAIL_SERVER'] = 'smtp.gmail.com'
-project.config['MAIL_PORT'] = 465
-project.config['MAIL_USERNAME'] = ''
-project.config['MAIL_PASSWORD'] = '' 
-project.config['MAIL_USE_SSL'] = True
-project.config['MAIL_USE_TLS'] = False
-project.config['MAIL_DEFAULT_SENDER'] = ''
+project.config['MAIL_PORT'] = 587
+project.config['MAIL_USERNAME'] = 'ваша пошта'
+project.config['MAIL_PASSWORD'] = 'пароль доадтка' 
+project.config['MAIL_DEFAULT_SENDER'] = 'ваша пошта'
+project.config['MAIL_USE_TLS'] = True
+project.config['MAIL_USE_SSL'] = False
+
 
 mail = Mail(app = project)
 s = URLSafeTimedSerializer("Thisisasecretkey")
