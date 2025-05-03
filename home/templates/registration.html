@@ -20,7 +20,7 @@
                 <img class="avatar" src="{{ url_for('registration.static', filename='images/default_avatart.png') }}" alt="avatart">
             </div>
             <form action="" method="post">
-                <input type= "text" name= "username" placeholder= "Введіть ім'я">
+                <input type= "text" name= "username" placeholder= "Введіть ім'я" pattern = "[A-Za-z0-9]{6,}" title = "Логін не может бути меншим за 6 латинських символів.">
                 <input type= "text" name= "surname" placeholder= "Введіть прізвище">
                 <input type= "tel" name= "phone_number" placeholder=" Введіть номер телефону">
                 <input type= "email" name= "email" placeholder= "Введіть email">

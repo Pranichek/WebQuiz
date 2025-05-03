@@ -1,10 +1,8 @@
 import flask
 from .models import User
 from Project.db import DATABASE
-from Project.settings import s, mail
-from itsdangerous import SignatureExpired
+from Project.settings import mail
 from flask_mail import Message
-from validate_email import validate_email
 import random
 import flask_login
 
@@ -29,7 +27,6 @@ def render_home_auth():
 def render_registration():
     message = ''
     if flask.request.method == "POST":
-
         username_form = flask.request.form["username"]
         surname_form = flask.request.form["surname"]
 
@@ -50,6 +47,7 @@ def render_registration():
                         is_mentor = False
 
                     random_code = random.randint(000000, 999999)
+
                     flask.session["code"] = random_code
                     flask.session["email"] = email_form
                     flask.session["username"] = username_form
@@ -60,12 +58,12 @@ def render_registration():
                     flask.session["attempts_auth"] = 3
 
                     msg = Message(
-                        subject='Hello from the other side!', 
-                        sender='ваша пошта',  
-                        recipients=[str(email_form)] 
+                        subject = 'Hello from the other side!', 
+                        recipients = [str(email_form)] 
                     )
 
-                    link = flask.url_for("registration.render_code", _external=True)
+                    link = flask.url_for("registration.render_code", _external = True)
+
                     msg.html = f"""
                         <html>
                             <body>
