@@ -8,18 +8,45 @@
 
 
 {% block content %}
-    <h1>Welcome to the Login Page</h1>
-    <div class="login">
-        <h3>Login form</h3>
-        <form action="" method="post">
-            <input type="email" name="email" placeholder="Enter your email">
+    <!-- <h1>Welcome to the Login Page</h1> -->
+    <div class = "content-login">
 
-            <input type="password" name="password" placeholder="Enter your password">
-            <span class="password">🫣</span>
+        <div class="regisrtation-block">
+            <div class="title">
+                <h1 class="title">Вхід</h1>
+            </div>
+            
+            <div class="login-bg">
+                <img class="img-bg" src="{{ url_for('home.static', filename='images/bg.png') }}" alt="">
+                <div class="login">
+                    <div class="img-avatar">
+                        <img class="avatar" src="{{ url_for('home.static', filename='images/default_avatart.png') }}" alt="avatart">
+                    </div>
+                    <form action="" method="post">
+                        <input class="text-input" type= "text" name= "username" placeholder= "Введіть ім'я">
+                        <input class="text-input" type= "text" name= "surname" placeholder= "Введіть прізвище">
+                        <input class="text-input" type= "email" name= "email" placeholder= "Введіть email">
+        
+                        <input class="text-input" type="password" name="password" placeholder="Введіть ваш пароль" class="input_password">
+                        <span class="password">🫣</span>
 
-            <button class="send_data" type="submit">SEND</button>
-        </form>
-    </div>
+                        <label>
+                            <input type="radio" name="mentor" value="True" required>
+                            Викладач
+                        </label>
+                        
+                        <label>
+                            <input type="radio" name="mentor" value="False">
+                            Учень
+                        </label>
+        
+                        <button class="send-data" type="submit">Вхід</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
 
     <script src="{{ url_for('login.static', filename='js/login.js') }}"></script>
 {% endblock %}

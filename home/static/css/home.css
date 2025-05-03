@@ -7,19 +7,12 @@ body {
     padding: 0;
     background-color: #3C3C3C;
     color: white;
-    font-family: 'Arial', sans-serif;
 }
 
 main{
     display: flex;
     flex-direction: column;
     gap: 50px;
-}
-
-.logo {
-    font-size: 1.5em;
-    font-weight: bold;
-    margin-left: 14px;
 }
 
 .join-game {
@@ -82,7 +75,6 @@ main{
     flex-wrap: wrap;
     /* background-color: #C48AF7; */
     /* width: 100%; */
-    padding: 0px 200px;
     z-index: 1;
 }
 
