@@ -14,38 +14,38 @@
 
 
 {% block content %}
-    <div class ="registration-container">
-        <div class = "registration">
-            <div class="text-auth">
-                <h3>Реєстрація</h3>
-            </div>
+    <div class = "block-registration">
+        <div class="text-auth">
+            <h3>Реєстрація</h3>
+        </div>
+        <div class="registration">
             <form action="" method="post">
-                    <input type="text" name="name" placeholder="Enter your name">
-                    <input type="text" name="surname" placeholder="Enter your surname">
-                    <input type="number" name="phone_number" placeholder="Enter your phone number">
-                    <input type="email" name="email" placeholder="Enter your email">
-                
-                    <input type="password" name="password" placeholder="Enter your password">
-                    <span class="password">🫣</span>
-        
-                    <label for="radion1">
-                        <input type="radio" name="mentor" value="True" required>
-                        <label for="mentor">mentor</label>
-                    </label>
+                <input type="text" name="name" placeholder="Enter your name">
+                <input type="text" name="surname" placeholder="Enter your surname">
+                <input type="number" name="phone_number" placeholder="Enter your phone number">
+                <input type="email" name="email" placeholder="Enter your email">
+            
+                <input type="password" name="password" placeholder="Enter your password">
+                <span class="password">🫣</span>
     
-                    <label for="radion2">
-                        <input type="radio" name="mentor" value="False">
-                        <label for="student">student</label>
-                    </label>
+                <label>
+                    <input type="radio" name="mentor" value="True" required>
+                    mentor
+                </label>
+                
+                <label>
+                    <input type="radio" name="mentor" value="False">
+                    student
+                </label>
                 <button class="send-data" type="submit">SEND</button>
             </form>
-    
-            {% if message %}
-                <p>{{ message }}</p>
-            {% endif %}
         </div>
+
+        {% if message %}
+            <p>{{ message }}</p>
+        {% endif %}
     </div>
-    
+
     <script src="{{ url_for('registration.static', filename='js/registration.js') }}"></script>
 {% endblock %}
 

@@ -1,13 +1,28 @@
 import flask
 from .models import User
 from Project.db import DATABASE
+from Project.settings import s, mail
+from itsdangerous import SignatureExpired
+import flask_mail
+import random
 import flask_login
 
+#Просто головна сторінка
 def render_home():
     if not flask_login.current_user.is_authenticated:
-        return flask.render_template(template_name_or_list = "home.html")
+        return flask.render_template(
+            template_name_or_list = "home.html", 
+            home_page = True
+        )
     else:
-        return flask.render_template(template_name_or_list = "home_auth.html")
+        return flask.redirect("/home_auth")
+    
+#головна сторінка коли користувач увійшов у акаунт
+def render_home_auth():
+    if flask_login.current_user.is_authenticated:
+        return flask.render_template("home_auth.html")
+    else:
+        return flask.redirect("/")
 
 def render_registration():
     message = ''
@@ -17,8 +32,7 @@ def render_registration():
         name_form = flask.request.form["name"]
         surname_form = flask.request.form["surname"]
         mentor_form = flask.request.form["mentor"]
-
-        if User.query.filter_by(email = email_form) is None and User.query.filter_by(phone_number = number_form) is None:
+        if User.query.filter_by(email = email_form).first() is None and  User.query.filter_by(phone_number = number_form).first() is None:
             if name_form != '' and surname_form != '':
                 is_mentor = None
                 if mentor_form == 'True':
@@ -36,6 +50,16 @@ def render_registration():
                 )
                 DATABASE.session.add(user)
                 DATABASE.session.commit()
+                # email = flask.request.form["email"]
+                # token = s.dumps(email, salt = "emmail-confirm")
+
+                # msg = flask_mail.Message(subject = "Confirm Email", recipients = [email])
+
+                # # link = flask.url_for("registration.confirm_email", token = token, _external = True)
+                # random_number = random.randint(000000, 999999)
+                # msg.body = f"Your code is {random_number}"
+
+                # mail.send(msg)
 
                 return flask.redirect("/")
             else:
@@ -43,7 +67,12 @@ def render_registration():
         else:
             message = "User already exists"
         
-    return flask.render_template(template_name_or_list = "registration.html", message = message)
+    return flask.render_template(
+        template_name_or_list = "registration.html", 
+        message = message, 
+        registration_page = True
+    )
+
 
 def render_login():
     if flask.request.method == "POST":
@@ -57,6 +86,9 @@ def render_login():
                 flask_login.login_user(user)
 
     if not flask_login.current_user.is_authenticated:
-        return flask.render_template(template_name_or_list = "login.html")
+        return flask.render_template(
+            template_name_or_list = "login.html", 
+            login_page = True
+            )
     else:
         return flask.redirect("/")

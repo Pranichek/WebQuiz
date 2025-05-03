@@ -18,13 +18,11 @@ header {
     top: 0; 
     width: 100%;
     z-index: 3;
-    /* background-color: aqua; */
 }
 
 nav {
     display: flex;
     align-items: center;
-    /* margin-right: 12vw; */
 }
 
 .nav-links .auth-button, .nav-links .login-button {
@@ -37,6 +35,70 @@ nav {
     display: inline-block;
     text-align: center;
     font-weight: bold;
+}
+
+.listener{
+    height: 100px;
+    width: 100px;
+    display: flex;
+}
+
+.open-panel{
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+}
+
+.panel{
+    position: fixed;
+    top: 10vh;
+    right: 0;
+    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: width 0.5s;
+    width: 0px;
+    height: 90vh;
+    padding-top: 20px;
+    background-color: #343434;
+}
+
+.link-container{
+    display: flex;
+    flex-direction: column;
+    gap: 90px;
+}
+
+.links{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 15px;
+}
+
+.links a{
+    size: 20px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.links hr{
+    width: 230px;
+}
+
+.robot{
+    width: 130px;
+    height: 190px;
+}
+
+.closed{
+    width: 0px;
+    overflow: hidden;
+}
+
+.opened{
+    width: 300px;
 }
 
 .listener{

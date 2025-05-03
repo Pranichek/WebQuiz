@@ -9,46 +9,61 @@
 {% endblock links %}
 
 {% block content %}
-    <section class="join-section">
-        <div class="join-game">
-            <h1>Привіт!</h1>
-            <p>Готовий кинути виклик своєму мозку?<br>Впиши код та приєднуйся до гри – тестуй свої знання, змагайся з<br>друзями та відкривай нове!</p>
+    <div class="join-game">
+        <h1>Привіт!</h1>
+        <p>Готовий кинути виклик своєму мозку?<br>Впиши код та приєднуйся до гри – тестуй свої знання, змагайся з<br>друзями та відкривай нове!</p>
+        <form class="input-code" method="post">
+            <input type="text" placeholder="Enter a join code">
+            <button type="submit" class="submit-code">Join</button>
+        </form>
+    </div>
 
-            <form class="input-code" method="post">
-                <input type="text" placeholder="Enter a join code">
-                <button type="submit">Join</button>
-            </form>
-        </div>
-    </section>
-
-    <section class="cards-section">
-        <div class="card">
+    <div class="cards">
+        <div class="card c1">
             <img class="card-image" src="{{ url_for('home.static', filename='images/temporary-image.jpg') }}" alt="">
             <span class="card-details">
                 <p class="subject">Програмування1</p>
                 <p class="quantity">20+ тестів з цьго предмету!</p>
-                <p class="wishes">Перевір свої знання та стань профі!</p>
+                <p class="wishes">Перевір свої знання і стань профі!</p>
                 <a class="point-here">Тисни сюди, щоб дізнатися більше!</a>
             </span>
         </div>
-        <div class="card">
+        <div class="card c2">
             <img class="card-image" src="{{ url_for('home.static', filename='images/temporary-image.jpg') }}" alt="">
             <span class="card-details">
                 <p class="subject">Програмування2</p>
                 <p class="quantity">20+ тестів з цьго предмету!</p>
-                <p class="wishes">Перевір свої знання та стань профі!</p>
+                <p class="wishes">Перевір свої знання і стань профі!</p>
                 <a class="point-here">Тисни сюди, щоб дізнатися більше!</a>
             </span>
         </div>
-        <div class="card">
+        <div class="card c3">
             <img class="card-image" src="{{ url_for('home.static', filename='images/temporary-image.jpg') }}" alt="">
             <span class="card-details">
                 <p class="subject">Програмування3</p>
                 <p class="quantity">20+ тестів з цьго предмету!</p>
-                <p class="wishes">Перевір свої знання та стань профі!</p>
+                <p class="wishes">Перевір свої знання і стань профі!</p>
                 <a class="point-here">Тисни сюди, щоб дізнатися більше!</a>
             </span>
         </div>
-    </section>
+        <div class="card c4">
+            <img class="card-image" src="{{ url_for('home.static', filename='images/temporary-image.jpg') }}" alt="">
+            <span class="card-details">
+                <p class="subject">Програмування4</p>
+                <p class="quantity">20+ тестів з цьго предмету!</p>
+                <p class="wishes">Перевір свої знання і стань профі!</p>
+                <a class="point-here">Тисни сюди, щоб дізнатися більше!</a>
+            </span>
+        </div>
+        <div class="card c5">
+            <img class="card-image" src="{{ url_for('home.static', filename='images/temporary-image.jpg') }}" alt="">
+            <span class="card-details">
+                <p class="subject">Програмування4</p>
+                <p class="quantity">20+ тестів з цьго предмету!</p>
+                <p class="wishes">Перевір свої знання і стань профі!</p>
+                <a class="point-here">Тисни сюди, щоб дізнатися більше!</a>
+            </span>
+        </div>
+    </div>
     
 {% endblock %}
