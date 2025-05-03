@@ -14,7 +14,6 @@ header {
     color: #ffffff;
     align-items: center;
     justify-content: space-between;
-    position: fixed; 
     top: 0; 
     width: 100%;
     z-index: 3;
@@ -99,71 +98,4 @@ nav {
 
 .opened{
     width: 300px;
-}
-
-.listener{
-    height: 200px;
-    width: 150px;
-    display: flex;
-}
-
-.open-panel{
-    width: 40px;
-    height: 40px;
-    margin-right: 20px;
-}
-
-.panel{
-    position: fixed;
-    top: 10vh;
-    right: 0;
-    display: none;
-    width: 300px;
-    height: 90vh;
-    padding-top: 20px;
-    background-color: #343434;
-}
-
-.link-container{
-    display: flex;
-    flex-direction: column;
-    gap: 90px;
-}
-
-.links{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 15px;
-}
-
-.links a{
-    size: 20px;
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.links hr{
-    width: 230px;
-}
-
-.robot{
-    width: 130px;
-    height: 190px;
-}
-
-/* .open-panel{
-    background-color: #C48AF7;
-} */
-.panel-container:hover .panel {
-    display: block;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.panel:hover .panel {
-    display: block;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 }
