@@ -12,9 +12,9 @@ project = flask.Flask(
 
 project.config['MAIL_SERVER'] = 'smtp.gmail.com'
 project.config['MAIL_PORT'] = 587
-project.config['MAIL_USERNAME'] = 'vovagrinchenko19@gmail.com'
-project.config['MAIL_PASSWORD'] = 'zvhp owax qsvh ubry' 
-project.config['MAIL_DEFAULT_SENDER'] = 'vovagrinchenko19@gmail.com'
+project.config['MAIL_USERNAME'] = 'ваша пошта'
+project.config['MAIL_PASSWORD'] = 'пароль доадтка' 
+project.config['MAIL_DEFAULT_SENDER'] = 'ваша пошта'
 project.config['MAIL_USE_TLS'] = True
 project.config['MAIL_USE_SSL'] = False
 

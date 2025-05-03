@@ -41,10 +41,11 @@ button {
     border: none;
     cursor: pointer;
 }
+ */
 
 .password {
     cursor: pointer;
-} */
+}
 
 .content-registration{
     display: flex;
@@ -89,6 +90,16 @@ button {
 .registration input {
     color: #414141;
     width: 80%;
+}
+
+.data-test {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: pink;
+    width: 70%;
+    height: 100%;
 }
 
 
