@@ -16,65 +16,60 @@
 {% block content %}
     <div class = "content-registration">
 
-        <div class="regisrtation-block">
-            <div class="title">
-                <h1 class="title">Реєстрація</h1>
-            </div>
-            
-            <div class="registration-bg">
-                <img class="img-bg" src="{{ url_for('home.static', filename='images/bg.png') }}" alt="">
-                <div class="registration">
-                    <div class="img-avatar">
-                        <img class="avatar" src="{{ url_for('home.static', filename='images/default_avatart.png') }}" alt="avatart">
-                    </div>
-                    <form action="" method="post">
-                        <input class="text-input" type= "text" name= "username" placeholder= "Введіть ім'я">
-                        <input class="text-input" type= "text" name= "surname" placeholder= "Введіть прізвище">
-                        <input class="text-input" type= "tel" name= "phone_number" placeholder=" Введіть номер телефону">
-                        <input class="text-input" type= "email" name= "email" placeholder= "Введіть email">
-        
-                        <input class="text-input" type="password" name="password" placeholder="Введіть ваш пароль" class="input_password">
-                        <span class="password">🫣</span>
-        
-                        <input class="text-input" type="password" name = "confirm-password" placeholder="Підтвердіть пароль">
-                        <span class="password">🫣</span>
-            
-                        <label>
-                            <input type="radio" name="mentor" value="True" required>
-                            Викладач
-                        </label>
-                        
-                        <label>
-                            <input type="radio" name="mentor" value="False">
-                            Учень
-                        </label>
-        
-                        <button class="send-data" type="submit">Створити акаунт</button>
-                    </form>
+        <div class="registration">
+            <form action="" method="post">
+                <div class="img-avatar">
+                    <img class="avatar" src="{{ url_for('home.static', filename='images/default_avatart.png') }}" alt="avatart">
                 </div>
+                <input class="text-input" type= "text" name= "username" placeholder= "Введіть ім'я">
+                <input class="text-input" type= "tel" name= "phone_number" placeholder=" Введіть номер телефону">
+                <input class="text-input" type= "email" name= "email" placeholder= "Введіть email">
+
+                <input class="text-input" type="password" name="password" placeholder="Введіть Ваш пароль" class="input_password">
+                <span class="password">🫣</span>
+
+                <input class="text-input" type="password" name = "confirm-password" placeholder="Підтвердіть пароль">
+                <span class="password">🫣</span>
+
+                <div class="user-status">
+                    <label>
+                        <input class="status-input" type="radio" name="mentor" value="True" required>
+                        Викладач
+                    </label>
+                    
+                    <label>
+                        <input class="status-input" type="radio" name="mentor" value="False">
+                        Учень
+                    </label>
+                </div>
+
+                <button class="send-data" type="submit">Створити акаунт</button>
+            </form>
+
+    </div>
+
+    <div class="promotion">
+        <div class="bonuses">
+            <div class="glowing-area"></div>
+            <div class="bonus b1">
+                <img class="avatar" src="{{ url_for('registration.static', filename='images/bonus_one.png') }}" alt="avatart">
+            </div>
+            <div class="bonus b2">
+                <img class="avatar" src="{{ url_for('registration.static', filename='images/bonus_two.png') }}" alt="avatart">
+            </div>
+            <div class="bonus b3">
+                <img class="avatar" src="{{ url_for('registration.static', filename='images/bonus_three.png') }}" alt="avatart">
             </div>
         </div>
 
-
-        <!-- <div class="data-test"> -->
-            <div class="bonuses">
-                <div class="bonus1">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/bonus_one.png') }}" alt="avatart">
-                </div>
-                <div class="bonus2">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/bonus_two.png') }}" alt="avatart">
-                </div>
-                <div class="bonus3">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/bonus_three.png') }}" alt="avatart">
-                </div>
-            </div>
-
-            <div class="info-text">
-                <p>Заробляй бонуси,відповідаючи на<br>запитання та змагайся з друзями !</p>
-            </div>
-        <!-- </div> -->
-
+        <div class="info-text">
+            <p>Заробляй бонуси,відповідаючи на<br>запитання та змагайся з друзями !</p>
+        </div>
+        
     </div>
+
+    <div class="robot-glowing-area"></div>
+    <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
 
     <script src="{{ url_for('registration.static', filename='js/registration.js') }}"></script>
 {% endblock %}
