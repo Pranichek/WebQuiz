@@ -1,4 +1,133 @@
-/* * {
+/* *{
+    margin: 0; 
+    padding: 0;
+    box-sizing: border-box;
+    color: #ffffff;
+    font-family: 'Arial', sans-serif;
+}
+
+.logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-left: 14px;
+}
+
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100vw;
+    height: 100vh;
+    padding: 0px 10px 0px 10px;
+    background-color: #3C3C3C;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 10vh;
+    padding: 15px;
+    background-color: #343434;
+}
+
+.nav-links{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 34px;
+}
+
+.auth-button{
+    font-size: 20px;
+    font-weight: lighter;
+    text-decoration: none;
+    background-color: #C48AF7;
+    border-radius: 5px;
+    padding: 8px 15px 8px 15px;
+    display: flex;
+    text-align: center;
+}
+
+.login-button{
+    font-size: 20px;
+    font-weight: lighter;
+    text-decoration: none;
+    background-color: #C48AF7;
+    border-radius: 5px;
+    padding: 8px 15px 8px 15px;
+    display: flex;
+    text-align: center;
+}
+
+.open-panel{
+    width: 38px;
+    height: 38px;
+}
+
+.open-panel{
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+}
+
+.panel{
+    position: fixed;
+    top: 10vh;
+    right: 0;
+    display: none;
+    width: 300px;
+    height: 90vh;
+    padding-top: 20px;
+    background-color: #343434;
+}
+
+.link-container{
+    display: flex;
+    flex-direction: column;
+    gap: 90px;
+}
+
+.links{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 15px;
+}
+
+.links a{
+    size: 20px;
+    color: #ffffff;
+    text-decoration: none;
+}
+
+.links hr{
+    width: 230px;
+}
+
+.robot{
+    width: 130px;
+    height: 190px;
+}
+
+.panel-container:hover .panel {
+    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.panel:hover .panel {
+    display: block;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+} */
+
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -10,8 +139,10 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* gap: 12px; */
     width: 100vw;
     height: 100vh;
+    /* padding: 0 10px; */
     background-color: #3C3C3C;
 }
 
@@ -66,7 +197,7 @@ header {
     position: fixed;
     top: 10vh;
     right: 0;
-    display: none; 
+    display: none; /* спочатку приховано */
     flex-direction: column;
     justify-content: space-between;
     width: 300px;
@@ -78,7 +209,7 @@ header {
 }
 
 .panel.active {
-    display: flex; 
+    display: flex; /* показуємо при класі active */
 }
 
 .link-container {
@@ -111,176 +242,3 @@ header {
     height: 190px;
     align-self: center;
 }
- */
-
-
-*{
-    margin: 0; 
-    padding: 0;
-    box-sizing: border-box;
-    justify-content: center;
-    align-items: center;
-}
-
-header {
-    background-color: #343434;
-    display: flex;
-    flex-direction: row;
-    height: 10vh;
-    color: #ffffff;
-    align-items: center;
-    justify-content: space-between;
-    position: fixed; 
-    top: 0; 
-    width: 100%;
-    z-index: 3;
-}
-
-nav {
-    display: flex;
-    align-items: center;
-}
-
-.nav-links .auth-button, .nav-links .login-button {
-    background-color: #C48AF7;
-    color: #ffffff;
-    border-radius: 5px;
-    text-decoration: none;
-    margin: 10px;
-    padding: 10px;
-    display: inline-block;
-    text-align: center;
-    font-weight: bold;
-}
-
-.listener{
-    height: 100px;
-    width: 100px;
-    display: flex;
-}
-
-.open-panel{
-    width: 40px;
-    height: 40px;
-    margin-right: 20px;
-}
-
-.panel{
-    position: fixed;
-    top: 10vh;
-    right: 0;
-    display: block;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    transition: width 0.5s;
-    width: 0px;
-    height: 90vh;
-    padding-top: 20px;
-    background-color: #343434;
-}
-
-.link-container{
-    display: flex;
-    flex-direction: column;
-    gap: 90px;
-}
-
-.links{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 15px;
-}
-
-.links a{
-    size: 20px;
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.links hr{
-    width: 230px;
-}
-
-.robot{
-    width: 130px;
-    height: 190px;
-}
-
-.closed{
-    width: 0px;
-    overflow: hidden;
-}
-
-.opened{
-    width: 300px;
-}
-
-.listener{
-    height: 200px;
-    width: 150px;
-    display: flex;
-}
-
-.open-panel{
-    width: 40px;
-    height: 40px;
-    margin-right: 20px;
-}
-
-.panel{
-    position: fixed;
-    top: 10vh;
-    right: 0;
-    display: none;
-    width: 300px;
-    height: 90vh;
-    padding-top: 20px;
-    background-color: #343434;
-}
-
-.link-container{
-    display: flex;
-    flex-direction: column;
-    gap: 90px;
-}
-
-.links{
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    gap: 15px;
-}
-
-.links a{
-    size: 20px;
-    color: #ffffff;
-    text-decoration: none;
-}
-
-.links hr{
-    width: 230px;
-}
-
-.robot{
-    width: 130px;
-    height: 190px;
-}
-
-/* .open-panel{
-    background-color: #C48AF7;
-} */
-.panel-container:hover .panel {
-    display: block;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-.panel:hover .panel {
-    display: block;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-

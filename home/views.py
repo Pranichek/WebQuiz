@@ -24,6 +24,15 @@ def render_home_auth():
         return flask.redirect("/")
     
 
+def generate_code():
+    str_code = ''
+    for num in range(6):
+        random_num = random.randint(0,9)
+        str_code += str(random_num)
+
+    return str_code
+
+
 def render_registration():
     message = ''
     if flask.request.method == "POST":
@@ -46,8 +55,7 @@ def render_registration():
                     else:
                         is_mentor = False
 
-                    random_code = random.randint(000000, 999999)
-
+                    random_code = generate_code()
                     flask.session["code"] = random_code
                     flask.session["email"] = email_form
                     flask.session["username"] = username_form
@@ -55,27 +63,27 @@ def render_registration():
                     flask.session["check_mentor"] = is_mentor
                     flask.session["phone_number"] = phone_number_form
                     flask.session["password"] = password_form
-                    flask.session["attempts_auth"] = 3
 
                     msg = Message(
                         subject = 'Hello from the other side!', 
                         recipients = [str(email_form)] 
                     )
 
-                    link = flask.url_for("registration.render_code", _external = True)
-
+                    # link = flask.url_for("registration.render_code", _external = True)
+                    #<a href="{link}">Натисни на посилання щоб ввести код!</a>
                     msg.html = f"""
                         <html>
                             <body>
                                 <h1>Привіт, друже!</h1>
                                 <p>Твій код підтвердження: {flask.session["code"]}</p>
-                                <a href="{link}">Натисни на посилання щоб ввести код!</a>
                             </body>
                         </html>
                         """
                     # msg.body = "<tr><td><a href=\"{}\">{}</a></td></tr>".format(link, "Натисни тут щоб увести код підтвердження")
                     # msg.body = "Привіт, ось твій код підтвердження пошти:{}\n Та ось посилання де ти повинен його ввести <a href={}>Link</a>".format(flask.session["code"], link)
                     mail.send(msg)
+                    print(123)
+                    return flask.redirect("/verify_code")
                 else:
                     message = "Please fill in all the fields"
             else:
@@ -90,9 +98,13 @@ def render_registration():
     )
 
 def render_code():
+    form_code = ''
     if flask.request.method == "POST":
-        if flask.request.form["verify_code"] != '':
-            if int(flask.session["code"]) == int(flask.request.form["verify_code"]):
+        for num_tag in range(1, 7):
+            data = str(flask.request.form[f"verify_code{num_tag}"])
+            form_code += data
+        if form_code != '':
+            if str(flask.session["code"]) == form_code:
                 user = User(
                         username = flask.session["username"],
                         password = flask.session["password"],
@@ -107,15 +119,11 @@ def render_code():
                 flask_login.login_user(user)
 
                 return flask.redirect("/")
-        elif flask.session["code"] != flask.request.form["verify_code"]:
-            flask.session["attempts_auth"] -= 1
+            else:
+                flask.session.clear()
+                return flask.redirect("/")
 
-    if flask.session["attempts_auth"] == 0:
-        flask.session.clear()
-        print("che")
-        return flask.redirect("/")
-    else:
-        return flask.render_template(template_name_or_list = "verify_code.html", session_code = flask.session["code"])    
+    return flask.render_template(template_name_or_list = "verify_code.html")    
 
 def render_login():
     if flask.request.method == "POST":

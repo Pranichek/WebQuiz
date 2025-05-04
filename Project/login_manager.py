@@ -1,8 +1,16 @@
 import flask_login
 from home.models import User
 from .settings import project
+# from cryptography.fernet import Fernet
+import secrets
 
-project.secret_key = "super secret key"
+# генерируем ключ
+# key = Fernet.generate_key()
+key = secrets.token_hex()
+#создаем обьект от этого класса 
+# f = Fernet(key)
+#шифруем нашь ключ, после этого превращается как в токен
+project.secret_key = key
 
 login_manager = flask_login.LoginManager(
     app = project

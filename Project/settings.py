@@ -2,6 +2,7 @@ import flask, os
 from flask_mail import Mail
 import dotenv
 
+
 project = flask.Flask(
     import_name = "Project",
     static_folder = "static",
