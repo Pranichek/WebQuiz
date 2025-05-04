@@ -29,6 +29,7 @@ header {
     justify-content: space-between;
     top: 0; 
     width: 100%;
+    overflow: hidden;
 }
 
 nav {
@@ -63,7 +64,7 @@ nav {
 .panel{
     position: fixed;
     z-index: 5;
-    top: 10vh;
+    top: 12vh;
     right: 0;
     display: block;
     display: flex;
@@ -71,7 +72,8 @@ nav {
     justify-content: space-between;
     transition: width 0.5s;
     width: 0px;
-    height: 90vh;
+    height: 85vh;
+    border-radius: 10px;
     padding-top: 20px;
     background-color: #343434;
 }

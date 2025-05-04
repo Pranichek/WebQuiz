@@ -12,7 +12,6 @@
     </div>
 {% endblock nav %}
 
-
 {% block content %}
     <div class = "content-registration">
 
@@ -21,14 +20,14 @@
                 <div class="img-avatar">
                     <img class="avatar" src="{{ url_for('home.static', filename='images/default_avatart.png') }}" alt="avatart">
                 </div>
-                <input class="text-input" type= "text" name= "username" placeholder= "Введіть ім'я">
-                <input class="text-input" type= "tel" name= "phone_number" placeholder=" Введіть номер телефону">
-                <input class="text-input" type= "email" name= "email" placeholder= "Введіть email">
 
-                <input class="text-input" type="password" name="password" placeholder="Введіть Ваш пароль" class="input_password">
+                <input minlength="2" maxlength="10" pattern="[A-Za-z]+" class="text-input" type="text" name= "username" placeholder= "Введіть ім'я" required>
+                <input inputmode="numeric" pattern="[\d\+]*$" class="text-input" type="tel" maxlength="12" minlength="12" name= "phone_number" placeholder="Введіть номер телефону (починайте з +380)" required>
+                <input inputmode="email" class="text-input" type= "email" name= "email" placeholder= "Введіть email" required>
+                <input class="text-input" type="password" name="password" placeholder="Введіть Ваш пароль" class="input_password" required>
                 <span class="password">🫣</span>
 
-                <input class="text-input" type="password" name = "confirm-password" placeholder="Підтвердіть пароль">
+                <input class="text-input" type="password" name = "confirm-password" placeholder="Підтвердіть пароль" required>
                 <span class="password">🫣</span>
 
                 <div class="user-status">
