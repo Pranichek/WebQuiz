@@ -1,7 +1,7 @@
 import flask
 from .models import User
 from Project.db import DATABASE
-from Project.settings import mail
+from Project.login_manager import mail
 from flask_mail import Message
 import random
 import flask_login
@@ -82,7 +82,6 @@ def render_registration():
                     # msg.body = "<tr><td><a href=\"{}\">{}</a></td></tr>".format(link, "Натисни тут щоб увести код підтвердження")
                     # msg.body = "Привіт, ось твій код підтвердження пошти:{}\n Та ось посилання де ти повинен його ввести <a href={}>Link</a>".format(flask.session["code"], link)
                     mail.send(msg)
-                    print(123)
                     return flask.redirect("/verify_code")
                 else:
                     message = "Please fill in all the fields"
@@ -117,13 +116,14 @@ def render_code():
                 DATABASE.session.add(user)
                 DATABASE.session.commit()
                 flask_login.login_user(user)
-
-                return flask.redirect("/")
             else:
                 flask.session.clear()
                 return flask.redirect("/")
-
-    return flask.render_template(template_name_or_list = "verify_code.html")    
+            
+    if not flask_login.current_user.is_authenticated:
+        return flask.render_template(template_name_or_list = "verify_code.html") 
+    else:
+        return flask.redirect("/")
 
 def render_login():
     if flask.request.method == "POST":
