@@ -1,10 +1,12 @@
 import flask_login
 from home.models import User
 from .settings import project
-import secrets, dotenv, os
+import dotenv, os
 from flask_mail import Mail
 
 dotenv.load_dotenv(dotenv_path = os.path.abspath(os.path.join(__file__ , "..", "..", ".env")))
+
+project.secret_key = os.getenv("SECRET_KEY")
 
 login_manager = flask_login.LoginManager(
     app = project
