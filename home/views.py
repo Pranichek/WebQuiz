@@ -55,6 +55,7 @@ def render_registration():
                         is_mentor = False
 
                     random_code = generate_code()
+
                     flask.session["code"] = random_code
                     flask.session["email"] = email_form
                     flask.session["username"] = username_form
@@ -67,8 +68,6 @@ def render_registration():
                         recipients = [str(email_form)] 
                     )
 
-                    # link = flask.url_for("registration.render_code", _external = True)
-                    #<a href="{link}">Натисни на посилання щоб ввести код!</a>
                     msg.html = f"""
                         <html>
                             <body>
@@ -77,8 +76,7 @@ def render_registration():
                             </body>
                         </html>
                         """
-                    # msg.body = "<tr><td><a href=\"{}\">{}</a></td></tr>".format(link, "Натисни тут щоб увести код підтвердження")
-                    # msg.body = "Привіт, ось твій код підтвердження пошти:{}\n Та ось посилання де ти повинен його ввести <a href={}>Link</a>".format(flask.session["code"], link)
+   
                     mail.send(msg)
                     return flask.redirect("/verify_code")
                 else:
@@ -120,6 +118,7 @@ def render_code():
         return flask.render_template(template_name_or_list = "verify_code.html") 
     else:
         return flask.redirect("/")
+
 
 def render_login():
     if flask.request.method == "POST":
