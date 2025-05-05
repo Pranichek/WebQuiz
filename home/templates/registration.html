@@ -12,59 +12,74 @@
     </div>
 {% endblock nav %}
 
-
 {% block content %}
     <div class = "content-registration">
+
         <div class="registration">
-            <div class="img-avatar">
-                <img class="avatar" src="{{ url_for('registration.static', filename='images/default_avatart.png') }}" alt="avatart">
-            </div>
             <form action="" method="post">
-                <input type= "text" name= "username" placeholder= "Введіть ім'я" pattern = "[A-Za-z0-9]{6,}" title = "Логін не может бути меншим за 6 латинських символів.">
-                <input type= "text" name= "surname" placeholder= "Введіть прізвище">
-                <input type= "tel" name= "phone_number" placeholder=" Введіть номер телефону">
-                <input type= "email" name= "email" placeholder= "Введіть email">
+                <div class="img-avatar">
+                    <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/default_avatart.png') }}" alt="avatart">
+                </div>
 
-                <input type="password" name="password" placeholder="Введіть ваш пароль" class="input_password">
-                <span class="password">🫣</span>
-
-                <input type="password" name = "confirm-password" placeholder="Підтвердіть пароль">
-                <span class="password">🫣</span>
-    
-                <label>
-                    <input type="radio" name="mentor" value="True" required>
-                    Викладач
-                </label>
+                <input minlength="2" maxlength="10" pattern="[A-Za-z]+" class="text-input" type="text" name= "username" placeholder= "Введіть ім'я" required>
+                <input inputmode="numeric" pattern="[\d\+]*$" class="text-input" type="tel" maxlength="12" minlength="12" name= "phone_number" placeholder="Введіть номер телефону (починайте з +380)" required>
+                <input inputmode="email" class="text-input" type= "email" name= "email" placeholder= "Введіть email" required>
+                <input class="text-input" type="password" name="password" placeholder="Введіть Ваш пароль" class="input_password" required>
+                <span class="password" id="simple-password"><img
+                    id = "password-eye"
+                    src="{{ url_for('registration.static', filename='images/login_and_auth/close_eye.png') }}"
+                    data-open="{{ url_for('registration.static', filename='images/login_and_auth/open_eye.png') }}"
+                    data-close="{{ url_for('registration.static', filename='images/login_and_auth/close_eye.png') }}"
+                    alt="toggle-password"
+                ></span>
                 
-                <label>
-                    <input type="radio" name="mentor" value="False">
-                    Учень
-                </label>
+                <input class="text-input" type="password" name = "confirm-password" placeholder="Підтвердіть пароль" required>
+                <span class="password" id="confirm"><img
+                    id = "confirm-eye"
+                    src="{{ url_for('registration.static', filename='images/login_and_auth/close_eye.png') }}"
+                    data-open="{{ url_for('registration.static', filename='images/login_and_auth/open_eye.png') }}"
+                    data-close="{{ url_for('registration.static', filename='images/login_and_auth/close_eye.png') }}"
+                    alt="toggle-password"
+                ></span>
+
+                <div class="user-status">
+                    <label>
+                        <input class="status-input" type="radio" name="mentor" value="True" required>
+                        Викладач
+                    </label>
+                    
+                    <label>
+                        <input class="status-input" type="radio" name="mentor" value="False">
+                        Учень
+                    </label>
+                </div>
 
                 <button class="send-data" type="submit">Створити акаунт</button>
             </form>
-        </div>
-
-        <div class="data-test">
-            <div class="bonuses">
-                <div class="bonus1">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/bonus_one.png') }}" alt="avatart">
-                </div>
-                <div class="bonus2">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/bonus_two.png') }}" alt="avatart">
-                </div>
-                <div class="bonus3">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/bonus_three.png') }}" alt="avatart">
-                </div>
-            </div>
-
-            <div class="info-text">
-                <p>Заробляй бонуси,відповідаючи на<br>запитання та змагайся з друзями !</p>
-            </div>
-        </div>
-
     </div>
+
+    <div class="promotion">
+        <div class="bonuses">
+            <div class="glowing-area"></div>
+            <div class="bonus b1">
+                <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_one.png') }}" alt="avatart">
+            </div>
+            <div class="bonus b2">
+                <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_two.png') }}" alt="avatart">
+            </div>
+            <div class="bonus b3">
+                <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_three.png') }}" alt="avatart">
+            </div>
+        </div>
+
+        <div class="info-text">
+            <p>Заробляй бонуси,відповідаючи на<br>запитання та змагайся з друзями !</p>
+        </div>
+        
+    </div>
+
+    <div class="robot-glowing-area"></div>
+    <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
 
     <script src="{{ url_for('registration.static', filename='js/registration.js') }}"></script>
 {% endblock %}
-

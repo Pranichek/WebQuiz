@@ -15,22 +15,29 @@
 //         }
 //     }
 // )
-let listSpan = document.querySelectorAll('.password')
-let passwordInp = document.querySelector(".input_password")
+let listSpan = document.querySelectorAll('.password');
 
 for (let count = 0; count < listSpan.length; count++){
-    let button = listSpan[count]
+    let button = listSpan[count];
     button.addEventListener(
         'click',
         function (event){
-            let input = listSpan[count].previousElementSibling
+            let input = listSpan[count].previousElementSibling;
             if (input.type === 'password'){
-                input.type = 'text'
-                button.textContent = "👁️‍🗨️"
+                input.type = 'text';
+                if(button.id == "simple-password") {
+                    document.getElementById("password-eye").src =  document.getElementById("password-eye").dataset.open;
+                }else {
+                    document.getElementById("confirm-eye").src =  document.getElementById("confirm-eye").dataset.open;
+                }
             }
             else{
-                input.type = 'password'
-                button.textContent = "🫣"
+                input.type = 'password';
+                if(button.id == "simple-password") {
+                    document.getElementById("password-eye").src =  document.getElementById("password-eye").dataset.close;
+                }else {
+                    document.getElementById("confirm-eye").src =  document.getElementById("confirm-eye").dataset.close;
+                }
             }
         }
     )

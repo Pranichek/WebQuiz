@@ -37,7 +37,6 @@ def render_registration():
     message = ''
     if flask.request.method == "POST":
         username_form = flask.request.form["username"]
-        surname_form = flask.request.form["surname"]
 
         email_form = flask.request.form["email"]
         phone_number_form = flask.request.form["phone_number"]
@@ -48,7 +47,7 @@ def render_registration():
 
         if password_form == confirm_password:
             if User.query.filter_by(email = email_form).first() is None and User.query.filter_by(phone_number = phone_number_form).first() is None:
-                if username_form != '' and surname_form != '':
+                if username_form != '':
                     is_mentor = None
                     if mentor_form == 'True':
                         is_mentor = True
@@ -59,7 +58,6 @@ def render_registration():
                     flask.session["code"] = random_code
                     flask.session["email"] = email_form
                     flask.session["username"] = username_form
-                    flask.session["surname"] = surname_form
                     flask.session["check_mentor"] = is_mentor
                     flask.session["phone_number"] = phone_number_form
                     flask.session["password"] = password_form
@@ -109,7 +107,6 @@ def render_code():
                         password = flask.session["password"],
                         email = flask.session["email"],
                         phone_number = flask.session["phone_number"],
-                        surname = flask.session["surname"],
                         is_mentor = flask.session["check_mentor"]
                     )
                 

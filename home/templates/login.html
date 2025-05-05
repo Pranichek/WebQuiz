@@ -1,3 +1,4 @@
+
 {% extends 'base.html' %}
 
 {% block title %}Login{% endblock %}
@@ -8,18 +9,45 @@
 
 
 {% block content %}
-    <h1>Welcome to the Login Page</h1>
-    <div class="login">
-        <h3>Login form</h3>
-        <form action="" method="post">
-            <input type="email" name="email" placeholder="Enter your email">
+    <div class = "content-login">
 
-            <input type="password" name="password" placeholder="Enter your password">
-            <span class="password">🫣</span>
+        <div class="login">
+            <form action="" method="post">
+                <div class="img-avatar">
+                    <img class="avatar" src="{{ url_for('home.static', filename='images/login_and_auth/default_avatart.png') }}" alt="avatart">
+                </div>
+                <input inputmode="email" class="text-input" type= "email" name= "email" placeholder= "Введіть email">
 
-            <button class="send_data" type="submit">SEND</button>
-        </form>
+                <input class="text-input" type="password" name="password" placeholder="Введіть Ваш пароль" class="input_password">
+                <span class="password">🫣</span>
+
+                <button class="send-data" type="submit">Авторизуватися</button>
+            </form>
+
     </div>
+
+    <div class="promotion">
+        <div class="bonuses">
+            <div class="glowing-area"></div>
+            <div class="bonus b1">
+                <img class="avatar" src="{{ url_for('login.static', filename='images/login_and_auth/bonus_one.png') }}" alt="avatart">
+            </div>
+            <div class="bonus b2">
+                <img class="avatar" src="{{ url_for('login.static', filename='images/login_and_auth/bonus_two.png') }}" alt="avatart">
+            </div>
+            <div class="bonus b3">
+                <img class="avatar" src="{{ url_for('login.static', filename='images/login_and_auth/bonus_three.png') }}" alt="avatart">
+            </div>
+        </div>
+
+        <div class="info-text">
+            <p>Заробляй бонуси,відповідаючи на<br>запитання та змагайся з друзями !</p>
+        </div>
+        
+    </div>
+
+    <div class="robot-glowing-area"></div>
+    <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
 
     <script src="{{ url_for('login.static', filename='js/login.js') }}"></script>
 {% endblock %}

@@ -67,7 +67,7 @@ input {
     align-items: center;
 }
 
-a, button{
+.home-button, button{
     text-decoration: none;
     background-color: #B9BDF5;
     border: solid 1px black;
