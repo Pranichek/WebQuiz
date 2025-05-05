@@ -21,15 +21,19 @@
                     <img class="avatar" src="{{ url_for('home.static', filename='images/default_avatart.png') }}" alt="avatart">
                 </div>
 
-                <input minlength="2" maxlength="10" pattern="[A-Za-z]+" class="text-input" type="text" name= "username" placeholder= "Введіть ім'я" required>
-                <input inputmode="numeric" pattern="[\d\+]*$" class="text-input" type="tel" maxlength="12" minlength="12" name= "phone_number" placeholder="Введіть номер телефону (починайте з +380)" required>
+                <input minlength="2" maxlength="10" pattern="[A-Za-zа-яА-Я]+" class="text-input" type="text" name= "username" placeholder= "Введіть ім'я" required>
+                <input inputmode="numeric" pattern="[\d\+]*$" class="text-input" type="tel" maxlength="12" minlength="12" name= "phone_number" placeholder="Введіть номер телефону (починайте з +380)" value="+380" required>
                 <input inputmode="email" class="text-input" type= "email" name= "email" placeholder= "Введіть email" required>
-                <input class="text-input" type="password" name="password" placeholder="Введіть Ваш пароль" class="input_password" required>
-                <span class="password">🫣</span>
-
-                <input class="text-input" type="password" name = "confirm-password" placeholder="Підтвердіть пароль" required>
-                <span class="password">🫣</span>
-
+                <div class="password-container">
+                    <input class="text-input enter" type="password" name="password" placeholder="Введіть Ваш пароль" class="input_password" id="password1" required>
+                    <img id="eye1" src="{{ url_for('home.static', filename='images/closedEye.png') }}" alt="">
+                    <img class="hidden1" id="eye1" src="{{ url_for('home.static', filename='images/openedEye.png') }}" alt="">
+                </div>
+                <div class="password-container">
+                    <input class="text-input" type="password" name="password" placeholder="Введіть Ваш пароль" class="input_password" id="password2" required>
+                    <img id="eye2" src="{{ url_for('home.static', filename='images/closedEye.png') }}" alt="">
+                    <img class="hidden2" id="eye2" src="{{ url_for('home.static', filename='images/openedEye.png') }}" alt="">
+                </div>
                 <div class="user-status">
                     <label>
                         <input class="status-input" type="radio" name="mentor" value="True" required>
