@@ -19,7 +19,7 @@ def render_home():
 #головна сторінка коли користувач увійшов у акаунт
 def render_home_auth():    
     if flask_login.current_user.is_authenticated:
-        return flask.render_template("home_auth.html")
+        return flask.render_template("home_auth.html", home_auth = True)
     else:
         return flask.redirect("/")
     
@@ -114,7 +114,6 @@ def render_code():
                 DATABASE.session.commit()
                 flask_login.login_user(user)
             else:
-                flask.session.clear()
                 return flask.redirect("/")
             
     if not flask_login.current_user.is_authenticated:

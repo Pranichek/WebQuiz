@@ -37,7 +37,7 @@ nav {
     align-items: center;
 }
 
-.nav-links .auth-button, .nav-links .login-button {
+.nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
     background-color: #C48AF7;
     color: #ffffff;
     border-radius: 5px;

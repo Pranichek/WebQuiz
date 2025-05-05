@@ -30,6 +30,11 @@
                         <a href="/registration" class="auth-button">Реєстрація</a>
                     </div>
                 {% endif %}
+                {% if home_auth %}
+                    <div class="nav-links">
+                        <a href="/test" class="test-button">Створити тест</a>
+                    </div>
+                {% endif %}
                 <div class="panel-container">
                     <div class="listener">
                         <img src="{{ url_for('static', filename='images/open-panel.png') }}" alt="" class="open-panel">
