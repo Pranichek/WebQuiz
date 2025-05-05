@@ -1,4 +1,5 @@
 import home
+import userprofile
 
 home.home_app.add_url_rule(
     rule = "/",
@@ -18,9 +19,20 @@ home.registration.add_url_rule(
     methods = ["GET", "POST"]
 )
 
+home.registration.add_url_rule(
+    rule = "/verify_code",
+    view_func = home.render_code,
+    methods = ["GET", "POST"]
+)
 
 home.login.add_url_rule(
     rule = "/login",
     view_func = home.render_login,
     methods = ["GET", "POST"]
+)
+
+userprofile.profile.add_url_rule(
+    rule = "/profile",
+    view_func= userprofile.render_profile,
+    methods= ["GET", "POST"]
 )

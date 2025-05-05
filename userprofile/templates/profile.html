@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Профіль
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('profile.static', filename='css/profile.css') }}">
+{% endblock %}
+
+{% block content %}
+    <form action="" method="post">
+        <button type="submit">Вийти з акаунта</button>
+    </form>
+{% endblock %}

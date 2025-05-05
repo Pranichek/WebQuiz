@@ -12,14 +12,30 @@
         <header>
             <div class = "logo">Tester</div>
             <nav>
-                {% if is_authenticated %}
-                    <p>Ви увійшли у акаунт</p>
-                {% else %}
-                    <div class="nav-links">
+                {% if home_page %}
+                    <div class = "nav-links">
                         <a href="/registration" class="auth-button">Реєстрація</a>
-                        <a href="/login" class ="login-button">Увійти</a>
+                        <a href="/login" class="login-button">Увійти</a>
                     </div>
                 {% endif %}
+                {% if registration_page %}
+                    <div class="nav-links">
+                        <a href="/" class="enter-code">Приєднатися</a>
+                        <a href="/login" class="login-button">Увійти</a>
+                    </div>
+                {% endif %}
+                {% if login_page %}
+                    <div class="nav-links">
+                        <a href="/" class="enter-code">Приєднатися</a>
+                        <a href="/registration" class="auth-button">Реєстрація</a>
+                    </div>
+                {% endif %}
+                {% if home_auth %}
+                    <div class="nav-links">
+                        <a href="/test" class="test-button">Створити тест</a>
+                    </div>
+                {% endif %}
+
                 <div class="panel-container">
                     <div class="listener">
                         <img src="{{ url_for('static', filename='images/open-panel.png') }}" alt="" class="open-panel">
@@ -45,15 +61,15 @@
                                 <hr>
                             </span>
                         </span>
-                        <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                        <img class="sidebar-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
                     </div>
                 </div>
             </nav>
 
         </header>
 
-    <main class="main">
-        {% block content %}{% endblock %}
-    </main>
-</body>
+        <main class="main">
+            {% block content %}{% endblock %}
+        </main>
+    </body>
 </html>

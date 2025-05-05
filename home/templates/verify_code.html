@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Verify code{% endblock %}
+
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('registration.static', filename='css/verify_code.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <div class="body-ferify">
+        <div class="text-ferify">
+            <p>Введіть 6-значний код, який ми відправили<br>вам на пошту</p>
+        </div>
+        <!-- <div class="input-code"> -->
+        <form action="" method="post">
+            <div class="input-code">
+                <input type="number" maxlength="1" id= "limitedInput" class="input-tag" name = "verify_code1" autofocus>
+                <input type="number" maxlength="1" id= "limitedInput" class="input-tag" name = "verify_code2">
+                <input type="number" maxlength="1" id= "limitedInput" class="input-tag" name = "verify_code3">
+                <input type="number" maxlength="1" id= "limitedInput" class="input-tag" name = "verify_code4">
+                <input type="number" maxlength="1" id= "limitedInput" class="input-tag" name = "verify_code5">
+                <input type="number" maxlength="1" id= "limitedInput" class="input-tag" name = "verify_code6">
+            </div>
+            <div class="buttons-verify">
+                <a class="home-button" href="/">додому</a>
+                <button type="submit">надіслати</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="{{ url_for('registration.static', filename='js/verify_code.js') }}"></script>
+{% endblock %}

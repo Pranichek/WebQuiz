@@ -9,3 +9,4 @@ from home.models import *
 project.register_blueprint(blueprint = home.home_app)
 project.register_blueprint(blueprint = home.registration)
 project.register_blueprint(blueprint = home.login)
+project.register_blueprint(blueprint = userprofile.profile)
