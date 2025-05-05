@@ -55,15 +55,15 @@
                                 <hr>
                             </span>
                         </span>
-                        <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                        <img class="sidebar-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
                     </div>
                 </div>
             </nav>
 
         </header>
 
-    <main class="main">
-        {% block content %}{% endblock %}
-    </main>
-</body>
+        <main class="main">
+            {% block content %}{% endblock %}
+        </main>
+    </body>
 </html>

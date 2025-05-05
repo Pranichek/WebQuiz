@@ -1,13 +1,11 @@
 function limitCharacters(event) {
     if (document.getElementById('limitedInput').value.length >= 2) {
-      event.preventDefault(); // Извините, ввод этого символа невозможен.
+      event.preventDefault();
     }
   }
 
 
-
 var pinContainer = document.querySelector(".input-code");
-
 pinContainer.addEventListener('keyup', function (event) {
     var target = event.srcElement;
     

@@ -37,7 +37,7 @@ nav {
     align-items: center;
 }
 
-.nav-links .auth-button, .nav-links .login-button, .nav-links .enter-code{
+.nav-links .auth-button, .nav-links .login-button {
     background-color: #C48AF7;
     color: #ffffff;
     border-radius: 5px;
@@ -101,7 +101,10 @@ nav {
     width: 230px;
 }
 
-.robot{
+.sidebar-robot{
+    position: absolute;
+    right: 50px;
+    bottom: 0;
     width: 130px;
     height: 190px;
 }
@@ -118,5 +121,15 @@ nav {
 @media (max-width: 406px){
     header{
         height: 20vh;
+    }
+}
+@media (max-height: 800px){
+    .sidebar-robot{
+        display: none;
+    }
+}
+@media (max-height: 650px){
+    .panel{
+        overflow-y: scroll;
     }
 }

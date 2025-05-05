@@ -18,30 +18,22 @@
         <div class="registration">
             <form action="" method="post">
                 <div class="img-avatar">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/default_avatart.png') }}" alt="avatart">
+                    <img class="avatar" src="{{ url_for('home.static', filename='images/login_and_auth/default_avatart.png') }}" alt="avatart">
                 </div>
 
-                <input minlength="2" maxlength="10" pattern="[A-Za-z]+" class="text-input" type="text" name= "username" placeholder= "Введіть ім'я" required>
-                <input inputmode="numeric" pattern="[\d\+]*$" class="text-input" type="tel" maxlength="12" minlength="12" name= "phone_number" placeholder="Введіть номер телефону (починайте з +380)" required>
-                <input inputmode="email" class="text-input" type= "email" name= "email" placeholder= "Введіть email" required>
-                <input class="text-input" type="password" name="password" placeholder="Введіть Ваш пароль" class="input_password" required>
-                <span class="password" id="simple-password"><img
-                    id = "password-eye"
-                    src="{{ url_for('registration.static', filename='images/login_and_auth/close_eye.png') }}"
-                    data-open="{{ url_for('registration.static', filename='images/login_and_auth/open_eye.png') }}"
-                    data-close="{{ url_for('registration.static', filename='images/login_and_auth/close_eye.png') }}"
-                    alt="toggle-password"
-                ></span>
-                
-                <input class="text-input" type="password" name = "confirm-password" placeholder="Підтвердіть пароль" required>
-                <span class="password" id="confirm"><img
-                    id = "confirm-eye"
-                    src="{{ url_for('registration.static', filename='images/login_and_auth/close_eye.png') }}"
-                    data-open="{{ url_for('registration.static', filename='images/login_and_auth/open_eye.png') }}"
-                    data-close="{{ url_for('registration.static', filename='images/login_and_auth/close_eye.png') }}"
-                    alt="toggle-password"
-                ></span>
-
+                <input minlength="2" maxlength="10" pattern="[A-Za-zа-яА-Я]+" class="text-input" type="text" name= "username" placeholder= "Введіть ім'я" required>
+                <input inputmode="numeric" pattern="[\d\+]*$" class="text-input" type="tel" maxlength="13" minlength="13" name= "phone_number" placeholder="Введіть номер телефону (починайте з +380)" value="+380" required>
+                <input inputmode="email" class="text-input" pattern="[A-Za-zа-яА-Я]+" type= "email" name= "email" placeholder= "Введіть email" required>
+                <div class="password-container">
+                    <input type="password" name="password" pattern="[A-Za-zа-яА-Я-1-9]+" maxlength="8" minlength="8" placeholder="Введіть Ваш пароль" class="input_password" id="password1" required>
+                    <img id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
+                    <img class="hidden1" id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
+                </div>
+                <div class="password-container">
+                    <input class="text-input" type="password" name="confirm-password" maxlength="8" minlength="8" placeholder="Введіть Ваш пароль" class="input_password" id="password2" required>
+                    <img id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
+                    <img class="hidden2" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
+                </div>
                 <div class="user-status">
                     <label>
                         <input class="status-input" type="radio" name="mentor" value="True" required>
@@ -79,7 +71,7 @@
     </div>
 
     <div class="robot-glowing-area"></div>
-    <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+    <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="dfvklmdflkmvdf">
 
     <script src="{{ url_for('registration.static', filename='js/registration.js') }}"></script>
 {% endblock %}
