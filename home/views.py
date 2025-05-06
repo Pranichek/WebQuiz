@@ -49,7 +49,7 @@ def render_registration():
             password_form = flask.request.form["password"]
             confirm_password = flask.request.form["confirm-password"]
 
-            if password_form == confirm_password:
+            if password_form == confirm_password and len(password_form) == 8:
                 if User.query.filter_by(email = email_form).first() is None and User.query.filter_by(phone_number = phone_number_form).first() is None:
                     if username_form != '':
                         is_mentor = None
@@ -84,10 +84,13 @@ def render_registration():
                         mail.send(msg)
                         return flask.redirect("/verify_code")
                     else:
+                        flask.session.clear()
                         message = "Please fill in all the fields"
                 else:
+                    flask.session.clear()
                     message = "User already exists"
             else:
+                flask.session.clear()
                 message = "Паролі не співпадають"
                 
         return flask.render_template(
