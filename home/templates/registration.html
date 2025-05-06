@@ -48,30 +48,28 @@
 
                 <button class="send-data" type="submit">Створити акаунт</button>
             </form>
-    </div>
-
-    <div class="promotion">
-        <div class="bonuses">
-            <div class="glowing-area"></div>
-            <div class="bonus b1">
-                <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_one.png') }}" alt="avatart">
-            </div>
-            <div class="bonus b2">
-                <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_two.png') }}" alt="avatart">
-            </div>
-            <div class="bonus b3">
-                <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_three.png') }}" alt="avatart">
-            </div>
         </div>
 
-        <div class="info-text">
-            <p>Заробляй бонуси,відповідаючи на<br>запитання та змагайся з друзями !</p>
-        </div>
-        
-    </div>
+        <div class="promotion">
+            <div class="bonuses">
+                <div class="glowing-area"></div>
+                <div class="bonus b1">
+                    <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_one.png') }}" alt="avatart">
+                </div>
+                <div class="bonus b2">
+                    <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_two.png') }}" alt="avatart">
+                </div>
+                <div class="bonus b3">
+                    <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_three.png') }}" alt="avatart">
+                </div>
+            </div>
 
-    <div class="robot-glowing-area"></div>
-    <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="dfvklmdflkmvdf">
+            <div class="info-text">
+                <p>Заробляй бонуси,відповідаючи на<br>запитання та змагайся з друзями !</p>
+            </div>
+            <div class="robot-glowing-area"></div>
+            <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+        </div>
 
     <script src="{{ url_for('registration.static', filename='js/registration.js') }}"></script>
 {% endblock %}

@@ -1,18 +1,11 @@
 body {
     display: flex;
     flex-direction: column;
-    gap: 50px;
     align-items: center;
     margin: 0;
     padding: 0;
     background-color: #3C3C3C;
     color: white;
-}
-
-main{
-    display: flex;
-    flex-direction: column;
-    gap: 50px;
 }
 
 .join-game {
@@ -21,17 +14,12 @@ main{
     align-items: center;
     text-align: center;
     justify-content: center;
-    gap: 30px;
+    gap: 10px;
+    border: 2px green solid;
+    width: 100vw;
+    height: 35vh;
 }
 
-.join-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 60vh;
-    margin-top: 50px;
-    text-align: center;
-}
 
 .join-game h1 {
     font-size: 2.5em;
@@ -70,88 +58,667 @@ main{
     border-radius: 10px;
 }
 
-.cards{
+.cointeiner {
+    width: 100vw;
+    height: 55vh;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    /* background-color: #C48AF7; */
-    /* width: 100%; */
-    z-index: 1;
-}
-
-.card{
-    position: relative;
-    border: solid 1px black;
-    border-radius: 20px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    transition: top 0.5s;
-    width: 300px;
-}
-
-.c1{
-    position: relative;
-    top: 140px;
-    left: 100px;
-    transform: rotate(-15deg);
-    z-index: -2;
-}
-.c2{
-    position: relative;
-    top: 40px;
-    left: 50px;
-    transform: rotate(-10deg);
-    z-index: -1;
-}
-.c3{
-    top: 0px;
-}
-.c4{
-    position: relative;
-    top: 40px;
-    right: 50px;
-    transform: rotate(10deg);
-    z-index: -1;
-}
-.c5{
-    position: relative;
-    top: 140px;
-    right: 100px;
-    transform: rotate(15deg);
-    z-index: -2;
-}
-
-.card-image{
-    width: 300px;
-    height: 200px;
-}
-
-.card-details{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+    border: 2px orange solid;
+    /* border:  2px solid orange; */
     justify-content: center;
-    padding: 15px;
-    border: solid 2px #5DCFF2;
-    border-bottom-left-radius: 20px;
-    border-bottom-right-radius: 20px;
-    background-color: #3C3C3C;
+    flex-direction: row;
+    align-items: center;
+    overflow: hidden;    
 }
 
-.card:hover{
-    width: 400px;
-    top: -20px;
-}
-.card:hover .card-image{
-    width: 400px;
-}
-.card:hover .card-details{
-    width: 400px;
+.card {
+    flex-grow: 0;
+    flex-shrink: 0;
+    height: 280px;
+    width: 220px;
+    border: 0.5px solid black;
+    z-index: 1;
+    transition: 1s;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border-radius: 34px;
+    overflow: hidden;
 }
 
-@media (max-width: 700px){
-    .cards-section{
-        padding: 0;
+p{
+    cursor: pointer;
+}
+
+.card-img{
+    background-color: green;
+    width: 100%;
+    height: 50%;
+    border-radius: 34px 34px 0px 0px;
+}
+
+.card-discription{
+    width: 100%;
+    height: 50%;
+    background-color: #343434;
+    border-radius: 0px 0px 34px 34px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.name-test{
+    padding-bottom: 10%;
+    font-size: 15px;
+}
+
+.interisting-text{
+    color: #a19e9e;
+    font-size: 11px;
+
+}
+
+.link-test{
+    padding-top: 10%;
+    font-size: 15px;
+}
+
+img{
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 34px 34px 0px 0px;
+}
+
+.transition {
+    transform: translateY(150px) translateX(175px) rotate(-11deg);
+    background-color: aquamarine;
+}
+
+.transition:hover {
+    transform: translateY(0px) translateX(175px);
+    z-index: 1000;
+}
+
+.transition2 {
+    transform: translateY(100px) translateX(100px) rotate(-11deg);
+    background-color: blue;
+}
+
+.transition2:hover {
+    transform: translateY(0px) translateX(100px);
+    z-index: 1000;
+}
+
+.transition3 {
+    transform: translateY(50px) translateX(50px) rotate(-11deg);
+    background-color: blueviolet;
+}
+
+.transition3:hover {
+    transform: translateY(0px) translateX(50px);
+    z-index: 1000;
+}
+
+.transition4 {
+    transform: translateY(0px);
+    background-color: cadetblue;
+    z-index: 5;
+}
+
+.transition4:hover {
+    transform: translateY(-20px);
+    z-index: 1000;
+}
+
+.transition5 {
+    transform: translateY(50px) translateX(-50px) rotate(11deg);
+    background-color: chartreuse;
+    z-index: 4;
+}
+
+.transition5:hover {
+    transform: translateY(0px) translateX(-50px);
+    z-index: 1000;
+}
+
+
+.transition6 {
+    transform: translateY(100px) translateX(-100px) rotate(11deg);
+    background-color: black;
+    z-index: 3;
+}
+
+.transition6:hover {
+    transform: translateY(0px) translateX(-100px);
+    z-index: 1000;
+}
+
+.transition7 {
+    transform: translateY(150px) translateX(-175px) rotate(11deg);
+    background-color: bisque;
+    z-index: 2;
+}
+
+.transition7:hover {
+    transform: translateY(0px) translateX(-175px);
+    z-index: 1000;
+}
+
+@media (max-width: 899px){
+    .card {
+        flex-grow: 0;
+        flex-shrink: 0;
+        height: 220px;
+        width: 180px;
+        border: 0.5px solid black;
+        z-index: 1;
+        transition: 1s;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-radius: 34px;
+        overflow: hidden;
+        border: 3px green solid;
+    }
+
+    .join-game h1 {
+        font-size: 1.4em;
+    }
+    
+    .join-game p {
+        font-size: 1em;
+    }
+    
+    .input-code {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        max-width: 400px;
+        background-color: white;
+        padding: 5px;
+        gap: 10px;
+    }
+    
+    .input-code input {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+    }
+    
+    .input-code button {
+        padding: 10px 20px;
+        background-color: #C48AF7;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .input-code, .input-code input, .input-code button{
+        border: solid 1px black;
+        border-radius: 10px;
+    }
+
+    .join-game {
+        gap: 5px;
+    }
+
+    .name-test{
+        padding-bottom: 3%;
+        font-size: 13px;
+    }
+    
+    .interisting-text{
+        color: #a19e9e;
+        font-size: 9px;
+    
+    }
+    
+    .link-test{
+        padding-top: 3%;
+        font-size: 13px;
+    }
+
+    .transition4{
+        z-index: 6;
+    }
+
+    .transition5{
+        z-index: 5;
+    }
+
+    .transition6{
+        z-index: 4;
+    }
+
+    .transition2 {
+        transform: translateY(100px) translateX(100px) rotate(-11deg);
+        background-color: blue;
+    }
+    
+    .transition2:hover {
+        transform: translateY(0px) translateX(100px);
+        z-index: 1000;
+    }
+    
+    .transition3 {
+        transform: translateY(50px) translateX(50px) rotate(-11deg);
+        background-color: blueviolet;
+    }
+    
+    .transition3:hover {
+        transform: translateY(20px) translateX(50px);
+        z-index: 1000;
+    }
+    
+    .transition4 {
+        transform: translateY(0px);
+        background-color: cadetblue;
+        z-index: 5;
+    }
+    
+    .transition4:hover {
+        transform: translateY(-20px);
+        z-index: 1000;
+    }
+    
+    .transition5 {
+        transform: translateY(50px) translateX(-50px) rotate(11deg);
+        background-color: chartreuse;
+        z-index: 4;
+    }
+    
+    .transition5:hover {
+        transform: translateY(0px) translateX(-50px);
+        z-index: 1000;
+    }
+    
+    
+    .transition6 {
+        transform: translateY(100px) translateX(-100px) rotate(11deg);
+        background-color: black;
+        z-index: 3;
+    }
+    
+    .transition6:hover {
+        transform: translateY(0px) translateX(-100px);
+        z-index: 1000;
+    }
+}
+
+@media (min-width: 900px) and (max-width: 1440px){
+    .card {
+        flex-grow: 0;
+        flex-shrink: 0;
+        height: 280px;
+        width: 230px;
+        border: 0.5px solid black;
+        z-index: 1;
+        transition: 1s;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-radius: 34px;
+        overflow: hidden;
+        border: 3px #C48AF7 solid;
+    }
+
+    .join-game h1 {
+        font-size: 2.5em;
+    }
+    
+    .join-game p {
+        font-size: 1.5em;
+    }
+    
+    .input-code {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        min-width: none;
+        max-width: 600px;
+        background-color: white;
+        padding: 5px;
+        gap: 15px;
+    }
+    
+    .input-code input {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        min-width: 330px;
+        min-height: 37px;
+        font-size: large;
+    }
+    
+    .input-code button {
+        padding: 10px 20px;
+        background-color: #C48AF7;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .input-code, .input-code input, .input-code button{
+        border: solid 1px black;
+        border-radius: 10px;
+    }
+
+
+    .join-game{
+        gap: 10px;
+    }
+
+    .name-test{
+        padding-bottom: 4%;
+        font-size: 17px;
+    }
+    
+    .interisting-text{
+        color: #a19e9e;
+        font-size: 13px;
+    
+    }
+    
+    .link-test{
+        padding-top: 6%;
+        font-size: 17px;
+    }
+
+    .transition4{
+        z-index: 6;
+    }
+
+    .transition5{
+        z-index: 5;
+    }
+
+    .transition6{
+        z-index: 4;
+    }
+}
+
+@media (min-width: 1441px) and (max-width: 1920px){
+    .card {
+        flex-grow: 0;
+        flex-shrink: 0;
+        height: 400px;
+        width: 300px;
+        border: 0.5px solid black;
+        z-index: 1;
+        transition: 1s;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-radius: 34px;
+        overflow: hidden;
+        border: 3px blue solid;
+    }
+
+    .join-game h1 {
+        font-size: 3.4em;
+    }
+    
+    .join-game p {
+        font-size: 2.4em;
+    }
+    
+    .input-code {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        min-width: none;
+        max-width: 600px;
+        background-color: white;
+        padding: 5px;
+        gap: 15px;
+    }
+    
+    .input-code input {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        min-width: 380px;
+        min-height: 50px;
+        font-size: larger;
+    }
+    
+    .input-code button {
+        padding: 10px 20px;
+        background-color: #C48AF7;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .input-code, .input-code input, .input-code button{
+        border: solid 1px black;
+        border-radius: 10px;
+    }
+
+    .join-game {
+        gap: 5px;
+    }
+    
+    .join-game{
+        gap: 20px;
+    }
+
+    .name-test{
+        padding-bottom: 7%;
+        font-size: 22px;
+    }
+    
+    .interisting-text{
+        color: #a19e9e;
+        font-size: 17px;
+    
+    }
+    
+    .link-test{
+        padding-top: 7%;
+        font-size: 22px;
+    }
+    .transition2 {
+        transform: translateY(180px) translateX(100px) rotate(-11deg);
+        background-color: blue;
+    }
+    
+    .transition2:hover {
+        transform: translateY(0px) translateX(100px);
+        z-index: 1000;
+    }
+    
+    .transition3 {
+        transform: translateY(110px) translateX(50px) rotate(-11deg);
+        background-color: blueviolet;
+    }
+    
+    .transition3:hover {
+        transform: translateY(0px) translateX(50px);
+        z-index: 1000;
+    }
+    
+    .transition4 {
+        transform: translateY(50px);
+        background-color: cadetblue;
+        z-index: 5;
+    }
+    
+    .transition4:hover {
+        transform: translateY(-20px);
+        z-index: 1000;
+    }
+    
+    .transition5 {
+        transform: translateY(110px) translateX(-50px) rotate(11deg);
+        background-color: chartreuse;
+        z-index: 4;
+    }
+    
+    .transition5:hover {
+        transform: translateY(0px) translateX(-50px);
+        z-index: 1000;
+    }
+    
+    
+    .transition6 {
+        transform: translateY(180px) translateX(-100px) rotate(11deg);
+        background-color: black;
+        z-index: 3;
+    }
+    
+    .transition6:hover {
+        transform: translateY(0px) translateX(-100px);
+        z-index: 1000;
+    }
+}
+
+@media (min-width: 1921px){
+    .card {
+        flex-grow: 0;
+        flex-shrink: 0;
+        height: 500px;
+        width: 360px;
+        border: 0.5px solid black;
+        z-index: 1;
+        transition: 1s;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        border-radius: 34px;
+        overflow: hidden;
+        border: 3px gray solid;
+    }
+
+    .join-game h1 {
+        font-size: 3.8em;
+    }
+    
+    .join-game p {
+        font-size: 2.8em;
+    }
+    
+    .input-code {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        min-width: none;
+        max-width: 600px;
+        background-color: white;
+        padding: 5px;
+        gap: 15px;
+    }
+    
+    .input-code input {
+        padding: 10px;
+        border-radius: 5px;
+        border: none;
+        min-width: 460px;
+        min-height: 71px;
+        font-size: larger;
+    }
+    
+    .input-code button {
+        padding: 10px 20px;
+        background-color: #C48AF7;
+        color: black;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .input-code, .input-code input, .input-code button{
+        border: solid 1px black;
+        border-radius: 10px;
+    }
+
+    .join-game {
+        gap: 5px;
+    }
+    
+    .join-game{
+        gap: 20px;
+    }
+
+    .name-test{
+        padding-bottom: 7%;
+        font-size: 22px;
+    }
+    
+    .interisting-text{
+        color: #a19e9e;
+        font-size: 17px;
+    
+    }
+    
+    .link-test{
+        padding-top: 7%;
+        font-size: 22px;
+    }
+    .transition2 {
+        transform: translateY(250px) translateX(100px) rotate(-11deg);
+        background-color: blue;
+    }
+    
+    .transition2:hover {
+        transform: translateY(0px) translateX(100px);
+        z-index: 1000;
+    }
+    
+    .transition3 {
+        transform: translateY(160px) translateX(50px) rotate(-11deg);
+        background-color: blueviolet;
+    }
+    
+    .transition3:hover {
+        transform: translateY(0px) translateX(50px);
+        z-index: 1000;
+    }
+    
+    .transition4 {
+        transform: translateY(100px);
+        background-color: cadetblue;
+        z-index: 5;
+    }
+    
+    .transition4:hover {
+        transform: translateY(-20px);
+        z-index: 1000;
+    }
+    
+    .transition5 {
+        transform: translateY(160px) translateX(-50px) rotate(11deg);
+        background-color: chartreuse;
+        z-index: 4;
+    }
+    
+    .transition5:hover {
+        transform: translateY(0px) translateX(-50px);
+        z-index: 1000;
+    }
+    
+    
+    .transition6 {
+        transform: translateY(250px) translateX(-100px) rotate(11deg);
+        background-color: black;
+        z-index: 3;
+    }
+    
+    .transition6:hover {
+        transform: translateY(0px) translateX(-100px);
+        z-index: 1000;
     }
 }

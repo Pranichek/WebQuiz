@@ -170,6 +170,9 @@
 }
 
 @media (max-height: 700px){
+    /* .text-input{
+        height: 20%;
+    } */
     .registration{
         overflow-y: scroll;
         gap: 10px;
