@@ -6,6 +6,7 @@ function limitCharacters(event) {
 
 
 var pinContainer = document.querySelector(".input-code");
+
 pinContainer.addEventListener('keyup', function (event) {
     var target = event.srcElement;
     
