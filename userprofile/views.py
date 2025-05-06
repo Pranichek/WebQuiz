@@ -7,7 +7,7 @@ def render_profile():
         
     if flask_login.current_user.is_authenticated:
         return flask.render_template(
-            template_name_or_list = "profile.html" 
+            template_name_or_list = "profile.html"
         )
     else:
         return flask.redirect("/")
