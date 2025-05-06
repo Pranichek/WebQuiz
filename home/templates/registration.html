@@ -34,16 +34,22 @@
                     <img id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
                     <img class="hidden2" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
                 </div>
+                
                 <div class="user-status">
-                    <label>
-                        <input class="status-input" type="radio" name="mentor" value="True" required>
+
+                    <label class="status-input">
+                        <input type="radio" name="mentor" value="False">
+                        <span class="checkmark"></span>
+                        Учень
+                      </label>
+                      
+                    
+                    <label class="status-input">
+                        <input type="radio" name="mentor" value="True" required>
+                        <span class="checkmark"></span>
                         Викладач
                     </label>
                     
-                    <label>
-                        <input class="status-input" type="radio" name="mentor" value="False">
-                        Учень
-                    </label>
                 </div>
 
                 <button class="send-data" type="submit">Створити акаунт</button>

@@ -98,10 +98,59 @@
     font-size: 20px;
 }
 
-.status-input{
-    width: 50px;
-    transform: scale(2); 
+.status-input {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: sans-serif;
 }
+
+.status-input input[type="radio"] {
+    display: none;
+}
+
+.checkmark {
+    position: relative;
+    width: 20px;
+    height: 20px;
+    border: 2px solid #8AF7D4;
+    outline: 1px solid #343434; /* серая внешняя рамка */
+    border-radius: 50%;
+    background-color: #B9BDF5;
+    transition: all 0.2s ease;
+}
+
+.checkmark::before {
+    content: "";
+    position: absolute;
+    top: 0px;   /* отступ от края */
+    left: 0px;  /* отступ от края */
+    right: 0px; /* отступ от края */
+    bottom: 0px; /* отступ от края */
+    border: 1px solid #343434;  /* внутренняя голубая обводка */
+    border-radius: 50%;
+}
+
+
+.checkmark::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 15px;
+    height: 15px;
+    background-color: #8AF7D4;
+    border-radius: 50%;
+    transform: translate(-50%, -50%) scale(0);
+    transition: transform 0.2s ease;
+}
+
+.status-input input[type="radio"]:checked + .checkmark::after {
+    transform: translate(-50%, -50%) scale(1);
+}
+
 
 .promotion{
     display: flex;
