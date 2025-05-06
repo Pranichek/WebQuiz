@@ -1,6 +1,6 @@
 from .urls import *
 from .db import *
-# from .loadenv import execute
+from .loadenv import execute
 from .settings import project
 from .login_manager import *
 

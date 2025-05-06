@@ -22,5 +22,6 @@ project.config['MAIL_PASSWORD'] = os.getenv("EMAIL_PASSWORD")
 project.config['MAIL_DEFAULT_SENDER'] = os.getenv("EMAIL_USERNAME")
 project.config['MAIL_USE_SSL'] = False
 project.config['MAIL_USE_TLS'] = True
+project.secret_key = os.getenv("SECRET_KEY")
 
 mail = Mail(app = project)
