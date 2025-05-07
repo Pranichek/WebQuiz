@@ -47,7 +47,7 @@ body {
 
 .input-code button {
     padding: 10px 20px;
-    background-color: #C48AF7;
+    background-color: #8AF7D4;
     color: black;
     border: none;
     border-radius: 5px;
@@ -254,7 +254,7 @@ img{
     
     .input-code button {
         padding: 10px 20px;
-        background-color: #C48AF7;
+        background-color: #8AF7D4;
         color: black;
         border: none;
         border-radius: 5px;
@@ -401,7 +401,7 @@ img{
     
     .input-code button {
         padding: 10px 20px;
-        background-color: #C48AF7;
+        background-color: #8AF7D4;
         color: black;
         border: none;
         border-radius: 5px;
@@ -414,7 +414,7 @@ img{
 
 
     .join-game{
-        gap: 10px;
+        gap: 15px;
     }
 
     .name-test{
@@ -534,7 +534,7 @@ img{
         max-width: 600px;
         background-color: white;
         padding: 5px;
-        gap: 15px;
+        gap: 23px;
     }
     
     .input-code input {
@@ -548,7 +548,7 @@ img{
     
     .input-code button {
         padding: 10px 20px;
-        background-color: #C48AF7;
+        background-color: #8AF7D4;
         color: black;
         border: none;
         border-radius: 5px;
@@ -559,9 +559,6 @@ img{
         border-radius: 10px;
     }
 
-    .join-game {
-        gap: 5px;
-    }
     
     .join-game{
         gap: 20px;
@@ -685,7 +682,7 @@ img{
     
     .input-code button {
         padding: 10px 20px;
-        background-color: #C48AF7;
+        background-color: #8AF7D4;
         color: black;
         border: none;
         border-radius: 5px;
@@ -696,12 +693,8 @@ img{
         border-radius: 10px;
     }
 
-    .join-game {
-        gap: 5px;
-    }
-    
     .join-game{
-        gap: 20px;
+        gap: 25px;
     }
 
     .name-test{

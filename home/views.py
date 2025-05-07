@@ -21,7 +21,11 @@ def render_home_auth():
     if flask_login.current_user.is_authenticated:
         return flask.render_template(
             "home_auth.html", 
-            home_auth = True
+            home_auth = True,
+            username = flask_login.current_user.username,
+            email = flask_login.current_user.email,
+            count_tests = flask_login.current_user.count_tests,
+            name_avatar = flask_login.current_user.name_avatar
             )
     else:
         return flask.redirect("/")
@@ -43,14 +47,14 @@ def render_registration():
             username_form = flask.request.form["username"]
 
             email_form = flask.request.form["email"]
-            phone_number_form = flask.request.form["phone_number"]
+            # phone_number_form = flask.request.form["phone_number"]
             mentor_form = flask.request.form["mentor"]
 
             password_form = flask.request.form["password"]
             confirm_password = flask.request.form["confirm-password"]
 
             if password_form == confirm_password and len(password_form) == 8:
-                if User.query.filter_by(email = email_form).first() is None and User.query.filter_by(phone_number = phone_number_form).first() is None:
+                if User.query.filter_by(email = email_form).first() is None:
                     if username_form != '':
                         is_mentor = None
                         if mentor_form == 'True':
@@ -64,7 +68,6 @@ def render_registration():
                         flask.session["email"] = email_form
                         flask.session["username"] = username_form
                         flask.session["check_mentor"] = is_mentor
-                        flask.session["phone_number"] = phone_number_form
                         flask.session["password"] = password_form
 
                         msg = Message(
@@ -116,7 +119,6 @@ def render_code():
                             username = flask.session["username"],
                             password = flask.session["password"],
                             email = flask.session["email"],
-                            phone_number = flask.session["phone_number"],
                             is_mentor = flask.session["check_mentor"]
                         )
                     

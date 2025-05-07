@@ -6,6 +6,9 @@
         <title>{% block title %}{% endblock %}</title>
         {% block links %}{% endblock %}
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css')}}">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     </head>
     <body>
         <script src="{{ url_for('static', filename='js/sidebar.js') }}" defer></script>
@@ -55,7 +58,7 @@
                             <span class="links">
                                 <a href="">Безпека</a>
                                 <hr>
-                                <a href="">Аватар</a>
+                                <a href="/edit_avatar">Аватар</a>
                                 <hr>
                                 <a href="">Нагороди</a>
                                 <hr>
