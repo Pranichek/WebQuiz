@@ -16,6 +16,13 @@
     <div class = "content-registration">
 
         <div class="registration">
+
+            {% if message %}
+                <div class="error-message">
+                    <p>{{ message }}</p>
+                </div>
+            {% endif %}
+
             <form action="" method="post">
                 <div class="img-avatar">
                     <img class="avatar" src="{{ url_for('home.static', filename='images/login_and_auth/default_avatart.png') }}" alt="avatart">
