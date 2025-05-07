@@ -6,22 +6,27 @@ from flask_mail import Message
 import random
 import flask_login
 
-#Просто головна сторінка
+
+# Просто головна сторінка
 def render_home():
     if not flask_login.current_user.is_authenticated:
         return flask.render_template(
             template_name_or_list = "home.html", 
-            home_page = True
+            home_page = True,
         )
     else:
         return flask.redirect("/home_auth")
-    
+ 
+
 #головна сторінка коли користувач увійшов у акаунт
 def render_home_auth():    
     if flask_login.current_user.is_authenticated:
         return flask.render_template(
             "home_auth.html", 
-            home_auth = True
+            home_auth = True,
+            username = flask_login.current_user.username,
+            email = flask_login.current_user.email,
+            winning_tests = flask_login.current_user.winning_tests,
             )
     else:
         return flask.redirect("/")
