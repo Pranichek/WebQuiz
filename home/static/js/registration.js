@@ -47,6 +47,24 @@ for (let eye2Icon of eyeIcons2List){
     )
 }
 
+
+window.addEventListener('load', () => {
+    if(document.querySelector(".email").classList.length >= 3){
+
+        setTimeout(() => {
+            document.querySelector(".email").classList.remove("email_input");
+            },  1000);
+    }
+    if(document.querySelector(".confirm_password").classList.length >= 3){
+        setTimeout(() => {
+            document.querySelector(".confirm_password").classList.remove("conf_password");
+            },  1000);
+    }
+})
+// function Shake() {
+    
+// }
+
 // let phone_number = document.querySelector("#input_phone")
 
 // phone_number.addEventListener(
@@ -54,6 +72,16 @@ for (let eye2Icon of eyeIcons2List){
 //     function () {
 //         if(!phone_number.value.startsWith("+380")){
 //             phone_number.value = "+380"
+//             document.querySelector(".da").classList.add("email_input")
+//             console.log(document.querySelector(".da").classList) 
+
+//             setTimeout(() => {
+//                 document.querySelector(".da").classList.remove("email_input");
+//               },  1000);
 //         }
 //     }
 // )
+
+// function randomNumber(min, max) {
+//     return Math.floor(Math.random() * (max - min)) + min;
+//   }

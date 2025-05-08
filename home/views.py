@@ -41,7 +41,8 @@ def generate_code():
 
 def render_registration():
     try:
-        message = ''
+        email_shake = ''
+        password_shake = ''
         flask.session["count_email"] = 0
         if flask.request.method == "POST":
             username_form = flask.request.form["username"]
@@ -75,15 +76,15 @@ def render_registration():
                     return flask.redirect("/verify_code")
                 else:
                     flask.session.clear()
-                    message = "User already exists"
+                    email_shake = "User already exists"
             else:
                 flask.session.clear()
-                message = "Паролі не співпадають"
-                
+                password_shake = "Password is not eqal each other"
         return flask.render_template(
             template_name_or_list = "registration.html", 
-            message = message, 
-            registration_page = True
+            email_shake = email_shake, 
+            registration_page = True,
+            password_shake = password_shake
         )
     except Exception as error:
         print(error)
