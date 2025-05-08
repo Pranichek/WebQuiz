@@ -72,7 +72,7 @@
 }
 
 .hidden1, .hidden2{
-    display: none;
+    display: flex;
 }
 
 .send-data{
@@ -169,7 +169,10 @@
     filter: blur(80px);
 }
 
-@media (max-height: 700px){
+@media (max-height: 100px){
+    /* .text-input{
+        height: 20%;
+    } */
     .registration{
         overflow-y: scroll;
         gap: 10px;
@@ -187,13 +190,66 @@
     .registration{
         width: 80%;
     }
+    .password-container .text-input{
+        width: 100%;
+        height: 40px;   
+    }
+    .text-input {
+        width: 80%;
+        height: 40px;
+
+    }
 }
 
 @media(max-width: 1370px){
     .robot{
-        display: none;
+        display: flex;
+        width: 60px;
+        height: 80px;
+        right: 10px;
     }
     .robot-glowing-area{
         display: none;
     }
 }
+
+@media(max-width: 600px){
+    .password-container .text-input{
+        width: 100%;
+        height: 40px;   
+    }
+    .text-input {
+        width: 80%;
+        height: 40px;
+
+    }
+    .robot{
+        display: flex;
+        width: 40px;
+        height: 60px;
+        right: 10px;
+    }
+}
+
+/* @media(max-width: 2000px){
+    .password-container .text-input{
+        width: 100%;
+        height: 200px;   
+        font-size: 30px;
+    }
+    .text-input {
+        width: 80%;
+        height: 200px;
+        font-size: 30px;
+    }
+    .robot{
+        display: flex;
+        width: 100px;
+        height: 120px;
+        right: 40px;
+    }
+    .content-registration{
+        gap: 20%;
+    }
+    
+} */
