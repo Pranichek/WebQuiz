@@ -4,7 +4,7 @@
     box-sizing: border-box;
     justify-content: center;
     align-items: center;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Inter';
 }
 
 body{
@@ -19,7 +19,7 @@ body{
 }
 
 header {
-    z-index: 3;
+    z-index: 1000;
     background-color: #343434;
     display: flex;
     flex-direction: row;
@@ -59,11 +59,12 @@ nav {
     width: 40px;
     height: 40px;
     margin-right: 20px;
+    z-index: 100;
 }
 
 .panel{
     position: fixed;
-    z-index: 5;
+    z-index: 100;
     top: 12vh;
     right: 0;
     display: block;
@@ -76,12 +77,14 @@ nav {
     border-radius: 10px;
     padding-top: 20px;
     background-color: #343434;
+    z-index: 100;
 }
 
 .link-container{
     display: flex;
     flex-direction: column;
     gap: 90px;
+    z-index: 100;
 }
 
 .links{
@@ -118,9 +121,121 @@ nav {
     width: 300px;
 }
 
-@media (max-width: 406px){
+@media (min-width: 1441px) and (max-width: 2000px){
+    .nav-links .auth-button{
+        background-color: #C48AF7;
+        color: #ffffff;
+        border-radius: 5px;
+        text-decoration: none;
+        width: 13vw;
+        margin: 15px;
+        padding: 15px;
+        display: inline-block;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .nav-links .login-button{
+        background-color: #C48AF7;
+        color: #ffffff;
+        border-radius: 5px;
+        text-decoration: none;
+        width: 8vw;
+        margin: 15px;
+        padding: 15px;
+        display: inline-block;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .nav-links .enter-code{
+        background-color: #C48AF7;
+        color: #ffffff;
+        border-radius: 5px;
+        text-decoration: none;
+        width: 12vw;
+        margin: 15px;
+        padding: 15px;
+        display: inline-block;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .logo {
+        font-size: 1.7em;
+        font-weight: bold;
+        margin-left: 24px;
+    }
+}
+
+@media (min-width: 2001px){
+
+    .listener img{
+        height: 71px;
+        width: 71px;
+        display: flex;
+    }
+    
+    .nav-links .auth-button{
+        background-color: #C48AF7;
+        color: #ffffff;
+        border-radius: 5px;
+        text-decoration: none;
+        width: 13vw;
+        margin: 15px;
+        padding: 15px;
+        display: inline-block;
+        text-align: center;
+        font-weight: bold;
+        font-size:31px;
+    }
+
+    .nav-links .login-button{
+        background-color: #C48AF7;
+        color: #ffffff;
+        border-radius: 5px;
+        text-decoration: none;
+        width: 8vw;
+        margin: 15px;
+        padding: 15px;
+        display: inline-block;
+        text-align: center;
+        font-weight: bold;
+        font-size:31px;
+    }
+
+    .nav-links .test-button{
+        width: 15vw;
+        margin: 0px;
+        padding: 15px;
+        font-size: larger;
+    }
+
+    .nav-links .enter-code{
+        background-color: #C48AF7;
+        color: #ffffff;
+        border-radius: 5px;
+        text-decoration: none;
+        width: 12vw;
+        margin: 15px;
+        padding: 15px;
+        display: inline-block;
+        text-align: center;
+        font-weight: bold;
+        font-size:31px;
+    }
+
+    
+
+    .logo {
+        font-size: 2.4em;
+        font-weight: bold;
+        margin-left: 24px;
+    }
+
     header{
-        height: 20vh;
+        justify-content: center;
+        gap: 1200px;
     }
 }
 @media (max-height: 800px){
@@ -131,5 +246,6 @@ nav {
 @media (max-height: 650px){
     .panel{
         overflow-y: scroll;
+        /* z-index: 1000; */
     }
 }

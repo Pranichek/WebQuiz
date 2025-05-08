@@ -1,2 +1,2 @@
-from .apps import profile
-from .views import render_profile
+from .apps import profile, edit_avatar
+from .views import render_profile, render_edit_avatar

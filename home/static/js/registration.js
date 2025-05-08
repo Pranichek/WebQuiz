@@ -46,4 +46,3 @@ for (let eye2Icon of eyeIcons2List){
         }
     )
 }
-
