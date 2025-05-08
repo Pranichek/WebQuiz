@@ -153,8 +153,10 @@
 
 .robot{
     position: absolute;
-    right: 50px;
-    bottom: 3vh;
+    right: 0;
+    bottom: 0;
+    margin-right: 3vw;
+    margin-bottom: 3vw;
     width: 130px;
     height: 190px;
 }
@@ -193,9 +195,9 @@
 }
 
 @media(max-width: 1370px){
-    .robot{
+    /* .robot{
         display: none;
-    }
+    } */
     .robot-glowing-area{
         display: none;
     }

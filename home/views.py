@@ -1,13 +1,12 @@
-import flask
+import flask, flask_login, random
 from .models import User
 from Project.db import DATABASE
-from Project.login_manager import mail
-from flask_mail import Message
-import random
-import flask_login
+from .send_email import send_code
+from threading import Thread
 
 #Просто головна сторінка
 def render_home():
+    flask.session["code"] = ''
     if not flask_login.current_user.is_authenticated:
         return flask.render_template(
             template_name_or_list = "home.html", 
@@ -43,6 +42,7 @@ def generate_code():
 def render_registration():
     try:
         message = ''
+        flask.session["count_email"] = 0
         if flask.request.method == "POST":
             username_form = flask.request.form["username"]
 
@@ -55,40 +55,24 @@ def render_registration():
 
             if password_form == confirm_password and len(password_form) == 8:
                 if User.query.filter_by(email = email_form).first() is None:
-                    if username_form != '':
-                        is_mentor = None
-                        if mentor_form == 'True':
-                            is_mentor = True
-                        else:
-                            is_mentor = False
-
-                        random_code = generate_code()
-
-                        flask.session["code"] = random_code
-                        flask.session["email"] = email_form
-                        flask.session["username"] = username_form
-                        flask.session["check_mentor"] = is_mentor
-                        flask.session["password"] = password_form
-
-                        msg = Message(
-                            subject = 'Hello from the other side!', 
-                            recipients = [str(email_form)] 
-                        )
-
-                        msg.html = f"""
-                            <html>
-                                <body>
-                                    <h1>Привіт, друже!</h1>
-                                    <p>Твій код підтвердження: {flask.session["code"]}</p>
-                                </body>
-                            </html>
-                            """
-    
-                        mail.send(msg)
-                        return flask.redirect("/verify_code")
+                    is_mentor = None
+                    if mentor_form == 'True':
+                        is_mentor = True
                     else:
-                        flask.session.clear()
-                        message = "Please fill in all the fields"
+                        is_mentor = False
+                    random_code = generate_code()
+
+                    flask.session["count_email"] += 1
+                    flask.session["code"] = random_code
+                    flask.session["email"] = email_form
+                    flask.session["username"] = username_form
+                    flask.session["check_mentor"] = is_mentor
+                    flask.session["password"] = password_form
+
+                    email = Thread(target = send_code, args = (email_form, flask.session["code"]))
+                    email.start()
+                    
+                    return flask.redirect("/verify_code")
                 else:
                     flask.session.clear()
                     message = "User already exists"
@@ -125,7 +109,11 @@ def render_code():
                     DATABASE.session.add(user)
                     DATABASE.session.commit()
                     flask_login.login_user(user)
+                    flask.session["code"] = ''
+                    flask.session["email_sent"] = False
                 else:
+                    flask.session["code"] = ''
+                    flask.session["email_sent"] = False
                     return flask.redirect("/")
                 
         if not flask_login.current_user.is_authenticated:
