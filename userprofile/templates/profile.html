@@ -9,7 +9,67 @@
 {% endblock %}
 
 {% block content %}
-    <form action="" method="post">
-        <button type="submit">Вийти з акаунта</button>
-    </form>
+    <div class="backgroung-glowing"></div>
+
+    <div class="info-container">
+
+        <div class="profile-headerline">
+            <div class="main-info">
+                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + email_folder +'/'+ name_avatar ) }}" alt="avatar">
+                <p class="nickname">{{ username }}</p>
+            </div>
+            <a class="avatar-changing" href="/edit_avatar">Змінити фото</a>
+        </div>
+        <div class="background">
+            <img src="{{ url_for('profile.static', filename='images/profile/background.png') }}" alt="" class="background-img">
+            <span class="info-block">
+                <div class="info-item">
+                    <span class="info">
+                        <p class="label">Ім’я користувача</p>
+                        <p>{{ username }}</p>
+                    </span>
+                    <button class="change">Змінити</button>
+                </div>
+                <div class="info-item">
+                    <span class="info">
+                        <p class="label">Електроннна пошта</p>
+                        <p>{{ email }}</p>
+                    </span>
+                    <button class="change">Змінити</button>
+                </div>
+                <div class="info-item">
+                    <span class="info">
+                        <p class="label">Номер телефону</p>
+                        <p>{{ phone_user }}</p>
+                    </span>
+                    <button class="change">Змінити</button>
+                </div>
+            </span>
+        </div>
+
+    </div>
+
+    <h3 class="text-in-between">Обліковий запис та конфеденційність</h3>
+    
+    <div class="account-control">
+
+        <div class="control-option">
+            <p>Оновити пароль</p>
+            <button class="account-button">Змінити</button>
+        </div>
+        <div class="control-option">
+            <p>Видалити акаунт</p>
+            <button class="account-button">Видалити</button>
+        </div>
+        <div class="control-option">
+            <p>Вийти з акаунта</p>
+            <form action="" method="post">
+                <button class="account-button" type="submit">Вийти</button>
+            </form>
+        </div>
+
+    </div>
+
+    <!-- <button onclick="Blur()">Haha</button> -->
+    <script src="{{ url_for('profile.static', filename='js/profile.js') }}"></script>
 {% endblock %}

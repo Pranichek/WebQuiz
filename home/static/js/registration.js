@@ -60,27 +60,32 @@ window.addEventListener('load', () => {
             document.querySelector(".confirm_password").classList.remove("conf_password");
             },  1000);
     }
+    if(document.querySelector(".phone").classList.length >= 3){
+        setTimeout(() => {
+            document.querySelector(".phone").classList.remove("phone_shake");
+            },  1000);
+    }
 })
 // function Shake() {
     
 // }
 
-// let phone_number = document.querySelector("#input_phone")
+let phone_number = document.querySelector("#input_phone")
 
-// phone_number.addEventListener(
-//     'keyup',
-//     function () {
-//         if(!phone_number.value.startsWith("+380")){
-//             phone_number.value = "+380"
-//             document.querySelector(".da").classList.add("email_input")
-//             console.log(document.querySelector(".da").classList) 
+phone_number.addEventListener(
+    'keyup',
+    function () {
+        if(!phone_number.value.startsWith("+380")){
+            phone_number.value = "+380"
+            document.querySelector(".da").classList.add("email_input")
+            console.log(document.querySelector(".da").classList) 
 
-//             setTimeout(() => {
-//                 document.querySelector(".da").classList.remove("email_input");
-//               },  1000);
-//         }
-//     }
-// )
+            setTimeout(() => {
+                document.querySelector(".da").classList.remove("email_input");
+              },  1000);
+        }
+    }
+)
 
 // function randomNumber(min, max) {
 //     return Math.floor(Math.random() * (max - min)) + min;

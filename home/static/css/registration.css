@@ -177,13 +177,9 @@ img:hover {
     /* animation-iteration-count: infinite; */
 /* } */ 
 
-.email_input, .conf_password{
+.email_input, .conf_password, .phone_shake{
     animation: shake 0.4s;
     animation-iteration-count: infinite;
-}
-
-.phone {
-    display: none;
 }
 
 /* создаем как бы обьект для анимации */
