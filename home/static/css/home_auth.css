@@ -77,6 +77,7 @@ header{
 .avatar{
     width: 20%;
     height: 100%;
+    border-radius: 50%;
 }
 
 .username{
