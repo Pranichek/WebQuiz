@@ -9,7 +9,71 @@
 {% endblock %}
 
 {% block content %}
-    <form action="" method="post">
-        <button type="submit">Вийти з акаунта</button>
-    </form>
+    <div class="backgroung-glowing"></div>
+
+    <div class="info-container">
+
+        <div class="profile-headerline">
+            <div class="main-info">
+                <img src="{{ url_for('profile.static', filename='images/edit_avatar/' + name_avatar) }}" alt="" class="avatar">
+                <p class="nickname">{{ user.username }}</p>
+            </div>
+            <a class="avatar-changing">Редагувати фото профілю</a>
+        </div>
+        <div class="background">
+            <img src="{{ url_for('profile.static', filename='images/background.png') }}" alt="" class="background-img">
+            <span class="info-block">
+                <div class="info-item">
+                    <span class="info">
+                        <p class="label">Ім’я користувача</p>
+                        <p>{{ user.username }}</p>
+                    </span>
+                    <form id="name" class="change" action="" method="post">
+                        <input style="display: none;" id="i-name" type="text" name="username" placeholder="Нове ім'я">
+                        <p class="change-button" id="p-name">Змінити</p>
+                        <button style="display: none;" class="change-button" id="b-name">Зберегти</button>
+                    </form>
+                    
+                </div>
+                <div class="info-item">
+                    <span class="info">
+                        <p class="label">Електроннна пошта</p>
+                        <p>***********@gmail.com</p>
+                    </span>
+                    <button class="change">Змінити</button>
+                </div>
+                <div class="info-item">
+                    <span class="info">
+                        <p class="label">Номер телефону</p>
+                        <p>+380935552020</p>
+                    </span>
+                    <button class="change">Змінити</button>
+                </div>
+            </span>
+        </div>
+
+    </div>
+
+    <h3 class="text-in-between">Обліковий запис та конфеденційність</h3>
+    
+    <div class="account-control">
+
+        <div class="control-option">
+            <p>Оновити пароль</p>
+            <button class="account-button">Змінити</button>
+        </div>
+        <div class="control-option">
+            <p>Видалити акаунт</p>
+            <button class="account-button">Видалити</button>
+        </div>
+        <div class="control-option">
+            <p>Вийти з акаунта</p>
+            <form action="" method="post">
+                <button class="account-button" type="submit">Вийти</button>
+            </form>
+        </div>
+
+    </div>
+
+    <script src="{{ url_for('profile.static', filename='js/editInfo.js') }}"></script>
 {% endblock %}

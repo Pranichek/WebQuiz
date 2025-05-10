@@ -2,14 +2,31 @@ import flask
 import flask_login
 import os
 from Project.db import DATABASE
+from home.models import User
 
 def render_profile():
+    user_id = flask_login.current_user.id
+    user = User.query.get(user_id)
+    print("user =", user)
     if flask.request.method == "POST":
-        flask.session.clear()
+
+        try:
+            print(user_id)
+            new_username = flask.request.form["username"]
+            user.username = new_username
+            DATABASE.session.commit()
+            print("updated successfully")
+        except:
+            print("error")
+
+        # flask.session.clear()
+        
         
     if flask_login.current_user.is_authenticated:
         return flask.render_template(
-            template_name_or_list = "profile.html"
+            template_name_or_list = "profile.html",
+            name_avatar = flask_login.current_user.name_avatar,
+            user = user
         )
     else:
         return flask.redirect("/")

@@ -19,7 +19,7 @@
         </div>
         <div class="data-user">
             <div class="main-data">
-                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + name_avatar ) }}" alt="avatar">
+                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.png' ) }}" alt="avatar">
                 <a class="nick" href="/profile">{{ username }}</a>
             </div>
             <div class="antoher-data">
@@ -243,91 +243,4 @@
         </form>
     </div>
     
-
-    <!-- <div class="main-part">
-        <div class="big-part">
-            <div class="input-tx">
-                <input type="text" placeholder="Enter a join code" class="code">
-                <button type="submit" class="butn1">Join</button>
-            </div>
-        </div>
-        
-        <div class="profile">
-            <div class="prt1">
-                <img src="home/static/images/avatar.png" class="avatar">
-                <a href="/profile">Kemilly</a>
-                <img src="home/static/images/bouling.png" class="shar">
-            </div>
-            <p class="mail">tfgh@gmail.com</p>
-            <div class="end">
-                
-                <p class="tests">Пройдені тести: </p>
-                <p class="num">20</p>
-                <img src="home/static/images/nagrada.png">
-                <img src="home/static/images/nagrada.png">
-                <img src="home/static/images/nagrada.png">
-            </div>
-            
-        </div>
-    </div>
-
-    <div class="main-part2">
-        <div class="bt">
-            <button class="butns2">Побачити більше</button>
-        </div>
-        
-        <div class="otstup">
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-        </div>
-
-        <div class="bt">
-            <button class="butns2">Побачити більше</button>
-        </div>
-        <div class="otstup">
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-        </div>
-        <div class="bt">
-            <button class="butns2">Побачити більше</button>
-        </div>
-        <div class="otstup">
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-        </div>
-        <div class="obvodka">
-            <input type="text" placeholder="Знайти вікторину" class="search">
-        </div>
-        
-    </div> -->
 {% endblock %}
