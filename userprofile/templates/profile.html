@@ -15,8 +15,8 @@
 
         <div class="profile-headerline">
             <div class="main-info">
-                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + email_folder +'/'+ name_avatar ) }}" alt="avatar">
-                <p class="nickname">{{ username }}</p>
+                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                <p class="nickname">{{ user.username }}</p>
             </div>
             <a class="avatar-changing" href="/edit_avatar">Змінити фото</a>
         </div>
@@ -26,23 +26,52 @@
                 <div class="info-item">
                     <span class="info">
                         <p class="label">Ім’я користувача</p>
-                        <p>{{ username }}</p>
+                        <p>{{ user.username }}</p>
                     </span>
-                    <button class="change">Змінити</button>
+                    <button class="change" value="name">Змінити</button>
+                    <div class="change_name">
+                        <form action="" method="post">
+                            <!-- чепупеля по которой понимаем какую форму отправили -->
+                            <input type="hidden" name="form_name" value="change_name">
+                            <input type="text" name="new_name" id="new_name" required>
+                            <button type="submit">Змінити</button>
+                        </form>
+                    </div>
                 </div>
                 <div class="info-item">
                     <span class="info">
                         <p class="label">Електроннна пошта</p>
                         <p>{{ email }}</p>
                     </span>
-                    <button class="change">Змінити</button>
+                    <button class="change" value = "email">Змінити</button>
+                    <div class="change_email">
+                        <form action="" method="post">
+                            <!-- чепупеля по которой понимаем какую форму отправили -->
+                            <input type="hidden" name="form_name" value="email">
+                            <input type="num" placeholder="code" name = "code_new_email">
+                            <button type="submit">Змінити</button>
+                        </form>
+                        <form action="" method="post">
+                            <input type="hidden" name="form_name" value="send_code">
+                            <input type="email" placeholder="email" name="new_email">
+                            <button type="submit" value>send code verification</button>
+                        </form>
+                    </div>
                 </div>
                 <div class="info-item">
                     <span class="info">
                         <p class="label">Номер телефону</p>
                         <p>{{ phone_user }}</p>
                     </span>
-                    <button class="change">Змінити</button>
+                    <button class="change" value="phone_number">Змінити</button>
+                    <div class="change_phone">
+                        <form action="" method="post">
+                            <!-- чепупеля по которой понимаем какую форму отправили -->
+                            <input type="hidden" name="form_name" value="change_phone">
+                            <input inputmode="numeric" id = "input_phone" pattern="[\d\+]*$" class="text-input phone {% if phone_shake %}phone_shake{% endif %}" type="tel" maxlength="13" minlength="13" name= "phone_number" placeholder="Введіть номер телефону (починайте з +380)" value="+380" required>
+                            <button type="submit">Змінити</button>
+                        </form>
+                    </div>
                 </div>
             </span>
         </div>
@@ -55,7 +84,16 @@
 
         <div class="control-option">
             <p>Оновити пароль</p>
-            <button class="account-button">Змінити</button>
+            <button class="account-button change" value = "password_button">Змінити</button>
+            <div class="change_password">
+                <form action="" method="post">
+                    <!-- чепупеля по которой понимаем какую форму отправили -->
+                    <input type="hidden" name="form_name" value="password">
+                    <input type="num" placeholder="Текущий" name="old_password">
+                    <input type="num" placeholder="Новый" name = "new_password">
+                    <button type="submit">Змінити</button>
+                </form>
+            </div>
         </div>
         <div class="control-option">
             <p>Видалити акаунт</p>
@@ -64,6 +102,7 @@
         <div class="control-option">
             <p>Вийти з акаунта</p>
             <form action="" method="post">
+                <input type="hidden" name="form_name" value="logout">
                 <button class="account-button" type="submit">Вийти</button>
             </form>
         </div>

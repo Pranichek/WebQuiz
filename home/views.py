@@ -2,7 +2,7 @@ import PIL.Image
 import flask, flask_login, random, os
 from .models import User
 from Project.db import DATABASE
-from .send_email import send_code
+from .send_email import send_code, generate_code
 from threading import Thread
 import PIL
 
@@ -31,14 +31,6 @@ def render_home_auth():
     else:
         return flask.redirect("/")
     
-
-def generate_code():
-    str_code = ''
-    for num in range(6):
-        random_num = random.randint(0,9)
-        str_code += str(random_num)
-
-    return str_code
 
 
 def render_registration():

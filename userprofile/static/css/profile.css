@@ -6,6 +6,13 @@ a{
     text-decoration: none;
 }
 
+.change_name, .change_phone, .change_password, .change_email{
+    display: none;
+}
+input{
+    color: black;
+}
+
 .backgroung-glowing{
     position: fixed;
     top: 0;

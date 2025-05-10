@@ -1,5 +1,15 @@
 from Project.login_manager import mail, project
 from flask_mail import Message
+import random
+
+
+def generate_code():
+    str_code = ''
+    for num in range(6):
+        random_num = random.randint(0,9)
+        str_code += str(random_num)
+
+    return str_code
 
 def send_code(recipient: str, code: int):
     with project.app_context():

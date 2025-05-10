@@ -77,12 +77,6 @@ phone_number.addEventListener(
     function () {
         if(!phone_number.value.startsWith("+380")){
             phone_number.value = "+380"
-            document.querySelector(".da").classList.add("email_input")
-            console.log(document.querySelector(".da").classList) 
-
-            setTimeout(() => {
-                document.querySelector(".da").classList.remove("email_input");
-              },  1000);
         }
     }
 )
