@@ -47,13 +47,13 @@ for (let eye2Icon of eyeIcons2List){
     )
 }
 
-// let phone_number = document.querySelector("#input_phone")
+let phone_number = document.querySelector("#input_phone")
 
-// phone_number.addEventListener(
-//     'keyup',
-//     function () {
-//         if(!phone_number.value.startsWith("+380")){
-//             phone_number.value = "+380"
-//         }
-//     }
-// )
+phone_number.addEventListener(
+    'keyup',
+    function () {
+        if(!phone_number.value.startsWith("+380")){
+            phone_number.value = "+380"
+        }
+    }
+)
