@@ -179,7 +179,11 @@ img:hover {
 
 .email_input, .conf_password, .phone_shake{
     animation: shake 0.4s;
-    animation-iteration-count: infinite;
+    /* animation-iteration-count: infinite; */
+}
+
+.problem {
+    color: #ffffff;
 }
 
 /* создаем как бы обьект для анимации */

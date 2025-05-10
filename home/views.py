@@ -46,6 +46,7 @@ def render_registration():
         email_shake = ''
         password_shake = ''
         phone_shake = ''
+        message = ''
         flask.session["count_email"] = 0
         if flask.request.method == "POST":
             username_form = flask.request.form["username"]
@@ -81,19 +82,23 @@ def render_registration():
                     else:
                         flask.session.clear()
                         phone_shake = "User already exists"
+                        message = "Користувач із таким номером телефону вже існує"
                 else:
                     flask.session.clear()
                     email_shake = "User already exists"
+                    message = "Користувач із такою поштою вже існує"
             else:
                 flask.session.clear()
                 password_shake = "Password is not eqal each other"
+                message = "Введені паролі не співпадають"
                 
         return flask.render_template(
             template_name_or_list = "registration.html", 
             email_shake = email_shake, 
             registration_page = True,
             password_shake = password_shake,
-            phone_shake = phone_shake
+            phone_shake = phone_shake,
+            message = message
         )
     except Exception as error:
         print(error)
@@ -147,6 +152,7 @@ def render_code():
 def render_login():
     password = ''
     email = ''
+    message = ''
     if flask.request.method == "POST":
         email_form = flask.request.form["email"]
         password_form = flask.request.form["password"]
@@ -154,6 +160,7 @@ def render_login():
         list_users = User.query.all()
         if User.query.filter_by(email = email_form).first() is None:
             email = "shake"
+            message = 'Користувача із такою поштою не існує'
         else:
             for user in list_users:
                 if user.email == email_form:
@@ -161,13 +168,15 @@ def render_login():
                         flask_login.login_user(user)
                     else:
                         password = "shake"
+                        message = 'Введений пароль не підходить до пошти'
 
     if not flask_login.current_user.is_authenticated:
         return flask.render_template(
             template_name_or_list = "login.html", 
             login_page = True,
             password = password,
-            email = email
+            email = email,
+            message = message
             )
     else:
         return flask.redirect("/")
