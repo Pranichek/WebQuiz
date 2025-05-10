@@ -87,6 +87,7 @@ def render_registration():
             else:
                 flask.session.clear()
                 password_shake = "Password is not eqal each other"
+                
         return flask.render_template(
             template_name_or_list = "registration.html", 
             email_shake = email_shake, 
@@ -116,13 +117,13 @@ def render_code():
                             phone_number = flask.session["phone_number"]
                         )
                     
+                    #створює папку із тим шляхом що указали
                     os.mkdir(path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"]))))
                     # creating a image object (main image) 
                     default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.png")))
                     # save a image using extension
                     default_img = default_img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(str(flask.session["email"])) ,"default_avatar.png")))
 
-                    PIL.Image.SAVE
                     DATABASE.session.add(user)
                     DATABASE.session.commit()
                     flask_login.login_user(user)

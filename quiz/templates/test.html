@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Test    
+{% endblock %}
+
+{% block link %}
+    <link rel="stylesheet" href="{{ url_for('test.static', filename='css/test.css') }}">
+{% endblock %}
+
+{% block content %}
+    <form action="" method="post">
+        <input type="text" name="test_title" placeholder="Назва тесту">
+        <input type="number" name="question_amount" placeholder="Кількість питань">
+        <input type="text" name="questions" placeholder="Питання">
+        <input type="text" name="answers" placeholder="Відповідь">
+        <button type="submit">Зберегти вікторину</button>
+    </form>
+{% endblock %}
