@@ -47,6 +47,29 @@ for (let eye2Icon of eyeIcons2List){
     )
 }
 
+
+window.addEventListener('load', () => {
+    if(document.querySelector(".email").classList.length >= 3){
+
+        setTimeout(() => {
+            document.querySelector(".email").classList.remove("email_input");
+            },  1000);
+    }
+    if(document.querySelector(".confirm_password").classList.length >= 3){
+        setTimeout(() => {
+            document.querySelector(".confirm_password").classList.remove("conf_password");
+            },  1000);
+    }
+    if(document.querySelector(".phone").classList.length >= 3){
+        setTimeout(() => {
+            document.querySelector(".phone").classList.remove("phone_shake");
+            },  1000);
+    }
+})
+// function Shake() {
+    
+// }
+
 let phone_number = document.querySelector("#input_phone")
 
 phone_number.addEventListener(
@@ -57,3 +80,7 @@ phone_number.addEventListener(
         }
     }
 )
+
+// function randomNumber(min, max) {
+//     return Math.floor(Math.random() * (max - min)) + min;
+//   }

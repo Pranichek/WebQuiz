@@ -1,5 +1,6 @@
 import home
 import userprofile
+import quiz
 
 home.home_app.add_url_rule(
     rule = "/",
@@ -35,4 +36,16 @@ userprofile.profile.add_url_rule(
     rule = "/profile",
     view_func= userprofile.render_profile,
     methods= ["GET", "POST"]
+)
+
+userprofile.edit_avatar.add_url_rule(
+    rule = "/edit_avatar",
+    view_func = userprofile.render_edit_avatar,
+    methods= ["GET", "POST", 'FILES']
+)
+
+quiz.test_pass.add_url_rule(
+    rule = "/test",
+    view_func= quiz.render_test,
+    methods = ["GET", "POST"]
 )

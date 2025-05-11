@@ -9,8 +9,242 @@
 {% endblock links %}
 
 {% block content %}
+    <div class="background-blur"></div>
+    <div class="top-part">
+        <div class="enter-code">
+            <div class="main-input">
+                <input type="number" placeholder="Enter a join code" class="code">
+                <button type="submit" class="butn1">Join</button>
+            </div>
+        </div>
+        <div class="data-user">
+            <div class="main-data">
+                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + email +'/'+ name_avatar ) }}" alt="avatar">
+                <a class="nick" href="/profile">{{ username }}</a>
+            </div>
+            <div class="antoher-data">
+                <p class="gmail">{{ email }}</p>
+                <div class="tests-data">
+                    <p class="text-tests">пройдені тести: <p class="number-tests">{{ count_tests }}</p></p>
+                    <img class= "bonuses" src="{{ url_for('home.static', filename='images/home_auth/bonuses.png') }}" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
 
-    <div class="main-part">
+    <div class="cards-floor">
+        <div class="show-more">
+            <a href="/">Побачити більше</a>
+        </div>
+        <div class="cards">
+            <div class="card card1">
+                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                <div class="card_image">
+                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
+                </div>
+                <div class="discription">
+                    <div class="test-name">
+                        <p class="topic-test">Python</p>
+                    </div>
+                    <div class="discription-test">
+                        <p class="static-theme">тема:</p>
+                        <p class="theme-test">Функції</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card card2">
+                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                <div class="card_image">
+                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
+                </div>
+                <div class="discription">
+                    <div class="test-name">
+                        <p class="topic-test">Python</p>
+                    </div>
+                    <div class="discription-test">
+                        <p class="static-theme">тема:</p>
+                        <p class="theme-test">Функції</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card card3">
+                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                <div class="card_image">
+                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
+                </div>
+                <div class="discription">
+                    <div class="test-name">
+                        <p class="topic-test">Python</p>
+                    </div>
+                    <div class="discription-test">
+                        <p class="static-theme">тема:</p>
+                        <p class="theme-test">Функції</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card card4">
+                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                <div class="card_image">
+                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
+                </div>
+                <div class="discription">
+                    <div class="test-name">
+                        <p class="topic-test">Python</p>
+                    </div>
+                    <div class="discription-test">
+                        <p class="static-theme">тема:</p>
+                        <p class="theme-test">Функції</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cards-floor">
+        <div class="show-more">
+            <a href="/">Побачити більше</a>
+        </div>
+        <div class="cards">
+            <div class="card card1">
+                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                <div class="card_image">
+                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
+                </div>
+                <div class="discription">
+                    <div class="test-name">
+                        <p class="topic-test">Python</p>
+                    </div>
+                    <div class="discription-test">
+                        <p class="static-theme">тема:</p>
+                        <p class="theme-test">Функції</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card card2">
+                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                <div class="card_image">
+                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
+                </div>
+                <div class="discription">
+                    <div class="test-name">
+                        <p class="topic-test">Python</p>
+                    </div>
+                    <div class="discription-test">
+                        <p class="static-theme">тема:</p>
+                        <p class="theme-test">Функції</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card card3">
+                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                <div class="card_image">
+                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
+                </div>
+                <div class="discription">
+                    <div class="test-name">
+                        <p class="topic-test">Python</p>
+                    </div>
+                    <div class="discription-test">
+                        <p class="static-theme">тема:</p>
+                        <p class="theme-test">Функції</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card card4">
+                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                <div class="card_image">
+                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
+                </div>
+                <div class="discription">
+                    <div class="test-name">
+                        <p class="topic-test">Python</p>
+                    </div>
+                    <div class="discription-test">
+                        <p class="static-theme">тема:</p>
+                        <p class="theme-test">Функції</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="cards-floor">
+        <div class="show-more">
+            <a href="/">Побачити більше</a>
+        </div>
+        <div class="cards">
+            <div class="card card1">
+                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                <div class="card_image">
+                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
+                </div>
+                <div class="discription">
+                    <div class="test-name">
+                        <p class="topic-test">Python</p>
+                    </div>
+                    <div class="discription-test">
+                        <p class="static-theme">тема:</p>
+                        <p class="theme-test">Функції</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card card2">
+                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                <div class="card_image">
+                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
+                </div>
+                <div class="discription">
+                    <div class="test-name">
+                        <p class="topic-test">Python</p>
+                    </div>
+                    <div class="discription-test">
+                        <p class="static-theme">тема:</p>
+                        <p class="theme-test">Функції</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card card3">
+                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                <div class="card_image">
+                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
+                </div>
+                <div class="discription">
+                    <div class="test-name">
+                        <p class="topic-test">Python</p>
+                    </div>
+                    <div class="discription-test">
+                        <p class="static-theme">тема:</p>
+                        <p class="theme-test">Функції</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card card4">
+                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                <div class="card_image">
+                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
+                </div>
+                <div class="discription">
+                    <div class="test-name">
+                        <p class="topic-test">Python</p>
+                    </div>
+                    <div class="discription-test">
+                        <p class="static-theme">тема:</p>
+                        <p class="theme-test">Функції</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="filter-test">
+        <form action="" method="post">
+            <input type="number" class="filter-input" placeholder="Знайти вікторину">
+            <button type="submit" class="submit-filter"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt=""></button>
+        </form>
+    </div>
+    
+
+    <!-- <div class="main-part">
         <div class="big-part">
             <div class="input-tx">
                 <input type="text" placeholder="Enter a join code" class="code">
@@ -95,5 +329,5 @@
             <input type="text" placeholder="Знайти вікторину" class="search">
         </div>
         
-    </div>
+    </div> -->
 {% endblock %}

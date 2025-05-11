@@ -8,6 +8,18 @@ body {
     color: white;
 }
 
+.background-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(170deg, #3C3C3C 10%, #7c9abd 20%, #74919E 42%, #3C3C3C 5%);
+    filter: blur(100px);
+    z-index: -1;
+    pointer-events: none;
+}
+
 .join-game {
     display: flex;
     flex-direction: column;
@@ -47,7 +59,7 @@ body {
 
 .input-code button {
     padding: 10px 20px;
-    background-color: #C48AF7;
+    background-color: #8AF7D4;
     color: black;
     border: none;
     border-radius: 5px;
@@ -254,7 +266,7 @@ img{
     
     .input-code button {
         padding: 10px 20px;
-        background-color: #C48AF7;
+        background-color: #8AF7D4;
         color: black;
         border: none;
         border-radius: 5px;
@@ -400,8 +412,8 @@ img{
     }
     
     .input-code button {
-        padding: 10px 20px;
-        background-color: #C48AF7;
+        padding: 13px 20px;
+        background-color: #8AF7D4;
         color: black;
         border: none;
         border-radius: 5px;
@@ -414,7 +426,7 @@ img{
 
 
     .join-game{
-        gap: 10px;
+        gap: 15px;
     }
 
     .name-test{
@@ -534,7 +546,7 @@ img{
         max-width: 600px;
         background-color: white;
         padding: 5px;
-        gap: 15px;
+        gap: 23px;
     }
     
     .input-code input {
@@ -547,8 +559,8 @@ img{
     }
     
     .input-code button {
-        padding: 10px 20px;
-        background-color: #C48AF7;
+        padding: 14px 20px;
+        background-color: #8AF7D4;
         color: black;
         border: none;
         border-radius: 5px;
@@ -559,9 +571,6 @@ img{
         border-radius: 10px;
     }
 
-    .join-game {
-        gap: 5px;
-    }
     
     .join-game{
         gap: 20px;
@@ -684,8 +693,8 @@ img{
     }
     
     .input-code button {
-        padding: 10px 20px;
-        background-color: #C48AF7;
+        padding: 20px 20px;
+        background-color: #8AF7D4;
         color: black;
         border: none;
         border-radius: 5px;
@@ -696,12 +705,8 @@ img{
         border-radius: 10px;
     }
 
-    .join-game {
-        gap: 5px;
-    }
-    
     .join-game{
-        gap: 20px;
+        gap: 25px;
     }
 
     .name-test{

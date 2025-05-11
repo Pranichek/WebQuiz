@@ -1,185 +1,756 @@
-body {
-    font-family: 'Arial', sans-serif;
+*{
     margin: 0px;
     padding: 0px;
-    background-color: #3C3C3C;
-    color: white;
-    align-items: center;
-    background-image: url("../images/ellipse.png");
-    background-size: cover;
-    background-repeat: no-repeat;
-    height: 100%;
-    width: 100%;
+}
+
+.background-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(69deg, #3C3C3C 10%, #7c9abd 20%, #74919E 72%, #3C3C3C 5%);
+    filter: blur(100px);
+    z-index: -1;
+    pointer-events: none;
 }
 
 
-
-
-.big-part{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 759px;
-    height: 239px;
-    background-color: #D6E8FE;
-    border: solid 1px black;
-    border-radius: 15px;
-}
-.input-tx{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color: white;
-    padding: 5px;
-    gap: 10px;
-    border-radius: 14px;
-    border: solid 2px black;
-    width: 457px;
-    height: 69px;
-}
-
-.main-part{
-    display: flex;
-    justify-content: center;
-    padding: 45px;
-    gap: 45px;
-}
-
-.code{
-    border-radius: 20px;
-    border: solid 2px black;   
-    width: 338px;
-    height: 57px;
-    text-align: left;
-    padding: 12px;
-    font-weight: bold;
-    font-size: 20px;
-}
-
-.butn1{
-    border-radius: 20px;
-    border: solid 2px black;  
-    width: 98px;
-    height: 57px;
-    background-color: #8AF7D4;
-    font-weight: bold;
-    font-size: 20px;
-    color: #000000;
-}
-
-.profile{
+body{
     display: flex;
     flex-direction: column;
-    border-radius: 24px;
-    border: solid 2px black;  
 }
 
-.prt1{
-    display: flex;
-    /* justify-content: center; */
-    padding-left: 10px;
-    align-items: center;
-    gap: 9px;
-    padding-top: 16.5px;
-    background-color: #343434;
-    border-top-right-radius: 24px;
-    border-top-left-radius: 24px;
-    width: 335px;
-    height: 109px;
+header{
+    margin-bottom: 40px;
 }
 
-.mail{
-    color:#D6E8FE;
+.top-part {
     display: flex;
-    padding-left: 30.5px;
-    padding-top: 20px;
-}
-
-.end{
-    
-    display: flex;
+    flex-direction: row;
     justify-content: center;
-    gap: 2px;
-    text-align: left;
-    padding: 30.5px;
     align-items: center;
-    padding-left: 31px;
-    
+    width: 100vw;
+    /* background-color: gold; */
+    gap: 45px;
+    height: 30vh;
+    padding: 10px 10px 18px 10px;
 }
 
-.shar{
-    width: 25px;
-    height: 25px;
+.enter-code{
+    display: flex;
+    flex-direction: column;
+    background-color: #D6E8FE;
+    border-radius: 15px;
+    padding: 10px;
+    gap: 10px;
+    border: 1px black solid;
+    width: 60%;
+    height: 90%;
+    overflow: hidden;
+}
+
+.data-user {
+    display: flex;
+    flex-direction: column;
+    background-color: none;
+    border: 1px black solid;
+    width: 22%;
+    height: 90%;
+    border-radius: 24px;
+    overflow: hidden;
+}
+
+.main-data {
+    display: flex;
+    flex-direction: row;
+    background-color: #343434;
+    gap: 10px;
+    padding: 10px 10px 10px 10px;
+    overflow: hidden;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 40%;
 }
 
 .avatar{
-    width: 85px;
-    height: 85px;
+    width: 20%;
+    height: 100%;
+    border-radius: 50%;
 }
 
-.tests{
-    color:#D6E8FE;
-
+.username{
+    font-size: 17px;
+    color: #ffffff;
 }
 
-.num{
-    color:#FFE177;
-}
-
-.main-part2{
+.antoher-data{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 22px;
     flex-direction: column;
-}
-
-.blocks{
-    width: 288px;
-    height: 188px;
-    background-color: #83BBFF;
-    border-radius: 20px;
-}
-
-.otstup{
-    display: flex;
     justify-content: center;
-    gap: 22px;
-}
-
-.butns2{
-    width: 140px;
-    height: 29px;
-    background-color: #C48AF7;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-
-}
-
-.bt{
-    display: flex;
+    align-items: start;
+    padding: 10px 0px 10px 20px;
+    gap: 30%;
     width: 100%;
-    justify-content: end;
+    height: 60%;
 }
 
-.search{
-    width: 494px;
-    height: 53px;
-    border-radius: 20px;
-    background-color: #C7D7EB;
-    font-size: 20px;
-    font-weight: bold;
-    padding-left: 25px;
+.antoher-data .text-tests, .antoher-data .gmail, .nick{
+    opacity: 0.8;
+    color: #D6E8FE;
+    font-weight: 500;
+    text-decoration: none;
 }
 
-.obvodka{
-    width: 511px;
-    height: 63px;
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+}
+
+.tests-data {
     display: flex;
+    flex-direction: row;
+}
+
+.number-tests {
+    color: #FFE177;
+    font-weight: bold;
+}
+
+.text-tests {
+    margin-right: 7px;
+}
+
+.main-input {
+    display: flex;
+    flex-direction: row;
+    gap:2%;
+    background-color: #ffffff;
+    border: 2px black solid;
+    padding: 4px;
+    border-radius: 15px;
+    width: 60%;
+}
+
+.main-input input{
+    border: 2px black solid;
+    border-radius: 10px;
+    /* padding: 15px 30px 15px 20px; */
+    width: 90%;
+    height: 100%;
+    color: #636262;
+    font-weight: bold;
+    font-size: larger;
+    padding-left: 30px;
+}
+
+
+.main-input button{
+    background-color: #8AF7D4;
+    color: #000000;
+    border: 2px black solid;
+    font-weight: bold;
+    border-radius: 15px;
+    padding: 15px;
+
+    width: 20%;
+    text-align: center;
+}
+
+.main-input button:hover{
+    background-color: #77d8b9;
+}
+
+.cards-floor{
+    width: 100vw;
+    height: 45vh;
+    margin-bottom: 20px;
+}
+
+.show-more {
+    width: 100%;
+    height: 15%;
+    /* background-color: aqua; */
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+}
+
+.show-more a{
+    background-color: #C48AF7;
+    color: #ffffff;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+
+.cards {
+    width: 100%;
+    height: 85%;
+    /* background-color: #FFE177; */
+    padding: 10px;
+    gap: 40px;
+    display: flex;
+    flex-direction: row;
+}
+
+.card {
+    position: relative;
+    width: 21%;
+    height: 85%;
+    overflow: hidden;
+    flex-direction: column;
+    background-color: #D6E8FE;
+    border-radius: 17px;
+    justify-content: end;
+    border: 1px black solid;
+}
+
+.card_image{
+    width: 100%;
+    height: 70%;
+    z-index: 1;
+}
+
+.card_image img{
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    border-radius: 0px 0px 30px 30px;
+}
+
+.discription {
+    width: 100%;
+    background-color: #D6E8FE;
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    font-weight:600;
+}
+
+.test-name{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 20%;
+    /* background-color: #FFE177; */
+    padding: 30px 20px 10px 20px;
+    color:#343434;
+    font-size: larger;
+
+}
+
+.discription-test{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    /* background-color: #8AF7D4; */
+    padding-left: 20px;
+    gap: 5px;
+}
+
+.image-robot {
+    bottom: 0;
+    right: 0;
+    margin-right: 10px;
+    position: absolute;
+    width: 40px;         
+    height: auto;
+    z-index: 10;         
+}
+.static-theme{
+    color:#C48AF7;
+}
+
+.theme-test{
+    color: #343434;
+}
+
+.filter-test{
+    width: 100vw;
+    height: 14vh;
+    /* background-color: gray; */
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
-    border-radius: 22px;
-    background-color: #343434;
-    margin: 10px;
+    padding: 10px;
 }
+
+.filter-input {
+    width: 35vw;
+    height: 9vh;
+    background-color: #C7D7EB;
+    color: 636262;
+    font-weight: bolder;
+    padding: 3%;
+    border-radius: 25px;
+    border: 6px solid #343434; /* чёрная внешняя обводка внутри интпуута */
+    box-shadow: 0 0 0 1px #8AF7D4; 
+    font-size: 20px;
+}
+
+
+
+.submit-filter {
+    overflow: hidden;
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    right: 0;
+    height: 0;
+    width: 12%;
+    height: 90%;
+    margin-right: 2%;
+    border-radius: 20px;
+
+}
+
+.submit-filter {
+    background: transparent; /*  фон теперь типо полностью прохрачный у кнопки и есть только картинка лупы*/
+    border: none;
+}
+
+
+.submit-filter img {
+    width: 60%;
+    height: 60%;
+    background-color: transparent;
+}
+
+.filter-test form {
+    position: relative;
+    width: fit-content;
+}
+
+
+/* Планшеты */
+@media (max-width: 1024px) {
+    .avatar{
+        width: 33px;
+        height: 30px;
+    }
+
+    .image-robot{
+        margin-right: 0px;
+    }
+    .nick{
+        color: #D6E8FE;
+        font-weight: 400;
+        text-decoration: none;
+        font-size: 13px;
+    }
+
+    .antoher-data .text-tests{
+        color: #D6E8FE;
+        font-weight: 400;
+        text-decoration: none;
+        font-size: 11px;
+    }
+
+    .number-tests{
+        font-size: 12px;
+    }
+
+    .antoher-data .gmail{
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 9px;
+        margin: 0px;
+        padding: 0px;
+    }
+
+    .bonuses{
+        display: none;
+    }
+
+    .card{
+        width: 21%;
+        height: 80%;
+    }
+
+    .show-more a{
+        padding: 7px;
+        margin-right: 25px;
+        font-size: small;
+    }
+
+    .image-robot {
+        width: 30px;         
+    }
+    
+    .discription{
+        font-size: small;
+        margin: 0px;
+    }
+    .cards {
+        height: 70%;
+        /* background-color: #74919E; */
+    }
+    .test-name{
+        font-size: 10px;
+        padding: 0px;
+        margin-top: 4px;
+        margin-left: 20px;
+        margin-bottom: 0px;
+    }
+
+    .cards-floor {
+        margin-bottom: 0px;
+    }
+
+    .card_image img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .filter-input{
+        width: 40vw;
+    }
+
+    .main-input {
+        display: flex;
+        flex-direction: row;
+        gap:2%;
+        background-color: #ffffff;
+        border: 2px black solid;
+        padding: 4px;
+        border-radius: 15px;
+        width: 60%;
+    }
+    
+    .main-input input{
+        border: 2px black solid;
+        border-radius: 10px;
+        /* padding: 15px 30px 15px 20px; */
+        width: 90%;
+        height: 93%;
+        color: #636262;
+        font-weight: bold;
+        font-size:small;
+        padding-left: 30px;
+    }
+    
+    
+    .main-input button{
+        display: flex;
+        background-color: #8AF7D4;
+        color: #000000;
+        border: 2px black solid;
+        font-weight: bold;
+        border-radius: 15px;
+        padding: 11px;
+        width: 20%;
+        text-align: center;
+    }
+    
+    .main-input button:hover{
+        background-color: #77d8b9;
+    }
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) { 
+    .avatar{
+        width: 50px;
+        height: 45px;
+    }
+
+    .nick{
+        color: #D6E8FE;
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    .antoher-data .text-tests{
+        color: #D6E8FE;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 14px;
+    }
+
+    .antoher-data .gmail{
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 15px;
+    } 
+
+    .card{
+        height: 82%;
+    }
+
+    .filter-input{
+        width: 40vw;
+    }
+ }
+
+@media (min-width: 1441px) and (max-width: 1600px) {
+    .avatar{
+        width: 65px;
+        height: 60px;
+    }
+
+    .image-robot{
+        margin-right: 0px;
+    }
+    .nick{
+        color: #D6E8FE;
+        font-weight: 400;
+        text-decoration: none;
+        font-size: 24px;
+    }
+
+    .antoher-data .text-tests{
+        color: #D6E8FE;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+    .antoher-data .gmail{
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 17px;
+    }
+
+
+    .card{
+        width: 20.5%;
+        height: 88%;
+    }
+
+    .show-more a{
+
+        margin-right: 40px;
+
+    }
+
+    .cards {
+        height: 70%;
+        /* background-color: #74919E; */
+    }
+    .test-name{
+        font-size: 17px;
+        padding: 0px;
+        margin-top: 8px;
+        margin-left: 20px;
+        margin-bottom: 0px;
+        /* margin: 0px; */
+    }
+
+    .cards-floor {
+        margin-bottom: 0px;
+    }
+
+    .card_image img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .filter-input{
+        width: 40vw;
+    }
+
+    .image-robot {
+        bottom: 5;
+        right: 5;
+        margin-right: 10px;
+        position: absolute;
+        width: 60px;         
+        height: auto;
+        z-index: 10;         
+    }
+} 
+
+@media (min-width: 1601px) and (max-width: 2000px) {
+    .avatar{
+        width: 65px;
+        height: 60px;
+    }
+
+    .image-robot{
+        margin-right: 0px;
+    }
+    .nick{
+        color: #D6E8FE;
+        font-weight: 400;
+        text-decoration: none;
+        font-size: 26px;
+    }
+
+    .antoher-data .text-tests{
+        color: #D6E8FE;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 20px;
+    }
+
+    .antoher-data .gmail{
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 19px;
+    }
+
+
+    .card{
+        width: 20.5%;
+        height: 88%;
+    }
+
+    .show-more a{
+
+        margin-right: 50px;
+
+    }
+
+    .cards {
+        height: 70%;
+        /* background-color: #74919E; */
+    }
+    .test-name{
+        font-size: 22px;
+        padding: 0px;
+        margin-top: 8px;
+        margin-left: 20px;
+        margin-bottom: 0px;
+        /* margin: 0px; */
+    }
+
+    .cards-floor {
+        margin-bottom: 0px;
+    }
+
+    .discription{
+        font-size: 20px;
+    }
+
+    .card_image img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .filter-input{
+        width: 40vw;
+    }
+
+    .image-robot {
+        bottom: 5;
+        right: 5;
+        margin-right: 10px;
+        position: absolute;
+        width: 80px;         
+        height: auto;
+        z-index: 10;         
+    }
+} 
+
+@media(min-width:2001px){
+    .avatar{
+        width: 75px;
+        height: 70px;
+        margin-left: 2%;
+    }
+
+    .image-robot{
+        margin-right: 0px;
+    }
+    .nick{
+        color: #D6E8FE;
+        font-weight: 400;
+        text-decoration: none;
+        font-size: 30px;
+    }
+
+    .antoher-data .text-tests{
+        color: #D6E8FE;
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 26px;
+    }
+
+    .number-tests{
+        font-size: 26px;
+    }
+    .antoher-data .gmail{
+        font-weight: 600;
+        text-decoration: none;
+        font-size: 23px;
+    }
+
+
+    .card{
+        width: 20.5%;
+        height: 88%;
+    }
+
+    .show-more a{
+
+        margin-right: 50px;
+
+    }
+
+    .cards {
+        height: 70%;
+        /* background-color: #74919E; */
+    }
+    .test-name{
+        font-size: 25px;
+        padding: 0px;
+        margin-top: 8px;
+        margin-left: 20px;
+        margin-bottom: 0px;
+        /* margin: 0px; */
+    }
+
+    .cards-floor {
+        margin-bottom: 0px;
+    }
+
+    .discription{
+        font-size: 25px;
+    }
+
+    .card_image img{
+        width: 100%;
+        height: 100%;
+    }
+
+    .filter-input{
+        width: 40vw;
+    }
+
+    .image-robot {
+        bottom: 5;
+        right: 5;
+        margin-right: 10px;
+        position: absolute;
+        width: 105px;         
+        height: auto;
+        z-index: 10;         
+    }
+
+    .bonuses{
+        width: 80%;
+        height: 90%;
+    }
+}
+/* @media (min-width: 1025px) and (max-width: 1440px) { ... }
+
+@media (min-width: 1441px) and (max-width: 1920px) { ... }
+
+@media (min-width: 1921px) and (max-width: 2560px) { ... }
+
+@media (min-width: 2561px) { ... } */
