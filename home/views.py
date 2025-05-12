@@ -1,5 +1,5 @@
 import PIL.Image
-import flask, flask_login, random, os
+import flask, flask_login, random, os, flask_sqlalchemy
 from .models import User
 from Project.db import DATABASE
 from .send_email import send_code, generate_code
@@ -31,7 +31,6 @@ def render_home_auth():
     else:
         return flask.redirect("/")
     
-
 
 def render_registration():
     try:
@@ -146,9 +145,9 @@ def render_login():
     email = ''
     message = ''
     if flask.request.method == "POST":
+
         email_form = flask.request.form["email"]
         password_form = flask.request.form["password"]
-
         list_users = User.query.all()
         if User.query.filter_by(email = email_form).first() is None:
             email = "shake"
