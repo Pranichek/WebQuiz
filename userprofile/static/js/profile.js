@@ -48,3 +48,22 @@ phone_number.addEventListener(
         }
     }
 )
+
+let logout = document.querySelector(".logout-button")
+
+logout.addEventListener(
+    'click',
+    () => {
+        document.querySelector(".logout").style.display = "flex"
+    }
+)
+
+let logout_cancel = document.querySelector(".cancel")
+
+logout_cancel.addEventListener(
+    'click',
+    () => {
+        document.querySelector(".logout").style.display = "none"
+    }
+)
+

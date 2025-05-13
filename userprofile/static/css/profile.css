@@ -207,8 +207,78 @@ input{
     border: none;
 }
 
+.logout-button{
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    background-color: #C48AF7;
+    border: none;
+}
+
+
 @media (max-width: 450px){
     .info-container{
         width: 100%;
     }
+}
+
+.logout { 
+    display: none;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    align-items: center;
+    justify-content: center;
+    width: 562px;
+    height: 234px;   
+    border-radius: 15px;
+    background-color: #343434;
+}
+
+.text_logout {
+    background-color: #333;
+    color: white;
+    padding: 2rem;
+    border-radius: 16px;
+    max-width: 400px;
+    text-align: center;
+    font-family: sans-serif;
+}
+
+.text_logout h2 {
+    margin-top: 0;
+    font-size: 24px;
+}
+
+.text_logout p {
+    margin: 16px 0;
+    font-size: 18px;
+}
+
+.buttons_logout {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 24px;
+  }
+
+.cancel {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 3px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: transparent;
+    color: white;
+}
+
+.exit {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 3px;
+    font-weight: bold;
+    cursor: pointer;
+    background-color: #f66;
+    color: white;
 }
