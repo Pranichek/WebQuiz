@@ -6,7 +6,7 @@ profile = flask.Blueprint(
     import_name="userprofile",
     static_folder="static",
     template_folder="templates",
-    static_url_path="/profile/static"
+    static_url_path="/profile/static",
 )
 
 edit_avatar = flask.Blueprint(
