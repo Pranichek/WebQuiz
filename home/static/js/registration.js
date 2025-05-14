@@ -1,5 +1,6 @@
 const password1Input = document.querySelector('#password1');
 const eyeIcons1List = document.querySelectorAll("#eye1");
+
 let hidden1Icon;
 // тут ми пишмео код який перивіряє чи треба відчиняти/закривати пароль
 for (let eye1Icon of eyeIcons1List){

@@ -41,8 +41,10 @@ for (let button of buttonList){
                 button.style.display = "none"
                 document.getElementById('phone_form').value = '+380'
                 document.getElementById('phone_form').disabled = false;
-                document.getElementById('phone_form').style.borderBottom = '1px #7291B8 solid';
-
+                document.getElementById('phone_form').style.borderBottom = '1.5px #7291B8 solid';
+                setTimeout(() => {
+                    document.getElementById('phone_form').classList.add('active');
+                  }, 300);
             }
             if (button.value == "password_button"){
                 document.querySelector(".change_password").style.display = "flex"

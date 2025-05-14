@@ -146,9 +146,9 @@
                 <p class="password-rule">Введіть попередній пароль</p>
                 <input type="text" name="current_password" id="" class="password-input" required>
                 <p class="password-rule">Введіть новий пароль </p>
-                <input type="text" name="new_password" id="" maxlength="8" minlength="8" class="password-input" required>
+                <input type="text" name="new_password" id=""pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$" maxlength="8" minlength="8" class="password-input" required>
                 <p class="password-rule">Підтвердження нового пароля</p>
-                <input type="text" name="confirm_password" id="" maxlength="8" minlength="8" class="password-input" required>
+                <input type="text" name="confirm_password" id="" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$" maxlength="8" minlength="8" class="password-input" required>
                 <div class="password-buttons">
                     <button class="back-password" type="button" onclick="CloseLogout()">назад</button>
                     <button class="password-button">Готово</button>
