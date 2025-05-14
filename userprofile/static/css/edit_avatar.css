@@ -269,7 +269,7 @@ body{
 
 /* тут код для модального окна */
 .confirm-changing{
-    display: none;
+    display: flex;
     color: #ffffff;
     text-align: center;
     /* display: flex; */

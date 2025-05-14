@@ -62,18 +62,18 @@ for (let agree of agreeds){
 }
 
 
-window.addEventListener(
-    'load',
-    () => {
-        let ava = document.querySelector(".confirm-changing")
-        ava.style.display = 'none';
+// window.addEventListener(
+//     'load',
+//     () => {
+//         let ava = document.querySelector(".confirm-changing")
+//         ava.style.display = 'none';
 
-        console.log("vot", ava.classList)
-        // if (ava.classList.contains("show")) {
-        //     ava.style.display = "flex";
-        // }
-    }
-)
+//         console.log("vot", ava.classList)
+//         // if (ava.classList.contains("show")) {
+//         //     ava.style.display = "flex";
+//         // }
+//     }
+// )
 
 // function ShowAva(){
 //     let ava = document.querySelector(".confirm-changing")
