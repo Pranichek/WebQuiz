@@ -1,4 +1,5 @@
-import flask, os, flask_login, random
+import flask, os, flask_login, random, shutil
+from threading import Thread
 import PIL.Image
 from home.models import User
 from Project.db import DATABASE
@@ -11,38 +12,43 @@ def render_profile():
         check_form = flask.request.form.get("form_name")
 
         if check_form == "change_name":
-            user.username = flask.request.form["new_name"]
-            DATABASE.session.commit()
+            if any(symbol.isdigit() for symbol in flask.request.form["new_name"]) == False:
+                user.username = flask.request.form["new_name"]
+                DATABASE.session.commit()
 
         elif check_form == "change_phone":
-            print(flask.request.form["phone_number"][1:])
-            if User.query.filter_by(phone_number = flask.request.form["phone_number"][1:]).first() is None:
-                user.phone_number = flask.request.form["phone_number"]
-                DATABASE.session.commit()
-            else:
-                return "Такий номер телефону вже зареєстрован"
-        elif check_form == "password":
-            if flask.request.form["old_password"] == user.password:
+            if User.query.filter_by(phone_number = flask.request.form["new_phone"][1:]).first() is None:
+                # проверка на наличие цифр в строке
+                if flask.request.form["new_phone"][1:].isdigit() and len(flask.request.form["new_phone"][1:]) == 12:
+                    user.phone_number = flask.request.form["new_phone"]
+                    DATABASE.session.commit()
 
-                user.password = flask.request.form["new_password"]
-                DATABASE.session.commit()
-            
-        elif check_form == "send_code":
-            code = generate_code()
-            flask.session["code"] = code
-            flask.session["email"] = flask.request.form["new_email"]
-            send_code(recipient = flask.request.form["new_email"], code = int(flask.session["code"]))
-        elif check_form == "email":
-            if str(flask.request.form["code_new_email"]) == flask.session["code"]:
-                old_name_folder = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(user.email)))
-                new_name_folder = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"])))
-                user.email = flask.session["email"]
-                os.rename(old_name_folder, new_name_folder)
-                DATABASE.session.commit()
+        elif check_form == "change_password":
+            if flask.request.form["current_password"] == flask_login.current_user.password:
+                if flask.request.form["new_password"] == flask.request.form["confirm_password"]:
+                    user.password = flask.request.form["new_password"]
+                    DATABASE.session.commit()
+        elif check_form == "change_email_user":
+            if User.query.filter_by(email =flask.request.form["new_email"]).first() is None:
+                code = generate_code()
+                flask.session["code"] = code
+                flask.session["new_email"] = flask.request.form["new_email"]
+                # send_code(recipient = flask.request.form["new_email"], code = int(flask.session["code"]))
+                email = Thread(target = send_code, args = (str(flask.request.form["new_email"]), flask.session["code"]))
+                email.start()
+                return flask.redirect("/verify_code")
+
         elif check_form == "logout":
             flask.session.clear()
+        
+        elif check_form == "delete":
+            user = User.query.get(flask_login.current_user.id)
+            shutil.rmtree(os.path.abspath(os.path.join(__file__, "..", "static", "images", "edit_avatar", str(user.email))))
+            flask.session.clear()
+            DATABASE.session.delete(user)
+            DATABASE.session.commit()
+            return flask.redirect("/")
 
-         
     if flask_login.current_user.is_authenticated:
         return flask.render_template(
             template_name_or_list = "profile.html",
@@ -125,7 +131,7 @@ def render_edit_avatar():
             template_name_or_list = "edit_avatar.html",
             user = user,
             show = show[0],
-            cash_image = str(flask.session["cash_image"])
+            cash_image = str(flask.session["cash_image"] if 'cash_image' in flask.session else "Nothing")
         )
     else:
         return flask.redirect("/")

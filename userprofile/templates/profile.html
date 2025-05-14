@@ -28,7 +28,7 @@
                     <span class="info">
                         <p class="label">Ім’я користувача</p>
                         <!-- <p>{{ user.username }}</p> -->
-                        <input type="text" name="" id="foo" value="{{ user.username }}" id="" disabled>
+                        <input minlength="2" maxlength="10" pattern="[A-Za-zа-яА-Я]+" type="text" name="" class="text-name" id="foo" value="{{ user.username }}" disabled>
                     </span>
                     <button class="change" id="change1" value="name">Змінити</button>
                     <div class="change_name">
@@ -48,41 +48,45 @@
                 <div class="info-item">
                     <span class="info">
                         <p class="label">Електроннна пошта</p>
-                        <p>{{ email }}</p>
+                        <!-- <p>{{ email }}</p> -->
+                        <input type="text" id="email-form"  name="input_email" class="input_email" value="{{ email }}" id="email-imput" disabled>
                     </span>
                     <button class="change" value = "email">Змінити</button>
                     <div class="change_email">
-                        <form action="" method="post">
-                            <!-- чепупеля по которой понимаем какую форму отправили -->
-                            <input type="hidden" name="form_name" value="email">
-                            <input type="num" placeholder="code" name = "code_new_email">
-                            <button type="submit">Змінити</button>
+                        <form action="" method="">
+                            <input type="hidden" name="form_name" value="otmena_email">
+                            <button class="deny-button" type="submit">скасувати</button>
                         </form>
                         <form action="" method="post">
-                            <input type="hidden" name="form_name" value="send_code">
-                            <input type="email" placeholder="email" name="new_email">
-                            <button type="submit" value>send code verification</button>
+                            <!-- чепупеля по которой понимаем какую форму отправили -->
+                            <input type="hidden" name="form_name" value="change_email_user">
+                            <input class="new_email" type="hidden" name="new_email" value = "none">
+                            <button class="accept-email" type="submit">Надіслати код</button>
                         </form>
                     </div>
                 </div>
                 <div class="info-item">
                     <span class="info">
                         <p class="label">Номер телефону</p>
-                        <p>{{ phone_user }}</p>
+                        <!-- <p>{{ phone_user }}</p> -->
+                        <input inputmode="numeric" pattern="[\d\+]*$" id="phone_form" type="tel" maxlength="13" minlength="13" name="input_phone" class="input_phone" value="{{ phone_user }}" id="email-imput" disabled>
                     </span>
                     <button class="change" value="phone_number">Змінити</button>
                     <div class="change_phone">
+                        <form action="" method="">
+                            <input type="hidden" name="form_name" value="otmena_phone">
+                            <button class="deny-button" type="submit">скасувати</button>
+                        </form>
                         <form action="" method="post">
                             <!-- чепупеля по которой понимаем какую форму отправили -->
                             <input type="hidden" name="form_name" value="change_phone">
-                            <input inputmode="numeric" id = "input_phone" pattern="[\d\+]*$" class="text-input phone {% if phone_shake %}phone_shake{% endif %}" type="tel" maxlength="13" minlength="13" name= "phone_number" placeholder="Введіть номер телефону (починайте з +380)" value="+380" required>
-                            <button type="submit">Змінити</button>
+                            <input  class="new_phone" type="hidden" name="new_phone" value = "none">
+                            <button class="accept-phone" type="submit">Підтвердити</button>
                         </form>
                     </div>
                 </div>
             </span>
         </div>
-
     </div>
 
     <h3 class="text-in-between">Обліковий запис та конфеденційність</h3>
@@ -91,25 +95,63 @@
 
         <div class="control-option">
             <p>Оновити пароль</p>
-            <button class="account-button change" value = "password_button" onclick="">Змінити</button>
-            <div class="change_password">
-                <form action="" method="post">
-                    <input type="hidden" name="form_name" value="password">
-                    <input type="num" placeholder="Текущий" name="old_password">
-                    <input type="num" placeholder="Новый" name = "new_password">
-                    <button type="submit">Змінити</button>
-                </form>
-            </div>
+            <button class="account-button change" value = "password_button" onclick="ChangePassword()">Змінити</button>
         </div>
         <div class="control-option">
             <p>Видалити акаунт</p>
-            <button class="account-button">Видалити</button>
+            <button type="button" onclick="DeletAccount()" class="account-button">Видалити</button>
         </div>
         <div class="control-option">
             <p>Вийти з акаунта</p>
             <form action="" method="post">
                 <input type="hidden" name="form_name" value="logout">
-                <button class="account-button" type="submit">Вийти</button>
+                <button onclick="Logout()" class="account-button" type="button">Вийти</button>
+            </form>
+        </div>
+
+        <div class="confirm-logout">
+            <div class="logout-text">
+                <p class="logout-text">Вихід</p>
+                <p class="deny-text">Ви впеввпевнені, що хохочете вийти з<br>облікового ззапису ?</p>
+            </div>
+            <form action="" method="post" class="logout-buttons">
+                <form action="" method="post">
+                    <button class="button-deny" type="button" onclick="CloseLogout()">скасувати</button>
+                    <input type="hidden" name="form_name" value="logout">
+                    <button class="logout" type="submit">Вийти</button>
+                </form>
+            </form>
+        </div>
+
+        <div class="confirm-delete">
+            <div class="logout-text">
+                <p class="logout-text">Видалення облікового запису</p>
+                <p class="deny-text">Ви впевнені, що хохочете видалити обліковий запис? </p>
+            </div>
+            <form action="" method="post" class="logout-buttons">
+                <button class="button-deny" type="button" onclick="CloseLogout()">скасувати</button>
+                <input type="hidden" name="form_name" value="delete">
+                <button class="logout" type="submit">Видалити</button>
+            </form>
+        </div>
+
+        <div class="change_password">
+            <div class="password-text">
+                <p class="topic-password">Оновити пароль</p>
+                <p class="rule-text">Введіть поточний пароль та новий пароль</p>
+            </div>
+            <form action="" method="post" class="inputs-passwords">
+                <input type="hidden" name="form_name" value="change_password">
+                <p class="password-rule">Введіть попередній пароль</p>
+                <input type="text" name="current_password" id="" class="password-input" required>
+                <p class="password-rule">Введіть новий пароль </p>
+                <input type="text" name="new_password" id="" maxlength="8" minlength="8" class="password-input" required>
+                <p class="password-rule">Підтвердження нового пароля</p>
+                <input type="text" name="confirm_password" id="" maxlength="8" minlength="8" class="password-input" required>
+                <div class="password-buttons">
+                    <button class="back-password" type="button" onclick="CloseLogout()">назад</button>
+                    <button class="password-button">Готово</button>
+                </div>
             </form>
         </div>
 

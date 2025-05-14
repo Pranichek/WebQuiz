@@ -6,8 +6,176 @@ a{
     text-decoration: none;
 }
 
-.change_name, .change_phone, .change_password, .change_email{
+.change_name, .change_phone, .change_email, .change_email, .confirm-logout, .change_phone, .confirm-delete{
     display: none;
+}
+
+/* новый пароль */
+.change_password{
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #2f2f2f;
+    width: 562px;
+    height: 618px;
+    gap: 9px;
+    padding: 19px 10px 0px 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* вот эта дичь центрирует */
+    z-index: 2000;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.password-text{
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    text-align: center;
+    width: 100%;
+    height: 20%;
+    /* background-color: #94C4FF; */
+}
+
+.topic-password{
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.rule-text{
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.inputs-passwords{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 9px;
+    width: 100%;
+    height: 80%;
+    /* background-color:green; */
+    padding: 10px;
+}
+
+.password-rule{
+    color: #BFBFBF;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.password-input{
+    border: 2px #94C4FF solid;
+    padding: 10px;
+    width: 100%;
+    height: 14%;
+    background: none;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 700;
+}
+
+.password-buttons{
+    width: 100%;
+    height: 20%;
+    /* background-color: #FD6363; */
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: end;
+}
+
+.password-button{
+    padding: 10px 20px 10px 20px;
+    color: #ffffff;
+    background-color: #C48AF7;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+}
+
+.back-password{
+    background: none;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+    margin-right: 10px;
+}
+/*  */
+
+.confirm-logout, .confirm-delete{
+    background-color: #343434;
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed; /* fixed — чтобы блок всегда был поверх и центрировался по окну */
+    top: 50%;
+    z-index: 2000;
+    width: 562px;
+    height: 234px;
+    text-align: center;
+    gap: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.logout-text{
+    /* background-color: #94C4FF; */
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    margin-bottom: 10px;
+}
+
+.deny-text{
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.button-deny{
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.logout-text{
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.logout-buttons{
+    /* background-color: green; */
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logout{
+    background-color: #FD6363;
+    color: #ffffff;
+    border-radius: 3px;
+    padding: 10px 30px 10px 30px;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
 }
 
 input{
@@ -153,6 +321,17 @@ input{
     outline:none;
 }
 
+.input_email{
+    padding-top: 11px;
+    width: 100%;
+    font-size: 20px;
+    background-color: none;
+    color: #ffffff;
+    background: none;
+    border: none;
+    outline:none;
+}
+
 .deny-button{
     font-size: 16px;
     color: #ffffff;
@@ -172,9 +351,34 @@ input{
     padding: 10px;
 }
 
-/* .info-item .label{
+.accept-email{
+    color: #ffffff;
+    background-color: #7291B8;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+}
+
+.accept-phone{
+    color: #ffffff;
+    background-color: #7291B8;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+}
+
+.text-name, .input_phone{
+    padding-top: 11px;
+}
+
+.info-item .label{
     color: #BFBFBF;
-} */
+    font-weight: 500;
+}
 
 .change{
     width: 22%;
