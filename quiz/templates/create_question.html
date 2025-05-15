@@ -10,15 +10,29 @@
 
 {% block content %}
     <div class="pseudo-header">
-        <a href="/test" class="test-button">
+        <a href="/test" class="test-button" id="save">
             <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
         </a>
     </div>
+    
+    <div class="question-name">
+        <input type="text" class="question" name="question" id="question" placeholder="Питання">
+        <button class="add-image">Додати зображення</button>
+    </div>
 
-    <input type="text" class="question" name="question" id="question" placeholder="Питання">
-    <input type="text" class="answer" name="answer" id="1" placeholder="Відповідь (правильна)">
-    <input type="text" class="answer" name="answer" id="0" placeholder="Відповідь (неправильна)">
-    <p class="button" id="save">Створити</p>
+    <h3>Оберіть варіант відповіді</h3>
+
+    <div class="answers-container">
+        <div class="answer-block">
+            <input type="text" class="answer" name="answer" id="1" placeholder="Відповідь (правильна)">
+        </div>
+        <div class="answer-block">
+            <input type="text" class="answer" name="answer" id="0" placeholder="Відповідь (неправильна)">
+        </div>
+        <p class="button">
+            <img src="{{ url_for('test_pass.static', filename='images/plus.png') }}" alt="">
+        </p>
+    </div>
 
     <script src="{{ url_for('test_pass.static', filename='js/createQuestionCookies.js') }}" defer></script>
 {% endblock %}

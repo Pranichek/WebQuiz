@@ -6,6 +6,7 @@ form{
     display: flex;
     flex-direction: column;
     gap: 25px;
+    margin: 50px;
     width: 70%;
 }
 
@@ -30,6 +31,7 @@ form{
 
 .info-block{
     display: flex;
+    align-items: start;
     gap: 7px;
     width: 40%;
 }
@@ -39,6 +41,7 @@ form{
     flex-direction: column;
     align-items: start;
     justify-content: start;
+    gap: 10px;
 }
 
 .test-title-input{
@@ -58,10 +61,18 @@ form{
     border-radius: 5px;
 }
 
+.creator-info{
+    display: flex;
+}
+
 .creator-info img{
     width: 40px;
     height: 40px;
     border-radius: 100%;
+}
+
+.creator-email{
+    color: #636262;
 }
 
 .gray-block{
@@ -88,6 +99,7 @@ form{
 
 .buttons{
     display: flex;
+    flex-wrap: wrap;
     gap: 30px;
 }
 
@@ -103,4 +115,77 @@ form{
     color: white;
     text-decoration: none;
     text-align: center;
+}
+
+.all-cards{
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+    width: 100%;
+    height: fit-content;
+    padding: 40px;
+    border-radius: 30px;
+    background-color: #8ABBF733;
+}
+
+.question-card{
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    border-radius: 15px;
+    border: 2px solid #94C4FF;
+    background-color: #343434;
+}
+
+.question-conainer{
+    /* position: relative;
+    top: -100px; */
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100px;
+    overflow: hidden;
+}
+
+.question{
+    z-index: 2;
+}
+
+.variant{
+    display: flex;
+    justify-content: start;
+    gap: 10px;
+    width: 45%;
+    height: 50%;
+    /* background-color: aliceblue; */
+}
+
+.top-image{
+    position: absolute;
+    right: 0px;
+    width: 100%;
+    height: 100px;
+    border-radius: 10px 10px 0px 0px;
+}
+
+.answers{
+    /* position: relative;
+    top: -100px; */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 20px;
+    height: fit-content;
+}
+
+.circle{
+    width: 20px;
+    height: 20px;
+    border: 1px solid #94C4FF;
+    border-radius: 1234px;
+}
+
+.answers p{
+    /* width: 30%; */
+    font-size: 13px;
 }
