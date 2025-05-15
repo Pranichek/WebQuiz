@@ -16,3 +16,72 @@ for (let button of buttonList){
         saveButton.style.display = "block"
     })
 }
+
+function loadIMage(){
+    document.getElementById("file-upload").click();
+}
+
+function submitForm() {
+    document.getElementById("send-picture").submit();
+    ShowAva();
+}
+
+
+
+let defalutAvatars = document.querySelectorAll(".img")
+let agreeds = document.querySelectorAll(".agree")
+
+for (let image of defalutAvatars){
+    image.addEventListener(
+        'click',
+        () => {
+            let image_id = image.id;
+            for (let agree of agreeds){
+                if (agree.id == image_id){
+                    agree.style.display = "block";
+                }else{
+                    agree.style.display = "none";
+                }
+            }
+        }   
+    )
+}
+
+let input_data = document.querySelector(".data_avatar")
+
+for (let agree of agreeds){
+    agree.addEventListener(
+        'click',
+        () => {
+            if (agree.style.display == "block"){
+                input_data.value = String(agree.id)
+                document.getElementById("default_avatar").submit();
+            }
+        }
+    )
+}
+
+
+// window.addEventListener(
+//     'load',
+//     () => {
+//         let ava = document.querySelector(".confirm-changing")
+//         ava.style.display = 'none';
+
+//         console.log("vot", ava.classList)
+//         // if (ava.classList.contains("show")) {
+//         //     ava.style.display = "flex";
+//         // }
+//     }
+// )
+
+// function ShowAva(){
+//     let ava = document.querySelector(".confirm-changing")
+//     console.log("da")
+//     console.log("da")
+//     if (ava.classList.contains(".show")){
+//         ava.style.display = "none";
+//     }else{
+//         ava.style.display = 'flex';
+//     }
+// }

@@ -49,3 +49,7 @@ window.addEventListener('load', () => {
             },  1000);
     }
 })
+
+// function Reset() {
+//     document.querySelector("#form").reset();
+// }
