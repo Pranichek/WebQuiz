@@ -77,6 +77,7 @@ header{
 .avatar{
     width: 20%;
     height: 100%;
+    border-radius: 50%;
 }
 
 .username{
@@ -337,10 +338,10 @@ input::-webkit-inner-spin-button {
 
 
 /* Планшеты */
-@media (min-width: 768px) and (max-width: 1024px) {
+@media (max-width: 1024px) {
     .avatar{
-        width: 35px;
-        height: 40px;
+        width: 33px;
+        height: 30px;
     }
 
     .image-robot{
@@ -350,20 +351,26 @@ input::-webkit-inner-spin-button {
         color: #D6E8FE;
         font-weight: 400;
         text-decoration: none;
-        font-size: 16px;
+        font-size: 13px;
     }
 
     .antoher-data .text-tests{
         color: #D6E8FE;
-        font-weight: 600;
+        font-weight: 400;
         text-decoration: none;
-        font-size: 14px;
+        font-size: 11px;
+    }
+
+    .number-tests{
+        font-size: 12px;
     }
 
     .antoher-data .gmail{
         font-weight: 600;
         text-decoration: none;
-        font-size: 11px;
+        font-size: 9px;
+        margin: 0px;
+        padding: 0px;
     }
 
     .bonuses{
@@ -372,25 +379,33 @@ input::-webkit-inner-spin-button {
 
     .card{
         width: 21%;
-        height: 70%;
+        height: 80%;
     }
 
     .show-more a{
-
+        padding: 7px;
         margin-right: 25px;
-
+        font-size: small;
     }
 
+    .image-robot {
+        width: 30px;         
+    }
+    
+    .discription{
+        font-size: small;
+        margin: 0px;
+    }
     .cards {
         height: 70%;
         /* background-color: #74919E; */
     }
     .test-name{
-        font-size: 13px;
+        font-size: 10px;
         padding: 0px;
         margin-top: 4px;
         margin-left: 20px;
-        /* margin: 0px; */
+        margin-bottom: 0px;
     }
 
     .cards-floor {
@@ -405,22 +420,62 @@ input::-webkit-inner-spin-button {
     .filter-input{
         width: 40vw;
     }
+
+    .main-input {
+        display: flex;
+        flex-direction: row;
+        gap:2%;
+        background-color: #ffffff;
+        border: 2px black solid;
+        padding: 4px;
+        border-radius: 15px;
+        width: 60%;
+    }
+    
+    .main-input input{
+        border: 2px black solid;
+        border-radius: 10px;
+        /* padding: 15px 30px 15px 20px; */
+        width: 90%;
+        height: 93%;
+        color: #636262;
+        font-weight: bold;
+        font-size:small;
+        padding-left: 30px;
+    }
+    
+    
+    .main-input button{
+        display: flex;
+        background-color: #8AF7D4;
+        color: #000000;
+        border: 2px black solid;
+        font-weight: bold;
+        border-radius: 15px;
+        padding: 11px;
+        width: 20%;
+        text-align: center;
+    }
+    
+    .main-input button:hover{
+        background-color: #77d8b9;
+    }
 }
 
 @media (min-width: 1025px) and (max-width: 1440px) { 
     .avatar{
-        width: 55px;
-        height: 55px;
+        width: 50px;
+        height: 45px;
     }
 
     .nick{
         color: #D6E8FE;
         font-weight: 500;
         text-decoration: none;
-        font-size: 24px;
+        font-size: 17px;
     }
 
-    /* .antoher-data .text-tests{
+    .antoher-data .text-tests{
         color: #D6E8FE;
         font-weight: 600;
         text-decoration: none;
@@ -431,7 +486,7 @@ input::-webkit-inner-spin-button {
         font-weight: 600;
         text-decoration: none;
         font-size: 15px;
-    } */
+    } 
 
     .card{
         height: 82%;

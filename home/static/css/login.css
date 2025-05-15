@@ -171,8 +171,12 @@
 }
 
 .email_input, .password{
-    animation: shake 0.5s;
-    animation-iteration-count: infinite;
+    animation: shake 0.4s;
+    /* animation-iteration-count: infinite; */
+}
+
+.problem {
+    color: #ffffff;
 }
 
 /* создаем как бы обьект для анимации */

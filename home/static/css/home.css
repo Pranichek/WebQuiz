@@ -8,6 +8,18 @@ body {
     color: white;
 }
 
+.background-blur {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: linear-gradient(170deg, #3C3C3C 10%, #7c9abd 20%, #74919E 42%, #3C3C3C 5%);
+    filter: blur(100px);
+    z-index: -1;
+    pointer-events: none;
+}
+
 .join-game {
     display: flex;
     flex-direction: column;
@@ -400,7 +412,7 @@ img{
     }
     
     .input-code button {
-        padding: 10px 20px;
+        padding: 13px 20px;
         background-color: #8AF7D4;
         color: black;
         border: none;
@@ -547,7 +559,7 @@ img{
     }
     
     .input-code button {
-        padding: 10px 20px;
+        padding: 14px 20px;
         background-color: #8AF7D4;
         color: black;
         border: none;
@@ -681,7 +693,7 @@ img{
     }
     
     .input-code button {
-        padding: 10px 20px;
+        padding: 20px 20px;
         background-color: #8AF7D4;
         color: black;
         border: none;

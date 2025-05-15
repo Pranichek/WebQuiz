@@ -18,3 +18,17 @@ for (let eyeIcon of eyeIconsList){
         }
     )
 }
+
+
+window.addEventListener('load', () => {
+    if(document.querySelector(".input_email").classList.length >= 3){
+        setTimeout(() => {
+            document.querySelector(".input_email").classList.remove("email_input");
+            },  1000);
+    }
+    if(document.querySelector(".input_password").classList.length >= 3){
+        setTimeout(() => {
+            document.querySelector(".input_password").classList.remove("password");
+            },  1000);
+    }
+})

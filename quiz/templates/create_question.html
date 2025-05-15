@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Question creation
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/create_question.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div class="pseudo-header">
+        <a href="/test" class="test-button">
+            <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
+        </a>
+    </div>
+
+    <input type="text" class="question" name="question" id="question" placeholder="Питання">
+    <input type="text" class="answer" name="answer" id="1" placeholder="Відповідь (правильна)">
+    <input type="text" class="answer" name="answer" id="0" placeholder="Відповідь (неправильна)">
+    <p class="button" id="save">Створити</p>
+
+    <script src="{{ url_for('test_pass.static', filename='js/createQuestionCookies.js') }}" defer></script>
+{% endblock %}

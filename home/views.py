@@ -1,8 +1,10 @@
-import flask, flask_login, random
+import PIL.Image
+import flask, flask_login, random, os
 from .models import User
 from Project.db import DATABASE
-from .send_email import send_code
+from .send_email import send_code, generate_code
 from threading import Thread
+import PIL
 
 #Просто головна сторінка
 def render_home():
@@ -30,60 +32,65 @@ def render_home_auth():
         return flask.redirect("/")
     
 
-def generate_code():
-    str_code = ''
-    for num in range(6):
-        random_num = random.randint(0,9)
-        str_code += str(random_num)
-
-    return str_code
-
 
 def render_registration():
     try:
+        email_shake = ''
+        password_shake = ''
+        phone_shake = ''
         message = ''
         flask.session["count_email"] = 0
         if flask.request.method == "POST":
             username_form = flask.request.form["username"]
 
             email_form = flask.request.form["email"]
-            # phone_number_form = flask.request.form["phone_number"]
+            phone_number_form = flask.request.form["phone_number"]
             mentor_form = flask.request.form["mentor"]
 
             password_form = flask.request.form["password"]
             confirm_password = flask.request.form["confirm-password"]
-
             if password_form == confirm_password and len(password_form) == 8:
                 if User.query.filter_by(email = email_form).first() is None:
-                    is_mentor = None
-                    if mentor_form == 'True':
-                        is_mentor = True
+                    if User.query.filter_by(phone_number = phone_number_form).first() is None:
+                        is_mentor = None
+                        if mentor_form == 'True':
+                            is_mentor = True
+                        else:
+                            is_mentor = False
+                        random_code = generate_code()
+
+                        flask.session["count_email"] += 1
+                        flask.session["code"] = random_code
+                        flask.session["email"] = email_form
+                        flask.session["username"] = username_form
+                        flask.session["check_mentor"] = is_mentor
+                        flask.session["password"] = password_form
+                        flask.session["phone_number"] = phone_number_form
+
+                        email = Thread(target = send_code, args = (email_form, flask.session["code"]))
+                        email.start()
+                        
+                        return flask.redirect("/verify_code")
                     else:
-                        is_mentor = False
-                    random_code = generate_code()
-
-                    flask.session["count_email"] += 1
-                    flask.session["code"] = random_code
-                    flask.session["email"] = email_form
-                    flask.session["username"] = username_form
-                    flask.session["check_mentor"] = is_mentor
-                    flask.session["password"] = password_form
-
-                    email = Thread(target = send_code, args = (email_form, flask.session["code"]))
-                    email.start()
-                    
-                    return flask.redirect("/verify_code")
+                        flask.session.clear()
+                        phone_shake = "User already exists"
+                        message = "Користувач із таким номером телефону вже існує"
                 else:
                     flask.session.clear()
-                    message = "User already exists"
+                    email_shake = "User already exists"
+                    message = "Користувач із такою поштою вже існує"
             else:
                 flask.session.clear()
-                message = "Паролі не співпадають"
+                password_shake = "Password is not eqal each other"
+                message = "Введені паролі не співпадають"
                 
         return flask.render_template(
             template_name_or_list = "registration.html", 
-            message = message, 
-            registration_page = True
+            email_shake = email_shake, 
+            registration_page = True,
+            password_shake = password_shake,
+            phone_shake = phone_shake,
+            message = message
         )
     except Exception as error:
         print(error)
@@ -103,9 +110,17 @@ def render_code():
                             username = flask.session["username"],
                             password = flask.session["password"],
                             email = flask.session["email"],
-                            is_mentor = flask.session["check_mentor"]
+                            is_mentor = flask.session["check_mentor"],
+                            phone_number = flask.session["phone_number"]
                         )
                     
+                    #створює папку із тим шляхом що указали
+                    os.mkdir(path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"]))))
+                    # creating a image object (main image) 
+                    default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.png")))
+                    # save a image using extension
+                    default_img = default_img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(str(flask.session["email"])) ,"default_avatar.png")))
+
                     DATABASE.session.add(user)
                     DATABASE.session.commit()
                     flask_login.login_user(user)
@@ -127,20 +142,33 @@ def render_code():
 
 
 def render_login():
+    password = ''
+    email = ''
+    message = ''
     if flask.request.method == "POST":
         email_form = flask.request.form["email"]
         password_form = flask.request.form["password"]
 
         list_users = User.query.all()
-
-        for user in list_users:
-            if user.email == email_form and user.password == password_form:
-                flask_login.login_user(user)
+        if User.query.filter_by(email = email_form).first() is None:
+            email = "shake"
+            message = 'Користувача із такою поштою не існує'
+        else:
+            for user in list_users:
+                if user.email == email_form:
+                    if user.password == password_form:
+                        flask_login.login_user(user)
+                    else:
+                        password = "shake"
+                        message = 'Введений пароль не підходить до пошти'
 
     if not flask_login.current_user.is_authenticated:
         return flask.render_template(
             template_name_or_list = "login.html", 
-            login_page = True
+            login_page = True,
+            password = password,
+            email = email,
+            message = message
             )
     else:
         return flask.redirect("/")

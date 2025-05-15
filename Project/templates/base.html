@@ -20,22 +20,23 @@
                         <a href="/registration" class="auth-button">Реєстрація</a>
                         <a href="/login" class="login-button">Увійти</a>
                     </div>
-                {% endif %}
-                {% if registration_page %}
+                {% elif registration_page%}
                     <div class="nav-links">
                         <a href="/" class="enter-code">Приєднатися</a>
                         <a href="/login" class="login-button">Увійти</a>
                     </div>
-                {% endif %}
-                {% if login_page %}
+                {% elif login_page %}
                     <div class="nav-links">
                         <a href="/" class="enter-code">Приєднатися</a>
                         <a href="/registration" class="auth-button">Реєстрація</a>
                     </div>
-                {% endif %}
-                {% if home_auth %}
+                {% elif home_auth %}
                     <div class="nav-links">
                         <a href="/test" class="test-button">Створити тест</a>
+                    </div>
+                {% else %}
+                    <div class="nav-links">
+                        <a href="/" class="enter-code">Додому</a>
                     </div>
                 {% endif %}
 

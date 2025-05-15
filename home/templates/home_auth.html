@@ -19,7 +19,7 @@
         </div>
         <div class="data-user">
             <div class="main-data">
-                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.png' ) }}" alt="avatar">
+                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + email +'/'+ name_avatar ) }}" alt="avatar">
                 <a class="nick" href="/profile">{{ username }}</a>
             </div>
             <div class="antoher-data">

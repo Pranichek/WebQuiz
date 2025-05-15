@@ -1,0 +1,292 @@
+#eye1, #eye2{
+    cursor: pointer;
+}
+
+.content-registration{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100vw;
+    background-color: #3C3C3C;
+    height: 90vh;
+    align-items: center;
+    gap: 100px;
+}
+
+.registration{
+    position: relative;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    background-color: #343434;
+    border: 2px solid #B9BDF5;
+    border-radius: 30px;
+    height: 90%;
+    width: 40vw;
+    align-items: center;
+    padding: 30px 0px
+}
+
+.registration form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    gap: 10px;
+}
+
+.text-input {
+    border: solid 2px black;
+    border-radius: 10px;
+    width: 80%;
+    height: 10%;
+    max-height: 70px;
+    color: #414141;
+    background-color: #B9BDF5;
+    text-align: center;
+    font-size: 20px;
+}
+
+.password-container{
+    position: relative;
+    display: flex;
+    width: 80%;
+    height: 10%;
+}
+
+.password-container .text-input{
+    width: 100%;
+    height: 100%;
+}
+
+.password-container img{
+    position: absolute;
+    right: 5%;
+    z-index: 3;
+    width: 20px;
+    height: 20px;
+}
+
+.hidden1, .hidden2{
+    display: none;
+}
+
+.send-data{
+    border: solid 1px black;
+    border-radius: 10px;
+    width: 80%;
+    height: 50px;
+    background-color: #C48AF7;
+    color: white;
+    text-align: center;
+    font-size: 20px;
+}
+
+.user-status{
+    display: flex;
+    gap: 30px;
+    width: 80%;
+}
+
+.user-status label{
+    width: 50%;
+    color: white;
+    font-size: 20px;
+}
+
+.status-input{
+    width: 50px;
+    transform: scale(2); 
+}
+
+.promotion{
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+}
+
+.bonuses{
+    position: relative;
+    display: flex;
+    gap: 10px;
+}
+
+.bonus{
+    width: 100px;
+    height: 100px;
+    border: 1px solid #C48AF7;
+    border-radius: 20px;
+    background-color: #343434;
+}
+
+.glowing-area{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #b9bdf5b0;
+    filter: blur(100px);
+}
+
+.b1{
+    transform: rotate(-20deg);
+}
+.b2{
+    transform: rotate(15deg);
+}
+.b3{
+    transform: rotate(10deg);
+}
+
+.avatar{
+    width: 100px;
+    height: 100px;
+}
+
+.info-text p{
+    color: white;
+    font-size: 24px;
+}
+
+.robot{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-right: 3vw;
+    margin-bottom: 3vw;
+    width: 130px;
+    height: 190px;
+}
+
+.robot-glowing-area{
+    position: absolute;
+    right: 50px;
+    bottom: 100px;
+    width: 130px;
+    height: 190px;
+    background-color: #8af7d57a;
+    filter: blur(80px);
+}
+/* 
+img:hover {
+    /* Start the shake animation and make the animation last for 0.5 seconds */
+    /* animation: shake 0.5s; */
+    /* When the animation is finished, start again */
+    /* animation-iteration-count: infinite; */
+/* } */ 
+
+.email_input, .conf_password, .phone_shake{
+    animation: shake 0.4s;
+    /* animation-iteration-count: infinite; */
+}
+
+.problem {
+    color: #ffffff;
+}
+
+/* создаем как бы обьект для анимации */
+/* transfron:translate передвигает обьект по осям, а rotate поворачивает тем самым создается эффект траски */
+/* Проценты это как бы фреймы анимации можно делать больше таких фреймов(кадров), а можно меньше */
+@keyframes shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+    60% { transform: translate(-3px, 1px) rotate(0deg); }
+    70% { transform: translate(3px, 1px) rotate(-1deg); }
+    80% { transform: translate(-1px, -1px) rotate(1deg); }
+    90% { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+/* @media (max-height: 700px){
+    .registration{
+        overflow-y: scroll;
+        gap: 10px;
+    }
+    .img-avatar .avatar{
+        display: none;
+    }
+}
+
+@media (max-width: 900px){
+    .content-registration{
+        padding: 50px 10px;
+        height: auto;
+    }
+    .registration{
+        width: 80%;
+    }
+}
+
+@media(max-width: 1370px){
+
+    .robot-glowing-area{
+        display: none;
+    }
+} */
+@media (max-height: 100px){
+    /* .text-input{
+        height: 20%;
+    } */
+    .registration{
+        overflow-y: scroll;
+        gap: 10px;
+    }
+    .img-avatar .avatar{
+        display: none;
+    }
+}
+
+@media (max-width: 900px){
+    .content-registration{
+        padding: 50px 10px;
+        height: auto;
+    }
+    .registration{
+        width: 80%;
+    }
+    .password-container .text-input{
+        width: 100%;
+        height: 40px;   
+    }
+    .text-input {
+        width: 80%;
+        height: 40px;
+
+    }
+}
+
+@media(max-width: 1370px){
+    .robot{
+        display: flex;
+        width: 60px;
+        height: 80px;
+        right: 10px;
+    }
+    .robot-glowing-area{
+        display: none;
+    }
+}
+
+@media(max-width: 600px){
+    .password-container .text-input{
+        width: 100%;
+        height: 40px;   
+    }
+    .text-input {
+        width: 80%;
+        height: 40px;
+
+    }
+    .robot{
+        display: flex;
+        width: 40px;
+        height: 60px;
+        right: 10px;
+    }
+}
