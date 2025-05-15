@@ -196,6 +196,7 @@ body{
     color: #D6E8FE;
     font-weight: 500;
     text-decoration: none;
+    font-size: 20px;
 }
 
 .nick{
@@ -269,20 +270,23 @@ body{
 
 /* тут код для модального окна */
 .confirm-changing{
-    display: flex;
+    display: none;
     color: #ffffff;
     text-align: center;
-    /* display: flex; */
     flex-direction: column;
     width: 70vw;
     height: 80vh;
     border: 1px #94C4FF solid;
     border-radius: 34px;
     background-color: #343434;
-    position: relative;
     justify-content: start;
     align-items: center;
     overflow: hidden;
+    position: fixed;
+    z-index: 3000;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 .change-text{
@@ -417,3 +421,306 @@ body{
     gap: 10px;
 }
 
+
+@media (min-width:600px) and (max-width: 899px){
+    .options-avatar{
+        width: 70px;
+        border-radius: 50%;
+        height: 69px;
+        /* padding: 5px; */
+        border: 1px #94C4FF solid;
+    }
+    
+    .img{
+        /* background-color: #C48AF7; */
+        min-width: 80px;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        overflow: none;
+    }
+
+    .button{
+        background-color: #343434;
+        border: 1px #94C4FF solid;
+        width: 100%;
+        height: 50px;
+        border-radius: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #ffffff;
+        font-size: 20px;
+        padding-left: 30px;
+        padding-right: 30px;
+        background-color: brown;
+    }
+
+    .default-avatars{
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        gap: 20px;
+        border: 1px #C48AF7 solid;
+        border-radius: 34px;
+        width: 100%;
+        height: 150px;
+        padding-right: 131px;
+        padding-left: 131px;
+    }
+
+    .options-avatar{
+        width: 70px;
+        border-radius: 50%;
+        height: 69px;
+        /* padding: 5px; */
+        background-color: #FFE177;
+        border: 1px #94C4FF solid;
+    }
+
+    .edit-buttons{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        border: 1px #C48AF7 solid;
+        border-radius: 34px;
+        background-color: #464F5B;
+        width: 100%;
+        height: 45%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    .agree {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        margin: 2px;
+        z-index: 2;
+        display: none;
+    }
+    
+    .bottom-text{
+        margin-top: 71px;
+        color: #ffffff;
+        font-size: 20px;
+        margin-right: 30px;
+        font-weight: 350;
+    }
+
+    .image-robot {
+        bottom: 0;
+        right: 0;
+        position: relative;
+        width: 100px;         
+        height: auto;
+        margin-left: 20px;
+        margin-top: 100px;
+        z-index: 0;
+        filter: drop-shadow(0 0 3rem #94C4FF);
+    }
+
+    .data-user {
+        display: flex;
+        flex-direction: column;
+        background-color: none;
+        border: 1px black solid;
+        width: 50%;
+        height: 90%;
+        border-radius: 24px;
+        margin-right: 40px;
+        margin-left: 10px;
+        overflow: hidden;
+    }
+
+    .nick{
+        opacity: 1;
+        font-size: 25px;
+        font-weight: 300;
+        color: #ffffff;
+    }
+
+    .antoher-data .text-tests, .antoher-data .gmail{
+        opacity: 0.8;
+        color: #D6E8FE;
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 12px;
+    }
+
+    .number-tests{
+        color: #FFE177;
+        font-size: 16px;
+        margin-right: 2px;
+        margin-left: 2px;
+    }
+
+    .bonuses{
+        width: 71px;
+        height: 30px;
+    }
+}
+
+@media (min-width:900px) and (max-width: 1300px){
+    .button{
+        background-color: #343434;
+        border: 1px #94C4FF solid;
+        width: 90%;
+        height: 25%;
+        border-radius: 15px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: #ffffff;
+        font-size: 20px;
+        padding-left: 30px;
+        padding-right: 30px;
+        background-color: #FFE177;
+    }
+
+    .default-avatars{
+        height: 120px;
+    }
+
+    .options-avatar{
+        width: 70px;
+        border-radius: 50%;
+        height: 69px;
+    }
+    .edit-buttons{
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        justify-content: center;
+        align-items: center;
+        border: 1px #C48AF7 solid;
+        border-radius: 34px;
+        background-color: #464F5B;
+        width: 100%;
+        height: 45%;
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+
+@media (min-width:899px) and (max-width:1000px){
+    .data-user {
+        display: flex;
+        flex-direction: column;
+        background-color: none;
+        border: 1px black solid;
+        width: 50%;
+        height: 90%;
+        border-radius: 24px;
+        margin-right: 40px;
+        margin-left: 10px;
+        overflow: hidden;
+    }
+
+    .bottom-data{
+        background-color: green;
+    }
+    .gmail{
+        opacity: 0.8;
+        color: #D6E8FE;
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 7px;
+    }
+
+    .avatar{
+        width: 60px;
+        height: 100%;
+        border-radius: 50%;
+        border: 2px black solid;
+    }
+
+    .nick{
+        opacity: 1;
+        font-size: 25px;
+        font-weight: 300;
+        color: #ffffff;
+    }
+
+    .antoher-data .text-tests, .antoher-data .gmail{
+        opacity: 0.8;
+        color: #D6E8FE;
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 14px;
+    }
+}
+
+@media (min-width:1000px) and (max-width:1300px){
+    .data-user {
+        display: flex;
+        flex-direction: column;
+        background-color: none;
+        border: 1px black solid;
+        width: 40%;
+        height: 90%;
+        border-radius: 24px;
+        margin-right: 40px;
+        margin-left: 40px;
+        overflow: hidden;
+    }
+
+    .bottom-data{
+        background-color: pink;
+    }
+
+    .avatar{
+        width: 60px;
+        height: 100%;
+        border-radius: 50%;
+        border: 2px black solid;
+    }
+    .nick{
+        opacity: 1;
+        font-size: 25px;
+        font-weight: 300;
+        color: #ffffff;
+    }
+    .antoher-data .text-tests, .antoher-data .gmail{
+        opacity: 0.8;
+        color: #D6E8FE;
+        font-weight: 500;
+        text-decoration: none;
+        font-size: 17px;
+    }
+    .number-tests{
+        color: #FFE177;
+        font-size: 16px;
+        margin-right: 2px;
+        margin-left: 2px;
+    }
+    .bonuses{
+        width: 71px;
+        height: 30px;
+    }
+    .bottom-data{
+        width: 100%;
+        /* background-color: #8AF7D4; */
+        height: 23%;
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .default-avatars{
+        display: flex;
+        flex-direction: row;
+        overflow: hidden;
+        /* padding: 93px 131px 93px 131px; */
+        gap: 20px;
+        border: 1px #C48AF7 solid;
+        border-radius: 34px;
+        width: 100%;
+        height: 150px;
+        padding-right: 131px;
+        padding-left: 131px;
+    }
+}
