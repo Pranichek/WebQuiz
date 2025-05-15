@@ -66,13 +66,16 @@ def render_edit_avatar():
     if flask.request.method == "POST":
         check_form = flask.request.form.get("check_form")
         if check_form == "load_image":
-            print("oda")
             if 'file' not in flask.request.files:
                 return flask.redirect("/")
             
             file = flask.request.files["file"]
             if not os.path.exists(os.path.abspath(os.path.join(__file__, "..", "static", "images", 'edit_avatar', str(flask_login.current_user.email), "cash"))):
                 os.mkdir(path= os.path.abspath(os.path.join(__file__, "..", "static", "images", 'edit_avatar', str(flask_login.current_user.email), "cash")))
+            else:
+                if len(os.listdir(os.path.abspath(os.path.join(__file__, "..", "static", "images", 'edit_avatar', str(flask_login.current_user.email), "cash")))) > 0:
+                    for file_dir in os.listdir(os.path.abspath(os.path.join(__file__, "..", "static", "images", 'edit_avatar', str(flask_login.current_user.email), "cash"))):
+                        os.remove(path = os.path.abspath(os.path.join(__file__, "..", "static", "images", 'edit_avatar', str(flask_login.current_user.email), "cash", file_dir)))
 
             path_to_avatar = os.path.abspath(os.path.join(__file__, "..", "static", "images", 'edit_avatar', str(flask_login.current_user.email), "cash", str(file.filename)))
             if not os.path.exists(path = path_to_avatar):
@@ -124,6 +127,9 @@ def render_edit_avatar():
             if str(flask_login.current_user.name_avatar) not in default_avatars:
                 flask_login.current_user.name_avatar = str(random.choice(default_avatars))
                 DATABASE.session.commit()
+        
+        elif check_form == "back":
+            show[0] = ''
 
             
     if flask_login.current_user.is_authenticated:

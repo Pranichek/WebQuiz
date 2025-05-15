@@ -13,7 +13,10 @@
     <body>
         <script src="{{ url_for('static', filename='js/sidebar.js') }}" defer></script>
         <header>
-            <div class = "logo">Tester</div>
+            <div class = "logo">
+                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+                <p>planet.quiz</p>
+            </div>
             <nav>
                 {% if home_page %}
                     <div class = "nav-links">

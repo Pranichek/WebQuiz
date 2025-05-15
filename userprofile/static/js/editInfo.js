@@ -23,9 +23,7 @@ function loadIMage(){
 
 function submitForm() {
     document.getElementById("send-picture").submit();
-    ShowAva();
 }
-
 
 
 let defalutAvatars = document.querySelectorAll(".img")
@@ -62,18 +60,25 @@ for (let agree of agreeds){
 }
 
 
-// window.addEventListener(
-//     'load',
-//     () => {
-//         let ava = document.querySelector(".confirm-changing")
-//         ava.style.display = 'none';
+window.addEventListener(
+    'load',
+    () => {
+        const modal = document.querySelector(".confirm-changing");
+        const style = window.getComputedStyle(modal);
 
-//         console.log("vot", ava.classList)
-//         // if (ava.classList.contains("show")) {
-//         //     ava.style.display = "flex";
-//         // }
-//     }
-// )
+        console.log(style.display)
+
+        if (document.querySelector(".confirm-changing").classList.contains("show")){
+            document.querySelector(".confirm-changing").style.display = "flex";
+        }
+    }
+)
+
+if (performance.navigation.type === 1) {
+    console.log("Страница обновлена (F5 или кнопка)");
+    document.querySelector(".back-image").submit();
+}
+
 
 // function ShowAva(){
 //     let ava = document.querySelector(".confirm-changing")
@@ -85,3 +90,4 @@ for (let agree of agreeds){
 //         ava.style.display = 'flex';
 //     }
 // }
+

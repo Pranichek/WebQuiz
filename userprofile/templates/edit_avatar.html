@@ -46,22 +46,15 @@
                 <form action="" method="post" id="send-picture" enctype='multipart/form-data'>
                     <label for="file">Send</label>
                     <input type="text" name="check_form" class = "check_name" value = "load_image">
-                    <!-- <button class="button-photo" onclick="loadIMage()">
-                        <img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/galery.png') }}" alt="galery icon">
-                    </button> -->
                     <input id="file-upload" name="file" type="file" class="get_photo" onchange="submitForm()">
                 </form>
             </div>
-            <!-- <div class="button">
-                <form action="" method="post" enctype='multipart/form-data'>
-                    <input name="file" type="file" class="get_photo" placeholder="Обрати з  галереї">
-                    <button type="submit" value="" class="button-photo"><img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/galery.png') }}" alt=""></button>
-                </form>
-            </div> -->
+            
             <div class="button">
                 <p class="button-text">Зробити фото</p>
                 <img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/photo.png') }}" alt="">
             </div>
+
             <div class="button">
                 <p class="button-text">Видалити поточне фото</p>
                 <img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/can.png') }}" alt="">
@@ -83,7 +76,7 @@
                 </div>
             </div>
             <div class="welcoming-robot">
-                <p class="bottom-text">Дивись як зараз<br>виглядавиглядає твій профіль!</p>
+                <p class="bottom-text">Дивись як зараз<br>виглядає твій профіль!</p>
                 <div class="flash-robot"></div>
                 <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
             </div>
@@ -98,7 +91,7 @@
     </form>
 
 
-    <div class="confirm-changing {% if show == 'show' %}show{% else %}net{% endif %}">
+    <div class="confirm-changing {% if show == 'show' %}show{% else %}net{% endif %}" onchange="ShowPage()">
         <div class="change-text">
             <p>Редагувати фото профілю</p>
             <p class="discription">Ваш новий аватар будуть бачити інші користувачи при натисканні на ваш профіль<br>та під час прохоження спільних тестів</p>
@@ -106,10 +99,11 @@
         <div class="look-picture">
             <div class="image-user">
                 <div class = "blur-image">
-                    <img class="bg-image" src="{{ url_for('profile.static', filename = 'images/edit_avatar/' + user.email + '/cash/' +  cash_image) }}" alt="img">
+                    <img class="bg-image" src="{{ url_for('profile.static', filename = 'images/edit_avatar/' + user.email + '/cash/' +  cash_image) }}" alt="img" onchange="ShowPage()">
                 </div>
                 <div class="circle">
-                    <img class="bg-image" src="{{ url_for('profile.static', filename = 'images/edit_avatar/' + user.email + '/cash/' +  cash_image) }}" alt="img">                </div>
+                    <img class="bg-image" src="{{ url_for('profile.static', filename = 'images/edit_avatar/' + user.email + '/cash/' +  cash_image) }}" alt="img" onchange="ShowPage()">
+                </div>
                 <!-- <img class="example-image" src="{{ url_for('profile.static', filename = 'images/edit_avatar/' + user.email + '/'+ user.name_avatar ) }}" alt="img"> -->
             </div>
         </div>
@@ -130,7 +124,10 @@
                 </form>
             </div>
             <div class="second_part">
-                <button type="button" class="back" onclick= "Back()">назад</button>
+                <form action="" method="post" class="back-image">
+                    <input type="text" name="check_form" class = "check_name" value = "back">
+                    <button type="submit" class="back">назад</button>
+                </form>
                 <form action="" method="post">
                     <input type="text" name="check_form" class = "check_name" value = "apply_image">
                     <button class="apply" type="submit">застосувати зображення </button>
