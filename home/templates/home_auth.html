@@ -19,7 +19,7 @@
         </div>
         <div class="data-user">
             <div class="main-data">
-                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + email +'/'+ name_avatar ) }}" alt="avatar">
+
                 <a class="nick" href="/profile">{{ username }}</a>
             </div>
             <div class="antoher-data">
@@ -330,4 +330,36 @@
         </div>
         
     </div> -->
+{% endblock %}
+
+{% block footer %}
+    <footer class="footer">
+    <div class="footer-top">
+      <ul class="footer-menu">
+        <li><a href="#">Контакти</a></li>
+        <li><a href="#">Про нас</a></li>
+        <li><a href="#">Конфіденційність</a></li>
+      </ul>
+    </div>
+    
+    <div class="footer-middle">
+        <div class="footer-follow">Слідкуйте за нами</div>
+        <div class="footer-icons">
+            <i class="github">
+                <img src="{{ url_for('home.static', filename='images/home_auth/github.png') }}" alt="">
+            </i>
+            <i class="instagram">
+                <img src="{{ url_for('home.static', filename='images/home_auth/inst.png') }}" alt="">
+            </i>
+            <i class="paper-plane">
+                <img src="{{ url_for('home.static', filename='images/home_auth/telegram.png') }}" alt="">
+            </i>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <div class="footer-text">РЕКВІЗИТИ ДЛЯ ДОНАТІВ</div>
+        <p><span class="highlight">розробники сайту хочуть до Таїланду</span></p>
+    </div>
+  </footer>
 {% endblock %}
