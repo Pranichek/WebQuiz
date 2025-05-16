@@ -28,14 +28,11 @@
                     <span class="info">
                         <p class="label">Ім’я користувача</p>
                         <!-- <p>{{ user.username }}</p> -->
-                        <input minlength="2" maxlength="10" pattern="[A-Za-zа-яА-Я]+" type="text" name="" class="text-name" id="foo" value="{{ user.username }}" disabled>
+                        <input data-name="{{ user.username }}" minlength="2" maxlength="10" pattern="[A-Za-zа-яА-Я]+" type="text" name="" class="text-name" id="foo" value="{{ user.username }}" disabled>
                     </span>
                     <button class="change" id="change1" value="name">Змінити</button>
                     <div class="change_name">
-                        <form action="" method="">
-                            <input type="hidden" name="form_name" value="otmena_imeni">
-                            <button class="deny-button" type="submit">скасувати</button>
-                        </form>
+                        <button class="deny-button"  type="button" onclick="DenyName();">скасувати</button>
                         <form action="" method="post">
                             <!-- чепупеля по которой понимаем какую форму отправили -->
                             <input type="hidden" name="form_name" value="change_name">
@@ -49,14 +46,12 @@
                     <span class="info">
                         <p class="label">Електроннна пошта</p>
                         <!-- <p>{{ email }}</p> -->
-                        <input type="text" id="email-form"  name="input_email" class="input_email" value="{{ email }}" id="email-imput" disabled>
+                        <input type="text" data-email="{{ email }}" id="email-form"  name="input_email" class="input_email" value="{{ email }}" id="email-imput" disabled>
                     </span>
-                    <button class="change" value = "email">Змінити</button>
+                    <button class="change" id="change2" value = "email">Змінити</button>
                     <div class="change_email">
-                        <form action="" method="">
-                            <input type="hidden" name="form_name" value="otmena_email">
-                            <button class="deny-button" type="submit">скасувати</button>
-                        </form>
+
+                        <button class="deny-button" id="change2" type="button" onclick="DenyEmail();">скасувати</button>
                         <form action="" method="post">
                             <!-- чепупеля по которой понимаем какую форму отправили -->
                             <input type="hidden" name="form_name" value="change_email_user">
@@ -69,14 +64,12 @@
                     <span class="info">
                         <p class="label">Номер телефону</p>
                         <!-- <p>{{ phone_user }}</p> -->
-                        <input inputmode="numeric" pattern="[\d\+]*$" id="phone_form" type="tel" maxlength="13" minlength="13" name="input_phone" class="input_phone" value="{{ phone_user }}" id="email-imput" disabled>
+                        <input data-phone="{{ phone_user }}" inputmode="numeric" pattern="[\d\+]*$" id="phone_form" type="tel" maxlength="13" minlength="13" name="input_phone" class="input_phone" value="{{ phone_user }}" id="email-imput" disabled>
                     </span>
-                    <button class="change" value="phone_number">Змінити</button>
+                    <button class="change" id="change3" value="phone_number">Змінити</button>
                     <div class="change_phone">
-                        <form action="" method="">
-                            <input type="hidden" name="form_name" value="otmena_phone">
-                            <button class="deny-button" type="submit">скасувати</button>
-                        </form>
+
+                        <button class="deny-button" type="button" onclick="DenyPhone()">скасувати</button>
                         <form action="" method="post">
                             <!-- чепупеля по которой понимаем какую форму отправили -->
                             <input type="hidden" name="form_name" value="change_phone">

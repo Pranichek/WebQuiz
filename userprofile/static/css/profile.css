@@ -375,10 +375,16 @@ input{
     padding: 10px;
 }
 
-.text-name, .input_phone{
+
+.text-name {
+    position: relative;
     padding-top: 11px;
-    transition: 1s;
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
 }
+
 
 .info-item .label{
     color: #BFBFBF;
@@ -739,22 +745,3 @@ input{
     }
 }
 
-
-/* Це анімована рамка */
-.input_phone::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: 0;
-    height: 2px;
-    width: 100%;
-    background-color: #7291B8;
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform 0.5s ease;
-  }
-  
-  /* активний стан — починає рости бортик */
-  .input_phone.active::after {
-    transform: scaleX(1);
-  }
