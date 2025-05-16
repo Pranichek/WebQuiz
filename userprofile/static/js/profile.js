@@ -119,32 +119,125 @@ window.addEventListener(
     () => {
         // чтобы ширина инпута почты всегда была нормальной
         document.querySelector(".input_email").style.width = ((document.querySelector(".input_email").value.length + 1) * 11) + 'px';
+
+        document.getElementById('foo').style.transition = '1.2s';
+        document.getElementById('foo').style.width = '0%';
+
+        const emailForm = document.getElementById('email-form');
+        emailForm.style.transition = '0s';
+        emailForm.style.width = '0px';
+
+        document.getElementById('phone_form').style.width = '0%';
+        document.getElementById('phone_form').style.transition = '0s';
+
+
+        setTimeout(() => {
+            document.getElementById('foo').value = document.getElementById('foo').dataset.name;
+            document.getElementById('foo').style.border = "none";
+            document.getElementById('foo').style.width = '100%';
+        }, 100);
+
+        setTimeout(() => {
+            emailForm.style.transition = 'width 1.2s ease';
+            emailForm.style.width = '140%'; // або конкретна ширина в px, наприклад '250px'
+        }, 100);
+
+        setTimeout(() => {
+            document.getElementById('phone_form').style.transition = '1.2s';
+            document.getElementById('phone_form').style.width = "100%";
+        }
+        , 100);
     }
 )
 
 function Logout(){
-    document.querySelector(".confirm-logout").style.display = "flex";
+    document.querySelector(".modal").style.opacity = "1";
+    let modal = document.querySelector(".modal");
+    let changePassword = document.querySelector(".confirm-logout");
+
+    modal.style.display = "flex";
+    changePassword.style.display = "flex";
+    changePassword.style.transition = "0.5s";
+    changePassword.style.transform = "translateY(100%)";
+    changePassword.style.opacity = "0";
+    modal.style.opacity = "0";
+
+    setTimeout(() => {
+        changePassword.style.transform = "translateY(0%)";
+        modal.style.transition = "0.5s";
+        modal.style.opacity = "1";
+        changePassword.style.opacity = "1";
+    }, 50);
+
     document.querySelector(".confirm-delete").style.display = "none";
     document.querySelector(".change_password").style.display = "none";
 }
 
 function DeletAccount(){
-    document.querySelector(".confirm-delete").style.display = "flex";
+    document.querySelector(".modal").style.opacity = "1";
+    let modal = document.querySelector(".modal");
+    let confirmDelete = document.querySelector(".confirm-delete");
+
+    modal.style.display = "flex";
+    confirmDelete.style.display = "flex";
+    confirmDelete.style.transition = "0.5s";
+    confirmDelete.style.transform = "translateY(100%)";
+    confirmDelete.style.opacity = "0";
+    modal.style.opacity = "0";
+
+    setTimeout(() => {
+        confirmDelete.style.transform = "translateY(0%)";
+        modal.style.transition = "0.5s";
+        modal.style.opacity = "1";
+        confirmDelete.style.opacity = "1";
+    }, 50);
+
     document.querySelector(".confirm-logout").style.display = "none";
     document.querySelector(".change_password").style.display = "none";
 }
 
 
 function ChangePassword(){
-    document.querySelector(".change_password").style.display = "flex";
+    document.querySelector(".modal").style.opacity = "1";
+    let modal = document.querySelector(".modal");
+    let changePassword = document.querySelector(".change_password");
+
+    modal.style.display = "flex";
+    changePassword.style.display = "flex";
+    changePassword.style.transition = "0.5s";
+    changePassword.style.transform = "translateY(100%)";
+    changePassword.style.opacity = "0";
+    modal.style.opacity = "0";
+
+    setTimeout(() => {
+        changePassword.style.transform = "translateY(-50%)";
+        modal.style.transition = "0.5s";
+        modal.style.opacity = "1";
+        changePassword.style.opacity = "1";
+    }, 50);
+
     document.querySelector(".confirm-logout").style.display = "none";
     document.querySelector(".confirm-delete").style.display = "none";
 }
 
 function CloseLogout(){
-    document.querySelector(".confirm-logout").style.display = "none";
-    document.querySelector(".confirm-delete").style.display = "none";
-    document.querySelector(".change_password").style.display = "none";
+    setTimeout(() => {
+        // modal.style.transition = "0.5s";
+        document.querySelector(".confirm-delete").style.transform = "translateY(100%)";
+        document.querySelector(".confirm-delete").style.opacity = "0";
+        document.querySelector(".confirm-logout").style.transform = "translateY(100%)";
+        document.querySelector(".confirm-logout").style.opacity = "0";
+        document.querySelector(".change_password").style.transform = "translateY(100%)";
+        document.querySelector(".change_password").style.opacity = "0";
+        document.querySelector(".modal").style.opacity = "0";
+    }, 50);
+
+    setTimeout(() => {
+        document.querySelector(".modal").style.display = "none";
+        document.querySelector(".confirm-logout").style.display = "none";
+        document.querySelector(".confirm-delete").style.display = "none";
+        document.querySelector(".change_password").style.display = "none";
+    }, 500);
 }
 
 
@@ -199,3 +292,5 @@ function DenyEmail(){
         document.getElementById('email-form').style.width = '140%';
     }, 1000);
 }
+
+
