@@ -10,9 +10,14 @@
 
 {% block content %}
     <div class="pseudo-header">
-        <a href="/test" class="test-button" id="save">
+        <a href="/test" class="test-button">
             <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
         </a>
+
+        <div>
+            <div class="timer">⏱ 30 секунд &#709</div>
+            <button class="add-question"  id="save">+ Додати питання</button>
+        </div>
     </div>
     
     <div class="question-name">
@@ -24,10 +29,22 @@
 
     <div class="answers-container">
         <div class="answer-block">
-            <input type="text" class="answer" name="answer" id="1" placeholder="Відповідь (правильна)">
+            <div class="detector">
+                <img class="small-img" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+            </div>
+            <input type="text" class="answer" name="answer" id="1" placeholder="Відповідь">
+            <div class="delete-answer">
+                <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+            </div>
         </div>
         <div class="answer-block">
-            <input type="text" class="answer" name="answer" id="0" placeholder="Відповідь (неправильна)">
+            <div class="detector">
+                <img class="small-img" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+            </div>
+            <input type="text" class="answer" name="answer" id="0" placeholder="Відповідь">
+            <div class="delete-answer">
+                <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+            </div>
         </div>
         <p class="button">
             <img src="{{ url_for('test_pass.static', filename='images/plus.png') }}" alt="">
