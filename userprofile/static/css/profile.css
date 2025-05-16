@@ -3,6 +3,14 @@
     transition: 1s;
 }
 
+#eye1, #eye2, #eye3{
+    cursor: pointer;
+}
+
+.hidden1, .hidden2, .hidden3{
+    display: none;
+}
+
 a{
     text-decoration: none;
 }
@@ -82,17 +90,6 @@ a{
     font-weight: 600;
 }
 
-.password-input{
-    border: 2px #94C4FF solid;
-    padding: 10px;
-    width: 100%;
-    height: 14%;
-    background: none;
-    border-radius: 10px;
-    font-size: 16px;
-    color: #ffffff;
-    font-weight: 700;
-}
 
 .password-buttons{
     width: 100%;
@@ -128,9 +125,10 @@ a{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: fixed; /* fixed — чтобы блок всегда был поверх и центрировался по окну */
+    position: fixed; 
     top: 50%;
-    z-index: 2000;
+    transform: translateY(-50%);
+    z-index: 1000;
     width: 562px;
     height: 234px;
     text-align: center;
@@ -206,6 +204,35 @@ input{
     filter: blur(100px);
     z-index: -1;
     pointer-events: none;
+}
+
+.first-password{
+    position: relative;
+    display: flex;
+    /* background-color: chartreuse; */
+    width: 100%;
+    height:69px;
+}
+
+.first-password img{
+    position: absolute;
+    right: 5%;
+    z-index: 3;
+    width: 30px;
+    height: 30px;
+}
+
+
+.first-password input{
+    border: 2px #94C4FF solid;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    background: none;
+    border-radius: 10px;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 700;
 }
 
 .main{

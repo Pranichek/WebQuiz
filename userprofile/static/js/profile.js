@@ -163,7 +163,7 @@ function Logout(){
     modal.style.opacity = "0";
 
     setTimeout(() => {
-        changePassword.style.transform = "translateY(0%)";
+        changePassword.style.transform = "translateY(-50%)";
         modal.style.transition = "0.5s";
         modal.style.opacity = "1";
         changePassword.style.opacity = "1";
@@ -186,7 +186,7 @@ function DeletAccount(){
     modal.style.opacity = "0";
 
     setTimeout(() => {
-        confirmDelete.style.transform = "translateY(0%)";
+        confirmDelete.style.transform = "translateY(-50%)";
         modal.style.transition = "0.5s";
         modal.style.opacity = "1";
         confirmDelete.style.opacity = "1";
@@ -294,3 +294,69 @@ function DenyEmail(){
 }
 
 
+
+// Отрыть/закрыть пароль
+const password1Input = document.querySelector(".password-input")
+const eyeIcons1List = document.querySelectorAll("#eye1");
+
+let hidden1Icon;
+// тут ми пишмео код який перивіряє чи треба відчиняти/закривати пароль
+for (let eye1Icon of eyeIcons1List){
+    eye1Icon.addEventListener(
+        'click',
+        function () {
+            if(password1Input.type === 'password') {
+                password1Input.type = 'text';
+            }else {
+                password1Input.type = 'password';
+            }
+            hidden1Icon = document.querySelector(".hidden1");
+            eye1Icon.classList.add("hidden1");
+            hidden1Icon.classList.remove("hidden1");
+        }
+    )
+}
+
+
+const password2Input = document.querySelector(".new_password")
+const eyeIcons2List = document.querySelectorAll("#eye2");
+
+let hidden2Icon;
+// тут ми пишмео код який перивіряє чи треба відчиняти/закривати пароль
+for (let eye2Icon of eyeIcons2List){
+    eye2Icon.addEventListener(
+        'click',
+        function () {
+            if(password2Input.type === 'password') {
+                password2Input.type = 'text';
+            }else {
+                password2Input.type = 'password';
+            }
+            hidden2Icon = document.querySelector(".hidden2");
+            eye2Icon.classList.add("hidden2");
+            hidden2Icon.classList.remove("hidden2");
+        }
+    )
+}
+
+
+const password3Input = document.querySelector(".confirm-password")
+const eyeIcons3List = document.querySelectorAll("#eye3");
+
+let hidden3Icon;
+// тут ми пишмео код який перивіряє чи треба відчиняти/закривати пароль
+for (let eye3Icon of eyeIcons3List){
+    eye3Icon.addEventListener(
+        'click',
+        function () {
+            if(password3Input.type === 'password') {
+                password3Input.type = 'text';
+            }else {
+                password3Input.type = 'password';
+            }
+            hidden3Icon = document.querySelector(".hidden3");
+            eye3Icon.classList.add("hidden3");
+            hidden3Icon.classList.remove("hidden3");
+        }
+    )
+}

@@ -137,11 +137,31 @@
             <form action="" method="post" class="inputs-passwords">
                 <input type="hidden" name="form_name" value="change_password">
                 <p class="password-rule">Введіть попередній пароль</p>
-                <input type="text" name="current_password" id="" class="password-input" required>
-                <p class="password-rule">Введіть новий пароль </p>
-                <input type="text" name="new_password" id=""pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$" maxlength="8" minlength="8" class="password-input" required>
-                <p class="password-rule">Підтвердження нового пароля</p>
-                <input type="text" name="confirm_password" id="" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$" maxlength="8" minlength="8" class="password-input" required>
+                <div class="first-password">
+                    <input type="password" name="current_password" id="current_password" class="password-input" required>
+                    <img id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
+                    <img class="hidden1" id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
+                </div>
+                <div>
+                    <p class="password-rule">Введіть новий пароль </p>
+                </div>
+
+                <div class="first-password">
+                    <input type="password" name="new_password" id=""pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$" maxlength="8" minlength="8" class="password-input new_password" required>
+                    <img id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
+                    <img class="hidden2" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
+                </div>
+
+                <div>
+                    <p class="password-rule">Підтвердження нового пароля</p>
+                </div>
+        
+                <div class="first-password">
+                    <input type="password" name="confirm_password" id="" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$" maxlength="8" minlength="8" class="password-input confirm-password" required>
+                    <img id="eye3" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
+                    <img class="hidden3" id="eye3" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
+                </div>
+
                 <div class="password-buttons">
                     <button class="back-password" type="button" onclick="CloseLogout()">назад</button>
                     <button class="password-button">Готово</button>
