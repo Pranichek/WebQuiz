@@ -6,7 +6,7 @@ class User(DATABASE.Model, flask_login.UserMixin):
     id = DATABASE.Column(DATABASE.Integer, primary_key = True)
 
     username = DATABASE.Column(DATABASE.String(150), nullable = False)
-    phone_number =  DATABASE.Column(DATABASE.Integer, nullable = False, unique = True)
+    phone_number =  DATABASE.Column(DATABASE.Integer, nullable = False, unique = True, default = "Не під'єднан")
     nickname = DATABASE.Column(DATABASE.String(150), unique = True)
     password = DATABASE.Column(DATABASE.String(150), nullable = False)
     email = DATABASE.Column(DATABASE.String(150), unique = True, nullable = False)

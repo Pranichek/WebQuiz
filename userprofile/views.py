@@ -12,9 +12,10 @@ def render_profile():
         check_form = flask.request.form.get("form_name")
 
         if check_form == "change_name":
-            if any(symbol.isdigit() for symbol in flask.request.form["new_name"]) == False:
-                user.username = flask.request.form["new_name"]
-                DATABASE.session.commit()
+            if flask.request.form["new_name"] != (None or "none"):
+                if any(symbol.isdigit() for symbol in flask.request.form["new_name"]) == False:
+                    user.username = flask.request.form["new_name"]
+                    DATABASE.session.commit()
 
         elif check_form == "change_phone":
             if User.query.filter_by(phone_number = flask.request.form["new_phone"][1:]).first() is None:

@@ -43,37 +43,36 @@ def render_registration():
             username_form = flask.request.form["username"]
 
             email_form = flask.request.form["email"]
-            phone_number_form = flask.request.form["phone_number"]
+            # phone_number_form = flask.request.form["phone_number"]
             mentor_form = flask.request.form["mentor"]
 
             password_form = flask.request.form["password"]
             confirm_password = flask.request.form["confirm-password"]
             if password_form == confirm_password and len(password_form) == 8:
                 if User.query.filter_by(email = email_form).first() is None:
-                    if User.query.filter_by(phone_number = phone_number_form).first() is None:
-                        is_mentor = None
-                        if mentor_form == 'True':
-                            is_mentor = True
-                        else:
-                            is_mentor = False
-                        random_code = generate_code()
-
-                        flask.session["count_email"] += 1
-                        flask.session["code"] = random_code
-                        flask.session["email"] = email_form
-                        flask.session["username"] = username_form
-                        flask.session["check_mentor"] = is_mentor
-                        flask.session["password"] = password_form
-                        flask.session["phone_number"] = phone_number_form
-
-                        email = Thread(target = send_code, args = (email_form, flask.session["code"]))
-                        email.start()
-                        
-                        return flask.redirect("/verify_code")
+                    # if User.query.filter_by(phone_number = phone_number_form).first() is None:
+                    is_mentor = None
+                    if mentor_form == 'True':
+                        is_mentor = True
                     else:
-                        flask.session.clear()
-                        phone_shake = "User already exists"
-                        message = "Користувач із таким номером телефону вже існує"
+                        is_mentor = False
+                    random_code = generate_code()
+
+                    flask.session["count_email"] += 1
+                    flask.session["code"] = random_code
+                    flask.session["email"] = email_form
+                    flask.session["username"] = username_form
+                    flask.session["check_mentor"] = is_mentor
+                    flask.session["password"] = password_form
+
+                    email = Thread(target = send_code, args = (email_form, flask.session["code"]))
+                    email.start()
+                    
+                    return flask.redirect("/verify_code")
+                    # else:
+                    #     flask.session.clear()
+                    #     phone_shake = "User already exists"
+                    #     message = "Користувач із таким номером телефону вже існує"
                 else:
                     flask.session.clear()
                     email_shake = "User already exists"
@@ -119,8 +118,7 @@ def render_code():
                                 username = flask.session["username"],
                                 password = flask.session["password"],
                                 email = flask.session["email"],
-                                is_mentor = flask.session["check_mentor"],
-                                phone_number = flask.session["phone_number"]
+                                is_mentor = flask.session["check_mentor"]
                             )
                         
                         #створює папку із тим шляхом що указали
