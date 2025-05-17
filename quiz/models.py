@@ -9,6 +9,7 @@ class Test(flask_login.UserMixin, DATABASE.Model):
     title_test = DATABASE.Column(DATABASE.String(20), nullable = False)
     questions = DATABASE.Column(DATABASE.String, nullable = False)
     answers = DATABASE.Column(DATABASE.String, nullable = False)
+
     
 
     

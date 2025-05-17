@@ -17,6 +17,7 @@ for (let button of buttonList){
     })
 }
 
+
 function loadIMage(){
     document.getElementById("file-upload").click();
 }

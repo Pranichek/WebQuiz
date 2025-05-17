@@ -13,7 +13,7 @@ def render_profile():
         check_form = flask.request.form.get("form_name")
 
         if check_form == "change_name":
-            if flask.request.form["new_name"] != (None or "none"):
+            if flask.request.form["new_name"] != (None or "none" or "" or " "):
                 if any(symbol.isdigit() for symbol in flask.request.form["new_name"]) == False:
                     user.username = flask.request.form["new_name"]
                     DATABASE.session.commit()
@@ -45,9 +45,13 @@ def render_profile():
         
         elif check_form == "delete":
             user = User.query.get(flask_login.current_user.id)
+            #удаляем папку с его медиа файлами
             shutil.rmtree(os.path.abspath(os.path.join(__file__, "..", "static", "images", "edit_avatar", str(user.email))))
+            user.email = "Deleted"
+            user.phone_number = "Deleted"
+            
             flask.session.clear()
-            DATABASE.session.delete(user)
+            # DATABASE.session.delete(user)
             DATABASE.session.commit()
             return flask.redirect("/")
 
@@ -68,6 +72,7 @@ def render_edit_avatar():
         show = ['']
         if flask.request.method == "POST":
             check_form = flask.request.form.get("check_form")
+
             if check_form == "load_image":
                 if 'file' not in flask.request.files:
                     return flask.redirect("/")

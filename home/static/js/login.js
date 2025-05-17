@@ -53,3 +53,9 @@ window.addEventListener('load', () => {
 // function Reset() {
 //     document.querySelector("#form").reset();
 // }
+
+// код который сделает так чтобы если человек что то не так ввел, то после обновления оно опять не тряслось
+if (performance.navigation.type === 1) {
+    console.log("Страница обновлена (F5 или кнопка)");
+    document.querySelector("#clear-form").submit();
+}

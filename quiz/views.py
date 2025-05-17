@@ -46,6 +46,7 @@ def render_test():
     new_answers = flask.request.cookies.get("answers")
 
     if flask.request.method == "POST":
+        
         test_title = flask.request.form["test_title"]
 
         print("questions =", flask.request.form.getlist("question"), "answers =", flask.request.form.getlist("answers"))

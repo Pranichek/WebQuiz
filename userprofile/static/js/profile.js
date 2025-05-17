@@ -1,7 +1,3 @@
-function Blur() {
-    document.querySelector(".background").style.filter = "blur(20px)";
-}
-
 
 document.getElementById('foo').addEventListener(
     'input',
@@ -360,3 +356,80 @@ for (let eye3Icon of eyeIcons3List){
         }
     )
 }
+
+
+// код для того чтобы пользователю показывало что надо изменять в пароле чтобы он был праивльнм
+
+let validatorpassword = [
+    { regex: /.{8}/ },     
+    { regex: /[0-9]/ },    
+    { regex: /[a-zA-Z]/ }
+]
+
+// получаем все переменніе 
+let allrules = document.querySelectorAll(".list-item")
+let passwordInput = document.querySelector(".new_password")
+
+passwordInput.addEventListener(
+    'keyup',
+    () => {
+        validatorpassword.forEach((item, index) => {
+            console.log("rabotaem")
+            // если все таки как то удалось ввести что то кроме латиницы и букв
+            passwordInput.value = passwordInput.value.replace(/[^a-zA-Z0-9-]/g, '');
+            // проверяем валидность пароля по всем правилам
+            let isValid = item.regex.test(passwordInput.value);
+            // если валидный то добавляем класс checked
+            // если не валидный то убираем класс checked
+            if (isValid){
+                console.log(index)
+                allrules[index].classList.add("checked");
+                if (index == 0){
+                    const line = document.querySelector(".first-line");
+                    line.style.opacity = "1";
+                    line.style.width = "88%";
+                    document.querySelector(".like1").style.display = "flex";
+                    document.querySelector(".dislike1").style.display = "none";
+                }
+                if (index == 1){
+                    const line = document.querySelector(".second-line");
+                    line.style.opacity = "1";
+                    line.style.width = "92%";
+                    document.querySelector(".like2").style.display = "flex";
+                    document.querySelector(".dislike2").style.display = "none";
+                }
+                if (index == 2){
+                    const line = document.querySelector(".third-line");
+                    line.style.opacity = "1";
+                    line.style.width = "90%";
+                    document.querySelector(".like3").style.display = "flex";
+                    document.querySelector(".dislike3").style.display = "none";
+                }
+                // document.querySelector(".first-line").style.display = "flex";
+            }else{
+                allrules[index].classList.remove("checked");
+                if (index == 0){
+                    const line = document.querySelector(".first-line");
+                    line.style.opacity = "1";
+                    line.style.width = "0%";
+                    document.querySelector(".like1").style.display = "none";
+                    document.querySelector(".dislike1").style.display = "flex";
+                }
+                if (index == 1){
+                    const line = document.querySelector(".second-line");
+                    line.style.opacity = "1";
+                    line.style.width = "0%";
+                    document.querySelector(".like2").style.display = "none";
+                    document.querySelector(".dislike2").style.display = "flex";
+                }
+                if (index == 2){
+                    const line = document.querySelector(".third-line");
+                    line.style.opacity = "1";
+                    line.style.width = "0%";
+                    document.querySelector(".like3").style.display = "none";
+                    document.querySelector(".dislike3").style.display = "flex";
+                }
+            }
+        })
+    }
+)

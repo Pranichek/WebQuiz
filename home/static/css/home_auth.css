@@ -462,6 +462,22 @@ input::-webkit-inner-spin-button {
     }
 }
 
+
+@media (min-width: 1400px){
+    .data-user{
+        width: 20%;
+        height: 95%;
+        font-size: 90%;
+    }
+    .avatar{
+        width: 13%;
+        height: 90%;
+    }
+    .card{
+        height: 100%;
+    }
+}
+
 @media (min-width: 1025px) and (max-width: 1440px) { 
     .avatar{
         width: 50px;

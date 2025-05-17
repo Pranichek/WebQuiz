@@ -40,47 +40,51 @@ def render_registration():
         message = ''
         flask.session["count_email"] = 0
         if flask.request.method == "POST":
-            username_form = flask.request.form["username"]
+            check_form = flask.request.form.get("check_form")
+            if check_form == "registration":
+                username_form = flask.request.form["username"]
 
-            email_form = flask.request.form["email"]
-            # phone_number_form = flask.request.form["phone_number"]
-            mentor_form = flask.request.form["mentor"]
+                email_form = flask.request.form["email"]
+                # phone_number_form = flask.request.form["phone_number"]
+                mentor_form = flask.request.form["mentor"]
 
-            password_form = flask.request.form["password"]
-            confirm_password = flask.request.form["confirm-password"]
-            if password_form == confirm_password and len(password_form) == 8:
-                if User.query.filter_by(email = email_form).first() is None:
-                    # if User.query.filter_by(phone_number = phone_number_form).first() is None:
-                    is_mentor = None
-                    if mentor_form == 'True':
-                        is_mentor = True
+                password_form = flask.request.form["password"]
+                confirm_password = flask.request.form["confirm-password"]
+                if password_form == confirm_password and len(password_form) == 8:
+                    if User.query.filter_by(email = email_form).first() is None:
+                        # if User.query.filter_by(phone_number = phone_number_form).first() is None:
+                        is_mentor = None
+                        if mentor_form == 'True':
+                            is_mentor = True
+                        else:
+                            is_mentor = False
+                        random_code = generate_code()
+
+                        flask.session["count_email"] += 1
+                        flask.session["code"] = random_code
+                        flask.session["email"] = email_form
+                        flask.session["username"] = username_form
+                        flask.session["check_mentor"] = is_mentor
+                        flask.session["password"] = password_form
+
+                        email = Thread(target = send_code, args = (email_form, flask.session["code"]))
+                        email.start()
+                        
+                        return flask.redirect("/verify_code")
                     else:
-                        is_mentor = False
-                    random_code = generate_code()
-
-                    flask.session["count_email"] += 1
-                    flask.session["code"] = random_code
-                    flask.session["email"] = email_form
-                    flask.session["username"] = username_form
-                    flask.session["check_mentor"] = is_mentor
-                    flask.session["password"] = password_form
-
-                    email = Thread(target = send_code, args = (email_form, flask.session["code"]))
-                    email.start()
-                    
-                    return flask.redirect("/verify_code")
-                    # else:
-                    #     flask.session.clear()
-                    #     phone_shake = "User already exists"
-                    #     message = "Користувач із таким номером телефону вже існує"
+                        flask.session.clear()
+                        email_shake = "User already exists"
+                        message = "Користувач із такою поштою вже існує"
                 else:
                     flask.session.clear()
-                    email_shake = "User already exists"
-                    message = "Користувач із такою поштою вже існує"
-            else:
-                flask.session.clear()
-                password_shake = "Password is not eqal each other"
-                message = "Введені паролі не співпадають"
+                    password_shake = "Password is not eqal each other"
+                    message = "Введені паролі не співпадають"
+            elif check_form == "clear_form":
+                print("da?")
+                email_shake = ''
+                password_shake = ''
+                phone_shake = ''
+                message = ''
                 
         return flask.render_template(
             template_name_or_list = "registration.html", 
@@ -154,21 +158,27 @@ def render_login():
     email = ''
     message = ''
     if flask.request.method == "POST":
+        check_form = flask.request.form.get("check_form")
 
-        email_form = flask.request.form["email"]
-        password_form = flask.request.form["password"]
-        list_users = User.query.all()
-        if User.query.filter_by(email = email_form).first() is None:
-            email = "shake"
-            message = 'Користувача із такою поштою не існує'
-        else:
-            for user in list_users:
-                if user.email == email_form:
-                    if user.password == password_form:
-                        flask_login.login_user(user)
-                    else:
-                        password = "shake"
-                        message = 'Введений пароль не підходить до пошти'
+        if check_form == "login":
+            email_form = flask.request.form["email"]
+            password_form = flask.request.form["password"]
+            list_users = User.query.all()
+            if User.query.filter_by(email = email_form).first() is None:
+                email = "shake"
+                message = 'Користувача із такою поштою не існує'
+            else:
+                for user in list_users:
+                    if user.email == email_form:
+                        if user.password == password_form:
+                            flask_login.login_user(user)
+                        else:
+                            password = "shake"
+                            message = 'Введений пароль не підходить до пошти'
+        elif check_form == "clear_form":
+            password = ''
+            email = ''
+            message = ''
 
     if not flask_login.current_user.is_authenticated:
         return flask.render_template(

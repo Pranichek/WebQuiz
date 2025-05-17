@@ -138,18 +138,49 @@
                 <input type="hidden" name="form_name" value="change_password">
                 <p class="password-rule">Введіть попередній пароль</p>
                 <div class="first-password">
-                    <input type="password" name="current_password" id="current_password" class="password-input" required>
-                    <img id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
-                    <img class="hidden1" id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
+                    <input maxlength="8" type="password" name="current_password" id="current_password" class="password-input" required>
+                    <img class="eye-hide" id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
+                    <img class="hidden1 eye-hide" id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
                 </div>
                 <div>
                     <p class="password-rule">Введіть новий пароль </p>
                 </div>
 
                 <div class="first-password">
-                    <input type="password" name="new_password" id=""pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$" maxlength="8" minlength="8" class="password-input new_password" required>
-                    <img id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
-                    <img class="hidden2" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
+                    <input type="password" name="new_password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$" maxlength="8" minlength="8" class="password-input new_password" required>
+                    <img class="eye-hide" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
+                    <img class="hidden2 eye-hide" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
+
+                    <div class="password-checklist">
+                        <div class="top-part">
+                            <h3 class="checklist-title">Пароль повинен містити</h3>
+                            <img class="img-checklist" src="{{ url_for('home.static', filename='images/login_and_auth/checklist.png') }}" alt="checklist">
+                        </div>
+
+                        <ul class="checklist">
+                            <div class="first-rule">
+                                <img class="icon-item like1" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
+                                <img class="icon-item dislike1" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
+                                <li class="list-item">Довжина у 8 символів</li>
+                                <!-- <div class="checklist-line"></div> -->
+                            </div>
+                            <div class="checklist-line first-line"></div>
+                            <div class="first-rule">
+                                <img class="icon-item like2" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
+                                <img class="icon-item dislike2" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
+                                <li class="list-item">Хоча б одна цифра</li>    
+                                <!-- <div class="checklist-line"></div>                         -->
+                            </div>
+                            <div class="checklist-line second-line"></div>
+                            <div class="first-rule">
+                                <img class="icon-item like3" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
+                                <img class="icon-item dislike3" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
+                                <li class="list-item latin">Лише латинські літери</li>
+                                <!-- <div class="checklist-line"></div> -->
+                            </div>
+                            <div class="checklist-line third-line"></div>
+                        </ul>
+                    </div>
                 </div>
 
                 <div>
@@ -157,9 +188,9 @@
                 </div>
         
                 <div class="first-password">
-                    <input type="password" name="confirm_password" id="" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$" maxlength="8" minlength="8" class="password-input confirm-password" required>
-                    <img id="eye3" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
-                    <img class="hidden3" id="eye3" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
+                    <input type="password" name="confirm_password"  maxlength="8" class="password-input confirm-password" required>
+                    <img class="eye-hide" id="eye3" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
+                    <img class="hidden3 eye-hide" id="eye3" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
                 </div>
 
                 <div class="password-buttons">
