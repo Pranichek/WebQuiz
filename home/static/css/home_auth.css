@@ -31,6 +31,7 @@ header{
     justify-content: center;
     align-items: center;
     width: 100vw;
+    cursor: pointer;
     /* background-color: gold; */
     gap: 45px;
     height: 30vh;
