@@ -140,5 +140,8 @@
         <input name="file" type="file">
         <button type="submit" value="">Задати нову аватарку</button>
     </form> -->
-    <script src="{{ url_for('profile.static', filename='js/editInfo.js') }}"></script>
 {% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('profile.static', filename='js/editInfo.js') }}"></script>
+{% endblock scripts %}

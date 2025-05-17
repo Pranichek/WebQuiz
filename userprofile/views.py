@@ -5,6 +5,7 @@ from home.models import User
 from Project.db import DATABASE
 from .render_data import create_email, render_phone_number
 from home.send_email import send_code, generate_code 
+from quiz.models import Test
 
 def render_profile():
     user = flask_login.current_user
@@ -145,4 +146,19 @@ def render_edit_avatar():
         else:
             return flask.redirect("/")
     except Exception as error:
+        return flask.redirect("/")
+    
+def render_user_tests():
+    if flask_login.current_user.is_authenticated:
+        #отримати айді нашого користувача
+        user_id = flask_login.current_user.id
+        # отримаємо усі тест, які створив наш користувач
+        tests = Test.query.filter_by(creator = user_id).all()
+
+        return flask.render_template(
+            template_name_or_list = "user_tests.html",
+            tests = tests,
+            user = flask_login.current_user
+        )
+    else:
         return flask.redirect("/")

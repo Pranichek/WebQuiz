@@ -170,7 +170,10 @@
         </div>
 
     </div>
-
     <!-- <button onclick="Blur()">Haha</button> -->
+    <script src="{{ url_for('profile.static', filename='js/profile.js') }}"></script>
+{% endblock %}
+
+{% block scripts %}
     <script src="{{ url_for('profile.static', filename='js/profile.js') }}"></script>
 {% endblock %}

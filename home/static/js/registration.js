@@ -82,6 +82,35 @@ phone_number.addEventListener(
     }
 )
 
-// function randomNumber(min, max) {
-//     return Math.floor(Math.random() * (max - min)) + min;
-//   }
+
+// проверка пароля по всем правилам
+
+// проверка пароля по всем правилам
+let validatorpassword = [
+    { regex: /.{8}/ },     
+    { regex: /[0-9]/ },    
+    { regex: /[a-zA-Z]/ }
+]
+
+// получаем все переменніе 
+let allrules = document.querySelectorAll(".list-item")
+let passwordInput = document.querySelector(".password-input")
+
+passwordInput.addEventListener(
+    'keyup',
+    () => {
+        validatorpassword.forEach((item, index) => {
+            // проверяем валидность пароля по всем правилам
+            let isValid = item.regex.test(passwordInput.value);
+            // если валидный то добавляем класс checked
+            // если не валидный то убираем класс checked
+            if (isValid){
+                allrules[index].classList.add("checked");
+            }else{
+                allrules[index].classList.remove("checked");
+            }
+        })
+
+        va
+    }
+)

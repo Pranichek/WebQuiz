@@ -10,6 +10,7 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     </head>
+    
     <body>
         <script src="{{ url_for('static', filename='js/sidebar.js') }}" defer></script>
         <header>
@@ -50,7 +51,7 @@
                     <div class="panel closed">
                         <span class="link-container">
                             <span class="links">
-                                <a href="">Створені тести</a>
+                                <a href="/user_test">Створені тести</a>
                                 <hr>
                                 <a href="">Пройдені тести</a>
                                 <hr>
@@ -78,5 +79,8 @@
         <main class="main">
             {% block content %}{% endblock %}
         </main>
-        
+        {% block scripts %}
+
+        {% endblock %}
+    </body>   
 </html>

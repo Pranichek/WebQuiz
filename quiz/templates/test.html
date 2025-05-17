@@ -4,16 +4,78 @@
     Test    
 {% endblock %}
 
-{% block link %}
-    <link rel="stylesheet" href="{{ url_for('test.static', filename='css/test.css') }}">
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/test.css') }}">
 {% endblock %}
 
 {% block content %}
     <form action="" method="post">
-        <input type="text" name="test_title" placeholder="Назва тесту">
-        <input type="number" name="question_amount" placeholder="Кількість питань">
-        <input type="text" name="questions" placeholder="Питання">
-        <input type="text" name="answers" placeholder="Відповідь">
-        <button type="submit">Зберегти вікторину</button>
+
+        <div class="top-block">
+            <div class="main-info">
+
+                <div class="info-block">
+                    <img src="{{ url_for('test_pass.static', filename='images/cover.png') }}" alt="" class="test-cover">
+                
+                    <div class="info">
+                        <input class="test-title-input" type="text" name="test_title" placeholder="Назва тесту">
+                        <div class="creator-info">
+                            <img src="{{ url_for('test_pass.static', filename='images/avatar.jpg') }}" alt="">
+                            <div class="cretor-data">
+                                <p class="creator-name">Mykola</p>
+                                <p class="creator-email">scripnic@gmil.com</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="gray-block">
+                    <img class="mini-robot" src="{{ url_for('test_pass.static', filename='images/mini-robot.png') }}" alt="">
+                    <span>
+                        <p>Створюй</p>
+                        <p class="smaller-text" >Створюй свої тести та проходь з друзями</p>
+                    </span>
+                </div>
+            </div>
+            
+            <div class="additional-buttons">
+            </div>
+        </div>
+        
+        <div class="buttons">
+            <a class="add" href="/test/create_question">
+                + Додати питання
+            </a>
+            <button class="add">
+                + Згенерувати питання
+            </button>
+        </div>
+
+        <div class="all-cards">
+            {% for this_question in question_list %}
+                <div class="question-card">          
+                    <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
+                    <span class="question-conainer">
+                        <p class="question">{{ this_question.question }}</p>
+                    </span>
+                    <span class="answers">
+                        {% for answer in this_question.answers %}
+                        <div class="variant">
+                            <div class="circle"></div>
+                            <p class="answer">{{ answer }}</p>
+                        </div>
+                        {% endfor %}
+                    </span>
+                </div>
+            {% endfor %}
+        </div>
+        
+        <div class="buttons buttons-bottom">
+            <button class="add" type="submit"> + Зберегти вікторину</button>
+            <button class="add" type="submit">
+
+                Почати тест
+            </button>
+        </div>
+
     </form>
 {% endblock %}
