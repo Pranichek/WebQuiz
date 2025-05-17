@@ -20,6 +20,7 @@ for (let button of buttonList){
 
 function loadIMage(){
     document.getElementById("file-upload").click();
+    ChangeSize();
 }
 
 function submitForm() {
@@ -92,3 +93,14 @@ if (performance.navigation.type === 1) {
 //     }
 // }
 
+
+function ChangeSize() {
+    const inputRange = document.querySelector(".size");
+    const scale = inputRange.value / 100;
+
+    const image = document.querySelector(".bg-image");
+    const insideimage = document.querySelector(".inside");
+    
+    image.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    insideimage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}

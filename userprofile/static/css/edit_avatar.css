@@ -270,12 +270,13 @@ body{
 
 /* тут код для модального окна */
 .confirm-changing{
-    display: none;
+    /* display: none; */
     color: #ffffff;
     text-align: center;
     flex-direction: column;
     width: 70vw;
     height: 80vh;
+    position: relative;
     border: 1px #94C4FF solid;
     border-radius: 34px;
     background-color: #343434;
@@ -316,6 +317,7 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
+    position: relative;
 }
 
 .image-user{
@@ -326,25 +328,67 @@ body{
     height: 100%;
     overflow: hidden;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     position: relative;
+
 }
+
+.size{
+    position: absolute;
+    bottom: 10px; /* або щось інше для відступу */
+    width: 80%; /* або 100%, якщо не хочеш падінгів */
+    z-index: 1000;
+    /* -webkit-appearance: none; */
+    /* appearance: none; */
+    background-color: #ffffff;
+    background: #ffffff;
+    cursor: pointer;
+    /* width: 15rem; */
+}
+
+.circle-image {
+    transition: all 0.3s ease;
+    display: block;
+}
+/* input[type="range"]::-webkit-slider-runnable-track {
+    background: #d0cbcb;
+    border-radius: 20px;
+} */
 
 .blur-image{
     width: 100%;
     height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     filter: blur(10px);
 }
 
 
 
 .bg-image{
+    transition: 0.3s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     max-width: 100%;
     max-height: 100%;
-    width: auto;
-    height: auto;
-    object-fit: contain;
+    z-index: 1;
+}
+
+.inside{
+    transition: 0.3s;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 100%;
+    max-height: 100%;
+    z-index: 1;
 }
 
 .circle {
@@ -352,14 +396,18 @@ body{
     top: 50%; 
     left: 50%; 
     transform: translate(-50%, -50%); 
-    filter: blur(0px);
-    width: 100px;
-    height: 100px;
+    /* filter: blur(0px); */
+    width: 200px;
+    height: 200px;
     border-radius: 50%;
-    border: 4px black solid;
-    z-index: 1;
-    overflow: hidden;
+    border: 4px #ffffff solid;
+    overflow: hidden;    /* overflow: hidden; */
 }
+
+.circle img{
+    z-index: 1;
+}
+
 
 .change-buttons{
     width: 100%;
