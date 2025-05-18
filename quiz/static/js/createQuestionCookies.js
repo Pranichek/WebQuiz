@@ -7,13 +7,15 @@ let questions;
 button.addEventListener("click", ()=>{
     console.log(document.cookie.match("questions"))
     for (let input of answerInputList){
-        console.log(input.value);
-        if (input.id == '1'){
-            console.log("right:", input.value);
-            answers += `(?%+${input.value}+%?)`;
-        }else{
-            console.log("wrong:", input.value);
-            answers += `(?%-${input.value}-%?)`;
+        if (input.checkVisibility()){
+            console.log(input.value);
+            if (input.id == '1'){
+                console.log("right:", input.value);
+                answers += `(?%+${input.value}+%?)`;
+            }else{
+                console.log("wrong:", input.value);
+                answers += `(?%-${input.value}-%?)`;
+            }
         }
     }
     questions = question.value;

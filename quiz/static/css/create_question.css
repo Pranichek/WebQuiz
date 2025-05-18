@@ -20,6 +20,11 @@ body .main{
     height: 50px;
 }
 
+.pseudo-header div{
+    display: flex;
+    gap: 10px;
+}
+
 .test-button img{
     width: 30px;
     height: 30px;
@@ -31,7 +36,6 @@ body .main{
     background: #7291B8;
     padding: 6px 14px;
     border-radius: 5px;
-    display: inline-flex;
     font-size: 20px;
     font-family: 'Inter', sans-serif;
     font-weight: 400;
@@ -39,8 +43,9 @@ body .main{
 }
 
 .add-question {
+    display: flex;
     width: 232px;
-    height: 44px;
+    height: 35px;
     background-color: #C48AF7;
     border-radius: 5px;
     border: 0px;
@@ -49,6 +54,7 @@ body .main{
     font-family: 'Inter', sans-serif;
     font-weight: 500;
     font-size: 20px;
+    text-decoration: none;
 }
 
 
@@ -105,6 +111,14 @@ h3{
     padding: 10px;
     border-radius: 15px;
     background-color: #6D94C4;
+}
+
+.hidden{
+    display: none;
+}
+
+.hidden-button{
+    display: none;
 }
 
 .answer{

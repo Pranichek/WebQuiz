@@ -172,6 +172,7 @@ form{
     /* position: relative;
     top: -100px; */
     display: flex;
+    justify-content: start;
     flex-wrap: wrap;
     gap: 10px;
     padding: 20px;

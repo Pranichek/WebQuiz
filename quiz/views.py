@@ -15,8 +15,8 @@ from os.path import abspath, join
 
 def render_test():
     list_to_template = []
-    new_questions = flask.request.cookies.get("questions")
-    new_answers = flask.request.cookies.get("answers")
+    new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
+    new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
 
     if flask.request.method == "POST":
         test_title = flask.request.form["test_title"]
