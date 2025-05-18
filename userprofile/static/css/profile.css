@@ -286,13 +286,27 @@ input{
     height: 100px;
 }
 
-.main-info img {
-    position: absolute;
-    height: 70%;
-    width: 36%;
-    min-height: 50px;
-    border: 2px black solid;
-    border-radius: 50%;  /* округляем всегда картинку юзераа */
+.avatar-circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 71px;
+    height: 71px;
+    /* width: 25%;
+    height: 100%; */
+    border-radius: 50%;
+    border: 1px black solid;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0s;
+}
+
+.avatar{
+    width: 100%;
+    height: 100%;
+    transition: 0s;
 }
 
 .nickname{

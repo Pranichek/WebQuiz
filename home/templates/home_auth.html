@@ -19,11 +19,13 @@
         </div>
         <div class="data-user">
             <div class="main-data">
-                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + email +'/'+ name_avatar ) }}" alt="avatar">
-                <a class="nick" href="/profile">{{ username }}</a>
+                <div class="avatar-circle">
+                    <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                </div>
+                <a class="nick" href="/profile">{{ user.username }}</a>
             </div>
             <div class="antoher-data">
-                <p class="gmail">{{ email }}</p>
+                <p class="gmail">{{ user.email }}</p>
                 <div class="tests-data">
                     <p class="text-tests">пройдені тести: <p class="number-tests">{{ count_tests }}</p></p>
                     <img class= "bonuses" src="{{ url_for('home.static', filename='images/home_auth/bonuses.png') }}" alt="">

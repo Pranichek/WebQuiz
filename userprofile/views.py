@@ -98,10 +98,13 @@ def render_edit_avatar():
                 try:
                     show[0] = ''
                     flask_login.current_user.name_avatar = flask.session["cash_image"]
+
+                    print(check_form)
+                    data_range = int(flask.request.form.get("hide-size"))
+                    flask_login.current_user.size_avatar = int(100 + (120 * (data_range / 100)))
                     DATABASE.session.commit()
 
                     img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "cash", str(flask.session["cash_image"]))))
-                    # save a image using extension
 
                     img = img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email) , str(flask.session["cash_image"]))))
                     os.remove(path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "cash", str(flask.session["cash_image"]))))
@@ -130,11 +133,20 @@ def render_edit_avatar():
                     default_img = default_img.save(fp=os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email) , name_avatar)))
 
                 flask_login.current_user.name_avatar = name_avatar
+                flask_login.current_user.size_avatar = 100
                 DATABASE.session.commit()
             elif check_form == "del_image":
                 default_avatars = ["default_avatar.png", "default_picture2.png", "default_picture3.png", "default_picture4.png","default_picture5.png"]
                 if str(flask_login.current_user.name_avatar) not in default_avatars:
-                    flask_login.current_user.name_avatar = str(random.choice(default_avatars))
+                    name_default_avatar = str(random.choice(default_avatars))
+                    path = os.path.abspath(os.path.join(__file__, "..", "static", "images", "edit_avatar", str(flask_login.current_user.email), name_default_avatar))
+
+                    if not os.path.exists(path):
+                        default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", name_default_avatar)))
+                        # save a image using extension
+                        default_img = default_img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), name_default_avatar)))
+                    flask_login.current_user.size_avatar = 100
+                    flask_login.current_user.name_avatar = name_default_avatar
                     DATABASE.session.commit()
             
             elif check_form == "back":

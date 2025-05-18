@@ -5,6 +5,7 @@ from Project.db import DATABASE
 from .send_email import send_code, generate_code
 from threading import Thread
 import PIL
+# from userprofile.models import UserAvatar
 
 #Просто головна сторінка
 def render_home():
@@ -23,10 +24,8 @@ def render_home_auth():
         return flask.render_template(
             "home_auth.html", 
             home_auth = True,
-            username = flask_login.current_user.username,
-            email = flask_login.current_user.email,
-            count_tests = flask_login.current_user.count_tests,
-            name_avatar = flask_login.current_user.name_avatar
+            count_tests = 0,
+            user = flask_login.current_user
             )
     else:
         return flask.redirect("/")
@@ -100,7 +99,7 @@ def render_registration():
         return flask.redirect("/")
 
 def render_code():
-    try:
+    # try:
         form_code = ''
         if flask.request.method == "POST":
             for num_tag in range(1, 7):
@@ -125,6 +124,13 @@ def render_code():
                                 is_mentor = flask.session["check_mentor"]
                             )
                         
+                        # model_avatar = UserAvatar(
+                        #     user_id = user.id
+                        # )
+
+                        # DATABASE.session.add(model_avatar)
+                        # DATABASE.session.commit()
+                        
                         #створює папку із тим шляхом що указали
                         os.mkdir(path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"]))))
                         # creating a image object (main image) 
@@ -147,10 +153,10 @@ def render_code():
         else:
             flask.session.pop("new_email", "code")
             return flask.redirect("/")
-    except Exception as error:
-        print(error)
-        flask.session.clear()
-        return flask.redirect("/")
+    # except Exception as error:
+    #     print(error)
+    #     flask.session.clear()
+    #     return flask.redirect("/")
 
 
 def render_login():

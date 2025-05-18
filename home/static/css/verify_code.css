@@ -25,7 +25,7 @@
 p {  
     font-size: 24px;
     color: #ffffff;
-    font-weight: lighter;
+    /* font-weight: lighter; */
 }
 
 .input-code {
