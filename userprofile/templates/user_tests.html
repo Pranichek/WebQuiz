@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('profile.static', filename = 'css/user_tests.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <h1 class="title">Твої тести</h1>
+
+    <div class="tests">
+        {% for test in tests %}
+            <div class="test">
+                <p>Автор тесту: {{ user.username }}</p>
+                <p>Назва тесту: {{ test.title_test }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

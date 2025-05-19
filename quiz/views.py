@@ -13,15 +13,16 @@ from Project.db import DATABASE
 from os.path import abspath, join
 
 
+
 def render_test():
     list_to_template = []
     new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
     new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
 
     if flask.request.method == "POST":
+        
         test_title = flask.request.form["test_title"]
 
-        print("questions =", flask.request.form.getlist("question"), "answers =", flask.request.form.getlist("answers"))
 
         test = Test(
             title_test = test_title,
@@ -61,7 +62,6 @@ def render_test():
                 print("list_to_template =", list_to_template)
                 number += 1
     return flask.render_template(template_name_or_list= "test.html", question_list = list_to_template)
-
 
 def render_create_question():
     return flask.render_template(template_name_or_list= "create_question.html")

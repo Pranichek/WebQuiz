@@ -1,14 +1,200 @@
 *{
     color: white;
+    transition: 1s;
+}
+
+#eye1, #eye3{
+    cursor: pointer;
+    z-index: 100;
+}
+
+#eye2 {
+    cursor: pointer;
+    z-index: 1100;
+}
+
+.hidden1, .hidden2, .hidden3{
+    display: none;
 }
 
 a{
     text-decoration: none;
 }
 
-.change_name, .change_phone, .change_password, .change_email{
+.change_name, .change_phone, .change_email, .change_email, .confirm-logout, .change_phone, .confirm-delete{
     display: none;
 }
+
+.modal{
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 400; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* новый пароль */
+.change_password {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #2f2f2f;
+    width: 562px;
+    height: 618px;
+    gap: 9px;
+    padding: 19px 10px 0px 10px;
+    position: fixed;
+    top: 50%;
+    transform: translateY(-50%) translateX(0%);
+    z-index: 800;
+    overflow: hidden;
+    border-radius: 15px;
+}
+
+.password-text{
+    display: flex;
+    flex-direction: column;
+    gap: 9px;
+    text-align: center;
+    width: 100%;
+    height: 20%;
+    /* background-color: #94C4FF; */
+}
+
+.topic-password{
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.rule-text{
+    color: #ffffff;
+    font-size: 16px;
+}
+
+.inputs-passwords{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: start;
+    gap: 9px;
+    width: 100%;
+    height: 80%;
+    /* background-color:green; */
+    padding: 10px;
+}
+
+.password-rule{
+    color: #BFBFBF;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+
+.password-buttons{
+    width: 100%;
+    height: 20%;
+    /* background-color: #FD6363; */
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: end;
+}
+
+.password-button{
+    padding: 10px 20px 10px 20px;
+    color: #ffffff;
+    background-color: #C48AF7;
+    border-radius: 5px;
+    font-size: 16px;
+    border: none;
+}
+
+.back-password{
+    background: none;
+    border: none;
+    font-size: 16px;
+    padding: 10px;
+    margin-right: 10px;
+}
+/*  */
+
+.confirm-logout, .confirm-delete{
+    background-color: #343434;
+    /* display: flex; */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed; 
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+    width: 562px;
+    height: 234px;
+    text-align: center;
+    gap: 15px;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
+.logout-text{
+    /* background-color: #94C4FF; */
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    margin-bottom: 10px;
+}
+
+.deny-text{
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.button-deny{
+    background: none;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.logout-text{
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.logout-buttons{
+    /* background-color: green; */
+    width: 100%;
+    height: 50%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.logout{
+    background-color: #FD6363;
+    color: #ffffff;
+    border-radius: 3px;
+    padding: 10px 30px 10px 30px;
+    border: none;
+    font-size: 16px;
+    font-weight: 500;
+}
+
 input{
     color: black;
 }
@@ -24,6 +210,36 @@ input{
     filter: blur(100px);
     z-index: -1;
     pointer-events: none;
+}
+
+.first-password{
+    position: relative;
+    display: flex;
+    /* background-color: chartreuse; */
+    width: 100%;
+    height:69px;
+}
+
+.first-password .eye-hide{
+    position: absolute;
+    right: 5%;
+    /* z-index: 3; */
+    width: 30px;
+    height: 30px;
+}
+
+
+.first-password input{
+    border: 2px #94C4FF solid;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    /* background: none; */
+    border-radius: 10px;
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: 700;
+    background-color: #2f2f2f;
 }
 
 .main{
@@ -70,13 +286,27 @@ input{
     height: 100px;
 }
 
-.main-info img {
-    position: absolute;
-    height: 70%;
-    width: 36%;
-    min-height: 50px;
-    border: 2px black solid;
-    border-radius: 50%;  /* округляем всегда картинку юзераа */
+.avatar-circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 71px;
+    height: 71px;
+    /* width: 25%;
+    height: 100%; */
+    border-radius: 50%;
+    border: 1px black solid;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: 0s;
+}
+
+.avatar{
+    width: 100%;
+    height: 100%;
+    transition: 0s;
 }
 
 .nickname{
@@ -87,14 +317,17 @@ input{
 }
 
 .avatar-changing{
-    width: 184;
-    height: 38;
-    top: 92px;
-    left: 596px;
-    gap: 10px;
+    width: 184px;
+    height: 38px;
+    /* top: 92px;
+    left: 596px; */
+    /* gap: 10px; */
     border-radius: 5px;
     padding: 10px 30px 10px 30px;
     background-color: #C48AF7; 
+    display: flex;
+    align-items: center; /* выравнивание по вертикали */
+    justify-content: center;
 }
 
 .background{
@@ -143,8 +376,79 @@ input{
     font-size: 20px;
 }
 
+.info-item input{
+    font-size: 20px;
+    background-color: none;
+    color: #ffffff;
+    background: none;
+    border: none;
+    outline:none;
+}
+
+.input_email{
+    padding-top: 11px;
+    width: 100%;
+    font-size: 20px;
+    background-color: none;
+    color: #ffffff;
+    background: none;
+    border: none;
+    outline:none;
+}
+
+.deny-button{
+    font-size: 16px;
+    color: #ffffff;
+    font-weight: bold;
+    background: none;
+    border: none;
+    margin-right: 10px;
+}
+
+.accept-nick{
+    color: #ffffff;
+    background-color: #7291B8;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+}
+
+.accept-email{
+    color: #ffffff;
+    background-color: #7291B8;
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+}
+
+.accept-phone{
+    color: #ffffff;
+    background-color: #7291B8;
+    border-radius: 3px;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    padding: 10px;
+}
+
+
+.text-name {
+    position: relative;
+    padding-top: 11px;
+    background: none;
+    border: none;
+    outline: none;
+    color: white;
+}
+
+
 .info-item .label{
     color: #BFBFBF;
+    font-weight: 500;
 }
 
 .change{
@@ -207,8 +511,456 @@ input{
     border: none;
 }
 
+
+.password-checklist{
+    position: absolute;
+    top: calc(80%);
+    width: 90%;
+    padding: 20px 30px;
+    background: #414141;
+    border-radius: 15px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: .5s ease;
+    border: 2px #ffffff solid;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    justify-content: center;
+    align-items: start;
+    z-index: 108;
+    /* background-color: #B9BDF5; */
+}
+
+.top-part {
+    width: 100%;
+    margin-top: 0;
+    /* padding-top: 10px; */
+    /* background-color: green; */
+    display: flex;
+    flex-direction: row;
+    justify-content: center; 
+    align-items: end;  
+    gap: 10px;   
+}
+
+.top-part h3{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.img-checklist{
+    margin: 0;
+    padding: 0;
+    width: 21px;
+    height: 25px;
+}
+
+.new_password{
+    z-index: 110;
+}
+
+.new_password:focus ~ .password-checklist{
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+
+}
+
+.checklist-title{
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: 500;
+    /* margin-bottom: 10px; */
+}
+
+.checklist{
+    margin-top: 10px;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: start;
+    /* background-color: aqua; */
+}
+
+.list-item{
+    transform: translatey(-2px);
+}
+
+.first-rule{
+    /* background-color: red; */
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 0px;
+}
+
+.icon-item{
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    transition: "";
+} 
+
+.like1, .like2, .like3{
+    display: none;
+}
+
+.list-item{
+    padding-left: 10px;
+    color: #ffffff;
+    font-weight: 300;
+    font-size: 16px;
+}
+
+/* .checklist-line{
+    display: none;
+    margin-left: 30px;
+    width: 0%;
+    height: 1px;
+    background-color: #C48AF7;
+    transform: translateY(-6px);
+} */
+.checklist-line {
+    margin-left: 30px;
+    opacity: 0;
+    width: 0;
+    height: 1px;
+    background-color: #C48AF7;
+    transform: translateY(-6px);
+    transition: width 1s ease, opacity 0.3s ease;
+}
+
+/* .first_line{
+    transition: 1s ease;
+    width: 88%;
+}
+
+.second-line{
+    transition: 1s ease;
+    width: 92%;
+}
+
+.third-line{
+    transition: 1s ease;
+    width: 90%;
+} */
+/* .list-item::before{
+    color: #C48AF7;
+    display: inline-block;
+    margin: 8px 8px;
+    margin-left: -30px;
+    width: 20px;
+    font-size: 12px;
+} */
+
+
+
+/* .list-item.checked::before{
+    content: "✓";
+    color: aqua;
+} */
+
 @media (max-width: 450px){
     .info-container{
         width: 100%;
     }
 }
+
+@media (min-width:451px) and (max-width: 799px){
+    .input_email, .input_phone, .text-name{
+        max-width: 100px;
+    }
+
+    .info-item .label{
+        color: #BFBFBF;
+        font-size: 16px;
+    }
+
+    .avatar-changing{
+        width: 250px;
+        height: 50px;
+        border-radius: 5px;
+        padding: 0px;
+        background-color: #C48AF7; 
+        font-size: 20px;
+        text-align: center;
+    }
+}
+
+@media (min-width: 800px) and (max-width:899px){
+    .input_email{
+        max-width: 200px;
+    }
+}
+
+@media (min-width: 900px) and (max-width:1100px){
+    .input_email{
+        max-width: 250px;
+    }
+}
+
+@media(min-width: 1600px) and (max-width: 1999px){
+    .avatar-changing{
+        width: 220px;
+        height: 50px;
+        border-radius: 5px;
+        padding: 0px;
+        background-color: #C48AF7; 
+        font-size: 25px;
+        text-align: center;
+    }
+
+    .info-container{
+        height: 700px;
+    }
+
+    .main-info img {
+        position: absolute;
+        height: 80%;
+        width: 44%;
+        min-height: 50px;
+        border: 2px black solid;
+        border-radius: 50%;  /* округляем всегда картинку юзераа */
+    }
+
+    .main-info{
+        gap: 10px;
+    }
+
+    .nickname{
+        position: absolute;
+        left: 50%;
+        font-size: 30px;
+        color: white;
+    }
+
+    .info-item .label{
+        color: #BFBFBF;
+        font-weight: 500;
+        font-size: 28px;
+    }
+
+    .info-item input{
+        font-size: 28px;
+        background-color: none;
+        color: #ffffff;
+        background: none;
+        border: none;
+        outline:none;
+    }
+
+    .input_email{
+        min-width: 350px;
+    }
+
+    .info-item .change{
+        width: 30%;
+        min-width: 80px;
+        height: 50px;
+        gap: 10px;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #C48AF7;
+        font-size: 21px;
+        border: none;
+    }
+
+    .deny-button{
+        font-size: 23px;
+        color: #ffffff;
+        font-weight: bold;
+        background: none;
+        border: none;
+        margin-right: 15px;
+    }
+
+    .accept-nick, .accept-phone{
+        color: #ffffff;
+        background-color: #7291B8;
+        border-radius: 3px;
+        font-size: 20px;
+        font-weight: bold;
+        border: none;
+        padding: 10px;
+    }
+
+    .accept-email{
+        color: #ffffff;
+        background-color: #7291B8;
+        border-radius: 3px;
+        font-size: 20px;
+        font-weight: bold;
+        border: none;
+        padding: 10px;
+    }
+
+    .account-control{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 35px;
+        width: 70%;
+        height: 480px;
+        border: 1px solid black;
+        border-radius: 30px;
+    }
+
+    .account-control p{
+        font-size: 27px;
+    }
+
+    .account-control button{
+        width: 200px;
+        height: 60px;
+        font-size: 23px;
+    }
+
+    .text-in-between{
+        font-size: 28px;
+    }
+}
+
+@media (min-width: 2001px){
+    .avatar-changing{
+        width: 220px;
+        height: 50px;
+        border-radius: 5px;
+        padding: 0px;
+        background-color: #C48AF7; 
+        font-size: 25px;
+        text-align: center;
+    }
+
+    .info-container{
+        height: 900px;
+    }
+
+    .main-info img {
+        position: absolute;
+        height: 90%;
+        width: 52%;
+        min-height: 50px;
+        border: 2px black solid;
+        border-radius: 50%;  /* округляем всегда картинку юзераа */
+    }
+
+    .main-info{
+        gap: 10px;
+    }
+
+    .nickname{
+        position: absolute;
+        left: 58%;
+        font-size: 35px;
+        color: white;
+    }
+
+    .info-item .label{
+        color: #BFBFBF;
+        font-weight: 500;
+        font-size: 32px;
+    }
+
+    .info-item input{
+        font-size: 32px;
+        background-color: none;
+        color: #ffffff;
+        background: none;
+        border: none;
+        outline:none;
+    }
+
+    .input_email{
+        min-width: 160%;
+    }
+
+    .info-item .change{
+        width: 30%;
+        min-width: 80px;
+        height: 50px;
+        gap: 10px;
+        border-radius: 5px;
+        padding: 10px;
+        background-color: #C48AF7;
+        font-size: 26px;
+        font-weight: 700;
+        border: none;
+    }
+
+    .deny-button{
+        font-size: 26px;
+        color: #ffffff;
+        font-weight: bold;
+        background: none;
+        border: none;
+        margin-right: 15px;
+    }
+
+    .accept-nick, .accept-phone{
+        color: #ffffff;
+        background-color: #7291B8;
+        border-radius: 3px;
+        font-size: 26px;
+        font-weight: bold;
+        border: none;
+        padding: 10px;
+    }
+
+    .accept-email{
+        color: #ffffff;
+        background-color: #7291B8;
+        border-radius: 3px;
+        font-size: 26px;
+        font-weight: bold;
+        border: none;
+        padding: 10px;
+    }
+
+    .account-control{
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 35px;
+        width: 80%;
+        height: 600px;
+        border: 1px solid black;
+        border-radius: 30px;
+    }
+
+    .account-control p{
+        font-size: 34px;
+    }
+
+    .account-control button{
+        width: 260px;
+        height: 68px;
+        font-size: 29px;
+    }
+
+    .text-in-between{
+        font-size: 34px;
+    }
+
+    .info-container{
+        max-width: 1400px;
+    }
+
+    .account-control{
+        max-width: 1900px;
+    }
+}
+
