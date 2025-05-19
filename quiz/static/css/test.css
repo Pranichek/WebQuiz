@@ -189,3 +189,79 @@ form{
     /* width: 30%; */
     font-size: 13px;
 }
+
+
+
+
+.change-name {
+    background-color: #C48AF7; 
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.test-actions {
+    display: flex;
+    /* align-items: center; */
+    gap: 27%;
+    background-color: #343434;
+    padding: 20px;
+    border-radius: 3%;
+}
+
+#form_button {
+    display:  none;
+}
+
+.change-name-form {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+#place {
+    display: flex;
+    flex-direction: row;
+    gap: 30%;
+}
+#intoplace {
+    display: flex;
+    flex-direction: column;
+}
+.change-name-form label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #BFBFBF;
+
+}
+
+.change-name-form input {
+    border: none;
+    border-bottom: 2px solid #343434;
+    background-color: transparent;
+    padding: 8px 5px;
+    font-size: 16px;
+    color: #ffffff;
+    width: 180px;
+    outline: none;
+}
+
+.change-name-form button {
+    background-color: #C48AF7; 
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 20px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.change-name-form button:hover {
+    background-color: #C48AF7;
+}

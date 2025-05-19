@@ -76,6 +76,19 @@
             </button>
         </div>
     </form>
+
+    <button class="change-name" type="button" onclick="CHnageName()">ЗМІНИТИ</button>
+    <div class="test-actions">
+        <form action="" method="post" id="form_button" class="change-name-form">
+            <div id="place">
+                <div id="intoplace">
+                    <label for="test-title">Введіть назву теста: </label>
+                    <input type="text" id="test-title" placeholder="python">
+                </div>
+                <button>Змінити</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}
 
 {% block scripts %}
