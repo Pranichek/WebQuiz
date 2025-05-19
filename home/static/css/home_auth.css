@@ -31,6 +31,7 @@ header{
     justify-content: center;
     align-items: center;
     width: 100vw;
+    cursor: pointer;
     /* background-color: gold; */
     gap: 45px;
     height: 30vh;
@@ -75,9 +76,34 @@ header{
 }
 
 .avatar{
-    width: 20%;
+    width: 100%;
     height: 100%;
+    /* width: calc(100% + (calc(100% * 1)));
+    height: calc(100% + (calc(100% * 1))); */
+    /* max-width: 100%;
+    max-height: 100%; */
+    /* width: 27%;
+    height: 100%; */
+    /* border-radius: 50%; */
+    /* border: 2px black solid; */
+    /* transform: scale(calc(0.4 * 0.32)); */
+    /* transform: scale(1.5); */
+}
+
+.avatar-circle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 71px;
+    height: 71px;
+    /* width: 25%;
+    height: 100%; */
+    border: 1px black solid;
     border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .username{
@@ -339,9 +365,9 @@ input::-webkit-inner-spin-button {
 
 /* Планшеты */
 @media (max-width: 1024px) {
-    .avatar{
-        width: 33px;
-        height: 30px;
+    .avatar-circle{
+        width: 36px;
+        height: 36px;
     }
 
     .image-robot{
@@ -462,10 +488,27 @@ input::-webkit-inner-spin-button {
     }
 }
 
+
+@media (min-width: 1400px){
+    .data-user{
+        width: 20%;
+        height: 95%;
+        font-size: 90%;
+    }
+    /* .avatar-circle{
+        width: 13%;
+        height: 90%;
+    } */
+    .card{
+        height: 100%;
+    }
+}
+
 @media (min-width: 1025px) and (max-width: 1440px) { 
-    .avatar{
+    .avatar-circle{
         width: 50px;
-        height: 45px;
+        height: 50px;
+        /* border: #8AF7D4 2px solid; */
     }
 
     .nick{
@@ -498,7 +541,7 @@ input::-webkit-inner-spin-button {
  }
 
 @media (min-width: 1441px) and (max-width: 1600px) {
-    .avatar{
+    .avatar-circle{
         width: 65px;
         height: 60px;
     }
@@ -576,7 +619,7 @@ input::-webkit-inner-spin-button {
 } 
 
 @media (min-width: 1601px) and (max-width: 2000px) {
-    .avatar{
+    .avatar-circle{
         width: 65px;
         height: 60px;
     }
@@ -658,7 +701,7 @@ input::-webkit-inner-spin-button {
 } 
 
 @media(min-width:2001px){
-    .avatar{
+    .avatar-circle{
         width: 75px;
         height: 70px;
         margin-left: 2%;

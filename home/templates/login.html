@@ -12,6 +12,7 @@
 
         <div class="login">
             <form action="" method="post" id="form">
+                <input type="hidden" name="check_form" value="login">
                 <div class="img-avatar">
                     <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.png') }}" alt="avatar">
                 </div>
@@ -52,5 +53,11 @@
     <div class="robot-glowing-area"></div>
     <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
 
-    <script src="{{ url_for('login.static', filename='js/login.js') }}"></script>
+    <form action="" method="post" id="clear-form">
+        <input type="hidden" name="check_form" value="clear_form">
+    </form>
 {% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('login.static', filename='js/login.js') }}"></script>
+{% endblock scripts %}

@@ -6,12 +6,12 @@ class User(DATABASE.Model, flask_login.UserMixin):
     id = DATABASE.Column(DATABASE.Integer, primary_key = True)
 
     username = DATABASE.Column(DATABASE.String(150), nullable = False)
-    phone_number =  DATABASE.Column(DATABASE.Integer, nullable = False, unique = True)
-    nickname = DATABASE.Column(DATABASE.String(150), unique = True)
+    phone_number =  DATABASE.Column(DATABASE.Integer, nullable = False, default = "Не під'єднан")
+    nickname = DATABASE.Column(DATABASE.String(150))
     password = DATABASE.Column(DATABASE.String(150), nullable = False)
-    email = DATABASE.Column(DATABASE.String(150), unique = True, nullable = False)
+    email = DATABASE.Column(DATABASE.String(150), nullable = False)
     is_mentor = DATABASE.Column(DATABASE.Boolean, default = False)
-    count_tests = DATABASE.Column(DATABASE.Integer, default = 0)
-    winning_tests = DATABASE.Column(DATABASE.Integer, default = 0)
-
+    
     name_avatar = DATABASE.Column(DATABASE.String, default = "default_avatar.png")
+    size_avatar = DATABASE.Column(DATABASE.Integer, default = 100)
+

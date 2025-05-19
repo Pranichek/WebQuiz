@@ -11,7 +11,7 @@
 {% block content %}
     <div class="back-blur"></div>
     <div class="main-block">
-        <div class="image">
+        <div class="image" onclick="loadIMage()">
             <img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/add_new.png') }}" alt="image">
         </div>
         <div class="text">
@@ -20,31 +20,32 @@
         <div class="default-avatars">
             <div id = "1" class="img ">
                 <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_avatar.png') }}" alt="avatar">
-                <span id = "1" class="agree 1"><img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.png') }}" alt="img"></span>
+                <span id = "1" class="agree 1"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.png') }}" alt="img"></span>
             </div>
             <div id = "2" class="img ">
                 <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_picture2.png') }}" alt="avatar">
-                <span id = "2" class="agree 2"><img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.png') }}" alt="img"></span>
+                <span id = "2" class="agree 2"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.png') }}" alt="img"></span>
             </div>
             <div id = "3" class="img ">
                 <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_picture3.png') }}" alt="avatar">
-                <span id = "3" class="agree 3"><img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.png') }}" alt="img"></span>
+                <span id = "3" class="agree 3"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.png') }}" alt="img"></span>
             </div>
             <div id = "4" class="img ">
                 <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_picture4.png') }}" alt="avatar">
-                <span id = "4" class="agree 4"><img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.png') }}" alt="img"></span>
+                <span id = "4" class="agree 4"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.png') }}" alt="img"></span>
             </div>
             <div id = "5" class="img ">
                 <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_picture5.png') }}" alt="avatar">
-                <span id = "5" class="agree 5"><img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.png') }}" alt="img"></span>
+                <span id = "5" class="agree 5"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.png') }}" alt="img"></span>
             </div>
         </div>
 
         <div class="edit-buttons">
             <div class="button" onclick="loadIMage()">
                 <p class="button-text">Обрати з  галереї</p>
+                <!-- форма завантаження файлу -->
                 <form action="" method="post" id="send-picture" enctype='multipart/form-data'>
-                    <label for="file">Send</label>
+                    <label for="file"><img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/photo.png') }}" alt=""></label>
                     <input type="text" name="check_form" class = "check_name" value = "load_image">
                     <input id="file-upload" name="file" type="file" class="get_photo" onchange="submitForm()">
                 </form>
@@ -64,13 +65,15 @@
         <div class="bottom-data">
             <div class="data-user">
                 <div class="main-data">
-                    <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                    <div class="avatar-circle">
+                        <img class="avatar" data-size="{{ user.size_avatar }}" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                    </div>
                     <a class="nick" href="/profile">{{ user.username }}</a>
                 </div>
                 <div class="antoher-data">
                     <p class="gmail">{{ user.email }}</p>
                     <div class="tests-data">
-                        <p class="text-tests">пройдені тести: <p class="number-tests">{{ user.count_tests }}</p></p>
+                        <p class="text-tests">пройдені тести: <p class="number-tests">0</p></p>
                         <img class= "bonuses" src="{{ url_for('home.static', filename='images/home_auth/bonuses.png') }}" alt="">
                     </div>
                 </div>
@@ -81,8 +84,6 @@
                 <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
             </div>
         </div>
-
-        <p>{{ show }}</p>
     </div>
 
     <form action="" id= "default_avatar" method="post">
@@ -98,11 +99,13 @@
         </div>
         <div class="look-picture">
             <div class="image-user">
+                <input type="range" name="input_range" class="size" min="100" max="200" value="100" onchange="ChangeSize()">
+
                 <div class = "blur-image">
-                    <img class="bg-image" src="{{ url_for('profile.static', filename = 'images/edit_avatar/' + user.email + '/cash/' +  cash_image) }}" alt="img" onchange="ShowPage()">
+                    <img class="bg-image" src="{{ url_for('profile.static', filename = 'images/edit_avatar/' + user.email + '/cash/' +  cash_image) }}" alt="img">
                 </div>
                 <div class="circle">
-                    <img class="bg-image" src="{{ url_for('profile.static', filename = 'images/edit_avatar/' + user.email + '/cash/' +  cash_image) }}" alt="img" onchange="ShowPage()">
+                    <img class="bg-image inside" src="{{ url_for('profile.static', filename = 'images/edit_avatar/' + user.email + '/cash/' +  cash_image) }}" alt="img">
                 </div>
                 <!-- <img class="example-image" src="{{ url_for('profile.static', filename = 'images/edit_avatar/' + user.email + '/'+ user.name_avatar ) }}" alt="img"> -->
             </div>
@@ -128,17 +131,17 @@
                     <input type="text" name="check_form" class = "check_name" value = "back">
                     <button type="submit" class="back">назад</button>
                 </form>
-                <form action="" method="post">
+                <form action="" method="post" id="apply_image_form">
+                    <!-- тут скрытый инпут, чтобы при пост запросе на бек мы могли получить значени что ввел пользователь -->
+                    <input type="range" name="hide-size" class="hide-size" min="100" max="200" value="100">
                     <input type="text" name="check_form" class = "check_name" value = "apply_image">
-                    <button class="apply" type="submit">застосувати зображення </button>
+                    <button class="apply" type="submit">застосувати зображення</button>
                 </form>
             </div>
         </div>
     </div>
-
-    <!-- <form action="" method="post" enctype='multipart/form-data'>
-        <input name="file" type="file">
-        <button type="submit" value="">Задати нову аватарку</button>
-    </form> -->
-    <script src="{{ url_for('profile.static', filename='js/editInfo.js') }}"></script>
 {% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('profile.static', filename='js/editInfo.js') }}"></script>
+{% endblock scripts %}

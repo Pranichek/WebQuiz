@@ -1,0 +1,42 @@
+.title{
+    /* колір тексту */
+    color: #ffffff; 
+    /* поозиціювання тексту */
+    text-align: center;
+    /* розмір шрифту */
+    font-size: 40px;
+    /*  */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 10vh;
+}
+
+
+.tests{
+    background-color: aqua;
+    width: 100%;
+    height: 90vh;
+
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap:20px;
+}
+
+
+.test{
+    background-color: blue;
+    width: 200px;
+    height: 300px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+}

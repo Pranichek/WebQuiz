@@ -11,11 +11,14 @@
 {% block content %}
     <div class="backgroung-glowing"></div>
 
+    <div class="modal"></div>
     <div class="info-container">
-
         <div class="profile-headerline">
             <div class="main-info">
-                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                <div class="avatar-circle">
+                    <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                </div>
+
                 <p class="nickname">{{ user.username }}</p>
             </div>
             <a class="avatar-changing" href="/edit_avatar">Змінити фото</a>
@@ -28,14 +31,11 @@
                     <span class="info">
                         <p class="label">Ім’я користувача</p>
                         <!-- <p>{{ user.username }}</p> -->
-                        <input minlength="2" maxlength="10" pattern="[A-Za-zа-яА-Я]+" type="text" name="" class="text-name" id="foo" value="{{ user.username }}" disabled>
+                        <input data-name="{{ user.username }}" minlength="2" maxlength="10" pattern="[A-Za-zа-яА-Я]+" type="text" name="" class="text-name" id="foo" value="{{ user.username }}" disabled>
                     </span>
                     <button class="change" id="change1" value="name">Змінити</button>
                     <div class="change_name">
-                        <form action="" method="">
-                            <input type="hidden" name="form_name" value="otmena_imeni">
-                            <button class="deny-button" type="submit">скасувати</button>
-                        </form>
+                        <button class="deny-button"  type="button" onclick="DenyName();">скасувати</button>
                         <form action="" method="post">
                             <!-- чепупеля по которой понимаем какую форму отправили -->
                             <input type="hidden" name="form_name" value="change_name">
@@ -49,14 +49,12 @@
                     <span class="info">
                         <p class="label">Електроннна пошта</p>
                         <!-- <p>{{ email }}</p> -->
-                        <input type="text" id="email-form"  name="input_email" class="input_email" value="{{ email }}" id="email-imput" disabled>
+                        <input type="text" data-email="{{ email }}" id="email-form"  name="input_email" class="input_email" value="{{ email }}" id="email-imput" disabled>
                     </span>
-                    <button class="change" value = "email">Змінити</button>
+                    <button class="change" id="change2" value = "email">Змінити</button>
                     <div class="change_email">
-                        <form action="" method="">
-                            <input type="hidden" name="form_name" value="otmena_email">
-                            <button class="deny-button" type="submit">скасувати</button>
-                        </form>
+
+                        <button class="deny-button" id="change2" type="button" onclick="DenyEmail();">скасувати</button>
                         <form action="" method="post">
                             <!-- чепупеля по которой понимаем какую форму отправили -->
                             <input type="hidden" name="form_name" value="change_email_user">
@@ -69,14 +67,12 @@
                     <span class="info">
                         <p class="label">Номер телефону</p>
                         <!-- <p>{{ phone_user }}</p> -->
-                        <input inputmode="numeric" pattern="[\d\+]*$" id="phone_form" type="tel" maxlength="13" minlength="13" name="input_phone" class="input_phone" value="{{ phone_user }}" id="email-imput" disabled>
+                        <input data-phone="{{ phone_user }}" inputmode="numeric" pattern="[\d\+]*$" id="phone_form" type="tel" maxlength="13" minlength="13" name="input_phone" class="input_phone" value="{{ phone_user }}" id="email-imput" disabled>
                     </span>
-                    <button class="change" value="phone_number">Змінити</button>
+                    <button class="change" id="change3" value="phone_number">Змінити</button>
                     <div class="change_phone">
-                        <form action="" method="">
-                            <input type="hidden" name="form_name" value="otmena_phone">
-                            <button class="deny-button" type="submit">скасувати</button>
-                        </form>
+
+                        <button class="deny-button" type="button" onclick="DenyPhone()">скасувати</button>
                         <form action="" method="post">
                             <!-- чепупеля по которой понимаем какую форму отправили -->
                             <input type="hidden" name="form_name" value="change_phone">
@@ -144,11 +140,62 @@
             <form action="" method="post" class="inputs-passwords">
                 <input type="hidden" name="form_name" value="change_password">
                 <p class="password-rule">Введіть попередній пароль</p>
-                <input type="text" name="current_password" id="" class="password-input" required>
-                <p class="password-rule">Введіть новий пароль </p>
-                <input type="text" name="new_password" id=""pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$" maxlength="8" minlength="8" class="password-input" required>
-                <p class="password-rule">Підтвердження нового пароля</p>
-                <input type="text" name="confirm_password" id="" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$" maxlength="8" minlength="8" class="password-input" required>
+                <div class="first-password">
+                    <input maxlength="8" type="password" name="current_password" id="current_password" class="password-input" required>
+                    <img class="eye-hide" id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
+                    <img class="hidden1 eye-hide" id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
+                </div>
+                <div>
+                    <p class="password-rule">Введіть новий пароль </p>
+                </div>
+
+                <div class="first-password">
+                    <input type="password" name="new_password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$" maxlength="8" minlength="8" class="password-input new_password" required>
+                    <img class="eye-hide" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
+                    <img class="hidden2 eye-hide" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
+
+                    <div class="password-checklist">
+                        <div class="top-part">
+                            <h3 class="checklist-title">Пароль повинен містити</h3>
+                            <img class="img-checklist" src="{{ url_for('home.static', filename='images/login_and_auth/checklist.png') }}" alt="checklist">
+                        </div>
+
+                        <ul class="checklist">
+                            <div class="first-rule">
+                                <img class="icon-item like1" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
+                                <img class="icon-item dislike1" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
+                                <li class="list-item">Довжина у 8 символів</li>
+                                <!-- <div class="checklist-line"></div> -->
+                            </div>
+                            <div class="checklist-line first-line"></div>
+                            <div class="first-rule">
+                                <img class="icon-item like2" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
+                                <img class="icon-item dislike2" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
+                                <li class="list-item">Хоча б одна цифра</li>    
+                                <!-- <div class="checklist-line"></div>                         -->
+                            </div>
+                            <div class="checklist-line second-line"></div>
+                            <div class="first-rule">
+                                <img class="icon-item like3" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
+                                <img class="icon-item dislike3" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
+                                <li class="list-item latin">Лише латинські літери</li>
+                                <!-- <div class="checklist-line"></div> -->
+                            </div>
+                            <div class="checklist-line third-line"></div>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="password-rule">Підтвердження нового пароля</p>
+                </div>
+        
+                <div class="first-password">
+                    <input type="password" name="confirm_password"  maxlength="8" class="password-input confirm-password" required>
+                    <img class="eye-hide" id="eye3" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
+                    <img class="hidden3 eye-hide" id="eye3" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
+                </div>
+
                 <div class="password-buttons">
                     <button class="back-password" type="button" onclick="CloseLogout()">назад</button>
                     <button class="password-button">Готово</button>
@@ -157,7 +204,10 @@
         </div>
 
     </div>
-
     <!-- <button onclick="Blur()">Haha</button> -->
+    <script src="{{ url_for('profile.static', filename='js/profile.js') }}"></script>
+{% endblock %}
+
+{% block scripts %}
     <script src="{{ url_for('profile.static', filename='js/profile.js') }}"></script>
 {% endblock %}

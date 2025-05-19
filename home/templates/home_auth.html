@@ -10,7 +10,7 @@
 
 {% block content %}
     <div class="background-blur"></div>
-    <div class="top-part">
+    <div class="top-part" onclick="Profile()">
         <div class="enter-code">
             <div class="main-input">
                 <input type="number" placeholder="Enter a join code" class="code">
@@ -19,11 +19,11 @@
         </div>
         <div class="data-user">
             <div class="main-data">
-
+                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + email +'/'+ name_avatar ) }}" alt="avatar">
                 <a class="nick" href="/profile">{{ username }}</a>
             </div>
             <div class="antoher-data">
-                <p class="gmail">{{ email }}</p>
+                <p class="gmail">{{ user.email }}</p>
                 <div class="tests-data">
                     <p class="text-tests">пройдені тести: <p class="number-tests">{{ count_tests }}</p></p>
                     <img class= "bonuses" src="{{ url_for('home.static', filename='images/home_auth/bonuses.png') }}" alt="">
@@ -244,122 +244,4 @@
     </div>
     
 
-    <!-- <div class="main-part">
-        <div class="big-part">
-            <div class="input-tx">
-                <input type="text" placeholder="Enter a join code" class="code">
-                <button type="submit" class="butn1">Join</button>
-            </div>
-        </div>
-        
-        <div class="profile">
-            <div class="prt1">
-                <img src="home/static/images/avatar.png" class="avatar">
-                <a href="/profile">Kemilly</a>
-                <img src="home/static/images/bouling.png" class="shar">
-            </div>
-            <p class="mail">tfgh@gmail.com</p>
-            <div class="end">
-                
-                <p class="tests">Пройдені тести: </p>
-                <p class="num">20</p>
-                <img src="home/static/images/nagrada.png">
-                <img src="home/static/images/nagrada.png">
-                <img src="home/static/images/nagrada.png">
-            </div>
-            
-        </div>
-    </div>
-
-    <div class="main-part2">
-        <div class="bt">
-            <button class="butns2">Побачити більше</button>
-        </div>
-        
-        <div class="otstup">
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-        </div>
-
-        <div class="bt">
-            <button class="butns2">Побачити більше</button>
-        </div>
-        <div class="otstup">
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-        </div>
-        <div class="bt">
-            <button class="butns2">Побачити більше</button>
-        </div>
-        <div class="otstup">
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-            <div class="blocks">
-    
-            </div>
-        </div>
-        <div class="obvodka">
-            <input type="text" placeholder="Знайти вікторину" class="search">
-        </div>
-        
-    </div> -->
-{% endblock %}
-
-{% block footer %}
-    <footer class="footer">
-    <div class="footer-top">
-      <ul class="footer-menu">
-        <li><a href="#">Контакти</a></li>
-        <li><a href="#">Про нас</a></li>
-        <li><a href="#">Конфіденційність</a></li>
-      </ul>
-    </div>
-    
-    <div class="footer-middle">
-        <div class="footer-follow">Слідкуйте за нами</div>
-        <div class="footer-icons">
-            <i class="github">
-                <img src="{{ url_for('home.static', filename='images/home_auth/github.png') }}" alt="">
-            </i>
-            <i class="instagram">
-                <img src="{{ url_for('home.static', filename='images/home_auth/inst.png') }}" alt="">
-            </i>
-            <i class="paper-plane">
-                <img src="{{ url_for('home.static', filename='images/home_auth/telegram.png') }}" alt="">
-            </i>
-        </div>
-    </div>
-    
-    <div class="footer-bottom">
-        <div class="footer-text">РЕКВІЗИТИ ДЛЯ ДОНАТІВ</div>
-        <p><span class="highlight">розробники сайту хочуть до Таїланду</span></p>
-    </div>
-  </footer>
 {% endblock %}
