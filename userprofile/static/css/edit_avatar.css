@@ -183,7 +183,7 @@ body{
     /* border-radius: 50%; */
     /* border: 2px black solid; */
     /* transform: scale(calc(0.4 * 0.32)); */
-    /* transform: scale(1.5); */
+    transform: scale(2);
 }
 
 .hide-size{

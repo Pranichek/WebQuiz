@@ -134,9 +134,9 @@ nav {
         color: #ffffff;
         border-radius: 5px;
         text-decoration: none;
-        width: 13vw;
+        width: 10vw;
         margin: 15px;
-        padding: 15px;
+        padding: 10px 13px;
         display: inline-block;
         text-align: center;
         font-weight: bold;
@@ -147,22 +147,35 @@ nav {
         color: #ffffff;
         border-radius: 5px;
         text-decoration: none;
-        width: 8vw;
+        width: 6vw;
         margin: 15px;
-        padding: 15px;
+        padding: 10px 13px;
         display: inline-block;
         text-align: center;
         font-weight: bold;
     }
 
-    .nav-links .enter-code{
+    .nav-links .enter-code, .test-button{
         background-color: #C48AF7;
         color: #ffffff;
         border-radius: 5px;
         text-decoration: none;
-        width: 12vw;
+        width: 10vw;
         margin: 15px;
-        padding: 15px;
+        padding: 10px 8px;
+        display: inline-block;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .test-button{
+        background-color: #C48AF7;
+        color: #ffffff;
+        border-radius: 5px;
+        text-decoration: none;
+        width: 13vw;
+        margin: 15px;
+        padding: 5px;
         display: inline-block;
         text-align: center;
         font-weight: bold;

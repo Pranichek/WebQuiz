@@ -520,13 +520,13 @@ img{
     .card {
         flex-grow: 0;
         flex-shrink: 0;
-        height: 380px;
-        width: 290px;
+        height: 360px;
+        width: 271px;
         border: 0.5px solid black;
         z-index: 1;
         transition: 1s;
         display: flex;
-        flex-direction: column;
+        flex-direction:column;
         justify-content: center;
         align-items: center;
         text-align: center;
