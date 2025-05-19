@@ -9,7 +9,7 @@ button.addEventListener("click", ()=>{
     for (let input of answerInputList){
         if (input.checkVisibility()){
             console.log(input.value);
-            if (input.id == '1'){
+            if (input.classList.contains("correct")){
                 console.log("right:", input.value);
                 answers += `(?%+${input.value}+%?)`;
             }else{

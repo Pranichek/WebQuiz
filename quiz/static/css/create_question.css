@@ -30,7 +30,16 @@ body .main{
     height: 30px;
 }
 
-.timer {
+.timer{
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.timer-p{
+    width: 190px;
     align-items: center;
     cursor: pointer;
     background: #7291B8;
@@ -40,6 +49,27 @@ body .main{
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     margin-right: 44px;
+}
+
+.hidden-list{
+    display: none;
+}
+
+#timeList{
+    position: absolute;
+    top: 50px;
+    right: 45px;
+    width: 190px;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #7291B8;
+    list-style-type: none;
+}
+
+#timeList li{
+    padding: 6px 14px;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
 }
 
 .add-question {

@@ -15,7 +15,16 @@
         </a>
 
         <div>
-            <div class="timer">⏱ 30 секунд &#709</div>
+            <div class="timer"><p class="timer-p" id="time">⏱ 30 секунд &#709</p>
+                <ul id="timeList" class="hidden-list">
+                    <li>⏱ 5 секунд &#709</li>
+                    <li>⏱ 10 секунд &#709</li>
+                    <li>⏱ 20 секунд &#709</li>
+                    <li>⏱ 30 секунд &#709</li>
+                    <li>⏱ 45 секунд &#709</li>
+                    <li>⏱ 1 хвилина &#709</li>
+                </ul>
+            </div>
             <a href="/test" class="add-question"  id="save">+ Додати питання</a>
         </div>
     </div>
@@ -27,39 +36,39 @@
 
     <h3>Оберіть варіант відповіді</h3>
 
-    <div class="answers-container" id="1">
-        <div class="answer-block">
-            <div class="detector">
-                <img class="small-img" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+    <div class="answers-container">
+        <div class="answer-block"  id="1">
+            <div class="detector" id="1">
+                <img id="1" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <input type="text" class="answer" name="answer" id="1" placeholder="Відповідь">
+            <input type="text" class="answer correct" name="answer" id="1" placeholder="Відповідь">
             <div class="delete-answer" id="1">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
         </div>
         <div class="answer-block" id="2">
-            <div class="detector">
-                <img class="small-img" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+            <div class="detector" id="2">
+                <img style="display: none;" id="2" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <input type="text" class="answer" name="answer" id="0" placeholder="Відповідь">
+            <input type="text" class="answer" name="answer" id="2" placeholder="Відповідь">
             <div class="delete-answer" id="2">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
         </div>
         <div class="hidden answer-block" id="3">
-            <div class="detector">
-                <img class="small-img" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+            <div class="detector" id="3">
+                <img style="display: none;" id="3" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <input type="text" class="answer" name="answer" id="1" placeholder="Відповідь">
+            <input type="text" class="answer" name="answer" id="3" placeholder="Відповідь">
             <div class="delete-answer" id="3">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
         </div>
         <div class="hidden answer-block" id="4">
-            <div class="detector">
-                <img class="small-img" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+            <div class="detector" id="4">
+                <img style="display: none;" id="4" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <input type="text" class="answer" name="answer" id="1" placeholder="Відповідь">
+            <input type="text" class="answer" name="answer" id="4" placeholder="Відповідь">
             <div class="delete-answer" id="4">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
@@ -71,4 +80,6 @@
 
     <script src="{{ url_for('test_pass.static', filename='js/createQuestionCookies.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/addQuestion.js') }}" defer></script>
+    <script src="{{ url_for('test_pass.static', filename='js/correctQuestion.js') }}" defer></script>
+    <script src="{{ url_for('test_pass.static', filename='js/timer.js') }}" defer></script>
 {% endblock %}
