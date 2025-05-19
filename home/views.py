@@ -1,10 +1,11 @@
 import PIL.Image
-import flask, flask_login, random, os, flask_sqlalchemy
+import flask, flask_login, os
 from .models import User
 from Project.db import DATABASE
 from .send_email import send_code, generate_code
 from threading import Thread
 import PIL
+from quiz.models import Test
 # from userprofile.models import UserAvatar
 
 #Просто головна сторінка
@@ -21,6 +22,9 @@ def render_home():
 #головна сторінка коли користувач увійшов у акаунт
 def render_home_auth():    
     if flask_login.current_user.is_authenticated:
+        user = User.query.get(flask_login.current_user.id)
+        test_title = user.tests.all()
+        print(test_title[1].title_test)
         return flask.render_template(
             "home_auth.html", 
             home_auth = True,

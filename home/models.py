@@ -17,6 +17,9 @@ class User(DATABASE.Model, flask_login.UserMixin):
     size_avatar = DATABASE.Column(DATABASE.Integer, default = 100)
 
     # Зв'язок з таблицею Test
-    tests = DATABASE.relationship("Test", backref = "quiz")
+    # можно так, но если мы используем back_populates то тогда в таблице Test нужно самому создать поле user
+    tests = DATABASE.relationship("Test", back_populates="user", lazy="dynamic")
+    # можна так, и тогда нам не нужно в таблице Test создавать поле user
+    # tests = DATABASE.relationship("Test", backref="user", lazy="dynamic")
 
 
