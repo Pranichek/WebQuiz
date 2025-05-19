@@ -11,13 +11,18 @@ def create_email(email: str):
     
 
 def render_phone_number(phone_number: int):
-    str_phone = str(phone_number)
-    str_phone = str_phone[2:]
-    
-    ready_phone = '+380 '
-    ready_phone += f"({ str_phone[1:3] })"
+    if str(phone_number) != "Не під'єднан":
+        str_phone = str(phone_number)
+        str_phone = str_phone[2:]
+        
+        ready_phone = '+380 '
+        ready_phone += f"({ str_phone[1:3] })"
 
-    ready_phone += f" {str_phone[3:6]} "
-    ready_phone += f" {str_phone[6:]} "    
+        ready_phone += f" {str_phone[3:6]} "
+        ready_phone += f" {str_phone[6:]} "    
 
-    return ready_phone    
+        return ready_phone   
+    else:
+        str_phone = str(phone_number)
+
+        return str_phone

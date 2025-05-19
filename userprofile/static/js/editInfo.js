@@ -16,3 +16,91 @@ for (let button of buttonList){
         saveButton.style.display = "block"
     })
 }
+
+
+function loadIMage(){
+    document.getElementById("file-upload").click();
+    ChangeSize();
+}
+
+function submitForm() {
+    document.getElementById("send-picture").submit();
+}
+
+
+let defalutAvatars = document.querySelectorAll(".img")
+let agreeds = document.querySelectorAll(".agree")
+
+for (let image of defalutAvatars){
+    image.addEventListener(
+        'click',
+        () => {
+            let image_id = image.id;
+            for (let agree of agreeds){
+                if (agree.id == image_id){
+                    agree.style.display = "block";
+                }else{
+                    agree.style.display = "none";
+                }
+            }
+        }   
+    )
+}
+
+let input_data = document.querySelector(".data_avatar")
+
+for (let agree of agreeds){
+    agree.addEventListener(
+        'click',
+        () => {
+            if (agree.style.display == "block"){
+                input_data.value = String(agree.id)
+                document.getElementById("default_avatar").submit();
+            }
+        }
+    )
+}
+
+
+window.addEventListener(
+    'load',
+    () => {
+        const modal = document.querySelector(".confirm-changing");
+        const style = window.getComputedStyle(modal);
+
+        console.log(style.display)
+
+        if (document.querySelector(".confirm-changing").classList.contains("show")){
+            document.querySelector(".confirm-changing").style.display = "flex";
+        }
+    }
+)
+
+if (performance.navigation.type === 1) {
+    console.log("Страница обновлена (F5 или кнопка)");
+    document.querySelector(".back-image").submit();
+}
+
+
+// function ShowAva(){
+//     let ava = document.querySelector(".confirm-changing")
+//     console.log("da")
+//     console.log("da")
+//     if (ava.classList.contains(".show")){
+//         ava.style.display = "none";
+//     }else{
+//         ava.style.display = 'flex';
+//     }
+// }
+
+
+function ChangeSize() {
+    const inputRange = document.querySelector(".size");
+    const scale = inputRange.value / 100;
+
+    const image = document.querySelector(".bg-image");
+    const insideimage = document.querySelector(".inside");
+    
+    image.style.transform = `translate(-50%, -50%) scale(${scale})`;
+    insideimage.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}

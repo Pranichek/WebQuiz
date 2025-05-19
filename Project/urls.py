@@ -44,8 +44,21 @@ userprofile.edit_avatar.add_url_rule(
     methods= ["GET", "POST", 'FILES']
 )
 
+userprofile.profile.add_url_rule(
+    rule = "/user_test",
+    view_func = userprofile.render_user_tests,
+    methods = ["GET","POST"]
+)
+
 quiz.test_pass.add_url_rule(
     rule = "/test",
     view_func= quiz.render_test,
     methods = ["GET", "POST"]
 )
+
+quiz.test_pass.add_url_rule(
+    rule = "/test/create_question",
+    view_func= quiz.render_create_question,
+    methods = ["GET", "POST"]
+)
+

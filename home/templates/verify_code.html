@@ -29,5 +29,8 @@
         </form>
     </div>
 
-    <script src="{{ url_for('registration.static', filename='js/verify_code.js') }}"></script>
 {% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('registration.static', filename='js/verify_code.js') }}"></script>
+{% endblock scripts %}
