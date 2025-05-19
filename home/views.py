@@ -124,19 +124,14 @@ def render_code():
                                 is_mentor = flask.session["check_mentor"]
                             )
                         
-                        # model_avatar = UserAvatar(
-                        #     user_id = user.id
-                        # )
-
-                        # DATABASE.session.add(model_avatar)
-                        # DATABASE.session.commit()
-                        
                         #створює папку із тим шляхом що указали
-                        os.mkdir(path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"]))))
-                        # creating a image object (main image) 
-                        default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.png")))
-                        # save a image using extension
-                        default_img = default_img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(str(flask.session["email"])) ,"default_avatar.png")))
+                        path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"])))
+                        if not os.path.exists(path):
+                            os.mkdir(path = path)
+                            # creating a image object (main image) 
+                            default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.png")))
+                            # save a image using extension
+                            default_img = default_img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(str(flask.session["email"])) ,"default_avatar.png")))
 
                         DATABASE.session.add(user)
                         DATABASE.session.commit()

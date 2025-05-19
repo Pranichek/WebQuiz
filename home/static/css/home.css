@@ -30,6 +30,7 @@ body {
     /* border: 2px green solid; */
     width: 100vw;
     height: 35vh;
+    padding-top: 20px;
 }
 
 
@@ -72,14 +73,17 @@ body {
 
 .cointeiner {
     width: 100vw;
-    height: 55vh;
+    height: 100vh;
     display: flex;
+    position: fixed;
+    top: 0;
     /* border: 2px orange solid; */
     /* border:  2px solid orange; */
     justify-content: center;
     flex-direction: row;
-    align-items: center;
-    overflow: hidden;    
+    align-items: end;
+    overflow: hidden;   
+    padding-bottom: 40px; 
 }
 
 .card {
