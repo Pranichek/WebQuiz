@@ -52,20 +52,23 @@
 
         <div class="all-cards">
             {% for this_question in question_list %}
-                <div class="question-card">          
-                    <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
-                    <span class="question-conainer">
-                        <p class="question">{{ this_question.question }}</p>
-                    </span>
-                    <span class="answers">
-                        {% for answer in this_question.answers %}
-                        <div class="variant">
-                            <div class="circle"></div>
-                            <p class="answer">{{ answer }}</p>
-                        </div>
-                        {% endfor %}
-                    </span>
-                </div>
+                {% if this_question.question|length >= 1 %}
+                    <div class="question-card">          
+                        <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
+                        <span class="question-conainer">
+                            <p class="question">{{ this_question.question }}</p>
+                            <button data-number_question="{{ question_list.index(this_question) }} + 1" data-answers="{{ this_question.answers }}" class="button-delete {{ this_question.question }}" type="button" onclick="DeleteQuestion();">delete</button>
+                        </span>
+                        <span class="answers">
+                            {% for answer in this_question.answers %}
+                            <div class="variant">
+                                <div class="circle"></div>
+                                <p class="answer">{{ answer }}</p>
+                            </div>
+                            {% endfor %}
+                        </span>
+                    </div>
+                {% endif %}
             {% endfor %}
         </div>
         

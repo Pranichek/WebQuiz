@@ -17,7 +17,6 @@ button.addEventListener("click", ()=>{
     for (let input of answerInputList){
         // Якщо інпут поле видиме(за допомогою css)
         if (input.checkVisibility()){
-            console.log(input.value);
             // Якщо інпут поле має клас correct, то добавляємо до answers правильну відповідь
             // Якщо інпут поле не має клас correct, то добавляємо до answers неправильну відповідь
             if (input.classList.contains("correct")){
@@ -42,9 +41,11 @@ button.addEventListener("click", ()=>{
         questions = questionCookie + "?%?" + questions;
         // Ми отримуємо значення cookie за ключем answers
         answerCookie = document.cookie.split("answers=")[1].split(";")[0];
+        console.log("answerCookie =", answerCookie);
         // З'єднуємо старе значення cookie (старі відповіді) з новим
         answers = answerCookie + "?@?" + answers;
     }
+    
     // Якщо до cookies потрапили не потрібні дані то замінюємо їх на пусті
     questions = questions.replace("undefined", "");
     questions = questions.replace("questions", "");
@@ -57,5 +58,7 @@ button.addEventListener("click", ()=>{
     answers = answers.replace("null", "");
     console.log("answers =", answers);
     document.cookie = `answers=${answers}; path=/;`;
+    
     answers = null;
+    
 })
