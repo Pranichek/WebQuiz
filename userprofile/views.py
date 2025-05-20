@@ -104,7 +104,10 @@ def render_edit_avatar():
                     # if data_range == 100:
                     #     flask_login.current_user.size_avatar = 100
                     # else:
-                    flask_login.current_user.size_avatar = 100 + int(data_range)
+                    if data_range <= 140:
+                        flask_login.current_user.size_avatar = 120 + int(data_range)
+                    else:
+                        flask_login.current_user.size_avatar = 150 + int(data_range)
                     DATABASE.session.commit()
 
                     img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "cash", str(flask.session["cash_image"]))))

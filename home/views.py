@@ -22,14 +22,14 @@ def render_home():
 #головна сторінка коли користувач увійшов у акаунт
 def render_home_auth():    
     if flask_login.current_user.is_authenticated:
-        # user = User.query.get(flask_login.current_user.id)
+        user = User.query.get(flask_login.current_user.id)
         # test_title = user.tests.all()
         # print(test_title[1].title_test)
         return flask.render_template(
             "home_auth.html", 
             home_auth = True,
             count_tests = 0,
-            user = flask_login.current_user
+            user = user
             )
     else:
         return flask.redirect("/")
