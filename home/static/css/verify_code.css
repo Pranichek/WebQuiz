@@ -112,3 +112,41 @@ form{
     align-items: center;
     /* margin-bottom: 50px; */
 }
+
+
+@media (min-width: 1441px) and (max-width: 2000px){
+    input {
+    border-radius: 10px;
+    position: relative;
+    min-width: 30px;
+    width: 10%;
+    height: 100%;
+    min-height: 40px;
+    border: none;
+    color: #414141;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: larger;
+    }
+}
+
+@media(min-width: 2001px){
+    input{
+        height: 120px;
+        width: 71px;
+    }
+
+    p{
+        font-size: 40px;
+    }
+
+    .home-button, .submit{
+        width: 200px;
+        height: 71px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

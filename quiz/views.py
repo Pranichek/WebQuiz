@@ -1,30 +1,3 @@
-# import flask, os
-# from .models import Test
-# from Project.db import DATABASE
-# from os.path import abspath, join
-
-# def render_test():
-#     if flask.request.method == "POST":
-#         test_title = flask.request.form["test_title"]
-#         question_amount = flask.request.form["question_amount"]
-#         questions = flask.request.form["questions"]
-#         answers = flask.request.form["answers"]
-
-#         if Test.query.filter_by(title_test = test_title).first() is None:
-#             test = Test(
-#                 amount_question = question_amount,
-#                 title_test = test_title,
-#                 questions = questions,
-#                 answers = answers
-#             )
-
-#             DATABASE.session.add(test)
-#             DATABASE.session.commit()
-
-#             os.mkdir(path = abspath(join(__file__, "..", "static", str(test_title))))
-            
-#     return flask.render_template(template_name_or_list= "test.html")
-
 '''
     ?%? між питаннями 
     ?@? між відповідями на різні питання
@@ -37,25 +10,32 @@
 import flask, os, flask_login
 from .models import Test
 from Project.db import DATABASE
+from home.models import User
 from os.path import abspath, join
+
+
 
 
 def render_test():
     list_to_template = []
-    new_questions = flask.request.cookies.get("questions")
-    new_answers = flask.request.cookies.get("answers")
-
-    if flask.request.method == "POST":
+    new_questions = ""
+    new_answers = ""
+    try:
+        new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
+        new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
+    except:
+        pass
+    
+    if flask.request.method == "POST":  
         
         test_title = flask.request.form["test_title"]
 
-        print("questions =", flask.request.form.getlist("question"), "answers =", flask.request.form.getlist("answers"))
 
         test = Test(
             title_test = test_title,
             questions = new_questions,
             answers = new_answers,
-            creator = flask_login.current_user.id
+            user_id = flask_login.current_user.id
         )
         
         response = flask.make_response(flask.redirect('/'))
@@ -90,7 +70,6 @@ def render_test():
                 print("list_to_template =", list_to_template)
                 number += 1
     return flask.render_template(template_name_or_list= "test.html", question_list = list_to_template)
-
 
 def render_create_question():
     return flask.render_template(template_name_or_list= "create_question.html")

@@ -10,6 +10,7 @@
 
 {% block content %}
     <form action="" method="post">
+
         <div class="top-block">
             <div class="main-info">
 
@@ -75,6 +76,7 @@
                 Почати тест
             </button>
         </div>
+
     </form>
 
     <button class="change-name" type="button" onclick="CHnageName()">ЗМІНИТИ</button>
@@ -93,4 +95,4 @@
 
 {% block scripts %}
     <script src="{{ url_for('test_pass.static', filename='js/test.js') }}"></script>
-{% endblock scripts %}
+{% endblock %}
