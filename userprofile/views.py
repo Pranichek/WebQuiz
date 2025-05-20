@@ -104,7 +104,7 @@ def render_edit_avatar():
                     # if data_range == 100:
                     #     flask_login.current_user.size_avatar = 100
                     # else:
-                    flask_login.current_user.size_avatar = 100
+                    flask_login.current_user.size_avatar = 100 + int(data_range)
                     DATABASE.session.commit()
 
                     img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "cash", str(flask.session["cash_image"]))))
@@ -129,14 +129,13 @@ def render_edit_avatar():
                     name_avatar = "default_picture4.png"
                 elif number_avatar == "5":
                     name_avatar = "default_picture5.png"
-            
+
+                flask_login.current_user.size_avatar = 100
                 default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", name_avatar)))
                 # save a image using extension
                 if not os.path.exists(path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email) , name_avatar))):
                     default_img = default_img.save(fp=os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email) , name_avatar)))
-
                 flask_login.current_user.name_avatar = name_avatar
-                flask_login.current_user.size_avatar = 100
                 DATABASE.session.commit()
             elif check_form == "del_image":
                 default_avatars = ["default_avatar.png", "default_picture2.png", "default_picture3.png", "default_picture4.png","default_picture5.png"]
