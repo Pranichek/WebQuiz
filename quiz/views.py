@@ -74,3 +74,6 @@ def render_test():
 
 def render_create_question():
     return flask.render_template(template_name_or_list= "create_question.html")
+
+def render_select_test():
+    return flask.render_template(template_name_or_list= "select_test.html")

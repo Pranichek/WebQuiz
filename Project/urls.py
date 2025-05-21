@@ -62,3 +62,9 @@ quiz.test_pass.add_url_rule(
     methods = ["GET", "POST"]
 )
 
+quiz.test_pass.add_url_rule(
+    rule = "/select_test",
+    view_func = quiz.render_select_test,
+    methods = ["GET", "POST"]
+)
+
