@@ -97,6 +97,18 @@ form{
     font-size: 11px;
 }
 
+.additional-buttons{
+    display: flex;
+    width: 100%;
+    justify-content: start;
+    /* background-color: #C48AF7; */
+}
+
+.set-name{
+    padding: 10px;
+    background-color: #7291B8;
+}
+
 .buttons{
     display: flex;
     flex-wrap: wrap;

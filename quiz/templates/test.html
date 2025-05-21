@@ -18,7 +18,7 @@
                     <img src="{{ url_for('test_pass.static', filename='images/cover.png') }}" alt="" class="test-cover">
                 
                     <div class="info">
-                        <input class="test-title-input" type="text" name="test_title" placeholder="Назва тесту">
+                        <input class="test-title-input" type="text" name="test_title" onchange="saveName();" placeholder="Назва тесту" disabled>
                         <div class="creator-info">
                             <img src="{{ url_for('test_pass.static', filename='images/avatar.jpg') }}" alt="">
                             <div class="cretor-data">
@@ -38,6 +38,9 @@
             </div>
             
             <div class="additional-buttons">
+                <div>
+                    <button class="set-name" type="button" onclick="ChangeName();">Редагувати питання</button>
+                </div>
             </div>
         </div>
         
@@ -52,6 +55,7 @@
 
         <div class="all-cards">
             {% for this_question in question_list %}
+                <!-- якщо довжина питання більше чим один символ, то можемо створити питання -->
                 {% if this_question.question|length >= 1 %}
                     <div class="question-card">          
                         <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     

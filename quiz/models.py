@@ -2,6 +2,7 @@ import flask_login
 from Project.db import DATABASE
 
 class Test(flask_login.UserMixin, DATABASE.Model):
+    # задаємо назву моделі тесту
     __tablename__ = "test"
     id = DATABASE.Column(DATABASE.Integer, primary_key = True)
 

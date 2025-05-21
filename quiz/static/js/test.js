@@ -11,14 +11,20 @@ for (let delbutton of DeleteButtons) {
         let name_question = delbutton.classList[1];
         let answers = `(?%${delbutton.dataset.answers}`
 
+        // отримуємо індекс кнопки на яку натиснули
         let index_question = delbutton.dataset.number_question;
         console.log(index_question);
         // отримуємо дату з cookie
         let date = document.cookie.split("questions=")[1].split(";")[0];
+        // Використовуємо функцію split, щоб отримати чисті дані із cookie
         let questions = date.split("?%?");
+
         let answersdate = document.cookie.split("answers=")[1].split(";")[0];
+        // Використовуємо функцію split, щоб отримати чисті дані із cookie
         let answersclear = answersdate.split("?@?");
+
         let questiontimes = document.cookie.split("time=")[1].split(";")[0];
+        // Використовуємо функцію split, щоб отримати чисті дані із cookie
         let cleartime = questiontimes.split("?#?")
 
         // видаляємо питання зі змінної questions за індексом index_question
@@ -46,25 +52,36 @@ for (let delbutton of DeleteButtons) {
         document.cookie = `questions=${questions.join("?%?")}; path=/;`;
         document.cookie = `answers=${answersclear.join("?@?")}; path=/;`;
         document.cookie = `time=${cleartime.join("?#?")}; path=/;`;
+
         // перезавантажуємо сторінку
         location.reload();
     });
 }
 
-
+// Функція, яка видаляє непотрібне питання із cookie при заванатажені сторінки
 window.addEventListener("load", function () {
     // отримуэмо дані з cookie
     // отримуємо дату з cookie
+
+    // Беремо дані із cookie, але із спецальними розділовими знаками
     let date = document.cookie.split("questions=")[1].split(";")[0];
+    // Використовуємо функцію split, щоб отримати чисті дані із cookie
     let questions = date.split("?%?");
+
+    // Беремо дані із cookie, але із спецальними розділовими знаками
     let answersdate = document.cookie.split("answers=")[1].split(";")[0];
+    // Використовуємо функцію split, щоб отримати чисті дані із cookie
     let answersclear = answersdate.split("?@?");
+
+    // Беремо дані із cookie, але із спецальними розділовими знаками
     let questiontimes = document.cookie.split("time=")[1].split(";")[0];
+    // Використовуємо функцію split, щоб отримати чисті дані із cookie
     let cleartime = questiontimes.split("?#?")
 
     console.log(questions);
     console.log(answersclear);
 
+    // Видаляємо старі cookie у яких зберігається непотрібне нам пусте питання
     document.cookie = "questions=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "time=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -93,3 +110,47 @@ window.addEventListener("load", function () {
     document.cookie = `answers=${answersclear.join("?@?")}; path=/;`;
     document.cookie = `time=${cleartime.join("?#?")}; path=/;`;
 })
+
+
+let InputName = document.querySelector(".test-title-input")
+let ButtonName = document.querySelector(".set-name")
+
+ButtonName.addEventListener(
+    'click',
+    () => {
+        console.log(1);
+        InputName.disabled = false;
+        InputName.focus();
+    }
+)
+
+function saveName(){
+    let valueinput = InputName.value;
+    let cookies = document.cookie.match("inputname")
+    if (cookies){
+        document.cookie = "inputname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+    }
+    document.cookie = `inputname=${valueinput}; path=/;`;
+}
+
+window.addEventListener(
+    'load',
+    () => {
+        let cookies = document.cookie.match("inputname")
+        // answers=djshfuidh;inputname=dkklfl;session=njdn;
+        let cookiename = document.cookie.split("inputname=")[1].split(";")[0];
+        if (cookies){
+            InputName.value = cookiename
+        }else{
+            InputName.value = "Назва тесту"
+        }
+    }
+)
+
+// Фнкція, яка перевіряє чи натиснули мишку
+document.body.onmouseup = function() { 
+    if (InputName != document.activeElement){
+        InputName.disabled = true;
+    }
+  }
