@@ -105,7 +105,7 @@ def render_edit_avatar():
                     #     flask_login.current_user.size_avatar = 100
                     # else:
                     if data_range <= 140:
-                        flask_login.current_user.size_avatar = 120 + int(data_range)
+                        flask_login.current_user.size_avatar = 110 + int(data_range)
                     else:
                         flask_login.current_user.size_avatar = 150 + int(data_range)
                     DATABASE.session.commit()

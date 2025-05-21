@@ -128,6 +128,11 @@ form{
     background-color: #8ABBF733;
 }
 
+.button-delete{
+    z-index: 100000;
+    background-color: aqua;
+}
+
 .question-card{
     position: relative;
     width: 100%;

@@ -69,7 +69,8 @@
 }
 
 
-.password-checklist{
+
+.password-checklist, .username-checklist{
     position: absolute;
     top: calc(80%);
     width: 90%;
@@ -88,6 +89,14 @@
     justify-content: center;
     align-items: start;
     /* background-color: #B9BDF5; */
+}
+
+.username_input{
+    z-index: 120;
+}
+
+.username-checklist{
+    z-index: 119;
 }
 
 .top-part {
@@ -123,7 +132,12 @@
     opacity: 1;
     pointer-events: all;
     transform: translateY(0);
+}
 
+.username_input:focus ~ .username-checklist{
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
 }
 
 .checklist-title{
@@ -144,7 +158,7 @@
     /* background-color: aqua; */
 }
 
-.list-item{
+.list-item, .username-item{
     transform: translatey(-2px);
 }
 
@@ -167,11 +181,11 @@
     transition: "";
 } 
 
-.like1, .like2, .like3{
+.like1, .like2, .like3, .username-like1 , .username-like2{
     display: none;
 }
 
-.list-item{
+.list-item, .username-item{
     padding-left: 10px;
     color: #ffffff;
     font-weight: 300;
@@ -226,14 +240,14 @@
     color: aqua;
 } */
 
-.password-container{
+.password-container, .sua{
     position: relative;
     display: flex;
     width: 80%;
     height: 10%;
 }
 
-.password-container .text-input{
+.password-container .text-input, .sua .text-input{
     width: 100%;
     height: 100%;
 }
@@ -242,8 +256,8 @@
     position: absolute;
     right: 5%;
     z-index: 103;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
 }
 
 #eye2{
@@ -383,6 +397,8 @@ img:hover {
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
+
+
 /* @media (max-height: 700px){
     .registration{
         overflow-y: scroll;
@@ -430,7 +446,7 @@ img:hover {
     .registration{
         width: 80%;
     }
-    .password-container .text-input{
+    .password-container .text-input, .sua .text-input{
         width: 100%;
         height: 40px;   
     }
@@ -454,7 +470,7 @@ img:hover {
 }
 
 @media(max-width: 600px){
-    .password-container .text-input{
+    .password-container .text-input, .sua .text-input{
         width: 100%;
         height: 40px;   
     }

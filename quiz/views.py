@@ -53,7 +53,8 @@ def render_test():
         if new_questions:
             new_answers_list = new_answers.split("?@?")
             new_questions_list = new_questions.split("?%?")
-
+            print("new_questions_list =", new_questions_list)
+            print("new_answers_list =", new_answers_list)
             number = 0
             for question in new_questions_list:
                 item = {}
