@@ -1,6 +1,8 @@
 const buttonPlus = document.getElementById("addQuestion");
 let allAnswerBlocks = document.querySelectorAll(".answer-block");
 let hiddenAnswerBlocks;
+let correctAnswerList;
+let inputAnswerList;
 
 const deleteButtonList = document.querySelectorAll(".delete-answer");
 
@@ -22,7 +24,22 @@ for (let deleteButton of deleteButtonList){
             let id = deleteButton.id;
             for (let answerBlock of allAnswerBlocks){
                 if (answerBlock.id == id){
-                    answerBlock.classList.add("hidden");
+                    inputAnswerList = document.querySelectorAll(".answer")
+                    for (let input of inputAnswerList){
+                        if (input.id == id){
+                            console.log("input.className =", input.className);
+                            if (input.classList.contains("correct")){
+                                correctAnswerList = document.querySelectorAll(".correct");
+                                console.log("correctAnswerList =", correctAnswerList);
+                                if (correctAnswerList.length > 1){
+                                    input.classList.remove("correct");
+                                    answerBlock.classList.add("hidden");
+                                }
+                            } else{
+                                answerBlock.classList.add("hidden");
+                            }
+                        }
+                    }
                 }
             }
             hiddenAnswerBlocks = document.querySelectorAll(".hidden");

@@ -18,7 +18,7 @@
                     <img src="{{ url_for('test_pass.static', filename='images/cover.png') }}" alt="" class="test-cover">
                 
                     <div class="info">
-                        <input class="test-title-input" type="text" name="test_title" placeholder="Назва тесту">
+                        <input class="test-title-input" type="text" name="test_title" placeholder="Назва тесту" required>
                         <div class="creator-info">
                             <img src="{{ url_for('test_pass.static', filename='images/avatar.jpg') }}" alt="">
                             <div class="cretor-data">
@@ -68,14 +68,15 @@
                 </div>
             {% endfor %}
         </div>
-        
-        <div class="buttons buttons-bottom">
-            <button class="add" type="submit"> + Зберегти вікторину</button>
-            <button class="add" type="submit">
+        {% if question_list %}
+            <div class="buttons buttons-bottom">
+                <button class="add" type="submit"> + Зберегти вікторину</button>
+                <button class="add" type="submit">
 
-                Почати тест
-            </button>
-        </div>
+                    Почати тест
+                </button>
+            </div>
+        {% endif %}
 
     </form>
 {% endblock %}

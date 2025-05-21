@@ -1,5 +1,6 @@
 '''
     ?%? між питаннями 
+    ?#? між часом проходження різних питань
     ?@? між відповідями на різні питання
     (?%+...+%?) правильна відповідь
     (?%-...-%?) неправильна відповідь
@@ -16,23 +17,30 @@ from os.path import abspath, join
 
 def render_test():
     list_to_template = []
-    new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
-    new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
+    new_questions = ""
+    new_answers = ""
+    try:
+        new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
+        new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
+    except:
+        pass
 
     if flask.request.method == "POST":
         
         test_title = flask.request.form["test_title"]
-
+        question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 
         test = Test(
             title_test = test_title,
             questions = new_questions,
-            answers = new_answers
+            answers = new_answers,
+            question_time = question_time
         )
         
         response = flask.make_response(flask.redirect('/'))
         response.delete_cookie("questions")
         response.delete_cookie("answers")
+        response.delete_cookie("time")
         DATABASE.session.add(test)
         DATABASE.session.commit()
         try:
