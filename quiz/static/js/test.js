@@ -18,6 +18,8 @@ for (let delbutton of DeleteButtons) {
         let questions = date.split("?%?");
         let answersdate = document.cookie.split("answers=")[1].split(";")[0];
         let answersclear = answersdate.split("?@?");
+        let questiontimes = document.cookie.split("time=")[1].split(";")[0];
+        let cleartime = questiontimes.split("?#?")
 
         // видаляємо питання зі змінної questions за індексом index_question
         questions.splice(index_question, 1);
@@ -27,19 +29,23 @@ for (let delbutton of DeleteButtons) {
         answersclear.splice(index_question, 1);
         console.log(answersclear);
 
+        cleartime.splice(index_question, 1)
+
         if (questions[0] == '') {
             questions = [];
             answersclear = [];
+            cleartime = [];
         }
 
         // повністю очищуємо cookie
         document.cookie = "questions=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         document.cookie = "answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "time=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
         // записуємо нові cookie
         document.cookie = `questions=${questions.join("?%?")}; path=/;`;
         document.cookie = `answers=${answersclear.join("?@?")}; path=/;`;
-
+        document.cookie = `time=${cleartime.join("?#?")}; path=/;`;
         // перезавантажуємо сторінку
         location.reload();
     });
@@ -53,12 +59,15 @@ window.addEventListener("load", function () {
     let questions = date.split("?%?");
     let answersdate = document.cookie.split("answers=")[1].split(";")[0];
     let answersclear = answersdate.split("?@?");
+    let questiontimes = document.cookie.split("time=")[1].split(";")[0];
+    let cleartime = questiontimes.split("?#?")
 
     console.log(questions);
     console.log(answersclear);
 
     document.cookie = "questions=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     document.cookie = "answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    document.cookie = "time=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
     for (let data of questions){
         if (data == '') {
@@ -74,6 +83,13 @@ window.addEventListener("load", function () {
         }
     }
 
+    for (let time of cleartime){
+        if (time == ''){
+            cleartime.splice(cleartime.indexOf(time), 1);
+        }
+    }
+
     document.cookie = `questions=${questions.join("?%?")}; path=/;`;
     document.cookie = `answers=${answersclear.join("?@?")}; path=/;`;
+    document.cookie = `time=${cleartime.join("?#?")}; path=/;`;
 })

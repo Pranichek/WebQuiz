@@ -8,12 +8,13 @@ class Test(flask_login.UserMixin, DATABASE.Model):
     # amount_question = DATABASE.Column(DATABASE.Integer, nullable = False)
     title_test = DATABASE.Column(DATABASE.String(20), nullable = False)
     questions = DATABASE.Column(DATABASE.String, nullable = False)
-    answers = DATABASE.Column(DATABASE.String, nullable = False)
+    answers = DATABASE.Column(DATABASE.Text, nullable = False)
+    question_time = DATABASE.Column(DATABASE.String, nullable = False)
+    image = DATABASE.Column(DATABASE.String)
 
     # Зв'язок з таблицею User
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey("user.id"), nullable=False)
     user = DATABASE.relationship("User", back_populates="tests")
-
     
 
     
