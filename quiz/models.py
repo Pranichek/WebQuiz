@@ -12,6 +12,7 @@ class Test(flask_login.UserMixin, DATABASE.Model):
     answers = DATABASE.Column(DATABASE.Text, nullable = False)
     question_time = DATABASE.Column(DATABASE.String, nullable = False)
     image = DATABASE.Column(DATABASE.String)
+    category = DATABASE.Column(DATABASE.String, nullable = False)
 
     # Зв'язок з таблицею User
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey("user.id"), nullable=False)

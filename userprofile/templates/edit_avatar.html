@@ -47,7 +47,7 @@
                 <form action="" method="post" id="send-picture" enctype='multipart/form-data'>
                     <label for="file"><img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/photo.png') }}" alt=""></label>
                     <input type="text" name="check_form" class = "check_name" value = "load_image">
-                    <input id="file-upload" name="file" type="file" class="get_photo" onchange="submitForm()">
+                    <input id="file-upload" name="file" type="file" class="get_photo" onchange="submitForm()" accept="image/*">
                 </form>
             </div>
             

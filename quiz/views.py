@@ -98,6 +98,7 @@ def render_test():
     try:
         new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
         new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
+        category = flask.request.cookies.get("category").encode('raw_unicode_escape').decode('utf-8')
     except:
         pass
 
@@ -111,19 +112,27 @@ def render_test():
             questions = new_questions,
             answers = new_answers,
             question_time = question_time,
-            user_id = flask_login.current_user.id
+            user_id = flask_login.current_user.id,
+            category = category
         )
+
+        image = flask.request.files["image"]
         
         response = flask.make_response(flask.redirect('/'))
         response.delete_cookie("questions")
         response.delete_cookie("answers")
         response.delete_cookie("time")
+        response.delete_cookie("category")
+        response.delete_cookie("inputname")
         DATABASE.session.add(test)
         DATABASE.session.commit()
         try:
             os.mkdir(path = abspath(join(__file__, "..", "static", str(test_title))))
         except:
             pass
+        image.save(
+               dst= os.path.abspath(os.path.join(__file__, "..", "static", str(test_title), str(image.filename)))
+           )
         return response
 
     else:
@@ -146,7 +155,11 @@ def render_test():
                 list_to_template.append(item)
                 print("list_to_template =", list_to_template)
                 number += 1
-    return flask.render_template(template_name_or_list= "test.html", question_list = list_to_template)
+    return flask.render_template(
+        template_name_or_list= "test.html", 
+        question_list = list_to_template,
+        user = flask_login.current_user
+    )
 
 def render_create_question():
     return flask.render_template(template_name_or_list= "create_question.html")

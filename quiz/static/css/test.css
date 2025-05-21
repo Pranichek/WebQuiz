@@ -13,7 +13,7 @@ form{
 .top-block{
     display: flex;
     flex-direction: column;
-    padding: 20px;
+    /* padding: 20px; */
     gap: 7px;
     width: 100%;
     height: 250px;
@@ -26,39 +26,132 @@ form{
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 350px;
+    height: 75%;
+    /* background-color: #94C4FF; */
+}
+
+.additional-buttons{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    width: 100%;
+    height: 25%;
+    background-color: #C48AF7;
 }
 
 .info-block{
     display: flex;
-    align-items: start;
+    align-items: center;
+    flex-direction: row;
+    justify-content: start;
     gap: 7px;
-    width: 40%;
+    width: 60%;
+    height: 100%;
+    /* background-color: blue; */
 }
 
+
+
 .info{
+    /* width: 80%; */
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: start;
     gap: 10px;
+    height: 100%;
+    /* background-color: #94C4FF; */
+    padding-top: 15px;
 }
 
 .test-title-input{
-    width: 50%;
-    min-width: 140px;
+    /* width: 50%; */
+    /* min-width: 140px; */
     height: 30px;
     font-size: 24px;
     border: none;
-    border-bottom: 1px solid #343434;
-    background-color: #C7D7EB;
+    color: #343434;
+    max-width: 150px;
+    margin-left: 9%;
+    background: none;
+    background-color: none;
+    border: none;
+    outline: none;
+    transform: translateY(5px);
+    font-weight: 600;
+}
+
+
+.type{
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+}
+
+.type-p{
+    align-items: center;
+    cursor: pointer;
+    background: #7291B8;
+    padding: 10px 14px;
+    font-size: 12px;
+    border-radius: 3px;
+    color: #ffffff;
+    font-weight: 400;
+    /* margin-right: 44px; */
+    border: 2px black solid;
+    border-radius: 5px;
+    margin-right: 20px;
+    position: relative;
+}
+
+.hidden-list{
+    display: none;
+}
+
+#timeList{
+    position: absolute;
+    top: 48%;
+    border-radius: 5px;
+    cursor: pointer;
+    background: #7291B8;
+    list-style-type: none;
+    border: 2px black solid;
+    width: 13%;
+    text-align: start;
+    color: #ffffff;
+    font-size: 17px;
+}
+
+#timeList li{
+    padding: 6px 14px;
+    font-size: 20px;
+    font-family: 'Inter', sans-serif;
+}
+
+.test-title-input:disabled {
+    -webkit-text-fill-color: #343434; 
+}
+
+
+.test-title-input:enabled {
+    -webkit-text-fill-color: #343434; 
+}
+  
+.under-line{
+    background-color: #343434;
+    width: 71%;
+    height: 1.5px;
 }
 
 .test-cover{
-    width: 150px;
-    height: 150px;
+    width: 171px;
+    height: 171px;
     border: 1px solid black;
     border-radius: 5px;
+    margin-left: 25px;
+    margin-top: 5px;
 }
 
 .creator-info{
@@ -71,8 +164,37 @@ form{
     border-radius: 100%;
 }
 
-.creator-email{
+.sign{
+    width: 25px;
+    height: 25px;
+}
+
+.creator-email, .creator-name{
     color: #636262;
+}
+
+.avatar{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.avatar-circle{
+    object-fit: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    /* width: 25%;
+    height: 100%; */
+    /* border: 1px black solid; */
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 5px;
 }
 
 .gray-block{
@@ -82,6 +204,7 @@ form{
     height: 50%;
     border-radius: 10px;
     background-color: #3C3C3C;
+    margin-right: 10px;
 }
 
 .mini-robot{
@@ -97,16 +220,30 @@ form{
     font-size: 11px;
 }
 
-.additional-buttons{
-    display: flex;
-    width: 100%;
-    justify-content: start;
-    /* background-color: #C48AF7; */
-}
 
-.set-name{
-    padding: 10px;
-    background-color: #7291B8;
+/* .set-name{
+    padding: 12px 20px 12px 20px;
+    border: 2px black solid;
+    border-radius: 5px;
+    background-color: #ffffff;
+    margin-left: 30px;
+    color: #343434;
+    text-align: right;
+    padding-left: 60px;
+    transform: translateY(-5px);
+} */
+.set-name {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* расстояние между иконкой и текстом */
+
+    padding: 8px 20px;
+    border: 2px black solid;
+    border-radius: 5px;
+    background-color: #ffffff;
+    margin-left: 30px;
+    color: #343434;
+    font-weight: 600;
 }
 
 .buttons{
@@ -206,4 +343,9 @@ form{
 .answers p{
     /* width: 30%; */
     font-size: 13px;
+}
+
+.test-title-input:disabled {
+    color: #343434;
+    opacity: 1; 
 }

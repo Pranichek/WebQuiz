@@ -9,25 +9,30 @@
 {% endblock %}
 
 {% block content %}
-    <form action="" method="post">
+    <form action="" method="post" id="main-form" enctype="multipart/form-data">
 
         <div class="top-block">
             <div class="main-info">
 
                 <div class="info-block">
-                    <img src="{{ url_for('test_pass.static', filename='images/cover.png') }}" alt="" class="test-cover">
+                    <img  src="{{ url_for('test_pass.static', filename='images/cover.png') }}" alt="" class="test-cover">
                 
                     <div class="info">
-                        <input class="test-title-input" type="text" name="test_title" onchange="saveName();" placeholder="Назва тесту" disabled>
+                        <input class="test-title-input" type="text" name="test_title" onchange="saveName();" placeholder="назва тесту" disabled>
+                        <div class="under-line"></div>
                         <div class="creator-info">
-                            <img src="{{ url_for('test_pass.static', filename='images/avatar.jpg') }}" alt="">
+                            <!-- <img src="{{ url_for('test_pass.static', filename='images/avatar.jpg') }}" alt=""> -->
+                            <div class="avatar-circle">
+                                <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                            </div>
                             <div class="cretor-data">
-                                <p class="creator-name">Mykola</p>
-                                <p class="creator-email">scripnic@gmil.com</p>
+                                <p class="creator-name">{{ user.username }}</p>
+                                <p class="creator-email">{{ user.email }}</p>
                             </div>
                         </div>
                     </div>
                 </div>
+                
                 <div class="gray-block">
                     <img class="mini-robot" src="{{ url_for('test_pass.static', filename='images/mini-robot.png') }}" alt="">
                     <span>
@@ -39,8 +44,28 @@
             
             <div class="additional-buttons">
                 <div>
-                    <button class="set-name" type="button" onclick="ChangeName();">Редагувати питання</button>
+                    <button class="set-name" type="button" onclick="ChangeName();">
+                        <img class="sign" src="{{ url_for('test_pass.static', filename = 'images/pen.png') }}" alt="">
+                        редагувати назву теста
+                    </button>
+                    <!-- <img class="sign" src="{{ url_for('test_pass.static', filename = 'images/pen.png') }}" alt=""> -->
                 </div>
+                <!-- <div class="type-test"> -->
+                <div class="timer"><p class="timer-p type-p" id="time">оберіть категорію тесту </p>
+                    <ul id="timeList" class="hidden-list">
+                        <li>математика </li>
+                        <li>англійська </li>
+                        <li>програмування </li>
+                        <li>історія</li>
+                        <li>фізика</li>
+                        <li>хімія</li>
+                        <li>інше</li>
+                    </ul>
+                </div>
+
+                <input id="image" name="image" type="file" accept="image/*">
+                <label for="image">load image</label>
+                <!-- </div> -->
             </div>
         </div>
         
@@ -89,4 +114,5 @@
 
 {% block scripts %}
     <script src="{{ url_for('test_pass.static', filename='js/test.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/test_category.js') }}"></script>
 {% endblock %}

@@ -172,11 +172,10 @@ def render_edit_avatar():
     
 def render_user_tests():
     if flask_login.current_user.is_authenticated:
-        #отримати айді нашого користувача
-        user_id = flask_login.current_user.id
-        # отримаємо усі тест, які створив наш користувач
-        tests = Test.query.filter_by(creator = user_id).all()
 
+        user = User.query.get(flask_login.current_user.id)
+        tests = user.tests.all()
+        
         return flask.render_template(
             template_name_or_list = "user_tests.html",
             tests = tests,

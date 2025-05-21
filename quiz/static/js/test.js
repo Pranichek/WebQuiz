@@ -153,4 +153,35 @@ document.body.onmouseup = function() {
     if (InputName != document.activeElement){
         InputName.disabled = true;
     }
-  }
+}
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Enter') {
+      // КОд який при натискані кнопки enter буде працювати
+      InputName.disabled = true;
+      document.getElementById('main-form').addEventListener('submit', function(event) {
+            // Your code here
+            event.preventDefault();
+        });
+    }
+  });
+
+window.addEventListener(
+    'load',
+    () => {
+        let AvatarImage = document.querySelector(".avatar")
+        
+        console.log("AvatarImage.dataset.size =", AvatarImage.dataset.size)
+        // подгружаем размер картинки тот что установил пользователь
+        AvatarImage.style.width = `${AvatarImage.dataset.size}%`;
+        AvatarImage.style.height = `${AvatarImage.dataset.size}%`;
+    }
+)
+
+
+
+// КОд який під час відправки даних input title_test робить не disabled, щоб модна було відправити дані
+document.getElementById("main-form").addEventListener("submit", function () {
+    const input = document.querySelector(".test-title-input");
+    input.disabled = false;
+});
