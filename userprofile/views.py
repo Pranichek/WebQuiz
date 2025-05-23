@@ -174,6 +174,8 @@ def render_user_tests():
 
         user = User.query.get(flask_login.current_user.id)
         tests = user.tests.all()
+        
+
 
         return flask.render_template(
             template_name_or_list = "user_tests.html",
