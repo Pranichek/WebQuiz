@@ -95,103 +95,106 @@ from flask import session
 
 
 def render_test():
-    list_to_template = []
-    new_questions = ""
-    new_answers = ""
-    category = ""
-    name_image = ''
-    try:
-        new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
-        new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
-        category = flask.request.cookies.get("category").encode('raw_unicode_escape').decode('utf-8')
-        name_image = flask.request.cookies.get("test_url").encode('raw_unicode_escape').decode('utf-8')
-    except:
-        pass
-
-
-    if flask.request.method == "POST":
-        check_form = flask.request.form.get('check_post')
-
-        if check_form == "create_test":
-            print(name_image, "name")
-            test_title = flask.request.form["test_title"]
-            question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
-
-            test = Test(
-                title_test = test_title,
-                questions = new_questions,
-                answers = new_answers,
-                question_time = question_time,
-                user_id = flask_login.current_user.id,
-                category = category,
-                image = flask.session["test_image"] if "test_image" in flask.session else "default"
-            )
-
-            response = flask.make_response(flask.redirect('/'))
-
-            try:
-                response.delete_cookie("questions")
-                response.delete_cookie("answers")
-                response.delete_cookie("time")
-                response.delete_cookie("category")
-                response.delete_cookie("inputname")
-                response.delete_cookie("test_url")
-            except:
-                pass
-
-            DATABASE.session.add(test)
-            DATABASE.session.commit()
-            # try:
-            if not os.path.exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests"))):
-                os.mkdir(path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests")))
-            if not os.path.exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests",  str(test_title)))):
-                os.mkdir(path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests",  str(test_title))))
-            # except:
-            #     pass
-            if "test_image" in flask.session:
-                test_image = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"])))
-                test_image = test_image.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", str(test_title), str(flask.session["test_image"]))))
-                os.remove(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"]))
-            )
-
-            if "test_image" in flask.session:
-                flask.session.pop("test_image", None)
-                
-            return response
-        elif check_form == "image":
-            image = flask.request.files["image"]
-    
-            if not os.path.exists(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test"))):
-                os.mkdir(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test")))
-
-            flask.session["test_image"] = str(image.filename)
-            image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
+    if current_user.is_authenticated:
+        list_to_template = []
+        new_questions = ""
+        new_answers = ""
+        category = ""
+        name_image = ''
+        try:
+            new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
+            new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
+            category = flask.request.cookies.get("category").encode('raw_unicode_escape').decode('utf-8')
+            name_image = flask.request.cookies.get("test_url").encode('raw_unicode_escape').decode('utf-8')
+        except:
             pass
-    else:
-        if new_questions:
-            new_answers_list = new_answers.split("?@?")
-            new_questions_list = new_questions.split("?%?")
 
-            number = 0
-            for question in new_questions_list:
-                item = {}
-                item["question"] = question
-                answers_list = new_answers_list[number].split("%?)(?%")
-                temporary_answers_list = []
-                for answer in answers_list:
-                    answer = answer.replace("(?%", "")
-                    answer = answer.replace("%?)", "")
-                    answer = answer[1:-1]
-                    temporary_answers_list.append(answer)
-                item["answers"] = temporary_answers_list
-                list_to_template.append(item)
-                print("list_to_template =", list_to_template)
-                number += 1
-    return flask.render_template(
-        template_name_or_list= "test.html", 
-        question_list = list_to_template,
-        user = flask_login.current_user
-    )
+
+        if flask.request.method == "POST":
+            check_form = flask.request.form.get('check_post')
+
+            if check_form == "create_test":
+                print(name_image, "name")
+                test_title = flask.request.form["test_title"]
+                question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
+
+                test = Test(
+                    title_test = test_title,
+                    questions = new_questions,
+                    answers = new_answers,
+                    question_time = question_time,
+                    user_id = flask_login.current_user.id,
+                    category = category,
+                    image = flask.session["test_image"] if name_image else "default"
+                )
+
+                response = flask.make_response(flask.redirect('/'))
+
+                try:
+                    response.delete_cookie("questions")
+                    response.delete_cookie("answers")
+                    response.delete_cookie("time")
+                    response.delete_cookie("category")
+                    response.delete_cookie("inputname")
+                    response.delete_cookie("test_url")
+                except:
+                    pass
+
+                DATABASE.session.add(test)
+                DATABASE.session.commit()
+                # try:
+                if not os.path.exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests"))):
+                    os.mkdir(path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests")))
+                if not os.path.exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests",  str(test_title)))):
+                    os.mkdir(path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests",  str(test_title))))
+                # except:
+                #     pass
+                if name_image:
+                    test_image = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"])))
+                    test_image = test_image.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", str(test_title), str(flask.session["test_image"]))))
+                    os.remove(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"]))
+                )
+
+                if "test_image" in flask.session:
+                    flask.session.pop("test_image", None)
+
+                return response
+            elif check_form == "image":
+                image = flask.request.files["image"]
+        
+                if not os.path.exists(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test"))):
+                    os.mkdir(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test")))
+
+                flask.session["test_image"] = str(image.filename)
+                image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
+                pass
+        else:
+            if new_questions:
+                new_answers_list = new_answers.split("?@?")
+                new_questions_list = new_questions.split("?%?")
+
+                number = 0
+                for question in new_questions_list:
+                    item = {}
+                    item["question"] = question
+                    answers_list = new_answers_list[number].split("%?)(?%")
+                    temporary_answers_list = []
+                    for answer in answers_list:
+                        answer = answer.replace("(?%", "")
+                        answer = answer.replace("%?)", "")
+                        answer = answer[1:-1]
+                        temporary_answers_list.append(answer)
+                    item["answers"] = temporary_answers_list
+                    list_to_template.append(item)
+                    print("list_to_template =", list_to_template)
+                    number += 1
+        return flask.render_template(
+            template_name_or_list= "test.html", 
+            question_list = list_to_template,
+            user = flask_login.current_user
+        )
+    else:
+        return flask.redirect("/")
 
 def render_create_question():
     return flask.render_template(template_name_or_list= "create_question.html")
