@@ -25,17 +25,17 @@ const previewImage = (event) => {
     }
 }
 
-window.addEventListener(
-    'load',
-    () => {
-        let cookies = document.cookie.match("test_url")
-        let testimage = document.querySelector(".test-cover")
-        let testimageurl = document.cookie.split("test_url=")[1].split(";")[0];
-        if (cookies){
-            testimage.src = testimageurl
-        }
-    }
-)
+// window.addEventListener(
+//     'load',
+//     () => {
+//         let cookies = document.cookie.match("test_url")
+//         let testimage = document.querySelector(".test-cover")
+//         let testimageurl = document.cookie.split("test_url=")[1].split(";")[0];
+//         if (cookies){
+//             testimage.src = testimageurl
+//         }
+//     }
+// )
 
 function sumbmitIMage(){
     document.querySelector("#image_form").submit();

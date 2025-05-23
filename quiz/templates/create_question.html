@@ -31,7 +31,8 @@
     
     <div class="question-name">
         <input type="text" class="question" name="question" id="question" placeholder="Питання">
-        <button class="add-image">Додати зображення</button>
+        <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image">
+        <button style="display: none;" class="add-image" id="deleteImgButton" onclick="deleteImage(event);">Видалити зображення</button>
     </div>
 
     <h3>Оберіть варіант відповіді</h3>
@@ -82,4 +83,5 @@
     <script src="{{ url_for('test_pass.static', filename='js/addQuestion.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/correctQuestion.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/timer.js') }}" defer></script>
+    <script src="{{ url_for('test_pass.static', filename='js/addQuestionImage.js') }}"></script>
 {% endblock %}
