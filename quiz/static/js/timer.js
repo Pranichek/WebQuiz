@@ -1,9 +1,8 @@
-const timer = document.querySelector(".timer");
 const timeList = document.getElementById("timeList");
 const liList = document.getElementsByTagName("li");
 const time = document.getElementById("time");
 
-timer.addEventListener("click", ()=>{
+time.addEventListener("click", ()=>{
     if (timeList.classList.contains("hidden-list")){
         timeList.classList.remove("hidden-list");
     } else{
@@ -15,6 +14,6 @@ timer.addEventListener("click", ()=>{
 for (let li of liList){
     li.addEventListener("click", ()=>{
         time.textContent = li.textContent;
-        timeList.classList.remove("hidden-list");
+        timeList.classList.add("hidden-list");
     })
 }
