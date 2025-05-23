@@ -125,7 +125,7 @@ def render_test():
                     question_time = question_time,
                     user_id = flask_login.current_user.id,
                     category = category,
-                    image = flask.session["test_image"] if name_image else "default"
+                    image = flask.session["test_image"] if name_image and "test_image" in flask.session else "default"
                 )
 
                 response = flask.make_response(flask.redirect('/'))
@@ -140,8 +140,6 @@ def render_test():
                 except:
                     pass
 
-                DATABASE.session.add(test)
-                DATABASE.session.commit()
                 # try:
                 if not os.path.exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests"))):
                     os.mkdir(path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests")))
@@ -149,7 +147,7 @@ def render_test():
                     os.mkdir(path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests",  str(test_title))))
                 # except:
                 #     pass
-                if name_image:
+                if name_image and "test_image" in flask.session:
                     test_image = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"])))
                     test_image = test_image.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", str(test_title), str(flask.session["test_image"]))))
                     os.remove(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"]))
@@ -158,6 +156,8 @@ def render_test():
                 if "test_image" in flask.session:
                     flask.session.pop("test_image", None)
 
+                DATABASE.session.add(test)
+                DATABASE.session.commit()
                 return response
             elif check_form == "image":
                 image = flask.request.files["image"]

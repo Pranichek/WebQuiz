@@ -62,3 +62,5 @@ quiz.test_pass.add_url_rule(
     methods = ["GET", "POST"]
 )
 
+
+

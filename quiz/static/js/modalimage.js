@@ -30,8 +30,8 @@ window.addEventListener(
     () => {
         let cookies = document.cookie.match("test_url")
         let testimage = document.querySelector(".test-cover")
-        let testimageurl = document.cookie.split("test_url=")[1].split(";")[0];
         if (cookies){
+            let testimageurl = document.cookie.split("test_url=")[1].split(";")[0];
             testimage.src = testimageurl
         }
     }
