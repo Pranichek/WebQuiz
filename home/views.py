@@ -1,10 +1,11 @@
 import PIL.Image
-import flask, flask_login, random, os, flask_sqlalchemy
+import flask, flask_login, os
 from .models import User
 from Project.db import DATABASE
 from .send_email import send_code, generate_code
 from threading import Thread
 import PIL
+from quiz.models import Test
 # from userprofile.models import UserAvatar
 
 #Просто головна сторінка
@@ -21,11 +22,14 @@ def render_home():
 #головна сторінка коли користувач увійшов у акаунт
 def render_home_auth():    
     if flask_login.current_user.is_authenticated:
+        user = User.query.get(flask_login.current_user.id)
+        # test_title = user.tests.all()
+        # print(test_title[1].title_test)
         return flask.render_template(
             "home_auth.html", 
             home_auth = True,
             count_tests = 0,
-            user = flask_login.current_user
+            user = user
             )
     else:
         return flask.redirect("/")
@@ -124,19 +128,14 @@ def render_code():
                                 is_mentor = flask.session["check_mentor"]
                             )
                         
-                        # model_avatar = UserAvatar(
-                        #     user_id = user.id
-                        # )
-
-                        # DATABASE.session.add(model_avatar)
-                        # DATABASE.session.commit()
-                        
                         #створює папку із тим шляхом що указали
-                        os.mkdir(path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"]))))
-                        # creating a image object (main image) 
-                        default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.png")))
-                        # save a image using extension
-                        default_img = default_img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(str(flask.session["email"])) ,"default_avatar.png")))
+                        path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"])))
+                        if not os.path.exists(path):
+                            os.mkdir(path = path)
+                            # creating a image object (main image) 
+                            default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.png")))
+                            # save a image using extension
+                            default_img = default_img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(str(flask.session["email"])) ,"default_avatar.png")))
 
                         DATABASE.session.add(user)
                         DATABASE.session.commit()

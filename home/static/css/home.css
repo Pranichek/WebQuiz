@@ -30,6 +30,7 @@ body {
     /* border: 2px green solid; */
     width: 100vw;
     height: 35vh;
+    padding-top: 20px;
 }
 
 
@@ -72,14 +73,17 @@ body {
 
 .cointeiner {
     width: 100vw;
-    height: 55vh;
+    height: 100vh;
     display: flex;
+    position: fixed;
+    top: 0;
     /* border: 2px orange solid; */
     /* border:  2px solid orange; */
     justify-content: center;
     flex-direction: row;
-    align-items: center;
-    overflow: hidden;    
+    align-items: end;
+    overflow: hidden;   
+    padding-bottom: 40px; 
 }
 
 .card {
@@ -516,13 +520,13 @@ img{
     .card {
         flex-grow: 0;
         flex-shrink: 0;
-        height: 380px;
-        width: 290px;
+        height: 360px;
+        width: 271px;
         border: 0.5px solid black;
         z-index: 1;
         transition: 1s;
         display: flex;
-        flex-direction: column;
+        flex-direction:column;
         justify-content: center;
         align-items: center;
         text-align: center;

@@ -101,14 +101,19 @@ def render_edit_avatar():
 
                     print(check_form)
                     data_range = int(flask.request.form.get("hide-size"))
-                    flask_login.current_user.size_avatar = int(100 + (120 * (data_range / 100)))
+                    # if data_range == 100:
+                    #     flask_login.current_user.size_avatar = 100
+                    # else:
+                    if data_range <= 140:
+                        flask_login.current_user.size_avatar = 110 + int(data_range)
+                    else:
+                        flask_login.current_user.size_avatar = 150 + int(data_range)
                     DATABASE.session.commit()
 
                     img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "cash", str(flask.session["cash_image"]))))
 
                     img = img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email) , str(flask.session["cash_image"]))))
                     os.remove(path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "cash", str(flask.session["cash_image"]))))
-                    
                 except Exception as error:
                     print(error)
             elif check_form == "defaul_avatar":
@@ -126,14 +131,13 @@ def render_edit_avatar():
                     name_avatar = "default_picture4.png"
                 elif number_avatar == "5":
                     name_avatar = "default_picture5.png"
-            
+
+                flask_login.current_user.size_avatar = 100
                 default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", name_avatar)))
                 # save a image using extension
                 if not os.path.exists(path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email) , name_avatar))):
                     default_img = default_img.save(fp=os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email) , name_avatar)))
-
                 flask_login.current_user.name_avatar = name_avatar
-                flask_login.current_user.size_avatar = 100
                 DATABASE.session.commit()
             elif check_form == "del_image":
                 default_avatars = ["default_avatar.png", "default_picture2.png", "default_picture3.png", "default_picture4.png","default_picture5.png"]
@@ -167,10 +171,9 @@ def render_edit_avatar():
     
 def render_user_tests():
     if flask_login.current_user.is_authenticated:
-        #отримати айді нашого користувача
-        user_id = flask_login.current_user.id
-        # отримаємо усі тест, які створив наш користувач
-        tests = Test.query.filter_by(creator = user_id).all()
+
+        user = User.query.get(flask_login.current_user.id)
+        tests = user.tests.all()
 
         return flask.render_template(
             template_name_or_list = "user_tests.html",

@@ -11,7 +11,7 @@
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
     </head>
     
-    <body>
+    <body class="body-web">
         <script src="{{ url_for('static', filename='js/sidebar.js') }}" defer></script>
         <header>
             <div class = "logo">
@@ -36,7 +36,7 @@
                     </div>
                 {% elif home_auth %}
                     <div class="nav-links">
-                        <a href="/test" class="test-button">Створити тест</a>
+                        <a href="/test" class="test-button">+ Створити вікторину</a>
                     </div>
                 {% else %}
                     <div class="nav-links">
