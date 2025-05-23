@@ -103,7 +103,23 @@ form{
     border: 2px black solid;
     border-radius: 5px;
     margin-right: 20px;
+    min-width: 100px;
     position: relative;
+    text-align: center;
+}
+
+.test-cover-wrapper {
+    position: relative;
+    /* background-color: #C48AF7; */
+}
+
+.center-icon {
+    position: absolute;
+    top: 55%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    width: 60px; /* або потрібний розмір */
+    height: 60px;
 }
 
 .hidden-list{
@@ -122,6 +138,7 @@ form{
     text-align: start;
     color: #ffffff;
     font-size: 17px;
+    z-index: 999;
 }
 
 #timeList li{
@@ -152,6 +169,7 @@ form{
     border-radius: 5px;
     margin-left: 25px;
     margin-top: 5px;
+    display: block;
 }
 
 .creator-info{
@@ -220,6 +238,14 @@ form{
     font-size: 11px;
 }
 
+.right-buttons{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0px;
+    margin: 0px;
+}
 
 /* .set-name{
     padding: 12px 20px 12px 20px;
@@ -232,7 +258,7 @@ form{
     padding-left: 60px;
     transform: translateY(-5px);
 } */
-.set-name {
+.set-name{
     display: flex;
     align-items: center;
     gap: 10px; /* расстояние между иконкой и текстом */
@@ -242,6 +268,21 @@ form{
     border-radius: 5px;
     background-color: #ffffff;
     margin-left: 30px;
+    color: #343434;
+    font-weight: 600;
+}
+
+.watch_test{
+    display: flex;
+    align-items: center;
+    gap: 10px; /* расстояние между иконкой и текстом */
+
+    padding: 8px 20px;
+    border: 2px black solid;
+    border-radius: 5px;
+    background-color: #ffffff;
+    margin-left: 5px;
+    margin-right: 20px;
     color: #343434;
     font-weight: 600;
 }
@@ -348,4 +389,152 @@ form{
 .test-title-input:disabled {
     color: #343434;
     opacity: 1; 
+}
+
+
+.modal-image{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 770px; 
+    height: 559px;
+    z-index: 9999999;
+    border-radius: 20px;
+    background-color: #343434;
+    display: none;
+    flex-direction: column;
+    border: 1px #94C4FF solid;
+    overflow: hidden;
+}
+
+.top-floor{
+    /* background-color: #94C4FF; */
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    padding-left: 30px;
+}
+
+.example_image{
+    width: 60px;
+    height: 60px;
+    transform: translateY(5px);
+    z-index: 1;
+}
+
+label[for="image"] {
+    /* display: inline-flex; */
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    padding: 8px 16px;
+    background-color: none;
+    color: #C48AF7;
+    border: none;
+    background: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 24px;
+    font-weight: 550;
+    transition: 0.3s;
+}
+
+.load_button{
+    background: none;
+    border: none;
+}
+
+.input_file{
+    display: none;
+}
+
+.add_text{
+    font-size: 24px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-left: 10px;
+}
+
+.load_text{
+    width: 100%;
+    height: 10%;
+    /* background-color: green; */
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+}
+
+.show_image{
+    width: 100%;
+    height: 55%;
+    /* background-color: gold; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.outline-image{
+    width: 420px;
+    height: 240px;
+    border: 2px #94C4FF solid;
+    background: none;
+    border-radius: 34px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    position: relative;
+}
+
+#show_image_test {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-height: 90%;
+    z-index: 2;
+}
+
+.buttom-floor{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: start;
+    /* background-color: #C48AF7; */
+    padding-right: 15px;
+    gap:20px;
+    padding-top: 20px;
+}
+
+.back-button{
+    background: none;
+    border: none;
+    background-color: none;
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.apply-image{
+    border: none;
+    color: #ffffff;
+    font-size: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    gap: 6px;
+    background-color: #C48AF7;
+    transform: translateY(-8px);
+    font-weight: 500;
+}
+
+.delete-photo{
+    margin-right: 20%;
 }

@@ -114,7 +114,6 @@ def render_edit_avatar():
 
                     img = img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email) , str(flask.session["cash_image"]))))
                     os.remove(path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "cash", str(flask.session["cash_image"]))))
-                    
                 except Exception as error:
                     print(error)
             elif check_form == "defaul_avatar":
@@ -175,7 +174,7 @@ def render_user_tests():
 
         user = User.query.get(flask_login.current_user.id)
         tests = user.tests.all()
-        
+
         return flask.render_template(
             template_name_or_list = "user_tests.html",
             tests = tests,

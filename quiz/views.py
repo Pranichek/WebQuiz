@@ -88,6 +88,9 @@ import flask, os, flask_login
 from .models import Test
 from Project.db import DATABASE
 from os.path import abspath, join
+from flask_login import current_user
+import PIL.Image
+from flask import session
 
 
 
@@ -95,46 +98,75 @@ def render_test():
     list_to_template = []
     new_questions = ""
     new_answers = ""
+    category = ""
+    name_image = ''
     try:
         new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
         new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
         category = flask.request.cookies.get("category").encode('raw_unicode_escape').decode('utf-8')
+        name_image = flask.request.cookies.get("test_url").encode('raw_unicode_escape').decode('utf-8')
     except:
         pass
 
+
     if flask.request.method == "POST":
-        
-        test_title = flask.request.form["test_title"]
-        question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
+        check_form = flask.request.form.get('check_post')
 
-        test = Test(
-            title_test = test_title,
-            questions = new_questions,
-            answers = new_answers,
-            question_time = question_time,
-            user_id = flask_login.current_user.id,
-            category = category
-        )
+        if check_form == "create_test":
+            print(name_image, "name")
+            test_title = flask.request.form["test_title"]
+            question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 
-        image = flask.request.files["image"]
-        
-        response = flask.make_response(flask.redirect('/'))
-        response.delete_cookie("questions")
-        response.delete_cookie("answers")
-        response.delete_cookie("time")
-        response.delete_cookie("category")
-        response.delete_cookie("inputname")
-        DATABASE.session.add(test)
-        DATABASE.session.commit()
-        try:
-            os.mkdir(path = abspath(join(__file__, "..", "static", str(test_title))))
-        except:
+            test = Test(
+                title_test = test_title,
+                questions = new_questions,
+                answers = new_answers,
+                question_time = question_time,
+                user_id = flask_login.current_user.id,
+                category = category,
+                image = flask.session["test_image"] if "test_image" in flask.session else "default"
+            )
+
+            response = flask.make_response(flask.redirect('/'))
+
+            try:
+                response.delete_cookie("questions")
+                response.delete_cookie("answers")
+                response.delete_cookie("time")
+                response.delete_cookie("category")
+                response.delete_cookie("inputname")
+                response.delete_cookie("test_url")
+            except:
+                pass
+
+            DATABASE.session.add(test)
+            DATABASE.session.commit()
+            # try:
+            if not os.path.exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests"))):
+                os.mkdir(path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests")))
+            if not os.path.exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests",  str(test_title)))):
+                os.mkdir(path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests",  str(test_title))))
+            # except:
+            #     pass
+            if "test_image" in flask.session:
+                test_image = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"])))
+                test_image = test_image.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", str(test_title), str(flask.session["test_image"]))))
+                os.remove(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"]))
+            )
+
+            if "test_image" in flask.session:
+                flask.session.pop("test_image", None)
+                
+            return response
+        elif check_form == "image":
+            image = flask.request.files["image"]
+    
+            if not os.path.exists(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test"))):
+                os.mkdir(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test")))
+
+            flask.session["test_image"] = str(image.filename)
+            image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
             pass
-        image.save(
-               dst= os.path.abspath(os.path.join(__file__, "..", "static", str(test_title), str(image.filename)))
-           )
-        return response
-
     else:
         if new_questions:
             new_answers_list = new_answers.split("?@?")
