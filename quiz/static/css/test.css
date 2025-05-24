@@ -17,7 +17,7 @@ form{
     gap: 7px;
     width: 100%;
     height: 250px;
-    overflow: hidden;
+    /* overflow: hidden; */
     border-radius: 10px;
     background-color: #C7D7EB;
 }
@@ -36,7 +36,7 @@ form{
     justify-content: space-between;
     width: 100%;
     height: 25%;
-    background-color: #C48AF7;
+    /* background-color: #C48AF7; */
 }
 
 .info-block{
@@ -102,8 +102,7 @@ form{
     /* margin-right: 44px; */
     border: 2px black solid;
     border-radius: 5px;
-    margin-right: 20px;
-    min-width: 100px;
+    /* margin-right: 20px; */
     position: relative;
     text-align: center;
 }
@@ -128,18 +127,20 @@ form{
 
 #timeList{
     position: absolute;
-    top: 48%;
+    top: 120%;
     border-radius: 5px;
     cursor: pointer;
     background: #7291B8;
     list-style-type: none;
     border: 2px black solid;
-    width: 13%;
+    width: auto;
     text-align: start;
     color: #ffffff;
     font-size: 17px;
-    z-index: 999;
+    /* z-index: 99999; */
 }
+
+
 
 #timeList li{
     padding: 6px 14px;
@@ -162,7 +163,7 @@ form{
     height: 1.5px;
 }
 
-.test-cover{
+.outline-test{
     width: 171px;
     height: 171px;
     border: 1px solid black;
@@ -170,6 +171,12 @@ form{
     margin-left: 25px;
     margin-top: 5px;
     display: block;
+}
+
+.test-cover{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
 }
 
 .creator-info{
@@ -274,7 +281,7 @@ form{
 
 .watch_test{
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     gap: 10px; /* расстояние между иконкой и текстом */
 
     padding: 8px 20px;
@@ -285,6 +292,11 @@ form{
     margin-right: 20px;
     color: #343434;
     font-weight: 600;
+    text-align: center;
+}
+
+.watch_test {
+    white-space: nowrap; /* не переносити текст */
 }
 
 .buttons{
@@ -320,7 +332,7 @@ form{
 
 .button-delete{
     z-index: 100000;
-    background-color: aqua;
+    /* background-color: aqua; */
 }
 
 .question-card{
@@ -406,6 +418,7 @@ form{
     flex-direction: column;
     border: 1px #94C4FF solid;
     overflow: hidden;
+    z-index: 9999999999999999999;
 }
 
 .top-floor{
@@ -419,11 +432,25 @@ form{
     padding-left: 30px;
 }
 
+#del_form{
+    display: none;
+}
+
 .example_image{
     width: 60px;
     height: 60px;
     transform: translateY(5px);
     z-index: 1;
+}
+
+#show_image_test{
+    object-fit: contain; 
+    width: 100%;
+    height: 100%; 
+}
+
+#show_image_test{
+    font-size: 0;
 }
 
 label[for="image"] {
@@ -469,6 +496,8 @@ label[for="image"] {
     align-items: center;
 }
 
+
+
 .show_image{
     width: 100%;
     height: 55%;
@@ -490,6 +519,19 @@ label[for="image"] {
     overflow: hidden;
     position: relative;
 }
+
+.type {
+    position: relative;
+    z-index: 9999999;
+    display: flex;
+    flex-direction: column;
+    width: fit-content;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    /* background-color: green; */
+}
+
 
 #show_image_test {
     position: absolute;
@@ -563,6 +605,16 @@ label[for="image"] {
         font-weight: 600;
     }
 
+    .back-button{
+        background: none;
+        border: none;
+        background-color: none;
+        font-size: 17px;
+        color: #ffffff;
+        font-weight: 500;
+        margin-right: 5px;
+    }
+
     .under-line{
         background-color: #343434;
         width: 51%;
@@ -581,7 +633,7 @@ label[for="image"] {
         align-items: center;
         gap: 10px; /* расстояние между иконкой и текстом */
     
-        padding: 2px 10px;
+        padding: 4px 10px;
         border: 2px black solid;
         border-radius: 5px;
         background-color: #ffffff;
@@ -591,22 +643,36 @@ label[for="image"] {
     }
 
     .type-p{
-        padding: 2px 3px;
+        padding: 4px 4px;
         font-size: 12px;
         font-weight: 400;
         border-radius: 5px;
-        margin-right: 20px;
+        /* margin-right: 40px; */
         min-width: 100px;
-        margin-left: 10px;
+        /* margin-left: 10px; */
         min-height: 30px;
         align-items: center;
         text-align: center;
     }
 
+    .modal-image{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 520px; 
+        height: 429px;
+    }
+
     form{
-        background-color: aqua;
+        /* background-color: aqua; */
         width: 100%;
     }
+
+    .load_text{
+        margin-right: 150px;
+    }
+
     
     .top-block{
         display: flex;
@@ -615,36 +681,145 @@ label[for="image"] {
         gap: 7px;
         width: 100%;
         height: 250px;
-        overflow: hidden;
+        /* overflow: hidden; */
         border-radius: 10px;
         background-color: #C7D7EB;
     }
 
-    #timeList{
-        position: absolute;
-        top: 60%;
-        border-radius: 5px;
-        cursor: pointer;
-        background: #7291B8;
-        list-style-type: none;
-        border: 2px black solid;
-        width: 20%;
-        text-align: start;
-        color: #ffffff;
-        font-size: 17px;
-        z-index: 999;
-    }
-
     #timeList li{
         padding: 6px 10px;
-        font-size: 14px;
+        font-size: 12px;
         font-family: 'Inter', sans-serif;
+    }
+
+    .sign{
+        width: 22px;
+        height: 22px;
+    }
+
+    .outline-image{
+        width: 360px;
+        height: 220px;
+    }
+
+    .apply-image{
+        border: none;
+        color: #ffffff;
+        font-size: 15px;
+        padding: 10px;
+        border-radius: 5px;
+        gap: 3px;
+        font-weight: 500;
+        white-space: nowrap; /* не переносити текст */
+        text-align: center;   /* горизонтальне вирівнювання */
+        align-items: center;
+    }
+
+    .buttom-floor{
+        width: 100%;
+        height: 20%;
+        display: flex;
+        flex-direction: row;
+        justify-content: end;
+        align-items: start;
+        /* background-color: #C48AF7; */
+        padding-right: 15px;
+        gap:5px;
+        padding-top: 20px;
     }
 }       
 
 @media (min-width: 721px) and (max-width: 1000px){
     form{
         width: 90%;
-        background-color: green;
+        /* background-color: green; */
     }
+
+    .load_text{
+        margin-right: 100px;
+    }
+
+    .modal-image{
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 620px; 
+        height: 429px;
+    }
+
+    .outline-image{
+        width: 380px;
+        height: 230px;
+    }
+
+    .set-name, .watch_test{
+        display: flex;
+        align-items: center;
+        gap: 10px; /* расстояние между иконкой и текстом */
+    
+        padding: 4px 10px;
+        border: 2px black solid;
+        border-radius: 5px;
+        background-color: #ffffff;
+        margin-left: 5px;
+        color: #343434;
+        font-weight: 400;
+    }
+
+    #timeList li{
+        padding: 6px 10px;
+        font-size: 15px;
+        font-family: 'Inter', sans-serif;
+    }
+
+    .apply-image{
+        font-size: 18px;
+        white-space: nowrap; /* не переносити текст */
+        text-align: center;   /* горизонтальне вирівнювання */
+        align-items: center;
+    }
+
+    .back-button{
+        margin-right: 10px;
+    }
+
+    .buttom-floor{
+        gap: 5px;
+    }
+}
+
+@media(min-width: 1001px) and (max-width: 1440px){
+    form{
+        width: 85%;
+        /* background-color: green; */
+    }
+}
+
+@media(min-width: 1441px){
+    form{
+        /* background-color: blue; */
+        max-width: 1300px;
+    }
+
+    .all-cards{
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+        width: 90%;
+        height: fit-content;
+        padding: 40px;
+        border-radius: 30px;
+        background-color: #8ABBF733;
+    }
+}
+
+
+.type {
+    position: relative;
+    margin-right: 10px;
+}
+
+#timeList {
+    z-index: 10000001; /* больше, чем у всего остального */
 }
