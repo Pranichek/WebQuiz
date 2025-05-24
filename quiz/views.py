@@ -207,7 +207,6 @@ def render_test():
 
 def render_create_question():
     if flask.request.method == "POST":
-        print(999999999999)
         image = flask.request.files["image"]
 
         if not os.path.exists(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_test"))):
@@ -217,3 +216,9 @@ def render_create_question():
         image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "images_test", str(image.filename))))
 
     return flask.render_template(template_name_or_list= "create_question.html")
+
+
+def render_select_way():
+    return flask.render_template(
+        template_name_or_list = "select_way.html"
+    )
