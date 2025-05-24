@@ -79,6 +79,34 @@
         <main class="main">
             {% block content %}{% endblock %}
         </main>
+
+
+        {% if home_auth %}
+            <footer class="footer">
+                <div class="ab">
+                    <div class="about">
+                        <a href="" class="linkk">Контакти</a> 
+                        <a href="" class="linkk">Про нас</a>
+                        <a href="" class="linkk">Конфіденційність</a>
+                    </div>
+                    <div>
+                        <hr class="footer-line">
+                    </div>
+                </div>
+            
+                    <div class="last">
+                        <div class="about">
+                        <p>Слідкуйте за нами</p>
+                        </div>
+                        <div class="img-link">
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
+                        </div>
+                    </div>
+            </footer>
+        {% endif %}
+
         {% block scripts %}
 
         {% endblock %}

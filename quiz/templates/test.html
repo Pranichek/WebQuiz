@@ -156,15 +156,12 @@
                 {% endif %}
             {% endfor %}
         </div>
-        
-        <div class="buttons buttons-bottom">
-            <button class="add" type="submit"> + Зберегти вікторину</button>
-            <button class="add" type="submit">
-
-                Почати тест
-            </button>
-        </div>
-
+        {% if question_list %}
+            <div class="buttons buttons-bottom">
+                <button class="add" type="submit"> + Зберегти вікторину</button>
+                <button class="add" type="submit">Почати тест</button>
+            </div>
+        {% endif %}
     </form>
 {% endblock %}
 

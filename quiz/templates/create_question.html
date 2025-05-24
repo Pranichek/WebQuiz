@@ -9,30 +9,33 @@
 {% endblock %}
 
 {% block content %}
-    <div class="pseudo-header">
-        <a href="/test" class="test-button">
-            <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
-        </a>
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="pseudo-header">
+            <a href="/test" class="test-button">
+                <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
+            </a>
 
-        <div>
-            <div class="timer"><p class="timer-p" id="time">⏱ 30 секунд &#709</p>
-                <ul id="timeList" class="hidden-list">
-                    <li>⏱ 5 секунд &#709</li>
-                    <li>⏱ 10 секунд &#709</li>
-                    <li>⏱ 20 секунд &#709</li>
-                    <li>⏱ 30 секунд &#709</li>
-                    <li>⏱ 45 секунд &#709</li>
-                    <li>⏱ 1 хвилина &#709</li>
-                </ul>
+            <div>
+                <div class="timer"><p class="timer-p" id="time">⏱ 30 секунд &#709</p>
+                    <ul id="timeList" class="hidden-list">
+                        <li>⏱ 5 секунд &#709</li>
+                        <li>⏱ 10 секунд &#709</li>
+                        <li>⏱ 20 секунд &#709</li>
+                        <li>⏱ 30 секунд &#709</li>
+                        <li>⏱ 45 секунд &#709</li>
+                        <li>⏱ 1 хвилина &#709</li>
+                    </ul>
+                </div>
+                <button type="submit"><a href="/test" class="add-question" id="save">+ Додати питання</a></button>
             </div>
-            <a href="/test" class="add-question" id="save">+ Додати питання</a>
         </div>
-    </div>
-    
-    <div class="question-name">
-        <input type="text" class="question" name="question" id="question" placeholder="Питання">
-        <button class="add-image">Додати зображення</button>
-    </div>
+        
+        <div class="question-name">
+            <input type="text" class="question" name="question" id="question" placeholder="Питання">
+            <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image">
+            <button style="display: none;" class="add-image" id="deleteImgButton" onclick="deleteImage(event);">Видалити зображення</button>
+        </div>
+    </form>
 
     <h3>Оберіть варіант відповіді</h3>
 
@@ -82,4 +85,5 @@
     <script src="{{ url_for('test_pass.static', filename='js/addQuestion.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/correctQuestion.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/timer.js') }}" defer></script>
+    <script src="{{ url_for('test_pass.static', filename='js/addQuestionImage.js') }}"></script>
 {% endblock %}

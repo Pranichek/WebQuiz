@@ -25,7 +25,7 @@ body{
 
 }
 
-header {
+header{
     z-index: 1000;
     background-color: #343434;
     display: flex;
@@ -126,6 +126,56 @@ nav {
 
 .opened{
     width: 300px;
+}
+
+
+.footer{
+    background-color: #343434;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 24vh;
+    position: relative;
+    bottom: 0;
+}
+.social-network{
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+}
+.img-soc{
+    width: 40px;
+    height: 40px;
+    
+}
+.last{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 22px;
+}
+.about{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    color: #ffffff;
+    font-size: 20px;
+    padding-top: 28.5px;
+    
+}
+.linkk{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.footer-line {
+    width: 675px;
+    border-top: 1px solid #b6b6b6;
 }
 
 @media (min-width: 1441px) and (max-width: 2000px){
