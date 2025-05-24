@@ -15,7 +15,7 @@ for (let li of liList){
     li.addEventListener("click", ()=>{
         time.textContent = li.textContent;
         timeList.classList.add("hidden-list");
-        document.cookie = `category=${li.textContent}; path=/;`;
+        document.cookie = `category=${li.dataset.category}; path=/;`;
         ChangePhoto(text_li = li.textContent);
     })
 }
