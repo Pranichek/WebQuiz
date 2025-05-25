@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Question creation
+    Question change
 {% endblock %}
 
 {% block links %}
@@ -26,12 +26,12 @@
                         <li>⏱ 1 хвилина &#709</li>
                     </ul>
                 </div>
-                <button class="add-question" id="save">+ Додати питання</button>
+                <button class="add-question" id="save">+ Редагувати питання</button>
             </div>
         </div>
         
         <div class="question-name">
-            <input type="text" class="question" name="question" id="question" placeholder="Питання">
+            <input type="text" class="question" name="question" id="question" placeholder="Питання" value="">
             <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image">
             <button type="button" style="display: none;" class="add-image" id="deleteImgButton" onclick="deleteImage(event);">Видалити зображення</button>
         </div>
@@ -79,12 +79,10 @@
         <p class="button" id="addQuestion">
             <img src="{{ url_for('test_pass.static', filename='images/plus.png') }}" alt="">
         </p>
-    </div>
-
+</div>
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ url_for('test_pass.static', filename='js/createQuestionCookies.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/addQuestion.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/correctQuestion.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/timer.js') }}" defer></script>

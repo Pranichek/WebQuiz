@@ -33,7 +33,11 @@ button.addEventListener("click", ()=>{
         console.log("time =", timeC);
 
         imgCookie = document.cookie.split("images=")[1].split(";")[0];
-        imageC = imgCookie + "?&?" + inputImg.files[0].name;
+        try{
+            imageC = imgCookie + "?&?" + inputImg.files[0].name;
+        } catch{
+            imageC = imgCookie + "?&?" + "";
+        }
 
         answerCookie = document.cookie.split("answers=")[1].split(";")[0];
         answers = answerCookie + "?@?" + answers;

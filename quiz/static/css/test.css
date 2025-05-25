@@ -319,8 +319,12 @@ form{
 }
 
 .button-delete{
-    z-index: 100000;
+    z-index: 1;
     background-color: aqua;
+}
+
+.change-question{
+    z-index: 1;
 }
 
 .question-card{

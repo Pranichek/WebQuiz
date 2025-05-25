@@ -65,6 +65,7 @@ def render_test():
                     response.delete_cookie("category")
                     response.delete_cookie("inputname")
                     response.delete_cookie("test_url")
+                    response.delete_cookie("images")
                 except:
                     pass
 
@@ -113,9 +114,10 @@ def render_test():
                         answer = answer[1:-1]
                         temporary_answers_list.append(answer)
                     item["answers"] = temporary_answers_list
+                    item["pk"] = number
                     list_to_template.append(item)
-                    print("list_to_template =", list_to_template)
                     number += 1
+        # print("list_to_template =", list_to_template)
         return flask.render_template(
             template_name_or_list= "test.html", 
             question_list = list_to_template,
@@ -125,11 +127,39 @@ def render_test():
         return flask.redirect("/")
 
 def render_create_question():
+    print("question added?")
     if flask.request.method == "POST":
         image = flask.request.files["image"]
-        if not os.path.exists(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test"))):
-            os.mkdir(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test")))
+        question = flask.request.form.get("question")
+        if not os.path.exists(os.path.abspath(os.path.join(__file__, "..", "..", "quiz", "static", "images", "tests", str(current_user.email)))):
+            os.mkdir(os.path.abspath(os.path.join(__file__, "..", "..", "quiz", "static", "images", "tests", str(current_user.email))))
 
-        image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
+        dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "quiz", "static", "images", "tests", str(current_user.email), str(question)))
+        try:
+            os.mkdir(dir_path)
+        except:
+            if not os.path.exists(dir_path):
+                print(f"Directory {dir_path} does not exist.")
+                return
 
+            for filename in os.listdir(dir_path):
+                file_path = os.path.join(dir_path, filename)
+                try:
+                    os.unlink(file_path)
+                except Exception as e:
+                    print(f"Failed to delete {file_path}. Reason: {e}")
+        try:
+            image.save(os.path.abspath(os.path.join(__file__, "..", "..", "quiz", "static", "images", "tests", str(current_user.email), str(question), str(image.filename))))
+        except:
+            pass
+        return flask.redirect("/test")
     return flask.render_template(template_name_or_list= "create_question.html")
+
+def render_change_question(pk: int):
+
+    questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
+    answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
+    question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
+    name_image = flask.request.cookies.get("test_url").encode('raw_unicode_escape').decode('utf-8')
+
+    return flask.render_template(template_name_or_list= "change_question.html")
