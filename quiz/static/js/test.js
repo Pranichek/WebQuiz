@@ -130,7 +130,7 @@ ButtonName.addEventListener(
 
 function saveName(){
     let valueinput = InputName.value;
-    let cookies = document.cookie.match("inputname")
+    let cookies = document.cookie.match("inputname");
     if (cookies){
         document.cookie = "inputname=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }

@@ -16,7 +16,7 @@
             </a>
 
             <div>
-                <div class="timer"><p class="timer-p" id="time">⏱ 30 секунд &#709</p>
+                <div class="timer"><p class="timer-p" id="time">⏱ {{ time }} &#709</p>
                     <ul id="timeList" class="hidden-list">
                         <li>⏱ 5 секунд &#709</li>
                         <li>⏱ 10 секунд &#709</li>
@@ -26,13 +26,15 @@
                         <li>⏱ 1 хвилина &#709</li>
                     </ul>
                 </div>
-                <button class="add-question" id="save">+ Редагувати питання</button>
+                <button type="button" class="add-question" id="save">+ Редагувати питання</button>
             </div>
         </div>
         
         <div class="question-name">
-            <input type="text" class="question" name="question" id="question" placeholder="Питання" value="">
-            <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image">
+            <p style="display: none;" id="pk">{{ pk }}</p>
+            <input type="text" class="question" name="question" id="question" placeholder="Питання" value="{{ question }}">
+            <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image", value="{{ image }}"> 
+            <!-- value="{{ image }}"> -->
             <button type="button" style="display: none;" class="add-image" id="deleteImgButton" onclick="deleteImage(event);">Видалити зображення</button>
         </div>
     </form>
@@ -44,7 +46,7 @@
             <div class="detector" id="1">
                 <img id="1" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <input type="text" class="answer correct" name="answer" id="1" placeholder="Відповідь">
+            <input type="text" class="answer correct" name="answer" id="1" placeholder="{{ answer1 }}">
             <div class="delete-answer" id="1">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
@@ -53,29 +55,55 @@
             <div class="detector" id="2">
                 <img style="display: none;" id="2" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <input type="text" class="answer" name="answer" id="2" placeholder="Відповідь">
+            <input type="text" class="answer" name="answer" id="2" placeholder="{{ answer2 }}">
             <div class="delete-answer" id="2">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
         </div>
-        <div class="hidden answer-block" id="3">
-            <div class="detector" id="3">
-                <img style="display: none;" id="3" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+
+        {% if answer3 != "hidden" %}
+            <div class="answer-block" id="3">
+                <div class="detector" id="3">
+                    <img style="display: none;" id="3" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+                </div>
+                <input type="text" class="answer" name="answer" id="3" placeholder="{{ answer3 }}">
+                <div class="delete-answer" id="3">
+                    <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+                </div>
             </div>
-            <input type="text" class="answer" name="answer" id="3" placeholder="Відповідь">
-            <div class="delete-answer" id="3">
-                <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+        {% else %}
+            <div class="hidden answer-block" id="3">
+                <div class="detector" id="3">
+                    <img style="display: none;" id="3" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+                </div>
+                <input type="text" class="answer" name="answer" id="3" placeholder="Відповідь">
+                <div class="delete-answer" id="3">
+                    <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+                </div>
             </div>
-        </div>
-        <div class="hidden answer-block" id="4">
-            <div class="detector" id="4">
-                <img style="display: none;" id="4" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+        {% endif %}
+        
+        {% if answer4 != "hidden" %}
+            <div class="answer-block" id="4">
+                <div class="detector" id="4">
+                    <img style="display: none;" id="4" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+                </div>
+                <input type="text" class="answer" name="answer" id="4" placeholder="{{ answer4 }}">
+                <div class="delete-answer" id="4">
+                    <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+                </div>
             </div>
-            <input type="text" class="answer" name="answer" id="4" placeholder="Відповідь">
-            <div class="delete-answer" id="4">
-                <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+        {% else %}
+            <div class="hidden answer-block" id="4">
+                <div class="detector" id="4">
+                    <img style="display: none;" id="4" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+                </div>
+                <input type="text" class="answer" name="answer" id="4" placeholder="Відповідь">
+                <div class="delete-answer" id="4">
+                    <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+                </div>
             </div>
-        </div>
+        {% endif %}
         <p class="button" id="addQuestion">
             <img src="{{ url_for('test_pass.static', filename='images/plus.png') }}" alt="">
         </p>
@@ -83,6 +111,7 @@
 {% endblock %}
 
 {% block scripts %}
+    <script src="{{ url_for('test_pass.static', filename='js/changeQuestionCookies.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/addQuestion.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/correctQuestion.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/timer.js') }}" defer></script>
