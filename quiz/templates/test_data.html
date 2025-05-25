@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    
+{% endblock links %}
+
+{% block content %}
+    <h1>Назва тесту {{ test.title_test }}</h1>
+    <p>СОздатель {{ test.user.username }}</p>
+
+    <form action="" method="post" id="play-form">
+        <button type="button" class="play_test" value="{{ test.id }}">Пройти тест</button>
+    </form>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="{{ url_for('test_pass.static', filename = 'js/test_cookie.js') }}"></script>
+{% endblock scripts %}

@@ -1,0 +1,167 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    width: 100vw;
+    height: 100vh;
+    background-color: #3C3C3C;
+}
+
+
+.settings{
+    background-color: #646464;
+    padding: 7px 10px 7px 10px;
+    border-radius: 4px;
+}
+
+span{
+    cursor: pointer;
+}
+
+.progres{
+    background-color: #C39FE4;
+    border-radius: 4px;
+    padding: 5px 10px 5px 10px;
+}
+
+.bonus{
+    font-size: 20px;
+    font-weight: lighter;
+}
+
+.question{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 30vh;
+    padding: 10px;
+
+}
+
+.num-question {
+    display: flex;
+    background-color: #2D2D2D;
+    border-radius: 5px;
+    padding: 3px;
+    border: 1px solid black; /* тут все в одному рядку */
+}
+.num-que{
+    color: #C48AF7;
+}
+
+.question-test{
+    font-size: 24px;
+}
+
+.question-bg {
+    background-color: #2D2D2D;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.answers{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 50vh;
+    padding: 10px;
+}
+
+.variant{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #94C4FF;
+    width: 24vw;
+    height: 44vh;
+    border-radius: 15px;
+    font-size: 24px;
+    overflow: hidden;
+    flex-wrap: wrap;
+}
+footer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 10px;
+
+    width: 100vw;
+    height: 10vh;
+    background-color: #343434;
+}
+
+.bonus-data{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 14vw;
+    /* background-color: darkgreen; */
+    padding-left: 5px;
+}
+
+.text-kem{
+    padding-right: 7px;
+}
+
+.line {
+    height: 7vh;
+    border-left: 1px solid #ffffff;
+}
+.ai-timer{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    /* width: 8vw; */
+    gap: 5px;
+}
+
+.robot{
+    width: 60px;
+    height: 50px;
+}
+
+.timer{
+    width: 6px;
+    height: 50px;
+}
+
+.avatar{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.avatar-circle{
+    object-fit: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    /* width: 25%;
+    height: 100%; */
+    border: 1px black solid;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

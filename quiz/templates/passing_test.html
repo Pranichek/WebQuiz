@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('test_pass.static', filename = 'css/passing_test.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <div class= 'question'>
+        <div class="num-question">
+            <p class="num-que">1/10</p>
+        </div>
+        <div class= "question-bg">
+            <p class="question-test">{{ question }}</p>
+        </div>
+    </div>
+    <!--  -->
+    <div class= "answers">
+        <div class="variant">
+            <p>answers1</p>
+        </div>
+        <div class="variant">
+            <p>answers</p>
+        </div>
+        <div class="variant">
+            <p>answers3</p>
+        </div>
+        <div class="variant">
+            <p>answers4</p>
+        </div>
+    </div>
+    <!--  -->
+    <footer>
+        <div class="bonus-data">
+            <div class="avatar-circle">
+                <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+            </div>
+            <p class="text-kem">{{ user.username }}</p>
+            <div class="line"></div>
+            <img class = "bonus1" src="/bonus.png" alt="">
+            <img class = "bonus2" src="/bonus.png" alt="">
+            <img class = "bonus3" src="/bonus.png" alt="">
+        </div>
+
+        <div class="ai-timer">
+
+        </div>
+    </footer>
+    </body>
+{% endblock content %}

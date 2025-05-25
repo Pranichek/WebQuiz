@@ -70,6 +70,7 @@ def render_edit_avatar():
     try:
         user = flask_login.current_user
         show = ['']
+
         if flask.request.method == "POST":
             check_form = flask.request.form.get("check_form")
 

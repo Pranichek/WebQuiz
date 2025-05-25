@@ -16,8 +16,7 @@ from os.path import abspath, join, exists
 from flask_login import current_user
 import PIL.Image
 from .del_files import delete_files_in_folder
-from Project.authenticated_check import config_page
-
+from .generate_image import return_img
 
 def render_test():
     if current_user.is_authenticated:
@@ -49,10 +48,10 @@ def render_test():
                     questions = new_questions,
                     answers = new_answers,
                     question_time = question_time,
-                    question_images = question_images,
+                    question_images = ' ',
                     user_id = flask_login.current_user.id,
                     category = category,
-                    image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else "default"
+                    image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else f"default/{return_img(category = category)}"
                 )
 
                 response = flask.make_response(flask.redirect('/'))
@@ -136,7 +135,8 @@ def render_create_question():
             if not os.path.exists(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_test"))):
                 os.mkdir(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_test")))
 
-            image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "images_test", str(image.filename))))
+            if not exists(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "images_test", str(image.filename)))):
+                image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "images_test", str(image.filename))))
 
         return flask.render_template(template_name_or_list= "create_question.html")
     return flask.redirect("/")

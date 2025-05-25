@@ -590,6 +590,7 @@ label[for="image"] {
 }
 
 @media(max-width:720px){
+    
     .test-title-input{
         height: 30px;
         font-size: 17px;
@@ -732,7 +733,6 @@ label[for="image"] {
 @media (min-width: 721px) and (max-width: 1000px){
     form{
         width: 90%;
-        /* background-color: green; */
     }
 
     .load_text{

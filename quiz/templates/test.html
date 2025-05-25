@@ -133,7 +133,6 @@
                 + Згенерувати питання
             </button>
         </div>
-
         <div class="all-cards">
             {% for this_question in question_list %}
                 <!-- якщо довжина питання більше чим один символ, то можемо створити питання -->
@@ -156,6 +155,8 @@
                 {% endif %}
             {% endfor %}
         </div>
+
+        
         {% if question_list %}
             <div class="buttons buttons-bottom">
                 <button class="add" type="submit"> + Зберегти вікторину</button>
