@@ -23,6 +23,9 @@ button.addEventListener("click", ()=>{
             }
         }
     }
+    answers = answers.replace("undefined", "");
+    answers = answers.replace("answers", "");
+    answers = answers.replace("null", "");
 
     questionCookie = document.cookie.split("questions=")[1].split(";")[0].split("?%?");
     questionCookie[pk] = question.value;
@@ -53,9 +56,6 @@ button.addEventListener("click", ()=>{
 
     document.cookie = `images=${imgCookie}; path=/;`;
 
-    answers = answers.replace("undefined", "");
-    answers = answers.replace("answers", "");
-    answers = answers.replace("null", "");
-    document.cookie = `answers=${answers}; path=/;`;
+    document.cookie = `answers=${answerCookie}; path=/;`;
     answers = null;
 })
