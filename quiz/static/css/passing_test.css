@@ -6,6 +6,7 @@
     color: #ffffff;
 }
 
+
 body{
     display: flex;
     flex-direction: column;
@@ -70,10 +71,15 @@ span{
     padding: 10px;
 }
 
+#end-test{
+    display: none;
+}
+
 .answers{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    gap:10px;
     align-items: center;
     width: 100vw;
     height: 50vh;
@@ -164,4 +170,8 @@ footer{
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.variant{
+    display: none;
 }

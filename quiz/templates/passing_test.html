@@ -5,27 +5,31 @@
 {% endblock links %}
 
 {% block content %}
+    <form action="" method="post" id="end-test">
+        <button>end</button>
+    </form>
     <div class= 'question'>
         <div class="num-question">
             <p class="num-que">1/10</p>
         </div>
         <div class= "question-bg">
-            <p class="question-test">{{ question }}</p>
+            <p class="question-test"></p>
         </div>
     </div>
+    
     <!--  -->
     <div class= "answers">
         <div class="variant">
-            <p>answers1</p>
+            <p class="variant-text">answer1</p>
         </div>
         <div class="variant">
-            <p>answers</p>
+            <p class="variant-text">answer2</p>
         </div>
         <div class="variant">
-            <p>answers3</p>
+            <p class="variant-text">answers3</p>
         </div>
         <div class="variant">
-            <p>answers4</p>
+            <p class="variant-text">answers4</p>
         </div>
     </div>
     <!--  -->
@@ -47,3 +51,8 @@
     </footer>
     </body>
 {% endblock content %}
+
+{% block scripts %}
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/passing_test.js') }}"></script>
+{% endblock scripts %}
