@@ -30,8 +30,12 @@ button.addEventListener("click", ()=>{
         timeCookie = document.cookie.split("time=")[1].split(";")[0];
         timeC = timeCookie + "?#?" + timeP.textContent;
         console.log("time =", timeC);
-
-        imgCookie = document.cookie.split("images=")[1].split(";")[0];
+        try{
+            imgCookie = document.cookie.split("images=")[1].split(";")[0];
+        }catch{
+            imgCookie = ""
+        }
+        
         try{
             imageC = imgCookie + "?&?" + inputImg.files[0].name;
         } catch{
@@ -62,6 +66,8 @@ button.addEventListener("click", ()=>{
     timeC = timeC.replace("⏱ ", "");
     timeC = timeC.replace(" ˅", "");
     document.cookie = `time=${timeC}; path=/;`;
+
+    document.cookie = `images=${imageC}; path=/;`;
 
     answers = answers.replace("undefined", "");
     answers = answers.replace("answers", "");

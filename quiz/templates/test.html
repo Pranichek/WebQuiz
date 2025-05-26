@@ -59,12 +59,7 @@
                 <div class="info-block">
                     <div class="test-cover-wrapper">
                         <div class="outline-test">
-                            {% if cash_image != 'default' %}
-                                <!-- <p>super</p> -->
-                                <img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/cash_test/' + cash_image) }}" alt="cash_image" class="test-cover">
-                            {% elif cash_image == 'default' %}
-                                <img src="{{ url_for('test_pass.static', filename='images/cover.png' ) }}" alt="default_image" class="test-cover">
-                            {% endif %}
+
                             <!-- <img src="{{ url_for('test_pass.static', filename='images/cover.png' ) }}" alt="sdc" class="test-cover"> -->
                         </div>
                         <img src="{{ url_for('test_pass.static', filename='images/add.png') }}" alt="icon" onclick="ShowModal();" class="center-icon">

@@ -99,27 +99,11 @@ def render_test():
                 image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
             elif check_form == "del_image":
                 flask.session["test_image"] = "default"
-        # else:
-        if new_questions:
-            new_answers_list = new_answers.split("?@?")
-            new_questions_list = new_questions.split("?%?")
+        else:
+            if new_questions:
+                new_answers_list = new_answers.split("?@?")
+                new_questions_list = new_questions.split("?%?")
 
-            number = 0
-            for question in new_questions_list:
-                item = {}
-                item["question"] = question
-                answers_list = new_answers_list[number].split("%?)(?%")
-                temporary_answers_list = []
-                for answer in answers_list:
-                    answer = answer.replace("(?%", "")
-                    answer = answer.replace("%?)", "")
-                    answer = answer[1:-1]
-                    temporary_answers_list.append(answer)
-                item["answers"] = temporary_answers_list
-                list_to_template.append(item)
-                # print("list_to_template =", list_to_template)
-                number += 1
-        # print("list_to_template =", list_to_template)
                 number = 0
                 for question in new_questions_list:
                     item = {}
@@ -135,12 +119,10 @@ def render_test():
                     item["pk"] = number
                     list_to_template.append(item)
                     number += 1
-        # print("list_to_template =", list_to_template)
         return flask.render_template(
             template_name_or_list= "test.html", 
             question_list = list_to_template,
-            user = flask_login.current_user,
-            cash_image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else "default"
+            user = flask_login.current_user
         )
     else:
         return flask.redirect("/")
@@ -161,36 +143,12 @@ def render_create_question():
 
 
 def render_select_way():
+    
     if current_user.is_authenticated:
         return flask.render_template(
             template_name_or_list = "select_way.html"
         )
     return flask.redirect("/")
-
-    if flask.request.method == "POST":
-        image = flask.request.files["image"]
-        question = flask.request.form.get("question")
-        test_name = flask.request.cookies.get("inputname")
-
-        dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", str(test_name), str(question)))
-        try:
-            os.makedirs(dir_path)
-        except:
-            if not os.path.exists(dir_path):
-                print(f"Directory {dir_path} does not exist.")
-
-            for filename in os.listdir(dir_path):
-                file_path = os.path.join(dir_path, filename)
-                try:
-                    os.unlink(file_path)
-                except Exception as e:
-                    print(f"Failed to delete {file_path}. Reason: {e}")
-        try:
-            image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", str(test_name), str(question), str(image.filename))))
-        except:
-            pass
-        return flask.redirect("/test")
-    return flask.render_template(template_name_or_list= "create_question.html")
 
 def render_change_question(pk: int):
         
@@ -198,15 +156,10 @@ def render_change_question(pk: int):
         image = flask.request.files["image"]
         question = flask.request.form.get("question")
         test_name = flask.request.cookies.get("inputname")
-        if not os.path.exists(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "user_tests", str(current_user.email)))):
-            os.mkdir(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email))))
-
-        if not os.path.exists(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "user_tests", str(current_user.email), str(test_name)))):
-            os.mkdir(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "user_tests", str(current_user.email), str(test_name))))
 
         dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "user_tests", str(current_user.email), str(test_name), str(question)))
         try:
-            os.mkdir(dir_path)
+            os.makedirs(dir_path)
         except:
             if not os.path.exists(dir_path):
                 print(f"Directory {dir_path} does not exist.")
