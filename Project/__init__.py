@@ -1,7 +1,6 @@
 from .urls import *
 from .db import *
 from .loadenv import execute
-from .authenticated_check import config_page
 from .settings import project
 from .login_manager import *
 

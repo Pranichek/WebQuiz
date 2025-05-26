@@ -41,7 +41,7 @@ def render_test():
                 # print(name_image, "name")
                 test_title = flask.request.form["test_title"]
                 question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
-                question_images = flask.request.cookies.get("images").encode('raw_unicode_escape').decode('utf-8')
+                # question_images = flask.request.cookies.get("images").encode('raw_unicode_escape').decode('utf-8')
 
                 test = Test(
                     title_test = test_title,
