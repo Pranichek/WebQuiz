@@ -97,7 +97,8 @@ def render_test():
                 image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
             elif check_form == "del_image":
                 flask.session["test_image"] = "default"
-        # else:
+        # else: 
+        new_answers_list = ''
         if new_questions:
             new_answers_list = new_answers.split("?@?")
             new_questions_list = new_questions.split("?%?")

@@ -45,7 +45,8 @@ def handle_get_question():
     emit("question", {
         "question": current_question,
         "answers": current_answers,
-        "index": flask.session["question_index"] + 1
+        "index": flask.session["question_index"] + 1,
+        "amount_question": len(questions) 
     })
 
 
@@ -82,5 +83,6 @@ def handle_next_question():
     emit("question", {
         "question": current_question,
         "answers": current_answers,
-        "index": flask.session["question_index"] + 1
+        "index": flask.session["question_index"] + 1,
+        "amount_question": len(questions) 
     })
