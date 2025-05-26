@@ -58,10 +58,26 @@ quiz.test_pass.add_url_rule(
 
 quiz.test_pass.add_url_rule(
     rule = "/test/create_question",
-    view_func= quiz.render_create_question,
+    view_func = quiz.render_create_question,
     methods = ["GET", "POST"]
 )
 
+quiz.test_pass.add_url_rule(
+    rule = "/select_way",
+    view_func = quiz.render_select_way
+)
+
+quiz.test_pass.add_url_rule(
+    rule = "/test_data",
+    view_func = quiz.render_data_test,
+    methods = ["GET", "POST"]
+)
+
+quiz.test_pass.add_url_rule(
+    rule = "/passig_test",
+    view_func = quiz.render_passing_test,
+    methods = ["GET", "POST"]
+)
 quiz.test_pass.add_url_rule(
     rule = "/test/change_question/<int:pk>",
     view_func= quiz.render_change_question,

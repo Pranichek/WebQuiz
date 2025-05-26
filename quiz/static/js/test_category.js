@@ -15,7 +15,7 @@ for (let li of liList){
     li.addEventListener("click", ()=>{
         time.textContent = li.textContent;
         timeList.classList.add("hidden-list");
-        document.cookie = `category=${li.textContent}; path=/;`;
+        document.cookie = `category=${li.dataset.category}; path=/;`;
         ChangePhoto(text_li = li.textContent);
     })
 }
@@ -23,45 +23,49 @@ for (let li of liList){
 function ChangePhoto(text_li){
     let testImage = document.querySelector(".test-cover");
 
-    let mathPhoto = document.querySelector(".math-photo").getAttribute("data-math")
-    let englishPhoto = document.querySelector(".english-photo").getAttribute("data-english")
-    let programingPhoto = document.querySelector(".programin-photo").getAttribute("data-programing")
-    let historyPhoto = document.querySelector(".history-photo").getAttribute("data-history")
-    let physicsPhoto = document.querySelector(".physics-photo").getAttribute("data-physics")
-    let chemistryPhoto = document.querySelector(".chemistry-photo").getAttribute("data-chemistry")
-    let another = document.querySelector(".another-photo").getAttribute("data-another")
+    const da = testImage.src.split("/");
 
-    let massive = [
-        mathPhoto,
-        englishPhoto,
-        programingPhoto,
-        historyPhoto,
-        physicsPhoto,
-        chemistryPhoto,
-        another
-    ]
+    if (!da.includes("cash_test")){
+        let mathPhoto = document.querySelector(".math-photo").getAttribute("data-math")
+        let englishPhoto = document.querySelector(".english-photo").getAttribute("data-english")
+        let programingPhoto = document.querySelector(".programin-photo").getAttribute("data-programing")
+        let historyPhoto = document.querySelector(".history-photo").getAttribute("data-history")
+        let physicsPhoto = document.querySelector(".physics-photo").getAttribute("data-physics")
+        let chemistryPhoto = document.querySelector(".chemistry-photo").getAttribute("data-chemistry")
+        let another = document.querySelector(".another-photo").getAttribute("data-another")
 
-    let index_li = Array.from(liList).findIndex(li => li.textContent === text_li);
+        let massive = [
+            mathPhoto,
+            englishPhoto,
+            programingPhoto,
+            historyPhoto,
+            physicsPhoto,
+            chemistryPhoto,
+            another
+        ]
 
-    console.log(index_li)
+        let index_li = Array.from(liList).findIndex(li => li.textContent === text_li);
 
-    let imageName = null; 
 
-    if (document.cookie.match("test_url")){
-        imageName = document.cookie.split("test_url=")[1].split(";")[0];
-    }
+        let imageName = null; 
 
-    if (imageName){
-        if (massive.includes(imageName)){
+        if (document.cookie.match("test_url")){
+            imageName = document.cookie.split("test_url=")[1].split(";")[0];
+        }
+
+        if (imageName){
+            if (massive.includes(imageName)){
+                document.cookie = "test_url=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                document.cookie = `test_url=${massive[index_li]}; path=/;`;
+                testImage.src = massive[index_li];
+            }
+        } else {
             document.cookie = "test_url=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
             document.cookie = `test_url=${massive[index_li]}; path=/;`;
             testImage.src = massive[index_li];
         }
-    } else {
-        document.cookie = "test_url=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-        document.cookie = `test_url=${massive[index_li]}; path=/;`;
-        testImage.src = massive[index_li];
     }
+    // console.log("pred" , testImage.src)
 }
 
 
@@ -80,6 +84,9 @@ window.addEventListener(
 
 
 function DeleteImage(){
-    document.cookie = "test_url=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    location.reload();
+    let cookies = document.cookie.match("test_url")
+    document.querySelector("#del_form").submit();
+    if (cookies){
+        document.cookie = "test_url=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    }
 }

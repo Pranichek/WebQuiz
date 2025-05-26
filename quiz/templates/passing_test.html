@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('test_pass.static', filename = 'css/passing_test.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <form action="" method="post" id="end-test">
+        <button>end</button>
+    </form>
+    <div class= 'question'>
+        <div class="num-question">
+            <p class="num-que">1/10</p>
+        </div>
+        <div class= "question-bg">
+            <p class="question-test"></p>
+        </div>
+    </div>
+    
+    <!--  -->
+    <div class= "answers">
+        <div class="variant">
+            <p class="variant-text">answer1</p>
+        </div>
+        <div class="variant">
+            <p class="variant-text">answer2</p>
+        </div>
+        <div class="variant">
+            <p class="variant-text">answers3</p>
+        </div>
+        <div class="variant">
+            <p class="variant-text">answers4</p>
+        </div>
+    </div>
+    <!--  -->
+    <footer>
+        <div class="bonus-data">
+            <div class="avatar-circle">
+                <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+            </div>
+            <p class="text-kem">{{ user.username }}</p>
+            <div class="line"></div>
+            <img class = "bonus1" src="/bonus.png" alt="">
+            <img class = "bonus2" src="/bonus.png" alt="">
+            <img class = "bonus3" src="/bonus.png" alt="">
+        </div>
+
+        <div class="ai-timer">
+
+        </div>
+    </footer>
+    </body>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/passing_test.js') }}"></script>
+{% endblock scripts %}

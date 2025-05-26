@@ -1,12 +1,10 @@
 const button = document.getElementById("save");
 const question = document.querySelector("#question");
 let answerInputList = document.querySelectorAll(".answer");
-let timeP = document.querySelector(".timer-p");
-const inputImg = document.getElementById("imgInput");
+let timeP = document.querySelector(".timer-p")
 let answers;
 let questions;
 let timeC;
-let imageC;
 
 button.addEventListener("click", ()=>{
     console.log(document.cookie.match("questions"))
@@ -23,10 +21,11 @@ button.addEventListener("click", ()=>{
         }
     }
 
+    questions = question.value;
     if (document.cookie.match("questions") != null){
         questionCookie = document.cookie.split("questions=")[1].split(";")[0];
         console.log("questionCookie =", questionCookie);
-        questions = questionCookie + "?%?" + question.value;
+        questions = questionCookie + "?%?" + questions;
 
         timeCookie = document.cookie.split("time=")[1].split(";")[0];
         timeC = timeCookie + "?#?" + timeP.textContent;
@@ -52,17 +51,17 @@ button.addEventListener("click", ()=>{
         }
 
     }
-    console.log("imageC =", imageC)
     questions = questions.replace("undefined", "");
     questions = questions.replace("questions", "");
     questions = questions.replace("null", "");
     document.cookie = `questions=${questions}; path=/;`;
 
+    timeC = timeC.replace("undefined", "");
+    timeC = timeC.replace("questions", "");
+    timeC = timeC.replace("null", "");
     timeC = timeC.replace("⏱ ", "");
     timeC = timeC.replace(" ˅", "");
     document.cookie = `time=${timeC}; path=/;`;
-
-    document.cookie = `images=${imageC}; path=/;`;
 
     answers = answers.replace("undefined", "");
     answers = answers.replace("answers", "");
@@ -70,5 +69,4 @@ button.addEventListener("click", ()=>{
     console.log("answers =", answers);
     document.cookie = `answers=${answers}; path=/;`;
     answers = null;
-
 })
