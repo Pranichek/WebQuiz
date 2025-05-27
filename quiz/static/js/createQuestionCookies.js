@@ -93,13 +93,13 @@ button.addEventListener("click", ()=>{
         questions = questionCookie + "?%?" + questions;
 
         timeCookie = document.cookie.split("time=")[1].split(";")[0];
-        timeC = timeCookie + "?#?" + timeP.textContent;
+        timeC = timeCookie + "?#?" + timeP.dataset.time;
         console.log("time =", timeC);
 
         answerCookie = document.cookie.split("answers=")[1].split(";")[0];
         answers = answerCookie + "?@?" + answers;
     } else{
-        timeC = timeP.textContent;
+        timeC = timeP.dataset.time;
     }
     questions = questions.replace("undefined", "");
     questions = questions.replace("questions", "");

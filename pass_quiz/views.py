@@ -16,52 +16,54 @@ def render_finish_test():
             answers = test.answers.split("?@?")
             correct_indexes = []
 
-            for answer_block in answers:
-                # Вилучаємо зайві символи, щоб виділити варіанти відповіді
-                # Спочатку знайдемо всі варіанти в дужках (наприклад, (?%+да+%?))
-                variants = []
-                temp = ""
-                depth = 0
-                for ch in answer_block:
-                    if ch == "(":
-                        depth += 1
-                        if depth == 1:
-                            temp = ""
-                        else:
-                            temp += ch
-                    elif ch == ")":
-                        depth -= 1
-                        if depth == 0:
-                            variants.append(temp)
-                        else:
-                            temp += ch
-                    else:
-                        if depth > 0:
-                            temp += ch
+            print(answers, "ответы")
 
-                # Знаходимо індекс правильного варіанту (позначений "+")
-                correct_index = -1
-                for i, variant in enumerate(variants):
-                    if "+%" in variant or variant.startswith("?%+"):
-                        correct_index = i
-                        break
+            #логика получение индекса правильного ответа даже если правильных несколько
+            # например, если правильные ответы на вопрос 1 это да и нет, то в массиве будет [[0, 1], [тут индексі уже следующего вопроса и тд]]
+            for index in range(len(questions)):
+                current_answer_list = answers[index]
+                data_str = ''
+                for symbol in current_answer_list:
+                    if symbol == '+' or symbol == '-':
+                        data_str += symbol
+                data_symbol = ['']
+                
+                symbol_list = []
+                for i in range(0 ,len(data_str), 2):
+                    symbol_list.append(data_str[i:i+2]) 
 
-                correct_indexes.append(correct_index)
+                question_right_answers = []
+                for i in range(len(symbol_list)):
+                    if symbol_list[i] == '++':
+                        question_right_answers.append(i)
+                
+                correct_indexes.append(question_right_answers)
 
-            print(correct_indexes, "da")
+                
+
+            # ['(?%+ывам+%?)(?%-ывам-%?)(?%+ывам+%?)', '(?%+ывам+%?)(?%+ывам+%?)(?%+ывам+%?)(?%-ывамывам-%?)', '(?%+ывам+%?)(?%-ывам-%?)']
+            print(correct_indexes, "правильные индексы")
             print(user_answers, "user_answers")
             count_right_answers = 0
+
+            # проверка сколько правильно ответил юзер
+
             for i in range(len(user_answers)):
-                if int(user_answers[i]) == correct_indexes[i]:
-                    count_right_answers += 1
+                if user_answers[i] != "skip":
+                    if int(user_answers[i]) in correct_indexes[i]:
+                        count_right_answers += 1
             
+            # максимальное количество баллов
+            amount_points = 0
+            for index in correct_indexes:
+                amount_points += len(index)
 
             return flask.render_template(
                 "test_finish.html",
-                amount_questions = len(questions),
+                amount_questions = amount_points,
                 right_answers = count_right_answers
             )
         else:
-            return flask.redirect("/")
+            return flask.redirect("/userprofile/tests")
     else:
         return flask.redirect("/")
