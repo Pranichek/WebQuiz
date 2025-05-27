@@ -25,7 +25,7 @@ body{
 
 }
 
-header {
+header{
     z-index: 1000;
     background-color: #343434;
     display: flex;
@@ -128,15 +128,65 @@ nav {
     width: 300px;
 }
 
+
+.footer{
+    background-color: #343434;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 24vh;
+    position: relative;
+    bottom: 0;
+}
+.social-network{
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+}
+.img-soc{
+    width: 40px;
+    height: 40px;
+    
+}
+.last{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 22px;
+}
+.about{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    color: #ffffff;
+    font-size: 20px;
+    padding-top: 28.5px;
+    
+}
+.linkk{
+    text-decoration: none;
+    color: #ffffff;
+}
+
+.footer-line {
+    width: 675px;
+    border-top: 1px solid #b6b6b6;
+}
+
 @media (min-width: 1441px) and (max-width: 2000px){
     .nav-links .auth-button{
         background-color: #C48AF7;
         color: #ffffff;
         border-radius: 5px;
         text-decoration: none;
-        width: 13vw;
+        width: 10vw;
         margin: 15px;
-        padding: 15px;
+        padding: 10px 13px;
         display: inline-block;
         text-align: center;
         font-weight: bold;
@@ -147,22 +197,35 @@ nav {
         color: #ffffff;
         border-radius: 5px;
         text-decoration: none;
-        width: 8vw;
+        width: 6vw;
         margin: 15px;
-        padding: 15px;
+        padding: 10px 13px;
         display: inline-block;
         text-align: center;
         font-weight: bold;
     }
 
-    .nav-links .enter-code{
+    .nav-links .enter-code, .test-button{
         background-color: #C48AF7;
         color: #ffffff;
         border-radius: 5px;
         text-decoration: none;
-        width: 12vw;
+        width: 10vw;
         margin: 15px;
-        padding: 15px;
+        padding: 10px 8px;
+        display: inline-block;
+        text-align: center;
+        font-weight: bold;
+    }
+
+    .test-button{
+        background-color: #C48AF7;
+        color: #ffffff;
+        border-radius: 5px;
+        text-decoration: none;
+        width: 13vw;
+        margin: 15px;
+        padding: 5px;
         display: inline-block;
         text-align: center;
         font-weight: bold;

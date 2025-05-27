@@ -21,8 +21,31 @@
                 </div>
                 <!-- инпут для проверки post запроса -->
                 <input type="hidden" name="check_form" value="registration">
+                <div class="sua">
+                    <input minlength="2" maxlength="10" autocomplete="off" pattern="^.{2,10}$" class="text-input username_input" type="text" name= "username" placeholder= "Введіть ім'я" required>
+                    <div class="username-checklist">
+                        <div class="top-part">
+                            <h3 class="checklist-title">Ім'я повинен містити</h3>
+                            <img class="img-checklist" src="{{ url_for('home.static', filename='images/login_and_auth/checklist.png') }}" alt="checklist">
+                        </div>
+                        <ul class="checklist">
+                            <div class="first-rule">
+                                <img class="icon-item username-like1" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
+                                <img class="icon-item username-dislike1" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
+                                <li class="username-item">Довжина від 2 до 10 символів </li>
+                            </div>
+                            <div class="checklist-line username-line1"></div>
+                            <div class="first-rule">
+                                <img class="icon-item username-like2" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
+                                <img class="icon-item username-dislike2" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
+                                <li class="username-item">Повинне містити лише латинські або кириличні літери</li>    
+                            </div>
+                            <div class="checklist-line username-line2"></div>
+                        </ul>
+                    </div>
+                </div>
+                
 
-                <input minlength="2" maxlength="10" pattern="[A-Za-zа-яА-Я]+" class="text-input" type="text" name= "username" placeholder= "Введіть ім'я" required>
                 <input type="hidden" inputmode="numeric" id = "input_phone" pattern="[\d\+]*$" class="text-input phone {% if phone_shake %}phone_shake{% endif %}" type="tel" maxlength="13" minlength="13" name= "phone_number" placeholder="Введіть номер телефону (починайте з +380)" value="+380" required>
                 <input inputmode="email" class="text-input email {% if email_shake %}email_input{% endif %}" type= "email" name= "email" placeholder= "Введіть email" required>
                 <div class="password-container">
@@ -119,4 +142,5 @@
 
 {% block scripts %}
     <script src="{{ url_for('registration.static', filename='js/registration.js') }}"></script>
+    <script src="{{ url_for('registration.static', filename='js/check_username.js') }}"></script>
 {% endblock scripts %}

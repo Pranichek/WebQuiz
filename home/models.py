@@ -3,6 +3,7 @@ from Project.db import DATABASE
 
 
 class User(DATABASE.Model, flask_login.UserMixin):
+    __tablename__ = "user"
     id = DATABASE.Column(DATABASE.Integer, primary_key = True)
 
     username = DATABASE.Column(DATABASE.String(150), nullable = False)
@@ -11,7 +12,14 @@ class User(DATABASE.Model, flask_login.UserMixin):
     password = DATABASE.Column(DATABASE.String(150), nullable = False)
     email = DATABASE.Column(DATABASE.String(150), nullable = False)
     is_mentor = DATABASE.Column(DATABASE.Boolean, default = False)
-    count_tests = DATABASE.Column(DATABASE.Integer, default = 0)
-    winning_tests = DATABASE.Column(DATABASE.Integer, default = 0)
-
+    
     name_avatar = DATABASE.Column(DATABASE.String, default = "default_avatar.png")
+    size_avatar = DATABASE.Column(DATABASE.Integer, default = 100)
+
+    # Зв'язок з таблицею Test
+    # можно так, но если мы используем back_populates то тогда в таблице Test нужно самому создать поле user
+    tests = DATABASE.relationship("Test", back_populates="user", lazy="dynamic")
+    # можна так, и тогда нам не нужно в таблице Test создавать поле user
+    # tests = DATABASE.relationship("Test", backref="user", lazy="dynamic")
+
+

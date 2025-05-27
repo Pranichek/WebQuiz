@@ -76,9 +76,26 @@ header{
 }
 
 .avatar{
-    width: 20%;
+    object-fit: contain;
+    width: 100%;
     height: 100%;
+}
+
+.avatar-circle{
+    object-fit: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 71px;
+    height: 71px;
+    /* width: 25%;
+    height: 100%; */
+    border: 1px black solid;
     border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .username{
@@ -175,12 +192,23 @@ input::-webkit-inner-spin-button {
     /* background-color: aqua; */
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: space-between;
     align-items: center;
 }
 
-.show-more a{
+.show-more .show-more-link{
     background-color: #C48AF7;
+    color: #ffffff;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.tests-topic{
+    background-color: #7291B8;
     color: #ffffff;
     border-radius: 5px;
     text-decoration: none;
@@ -211,6 +239,7 @@ input::-webkit-inner-spin-button {
     border-radius: 17px;
     justify-content: end;
     border: 1px black solid;
+    cursor: pointer;
 }
 
 .card_image{
@@ -219,9 +248,20 @@ input::-webkit-inner-spin-button {
     z-index: 1;
 }
 
+.topic-test{
+    color: #343434;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+a{
+    text-decoration: none;
+}
+
 .card_image img{
     width: 100%;
     height: 100%;
+    object-fit: cover;
     z-index: 1;
     border-radius: 0px 0px 30px 30px;
 }
@@ -340,9 +380,9 @@ input::-webkit-inner-spin-button {
 
 /* Планшеты */
 @media (max-width: 1024px) {
-    .avatar{
-        width: 33px;
-        height: 30px;
+    .avatar-circle{
+        width: 36px;
+        height: 36px;
     }
 
     .image-robot{
@@ -526,19 +566,20 @@ input::-webkit-inner-spin-button {
         height: 95%;
         font-size: 90%;
     }
-    .avatar{
+    /* .avatar-circle{
         width: 13%;
         height: 90%;
-    }
+    } */
     .card{
         height: 100%;
     }
 }
 
 @media (min-width: 1025px) and (max-width: 1440px) { 
-    .avatar{
+    .avatar-circle{
         width: 50px;
-        height: 45px;
+        height: 50px;
+        /* border: #8AF7D4 2px solid; */
     }
 
     .nick{
@@ -571,7 +612,7 @@ input::-webkit-inner-spin-button {
  }
 
 @media (min-width: 1441px) and (max-width: 1600px) {
-    .avatar{
+    .avatar-circle{
         width: 65px;
         height: 60px;
     }
@@ -601,7 +642,7 @@ input::-webkit-inner-spin-button {
 
 
     .card{
-        width: 20.5%;
+        width: 18%;
         height: 88%;
     }
 
@@ -649,7 +690,7 @@ input::-webkit-inner-spin-button {
 } 
 
 @media (min-width: 1601px) and (max-width: 2000px) {
-    .avatar{
+    .avatar-circle{
         width: 65px;
         height: 60px;
     }
@@ -735,7 +776,7 @@ input::-webkit-inner-spin-button {
 } 
 
 @media(min-width:2001px){
-    .avatar{
+    .avatar-circle{
         width: 75px;
         height: 70px;
         margin-left: 2%;

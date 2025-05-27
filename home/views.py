@@ -1,10 +1,12 @@
 import PIL.Image
-import flask, flask_login, random, os, flask_sqlalchemy
+import flask, flask_login, os, random
 from .models import User
 from Project.db import DATABASE
 from .send_email import send_code, generate_code
 from threading import Thread
 import PIL
+from quiz.models import Test
+# from userprofile.models import UserAvatar
 
 
 # Просто головна сторінка
@@ -22,13 +24,53 @@ def render_home():
 #головна сторінка коли користувач увійшов у акаунт
 def render_home_auth():    
     if flask_login.current_user.is_authenticated:
+        user = User.query.get(flask_login.current_user.id)
+
+        category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
+        first_topic = random.choice(category)
+        category.remove(first_topic)
+        second_topic = random.choice(category)
+
+        first_four_test = []
+        random_numbers = []
+
+        tests_first_topic = Test.query.filter_by(category = first_topic).all()
+        if len(tests_first_topic) > 0:
+            while True:
+                random_num = random.randint(0, len(tests_first_topic) - 1)
+                if random_num not in random_numbers:
+                    random_numbers.append(random_num)
+                if len(random_numbers) == len(tests_first_topic) or len(random_numbers) >= 4:
+                    break
+            print(random_numbers)
+            for num in random_numbers:
+                first_four_test.append(tests_first_topic[num])
+
+        second_four_test = []
+        second_random_numbers = []
+
+        tests_second_topic = Test.query.filter_by(category = second_topic).all()
+        if len(tests_second_topic) > 0:
+            while True:
+                random_num = random.randint(0, len(tests_second_topic) - 1)
+                if random_num not in second_random_numbers:
+                    second_random_numbers.append(random_num)
+                if len(second_random_numbers) == len(tests_second_topic) or len(second_random_numbers) >= 4:
+                    break
+            for num in second_random_numbers:
+                second_four_test.append(tests_second_topic[num])
+
+        
+
         return flask.render_template(
             "home_auth.html", 
             home_auth = True,
-            username = flask_login.current_user.username,
-            email = flask_login.current_user.email,
-            count_tests = flask_login.current_user.count_tests,
-            name_avatar = flask_login.current_user.name_avatar
+            count_tests = 0,
+            user = user,
+            first_tests = first_four_test,
+            first_topic = first_topic,
+            second_topic = second_topic,
+            second_tests = second_four_test
             )
     else:
         return flask.redirect("/")
@@ -102,7 +144,7 @@ def render_registration():
         return flask.redirect("/")
 
 def render_code():
-    try:
+    # try:
         form_code = ''
         if flask.request.method == "POST":
             for num_tag in range(1, 7):
@@ -128,11 +170,13 @@ def render_code():
                             )
                         
                         #створює папку із тим шляхом що указали
-                        os.mkdir(path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"]))))
-                        # creating a image object (main image) 
-                        default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.png")))
-                        # save a image using extension
-                        default_img = default_img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(str(flask.session["email"])) ,"default_avatar.png")))
+                        path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"])))
+                        if not os.path.exists(path):
+                            os.mkdir(path = path)
+                            # creating a image object (main image) 
+                            default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.png")))
+                            # save a image using extension
+                            default_img = default_img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(str(flask.session["email"])) ,"default_avatar.png")))
 
                         DATABASE.session.add(user)
                         DATABASE.session.commit()
@@ -149,10 +193,10 @@ def render_code():
         else:
             flask.session.pop("new_email", "code")
             return flask.redirect("/")
-    except Exception as error:
-        print(error)
-        flask.session.clear()
-        return flask.redirect("/")
+    # except Exception as error:
+    #     print(error)
+    #     flask.session.clear()
+    #     return flask.redirect("/")
 
 
 def render_login():
