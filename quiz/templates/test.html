@@ -29,8 +29,7 @@
         </div>
         <div class="load_text">
             <button class="load_button" type="button">
-                
-                <form action="" method="post" id = "image_form" enctype="multipart/form-data">
+                <form action="" method="post" id="image_form" enctype="multipart/form-data">
                     <input class="input_file" id="image" name="image" type="file" accept="image/*" onchange="previewImage(event);">
                     <input type="hidden" name="check_post" value="image">
                     <label for="image">
@@ -60,22 +59,17 @@
                     <div class="test-cover-wrapper">
                         <div class="outline-test">
                             {% if cash_image != 'default' %}
-                                <!-- <p>super</p> -->
                                 <img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/cash_test/' + cash_image) }}" alt="cash_image" class="test-cover">
                             {% elif cash_image == 'default' %}
                                 <img src="{{ url_for('test_pass.static', filename='images/cover.png' ) }}" alt="default_image" class="test-cover">
                             {% endif %}
-                            <!-- <img src="{{ url_for('test_pass.static', filename='images/cover.png' ) }}" alt="sdc" class="test-cover"> -->
                         </div>
                         <img src="{{ url_for('test_pass.static', filename='images/add.png') }}" alt="icon" onclick="ShowModal();" class="center-icon">
                     </div>
-                    <!-- <img  src="{{ url_for('test_pass.static', filename='images/cover.png') }}" alt="" class="test-cover"> -->
-                
                     <div class="info">
                         <input class="test-title-input" type="text" name="test_title" onchange="saveName();" placeholder="назва тесту" disabled>
                         <div class="under-line"></div>
                         <div class="creator-info">
-                            <!-- <img src="{{ url_for('test_pass.static', filename='images/avatar.jpg') }}" alt=""> -->
                             <div class="avatar-circle">
                                 <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
                             </div>
@@ -86,7 +80,6 @@
                         </div>
                     </div>
                 </div>
-                
                 <div class="gray-block">
                     <img class="mini-robot" src="{{ url_for('test_pass.static', filename='images/mini-robot.png') }}" alt="">
                     <span>
@@ -95,7 +88,6 @@
                     </span>
                 </div>
             </div>
-            
             <div class="additional-buttons">
                 <div>
                     <button class="set-name" type="button" onclick="ChangeName();">
@@ -116,7 +108,6 @@
                             <li data-category="інше">інше</li>
                         </ul>
                     </div>
-                
                     <button class="watch_test" type="button">
                         <img class="sign" src="{{ url_for('test_pass.static', filename = 'images/watch_test.png') }}" alt="">
                         попердній перегляд
@@ -124,7 +115,6 @@
                 </div>
             </div>
         </div>
-        
         <div class="buttons">
             <a class="add" href="/test/create_question">
                 + Додати питання
@@ -135,13 +125,13 @@
         </div>
         <div class="all-cards">
             {% for this_question in question_list %}
-                <!-- якщо довжина питання більше чим один символ, то можемо створити питання -->
                 {% if this_question.question|length >= 1 %}
                     <div class="question-card">          
                         <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
                         <span class="question-conainer">
                             <p class="question">{{ this_question.question }}</p>
                             <button data-number_question="{{ question_list.index(this_question) }} + 1" data-answers="{{ this_question.answers }}" class="button-delete {{ this_question.question }}" type="button" onclick="DeleteQuestion();">delete</button>
+                            <a class="change-question" href="/test/change_question/{{ this_question.pk }}">Редагувати питання</a>
                         </span>
                         <span class="answers">
                             {% for answer in this_question.answers %}
@@ -155,8 +145,6 @@
                 {% endif %}
             {% endfor %}
         </div>
-
-        
         {% if question_list %}
             <div class="buttons buttons-bottom">
                 <button class="add" type="submit"> + Зберегти вікторину</button>

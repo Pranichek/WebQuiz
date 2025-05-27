@@ -115,8 +115,8 @@ def render_test():
                     answer = answer[1:-1]
                     temporary_answers_list.append(answer)
                 item["answers"] = temporary_answers_list
+                item["pk"] = number
                 list_to_template.append(item)
-                # print("list_to_template =", list_to_template)
                 number += 1
         # print("list_to_template =", list_to_template)
         return flask.render_template(
@@ -142,10 +142,70 @@ def render_create_question():
         return flask.render_template(template_name_or_list= "create_question.html")
     return flask.redirect("/")
 
-
 def render_select_way():
     if current_user.is_authenticated:
         return flask.render_template(
             template_name_or_list = "select_way.html"
         )
     return flask.redirect("/")
+
+
+def render_change_question(pk: int):
+    if flask.request.method == "POST":
+        image = flask.request.files["image"]
+        question = flask.request.form.get("question")
+        test_name = flask.request.cookies.get("inputname")
+
+        dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "user_tests", str(current_user.email), str(test_name), str(question)))
+        try:
+            os.makedirs(dir_path)
+        except:
+            if not os.path.exists(dir_path):
+                print(f"Directory {dir_path} does not exist.")
+
+            for filename in os.listdir(dir_path):
+                file_path = os.path.join(dir_path, filename)
+                try:
+                    os.unlink(file_path)
+                except Exception as e:
+                    print(f"Failed to delete {file_path}. Reason: {e}")
+        try:
+            image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "user_tests", str(current_user.email), str(test_name), str(question), str(image.filename))))
+        except:
+            pass
+        return flask.redirect("/test")
+    
+    else:
+        questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
+        images = flask.request.cookies.get("images").encode('raw_unicode_escape').decode('utf-8')
+        answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
+        question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
+
+        current_image = images.split("?&?")[pk]
+        current_question = questions.split("?%?")[pk]
+        current_time = question_time.split("?#?")[pk]
+        current_answers = answers.split("?@?")[pk]
+        answers_list = current_answers.split("%?)(?%")
+        answers = []
+        for answer in answers_list:
+            answer = answer.replace("(?%", "")
+            answer = answer.replace("%?)", "")
+            answer = answer[1:-1]
+            answers.append(answer)
+        while True:
+            if len(answers) < 4:
+                answers.append("hidden")
+            else:
+                break
+    
+    return flask.render_template(
+        template_name_or_list = "change_question.html",
+        question = current_question,
+        image = current_image,
+        answer1 = answers[0],
+        answer2 = answers[1],
+        answer3 = answers[2],
+        answer4 = answers[3],
+        time = current_time,
+        pk = pk
+    )

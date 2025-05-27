@@ -3,6 +3,7 @@ from quiz import Test
 
 def render_finish_test():
     if flask_login.current_user.is_authenticated:
+        index_test = int(flask.request.cookies.get("index_question"))
         test_id = flask.request.cookies.get("test_id")
         user_answers = flask.request.cookies.get("users_answers")
     
@@ -46,22 +47,40 @@ def render_finish_test():
             print(user_answers, "user_answers")
             count_right_answers = 0
 
+            list_users_answers = []
+            for answers in user_answers:
+                small_list = []
+                list_users_answers.append(answers.split("@"))
+
+            print(list_users_answers, "hahahhah")
             # проверка сколько правильно ответил юзер
+            print(user_answers)
+
 
             for i in range(len(user_answers)):
-                if user_answers[i] != "skip":
-                    if int(user_answers[i]) in correct_indexes[i]:
-                        count_right_answers += 1
-            
+                if list_users_answers[i][0] != "skip":
+                    if len(correct_indexes[i]) == 1:
+                        if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
+                            count_right_answers += 1
+                    else:
+                        for ans in list_users_answers[i]:
+                            if int(ans) in correct_indexes[i]:
+                                count_right_answers += 1
+
+
             # максимальное количество баллов
             amount_points = 0
             for index in correct_indexes:
                 amount_points += len(index)
 
+            accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
+
+
             return flask.render_template(
                 "test_finish.html",
                 amount_questions = amount_points,
-                right_answers = count_right_answers
+                right_answers = count_right_answers,
+                accuracy = accuracy
             )
         else:
             return flask.redirect("/userprofile/tests")

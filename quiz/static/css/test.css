@@ -330,7 +330,7 @@ form{
     background-color: #8ABBF733;
 }
 
-.button-delete{
+.button-delete, .change-question{
     z-index: 100000;
     /* background-color: aqua; */
 }

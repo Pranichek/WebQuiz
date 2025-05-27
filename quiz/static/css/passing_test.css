@@ -86,7 +86,7 @@ span{
     padding: 10px;
 }
 
-.variant{
+.variant, .many-variant{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -172,6 +172,17 @@ footer{
     align-items: center;
 }
 
-.variant{
+.variant, .many-variant{
     display: none;
+}
+
+.confirm-button{
+    width: 100px;
+    height: 20px;
+    background-color: green;
+}
+
+
+header {
+    background-color: transparent;
 }

@@ -86,6 +86,7 @@ def render_registration():
             if check_form == "registration":
                 username_form = flask.request.form["username"]
 
+
                 email_form = flask.request.form["email"]
                 # phone_number_form = flask.request.form["phone_number"]
                 mentor_form = flask.request.form["mentor"]
