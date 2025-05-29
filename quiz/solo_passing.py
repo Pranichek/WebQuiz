@@ -89,7 +89,7 @@ def handle_next_question(data_index):
     test = Test.query.get(int(test_id))
     questions = test.questions.split("?%?")
     answers_blocks = test.answers.split("?@?")
-
+    
     idx = int(data_index["index"])
     print("Index:", idx)
     # Проверка на конец теста

@@ -2,6 +2,7 @@
 const socket = io();  
 let timeQuestion;
 let timer = document.querySelector(".timer");
+let amountAnswers;
 
 socket.on('connect', () => {
     console.log('Підключено і можемо робити запит на перше питання');
@@ -74,7 +75,7 @@ socket.on('question', (data) => {
         console.log(amountAnswers, "amount")
     }else{
         document.querySelector("#end-test").submit();
-        socket.close();
+        // socket.close();
     }
 });
 
@@ -242,5 +243,29 @@ window.addEventListener(
             }
             console.log(manyVariants, "kurka")
         }
+    }
+)
+
+
+let leaveButton = document.querySelector(".leave_test")
+
+leaveButton.addEventListener(
+    'click',
+    () => {
+        document.cookie = `time_question=0; path=/;`;
+
+        let chekcookies = document.cookie.match("users_answers");
+        if (!chekcookies && manyVariants.length > 0){
+            let dataString = manyVariants.join("@");
+            document.cookie = `users_answers=${dataString}; path=/;`;
+        }
+
+        let index = document.cookie.split("index_question=")[1].split(";")[0];
+        index = parseInt(index);
+        
+        // щоб гарантувати завершення – передай індекс явно великий
+        socket.emit('next_question', {
+            index: 100 
+        })
     }
 )

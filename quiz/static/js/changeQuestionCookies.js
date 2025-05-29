@@ -59,4 +59,3 @@ button.addEventListener("click", ()=>{
     document.cookie = `answers=${answerCookie}; path=/;`;
     answers = null;
 })
-

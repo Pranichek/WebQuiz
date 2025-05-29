@@ -81,6 +81,47 @@ form{
     font-weight: 600;
 }
 
+.checklist{
+    position: absolute;
+    top: 10vh;
+    left: 5vw;
+    padding: 20px 30px;
+    border-radius: 15px;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(20px);
+    transition: .5s ease;
+    z-index: 10;
+    border: 2px #ffffff solid;
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    align-items: start;
+    background-color: #414141;
+}
+
+.first-rule{
+    width: 100%;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+}
+
+.icon-item{
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    padding: 0;
+    transition: "";
+} 
+
+.checklist-item{
+    border-bottom: 1px solid #C48AF7;
+    color: white;
+}
 
 .type{
     position: relative;
@@ -330,9 +371,12 @@ form{
     background-color: #8ABBF733;
 }
 
-.button-delete, .change-question{
-    z-index: 100000;
-    /* background-color: aqua; */
+.button-delete{
+    z-index: 1;
+}
+
+.change-question{
+    z-index: 1;
 }
 
 .question-card{
