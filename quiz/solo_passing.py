@@ -4,28 +4,27 @@ from flask import session
 from .models import Test
 from flask_socketio import emit
 
-@socket.on('connect')
-def handle_connect():
-    print('Client connected')
-    test_id = flask.request.cookies.get("test_id")
-    test = Test.query.get(int(test_id))
-    test_time = test.question_time.split("?#?")
-    # Получаем время первого вопроса
-    idx = int(flask.request.cookies.get("index_question"))
-    question_index = int(flask.request.cookies.get("index_question"))
-    time = test_time[question_index]
+# @socket.on('connect')
+# def handle_connect():
+#     print('Client connected')
+#     # test_id = flask.request.cookies.get("test_id")
+#     # test = Test.query.get(int(test_id))
+#     # test_time = test.question_time.split("?#?")
+#     # # Получаем время первого вопроса
+#     # idx = int(flask.request.cookies.get("index_question"))
+#     # question_index = int(flask.request.cookies.get("index_question"))
+#     # time = test_time[question_index]
 
-    answers_blocks = test.answers.split("?@?")
-    current_answers_list = answers_blocks[idx]
-    type_question = "many_answers" if current_answers_list.count("+") > 2 else "one_answer"
+#     # answers_blocks = test.answers.split("?@?")
+#     # current_answers_list = answers_blocks[idx]
+#     # type_question = "many_answers" if current_answers_list.count("+") > 2 else "one_answer"
 
-    emit("question", {
-        "question": "Початок",
-        "question": [],
-        "answers": [],
-        "test_time": int(time),
-        "type_question": type_question
-    })
+#     emit("question", {
+#         "question": "Початок",
+#         "question": [],
+#         "answers": [],
+#         "type_question": type_question
+#     })
 
 @socket.on("get_question")
 def handle_get_question(data_index):
@@ -89,7 +88,7 @@ def handle_next_question(data_index):
     test = Test.query.get(int(test_id))
     questions = test.questions.split("?%?")
     answers_blocks = test.answers.split("?@?")
-    
+
     idx = int(data_index["index"])
     print("Index:", idx)
     # Проверка на конец теста

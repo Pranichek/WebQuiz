@@ -3,6 +3,9 @@ from quiz import Test
 
 def render_finish_test():
     if flask_login.current_user.is_authenticated:
+        response = flask.make_response(
+            "test_finish.html"
+        )
         index_test = int(flask.request.cookies.get("index_question"))
         test_id = flask.request.cookies.get("test_id")
         user_answers = flask.request.cookies.get("users_answers")
@@ -75,13 +78,29 @@ def render_finish_test():
 
             accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
 
-
-            return flask.render_template(
-                "test_finish.html",
-                amount_questions = amount_points,
-                right_answers = count_right_answers,
-                accuracy = accuracy
+            response =  flask.make_response(
+                flask.render_template(
+                    "test_finish.html",
+                    amount_questions = amount_points,
+                    right_answers = count_right_answers,
+                    accuracy = accuracy
+                )
             )
+
+            response.delete_cookie("user_answers")
+
+            # response.set_cookie("index_question", "0")
+            # response.set_cookie("time_question", "set")
+
+            return response
+
+            
+            # return flask.render_template(
+            #     "test_finish.html",
+            #     amount_questions = amount_points,
+            #     right_answers = count_right_answers,
+            #     accuracy = accuracy
+            # )
         else:
             return flask.redirect("/userprofile/tests")
     else:

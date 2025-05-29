@@ -4,17 +4,15 @@ let timeQuestion;
 let timer = document.querySelector(".timer");
 let amountAnswers;
 
-socket.on('connect', () => {
-    console.log('Підключено і можемо робити запит на перше питання');
-    socket.emit('get_question',
-        {
-            index: parseInt(document.cookie.split("index_question=")[1].split(";")[0])
-        }
-    );  
-});
+socket.emit('get_question',
+    {
+        index: document.cookie.split("index_question=")[1].split(";")[0]
+    }
+);  
 
 socket.on('question', (data) => {
     if (data.question != "Кінець"){
+        // location.reload();
         let question = document.querySelector(".question-test")
         let blockanswers = document.querySelectorAll(".variant")
         let manyBlockAnswers = document.querySelectorAll(".many-variant")
@@ -26,17 +24,22 @@ socket.on('question', (data) => {
         let amountAnswers = data.answers.length
         document.querySelector(".num-que").textContent = `${data.index}/${data.amount_question}`
         
-        let dataCookie = document.cookie.split("time_question=")[1].split(";")[0];
+        // let dataCookie = document.cookie.split("time_question=")[1].split(";")[0];
+        let dataCookie = localStorage.getItem("time_question");
         if (dataCookie == "set"){
             timeQuestion = data.test_time;
             timer.textContent = `${timeQuestion} сек.`;
-            document.cookie = `time_question=${timeQuestion}; path=/;`;
-            timeQuestion = document.cookie.split("time_question=")[1].split(";")[0];
+            localStorage.setItem('time_question', timeQuestion);
+            // document.cookie = `time_question=${timeQuestion}; path=/;`;
+            // timeQuestion = document.cookie.split("time_question=")[1].split(";")[0];
         } 
 
 
         if (data.type_question == "one_answer"){
             document.querySelector(".confirm-button").style.display = "none";
+
+            const container = document.getElementById("answers")
+            const footer = document.querySelector(".footer")
 
             let answersMany = document.querySelectorAll(".many-variant");
             for (let answer_block of answersMany){
@@ -54,6 +57,12 @@ socket.on('question', (data) => {
             }
         }else if (data.type_question == "many_answers"){
             document.querySelector(".confirm-button").style.display = "flex";
+
+
+            footer.innerHTML = `
+                <button type="button" class="confirm-button">Підтвержити відповідь</button>
+            `;
+
             let answersBlock = document.querySelectorAll(".variant");
             for (let answer_block of answersBlock){
                 answer_block.style.display = 'none';
@@ -74,8 +83,8 @@ socket.on('question', (data) => {
         console.log(answers, "answers")
         console.log(amountAnswers, "amount")
     }else{
+        localStorage.removeItem('time_question')
         document.querySelector("#end-test").submit();
-        // socket.close();
     }
 });
 
@@ -87,7 +96,7 @@ for (let block of blockanswers){
         'click',
         () => {
             // сбрасываем время если пользователь нажал на какой то ответ
-            document.cookie = `time_question=set; path=/;`;
+            localStorage.setItem('time_question', 'set');
 
             let chekcookies = document.cookie.match("users_answers")
             if (chekcookies){
@@ -125,12 +134,17 @@ for (let block of blockanswers){
 
 // SetInterval - запускает функцию через определенный промежуток времени(в милисекундах)
 setInterval(() => {
-    timeQuestion = document.cookie.split("time_question=")[1].split(";")[0]; // Отримуємо поточне значення
+    timeQuestion = parseInt(localStorage.getItem('time_question'));
+    if (isNaN(timeQuestion)) {
+        // Якщо немає часу або він некоректний - встановити початкове значення або зупинити таймер
+        timer.textContent = "Час не встановлено";
+        return; // або можна встановити якийсь дефолт, наприклад, 0
+    }
     timeQuestion -= 1; // Зменшуємо yf 1
     timer.textContent = `Час: ${Math.trunc(timeQuestion)} сек.`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-    document.cookie = `time_question=${timeQuestion}; path=/;`; // Зберігаємо нове значення
+    localStorage.setItem('time_question', timeQuestion)
     if (timeQuestion <= 0){
-        document.cookie = `time_question=set; path=/;`; // Скидаємо таймер
+        localStorage.setItem('time_question', "set")
         let chekcookies = document.cookie.match("users_answers")
         if (chekcookies){
             // отримуємо старі відповіді якщо вони були
@@ -191,7 +205,7 @@ confirm_button.addEventListener(
     'click',
     () => {
         if (manyVariants.length > 0){
-            document.cookie = `time_question=set; path=/;`;
+            localStorage.setItem('time_question', "set")
             let chekcookies = document.cookie.match("users_answers")
 
             let dataString = manyVariants.join("@");
@@ -252,7 +266,7 @@ let leaveButton = document.querySelector(".leave_test")
 leaveButton.addEventListener(
     'click',
     () => {
-        document.cookie = `time_question=0; path=/;`;
+        localStorage.setItem('time_question', "0")
 
         let chekcookies = document.cookie.match("users_answers");
         if (!chekcookies && manyVariants.length > 0){
