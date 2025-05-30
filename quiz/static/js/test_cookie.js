@@ -1,3 +1,5 @@
+localStorage.setItem('time_question', 'set');
+
 let buttonplay = document.querySelector(".play_test")
 let formPLay = document.querySelector("#play-form")
 

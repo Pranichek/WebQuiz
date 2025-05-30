@@ -1,6 +1,6 @@
 import Project
 
-∆gif main():
+def main():
     try:
         Project.execute()
         Project.project.run(debug = True, port = 7777)

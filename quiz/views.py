@@ -136,7 +136,8 @@ def render_test():
         return flask.render_template(
             template_name_or_list= "test.html", 
             question_list = list_to_template,
-            user = flask_login.current_user
+            user = flask_login.current_user,
+            cash_image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else "default"
         )
     else:
         return flask.redirect("/")

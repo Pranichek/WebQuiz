@@ -82,7 +82,7 @@ def handle_next_question(data_index):
         emit("question", {
             "question": "Кінець",
         })
-        return
+        return False
 
     test_id = flask.request.cookies.get("test_id")
     test = Test.query.get(int(test_id))
@@ -92,7 +92,7 @@ def handle_next_question(data_index):
     idx = int(data_index["index"])
     print("Index:", idx)
     # Проверка на конец теста
-    if idx >= len(questions):
+    if idx >= len(questions) or data_index["index"] == 100:
         emit("question", {
             "question": "Кінець",
         })

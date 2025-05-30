@@ -11,10 +11,13 @@ def render_finish_test():
         user_answers = flask.request.cookies.get("users_answers")
     
 
-        if test_id is not None and user_answers is not None:
+        if test_id is not None:
             test : Test = Test.query.get(int(test_id))
             questions = test.questions.split("?%?")
-            user_answers = user_answers.split(",")
+            if user_answers is not None:
+                user_answers = user_answers.split(",")
+            else:
+                user_answers = []
             # вот пример ответов
             # (?%+да+%?)(?%-нет-%?)?@?(?%+да+%?)(?%-нет-%?)?@?(?%+да+%?)(?%-нет-%?)
             answers = test.answers.split("?@?")
@@ -44,16 +47,15 @@ def render_finish_test():
                 correct_indexes.append(question_right_answers)
 
                 
-
-            # ['(?%+ывам+%?)(?%-ывам-%?)(?%+ывам+%?)', '(?%+ывам+%?)(?%+ывам+%?)(?%+ывам+%?)(?%-ывамывам-%?)', '(?%+ывам+%?)(?%-ывам-%?)']
             print(correct_indexes, "правильные индексы")
             print(user_answers, "user_answers")
             count_right_answers = 0
 
             list_users_answers = []
-            for answers in user_answers:
-                small_list = []
-                list_users_answers.append(answers.split("@"))
+            if len(user_answers) > 0:
+                for answers in user_answers:
+                    small_list = []
+                    list_users_answers.append(answers.split("@"))
 
             print(list_users_answers, "hahahhah")
             # проверка сколько правильно ответил юзер
