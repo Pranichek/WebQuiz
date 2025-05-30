@@ -117,10 +117,6 @@ def render_test():
         if new_questions:
             new_answers_list = new_answers.split("?@?")
             new_questions_list = new_questions.split("?%?")
-        else:
-            if new_questions:
-                new_answers_list = new_answers.split("?@?")
-                new_questions_list = new_questions.split("?%?")
 
             number = 0
             for question in new_questions_list:
@@ -151,12 +147,12 @@ def render_create_question():
         if flask.request.method == "POST":
             image = flask.request.files["image"]
 
-            question_number = len(flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8').split("?%?"))
-            print("question_number =", question_number)
-
-            path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number)))
-            question_number = len(flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8').split("?%?"))
             print("questions =", flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8'))
+            questions_cookie = flask.request.cookies.get("questions")
+            if questions_cookie:
+                questions_list = list(filter(None, questions_cookie.split("?%?")))
+                question_number = len(questions_list)
+
             print("question_number =", question_number)
 
             path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number)))
@@ -184,8 +180,8 @@ def render_change_question(pk: int):
     if flask.request.method == "POST":
         image = flask.request.files["image"]
         if image:
-
-            dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+            print("pk (change)=", pk)
+            dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk)))
             for filename in os.listdir(dir_path):
                 file_path = os.path.join(dir_path, filename)
                 try:
@@ -193,7 +189,7 @@ def render_change_question(pk: int):
                 except Exception as e:
                     print(f"Failed to delete {file_path}. Reason: {e}")
             try:
-                image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1), str(image.filename))))
+                image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk), str(image.filename))))
             except Exception as e:
                 print("saving image error:", e)
         return flask.redirect("/test")
@@ -238,7 +234,7 @@ def render_change_question(pk: int):
     )
 
 def render_delete_image(pk: int):
-    print("pk =", pk)
+    print("pk =", pk, "pk + 1 =", pk + 1)
     deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
     shutil.rmtree(deletion_path)
     return flask.redirect("/test")

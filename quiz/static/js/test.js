@@ -68,73 +68,73 @@ for (let delbutton of DeleteButtons) {
 }
 
 // Функція, яка видаляє непотрібне питання із cookie при заванатажені сторінки
-// window.addEventListener("load", function () {
-//     // отримуэмо дані з cookie
-//     // отримуємо дату з cookie
+window.addEventListener("load", function () {
+    // отримуэмо дані з cookie
+    // отримуємо дату з cookie
 
-//     let cookies = document.cookie.match("questions")
+    let cookies = document.cookie.match("questions")
 
-//     if (cookies){
-//         // Беремо дані із cookie, але із спецальними розділовими знаками
-//         let date = document.cookie.split("questions=")[1].split(";")[0];
-//         // Використовуємо функцію split, щоб отримати чисті дані із cookie
-//         let questions = date.split("?%?");
+    if (cookies){
+        // Беремо дані із cookie, але із спецальними розділовими знаками
+        let date = document.cookie.split("questions=")[1].split(";")[0];
+        // Використовуємо функцію split, щоб отримати чисті дані із cookie
+        let questions = date.split("?%?");
 
-//         // Беремо дані із cookie, але із спецальними розділовими знаками
-//         let answersdate = document.cookie.split("answers=")[1].split(";")[0];
-//         // Використовуємо функцію split, щоб отримати чисті дані із cookie
-//         let answersclear = answersdate.split("?@?");
+        // Беремо дані із cookie, але із спецальними розділовими знаками
+        let answersdate = document.cookie.split("answers=")[1].split(";")[0];
+        // Використовуємо функцію split, щоб отримати чисті дані із cookie
+        let answersclear = answersdate.split("?@?");
 
-//         // Беремо дані із cookie, але із спецальними розділовими знаками
-//         let questiontimes = document.cookie.split("time=")[1].split(";")[0];
-//         // Використовуємо функцію split, щоб отримати чисті дані із cookie
-//         let cleartime = questiontimes.split("?#?");
+        // Беремо дані із cookie, але із спецальними розділовими знаками
+        let questiontimes = document.cookie.split("time=")[1].split(";")[0];
+        // Використовуємо функцію split, щоб отримати чисті дані із cookie
+        let cleartime = questiontimes.split("?#?");
 
-//         let clearimage = document.cookie.split("images=")[1].split(";")[0];
-//         let clearimagelist = clearimage.split("?&?");
+        let clearimage = document.cookie.split("images=")[1].split(";")[0];
+        let clearimagelist = clearimage.split("?&?");
 
-//         console.log(questions);
-//         console.log(answersclear);
+        console.log(questions);
+        console.log(answersclear);
 
 
-//         // Видаляємо старі cookie у яких зберігається непотрібне нам пусте питання
-//         document.cookie = "questions=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-//         document.cookie = "answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-//         document.cookie = "time=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-//         document.cookie = "images=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        // Видаляємо старі cookie у яких зберігається непотрібне нам пусте питання
+        document.cookie = "questions=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "time=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "images=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
-//         for (let data of questions){
-//             if (data == '') {
-//                 // якщо питання пусте, то видаляємо його з масиву
-//                 questions.splice(questions.indexOf(data), 1);
-//             }
-//         }
+        for (let data of questions){
+            if (data == '') {
+                // якщо питання пусте, то видаляємо його з масиву
+                questions.splice(questions.indexOf(data), 1);
+            }
+        }
 
-//         for (let data of answersclear){
-//             if (data == '') {
-//                 // якщо питання пусте, то видаляємо його з масиву
-//                 answersclear.splice(answersclear.indexOf(data), 1);
-//             }
-//         }
+        for (let data of answersclear){
+            if (data == '') {
+                // якщо питання пусте, то видаляємо його з масиву
+                answersclear.splice(answersclear.indexOf(data), 1);
+            }
+        }
 
-//         for (let time of cleartime){
-//             if (time == ''){
-//                 cleartime.splice(cleartime.indexOf(time), 1);
-//             }
-//         }
+        for (let time of cleartime){
+            if (time == ''){
+                cleartime.splice(cleartime.indexOf(time), 1);
+            }
+        }
 
-//         for (let image of clearimagelist){
-//             if (image == ''){
-//                 clearimagelist.splice(clearimagelist.indexOf(image), 1);
-//             }
-//         }
+        for (let image of clearimagelist){
+            if (image == ''){
+                clearimagelist.splice(clearimagelist.indexOf(image), 1);
+            }
+        }
 
-//         document.cookie = `questions=${questions.join("?%?")}; path=/;`;
-//         document.cookie = `answers=${answersclear.join("?@?")}; path=/;`;
-//         document.cookie = `time=${cleartime.join("?#?")}; path=/;`;
-//         document.cookie = `images=${clearimagelist.join("?&?")}; path=/;`;
-//     }
-// })
+        document.cookie = `questions=${questions.join("?%?")}; path=/;`;
+        document.cookie = `answers=${answersclear.join("?@?")}; path=/;`;
+        document.cookie = `time=${cleartime.join("?#?")}; path=/;`;
+        document.cookie = `images=${clearimagelist.join("?&?")}; path=/;`;
+    }
+})
 
 
 let InputName = document.querySelector(".test-title-input");
