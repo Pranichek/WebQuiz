@@ -12,12 +12,30 @@ def render_data_test():
         test_id = flask.request.args.get("id_test")
         test = Test.query.get(int(test_id))
 
-        if flask.request.method == "POST":
-            return flask.redirect("/passig_test")
-        
-        return flask.render_template(
+        response = flask.make_response(
+            flask.render_template(
             template_name_or_list = "test_data.html",
             test = test
         )
+        ).set_cookie(key = "index_question", value = "0", path="/")
+
+        if flask.request.method == "POST":
+            response = flask.make_response(
+                flask.redirect(
+                   "/passig_test"
+                )
+            )
+
+            response.set_cookie(key = "index_question", value = "0", path="/")
+
+            return response
+        
+        response = flask.make_response(
+            flask.render_template(
+                "test_data.html", 
+                test= test)
+        )
+        response.set_cookie(key="index_question", value="0", path="/")
+        return response
     else:
         return flask.redirect("/")

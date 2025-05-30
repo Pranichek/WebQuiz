@@ -14,6 +14,8 @@ class Test(flask_login.UserMixin, DATABASE.Model):
     question_images = DATABASE.Column(DATABASE.String)
     image = DATABASE.Column(DATABASE.String)
     category = DATABASE.Column(DATABASE.String, nullable = False)
+    # кол-во прохождения этого теста
+    amount_passes = DATABASE.Column(DATABASE.Integer)
 
     # Зв'язок з таблицею User
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey("user.id"), nullable=False)

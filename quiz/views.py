@@ -10,6 +10,7 @@
 '''
 
 import flask, os, flask_login, shutil
+import flask, os, flask_login, shutil
 from .models import Test
 from Project.db import DATABASE
 from os.path import abspath, join, exists
@@ -42,7 +43,7 @@ def render_test():
                 # print(name_image, "name")
                 test_title = flask.request.form["test_title"]
                 question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
-                question_images = flask.request.cookies.get("images").encode('raw_unicode_escape').decode('utf-8')
+                # question_images = flask.request.cookies.get("images").encode('raw_unicode_escape').decode('utf-8')
 
                 test = Test(
                     title_test = test_title,
@@ -77,6 +78,13 @@ def render_test():
                 #     pass
 
                 from_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
+                for dir in os.listdir(from_path):
+                    folder_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", dir))
+                    to_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", test_title))
+                    shutil.move(folder_path, to_path)
+
+
+                from_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
                 to_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests"))
                 shutil.move(from_path, to_path)
 
@@ -104,26 +112,32 @@ def render_test():
                 image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
             elif check_form == "del_image":
                 flask.session["test_image"] = "default"
+        # else: 
+        new_answers_list = ''
+        if new_questions:
+            new_answers_list = new_answers.split("?@?")
+            new_questions_list = new_questions.split("?%?")
         else:
             if new_questions:
                 new_answers_list = new_answers.split("?@?")
                 new_questions_list = new_questions.split("?%?")
 
-                number = 0
-                for question in new_questions_list:
-                    item = {}
-                    item["question"] = question
-                    answers_list = new_answers_list[number].split("%?)(?%")
-                    temporary_answers_list = []
-                    for answer in answers_list:
-                        answer = answer.replace("(?%", "")
-                        answer = answer.replace("%?)", "")
-                        answer = answer[1:-1]
-                        temporary_answers_list.append(answer)
-                    item["answers"] = temporary_answers_list
-                    item["pk"] = number
-                    list_to_template.append(item)
-                    number += 1
+            number = 0
+            for question in new_questions_list:
+                item = {}
+                item["question"] = question
+                answers_list = new_answers_list[number].split("%?)(?%")
+                temporary_answers_list = []
+                for answer in answers_list:
+                    answer = answer.replace("(?%", "")
+                    answer = answer.replace("%?)", "")
+                    answer = answer[1:-1]
+                    temporary_answers_list.append(answer)
+                item["answers"] = temporary_answers_list
+                item["pk"] = number
+                list_to_template.append(item)
+                number += 1
+        
         return flask.render_template(
             template_name_or_list= "test.html", 
             question_list = list_to_template,
@@ -136,6 +150,11 @@ def render_create_question():
     if current_user.is_authenticated:
         if flask.request.method == "POST":
             image = flask.request.files["image"]
+
+            question_number = len(flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8').split("?%?"))
+            print("question_number =", question_number)
+
+            path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number)))
             question_number = len(flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8').split("?%?"))
             print("questions =", flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8'))
             print("question_number =", question_number)
@@ -152,7 +171,6 @@ def render_create_question():
         return flask.render_template(template_name_or_list= "create_question.html")
     return flask.redirect("/")
 
-
 def render_select_way():
     
     if current_user.is_authenticated:
@@ -161,11 +179,11 @@ def render_select_way():
         )
     return flask.redirect("/")
 
+
 def render_change_question(pk: int):
     if flask.request.method == "POST":
         image = flask.request.files["image"]
         if image:
-            test_name = flask.request.cookies.get("inputname")
 
             dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
             for filename in os.listdir(dir_path):
@@ -190,7 +208,6 @@ def render_change_question(pk: int):
         answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
         question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 
-        print("pk =", pk)
         current_image = images.split("?&?")[pk]
         current_question = questions.split("?%?")[pk]
         current_time = question_time.split("?#?")[pk]

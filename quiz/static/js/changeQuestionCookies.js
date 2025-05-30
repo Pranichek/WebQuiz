@@ -32,7 +32,8 @@ button.addEventListener("click", ()=>{
     questionCookie = questionCookie.join("?%?")
 
     timeCookie = document.cookie.split("time=")[1].split(";")[0].split("?#?");
-    timeC = timeP.textContent
+    // timeC = timeP.textContent
+    timeC = timeP.dataset.time;
     timeC = timeC.replace("⏱ ", "");
     timeC = timeC.replace(" ˅", "");
     timeCookie[pk] = timeC;

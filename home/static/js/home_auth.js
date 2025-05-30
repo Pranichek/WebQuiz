@@ -13,5 +13,7 @@ window.addEventListener(
         // подгружаем размер картинки тот что установил пользователь
         AvatarImage.style.width = `${AvatarImage.dataset.size}%`;
         AvatarImage.style.height = `${AvatarImage.dataset.size}%`;
+
+        document.cookie = "users_answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
     }
 )

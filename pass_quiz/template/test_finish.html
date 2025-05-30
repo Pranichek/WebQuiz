@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    
+{% endblock links %}
+
+{% block content %}
+    <h1>Ви набрали {{ right_answers }} із {{amount_questions}} питання</h1>
+    <p>accuracy = {{ accuracy }}</p>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="{{ url_for('finish_test.static', filename='js/finish_test.js') }}" defer></script>
+{% endblock scripts %}

@@ -19,13 +19,15 @@ def render_passing_test():
             question = questions[flask.session["number-question"]]
 
             if flask.request.method == "POST":
-                return flask.redirect("/")
+                return flask.redirect("/finish_test")
+            
             return flask.render_template(
                 template_name_or_list = 'passing_test.html',
                 user = current_user,
                 test = test,
                 amount_questions = amount_questions,
-                question = question
+                question = question,
+                test_page = True
             )
         else:
             return flask.redirect("/")

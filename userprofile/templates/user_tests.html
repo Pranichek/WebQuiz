@@ -12,7 +12,7 @@
             <div class="test">
                 <p>Автор тесту: {{ user.username }}</p>
                 <p>Назва тесту: {{ test.title_test }}</p>
-                <p>Кількість питаннь: {{ test.count("?%?") + 1 }}</p>
+                <p>Кількість питаннь: {{ test.questions.count("?%?") + 1 }}</p>
             </div>
         {% endfor %}
     </div>
