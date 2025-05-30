@@ -41,14 +41,12 @@ def render_test():
                 # print(name_image, "name")
                 test_title = flask.request.form["test_title"]
                 question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
-                # question_images = flask.request.cookies.get("images").encode('raw_unicode_escape').decode('utf-8')
 
                 test = Test(
                     title_test = test_title,
                     questions = new_questions,
                     answers = new_answers,
                     question_time = question_time,
-                    question_images = ' ',
                     user_id = flask_login.current_user.id,
                     category = category,
                     image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else f"default/{return_img(category = category)}"
@@ -184,15 +182,15 @@ def render_change_question(pk: int):
     
     else:
         questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
-        images_cookie = flask.request.cookies.get("images")
-        if images_cookie:
-            images = images_cookie.encode('raw_unicode_escape').decode('utf-8')
-        else:
-            images = ""
+        # images_cookie = flask.request.cookies.get("images")
+        # if images_cookie:
+        #     images = images_cookie.encode('raw_unicode_escape').decode('utf-8')
+        # else:
+        #     images = ""
         answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
         question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 
-        current_image = images.split("?&?")[pk]
+        # current_image = images.split("?&?")[pk]
         current_question = questions.split("?%?")[pk]
         current_time = question_time.split("?#?")[pk]
         current_answers = answers.split("?@?")[pk]
@@ -212,7 +210,7 @@ def render_change_question(pk: int):
     return flask.render_template(
         template_name_or_list = "change_question.html",
         question = current_question,
-        image = current_image,
+        # image = current_image,
         answer1 = answers[0],
         answer2 = answers[1],
         answer3 = answers[2],

@@ -88,30 +88,11 @@ button.addEventListener("click", ()=>{
         timeCookie = document.cookie.split("time=")[1].split(";")[0];
         timeC = timeCookie + "?#?" + timeP.dataset.time;
         console.log("time =", timeC);
-        try{
-            imgCookie = document.cookie.split("images=")[1].split(";")[0];
-        }catch{
-            imgCookie = "";
-        }
-        
-        try{
-            imageC = imgCookie + "?&?" + inputImg.files[0].name;
-        } catch{
-            imageC = imgCookie + "?&?" + "";
-        }
-
         answerCookie = document.cookie.split("answers=")[1].split(";")[0];
         answers = answerCookie + "?@?" + answers;
     } else{
         timeC = timeP.dataset.time;
         questions = question.value;
-        try{
-            imageC = inputImg.files[0].name;
-        }
-        catch{
-            imageC = "";
-        }
-
     }
     questions = questions.replace("undefined", "");
     questions = questions.replace("questions", "");
@@ -125,7 +106,7 @@ button.addEventListener("click", ()=>{
     timeC = timeC.replace(" ˅", "");
     document.cookie = `time=${timeC}; path=/;`;
 
-    document.cookie = `images=${imageC}; path=/;`;
+    // document.cookie = `images=${imageC}; path=/;`;
 
     answers = answers.replace("undefined", "");
     answers = answers.replace("answers", "");
