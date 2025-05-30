@@ -10,6 +10,7 @@
 '''
 
 import flask, os, flask_login, shutil
+import flask, os, flask_login, shutil
 from .models import Test
 from Project.db import DATABASE
 from os.path import abspath, join, exists
@@ -17,6 +18,7 @@ from flask_login import current_user
 import PIL.Image
 from .del_files import delete_files_in_folder
 from .generate_image import return_img
+
 
 def render_test():
     if current_user.is_authenticated:
@@ -61,6 +63,7 @@ def render_test():
                     response.delete_cookie("category")
                     response.delete_cookie("inputname")
                     response.delete_cookie("test_url")
+                    response.delete_cookie("images")
                 except:
                     pass
 
@@ -77,6 +80,12 @@ def render_test():
                     folder_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", dir))
                     to_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", test_title))
                     shutil.move(folder_path, to_path)
+
+
+                from_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
+                to_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests"))
+                if len(os.listdir(from_path)) > 0:
+                    shutil.move(from_path, to_path)
 
                 if "test_image" in flask.session and flask.session["test_image"] != "default":
 
@@ -123,12 +132,11 @@ def render_test():
                 item["pk"] = number
                 list_to_template.append(item)
                 number += 1
-        # print("list_to_template =", list_to_template)
+        
         return flask.render_template(
             template_name_or_list= "test.html", 
             question_list = list_to_template,
-            user = flask_login.current_user,
-            cash_image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else "default"
+            user = flask_login.current_user
         )
     else:
         return flask.redirect("/")
@@ -137,8 +145,13 @@ def render_create_question():
     if current_user.is_authenticated:
         if flask.request.method == "POST":
             image = flask.request.files["image"]
-            test_name = flask.request.cookies.get("inputname")
-            question_number = len(flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8').split("?%?"))
+
+            print("questions =", flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8'))
+            questions_cookie = flask.request.cookies.get("questions")
+            if questions_cookie:
+                questions_list = list(filter(None, questions_cookie.split("?%?")))
+                question_number = len(questions_list)
+
             print("question_number =", question_number)
 
             path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number)))
@@ -154,6 +167,7 @@ def render_create_question():
     return flask.redirect("/")
 
 def render_select_way():
+    
     if current_user.is_authenticated:
         return flask.render_template(
             template_name_or_list = "select_way.html"
@@ -165,9 +179,8 @@ def render_change_question(pk: int):
     if flask.request.method == "POST":
         image = flask.request.files["image"]
         if image:
-            test_name = flask.request.cookies.get("inputname")
-
-            dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+            print("pk (change)=", pk)
+            dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk)))
             for filename in os.listdir(dir_path):
                 file_path = os.path.join(dir_path, filename)
                 try:
@@ -175,7 +188,7 @@ def render_change_question(pk: int):
                 except Exception as e:
                     print(f"Failed to delete {file_path}. Reason: {e}")
             try:
-                image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1), str(image.filename))))
+                image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk), str(image.filename))))
             except Exception as e:
                 print("saving image error:", e)
         return flask.redirect("/test")
@@ -218,3 +231,9 @@ def render_change_question(pk: int):
         time = current_time,
         pk = pk
     )
+
+def render_delete_image(pk: int):
+    print("pk =", pk, "pk + 1 =", pk + 1)
+    deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+    shutil.rmtree(deletion_path)
+    return flask.redirect("/test")

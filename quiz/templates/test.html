@@ -59,11 +59,8 @@
                 <div class="info-block">
                     <div class="test-cover-wrapper">
                         <div class="outline-test">
-                            {% if cash_image != 'default' %}
-                                <img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/cash_test/' + cash_image) }}" alt="cash_image" class="test-cover">
-                            {% elif cash_image == 'default' %}
-                                <img src="{{ url_for('test_pass.static', filename='images/cover.png' ) }}" alt="default_image" class="test-cover">
-                            {% endif %}
+                            <img src="{{ url_for('test_pass.static', filename='images/cover.png' ) }}" alt="sdc" class="test-cover">
+
                         </div>
                         <img src="{{ url_for('test_pass.static', filename='images/add.png') }}" alt="icon" onclick="ShowModal();" class="center-icon">
                     </div>
@@ -144,8 +141,8 @@
                     <div class="question-card">          
                         <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
                         <span class="question-conainer">
-                            <p class="question">{{ this_question.question }}</p>
-                            <button data-number_question="{{ question_list.index(this_question) }}" data-answers="{{ this_question.answers }}" class="button-delete {{ this_question.question }}" type="button" onclick="DeleteQuestion();">delete</button>
+                            <p class="question">{{ this_question.question }} pk={{ this_question.pk }}</p>
+                            <button type="button" data-number_question="{{ question_list.index(this_question) }}" data-answers="{{ this_question.answers }}" class="button-delete {{ this_question.question }}" onclick="DeleteQuestion();" pk="{{ this_question.pk }}">delete</button>
                             <a class="change-question" href="/test/change_question/{{ this_question.pk }}">Редагувати питання</a>
                         </span>
                         <span class="answers">
@@ -175,4 +172,6 @@
     <script src="{{ url_for('test_pass.static', filename='js/test.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/test_category.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/modalimage.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/ajaxDeleteImage.js') }}"></script>
 {% endblock %}
