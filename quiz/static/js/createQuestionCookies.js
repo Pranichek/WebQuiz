@@ -1,5 +1,6 @@
 const button = document.getElementById("save");
 const question = document.querySelector("#question");
+const inputImg = document.getElementById("imgInput");
 let answerInputList = document.querySelectorAll(".answer");
 let timeP = document.querySelector(".timer-p")
 let answers;
@@ -22,7 +23,7 @@ button.addEventListener("click", ()=>{
     }
 
     questions = question.value;
-    if (document.cookie.match("questions") != null){
+    if (document.cookie.match("questions") != null && document.cookie.match("questions") != ""){
         questionCookie = document.cookie.split("questions=")[1].split(";")[0];
         console.log("questionCookie =", questionCookie);
         questions = questionCookie + "?%?" + questions;
@@ -33,7 +34,7 @@ button.addEventListener("click", ()=>{
         try{
             imgCookie = document.cookie.split("images=")[1].split(";")[0];
         }catch{
-            imgCookie = ""
+            imgCookie = "";
         }
         
         try{

@@ -67,7 +67,13 @@
                     <!-- <img  src="{{ url_for('test_pass.static', filename='images/cover.png') }}" alt="" class="test-cover"> -->
                 
                     <div class="info">
-                        <input class="test-title-input" type="text" name="test_title" onchange="saveName();" placeholder="назва тесту" disabled>
+                        <input class="test-title-input" type="text" name="test_title" onchange="saveName();" minlength="5" placeholder="назва тесту" disabled>
+                        <div class="checklist">
+                            <div class="first-rule">
+                                <img class="icon-item username-like" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
+                                <p class="checklist-item">Назва має складатися не менше, ніж з 5 літер</p>
+                            </div>
+                        </div>
                         <div class="under-line"></div>
                         <div class="creator-info">
                             <!-- <img src="{{ url_for('test_pass.static', filename='images/avatar.jpg') }}" alt=""> -->
@@ -136,7 +142,7 @@
                         <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
                         <span class="question-conainer">
                             <p class="question">{{ this_question.question }}</p>
-                            <button data-number_question="{{ question_list.index(this_question) }} + 1" data-answers="{{ this_question.answers }}" class="button-delete {{ this_question.question }}" type="button" onclick="DeleteQuestion();">delete</button>
+                            <button type="button" data-number_question="{{ question_list.index(this_question) }}" data-answers="{{ this_question.answers }}" class="button-delete {{ this_question.question }}" onclick="DeleteQuestion();" pk="{{ this_question.pk }}">delete</button>
                             <a class="change-question" href="/test/change_question/{{ this_question.pk }}">Редагувати питання</a>
                         </span>
                         <span class="answers">
@@ -153,7 +159,7 @@
         </div>
 
         
-        {% if question_list %}
+        {% if question_list|length >= 2 %}
             <div class="buttons buttons-bottom">
                 <button class="add" type="submit"> + Зберегти вікторину</button>
                 <button class="add" type="submit">Почати тест</button>
@@ -166,4 +172,6 @@
     <script src="{{ url_for('test_pass.static', filename='js/test.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/test_category.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/modalimage.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/ajaxDeleteImage.js') }}"></script>
 {% endblock %}

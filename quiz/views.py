@@ -9,7 +9,7 @@
     Запис + та - для відповідей у JavaScript
 '''
 
-import flask, os, flask_login
+import flask, os, flask_login, shutil
 from .models import Test
 from Project.db import DATABASE
 from os.path import abspath, join, exists
@@ -75,6 +75,11 @@ def render_test():
                     os.mkdir(path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests",  str(test_title))))
                 # except:
                 #     pass
+
+                from_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
+                to_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests"))
+                shutil.move(from_path, to_path)
+
                 if "test_image" in flask.session and flask.session["test_image"] != "default":
 
                     test_image = PIL.Image.open(fp = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"])))
@@ -85,7 +90,7 @@ def render_test():
                 if "test_image" in flask.session:
                     flask.session.pop("test_image", None)
 
-                DATABASE.session.add(test)
+                # DATABASE.session.add(test)
                 DATABASE.session.commit()
                 return response
             elif check_form == "image":
@@ -131,12 +136,18 @@ def render_create_question():
     if current_user.is_authenticated:
         if flask.request.method == "POST":
             image = flask.request.files["image"]
+            question_number = len(flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8').split("?%?"))
+            print("questions =", flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8'))
+            print("question_number =", question_number)
 
-            if not os.path.exists(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_test"))):
-                os.mkdir(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_test")))
+            path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number)))
 
-            if not exists(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "images_test", str(image.filename)))):
-                image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "images_test", str(image.filename))))
+            if not os.path.exists(path):
+                os.makedirs(path)
+            
+            if image:
+                image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number), str(image.filename))))
+            return flask.redirect("/test")
 
         return flask.render_template(template_name_or_list= "create_question.html")
     return flask.redirect("/")
@@ -151,37 +162,35 @@ def render_select_way():
     return flask.redirect("/")
 
 def render_change_question(pk: int):
-        
     if flask.request.method == "POST":
         image = flask.request.files["image"]
-        question = flask.request.form.get("question")
-        test_name = flask.request.cookies.get("inputname")
+        if image:
+            test_name = flask.request.cookies.get("inputname")
 
-        dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "user_tests", str(current_user.email), str(test_name), str(question)))
-        try:
-            os.makedirs(dir_path)
-        except:
-            if not os.path.exists(dir_path):
-                print(f"Directory {dir_path} does not exist.")
-
+            dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
             for filename in os.listdir(dir_path):
                 file_path = os.path.join(dir_path, filename)
                 try:
                     os.unlink(file_path)
                 except Exception as e:
                     print(f"Failed to delete {file_path}. Reason: {e}")
-        try:
-            image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "user_tests", str(current_user.email), str(test_name), str(question), str(image.filename))))
-        except:
-            pass
+            try:
+                image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1), str(image.filename))))
+            except Exception as e:
+                print("saving image error:", e)
         return flask.redirect("/test")
     
     else:
         questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
-        images = flask.request.cookies.get("images").encode('raw_unicode_escape').decode('utf-8')
+        images_cookie = flask.request.cookies.get("images")
+        if images_cookie:
+            images = images_cookie.encode('raw_unicode_escape').decode('utf-8')
+        else:
+            images = ""
         answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
         question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 
+        print("pk =", pk)
         current_image = images.split("?&?")[pk]
         current_question = questions.split("?%?")[pk]
         current_time = question_time.split("?#?")[pk]
@@ -210,3 +219,9 @@ def render_change_question(pk: int):
         time = current_time,
         pk = pk
     )
+
+def render_delete_image(pk: int):
+    print("pk =", pk)
+    deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+    shutil.rmtree(deletion_path)
+    return flask.redirect("/test")
