@@ -26,7 +26,8 @@ def render_passing_test():
                 user = current_user,
                 test = test,
                 amount_questions = amount_questions,
-                question = question
+                question = question,
+                test_page = True
             )
         else:
             return flask.redirect("/")

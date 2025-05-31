@@ -14,6 +14,7 @@ time.addEventListener("click", ()=>{
 for (let li of liList){
     li.addEventListener("click", ()=>{
         time.textContent = li.textContent;
+        time.dataset.time = li.dataset.time;
         timeList.classList.add("hidden-list");
     })
 }

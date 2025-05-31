@@ -79,9 +79,20 @@ quiz.test_pass.add_url_rule(
     view_func = quiz.render_passing_test,
     methods = ["GET", "POST"]
 )
+quiz.test_pass.add_url_rule(
+    rule = "/test/change_question/<int:pk>",
+    view_func= quiz.render_change_question,
+    methods = ["GET", "POST"]
+)
+quiz.test_pass.add_url_rule(
+    rule = "/test/delete_image/<int:pk>",
+    view_func= quiz.render_delete_image,
+    methods = ["GET", "POST"]
+)
 
 pass_quiz.finish_test.add_url_rule(
     rule = "/finish_test",
     view_func = pass_quiz.render_finish_test,
     methods = ["GET", "POST"]
 )
+
