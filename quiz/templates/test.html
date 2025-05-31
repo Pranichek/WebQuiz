@@ -142,7 +142,8 @@
                         <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
                         <span class="question-conainer">
                             <p class="question">{{ this_question.question }} pk={{ this_question.pk }}</p>
-                            <button type="button" data-number_question="{{ question_list.index(this_question) }}" data-answers="{{ this_question.answers }}" class="button-delete {{ this_question.question }}" onclick="DeleteQuestion();" pk="{{ this_question.pk }}">delete</button>
+                            <!-- <button type="button" class="button-delete {{ this_question.question }}" pk="{{ this_question.pk }}">delete</button> -->
+                            <button type="button" data-number_question="{{ question_list.index(this_question) }}" data-answers="{{ this_question.answers }}" class="button-delete {{ this_question.question }}" pk="{{ this_question.pk }}">delete</button>
                             <a class="change-question" href="/test/change_question/{{ this_question.pk }}">Редагувати питання</a>
                         </span>
                         <span class="answers">

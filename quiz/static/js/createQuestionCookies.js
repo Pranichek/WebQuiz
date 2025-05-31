@@ -23,39 +23,24 @@ button.addEventListener("click", ()=>{
     }
 
     questions = question.value;
-    if (document.cookie.match("questions") != null && document.cookie.match("questions") != ""){
+    timeC = timeP.dataset.time;
+    if (document.cookie.match("questions") != null){
         questionCookie = document.cookie.split("questions=")[1].split(";")[0];
         console.log("questionCookie =", questionCookie);
-        questions = questionCookie + "?%?" + questions;
+        if (questionCookie != ""){
+            questions = questionCookie + "?%?" + questions;
+        }
 
         timeCookie = document.cookie.split("time=")[1].split(";")[0];
-        timeC = timeCookie + "?#?" + timeP.dataset.time;
-        console.log("time =", timeC);
-        try{
-            imgCookie = document.cookie.split("images=")[1].split(";")[0];
-        }catch{
-            imgCookie = "";
-        }
-        
-        try{
-            imageC = imgCookie + "?&?" + inputImg.files[0].name;
-        } catch{
-            imageC = imgCookie + "?&?" + "";
+        if (timeCookie != ""){
+            timeC = timeCookie + "?#?" + timeP.dataset.time;
+            console.log("time =", timeC);
         }
 
         answerCookie = document.cookie.split("answers=")[1].split(";")[0];
-        answers = answerCookie + "?@?" + answers;
-    } else{
-        // timeC = timeP.textContent;
-        timeC = timeP.dataset.time;
-        questions = question.value;
-        try{
-            imageC = inputImg.files[0].name;
+        if (answerCookie != ""){
+            answers = answerCookie + "?@?" + answers;
         }
-        catch{
-            imageC = "";
-        }
-
     }
     questions = questions.replace("undefined", "");
     questions = questions.replace("questions", "");
@@ -68,8 +53,6 @@ button.addEventListener("click", ()=>{
     timeC = timeC.replace("⏱ ", "");
     timeC = timeC.replace(" ˅", "");
     document.cookie = `time=${timeC}; path=/;`;
-
-    document.cookie = `images=${imageC}; path=/;`;
 
     answers = answers.replace("undefined", "");
     answers = answers.replace("answers", "");
