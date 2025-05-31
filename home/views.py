@@ -60,7 +60,8 @@ def render_home_auth():
             for num in second_random_numbers:
                 second_four_test.append(tests_second_topic[num])
 
-        
+        if flask.request.method == "POST":
+            return flask.redirect("/filter_page")
 
         return flask.render_template(
             "home_auth.html", 

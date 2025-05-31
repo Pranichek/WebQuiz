@@ -2,6 +2,7 @@ import home
 import userprofile
 import quiz
 import pass_quiz
+import searches
 
 home.home_app.add_url_rule(
     rule = "/",
@@ -96,3 +97,8 @@ pass_quiz.finish_test.add_url_rule(
     methods = ["GET", "POST"]
 )
 
+searches.search.add_url_rule(
+    rule="/filter_page",
+    view_func= searches.render_data_filter,
+    methods = ["GET", "POST"]
+)
