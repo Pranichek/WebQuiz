@@ -58,7 +58,6 @@ def render_home_auth():
             for num in second_random_numbers:
                 second_four_test.append(tests_second_topic[num])
 
-        
 
         return flask.render_template(
             "home_auth.html", 
@@ -235,3 +234,4 @@ def render_login():
             )
     else:
         return flask.redirect("/")
+

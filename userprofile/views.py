@@ -45,6 +45,7 @@ def render_profile():
 
         elif check_form == "logout":
             flask.session.clear()
+            return flask.redirect("/")
         
         elif check_form == "delete":
             user = User.query.get(flask_login.current_user.id)

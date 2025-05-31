@@ -14,7 +14,7 @@ for (let delbutton of DeleteButtons) {
         let answers = `(?%${delbutton.dataset.answers}`
 
         // отримуємо індекс кнопки на яку натиснули
-        let index_question = delbutton.dataset.number_question;
+        let index_question = parseInt(delbutton.dataset.number_question);
         console.log(index_question);
         // отримуємо дату з cookie
         let date = document.cookie.split("questions=")[1].split(";")[0];

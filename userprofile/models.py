@@ -1,4 +1,13 @@
-# from Project.db import DATABASE
+from Project.db import DATABASE
+
+class DataUser(DATABASE.Model):
+    id = DATABASE.Column(DATABASE.Integer, primary_key = True)
+    # кількість проїдених тестів
+    count_tests = DATABASE.Column(DATABASE.Integer, default = 0, nullable = False)
+
+    # айді
+
+
 
 # class UserAvatar(DATABASE.Model):
 #     id = DATABASE.Column(DATABASE.Integer, primary_key = True)

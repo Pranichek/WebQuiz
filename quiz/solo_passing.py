@@ -1,30 +1,10 @@
 from Project.socket_config import socket
-import flask
-from flask import session
+import flask_login, flask
 from .models import Test
 from flask_socketio import emit
+import os
+from os.path import abspath, join, exists
 
-# @socket.on('connect')
-# def handle_connect():
-#     print('Client connected')
-#     # test_id = flask.request.cookies.get("test_id")
-#     # test = Test.query.get(int(test_id))
-#     # test_time = test.question_time.split("?#?")
-#     # # Получаем время первого вопроса
-#     # idx = int(flask.request.cookies.get("index_question"))
-#     # question_index = int(flask.request.cookies.get("index_question"))
-#     # time = test_time[question_index]
-
-#     # answers_blocks = test.answers.split("?@?")
-#     # current_answers_list = answers_blocks[idx]
-#     # type_question = "many_answers" if current_answers_list.count("+") > 2 else "one_answer"
-
-#     emit("question", {
-#         "question": "Початок",
-#         "question": [],
-#         "answers": [],
-#         "type_question": type_question
-#     })
 
 @socket.on("get_question")
 def handle_get_question(data_index):
@@ -32,15 +12,15 @@ def handle_get_question(data_index):
     if data_index and "index" in data_index:
         question_index = int(data_index["index"])
     else:
-        question_index = int(flask.request.cookies.get("index_question"))
+        question_index = 0
 
     
-    test_id = flask.request.cookies.get("test_id")
+    # test_id = flask.request.cookies.get("test_id")
+    test_id = data_index["test_id"]
     test = Test.query.get(int(test_id))
     questions = test.questions.split("?%?")
     answers_blocks = test.answers.split("?@?")
     test_time = test.question_time.split("?#?")
-
 
 
     idx = question_index
@@ -63,7 +43,21 @@ def handle_get_question(data_index):
 
 
     current_answers = current_answers[0].split(' ')
-    print(test_time.split(" ")[0], "vremya")
+
+    path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", str(test.title_test), str(idx + 1)))
+    if len(os.listdir(path)) > 0:
+        name_img = os.listdir(path)[0]
+    else:
+        name_img = None
+    index_img = idx + 1
+    email=flask_login.current_user.email
+    title=test.title_test
+    if name_img:
+        img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{idx + 1}/{name_img}")
+    else:
+        img_url = "not"
+
+
     del current_answers[-1]
     emit("question", {
         "question": current_question,
@@ -71,7 +65,8 @@ def handle_get_question(data_index):
         "index": question_index + 1,
         "amount_question": len(questions),
         "test_time": int(test_time),
-        "type_question": type_question
+        "type_question": type_question,
+        "question_img": img_url if name_img else "not"
     })
 
 
@@ -84,7 +79,7 @@ def handle_next_question(data_index):
         })
         return False
 
-    test_id = flask.request.cookies.get("test_id")
+    test_id = data_index["test_id"]
     test = Test.query.get(int(test_id))
     questions = test.questions.split("?%?")
     answers_blocks = test.answers.split("?@?")
@@ -114,11 +109,27 @@ def handle_next_question(data_index):
 
     current_answers = current_answers[0].split(' ')
     del current_answers[-1]
+
+    path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", str(test.title_test), str(idx + 1)))
+    if len(os.listdir(path)) > 0:
+        name_img = os.listdir(path)[0]
+    else:
+        name_img = None
+    index_img = idx + 1
+    email=flask_login.current_user.email
+    title=test.title_test
+    if name_img:
+        img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{idx + 1}/{name_img}")
+    else:
+        img_url = "not"
+
     emit("question", {
         "question": current_question,
         "answers": current_answers,
         "index": int(data_index["index"]) + 1,
         "amount_question": len(questions),
         "test_time": int(test_time),
-        "type_question": type_question
+        "type_question": type_question,
+        "user_email": flask_login.current_user.email,
+        "question_img": img_url if name_img else "not"
     })
