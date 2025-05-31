@@ -101,6 +101,7 @@ def render_data_test():
                         DATABASE.session.add(new_test)
                         DATABASE.session.commit()
 
+                    return flask.redirect("/")
                 else:
                     message = "Це ваш тест"
             

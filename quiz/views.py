@@ -9,15 +9,14 @@
     Запис + та - для відповідей у JavaScript
 '''
 
-import flask, os, flask_login, shutil
-import flask, os, flask_login, shutil
-from .models import Test
+import flask, os, flask_login, shutil, PIL.Image
+from .models import Test, TestData
 from Project.db import DATABASE
 from os.path import abspath, join, exists
 from flask_login import current_user
-import PIL.Image
 from .del_files import delete_files_in_folder
 from .generate_image import return_img
+
 
 
 def render_test():
@@ -53,6 +52,9 @@ def render_test():
                     category = category,
                     image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else f"default/{return_img(category = category)}"
                 )
+
+                test_data = TestData()
+                test.test_profile = test_data
 
                 response = flask.make_response(flask.redirect('/'))
 

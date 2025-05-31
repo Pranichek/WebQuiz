@@ -1,6 +1,8 @@
 const timeList = document.getElementById("timeList");
 const liList = document.getElementsByTagName("li");
 const time = document.getElementById("time");
+let answerInputList = document.querySelectorAll(".answer");
+
 
 time.addEventListener("click", ()=>{
     if (timeList.classList.contains("hidden-list")){

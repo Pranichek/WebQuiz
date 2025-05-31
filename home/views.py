@@ -6,6 +6,7 @@ from .send_email import send_code, generate_code
 from threading import Thread
 import PIL
 from quiz.models import Test
+from userprofile.models import DataUser
 # from userprofile.models import UserAvatar
 
 #Просто головна сторінка
@@ -167,6 +168,9 @@ def render_code():
                                 is_mentor = flask.session["check_mentor"]
                             )
                         
+                        profile = DataUser()
+                        user.user_profile = profile
+                        
                         #створює папку із тим шляхом що указали
                         path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"])))
                         if not os.path.exists(path):
@@ -177,6 +181,7 @@ def render_code():
                             default_img = default_img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(str(flask.session["email"])) ,"default_avatar.png")))
 
                         DATABASE.session.add(user)
+                        # DATABASE.session.add(profile)
                         DATABASE.session.commit()
                         flask_login.login_user(user)
                         flask.session["code"] = ''

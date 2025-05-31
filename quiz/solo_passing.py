@@ -4,6 +4,8 @@ from .models import Test
 from flask_socketio import emit
 import os
 from os.path import abspath, join, exists
+from home.models import User
+from Project.db import DATABASE
 
 
 @socket.on("get_question")
@@ -88,6 +90,11 @@ def handle_next_question(data_index):
     print("Index:", idx)
     # Проверка на конец теста
     if idx >= len(questions) or data_index["index"] == 100:
+        user = User.query.get(int(flask_login.current_user.id))
+        user.user_profile.count_tests += 1
+        test.test_profile.amount_passes += 1
+
+        DATABASE.session.commit()
         emit("question", {
             "question": "Кінець",
         })

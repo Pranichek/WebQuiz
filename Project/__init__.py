@@ -6,7 +6,7 @@ from .login_manager import *
 
 from home.models import *
 from quiz.models import *
-# from userprofile.models import *
+from userprofile.models import *
 
 project.register_blueprint(blueprint = home.home_app)
 project.register_blueprint(blueprint = home.registration)

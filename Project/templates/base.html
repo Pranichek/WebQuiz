@@ -12,7 +12,19 @@
     </head>
     
     <body class="body-web">
-        <script src="{{ url_for('static', filename='js/sidebar.js') }}" defer></script>
+        <div class="wrapper">
+            <header>
+                <i class="bx bx-cookie"></i>
+                <h2>Cookies Consent</h2>
+            </header>
+            <div class="data">
+                <p>This website use cookies to help you have a superior and more relevant browsing experience on the website. <a href="#"> Read more...</a></p>
+            </div>
+            <div class="buttons">
+                <button class="button" id="acceptBtn">Accept</button>
+                <button class="button" id="declineBtn">Decline</button>
+            </div>
+        </div>
         {% if not test_page %}
         <header>
             <div class = "logo">
@@ -108,6 +120,9 @@
                     </div>
             </footer>
         {% endif %}
+
+        <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/cookiemodal.js') }}"></script>
 
         {% block scripts %}
             <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>

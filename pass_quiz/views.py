@@ -200,6 +200,9 @@ def handle_finish_test(data):
 
     amount_points = sum(len(indexes) for indexes in correct_indexes)
     accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
+
+    # amount_points = sum(len(indexes) for indexes in correct_indexes)
+    # accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
     print(amount_points, accuracy, count_right_answers, "gg")
     emit("test_result", {
         "amount_questions": amount_points,
