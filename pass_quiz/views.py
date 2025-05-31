@@ -148,8 +148,9 @@ from flask import Flask, render_template, request
 from flask_socketio import emit
 from quiz import Test
 from Project.socket_config import socket
+from Project.login_check import login_decorate
 
-
+@login_decorate
 def render_finish_test():
     return render_template("test_finish.html")
 

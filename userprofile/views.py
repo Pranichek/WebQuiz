@@ -5,7 +5,6 @@ from home.models import User
 from Project.db import DATABASE
 from .render_data import create_email, render_phone_number
 from home.send_email import send_code, generate_code 
-from quiz.models import Test
 from Project.login_check import login_decorate
 
 
@@ -68,7 +67,7 @@ def render_profile():
     )
 
     
-    
+@login_decorate
 def render_edit_avatar():
     try:
         user = flask_login.current_user
@@ -161,15 +160,12 @@ def render_edit_avatar():
                 show[0] = ''
 
                 
-        if flask_login.current_user.is_authenticated:
-            return flask.render_template(
-                template_name_or_list = "edit_avatar.html",
-                user = user,
-                show = show[0],
-                cash_image = str(flask.session["cash_image"] if 'cash_image' in flask.session else "Nothing")
-            )
-        else:
-            return flask.redirect("/")
+        return flask.render_template(
+            template_name_or_list = "edit_avatar.html",
+            user = user,
+            show = show[0],
+            cash_image = str(flask.session["cash_image"] if 'cash_image' in flask.session else "Nothing")
+        )
     except Exception as error:
         return flask.redirect("/")
     
