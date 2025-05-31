@@ -833,6 +833,13 @@ input::-webkit-inner-spin-button {
     color: #ffffff;
 }
 
+.change {
+    display: flex;
+    flex-direction: row;
+    gap: 20vw;
+    margin-right: 43%;
+}
+
 .footer-middle {
     margin: 15px 0;
 }
