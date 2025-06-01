@@ -8,6 +8,10 @@
 
 
 {% block content %}
+    <form action="" method="post" id="search-data">
+        <input type="text" value="" name="search-data" class="search-data">
+    </form>
+    
     <div class="cards">
         {% for test in searching_test %}
             <div class="card" onclick="this.querySelector('.topic-test').click();">

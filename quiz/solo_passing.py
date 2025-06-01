@@ -1,8 +1,7 @@
 from Project.socket_config import socket
-import flask_login, flask
+import flask_login, flask, os, random as r
 from .models import Test
 from flask_socketio import emit
-import os
 from os.path import abspath, join, exists
 from home.models import User
 from Project.db import DATABASE
@@ -19,7 +18,8 @@ def handle_get_question(data_index):
     
     # test_id = flask.request.cookies.get("test_id")
     test_id = data_index["test_id"]
-    test = Test.query.get(int(test_id))
+    test : Test = Test.query.get(int(test_id))
+
     questions = test.questions.split("?%?")
     answers_blocks = test.answers.split("?@?")
     test_time = test.question_time.split("?#?")
@@ -86,6 +86,8 @@ def handle_next_question(data_index):
 
     test_id = data_index["test_id"]
     test = Test.query.get(int(test_id))
+
+    
     questions = test.questions.split("?%?")
     answers_blocks = test.answers.split("?@?")
 
@@ -95,6 +97,19 @@ def handle_next_question(data_index):
     if idx >= len(questions) or data_index["index"] == 100:
         user = User.query.get(int(flask_login.current_user.id))
         user.user_profile.count_tests += 1
+        last_tests = user.user_profile.last_passed.split(" ")
+
+        if len(last_tests) < 4:
+            if str(test.id) not in last_tests:
+                last_tests.append(str(test.id))
+        else:
+            if str(test.id) not in last_tests:
+                last_tests[r.randint(a = 0, b = 3)] = str(test.id)
+
+        string_last_tests = " ".join(last_tests)
+
+        user.user_profile.last_passed = string_last_tests
+
         test.test_profile.amount_passes += 1
 
         DATABASE.session.commit()

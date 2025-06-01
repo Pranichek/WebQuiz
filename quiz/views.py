@@ -38,7 +38,10 @@ def render_test():
     if flask.request.method == "POST":
         check_form = flask.request.form.get('check_post')
 
-        if check_form == "create_test":
+        cookie_questions = flask.request.cookies.get("questions")
+        answers_cookies = flask.request.cookies.get("answers")
+
+        if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
             # print(name_image, "name")
             test_title = flask.request.form["test_title"]
             question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')

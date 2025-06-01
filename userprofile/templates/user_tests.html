@@ -13,6 +13,10 @@
                 <p>Автор тесту: {{ user.username }}</p>
                 <p>Назва тесту: {{ test.title_test }}</p>
                 <p>Кількість питаннь: {{ test.questions.count("?%?") + 1 }}</p>
+                <form action="" method="post">
+                    <input type="text" name="input" value ="{{ test.id }}">
+                    <button type="submit">Змінити назву</button>
+                </form>
             </div>
         {% endfor %}
     </div>

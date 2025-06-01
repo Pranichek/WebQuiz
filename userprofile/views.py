@@ -2,6 +2,7 @@ import flask, os, flask_login, random, shutil
 from threading import Thread
 import PIL.Image
 from home.models import User
+from quiz.models import Test
 from Project.db import DATABASE
 from .render_data import create_email, render_phone_number
 from home.send_email import send_code, generate_code 
@@ -52,6 +53,9 @@ def render_profile():
             shutil.rmtree(os.path.abspath(os.path.join(__file__, "..", "static", "images", "edit_avatar", str(user.email))))
             user.email = "Deleted"
             user.phone_number = "Deleted"
+
+            for test in user.tests.all():
+                test.title_test = 'deleted'
             
             flask.session.clear()
             # DATABASE.session.delete(user)
@@ -172,7 +176,7 @@ def render_edit_avatar():
 @login_decorate
 def render_user_tests():
     user = User.query.get(flask_login.current_user.id)
-    tests = user.tests.all()
+    tests = user.tests.filter(Test.test_title != "deleted")
     
     return flask.render_template(
         template_name_or_list = "user_tests.html",

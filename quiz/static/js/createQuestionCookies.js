@@ -12,11 +12,12 @@ button.addEventListener("click", ()=>{
     // Очистити question
     localStorage.removeItem("question");
 
-    // Очистити всі відповіді
-    answerInputList.forEach((_, index) => {
+    // Очистити всі відповіді из localstorage
+    answerInputList.forEach((input, index) => {
         localStorage.removeItem(`answer-${index}`);
     });
     for (let input of answerInputList){
+        // проверяем блок ли видимій(то есть в нем есть ответ) чтобы понять надо его добавлять как оответ или нет
         if (input.checkVisibility()){
             console.log(input.value);
             if (input.classList.contains("correct")){
@@ -71,7 +72,7 @@ button.addEventListener("click", ()=>{
 
 
 
-// Загрузка из localStorage при запуске
+// Загрузка из лоаклстораджа при запуске
 window.addEventListener("DOMContentLoaded", () => {
     const questionSaved = localStorage.getItem("question");
     if (questionSaved) {

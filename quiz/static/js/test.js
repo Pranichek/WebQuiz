@@ -199,6 +199,7 @@ document.getElementById("main-form").addEventListener("submit", function () {
 setInterval(myFunction, 1000);
 
 function myFunction() {
+    // если чел удалил куки ответов то отчищаем вопросы в куки
     check_answers_cookie = document.cookie.match("answers")
     if (!check_answers_cookie){
         document.cookie = "questions=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
