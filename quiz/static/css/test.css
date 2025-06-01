@@ -460,14 +460,14 @@ form{
     transform: translate(-50%, -50%);
     width: 770px; 
     height: 559px;
-    z-index: 9999999;
     border-radius: 20px;
     background-color: #343434;
     display: none;
     flex-direction: column;
     border: 1px #94C4FF solid;
     overflow: hidden;
-    z-index: 9999999999999999999;
+    z-index: 9999999999999;
+    animation: appear 0.5s;
 }
 
 .top-floor{
@@ -868,5 +868,15 @@ label[for="image"] {
 }
 
 #timeList {
+    animation: appear 0.5s;
     z-index: 10000001; /* больше, чем у всего остального */
+}
+
+@keyframes appear{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
 }

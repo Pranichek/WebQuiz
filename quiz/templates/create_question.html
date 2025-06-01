@@ -32,8 +32,13 @@
         
         <div class="question-name">
             <input type="text" class="question" name="question" id="question" placeholder="Питання" required>
-            <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image">
-            <button type="button" style="display: none;" class="add-image" id="deleteImgButton" onclick="deleteImage(event);">Видалити зображення</button>
+            <div class="image-container question">
+                <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image">
+                <div class="is-image" style="display: none;" id="deleteImgButton">
+                    <p class="img-success">Зображення успішно додано</p>
+                    <button type="button" class="add-image" onclick="deleteImage(event);">Видалити зображення</button>
+                </div>
+            </div>
         </div>
     </form>
 
