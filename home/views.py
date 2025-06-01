@@ -6,7 +6,8 @@ from .send_email import send_code, generate_code
 from threading import Thread
 import PIL
 from quiz.models import Test
-# from userprofile.models import UserAvatar
+from userprofile.models import DataUser
+from Project.login_check import login_decorate
 
 #Просто головна сторінка
 def render_home():
@@ -20,58 +21,59 @@ def render_home():
         return flask.redirect("/home_auth")
     
 #головна сторінка коли користувач увійшов у акаунт
+@login_decorate
 def render_home_auth():    
-    if flask_login.current_user.is_authenticated:
-        user = User.query.get(flask_login.current_user.id)
+    user = User.query.get(flask_login.current_user.id)
 
-        category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
-        first_topic = random.choice(category)
-        category.remove(first_topic)
-        second_topic = random.choice(category)
+    category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
+    first_topic = random.choice(category)
+    category.remove(first_topic)
+    second_topic = random.choice(category)
 
-        first_four_test = []
-        random_numbers = []
+    first_four_test = []
+    random_numbers = []
 
-        tests_first_topic = Test.query.filter_by(category = first_topic).all()
-        if len(tests_first_topic) > 0:
-            while True:
-                random_num = random.randint(0, len(tests_first_topic) - 1)
-                if random_num not in random_numbers:
-                    random_numbers.append(random_num)
-                if len(random_numbers) == len(tests_first_topic) or len(random_numbers) >= 4:
-                    break
-            print(random_numbers)
-            for num in random_numbers:
-                first_four_test.append(tests_first_topic[num])
+    if flask.request.method == "POST":
+        return flask.redirect("/filter_page")
 
-        second_four_test = []
-        second_random_numbers = []
+    tests_first_topic = Test.query.filter_by(category = first_topic).all()
+    if len(tests_first_topic) > 0:
+        while True:
+            random_num = random.randint(0, len(tests_first_topic) - 1)
+            if random_num not in random_numbers:
+                random_numbers.append(random_num)
+            if len(random_numbers) == len(tests_first_topic) or len(random_numbers) >= 4:
+                break
+        print(random_numbers)
+        for num in random_numbers:
+            first_four_test.append(tests_first_topic[num])
 
-        tests_second_topic = Test.query.filter_by(category = second_topic).all()
-        if len(tests_second_topic) > 0:
-            while True:
-                random_num = random.randint(0, len(tests_second_topic) - 1)
-                if random_num not in second_random_numbers:
-                    second_random_numbers.append(random_num)
-                if len(second_random_numbers) == len(tests_second_topic) or len(second_random_numbers) >= 4:
-                    break
-            for num in second_random_numbers:
-                second_four_test.append(tests_second_topic[num])
+    second_four_test = []
+    second_random_numbers = []
 
-        
+    tests_second_topic = Test.query.filter_by(category = second_topic).all()
+    if len(tests_second_topic) > 0:
+        while True:
+            random_num = random.randint(0, len(tests_second_topic) - 1)
+            if random_num not in second_random_numbers:
+                second_random_numbers.append(random_num)
+            if len(second_random_numbers) == len(tests_second_topic) or len(second_random_numbers) >= 4:
+                break
+        for num in second_random_numbers:
+            second_four_test.append(tests_second_topic[num])
 
-        return flask.render_template(
-            "home_auth.html", 
-            home_auth = True,
-            count_tests = 0,
-            user = user,
-            first_tests = first_four_test,
-            first_topic = first_topic,
-            second_topic = second_topic,
-            second_tests = second_four_test
-            )
-    else:
-        return flask.redirect("/")
+
+    return flask.render_template(
+        "home_auth.html", 
+        home_auth = True,
+        count_tests = 0,
+        user = user,
+        first_tests = first_four_test,
+        first_topic = first_topic,
+        second_topic = second_topic,
+        second_tests = second_four_test
+        )
+
     
 
 def render_registration():
@@ -142,6 +144,7 @@ def render_registration():
         flask.session.clear()
         return flask.redirect("/")
 
+
 def render_code():
     # try:
         form_code = ''
@@ -168,6 +171,9 @@ def render_code():
                                 is_mentor = flask.session["check_mentor"]
                             )
                         
+                        profile = DataUser()
+                        user.user_profile = profile
+                        
                         #створює папку із тим шляхом що указали
                         path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"])))
                         if not os.path.exists(path):
@@ -178,6 +184,7 @@ def render_code():
                             default_img = default_img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(str(flask.session["email"])) ,"default_avatar.png")))
 
                         DATABASE.session.add(user)
+                        # DATABASE.session.add(profile)
                         DATABASE.session.commit()
                         flask_login.login_user(user)
                         flask.session["code"] = ''
@@ -235,3 +242,4 @@ def render_login():
             )
     else:
         return flask.redirect("/")
+

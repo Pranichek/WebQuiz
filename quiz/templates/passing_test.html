@@ -5,6 +5,7 @@
 {% endblock links %}
 
 {% block content %}
+    <a href="/finish_test?test_id="></a>
     <form action="" method="post" id="end-test">
         <button>end</button>
     </form>
@@ -21,36 +22,10 @@
             <p class="question-test"></p>
         </div>
     </div>
-    
+    <div id="image-container"></div>
     <!--  -->
     <div class= "answers">
-        <div class="variant" data-value= "0">
-            <p class="variant-text"></p>
-        </div>
-        <div class="variant" data-value= "1">
-            <p class="variant-text"></p>
-        </div>
-        <div class="variant" data-value= "2">
-            <p class="variant-text"></p>
-        </div>
-        <div class="variant" data-value= "3">
-            <p class="variant-text"></p>
-        </div>
 
-        <!-- <div class="many-answers"> -->
-        <div class="many-variant" data-value= "0">
-            <p class="variant-text"></p>
-        </div>
-        <div class="many-variant" data-value= "1">
-            <p class="variant-text"></p>
-        </div>
-        <div class="many-variant" data-value= "2">
-            <p class="variant-text">sdc</p>
-        </div>
-        <div class="many-variant" data-value= "3">
-            <p class="variant-text"></p>
-        </div>
-        <!-- </div> -->
     </div>
     <!--  -->
     <footer>
@@ -65,7 +40,10 @@
             <img class = "bonus3" src="/bonus.png" alt="">
         </div>
 
-        <button type="button" class="confirm-button">Підтвержити відповідь</button>
+        <div class="submit">
+            
+        </div>
+        <!-- <button type="button" class="confirm-button">Підтвержити відповідь</button> -->
 
         <div class="ai-timer">
             <p class="timer"></p>
@@ -75,6 +53,7 @@
 {% endblock content %}
 
 {% block scripts %}
-    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+    <!-- <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script> -->
+    {{ super() }}
     <script src="{{ url_for('test_pass.static', filename='js/passing_test.js') }}"></script>
 {% endblock scripts %}

@@ -17,35 +17,43 @@ buttonPlus.addEventListener("click", ()=>{
     }
 })
 
-for (let deleteButton of deleteButtonList){
-    deleteButton.addEventListener("click", ()=>{
-        hiddenAnswerBlocks = document.querySelectorAll(".hidden");
-        if (hiddenAnswerBlocks.length <= 1){
-            let id = deleteButton.id;
-            for (let answerBlock of allAnswerBlocks){
-                if (answerBlock.id == id){
-                    inputAnswerList = document.querySelectorAll(".answer")
-                    for (let input of inputAnswerList){
-                        if (input.id == id){
-                            console.log("input.className =", input.className);
-                            if (input.classList.contains("correct")){
+for (let deleteButton of deleteButtonList) {
+    deleteButton.addEventListener("click", () => {
+        let id = deleteButton.id;
+
+        for (let answerBlock of allAnswerBlocks) {
+            const hiddenAnswerBlocks = document.querySelectorAll(".answer-block.hidden");
+            if (answerBlock.id === id) {
+                if (hiddenAnswerBlocks.length <= 1){
+                    inputAnswerList = document.querySelectorAll(".answer");
+
+                    for (let i = 0; i < inputAnswerList.length; i++) {
+                        const input = inputAnswerList[i];
+                        if (input.id === id) {
+                            // Очистити localStorage
+                            localStorage.removeItem(`answer-${i}`);
+                            input.value = ""; // також очистимо поле
+
+                            // Логіка приховування
+                            if (input.classList.contains("correct")) {
                                 correctAnswerList = document.querySelectorAll(".correct");
-                                console.log("correctAnswerList =", correctAnswerList);
-                                if (correctAnswerList.length > 1){
+                                if (correctAnswerList.length > 1) {
                                     input.classList.remove("correct");
                                     answerBlock.classList.add("hidden");
                                 }
-                            } else{
+                            } else {
                                 answerBlock.classList.add("hidden");
                             }
                         }
                     }
                 }
             }
-            hiddenAnswerBlocks = document.querySelectorAll(".hidden");
-            if (hiddenAnswerBlocks.length <= 3){
-                buttonPlus.classList.remove("hidden-button");
-            }
         }
-    })
+
+        // Оновлюємо кнопку "додати"
+        // hiddenAnswerBlocks = document.querySelectorAll(".hidden");
+        // if (hiddenAnswerBlocks.length <= 3) {
+        //     buttonPlus.classList.remove("hidden-button");
+        // }
+    });
 }

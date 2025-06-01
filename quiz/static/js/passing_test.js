@@ -1,22 +1,36 @@
-// Створюємо як би об'єкт сокету 
+// Перевірка на те що користувач потрапив на сторінку проходження тесту не через пошукову стрічку
+let chcklocal = document.referrer
+
+if (!chcklocal.includes("test_data")){
+    window.location.replace('/');
+}
+
+// Створюємо об'єкт сокету 
 const socket = io();  
 let timeQuestion;
 let timer = document.querySelector(".timer");
 let amountAnswers;
 
+if (localStorage.getItem("index_question") == "0"){
+    // localStorage.setItem('time_question', 'set');
+    localStorage.setItem('index_question', '0');
+    localStorage.setItem('users_answers', '')
+    console.log(123)
+}
+
 socket.emit('get_question',
     {
-        index: document.cookie.split("index_question=")[1].split(";")[0]
+        index: localStorage.getItem("index_question"),
+        test_id: localStorage.getItem("test_id")
     }
 );  
 
 socket.on('question', (data) => {
     if (data.question != "Кінець"){
-        // location.reload();
-        let question = document.querySelector(".question-test")
-        let blockanswers = document.querySelectorAll(".variant")
-        let manyBlockAnswers = document.querySelectorAll(".many-variant")
+        const imgContainer = document.getElementById("image-container");
+        imgContainer.innerHTML = "";
 
+        let question = document.querySelector(".question-test")
         
         question.textContent = data.question
 
@@ -24,27 +38,104 @@ socket.on('question', (data) => {
         let amountAnswers = data.answers.length
         document.querySelector(".num-que").textContent = `${data.index}/${data.amount_question}`
         
-        // let dataCookie = document.cookie.split("time_question=")[1].split(";")[0];
         let dataCookie = localStorage.getItem("time_question");
+
+        const cont = document.querySelector(".answers");
+
+        if (data.question_img != "not"){
+            const img = document.createElement("img");
+            console.log(data.question_img)
+            // img.src = `${data.question_img}`; 
+            img.src = `${data.question_img}`;
+            img.alt = data.question_img;
+            img.width = 100;  // ширина 100px
+            img.height = 121;
+            document.getElementById("image-container").appendChild(img);
+        }
+
         if (dataCookie == "set"){
             timeQuestion = data.test_time;
             timer.textContent = `${timeQuestion} сек.`;
             localStorage.setItem('time_question', timeQuestion);
-            // document.cookie = `time_question=${timeQuestion}; path=/;`;
-            // timeQuestion = document.cookie.split("time_question=")[1].split(";")[0];
         } 
 
 
         if (data.type_question == "one_answer"){
-            document.querySelector(".confirm-button").style.display = "none";
+            cont.innerHTML = `
+                <div class="variant" data-value="0">
+                    <p class="variant-text"></p>
+                </div>
+                <div class="variant" data-value="1">
+                    <p class="variant-text"></p>
+                </div>
+                <div class="variant" data-value="2">
+                    <p class="variant-text"></p>
+                </div>
+                <div class="variant" data-value="3">
+                    <p class="variant-text"></p>
+                </div>
+            `;
+            let blockanswers = document.querySelectorAll(".variant")
 
-            const container = document.getElementById("answers")
-            const footer = document.querySelector(".footer")
+            const footer = document.querySelector(".submit")
 
-            let answersMany = document.querySelectorAll(".many-variant");
-            for (let answer_block of answersMany){
-                answer_block.style.display = 'none';
+            footer.innerHTML = `
+                
+            `;
+
+            // Подавання наступного питання, та збереження індексу питання
+            for (let block of blockanswers){
+                block.addEventListener(
+                    'click',
+                    () => {
+                        console.log(117)
+                        // сбрасываем время если пользователь нажал на какой то ответ
+                        localStorage.setItem('time_question', 'set');
+
+                        // let chekcookies = document.cookie.match("users_answers")
+                        let chekcookies = localStorage.getItem("users_answers")
+
+                        if (chekcookies != ''){
+                            // отримуємо старі відповіді якщо вони були
+                            let oldCookie = localStorage.getItem("users_answers")
+                            let cookieList = oldCookie.split(",")   
+                            cookieList.push(block.dataset.value)
+
+                            // oldCookie.push(block.dataset.value)
+                            // document.cookie = "users_answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                            // document.cookie = `users_answers=${cookieList}; path=/;`;
+                            localStorage.setItem("users_answers", cookieList)
+                        }else{
+                            localStorage.setItem("users_answers", block.dataset.value)
+                        }
+                        // let indexQuestion = document.cookie.match("index_question")
+                        // if (indexQuestion === null){
+                        //     document.cookie = "index_question=0; path=/;";
+                        // }
+                        // let index = document.cookie.split("index_question=")[1].split(";")[0];
+                        let index = localStorage.getItem("index_question")
+                        index = parseInt(index) + 1;
+                        localStorage.setItem("index_question", index)
+                        
+                        socket.emit('next_question', {
+                            index: index,
+                            answer: block.dataset.value,
+                            test_id: localStorage.getItem("test_id")
+                        })
+                        console.log("Питання відправлено на сервер, чекаємо відповіді");
+                    }
+                )
             }
+
+            // document.querySelector(".confirm-button").style.display = "none";
+
+            // const container = document.getElementById("answers")
+            // const footer = document.querySelector(".footer")
+
+            // let answersMany = document.querySelectorAll(".many-variant");
+            // for (let answer_block of answersMany){
+            //     answer_block.style.display = 'none';
+            // }
 
             for (let index = 0; index < amountAnswers; index++) {
                 blockanswers[index].style.display = 'flex';
@@ -56,18 +147,100 @@ socket.on('question', (data) => {
                 }
             }
         }else if (data.type_question == "many_answers"){
-            document.querySelector(".confirm-button").style.display = "flex";
+            cont.innerHTML = `
+                <div class="many-variant" data-value="0">
+                    <p class="variant-text"></p>
+                </div>
+                <div class="many-variant" data-value="1">
+                    <p class="variant-text"></p>
+                </div>
+                <div class="many-variant" data-value="2">
+                    <p class="variant-text">sdc</p>
+                </div>
+                <div class="many-variant" data-value="3">
+                    <p class="variant-text"></p>
+                </div>
+            `;
 
+
+            const footer = document.querySelector(".submit")
 
             footer.innerHTML = `
                 <button type="button" class="confirm-button">Підтвержити відповідь</button>
             `;
 
-            let answersBlock = document.querySelectorAll(".variant");
-            for (let answer_block of answersBlock){
-                answer_block.style.display = 'none';
+            let manyVariants = []
+            let manyVariantsBlock = document.querySelectorAll(".many-variant");
+
+            for (let manyblock of manyVariantsBlock){
+                manyblock.addEventListener(
+                    'click',
+                    () => {
+                        const value = manyblock.dataset.value;
+                        let index = manyVariants.indexOf(value);
+                        if (!manyVariants.includes(manyblock.dataset.value)){
+                            manyVariants.push(manyblock.dataset.value);
+                            manyblock.style.backgroundColor = `#343434`;
+                        }else{
+                            // удаление значение блока из списка
+                            manyVariants.splice(index, 1)
+                            manyblock.style.backgroundColor = `#94C4FF`;
+                        }
+                        console.log(manyVariants, "manyVariants")
+                        document.cookie = `many_answers=${manyVariants}; path=/;`;
+                    }
+                )
             }
 
+            let confirm_button = document.querySelector(".confirm-button")
+
+            confirm_button.addEventListener(
+                'click',
+                () => {
+                    if (manyVariants.length > 0){
+                        localStorage.setItem('time_question', "set")
+                        // let chekcookies = document.cookie.match("users_answers")
+                        let chekcookies = localStorage.getItem("users_answers")
+
+                        let dataString = manyVariants.join("@");
+                        console.log(dataString)
+
+                        if (chekcookies != ''){
+                            // отримуємо старі відповіді якщо вони були
+                            let oldCookie = localStorage.getItem("users_answers")
+                            let cookieList = oldCookie.split(",")   
+                            cookieList.push(dataString)
+
+                            // oldCookie.push(block.dataset.value)
+                            // document.cookie = "users_answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                            // document.cookie = `users_answers=${cookieList}; path=/;`;
+                            localStorage.setItem("users_answers", cookieList)
+                        }else{
+                            // document.cookie = `users_answers=${dataString}; path=/;`;
+                            localStorage.setItem("users_answers", dataString)
+                        }
+
+                        // прибавляем к cookie index_question + 1
+                        // let indexQuestion = document.cookie.match("index_question")
+                        // if (indexQuestion === null){
+                        //     document.cookie = "index_question=0; path=/;";
+                        // }
+                        let index = localStorage.getItem("index_question")
+                        index = parseInt(index) + 1;
+                        localStorage.setItem("index_question", index)
+                        
+                        document.cookie = "many_answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                        socket.emit('next_question', {
+                            index: index,
+                            answer: dataString,
+                            test_id: localStorage.getItem("test_id")
+                        })
+                        console.log("Питання відправлено на сервер, чекаємо відповіді");
+                    }
+                }
+            )
+
+            let manyBlockAnswers = document.querySelectorAll(".many-variant")
 
             for (let index = 0; index < amountAnswers; index++) {
                 manyBlockAnswers[index].style.display = 'flex';
@@ -83,60 +256,18 @@ socket.on('question', (data) => {
         console.log(answers, "answers")
         console.log(amountAnswers, "amount")
     }else{
-        localStorage.removeItem('time_question')
-        document.querySelector("#end-test").submit();
+        window.location.replace('/finish_test');
+        // localStorage.removeItem('time_question')
+        // document.querySelector("#end-test").submit();
     }
 });
-
-let blockanswers = document.querySelectorAll(".variant")
-
-// Подавання наступного питання, та збереження індексу питання
-for (let block of blockanswers){
-    block.addEventListener(
-        'click',
-        () => {
-            // сбрасываем время если пользователь нажал на какой то ответ
-            localStorage.setItem('time_question', 'set');
-
-            let chekcookies = document.cookie.match("users_answers")
-            if (chekcookies){
-                // отримуємо старі відповіді якщо вони були
-                let oldCookie = document.cookie.split("users_answers=")[1].split(";")[0];
-                let cookieList = oldCookie.split(",")   
-                cookieList.push(block.dataset.value)
-
-                // oldCookie.push(block.dataset.value)
-                document.cookie = "users_answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                document.cookie = `users_answers=${cookieList}; path=/;`;
-            }else{
-
-                document.cookie = `users_answers=${block.dataset.value}; path=/;`;
-            }
-            // прибавляем к cookie index_question + 1
-            let indexQuestion = document.cookie.match("index_question")
-            if (indexQuestion === null){
-                document.cookie = "index_question=0; path=/;";
-            }
-            let index = document.cookie.split("index_question=")[1].split(";")[0];
-            index = parseInt(index) + 1;
-            document.cookie = `index_question=${index}; path=/;`;
-
-            socket.emit('next_question', {
-                index: index,
-                answer: block.dataset.value
-            })
-            console.log("Питання відправлено на сервер, чекаємо відповіді");
-        }
-    )
-}
-
 
 
 // SetInterval - запускает функцию через определенный промежуток времени(в милисекундах)
 setInterval(() => {
     timeQuestion = parseInt(localStorage.getItem('time_question'));
     if (isNaN(timeQuestion)) {
-        // Якщо немає часу або він некоректний - встановити початкове значення або зупинити таймер
+        // Якщо немає часу або він некоректний 
         timer.textContent = "Час не встановлено";
         return; // або можна встановити якийсь дефолт, наприклад, 0
     }
@@ -145,103 +276,41 @@ setInterval(() => {
     localStorage.setItem('time_question', timeQuestion)
     if (timeQuestion <= 0){
         localStorage.setItem('time_question', "set")
-        let chekcookies = document.cookie.match("users_answers")
+        let chekcookies = localStorage.getItem("users_answers")
         if (chekcookies){
             // отримуємо старі відповіді якщо вони були
-            let oldCookie = document.cookie.split("users_answers=")[1].split(";")[0];
+            let oldCookie = localStorage.getItem("users_answers")
             let cookieList = oldCookie.split(",")   
             cookieList.push("skip")
 
             // oldCookie.push(block.dataset.value)
-            document.cookie = "users_answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            document.cookie = `users_answers=${cookieList}; path=/;`;
+            // document.cookie = "users_answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            // document.cookie = `users_answers=${cookieList}; path=/;`;
+            localStorage.setItem("users_answers", cookieList)
         }else{
-            document.cookie = `users_answers=skip; path=/;`;
+            // document.cookie = `users_answers=skip; path=/;`;
+            localStorage.setItem("users_answers", "skip")
         }
         // прибавляем к cookie index_question + 1
-        let indexQuestion = document.cookie.match("index_question")
-        if (indexQuestion === null){
-            document.cookie = "index_question=0; path=/;";
-        }
-        let index = document.cookie.split("index_question=")[1].split(";")[0];
+        // let indexQuestion = document.cookie.match("index_question")
+        // if (indexQuestion === null){
+        //     document.cookie = "index_question=0; path=/;";
+        // }
+        // let index = document.cookie.split("index_question=")[1].split(";")[0];
+        // index = parseInt(index) + 1;
+        // document.cookie = `index_question=${index}; path=/;`;
+        let index = localStorage.getItem("index_question")
         index = parseInt(index) + 1;
-        document.cookie = `index_question=${index}; path=/;`;
+        localStorage.setItem("index_question", index)
 
         console.log("Питання відправлено на сервер, чекаємо відповіді");
         socket.emit('next_question', {
-            index: index
+            index: index,
+            test_id: localStorage.getItem("test_id")
         })
         // console.log("Питання відправлено на сервер, чекаємо відповіді");
     }
 }, 1000);
-
-
-let manyVariants = []
-let manyVariantsBlock = document.querySelectorAll(".many-variant");
-
-for (let manyblock of manyVariantsBlock){
-    manyblock.addEventListener(
-        'click',
-        () => {
-            const value = manyblock.dataset.value;
-            let index = manyVariants.indexOf(value);
-            if (!manyVariants.includes(manyblock.dataset.value)){
-                manyVariants.push(manyblock.dataset.value);
-                manyblock.style.backgroundColor = `#343434`;
-            }else{
-                // удаление значение блока из списка
-                manyVariants.splice(index, 1)
-                manyblock.style.backgroundColor = `#94C4FF`;
-            }
-            console.log(manyVariants, "manyVariants")
-            document.cookie = `many_answers=${manyVariants}; path=/;`;
-        }
-    )
-}
-
-let confirm_button = document.querySelector(".confirm-button")
-
-confirm_button.addEventListener(
-    'click',
-    () => {
-        if (manyVariants.length > 0){
-            localStorage.setItem('time_question', "set")
-            let chekcookies = document.cookie.match("users_answers")
-
-            let dataString = manyVariants.join("@");
-            console.log(dataString)
-
-            if (chekcookies){
-                // отримуємо старі відповіді якщо вони були
-                let oldCookie = document.cookie.split("users_answers=")[1].split(";")[0];
-                let cookieList = oldCookie.split(",")   
-                cookieList.push(dataString)
-
-                // oldCookie.push(block.dataset.value)
-                document.cookie = "users_answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                document.cookie = `users_answers=${cookieList}; path=/;`;
-            }else{
-                document.cookie = `users_answers=${dataString}; path=/;`;
-            }
-
-            // прибавляем к cookie index_question + 1
-            let indexQuestion = document.cookie.match("index_question")
-            if (indexQuestion === null){
-                document.cookie = "index_question=0; path=/;";
-            }
-            let index = document.cookie.split("index_question=")[1].split(";")[0];
-            index = parseInt(index) + 1;
-            document.cookie = `index_question=${index}; path=/;`;
-            
-            document.cookie = "many_answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            socket.emit('next_question', {
-                index: index,
-                answer: dataString
-            })
-            console.log("Питання відправлено на сервер, чекаємо відповіді");
-        }
-    }
-)
 
 
 window.addEventListener(
@@ -268,18 +337,16 @@ leaveButton.addEventListener(
     () => {
         localStorage.setItem('time_question', "0")
 
-        let chekcookies = document.cookie.match("users_answers");
-        if (!chekcookies && manyVariants.length > 0){
-            let dataString = manyVariants.join("@");
-            document.cookie = `users_answers=${dataString}; path=/;`;
-        }
-
-        let index = document.cookie.split("index_question=")[1].split(";")[0];
-        index = parseInt(index);
-        
         // щоб гарантувати завершення – передай індекс явно великий
         socket.emit('next_question', {
-            index: 100 
+            index: 100,
+            test_id: localStorage.getItem("test_id")
         })
     }
 )
+
+if (localStorage.getItem("reload") == "yes"){
+    localStorage.setItem("reload", "no")
+    console.log(18)
+    // location.reload()
+}

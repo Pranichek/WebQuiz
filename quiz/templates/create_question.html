@@ -40,20 +40,20 @@
     <h3>Оберіть варіант відповіді</h3>
 
     <div class="answers-container">
-        <div class="answer-block"  id="1">
+        <div class="answer-block first-block"  id="1">
             <div class="detector" id="1">
                 <img id="1" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <input type="text" class="answer correct" name="answer" id="1" placeholder="Відповідь">
+            <input type="text" class="answer correct first_input" name="answer" id="1" placeholder="Відповідь">
             <div class="delete-answer" id="1">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
         </div>
-        <div class="answer-block" id="2">
+        <div class="answer-block second-block" id="2">
             <div class="detector" id="2">
                 <img style="display: none;" id="2" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <input type="text" class="answer" name="answer" id="2" placeholder="Відповідь">
+            <input type="text" class="answer second-input" name="answer" id="2" placeholder="Відповідь">
             <div class="delete-answer" id="2">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
