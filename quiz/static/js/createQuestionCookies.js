@@ -6,6 +6,49 @@ let timeP = document.querySelector(".timer-p")
 let answers;
 let questions;
 let timeC;
+let validAnswersFlag = false;
+
+function buttonColorChanging(){
+    if (button.type == "button"){
+        console.log("change button color");
+        button.classList.add("grey");
+        console.log(button.classList);
+    }
+}
+
+function answerScanning(){
+    console.log("validAnswersFlag 1 =", validAnswersFlag);
+    validAnswersFlag = true;
+    for (let input of answerInputList){
+        if (input.checkVisibility()){
+            if (input.value == ""){
+                validAnswersFlag = false;
+            }
+        }
+    }
+    console.log("validAnswersFlag 2 =", validAnswersFlag);
+    if (validAnswersFlag == false){
+        button.type = "button";
+        button.classList.add("grey");
+    } else{
+        button.type = "submit";
+        button.classList.remove("grey");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+    buttonColorChanging();
+})
+document.addEventListener("click", ()=>{
+    buttonColorChanging();
+    answerScanning();
+})
+document.addEventListener("keydown", ()=>{
+    buttonColorChanging();
+})
+document.addEventListener("keyup", ()=>{
+    answerScanning();
+})
 
 button.addEventListener("click", ()=>{
     console.log(document.cookie.match("questions"))
@@ -16,6 +59,7 @@ button.addEventListener("click", ()=>{
     answerInputList.forEach((_, index) => {
         localStorage.removeItem(`answer-${index}`);
     });
+
     for (let input of answerInputList){
         if (input.checkVisibility()){
             console.log(input.value);

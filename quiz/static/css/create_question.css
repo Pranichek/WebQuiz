@@ -87,6 +87,10 @@ body .main{
     text-decoration: none;
 }
 
+.grey{
+    background-color: #636262;
+    color: #343434;
+}
 
 .question-name{
     display: flex;
