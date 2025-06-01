@@ -22,4 +22,7 @@ class User(DATABASE.Model, flask_login.UserMixin):
     # можна так, и тогда нам не нужно в таблице Test создавать поле user
     # tests = DATABASE.relationship("Test", backref="user", lazy="dynamic")
 
+    # Зв'язок one to one із моделлю інфи користувача
+    user_profile = DATABASE.relationship("DataUser", back_populates="user", uselist=False)
+
 

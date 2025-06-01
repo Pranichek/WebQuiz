@@ -56,7 +56,7 @@
                 <img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/photo.png') }}" alt="">
             </div>
 
-            <div class="button">
+            <div class="button" onclick="DeletePhoto();">
                 <p class="button-text">Видалити поточне фото</p>
                 <img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/can.png') }}" alt="">
             </div>
@@ -112,7 +112,7 @@
         </div>
         <div class="change-buttons" >
             <div class="firs_part">
-                <form action="" method="post">
+                <form action="" method="post" id = "delete_form">
                     <input type="text" name="check_form" class = "check_name" value = "del_image">
                     <button class="del_current" type="submit">видалити поточне фото</button>
                 </form>

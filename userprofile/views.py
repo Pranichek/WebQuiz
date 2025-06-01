@@ -5,8 +5,10 @@ from home.models import User
 from Project.db import DATABASE
 from .render_data import create_email, render_phone_number
 from home.send_email import send_code, generate_code 
-from quiz.models import Test
+from Project.login_check import login_decorate
 
+
+@login_decorate
 def render_profile():
     user = flask_login.current_user
     if flask.request.method == "POST":
@@ -42,6 +44,7 @@ def render_profile():
 
         elif check_form == "logout":
             flask.session.clear()
+            return flask.redirect("/")
         
         elif check_form == "delete":
             user = User.query.get(flask_login.current_user.id)
@@ -55,21 +58,21 @@ def render_profile():
             DATABASE.session.commit()
             return flask.redirect("/")
 
-    if flask_login.current_user.is_authenticated:
-        return flask.render_template(
-            template_name_or_list = "profile.html",
-            email = create_email(flask_login.current_user.email),
-            phone_user = render_phone_number(flask_login.current_user.phone_number),
-            user = user
-        )
-    else:
-        return flask.redirect("/")
+    # if flask_login.current_user.is_authenticated:
+    return flask.render_template(
+        template_name_or_list = "profile.html",
+        email = create_email(flask_login.current_user.email),
+        phone_user = render_phone_number(flask_login.current_user.phone_number),
+        user = user
+    )
+
     
-    
+@login_decorate
 def render_edit_avatar():
     try:
         user = flask_login.current_user
         show = ['']
+
         if flask.request.method == "POST":
             check_form = flask.request.form.get("check_form")
 
@@ -157,30 +160,22 @@ def render_edit_avatar():
                 show[0] = ''
 
                 
-        if flask_login.current_user.is_authenticated:
-            return flask.render_template(
-                template_name_or_list = "edit_avatar.html",
-                user = user,
-                show = show[0],
-                cash_image = str(flask.session["cash_image"] if 'cash_image' in flask.session else "Nothing")
-            )
-        else:
-            return flask.redirect("/")
+        return flask.render_template(
+            template_name_or_list = "edit_avatar.html",
+            user = user,
+            show = show[0],
+            cash_image = str(flask.session["cash_image"] if 'cash_image' in flask.session else "Nothing")
+        )
     except Exception as error:
         return flask.redirect("/")
     
+@login_decorate
 def render_user_tests():
-    if flask_login.current_user.is_authenticated:
-
-        user = User.query.get(flask_login.current_user.id)
-        tests = user.tests.all()
-        
-
-
-        return flask.render_template(
-            template_name_or_list = "user_tests.html",
-            tests = tests,
-            user = flask_login.current_user
-        )
-    else:
-        return flask.redirect("/")
+    user = User.query.get(flask_login.current_user.id)
+    tests = user.tests.all()
+    
+    return flask.render_template(
+        template_name_or_list = "user_tests.html",
+        tests = tests,
+        user = flask_login.current_user
+    )

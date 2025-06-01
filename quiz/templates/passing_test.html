@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('test_pass.static', filename = 'css/passing_test.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <a href="/finish_test?test_id="></a>
+    <form action="" method="post" id="end-test">
+        <button>end</button>
+    </form>
+    <head>
+        <header>
+            <button class="leave_test">Завершити тест</button>
+        </header>
+    </head>
+    <div class= 'question'>
+        <div class="num-question">
+            <p class="num-que">1/10</p>
+        </div>
+        <div class= "question-bg">
+            <p class="question-test"></p>
+        </div>
+    </div>
+    <div id="image-container"></div>
+    <!--  -->
+    <div class= "answers">
+
+    </div>
+    <!--  -->
+    <footer>
+        <div class="bonus-data">
+            <div class="avatar-circle">
+                <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+            </div>
+            <p class="text-kem">{{ user.username }}</p>
+            <div class="line"></div>
+            <img class = "bonus1" src="/bonus.png" alt="">
+            <img class = "bonus2" src="/bonus.png" alt="">
+            <img class = "bonus3" src="/bonus.png" alt="">
+        </div>
+
+        <div class="submit">
+            
+        </div>
+        <!-- <button type="button" class="confirm-button">Підтвержити відповідь</button> -->
+
+        <div class="ai-timer">
+            <p class="timer"></p>
+        </div>
+    </footer>
+    </body>
+{% endblock content %}
+
+{% block scripts %}
+    <!-- <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script> -->
+    {{ super() }}
+    <script src="{{ url_for('test_pass.static', filename='js/passing_test.js') }}"></script>
+{% endblock scripts %}

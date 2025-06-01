@@ -111,7 +111,7 @@ body .main{
 
 .add-image{
     display: flex;
-    width: 236px;
+    width: 500px;
     height: 34px;
     padding: 10px;
     gap: 10px;
@@ -119,6 +119,7 @@ body .main{
     border: none;
     background-color: #C48AF7;
     font-size: 20px;
+    text-align: center;
 }
 
 h3{

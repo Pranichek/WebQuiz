@@ -79,16 +79,6 @@ header{
     object-fit: contain;
     width: 100%;
     height: 100%;
-    /* width: calc(100% + (calc(100% * 1)));
-    height: calc(100% + (calc(100% * 1))); */
-    /* max-width: 100%;
-    max-height: 100%; */
-    /* width: 27%;
-    height: 100%; */
-    /* border-radius: 50%; */
-    /* border: 2px black solid; */
-    /* transform: scale(calc(0.4 * 0.32)); */
-    /* transform: scale(1.5); */
 }
 
 .avatar-circle{
@@ -202,12 +192,23 @@ input::-webkit-inner-spin-button {
     /* background-color: aqua; */
     display: flex;
     flex-direction: row;
-    justify-content: end;
+    justify-content: space-between;
     align-items: center;
 }
 
-.show-more a{
+.show-more .show-more-link{
     background-color: #C48AF7;
+    color: #ffffff;
+    border-radius: 5px;
+    text-decoration: none;
+    margin: 10px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+}
+
+.tests-topic{
+    background-color: #7291B8;
     color: #ffffff;
     border-radius: 5px;
     text-decoration: none;
@@ -238,6 +239,7 @@ input::-webkit-inner-spin-button {
     border-radius: 17px;
     justify-content: end;
     border: 1px black solid;
+    cursor: pointer;
 }
 
 .card_image{
@@ -246,9 +248,20 @@ input::-webkit-inner-spin-button {
     z-index: 1;
 }
 
+.topic-test{
+    color: #343434;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+a{
+    text-decoration: none;
+}
+
 .card_image img{
     width: 100%;
     height: 100%;
+    object-fit: cover;
     z-index: 1;
     border-radius: 0px 0px 30px 30px;
 }

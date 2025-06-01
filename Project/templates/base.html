@@ -12,7 +12,20 @@
     </head>
     
     <body class="body-web">
-        <script src="{{ url_for('static', filename='js/sidebar.js') }}" defer></script>
+        <div class="wrapper">
+            <header>
+                <i class="bx bx-cookie"></i>
+                <h2>Cookies Consent</h2>
+            </header>
+            <div class="data">
+                <p>This website use cookies to help you have a superior and more relevant browsing experience on the website. <a href="#"> Read more...</a></p>
+            </div>
+            <div class="buttons">
+                <button class="button" id="acceptBtn">Accept</button>
+                <button class="button" id="declineBtn">Decline</button>
+            </div>
+        </div>
+        {% if not test_page %}
         <header>
             <div class = "logo">
                 <img src="{{ url_for('static', filename='images/logo.png') }}" alt="">
@@ -36,7 +49,7 @@
                     </div>
                 {% elif home_auth %}
                     <div class="nav-links">
-                        <a href="/test" class="test-button">+ Створити вікторину</a>
+                        <a href="/select_way" class="test-button">+ Створити вікторину</a>
                     </div>
                 {% else %}
                     <div class="nav-links">
@@ -75,12 +88,44 @@
             </nav>
 
         </header>
+        {% endif %}
 
         <main class="main">
             {% block content %}{% endblock %}
         </main>
-        {% block scripts %}
 
+
+        {% if home_auth %}
+            <footer class="footer">
+                <div class="ab">
+                    <div class="about">
+                        <a href="" class="linkk">Контакти</a> 
+                        <a href="" class="linkk">Про нас</a>
+                        <a href="" class="linkk">Конфіденційність</a>
+                    </div>
+                    <div>
+                        <hr class="footer-line">
+                    </div>
+                </div>
+            
+                    <div class="last">
+                        <div class="about">
+                        <p>Слідкуйте за нами</p>
+                        </div>
+                        <div class="img-link">
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
+                        </div>
+                    </div>
+            </footer>
+        {% endif %}
+
+        <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/cookiemodal.js') }}"></script>
+
+        {% block scripts %}
+            <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
         {% endblock %}
     </body>   
 </html>

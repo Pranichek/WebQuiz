@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('finish_test.static', filename = 'css/finish.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <h1>Ви набрали <p class="user_pimpa"></p> із <p class="user-pampa"></p>{{amount_questions}} питання</h1>
+    <p class="accuracy">accuracy = </p>
+{% endblock content %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('finish_test.static', filename='js/finish_test.js') }}" defer></script>
+{% endblock scripts %}
