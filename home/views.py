@@ -8,11 +8,12 @@ import PIL
 from quiz.models import Test
 from userprofile.models import DataUser
 from Project.login_check import login_decorate
+from flask_login import current_user
 
 #Просто головна сторінка
 def render_home():
     flask.session["code"] = ''
-    if not flask_login.current_user.is_authenticated:
+    if not current_user.is_authenticated:
         return flask.render_template(
             template_name_or_list = "home.html", 
             home_page = True

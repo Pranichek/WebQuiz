@@ -66,6 +66,7 @@ window.addEventListener("load", function () {
     // отримуэмо дані з cookie
     // отримуємо дату з cookie
 
+
     let cookies = document.cookie.match("questions")
 
     if (cookies){
@@ -116,7 +117,8 @@ window.addEventListener("load", function () {
         document.cookie = `answers=${answersclear.join("?@?")}; path=/;`;
         document.cookie = `time=${cleartime.join("?#?")}; path=/;`;
     }
-})
+    }   
+)
 
 
 let InputName = document.querySelector(".test-title-input")
@@ -193,3 +195,13 @@ document.getElementById("main-form").addEventListener("submit", function () {
     const input = document.querySelector(".test-title-input");
     input.disabled = false;
 });
+
+setInterval(myFunction, 1000);
+
+function myFunction() {
+    check_answers_cookie = document.cookie.match("answers")
+    if (!check_answers_cookie){
+        document.cookie = "questions=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        // this.location.reload();
+    }
+}

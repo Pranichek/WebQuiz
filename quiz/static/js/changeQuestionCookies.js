@@ -39,17 +39,6 @@ button.addEventListener("click", ()=>{
     timeCookie[pk] = timeC;
     timeCookie = timeCookie.join("?#?")
 
-    // imgCookie = document.cookie.split("images=")[1].split(";")[0].split("?&?");
-    // imgCookie = document.cookie.split("images=")[1].split(";")[0]
-    // if (document.cookie.match("images")){
-    //     imgsplit = imgCookie.split("?&?")
-    //     try{
-    //         imgsplit[pk] = inputImg.files[0].name;
-    //     } catch{
-    //         imgCookie[pk] = "";
-    //     }
-    // }
-    // imgCookie = imgCookie.join("?&?")
 
     answerCookie = document.cookie.split("answers=")[1].split(";")[0].split("?@?");
     answerCookie[pk] = answers;

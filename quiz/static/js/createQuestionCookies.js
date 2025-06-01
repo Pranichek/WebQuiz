@@ -29,6 +29,7 @@ button.addEventListener("click", ()=>{
         }
     }
 
+
     questions = question.value;
     if (document.cookie.match("questions") != null && document.cookie.match("questions") != ""){
         questionCookie = document.cookie.split("questions=")[1].split(";")[0];
