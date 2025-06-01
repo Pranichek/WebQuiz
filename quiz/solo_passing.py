@@ -46,13 +46,16 @@ def handle_get_question(data_index):
 
     current_answers = current_answers[0].split(' ')
 
-    path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", str(test.title_test), str(idx + 1)))
-    if len(os.listdir(path)) > 0:
-        name_img = os.listdir(path)[0]
+    path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(idx + 1)))
+    if exists(path):
+        if len(os.listdir(path)) > 0:
+            name_img = os.listdir(path)[0]
+        else:
+            name_img = None
     else:
         name_img = None
     index_img = idx + 1
-    email=flask_login.current_user.email
+    email=test.user.email
     title=test.title_test
     if name_img:
         img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{idx + 1}/{name_img}")
@@ -117,13 +120,16 @@ def handle_next_question(data_index):
     current_answers = current_answers[0].split(' ')
     del current_answers[-1]
 
-    path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", str(test.title_test), str(idx + 1)))
-    if len(os.listdir(path)) > 0:
-        name_img = os.listdir(path)[0]
+    path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(idx + 1)))
+    if exists(path):
+        if len(os.listdir(path)) > 0:
+            name_img = os.listdir(path)[0]
+        else:
+            name_img = None
     else:
         name_img = None
     index_img = idx + 1
-    email=flask_login.current_user.email
+    email=test.user.email
     title=test.title_test
     if name_img:
         img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{idx + 1}/{name_img}")
