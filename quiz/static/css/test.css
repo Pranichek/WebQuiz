@@ -346,7 +346,7 @@ form{
     gap: 30px;
 }
 
-.add{
+.add, .add-test{
     width: 250px;
     height: 50px;
     padding: 10px;
@@ -358,6 +358,11 @@ form{
     color: white;
     text-decoration: none;
     text-align: center;
+}
+
+.grey{
+    background-color: #636262;
+    color: #343434;
 }
 
 .all-cards{
@@ -539,8 +544,6 @@ label[for="image"] {
     justify-content: start;
     align-items: center;
 }
-
-
 
 .show_image{
     width: 100%;

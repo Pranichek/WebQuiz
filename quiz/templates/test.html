@@ -70,7 +70,7 @@
                     <!-- <img  src="{{ url_for('test_pass.static', filename='images/cover.png') }}" alt="" class="test-cover"> -->
                 
                     <div class="info">
-                        <input class="test-title-input" type="text" name="test_title" onchange="saveName();" minlength="5" placeholder="назва тесту" disabled>
+                        <input class="test-title-input" type="text" name="test_title" onchange="saveName();" placeholder="назва тесту" disabled>
                         <div class="checklist">
                             <div class="first-rule">
                                 <img class="icon-item username-like" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
@@ -165,8 +165,8 @@
         
         {% if question_list|length >= 2 %}
             <div class="buttons buttons-bottom">
-                <button class="add gray" type="submit"> + Зберегти вікторину</button>
-                <button class="add gray" type="submit">Почати тест</button>
+                <button class="add-test" type="button"> + Зберегти вікторину</button>
+                <button class="add-test" type="button">Почати тест</button>
             </div>
         {% endif %}
     </form>
@@ -178,4 +178,5 @@
     <script src="{{ url_for('test_pass.static', filename='js/modalimage.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/ajaxDeleteImage.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/createTest.js') }}" defer></script>
 {% endblock %}
