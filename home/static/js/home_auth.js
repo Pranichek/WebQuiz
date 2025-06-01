@@ -31,3 +31,15 @@ submitFilter.addEventListener(
         form.submit();
     }
 )
+
+function checkEnterPress(event){
+  if (event.key === 'Enter') {
+    console.log(12)
+    let input = document.querySelector(".filter-input")
+    let inputData = input.value
+    // console.log(inputData, "inputData")
+    document.cookie = `filter_data=${inputData}; path=/;`
+    let form = document.querySelector("#filter-form")
+    form.submit();
+  }
+}
