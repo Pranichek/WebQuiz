@@ -13,17 +13,29 @@
         <div class="cards_row">
             <div class="blue_outline">
                 <div class="card">
-                    <img src="{{ url_for('test_pass.static', filename='images/gradient_docs.png') }}" alt="градiент з iконками" />
-                    <a href="" class="card-text">
-                        імпортувати робочі листи/питання <br />
-                        з документів, форм, таблиць
-                    </a>
+                    <div class="img-all">
+                        <img src="{{ url_for('test_pass.static', filename='images/gradient_docs.png') }}" alt="градiент з iконками"  class="backgr2"/>
+                        <div class="img-doc">
+                            <img src="{{ url_for('test_pass.static', filename='images/doc1.png') }}" alt="" class="doc"/>
+                            <img src="{{ url_for('test_pass.static', filename='images/doc2.png') }}" alt="" class="doc2"/>
+                            <img src="{{ url_for('test_pass.static', filename='images/doc3.png') }}" alt="" class="doc"/>
+                        </div>
+                    </div>
+                    <div class="texts">
+                        <a href="" class="card-text">
+                        імпортувати робочі листи/питання 
+                        </a>
+                        <a href="" class="card-text">
+                            з документів, форм, таблиць
+                        </a>
+                    </div>
+                    
                 </div>
             </div>
 
             <div class="blue_outline" onclick="document.querySelector('.link').click();">
                 <div class="card">
-                    <img src="{{ url_for('test_pass.static', filename='images/create_a_test.png') }}" alt="градiент" />
+                    <img src="{{ url_for('test_pass.static', filename='images/create_a_test.png') }}" alt="градiент"  class="backgr"/>
                     <div class="card-text">
                         <a class="link" href="/test">
                             створити тест, з нуля

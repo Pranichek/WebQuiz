@@ -138,8 +138,76 @@ body {
     color: #ffffff;
     text-decoration: none;
 }
-.card img {
+
+
+.backgr{
+    position: relative;
     width: 338px;
-    height: 158px;
+    height: 157px;
+}
+.backgr2{
+    position: relative;
+    width: 338px;
+    height: 157px;
+    margin-top: 20px;
+}
+.img-doc{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 23px;
+}
+.img-doc img{
+    width: 53px;
+    height: 53px;
+} 
+.img-all{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.doc2 {
+    margin-top: -30px;
+}
+.doc {
+    margin-top: 30px;
 }
 
+@media(min-width: 1920px){
+    .cards_row{
+        align-items: center;
+        justify-content: center;
+        display: flex;
+        margin-top: 10%;
+    }
+    .blue_outline{
+        width: 30%;
+    }
+    .card{
+        width: 98%;
+    }
+    .backgr{
+        width: 90%;
+        height: 60%;
+    }
+    .backgr2{
+        position: relative;
+        width: 525px;
+        height: 210px;
+        margin-top: 5px;
+    }
+}
+@media(max-width: 815px){
+    .cards_row{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 39px;
+    }
+    .create_new_task{
+        width: 70%;
+    }
+}
