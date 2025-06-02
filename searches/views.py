@@ -13,7 +13,7 @@ def render_data_filter():
     searching_test = []
 
     if input_data is not None:
-        tests = Test.query.filter(Test.title_test != "deleted").all()
+        tests = Test.query.filter(Test.check_del != "deleted").all()
 
         if len(tests) > 0:
             for test in tests:

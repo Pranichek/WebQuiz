@@ -9,11 +9,13 @@
     <form action="" method="post" id="end-test">
         <button>end</button>
     </form>
-    <head>
-        <header>
-            <button class="leave_test">Завершити тест</button>
-        </header>
-    </head>
+    <!-- <head> -->
+    <div class="head-part">
+        <div class="bonus-block"></div>
+        <button class="leave_test">Завершити тест</button>
+    </div>
+        
+    <!-- </head> -->
     <div class= 'question'>
         <div class="num-question">
             <p class="num-que">1/10</p>
@@ -26,6 +28,21 @@
     <!--  -->
     <div class= "answers">
 
+    </div>
+
+    <div class="answers-image">
+        <div class="top-answers">
+        </div>
+        <div class= 'question-image'>
+            <div class="num-question">
+                <p class="num-que">1/10</p>
+            </div>
+            <div class= "question-bg">
+                <p class="question-test"></p>
+            </div>
+        </div>
+        <div class="bottom-answers">
+        </div>
     </div>
     <!--  -->
     <footer>
@@ -46,14 +63,18 @@
         <!-- <button type="button" class="confirm-button">Підтвержити відповідь</button> -->
 
         <div class="ai-timer">
-            <p class="timer"></p>
+            <div class="circle">
+                <div class="inside-circle">
+                    <p class="timer"></p>
+                </div>
+            </div>
         </div>
+
     </footer>
     </body>
 {% endblock content %}
 
 {% block scripts %}
-    <!-- <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script> -->
     {{ super() }}
     <script src="{{ url_for('test_pass.static', filename='js/passing_test.js') }}"></script>
 {% endblock scripts %}

@@ -9,14 +9,12 @@ from Project.db import DATABASE
 
 @socket.on("get_question")
 def handle_get_question(data_index):
-    print("get question")
     if data_index and "index" in data_index:
         question_index = int(data_index["index"])
     else:
         question_index = 0
 
     
-    # test_id = flask.request.cookies.get("test_id")
     test_id = data_index["test_id"]
     test : Test = Test.query.get(int(test_id))
 
@@ -34,9 +32,8 @@ def handle_get_question(data_index):
     current_answers = []
 
     current_answers_clear = answers_blocks[idx]
+    # тернарный опертор
     type_question = "many_answers" if current_answers_clear.count("+") > 2 else "one_answer"
-
-    ['(?%+да+%?)(?%-нет-%?)']
 
         
     for ans in current_answers_list:
@@ -46,6 +43,7 @@ def handle_get_question(data_index):
 
     current_answers = current_answers[0].split(' ')
 
+
     path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(idx + 1)))
     if exists(path):
         if len(os.listdir(path)) > 0:
@@ -54,14 +52,15 @@ def handle_get_question(data_index):
             name_img = None
     else:
         name_img = None
+
     index_img = idx + 1
     email=test.user.email
     title=test.title_test
+
     if name_img:
         img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{idx + 1}/{name_img}")
     else:
         img_url = "not"
-
 
     del current_answers[-1]
     emit("question", {

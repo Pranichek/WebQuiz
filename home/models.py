@@ -1,7 +1,6 @@
 import flask_login, sqlalchemy
 from Project.db import DATABASE
 
-
 class User(DATABASE.Model, flask_login.UserMixin):
     __tablename__ = "user"
     id = DATABASE.Column(DATABASE.Integer, primary_key = True)

@@ -7,6 +7,7 @@ from Project.db import DATABASE
 from .render_data import create_email, render_phone_number
 from home.send_email import send_code, generate_code 
 from Project.login_check import login_decorate
+from os.path import abspath, join, exists
 
 
 @login_decorate
@@ -50,12 +51,13 @@ def render_profile():
         elif check_form == "delete":
             user = User.query.get(flask_login.current_user.id)
             #удаляем папку с его медиа файлами
-            shutil.rmtree(os.path.abspath(os.path.join(__file__, "..", "static", "images", "edit_avatar", str(user.email))))
+            if os.path.exists(os.path.abspath(os.path.join(__file__, "..", "static", "images", "edit_avatar", str(user.email)))):
+                shutil.rmtree(os.path.abspath(os.path.join(__file__, "..", "static", "images", "edit_avatar", str(user.email))))
             user.email = "Deleted"
             user.phone_number = "Deleted"
 
             for test in user.tests.all():
-                test.title_test = 'deleted'
+                test.check_del = 'deleted'
             
             flask.session.clear()
             # DATABASE.session.delete(user)
@@ -176,10 +178,31 @@ def render_edit_avatar():
 @login_decorate
 def render_user_tests():
     user = User.query.get(flask_login.current_user.id)
-    tests = user.tests.filter(Test.test_title != "deleted")
-    
+    tests = user.tests.filter(Test.check_del != "deleted").all()
+    message = ''
+
+    if flask.request.method == "POST":
+        test_id = flask.request.form.get("test_id")
+        new_name = flask.request.form.get("new_name")
+
+        if test_id and new_name:
+            # Перевірка, чи вже існує тест з такою назвою у цього користувача
+            existing_test = Test.query.filter_by(user_id=user.id, title_test=new_name).first()
+            if existing_test:
+                message = "Тест із такою назвою вже є"
+            else:
+                test_obj = Test.query.filter_by(id=test_id, user_id=user.id).first()
+                if test_obj:
+                    old_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", str(test_obj.title_test)))
+                    new_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", str(new_name)))
+                    os.rename(old_path, new_path)
+                    test_obj.title_test = new_name
+                    DATABASE.session.commit()
+                
+
     return flask.render_template(
-        template_name_or_list = "user_tests.html",
-        tests = tests,
-        user = flask_login.current_user
+        template_name_or_list="user_tests.html",
+        tests=tests,
+        user=flask_login.current_user,
+        message = message
     )

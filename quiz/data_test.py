@@ -23,7 +23,7 @@ def render_data_test():
         )
         )
 
-        if test.title_test != "deleted":
+        if test.check_del != "deleted":
             if flask.request.method == "POST":
                 print("oues")
                 check_form = flask.request.form.get("check_form")
