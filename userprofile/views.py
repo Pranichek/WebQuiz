@@ -181,6 +181,7 @@ def render_user_tests():
     tests = user.tests.filter(Test.check_del != "deleted").all()
     message = ''
 
+
     if flask.request.method == "POST":
         test_id = flask.request.form.get("test_id")
         new_name = flask.request.form.get("new_name")

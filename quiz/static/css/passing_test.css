@@ -1,4 +1,4 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -6,8 +6,7 @@
     color: #ffffff;
 }
 
-
-body{
+body {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -17,13 +16,12 @@ body{
     background-color: #3C3C3C;
 }
 
-.leave_test{
+.leave_test {
     background-color: #E05359;
     color: #ffffff;
-    font-size: medium;
+    font-size: 20px;
     border-radius: 5px;
     display: flex;
-    font-size: 20px;
     align-items: center;
     justify-content: center;
     text-align: center;
@@ -31,15 +29,23 @@ body{
     padding: 6px 25px;
 }
 
-footer{
+footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
     position: fixed;
     bottom: 0;
+    padding: 10px;
+    width: 100vw;
+    height: 10vh;
+    background-color: #343434;
 }
 
-.head-part{
+.head-part {
     background-color: #94C4FF;
     position: fixed;
-    top:0;
+    top: 0;
     width: 100vw;
     height: 8vh;
     display: flex;
@@ -49,34 +55,34 @@ footer{
     padding: 0px 10px;
 }
 
-.bonus-block{
+.bonus-block {
     width: 40px;
     height: 30px;
     background-color: #C39FE4;
 }
 
-.settings{
+.settings {
     background-color: #646464;
-    padding: 7px 10px 7px 10px;
+    padding: 7px 10px;
     border-radius: 4px;
 }
 
-span{
+span {
     cursor: pointer;
 }
 
-.progres{
+.progres {
     background-color: #C39FE4;
     border-radius: 4px;
-    padding: 5px 10px 5px 10px;
+    padding: 5px 10px;
 }
 
-.bonus{
+.bonus {
     font-size: 20px;
     font-weight: lighter;
 }
 
-.question, .question-image{
+.question, .question-image {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -85,7 +91,6 @@ span{
     height: 30vh;
     padding: 10px;
     background-color: green;
-
 }
 
 .num-question {
@@ -93,13 +98,14 @@ span{
     background-color: #2D2D2D;
     border-radius: 5px;
     padding: 3px;
-    border: 1px solid black; /* тут все в одному рядку */
+    border: 1px solid black;
 }
-.num-que{
+
+.num-que {
     color: #C48AF7;
 }
 
-.question-test{
+.question-test {
     font-size: 24px;
 }
 
@@ -109,16 +115,14 @@ span{
     padding: 10px;
 }
 
-#end-test{
+#end-test {
     display: none;
 }
 
-
-.answers{
+.answers {
     display: flex;
     flex-direction: row;
-    /* justify-content: space-between; */
-    gap:10px;
+    gap: 10px;
     align-items: center;
     width: 100vw;
     height: 50vh;
@@ -126,23 +130,20 @@ span{
     padding: 10px;
 }
 
-
 .answers-image {
     position: fixed;
-    top: 8vh;           /* Відступ від хедера */
-    bottom: 10vh;       /* Відступ від футера */
+    top: 8vh;
+    bottom: 10vh;
     left: 0;
     right: 0;
-
     background-color: #C39FE4;
-    z-index: 1;         /* Не став надто великий — він має бути ПІД іншим вмістом, якщо треба */
-
+    z-index: 1;
     display: flex;
     flex-direction: column;
     width: 100vw;
 }
 
-.top-answers{
+.top-answers {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -153,11 +154,7 @@ span{
     padding: 0px 60px;
 }
 
-.question{
-    height: 20%;
-}
-
-.bottom-image{
+.bottom-image {
     width: 23%;
     height: 69%;
     border-radius: 15px;
@@ -166,7 +163,7 @@ span{
     background-color: blue;
 }
 
-.coint{
+.coint {
     width: 24%;
     height: 90%;
     border-radius: 15px;
@@ -174,9 +171,10 @@ span{
     padding: 10px;
     background-color: #E05359;
     min-width: 200px;
+    display: none;
 }
 
-.bottom-answers{
+.bottom-answers {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -187,48 +185,48 @@ span{
     background-color: palegoldenrod;
 }
 
-
-.variant, .many-variant{
-    display: flex;
+.variant, .many-variant {
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background-color: #94C4FF;
-    /* width: 24vw; */
     height: 44vh;
     border-radius: 15px;
     font-size: 24px;
     overflow: hidden;
     flex-wrap: wrap;
     word-break: break-word;
-    justify-content: center;
     padding: 5px;
 }
 
-footer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+.many-variant{
+    background-color: #D9D9D9;
+    color: blue;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-
-    padding: 10px;
-
-    width: 100vw;
-    height: 10vh;
-    background-color: #343434;
+    background-color: #94C4FF;
+    height: 44vh;
+    border-radius: 15px;
+    font-size: 24px;
+    overflow: hidden;
+    flex-wrap: wrap;
+    word-break: break-word;
+    padding: 5px;
 }
 
-.bonus-data{
+.bonus-data {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     width: 14vw;
-    /* background-color: darkgreen; */
     padding-left: 5px;
 }
 
-.text-kem{
+.text-kem {
     padding-right: 7px;
 }
 
@@ -236,30 +234,23 @@ footer{
     height: 7vh;
     border-left: 1px solid #ffffff;
 }
-.ai-timer{
+
+.ai-timer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
-    /* width: 8vw; */
-    /* background-color: #94C4FF; */
     width: 80px;
     height: 100%;
     gap: 5px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     color: #3C3C3C;
     font-size: 24px;
 }
 
 .circle {
     border-radius: 50%;
-    /* background-color: #D9D9D9; */
-    /* border: 5px solid; */
     width: 60px;
     height: 60px;
-
     display: flex;
     justify-content: center;
     align-items: center;
@@ -268,12 +259,9 @@ footer{
     background-color: #677689;
     transition: 1s;
     background: conic-gradient(#8ABBF7 0deg, #8ABBF7 360deg);
-    /* background-color: #E05359; */
-    /* border-top-color: #C48AF7;
-    border-bottom-color: #E05359; */
 }
 
-.inside-circle{
+.inside-circle {
     border-radius: 50%;
     width: 85%;
     height: 85%;
@@ -290,51 +278,34 @@ footer{
     font-size: 24px;
 }
 
-
-.robot{
+.robot {
     width: 60px;
     height: 50px;
 }
 
-/* .timer{
-    width: 6px;
-    height: 50px;
-} */
-
-.avatar{
+.avatar {
     object-fit: contain;
     width: 100%;
     height: 100%;
 }
 
-.avatar-circle{
+.avatar-circle {
     object-fit: contain;
     display: flex;
     justify-content: center;
     align-items: center;
     width: 60px;
     height: 60px;
-    /* width: 25%;
-    height: 100%; */
     border: 1px black solid;
     border-radius: 50%;
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
-.variant, .many-variant, .coint{
-    display: none;
-}
-
-
-.confirm-button{
+.confirm-button {
     width: 100px;
     height: 20px;
     background-color: green;
 }
-
 
 header {
     background-color: transparent;
