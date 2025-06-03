@@ -18,10 +18,11 @@ const createTestButtons = document.getElementsByClassName("add-test");
 
 function dataValidation() {
     const hasName = document.cookie.match("inputname") && document.cookie.split("inputname=")[1].split(";")[0] != "";
-    const hasCategory = document.cookie.match("category");
+    const alternatineNameValidation = document.querySelector(".test-title-input").textContent != "";
+    const hasCategory = document.cookie.match("category") && document.cookie.split("category=")[1].split(";")[0] != "";
 
     for (let createTestButton of createTestButtons) {
-        if (hasName && hasCategory) {
+        if (hasName && hasCategory || alternatineNameValidation && hasCategory){
             createTestButton.classList.remove("grey");
             createTestButton.type = "submit";
         } else {
@@ -37,7 +38,6 @@ function buttonColorChanging(){
         if (createTestButton.type == "button"){
             console.log("change button color");
             createTestButton.classList.add("grey");
-            console.log(createTestButton.classList);
         }
     }
 }

@@ -52,6 +52,17 @@ userprofile.profile.add_url_rule(
     methods = ["GET","POST"]
 )
 
+userprofile.profile.add_url_rule(
+    rule = "/test_preview/<int:pk>",
+    view_func = userprofile.render_test_preview,
+    methods = ["GET","POST"]
+)
+userprofile.profile.add_url_rule(
+    rule = "/test_preview/<int:pk>/change_question/<int:id>",
+    view_func = userprofile.render_change_question_preview,
+    methods = ["GET","POST"]
+)
+
 quiz.test_pass.add_url_rule(
     rule = "/test",
     view_func= quiz.render_test,

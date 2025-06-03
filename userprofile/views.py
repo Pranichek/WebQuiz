@@ -2,6 +2,7 @@ import flask, os, flask_login, random, shutil
 from threading import Thread
 import PIL.Image
 from home.models import User
+from quiz.models import Test
 from Project.db import DATABASE
 from .render_data import create_email, render_phone_number
 from home.send_email import send_code, generate_code 
@@ -178,4 +179,122 @@ def render_user_tests():
         template_name_or_list = "user_tests.html",
         tests = tests,
         user = flask_login.current_user
+    )
+
+@login_decorate
+def render_test_preview(pk: int):
+    test = Test.query.get(pk)
+    print("test =", test)
+
+
+    list_to_template = []
+    new_questions_list = test.questions.split("?%?")
+    new_answers_list = test.answers.split("?@?")
+    new_time_list = test.question_time.split("?#?")
+
+    number = 0
+    for question in new_questions_list:
+        item = {}
+        item["question"] = question
+        answers_list = new_answers_list[number].split("%?)(?%")
+        temporary_answers_list = []
+        for answer in answers_list:
+            answer = answer.replace("(?%", "")
+            answer = answer.replace("%?)", "")
+            answer = answer[1:-1]
+            temporary_answers_list.append(answer)
+        item["answers"] = temporary_answers_list
+        item["pk"] = number
+        item["time"] = new_time_list[number]
+        list_to_template.append(item)
+        number += 1
+    print("list_to_template", list_to_template)
+
+    response = flask.make_response(
+        flask.render_template(
+            template_name_or_list = "test_preview.html",
+            test = test,
+            user = flask_login.current_user,
+            question_list = list_to_template
+        )
+    )
+
+    print(flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8'), "!=", test.questions)
+
+    try:
+        if flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8') != test.questions:
+            response.delete_cookie('questions')
+            response.delete_cookie('answers')
+            response.delete_cookie('time')
+            response.delete_cookie('category')
+            response.delete_cookie('inputname')
+
+            print("change coookies")
+
+            response.set_cookie('questions', test.questions)
+            response.set_cookie('answers', test.answers)
+            response.set_cookie('time', test.question_time)
+            response.set_cookie('category', test.category)
+            response.set_cookie('inputname', test.title_test)
+
+    except:
+        response.set_cookie('questions', test.questions)
+        response.set_cookie('answers', test.answers)
+        response.set_cookie('time', test.question_time)
+        response.set_cookie('category', test.category)
+        response.set_cookie('inputname', test.title_test)
+
+    return response
+
+@login_decorate
+def render_change_question_preview(pk: int, id: int):
+    if flask.request.method == "POST":
+        image = flask.request.files["image"]
+        if image:
+            print("pk (change)=", id)
+            dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "images_tests", str(id + 1)))
+            for filename in os.listdir(dir_path):
+                file_path = os.path.join(dir_path, filename)
+                try:
+                    os.unlink(file_path)
+                except Exception as e:
+                    print(f"Failed to delete {file_path}. Reason: {e}")
+            try:
+                image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "images_tests", str(id + 1), str(image.filename))))
+            except Exception as e:
+                print("saving image error:", e)
+        return flask.redirect(f"/test_preview/{pk}")
+    
+    else:
+        questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
+        answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
+        question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
+
+        # current_image = images.split("?&?")[pk]
+        current_question = questions.split("?%?")[id]
+        current_time = question_time.split("?#?")[id]
+        current_answers = answers.split("?@?")[id]
+        answers_list = current_answers.split("%?)(?%")
+        answers = []
+        for answer in answers_list:
+            answer = answer.replace("(?%", "")
+            answer = answer.replace("%?)", "")
+            answer = answer[1:-1]
+            answers.append(answer)
+        while True:
+            if len(answers) < 4:
+                answers.append("hidden")
+            else:
+                break
+    
+    return flask.render_template(
+        template_name_or_list = "change_question.html",
+        question = current_question,
+        # image = current_image,
+        answer1 = answers[0],
+        answer2 = answers[1],
+        answer3 = answers[2],
+        answer4 = answers[3],
+        time = current_time,
+        pk = id
     )
