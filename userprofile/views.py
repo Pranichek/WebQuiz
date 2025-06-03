@@ -110,13 +110,11 @@ def render_edit_avatar():
 
                     print(check_form)
                     data_range = int(flask.request.form.get("hide-size"))
-                    # if data_range == 100:
-                    #     flask_login.current_user.size_avatar = 100
-                    # else:
+
                     if data_range <= 140:
                         flask_login.current_user.size_avatar = 110 + int(data_range)
                     else:
-                        flask_login.current_user.size_avatar = 150 + int(data_range)
+                        flask_login.current_user.size_avatar = 155 + int(data_range)
                     DATABASE.session.commit()
 
                     img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "cash", str(flask.session["cash_image"]))))

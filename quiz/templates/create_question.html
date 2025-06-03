@@ -26,14 +26,19 @@
                         <li data-time="60">⏱ 1 хвилина &#709</li>
                     </ul>
                 </div>
-                <button class="add-question" id="save">+ Додати питання</button>
+                <button type="button" class="add-question" id="save">+ Додати питання</button>
             </div>
         </div>
         
         <div class="question-name">
-            <input type="text" class="question" name="question" id="question" placeholder="Питання">
-            <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image">
-            <button type="button" style="display: none;" class="add-image" id="deleteImgButton" onclick="deleteImage(event);">Видалити зображення</button>
+            <input type="text" class="question" name="question" id="question" placeholder="Питання" required>
+            <div class="image-container question">
+                <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image">
+                <div class="is-image" style="display: none;" id="deleteImgButton">
+                    <p class="img-success">Зображення успішно додано</p>
+                    <button type="button" class="add-image" onclick="deleteImage(event);">Видалити зображення</button>
+                </div>
+            </div>
         </div>
     </form>
 

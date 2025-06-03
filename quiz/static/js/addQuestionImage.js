@@ -2,7 +2,7 @@ const imageInput = document.getElementById("imgInput");
 const deleteImgButton = document.getElementById("deleteImgButton");
 
 function imageLoaded(){
-    deleteImgButton.style.display = "block";
+    deleteImgButton.style.display = "flex";
 }
 
 function deleteImage(){

@@ -76,17 +76,6 @@ if (performance.navigation.type === 1) {
     document.querySelector(".back-image").submit();
 }
 
-// function ShowAva(){
-//     let ava = document.querySelector(".confirm-changing")
-//     console.log("da")
-//     console.log("da")
-//     if (ava.classList.contains(".show")){
-//         ava.style.display = "none";
-//     }else{
-//         ava.style.display = 'flex';
-//     }
-// }
-
 // функция изменения размера картинки
 function ChangeSize() {
     const inputRange = document.querySelector(".size");

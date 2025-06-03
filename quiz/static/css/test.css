@@ -346,7 +346,7 @@ form{
     gap: 30px;
 }
 
-.add{
+.add, .add-test{
     width: 250px;
     height: 50px;
     padding: 10px;
@@ -358,6 +358,11 @@ form{
     color: white;
     text-decoration: none;
     text-align: center;
+}
+
+.grey{
+    background-color: #636262;
+    color: #343434;
 }
 
 .all-cards{
@@ -455,14 +460,14 @@ form{
     transform: translate(-50%, -50%);
     width: 770px; 
     height: 559px;
-    z-index: 9999999;
     border-radius: 20px;
     background-color: #343434;
     display: none;
     flex-direction: column;
     border: 1px #94C4FF solid;
     overflow: hidden;
-    z-index: 9999999999999999999;
+    z-index: 9999999999999;
+    animation: appear 0.5s;
 }
 
 .top-floor{
@@ -539,8 +544,6 @@ label[for="image"] {
     justify-content: start;
     align-items: center;
 }
-
-
 
 .show_image{
     width: 100%;
@@ -865,5 +868,15 @@ label[for="image"] {
 }
 
 #timeList {
+    animation: appear 0.5s;
     z-index: 10000001; /* больше, чем у всего остального */
+}
+
+@keyframes appear{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
 }

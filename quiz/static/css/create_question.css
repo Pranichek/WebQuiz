@@ -64,6 +64,7 @@ body .main{
     cursor: pointer;
     background: #7291B8;
     list-style-type: none;
+    animation: appear 0.5s;
 }
 
 #timeList li{
@@ -87,6 +88,10 @@ body .main{
     text-decoration: none;
 }
 
+.grey{
+    background-color: #636262;
+    color: #343434;
+}
 
 .question-name{
     display: flex;
@@ -100,25 +105,55 @@ body .main{
 }
 
 .question{
+    display: flex;
+    flex-direction: column;
     width: 50%;
     height: 70px;
     border-radius: 5px;
     border: none;
     background-color: #3C3C3C;
+    border: 1px solid #C48AF7;
     font-size: 24px;
     text-align: center;
 }
 
+.image-container{
+    height: fit-content;
+    padding: 10px;
+    gap: 30px;
+}
+
 .add-image{
     display: flex;
-    width: 500px;
+    width: 400px;
     height: 34px;
     padding: 10px;
+    padding-bottom: 35px;
     gap: 10px;
     border-radius: 5px;   
     border: none;
     background-color: #C48AF7;
     font-size: 20px;
+    text-align-last: center;
+}
+
+.is-image button{
+    padding-bottom: 10px;
+}
+
+.is-image{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    animation: appear-top 0.5s;
+}
+
+.img-success{
+    width: fit-content;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #343434;
     text-align: center;
 }
 
@@ -142,6 +177,7 @@ h3{
     padding: 10px;
     border-radius: 15px;
     background-color: #6D94C4;
+    animation: appear-card 0.5s;
 }
 
 .hidden{
@@ -197,4 +233,35 @@ h3{
 .small-img{
     width: 25px;
     height: 25px;
+}
+
+@keyframes appear{
+    from{
+        opacity: 0;
+    }
+    to{
+        opacity: 1;
+    }
+}
+
+@keyframes appear-card{
+    from{
+        opacity: 0;
+        left: -50px;
+    }
+    to{
+        opacity: 1;
+        left: 0px;
+    }
+}
+
+@keyframes appear-top{
+    from{
+        opacity: 0;
+        top: -50px;
+    }
+    to{
+        opacity: 1;
+        top: 0px;
+    }
 }
