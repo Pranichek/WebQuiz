@@ -31,14 +31,12 @@
         </div>
         
         <div class="question-name">
-            <input type="text" class="question" name="question" id="question" placeholder="Питання" required>
-            <div class="image-container question">
-                <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image">
+            <input type="text" class="question" name="question" id="question" placeholder="Введіть питання" required>
+                <label class="add-image">Додати зображення<input type="file" id="imgInput" name="image" accept="image/*" onchange="imageLoaded(event);" style="display:none;"></label>
                 <div class="is-image" style="display: none;" id="deleteImgButton">
                     <p class="img-success">Зображення успішно додано</p>
-                    <button type="button" class="add-image" onclick="deleteImage(event);">Видалити зображення</button>
+                    <label class="add-image">Видалити зображення<input type="button" onclick="deleteImage(event);" style="display:none;"></label>
                 </div>
-            </div>
         </div>
     </form>
 

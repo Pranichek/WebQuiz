@@ -7,7 +7,7 @@
     position: fixed;
     top: 0;
     left: 0;
-    width: 100vw;
+    width: 100%;
     height: 100vh;
     background: linear-gradient(69deg, #3C3C3C 10%, #7c9abd 20%, #74919E 72%, #3C3C3C 5%);
     filter: blur(100px);
@@ -30,7 +30,7 @@ header{
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    width: 100vw;
+    width: 100%;
     cursor: pointer;
     /* background-color: gold; */
     gap: 45px;
@@ -181,7 +181,7 @@ input::-webkit-inner-spin-button {
 }
 
 .cards-floor{
-    width: 100vw;
+    width: 100%;
     height: 45vh;
     margin-bottom: 20px;
 }
@@ -222,7 +222,6 @@ input::-webkit-inner-spin-button {
 .cards {
     width: 100%;
     height: 85%;
-    /* background-color: #FFE177; */
     padding: 10px;
     gap: 40px;
     display: flex;
@@ -241,7 +240,30 @@ input::-webkit-inner-spin-button {
     border: 1px black solid;
     cursor: pointer;
 }
-
+.card-card4 {
+    position: relative;
+    width: 21%;
+    height: 85%;
+    overflow: hidden;
+    flex-direction: column;
+    background-color: #D6E8FE;
+    border-radius: 17px;
+    justify-content: end;
+    border: 1px black solid;
+    cursor: pointer;
+}
+.card-card3 {
+    position: relative;
+    width: 21%;
+    height: 85%;
+    overflow: hidden;
+    flex-direction: column;
+    background-color: #D6E8FE;
+    border-radius: 17px;
+    justify-content: end;
+    border: 1px black solid;
+    cursor: pointer;
+}
 .card_image{
     width: 100%;
     height: 70%;
@@ -503,7 +525,63 @@ a{
     }
 }
 
+.footer{
+    background-color: #343434;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.social-network{
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+}
+.img-soc{
+    width: 40px;
+    height: 40px;
+    
+}
+.last{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 22px;
+}
+.about{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    color: #ffffff;
+    font-size: 20px;
+    padding-top: 28.5px;
+    
+}
+.linkk{
+    text-decoration: none;
+    color: #ffffff;
+}
 
+.footer-line {
+    width: 675px;
+    border-top: 1px solid #b6b6b6;
+}
+
+.ab{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+.img-link{
+    display: flex;
+    gap: 30px;
+    padding-bottom: 34.5px;
+}
 @media (min-width: 1400px){
     .data-user{
         width: 20%;
@@ -557,8 +635,14 @@ a{
 
 @media (min-width: 1441px) and (max-width: 1600px) {
     .avatar-circle{
-        width: 65px;
-        height: 60px;
+        width: 55px;
+        height: 50px;
+    }
+    a{
+        font-size: 12px;
+    }
+    p{
+        font-size: 12px;
     }
 
     .image-robot{
@@ -597,7 +681,7 @@ a{
     }
 
     .cards {
-        height: 70%;
+        height: 80%;
         /* background-color: #74919E; */
     }
     .test-name{
@@ -638,7 +722,9 @@ a{
         width: 65px;
         height: 60px;
     }
-
+    a{
+        font-size: 20px;
+    }
     .image-robot{
         margin-right: 0px;
     }
@@ -675,7 +761,7 @@ a{
     }
 
     .cards {
-        height: 70%;
+        height: 80%;
         /* background-color: #74919E; */
     }
     .test-name{
@@ -713,6 +799,10 @@ a{
         height: auto;
         z-index: 10;         
     }
+
+    /* .linkk{
+        font-size: 30px;
+    } */
 } 
 
 @media(min-width:2001px){
@@ -803,6 +893,57 @@ a{
     .bonuses{
         width: 80%;
         height: 90%;
+    }
+}
+@media (max-width: 800px){
+    .cards{
+        
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+       
+    }
+    .card{
+        width: 240px;
+        height: 200px;
+    }
+    .card-card4{
+        visibility: hidden;
+        display: none;
+    }
+    .card-card3{
+        visibility: hidden;
+        display: none;
+    }
+    .top-part{
+        display: flex;
+        flex-direction: column;
+    }
+    .data-user{
+        width: 50%;
+    }
+    .antoher-data p{
+        font-size: medium;
+    }
+    .gmail p{
+        font-size: medium;
+    }
+    .main-data a{
+        font-size: medium;
+    }
+    .cards-floor{
+        margin-bottom: 0px;
+        height: 340px;
+    }
+    .antoher-data .text-tests, .antoher-data .gmail, .nick{
+    /* opacity: 0.5; */
+    color: #D6E8FE;
+    font-weight: 1000;
+    text-decoration: none;
+    }
+    .filter-input{
+        height: 50px;
     }
 }
 /* @media (min-width: 1025px) and (max-width: 1440px) { ... }
