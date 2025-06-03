@@ -17,4 +17,12 @@ edit_avatar = flask.Blueprint(
     template_folder="templates",
 )
 
+change_tests = flask.Blueprint(
+    name="change_tests",
+    import_name = "userprofile",
+    static_url_path="/change_tests/static",
+    static_folder="static",
+    template_folder="templates",
+)
+
 

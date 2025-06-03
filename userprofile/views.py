@@ -178,30 +178,49 @@ def render_user_tests():
     user = User.query.get(flask_login.current_user.id)
     tests = user.tests.filter(Test.check_del != "deleted").all()
     message = ''
-
-
-    if flask.request.method == "POST":
-        test_id = flask.request.form.get("test_id")
-        new_name = flask.request.form.get("new_name")
-
-        if test_id and new_name:
-            # Перевірка, чи вже існує тест з такою назвою у цього користувача
-            existing_test = Test.query.filter_by(user_id=user.id, title_test=new_name).first()
-            if existing_test:
-                message = "Тест із такою назвою вже є"
-            else:
-                test_obj = Test.query.filter_by(id=test_id, user_id=user.id).first()
-                if test_obj:
-                    old_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", str(test_obj.title_test)))
-                    new_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", str(new_name)))
-                    os.rename(old_path, new_path)
-                    test_obj.title_test = new_name
-                    DATABASE.session.commit()
-                
-
+    
     return flask.render_template(
         template_name_or_list="user_tests.html",
         tests=tests,
         user=flask_login.current_user,
         message = message
+    )
+
+@login_decorate
+def render_change_tests():
+    user = User.query.get(flask_login.current_user.id)
+    message = ''
+    
+    test_id = flask.request.args.get("test_id")
+    if not test_id:
+        return "Test ID not provided", 400
+
+    test = Test.query.filter_by(id=test_id, user_id=user.id).first()
+    if not test:
+        return "Test not found", 404
+
+    if flask.request.method == "POST":
+        new_name = flask.request.form.get("new_name")
+        if new_name:
+            existing_test = Test.query.filter_by(user_id=user.id, title_test=new_name).first()
+            if existing_test:
+                message = "Тест із такою назвою вже є"
+            else:
+                old_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(test.title_test)))
+                new_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(new_name)))
+                os.rename(old_path, new_path)
+                test.title_test = new_name
+                DATABASE.session.commit()
+                message = "Назву змінено успішно"
+
+        delete_id = flask.request.form.get("delete-id")
+        if delete_id:
+            test.check_del = "deleted"
+            DATABASE.session.commit()
+            message = "Тест видалено"
+    
+    return flask.render_template(
+        "change_tests.html",
+        test=test,
+        message=message
     )
