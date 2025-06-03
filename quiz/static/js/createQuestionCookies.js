@@ -85,6 +85,9 @@ window.addEventListener("DOMContentLoaded", () => {
         const saved = localStorage.getItem(`answer-${index}`);
         if (saved && saved.trim() !== "") {
             input.value = saved;
+            input.classList.add("correct")
+
+            
             const answerBlock = input.closest(".answer-block");
             if (answerBlock.classList.contains("hidden")) {
                 answerBlock.classList.remove("hidden");

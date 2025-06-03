@@ -11,6 +11,8 @@ let timeQuestion;
 let timer = document.querySelector(".timer");
 let amountAnswers;
 let circle = document.querySelector('.circle');
+let manyVariants = []
+let manyBlock;
 
 
 if (localStorage.getItem("index_question") == "0"){
@@ -57,7 +59,6 @@ socket.on('question', (data) => {
             document.querySelector(".answers-image").style.display = `flex`;
             document.querySelector(".question").style.height = `30vh`;
             if (data.type_question == "one_answer"){
-                console.log("zahodit suchka")
                 const blockAnswersTop = document.querySelector(".top-answers")
 
                 blockAnswersTop.innerHTML = `
@@ -149,7 +150,6 @@ socket.on('question', (data) => {
                             // сбрасываем время если пользователь нажал на какой то ответ
                             localStorage.setItem('time_question', 'set');
 
-                            // let chekcookies = document.cookie.match("users_answers")
                             let chekcookies = localStorage.getItem("users_answers")
 
                             if (chekcookies != ''){
@@ -177,6 +177,163 @@ socket.on('question', (data) => {
                     )
                 }
 
+            }else {
+                const checkMarkUrl = "/static/images/check-mark.png";
+                const blockAnswersTop = document.querySelector(".top-answers")
+
+                blockAnswersTop.innerHTML = `
+                    <div class="coint coint-top" data-value="2">
+                        <div class="check-input">
+                            <img src="${checkMarkUrl}" class="check-mark" alt="">
+                        </div>
+                        <p class="variant-text">${answers[2]}</p>
+                    </div>
+                    <div class="coint coint-top" data-value="3">
+                        <div class="check-input">
+                            <img src="${checkMarkUrl}" class="check-mark" alt="">
+                        </div>
+                        <p class="variant-text">${answers[3]}</p>
+                    </div>
+                `;
+
+                const blockAnswersBottom = document.querySelector(".bottom-answers")
+
+                blockAnswersBottom.innerHTML = `
+                    <div class="coint coint-buttom" data-value="0">
+                        <div class="check-input">
+                            <img src="${checkMarkUrl}" class="check-mark" alt="">
+                        </div>
+                        <p class="variant-text">${answers[0]}</p>
+                    </div>
+                    <div class="bottom-image">
+
+                    </div>
+                    <div class="coint coint-buttom" data-value="1">
+                        <div class="check-input">
+                            <img src="${checkMarkUrl}" class="check-mark" alt="">
+                        </div>
+                        <p class="variant-text">${answers[1]}</p>
+                    </div>
+                `;
+
+                let questionImage = document.querySelector(".question-image")
+
+                questionImage.innerHTML = `
+                    <div class="num-question">
+                        <p class="num-que">1/10</p>
+                    </div>
+                    <div class= "question-bg">
+                        <p class="question-test">${data.question}</p>
+                    </div>
+                `;
+
+                let question = document.querySelector(".question-test")
+        
+                console.log(question.textContent, "kj")
+
+                let buttomBlocks = document.querySelectorAll(".coint-buttom")
+                let textblock = document.querySelectorAll(".variant-text")
+                let topBlocks = document.querySelectorAll(".coint-top")
+                
+                if (amountAnswers < 3){
+                    for (let index = 0; index < 2; index++) {
+                        buttomBlocks[index].style.display = 'flex';
+                    }
+                }else{
+                    for (let index = 0; index < 2; index++) {
+                        buttomBlocks[index].style.display = 'flex';
+                    }
+                    let countTop = parseInt(amountAnswers) - 2
+                    for (let index = 0; index < countTop; index++) {
+                        topBlocks[index].style.display = 'flex';
+                    }
+                }
+
+
+                manyBlock = document.querySelectorAll(".many-variant")
+
+                const footer = document.querySelector(".submit")
+
+                footer.innerHTML = `
+                    <button type="button" class="confirm-button">Підтвержити відповідь</button>
+                `;
+
+                let manyVariantsBlock = document.querySelectorAll(".coint");
+
+                for (let manyblock of manyVariantsBlock){
+                    manyblock.addEventListener('click', () => {
+                        const value = manyblock.dataset.value;
+                        const checkMark = manyblock.querySelector('.check-mark');
+
+                        let index = manyVariants.indexOf(value);
+                        if (index === -1) {
+                            manyVariants.push(value);
+                            manyblock.style.borderWidth = '3px';
+                            checkMark.style.display = 'flex';
+                        } else {
+                            manyVariants.splice(index, 1);
+                            manyblock.style.borderWidth = '0px';
+                            checkMark.style.display = 'none';
+                        }
+
+                        console.log(manyVariants, "manyVariants");
+                        const listString = JSON.stringify(manyVariants);
+                        localStorage.setItem("manyvariants", listString);
+                    });
+                }
+
+                let countVisible = 0
+                const blockList = document.querySelectorAll(".coint")
+
+                for (let block of blockList){
+                    if (block.checkVisibility()){
+                        countVisible += 1;
+                    }
+                }
+
+                let width = 100 / countVisible
+                let colors = ["#ECEAA1", "#8AF7D4", "#94C4FF", "#C48AF7"]
+
+                for (let index = 0; index < amountAnswers; index++) {
+                    blockList[index].style.backgroundColor = colors[index]
+                }
+
+                let confirm_button = document.querySelector(".confirm-button")
+
+                confirm_button.addEventListener(
+                    'click',
+                    () => {
+                        if (manyVariants.length > 0){
+                            localStorage.setItem('time_question', "set")
+                            let chekcookies = localStorage.getItem("users_answers")
+
+                            let dataString = manyVariants.join("@");
+                            console.log(dataString)
+
+                            if (chekcookies != ''){
+                                // отримуємо старі відповіді якщо вони були
+                                let oldCookie = localStorage.getItem("users_answers")
+                                let cookieList = oldCookie.split(",")   
+                                cookieList.push(dataString)
+
+                                localStorage.setItem("users_answers", cookieList)
+                            }else{
+                                localStorage.setItem("users_answers", dataString)
+                            }
+
+                            let index = localStorage.getItem("index_question")
+                            index = parseInt(index) + 1;
+                            localStorage.setItem("index_question", index)
+                            
+                            socket.emit('next_question', {
+                                index: index,
+                                answer: dataString,
+                                test_id: localStorage.getItem("test_id")
+                            })
+                            console.log("Питання відправлено на сервер, чекаємо відповіді");
+                        }
+                    }
+                )
             }
 
 
@@ -190,6 +347,7 @@ socket.on('question', (data) => {
             img.width = 100;  
             img.height = 121;
             document.querySelector(".bottom-image").appendChild(img);
+
         }else{
             document.querySelector(".answers-image").style.display = `none`;
             document.querySelector(".question").style.height = `30vh`;
@@ -209,6 +367,7 @@ socket.on('question', (data) => {
                         <p class="variant-text"></p>
                     </div>
                 `;
+
                 let blockanswers = document.querySelectorAll(".variant")
 
                 const footer = document.querySelector(".submit")
@@ -224,7 +383,6 @@ socket.on('question', (data) => {
                             // сбрасываем время если пользователь нажал на какой то ответ
                             localStorage.setItem('time_question', 'set');
 
-                            // let chekcookies = document.cookie.match("users_answers")
                             let chekcookies = localStorage.getItem("users_answers")
 
                             if (chekcookies != ''){
@@ -280,21 +438,36 @@ socket.on('question', (data) => {
                     blockanswers[index].style.backgroundColor = colors[index]
                 }
             }else if (data.type_question == "many_answers"){
+                const checkMarkUrl = "/static/images/check-mark.png";
+
                 cont.innerHTML = `
                     <div class="many-variant" data-value="0">
+                        <div class="check-input">
+                            <img src="${checkMarkUrl}" class="check-mark" alt="">
+                        </div>
                         <p class="variant-text"></p>
                     </div>
                     <div class="many-variant" data-value="1">
+                        <div class="check-input">
+                            <img src="${checkMarkUrl}" class="check-mark" alt="">
+                        </div>
                         <p class="variant-text"></p>
                     </div>
                     <div class="many-variant" data-value="2">
+                        <div class="check-input">
+                            <img src="${checkMarkUrl}" class="check-mark" alt="">
+                        </div>
                         <p class="variant-text">sdc</p>
                     </div>
                     <div class="many-variant" data-value="3">
+                        <div class="check-input">
+                            <img src="${checkMarkUrl}" class="check-mark" alt="j">
+                        </div>
                         <p class="variant-text"></p>
                     </div>
                 `;
-
+                
+                manyBlock = document.querySelectorAll(".many-variant")
 
                 const footer = document.querySelector(".submit")
 
@@ -302,27 +475,29 @@ socket.on('question', (data) => {
                     <button type="button" class="confirm-button">Підтвержити відповідь</button>
                 `;
 
-                let manyVariants = []
                 let manyVariantsBlock = document.querySelectorAll(".many-variant");
+                let checkMarks = document.querySelectorAll(".check-mark")
 
                 for (let manyblock of manyVariantsBlock){
-                    manyblock.addEventListener(
-                        'click',
-                        () => {
-                            const value = manyblock.dataset.value;
-                            let index = manyVariants.indexOf(value);
-                            if (!manyVariants.includes(manyblock.dataset.value)){
-                                manyVariants.push(manyblock.dataset.value);
-                                manyblock.style.backgroundColor = `#343434`;
-                            }else{
-                                // удаление значение блока из списка
-                                manyVariants.splice(index, 1)
-                                manyblock.style.backgroundColor = `#94C4FF`;
-                            }
-                            console.log(manyVariants, "manyVariants")
-                            document.cookie = `many_answers=${manyVariants}; path=/;`;
+                    manyblock.addEventListener('click', () => {
+                        const value = manyblock.dataset.value;
+                        const checkMark = manyblock.querySelector('.check-mark');
+
+                        let index = manyVariants.indexOf(value);
+                        if (index === -1) {
+                            manyVariants.push(value);
+                            manyblock.style.borderWidth = '3px';
+                            checkMark.style.display = 'flex';
+                        } else {
+                            manyVariants.splice(index, 1);
+                            manyblock.style.borderWidth = '0px';
+                            checkMark.style.display = 'none';
                         }
-                    )
+
+                        console.log(manyVariants, "manyVariants");
+                        const listString = JSON.stringify(manyVariants);
+                        localStorage.setItem("manyvariants", listString);
+                    });
                 }
 
                 let confirm_button = document.querySelector(".confirm-button")
@@ -332,7 +507,6 @@ socket.on('question', (data) => {
                     () => {
                         if (manyVariants.length > 0){
                             localStorage.setItem('time_question', "set")
-                            // let chekcookies = document.cookie.match("users_answers")
                             let chekcookies = localStorage.getItem("users_answers")
 
                             let dataString = manyVariants.join("@");
@@ -344,25 +518,15 @@ socket.on('question', (data) => {
                                 let cookieList = oldCookie.split(",")   
                                 cookieList.push(dataString)
 
-                                // oldCookie.push(block.dataset.value)
-                                // document.cookie = "users_answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-                                // document.cookie = `users_answers=${cookieList}; path=/;`;
                                 localStorage.setItem("users_answers", cookieList)
                             }else{
-                                // document.cookie = `users_answers=${dataString}; path=/;`;
                                 localStorage.setItem("users_answers", dataString)
                             }
 
-                            // прибавляем к cookie index_question + 1
-                            // let indexQuestion = document.cookie.match("index_question")
-                            // if (indexQuestion === null){
-                            //     document.cookie = "index_question=0; path=/;";
-                            // }
                             let index = localStorage.getItem("index_question")
                             index = parseInt(index) + 1;
                             localStorage.setItem("index_question", index)
                             
-                            document.cookie = "many_answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
                             socket.emit('next_question', {
                                 index: index,
                                 answer: dataString,
@@ -378,10 +542,11 @@ socket.on('question', (data) => {
                 for (let index = 0; index < amountAnswers; index++) {
                     manyBlockAnswers[index].style.display = 'flex';
                 }
-        
+                
+                let variantText = document.querySelectorAll(".variant-text")
                 for (let index = 0; index < amountAnswers; index++) {
                     if (manyBlockAnswers[index].style.display == "flex"){
-                        manyBlockAnswers[index].textContent = answers[index]
+                        variantText[index].textContent = answers[index]
                     }
                 }
             }
@@ -442,17 +607,17 @@ window.addEventListener(
 
 // SetInterval - запускает функцию через определенный промежуток времени(в милисекундах)
 setInterval(() => {
-    timeQuestion = parseInt(localStorage.getItem('time_question'));
+    // timeQuestion = parseInt(localStorage.getItem('time_question'));
 
-    if (isNaN(timeQuestion)) {
-        // Якщо немає часу або він некоректний 
-        timer.textContent = "-";
-        return; // або можна встановити якийсь дефолт, наприклад, 0
-    }
-    timeQuestion -= 1; // Зменшуємо yf 1
-    updateCircle(parseInt(timeQuestion))
-    timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-    localStorage.setItem('time_question', timeQuestion)
+    // if (isNaN(timeQuestion)) {
+    //     // Якщо немає часу або він некоректний 
+    //     timer.textContent = "-";
+    //     return; // або можна встановити якийсь дефолт, наприклад, 0
+    // }
+    // timeQuestion -= 1; // Зменшуємо yf 1
+    // updateCircle(parseInt(timeQuestion))
+    // timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+    // localStorage.setItem('time_question', timeQuestion)
     if (timeQuestion <= 0){
         localStorage.setItem('time_question', "set")
         let chekcookies = localStorage.getItem("users_answers")
@@ -462,12 +627,8 @@ setInterval(() => {
             let cookieList = oldCookie.split(",")   
             cookieList.push("skip")
 
-            // oldCookie.push(block.dataset.value)
-            // document.cookie = "users_answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-            // document.cookie = `users_answers=${cookieList}; path=/;`;
             localStorage.setItem("users_answers", cookieList)
         }else{
-            // document.cookie = `users_answers=skip; path=/;`;
             localStorage.setItem("users_answers", "skip")
         }
 
@@ -487,21 +648,6 @@ setInterval(() => {
     }
 }, 1000);
 
-
-window.addEventListener(
-    'load',
-    () => {
-        if (document.cookie.match("many_answers")){
-            let cookieData = document.cookie.split("many_answers=")[1].split(";")[0];
-            let listcookie = cookieData.split(",")
-
-            for (let idx of listcookie){
-                manyVariantsBlock[idx].style.backgroundColor = `#343434`;
-                manyVariants.push(idx)
-            }
-        }
-    }
-)
 
 
 let leaveButton = document.querySelector(".leave_test")
