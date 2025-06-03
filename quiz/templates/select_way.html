@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/select_way.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <div class="container2">      
+        <div class="title-wrapper">
+            <div class="create_new_task">Створити нове завдання</div>
+        </div>
+
+        <div class="cards_row">
+            <div class="blue_outline">
+                <div class="card">
+                    <div class="gradient">
+                        <img src="{{ url_for('test_pass.static', filename='images/gradient.png') }}" alt="градiент з iконками" />
+
+                            <div class="icons">
+                                <div class="doc-wrapper"><img class="doc-icon" src="{{ url_for('test_pass.static', filename='images/green_doc.png') }}" alt="green document" /></div>
+                                <div class="doc-wrapper lifted"><img class="doc-icon" src="{{ url_for('test_pass.static', filename='images/violet_doc.png') }}" alt="violet document" /></div>
+                                <div class="doc-wrapper"><img class="doc-icon" src="{{ url_for('test_pass.static', filename='images/blue_doc.png') }}" alt="blue document" /></div>
+                            </div>
+                    </div>
+
+                    <a href="" class="card-text">
+                        імпортувати робочі листи/питання <br />
+                        з документів, форм, таблиць
+                    </a>
+                </div>
+            </div>
+
+            <div class="blue_outline">
+                <div class="card blueCard">
+                    <div class="gradient">
+                        <img src="{{ url_for('test_pass.static', filename='images/gradient.png') }}" alt="градiент з iконками" />
+            
+                        <div class="icons">
+                            <div class="icon-wrapper questions">
+                                <img class="icon-img" src="{{ url_for('test_pass.static', filename='images/questions.png') }}" alt="questions" />
+                            </div>
+                            <div class="icon-wrapper mini_robot">
+                                <img class="icon-img" src="{{ url_for('test_pass.static', filename='images/mini_robot.png') }}" alt="mini_robot" />
+                            </div>
+                            <div class="icon-wrapper question_mark">
+                                <img class="icon-img" src="{{ url_for('test_pass.static', filename='images/question_mark.png') }}" alt="question_mark" />
+                            </div>
+                        </div>
+                    </div>
+            
+                    <div class="card-text">
+                        <a class="link" href="/test">
+                            створити тест, з нуля
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="{{ url_for('test_pass.static', filename='js/select_way.js') }}"></script>
+{% endblock %}

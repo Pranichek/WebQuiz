@@ -1,3 +1,6 @@
+localStorage.setItem('time_question', 'set');
+
+
 function CHnageName(){
     document.querySelector(".change-name-form").style.display = "flex";
     document.querySelector(".change-name").style.display = "none";
@@ -12,7 +15,7 @@ for (let delbutton of DeleteButtons) {
         let answers = `(?%${delbutton.dataset.answers}`
 
         // отримуємо індекс кнопки на яку натиснули
-        let index_question = delbutton.dataset.number_question;
+        let index_question = parseInt(delbutton.dataset.number_question);
         console.log(index_question);
         // отримуємо дату з cookie
         let date = document.cookie.split("questions=")[1].split(";")[0];
@@ -63,53 +66,59 @@ window.addEventListener("load", function () {
     // отримуэмо дані з cookie
     // отримуємо дату з cookie
 
-    // Беремо дані із cookie, але із спецальними розділовими знаками
-    let date = document.cookie.split("questions=")[1].split(";")[0];
-    // Використовуємо функцію split, щоб отримати чисті дані із cookie
-    let questions = date.split("?%?");
 
-    // Беремо дані із cookie, але із спецальними розділовими знаками
-    let answersdate = document.cookie.split("answers=")[1].split(";")[0];
-    // Використовуємо функцію split, щоб отримати чисті дані із cookie
-    let answersclear = answersdate.split("?@?");
+    let cookies = document.cookie.match("questions")
 
-    // Беремо дані із cookie, але із спецальними розділовими знаками
-    let questiontimes = document.cookie.split("time=")[1].split(";")[0];
-    // Використовуємо функцію split, щоб отримати чисті дані із cookie
-    let cleartime = questiontimes.split("?#?")
+    if (cookies){
+        // Беремо дані із cookie, але із спецальними розділовими знаками
+        let date = document.cookie.split("questions=")[1].split(";")[0];
+        // Використовуємо функцію split, щоб отримати чисті дані із cookie
+        let questions = date.split("?%?");
 
-    console.log(questions);
-    console.log(answersclear);
+        // Беремо дані із cookie, але із спецальними розділовими знаками
+        let answersdate = document.cookie.split("answers=")[1].split(";")[0];
+        // Використовуємо функцію split, щоб отримати чисті дані із cookie
+        let answersclear = answersdate.split("?@?");
 
-    // Видаляємо старі cookie у яких зберігається непотрібне нам пусте питання
-    document.cookie = "questions=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
-    document.cookie = "time=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        // Беремо дані із cookie, але із спецальними розділовими знаками
+        let questiontimes = document.cookie.split("time=")[1].split(";")[0];
+        // Використовуємо функцію split, щоб отримати чисті дані із cookie
+        let cleartime = questiontimes.split("?#?")
 
-    for (let data of questions){
-        if (data == '') {
-            // якщо питання пусте, то видаляємо його з масиву
-            questions.splice(questions.indexOf(data), 1);
+        console.log(questions);
+        console.log(answersclear);
+
+        // Видаляємо старі cookie у яких зберігається непотрібне нам пусте питання
+        document.cookie = "questions=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "time=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
+        for (let data of questions){
+            if (data == '') {
+                // якщо питання пусте, то видаляємо його з масиву
+                questions.splice(questions.indexOf(data), 1);
+            }
         }
-    }
 
-    for (let data of answersclear){
-        if (data == '') {
-            // якщо питання пусте, то видаляємо його з масиву
-            answersclear.splice(answersclear.indexOf(data), 1);
+        for (let data of answersclear){
+            if (data == '') {
+                // якщо питання пусте, то видаляємо його з масиву
+                answersclear.splice(answersclear.indexOf(data), 1);
+            }
         }
-    }
 
-    for (let time of cleartime){
-        if (time == ''){
-            cleartime.splice(cleartime.indexOf(time), 1);
+        for (let time of cleartime){
+            if (time == ''){
+                cleartime.splice(cleartime.indexOf(time), 1);
+            }
         }
-    }
 
-    document.cookie = `questions=${questions.join("?%?")}; path=/;`;
-    document.cookie = `answers=${answersclear.join("?@?")}; path=/;`;
-    document.cookie = `time=${cleartime.join("?#?")}; path=/;`;
-})
+        document.cookie = `questions=${questions.join("?%?")}; path=/;`;
+        document.cookie = `answers=${answersclear.join("?@?")}; path=/;`;
+        document.cookie = `time=${cleartime.join("?#?")}; path=/;`;
+    }
+    }   
+)
 
 
 let InputName = document.querySelector(".test-title-input")
@@ -138,11 +147,13 @@ window.addEventListener(
     () => {
         let cookies = document.cookie.match("inputname")
         // answers=djshfuidh;inputname=dkklfl;session=njdn;
-        let cookiename = document.cookie.split("inputname=")[1].split(";")[0];
         if (cookies){
-            InputName.value = cookiename
-        }else{
-            InputName.value = "Назва тесту"
+            let cookiename = document.cookie.split("inputname=")[1].split(";")[0];
+            if (cookies){
+                InputName.value = cookiename
+            }else{
+                InputName.value = "Назва тесту"
+            }
         }
     }
 )
@@ -184,3 +195,14 @@ document.getElementById("main-form").addEventListener("submit", function () {
     const input = document.querySelector(".test-title-input");
     input.disabled = false;
 });
+
+setInterval(myFunction, 1000);
+
+function myFunction() {
+    // если чел удалил куки ответов то отчищаем вопросы в куки
+    check_answers_cookie = document.cookie.match("answers")
+    if (!check_answers_cookie){
+        document.cookie = "questions=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        // this.location.reload();
+    }
+}

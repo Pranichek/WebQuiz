@@ -20,6 +20,10 @@ body {
     pointer-events: none;
 }
 
+form{
+    z-index: 1;
+}
+
 .join-game {
     display: flex;
     flex-direction: column;

@@ -1,7 +1,6 @@
 import flask_login, sqlalchemy
 from Project.db import DATABASE
 
-
 class User(DATABASE.Model, flask_login.UserMixin):
     __tablename__ = "user"
     id = DATABASE.Column(DATABASE.Integer, primary_key = True)
@@ -21,5 +20,8 @@ class User(DATABASE.Model, flask_login.UserMixin):
     tests = DATABASE.relationship("Test", back_populates="user", lazy="dynamic")
     # можна так, и тогда нам не нужно в таблице Test создавать поле user
     # tests = DATABASE.relationship("Test", backref="user", lazy="dynamic")
+
+    # Зв'язок one to one із моделлю інфи користувача
+    user_profile = DATABASE.relationship("DataUser", back_populates="user", uselist=False)
 
 

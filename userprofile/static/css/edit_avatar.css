@@ -117,6 +117,7 @@ body{
     color: #ffffff;
     font-size: 20px;
     padding-left: 30px;
+    cursor: pointer;
     padding-right: 30px;
 }
 
@@ -431,8 +432,8 @@ body{
     left: 50%; 
     transform: translate(-50%, -50%); 
     /* filter: blur(0px); */
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     border-radius: 50%;
     border: 4px #ffffff solid;
     overflow: hidden;    /* overflow: hidden; */

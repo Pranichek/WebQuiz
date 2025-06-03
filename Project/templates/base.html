@@ -12,76 +12,121 @@
     </head>
     
     <body class="body-web">
-        <script src="{{ url_for('static', filename='js/sidebar.js') }}" defer></script>
-        <header>
-            <div class = "logo">
-                <img src="{{ url_for('static', filename='images/logo.png') }}" alt="">
-                <p>planet.quiz</p>
+        <div class="wrapper">
+            <header>
+                <i class="bx bx-cookie"></i>
+                <h2>Cookies Consent</h2>
+            </header>
+            <div class="data">
+                <p>This website use cookies to help you have a superior and more relevant browsing experience on the website. <a href="#"> Read more...</a></p>
             </div>
-            <nav>
-                {% if home_page %}
-                    <div class = "nav-links">
-                        <a href="/registration" class="auth-button">Реєстрація</a>
-                        <a href="/login" class="login-button">Увійти</a>
-                    </div>
-                {% elif registration_page%}
-                    <div class="nav-links">
-                        <a href="/" class="enter-code">Приєднатися</a>
-                        <a href="/login" class="login-button">Увійти</a>
-                    </div>
-                {% elif login_page %}
-                    <div class="nav-links">
-                        <a href="/" class="enter-code">Приєднатися</a>
-                        <a href="/registration" class="auth-button">Реєстрація</a>
-                    </div>
-                {% elif home_auth %}
-                    <div class="nav-links">
-                        <a href="/select_test" class="test-button">+ Створити вікторину</a>
-                    </div>
-                {% else %}
-                    <div class="nav-links">
-                        <a href="/" class="enter-code">Додому</a>
-                    </div>
-                {% endif %}
-
-                <div class="panel-container">
-                    <div class="listener">
-                        <img src="{{ url_for('static', filename='images/open-panel.png') }}" alt="" class="open-panel">
-                    </div>
-                    <div class="panel closed">
-                        <span class="link-container">
-                            <span class="links">
-                                <a href="/user_test">Створені тести</a>
-                                <hr>
-                                <a href="">Пройдені тести</a>
-                                <hr>
-                                <a href="">Діаграми</a>
-                                <hr>
-                                <a href="">Загальна інформація</a>
-                                <hr>
-                            </span>
-                            <span class="links">
-                                <a href="">Безпека</a>
-                                <hr>
-                                <a href="/edit_avatar">Аватар</a>
-                                <hr>
-                                <a href="">Нагороди</a>
-                                <hr>
-                            </span>
-                        </span>
-                        <img class="sidebar-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
-                    </div>
+            <div class="buttons">
+                <button class="button" id="acceptBtn">Accept</button>
+                <button class="button" id="declineBtn">Decline</button>
+            </div>
+        </div>
+        {% if not test_page %}
+            <header>
+                <div class = "logo">
+                    <img src="{{ url_for('static', filename='images/logo.png') }}" alt="">
+                    <p>planet.quiz</p>
                 </div>
-            </nav>
+                <nav>
+                    {% if home_page %}
+                        <div class = "nav-links">
+                            <a href="/registration" class="auth-button">Реєстрація</a>
+                            <a href="/login" class="login-button">Увійти</a>
+                        </div>
+                    {% elif registration_page%}
+                        <div class="nav-links">
+                            <a href="/" class="enter-code">Приєднатися</a>
+                            <a href="/login" class="login-button">Увійти</a>
+                        </div>
+                    {% elif login_page %}
+                        <div class="nav-links">
+                            <a href="/" class="enter-code">Приєднатися</a>
+                            <a href="/registration" class="auth-button">Реєстрація</a>
+                        </div>
+                    {% elif home_auth %}
+                        <div class="nav-links">
+                            <a href="/select_way" class="test-button">+ Створити вікторину</a>
+                        </div>
+                    {% else %}
+                        <div class="nav-links">
+                            <a href="/" class="enter-code">Додому</a>
+                        </div>
+                    {% endif %}
 
-        </header>
+                    <div class="panel-container">
+                        <div class="listener">
+                            <img src="{{ url_for('static', filename='images/open-panel.png') }}" alt="" class="open-panel">
+                        </div>
+                        <div class="panel closed">
+                            <span class="link-container">
+                                <span class="links">
+                                    <a href="/user_test">Створені тести</a>
+                                    <hr>
+                                    <a href="">Пройдені тести</a>
+                                    <hr>
+                                    <a href="">Діаграми</a>
+                                    <hr>
+                                    <a href="">Загальна інформація</a>
+                                    <hr>
+                                </span>
+                                <span class="links">
+                                    <a href="">Безпека</a>
+                                    <hr>
+                                    <a href="/edit_avatar">Аватар</a>
+                                    <hr>
+                                    <a href="">Нагороди</a>
+                                    <hr>
+                                </span>
+                            </span>
+                            <img class="sidebar-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                        </div>
+                    </div>
+                </nav>
+
+            </header>
+        {% endif %}
 
         <main class="main">
             {% block content %}{% endblock %}
             <!-- {% block footer %}{% endblock %} -->
         </main>
-        {% block scripts %}
 
+
+        {% if home_auth %}
+            <footer class="footer">
+                <div class="ab">
+                    <div class="about">
+                        <a href="" class="linkk">Контакти</a> 
+                        <a href="" class="linkk">Про нас</a>
+                        <a href="" class="linkk">Конфіденційність</a>
+                    </div>
+                    <div>
+                        <hr class="footer-line">
+                    </div>
+                </div>
+            
+                    <div class="last">
+                        <div class="about">
+                        <p>Слідкуйте за нами</p>
+                        </div>
+                        <div class="img-link">
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
+                        </div>
+                    </div>
+            </footer>
+        {% endif %}
+
+        <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/cookiemodal.js') }}"></script>
+
+        {% block scripts %}
+            <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
         {% endblock %}
     </body>   
 </html>

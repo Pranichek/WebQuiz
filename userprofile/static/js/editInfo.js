@@ -1,23 +1,3 @@
-// const buttonList = document.querySelectorAll(".change");
-// let input;
-// let p;
-
-// for (let button of buttonList){
-//     button.addEventListener('click', ()=>{
-//         let button_id = button.id;
-//         console.log(button_id);
-//         input = document.querySelector(`#i-${button_id}`);
-//         saveButton = document.querySelector(`#b-${button_id}`);
-//         p = document.querySelector(`#p-${button_id}`);
-//         p.style.display = "none";
-//         button.type = "submit";
-//         input.style.display = "block";
-//         input.classList.add("change-input");
-//         saveButton.style.display = "block"
-//     })
-// }
-
-
 function loadIMage(){
     document.getElementById("file-upload").click();
     ChangeSize();
@@ -25,6 +5,11 @@ function loadIMage(){
 
 function submitForm() {
     document.getElementById("send-picture").submit();
+}
+
+// Функція для видалення фото
+function DeletePhoto(){
+    document.querySelector("#delete_form").submit();
 }
 
 // функция которая смотрит если польователь выбрал дефолтную картинку то показывается галочка
@@ -90,17 +75,6 @@ if (performance.navigation.type === 1) {
     console.log("Страница обновлена");
     document.querySelector(".back-image").submit();
 }
-
-// function ShowAva(){
-//     let ava = document.querySelector(".confirm-changing")
-//     console.log("da")
-//     console.log("da")
-//     if (ava.classList.contains(".show")){
-//         ava.style.display = "none";
-//     }else{
-//         ava.style.display = 'flex';
-//     }
-// }
 
 // функция изменения размера картинки
 function ChangeSize() {

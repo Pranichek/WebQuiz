@@ -1,0 +1,120 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Question change
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/create_question.css') }}">
+{% endblock %}
+
+{% block content %}
+    <form action="" method="post" enctype="multipart/form-data">
+        <div class="pseudo-header">
+            <a href="/test" class="test-button">
+                <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
+            </a>
+
+            <div>
+
+                <div class="timer"><p class="timer-p" id="time" value="" data-time="30">⏱ 30 секунд &#709</p>
+                    <ul id="timeList" class="hidden-list">
+                        <li data-time="5">⏱ 5 секунд &#709</li>
+                        <li data-time="10">⏱ 10 секунд &#709</li>
+                        <li data-time="20">⏱ 20 секунд &#709</li>
+                        <li data-time="30">⏱ 30 секунд &#709</li>
+                        <li data-time="45">⏱ 45 секунд &#709</li>
+                        <li data-time="60">⏱ 1 хвилина &#709</li>
+                    </ul>
+                </div>
+                <button class="add-question" id="save">+ Додати питання</button>
+            </div>
+        </div>
+        
+        <div class="question-name">
+            <p style="display: none;" id="pk">{{ pk }}</p>
+            <input type="text" class="question" name="question" id="question" placeholder="Питання" value="{{ question }}">
+            <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image", value="{{ image }}"> 
+            <!-- value="{{ image }}"> -->
+            <button type="button" style="display: none;" class="add-image" id="deleteImgButton" onclick="deleteImage(event);">Видалити зображення</button>
+        </div>
+    </form>
+
+    <h3>Оберіть варіант відповіді</h3>
+
+    <div class="answers-container">
+        <div class="answer-block"  id="1">
+            <div class="detector" id="1">
+                <img id="1" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+            </div>
+            <input type="text" class="answer correct" name="answer" id="1" value="{{ answer1 }}">
+            <div class="delete-answer" id="1">
+                <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+            </div>
+        </div>
+        <div class="answer-block" id="2">
+            <div class="detector" id="2">
+                <img style="display: none;" id="2" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+            </div>
+            <input type="text" class="answer" name="answer" id="2" value="{{ answer2 }}">
+            <div class="delete-answer" id="2">
+                <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+            </div>
+        </div>
+
+        {% if answer3 != "hidden" %}
+            <div class="answer-block" id="3">
+                <div class="detector" id="3">
+                    <img style="display: none;" id="3" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+                </div>
+                <input type="text" class="answer" name="answer" id="3" value="{{ answer3 }}">
+                <div class="delete-answer" id="3">
+                    <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+                </div>
+            </div>
+        {% else %}
+            <div class="hidden answer-block" id="3">
+                <div class="detector" id="3">
+                    <img style="display: none;" id="3" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+                </div>
+                <input type="text" class="answer" name="answer" id="3" placeholder="Відповідь">
+                <div class="delete-answer" id="3">
+                    <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+                </div>
+            </div>
+        {% endif %}
+        
+        {% if answer4 != "hidden" %}
+            <div class="answer-block" id="4">
+                <div class="detector" id="4">
+                    <img style="display: none;" id="4" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+                </div>
+                <input type="text" class="answer" name="answer" id="4" value="{{ answer4 }}">
+                <div class="delete-answer" id="4">
+                    <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+                </div>
+            </div>
+        {% else %}
+            <div class="hidden answer-block" id="4">
+                <div class="detector" id="4">
+                    <img style="display: none;" id="4" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+                </div>
+                <input type="text" class="answer" name="answer" id="4" placeholder="Відповідь">
+                <div class="delete-answer" id="4">
+                    <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+                </div>
+            </div>
+        {% endif %}
+        <p class="button" id="addQuestion">
+            <img src="{{ url_for('test_pass.static', filename='images/plus.png') }}" alt="">
+        </p>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('test_pass.static', filename='js/changeQuestionCookies.js') }}" defer></script>
+    <script src="{{ url_for('test_pass.static', filename='js/addQuestion.js') }}" defer></script>
+    <script src="{{ url_for('test_pass.static', filename='js/correctQuestion.js') }}" defer></script>
+    <script src="{{ url_for('test_pass.static', filename='js/timer.js') }}" defer></script>
+    <script src="{{ url_for('test_pass.static', filename='js/addQuestionImage.js') }}"></script>
+{% endblock %}
