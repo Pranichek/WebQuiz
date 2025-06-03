@@ -38,7 +38,10 @@ def render_test():
     if flask.request.method == "POST":
         check_form = flask.request.form.get('check_post')
 
-        if check_form == "create_test":
+        cookie_questions = flask.request.cookies.get("questions")
+        answers_cookies = flask.request.cookies.get("answers")
+
+        if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
             # print(name_image, "name")
             test_title = flask.request.form["test_title"]
             question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
@@ -178,7 +181,7 @@ def render_change_question(pk: int):
         image = flask.request.files["image"]
         if image:
             print("pk (change)=", pk)
-            dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk)))
+            dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
             for filename in os.listdir(dir_path):
                 file_path = os.path.join(dir_path, filename)
                 try:
@@ -186,7 +189,7 @@ def render_change_question(pk: int):
                 except Exception as e:
                     print(f"Failed to delete {file_path}. Reason: {e}")
             try:
-                image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk), str(image.filename))))
+                image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1), str(image.filename))))
             except Exception as e:
                 print("saving image error:", e)
         return flask.redirect("/test")
@@ -227,7 +230,20 @@ def render_change_question(pk: int):
 
 
 def render_delete_image(pk: int):
-    print("pk =", pk, "pk + 1 =", pk + 1)
+    print("pk =", pk, "; pk + 1 =", pk + 1)
+    images_tests_dir = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
     deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
     shutil.rmtree(deletion_path)
-    return flask.redirect("/test")
+    for folder in os.scandir(images_tests_dir):
+        print("folder =", folder.name)
+        try:
+            print(folder.name, pk)
+            if int(folder.name) > pk:
+                current_dir = os.path.abspath(os.path.join(images_tests_dir, folder.name))
+                print(current_dir)
+                future_dir = os.path.abspath(os.path.join(images_tests_dir, str(int(folder.name) - 1)))
+                print(future_dir)
+                os.rename(current_dir, future_dir)
+        except:
+            pass
+    return "Delete"

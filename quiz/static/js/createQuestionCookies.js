@@ -6,17 +6,62 @@ let timeP = document.querySelector(".timer-p")
 let answers;
 let questions;
 let timeC;
+let validAnswersFlag = false;
+
+function buttonColorChanging(){
+    if (button.type == "button"){
+        console.log("change button color");
+        button.classList.add("grey");
+        console.log(button.classList);
+    }
+}
+
+function answerScanning(){
+    console.log("validAnswersFlag 1 =", validAnswersFlag);
+    validAnswersFlag = true;
+    for (let input of answerInputList){
+        if (input.checkVisibility()){
+            if (input.value == ""){
+                validAnswersFlag = false;
+            }
+        }
+    }
+    console.log("validAnswersFlag 2 =", validAnswersFlag);
+    if (validAnswersFlag == false){
+        button.type = "button";
+        button.classList.add("grey");
+    } else{
+        button.type = "submit";
+        button.classList.remove("grey");
+    }
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+    buttonColorChanging();
+})
+document.addEventListener("click", ()=>{
+    buttonColorChanging();
+    answerScanning();
+})
+document.addEventListener("keydown", ()=>{
+    buttonColorChanging();
+})
+document.addEventListener("keyup", ()=>{
+    answerScanning();
+})
 
 button.addEventListener("click", ()=>{
     console.log(document.cookie.match("questions"))
     // Очистити question
     localStorage.removeItem("question");
 
-    // Очистити всі відповіді
-    answerInputList.forEach((_, index) => {
+    // Очистити всі відповіді из localstorage
+    answerInputList.forEach((input, index) => {
         localStorage.removeItem(`answer-${index}`);
     });
+
     for (let input of answerInputList){
+        // проверяем блок ли видимій(то есть в нем есть ответ) чтобы понять надо его добавлять как оответ или нет
         if (input.checkVisibility()){
             console.log(input.value);
             if (input.classList.contains("correct")){
@@ -31,20 +76,24 @@ button.addEventListener("click", ()=>{
 
 
     questions = question.value;
-    if (document.cookie.match("questions") != null && document.cookie.match("questions") != ""){
+    timeC = timeP.dataset.time;
+    if (document.cookie.match("questions") != null){
         questionCookie = document.cookie.split("questions=")[1].split(";")[0];
         console.log("questionCookie =", questionCookie);
-        questions = questionCookie + "?%?" + questions;
+        if (questionCookie != ""){
+            questions = questionCookie + "?%?" + questions;
+        }
 
         timeCookie = document.cookie.split("time=")[1].split(";")[0];
-        timeC = timeCookie + "?#?" + timeP.dataset.time;
-        console.log("time =", timeC);
+        if (timeCookie != ""){
+            timeC = timeCookie + "?#?" + timeP.dataset.time;
+            console.log("time =", timeC);
+        }
+
         answerCookie = document.cookie.split("answers=")[1].split(";")[0];
-        answers = answerCookie + "?@?" + answers;
-    } else{
-        // timeC = timeP.textContent;
-        timeC = timeP.dataset.time;
-        questions = question.value;
+        if (answerCookie != ""){
+            answers = answerCookie + "?@?" + answers;
+        }
     }
     questions = questions.replace("undefined", "");
     questions = questions.replace("questions", "");
@@ -58,8 +107,6 @@ button.addEventListener("click", ()=>{
     timeC = timeC.replace(" ˅", "");
     document.cookie = `time=${timeC}; path=/;`;
 
-    // document.cookie = `images=${imageC}; path=/;`;
-
     answers = answers.replace("undefined", "");
     answers = answers.replace("answers", "");
     answers = answers.replace("null", "");
@@ -71,7 +118,7 @@ button.addEventListener("click", ()=>{
 
 
 
-// Загрузка из localStorage при запуске
+// Загрузка из лоаклстораджа при запуске
 window.addEventListener("DOMContentLoaded", () => {
     const questionSaved = localStorage.getItem("question");
     if (questionSaved) {
@@ -84,6 +131,9 @@ window.addEventListener("DOMContentLoaded", () => {
         const saved = localStorage.getItem(`answer-${index}`);
         if (saved && saved.trim() !== "") {
             input.value = saved;
+            input.classList.add("correct")
+
+            
             const answerBlock = input.closest(".answer-block");
             if (answerBlock.classList.contains("hidden")) {
                 answerBlock.classList.remove("hidden");

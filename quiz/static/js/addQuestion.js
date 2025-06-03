@@ -32,9 +32,8 @@ for (let deleteButton of deleteButtonList) {
                         if (input.id === id) {
                             // Очистити localStorage
                             localStorage.removeItem(`answer-${i}`);
-                            input.value = ""; // також очистимо поле
+                            input.value = ""; 
 
-                            // Логіка приховування
                             if (input.classList.contains("correct")) {
                                 correctAnswerList = document.querySelectorAll(".correct");
                                 if (correctAnswerList.length > 1) {

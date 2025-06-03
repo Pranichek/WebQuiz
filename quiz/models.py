@@ -14,6 +14,9 @@ class Test(DATABASE.Model):
     image = DATABASE.Column(DATABASE.String)
     category = DATABASE.Column(DATABASE.String, nullable = False)
 
+    # Перевірка для видалення теста
+    check_del = DATABASE.Column(DATABASE.String, default = "exists")
+
     # Зв'язок з таблицею User
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey("user.id"), nullable=False)
     user = DATABASE.relationship("User", back_populates="tests")

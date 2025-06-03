@@ -4,11 +4,16 @@ from Project.login_check import login_decorate
 
 @login_decorate
 def render_data_filter():
-    input_data = flask.request.cookies.get("filter_data")
+    # if flask.request.method == "POST":
+    #     input_data = flask.request.form.get("search-data")
+    # else:
+    #     input_data = None
+    input_data = flask.request.args.get("input_data")
+    print(input_data, "fd")
     searching_test = []
 
     if input_data is not None:
-        tests = Test.query.all()
+        tests = Test.query.filter(Test.check_del != "deleted").all()
 
         if len(tests) > 0:
             for test in tests:

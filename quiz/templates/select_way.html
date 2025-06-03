@@ -31,7 +31,7 @@
             </div>
 
             <div class="blue_outline">
-                <div class="card">
+                <div class="card blueCard">
                     <div class="gradient">
                         <img src="{{ url_for('test_pass.static', filename='images/gradient.png') }}" alt="градiент з iконками" />
             
@@ -58,3 +58,7 @@
         </div>
     </div>
 {% endblock content %}
+
+{% block scripts %}
+    <script src="{{ url_for('test_pass.static', filename='js/select_way.js') }}"></script>
+{% endblock %}

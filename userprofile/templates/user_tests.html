@@ -5,7 +5,12 @@
 {% endblock links %}
 
 {% block content %}
-    <h1 class="title">Твої тести</h1>
+    {% if message %}
+        <h1 class="title">{{ message }}</h1>
+    {% else %}
+        <h1 class="title">Твої тести</h1>
+    {% endif %}
+
 
     <div class="tests">
         {% for test in tests %}
@@ -18,6 +23,10 @@
                     <input type="text" name="new_name" placeholder="Нова назва">
                     <button type="submit">Змiнити назву</button>
                 </form>
+                <form action="" method="post">
+                    <button value="{{ test.id }}" name="delete-id">delete</button>
+                </form>
+
             </div>
         {% endfor %}
     </div>
