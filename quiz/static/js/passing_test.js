@@ -16,7 +16,6 @@ let manyBlock;
 
 
 if (localStorage.getItem("index_question") == "0"){
-    // localStorage.setItem('time_question', 'set');
     localStorage.setItem('index_question', '0');
     localStorage.setItem('users_answers', '')
 }
@@ -28,6 +27,7 @@ socket.emit('get_question',
         test_id: localStorage.getItem("test_id")
     }
 );  
+
 
 socket.on('question', (data) => {
     if (data.question != "Кінець"){
@@ -97,8 +97,6 @@ socket.on('question', (data) => {
 
                 let question = document.querySelector(".question-test")
         
-                console.log(question.textContent, "kj")
-
                 let buttomBlocks = document.querySelectorAll(".coint-buttom")
                 let topBlocks = document.querySelectorAll(".coint-top")
                 
@@ -607,17 +605,17 @@ window.addEventListener(
 
 // SetInterval - запускает функцию через определенный промежуток времени(в милисекундах)
 setInterval(() => {
-    // timeQuestion = parseInt(localStorage.getItem('time_question'));
+    timeQuestion = parseInt(localStorage.getItem('time_question'));
 
-    // if (isNaN(timeQuestion)) {
-    //     // Якщо немає часу або він некоректний 
-    //     timer.textContent = "-";
-    //     return; // або можна встановити якийсь дефолт, наприклад, 0
-    // }
-    // timeQuestion -= 1; // Зменшуємо yf 1
-    // updateCircle(parseInt(timeQuestion))
-    // timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-    // localStorage.setItem('time_question', timeQuestion)
+    if (isNaN(timeQuestion)) {
+        // Якщо немає часу або він некоректний 
+        timer.textContent = "-";
+        return; // або можна встановити якийсь дефолт, наприклад, 0
+    }
+    timeQuestion -= 1; // Зменшуємо yf 1
+    updateCircle(parseInt(timeQuestion))
+    timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+    localStorage.setItem('time_question', timeQuestion)
     if (timeQuestion <= 0){
         localStorage.setItem('time_question', "set")
         let chekcookies = localStorage.getItem("users_answers")
@@ -683,3 +681,5 @@ function updateCircle(timeLeft) {
 
     circle.style.background = `conic-gradient(#677689 ${progress}deg, #8ABBF7 ${progress}deg)`;
 }
+
+

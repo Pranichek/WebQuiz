@@ -251,6 +251,12 @@ header h2 {
   color: #fff;
 }
 
+@media (max-width: 600px){
+    .nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
+        margin: 0px;
+    }
+}
+
 @media (min-width: 1441px) and (max-width: 2000px){
     .nav-links .auth-button{
         background-color: #C48AF7;

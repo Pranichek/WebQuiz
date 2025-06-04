@@ -21,23 +21,30 @@ function answerScanning(){
     validAnswersFlag = true;
     for (let input of answerInputList){
         if (input.checkVisibility()){
+            button.type = "submit";
+            button.classList.remove("grey");
+            button.classList.add("purple");
             if (input.value == ""){
                 validAnswersFlag = false;
             }
         }
     }
+
     console.log("validAnswersFlag 2 =", validAnswersFlag);
-    if (validAnswersFlag == false){
+    if (validAnswersFlag == false | document.querySelector(".question").value == ""){
         button.type = "button";
         button.classList.add("grey");
+        button.classList.remove("purple");
     } else{
         button.type = "submit";
         button.classList.remove("grey");
+        button.classList.add("purple");
     }
 }
 
 document.addEventListener("DOMContentLoaded", ()=>{
     buttonColorChanging();
+    answerScanning();
 })
 document.addEventListener("click", ()=>{
     buttonColorChanging();
@@ -64,16 +71,17 @@ button.addEventListener("click", ()=>{
         // проверяем блок ли видимій(то есть в нем есть ответ) чтобы понять надо его добавлять как оответ или нет
         if (input.checkVisibility()){
             console.log(input.value);
-            if (input.classList.contains("correct")){
-                console.log("right:", input.value);
-                answers += `(?%+${input.value}+%?)`;
-            }else{
-                console.log("wrong:", input.value);
-                answers += `(?%-${input.value}-%?)`;
+            if (input.value != ''){
+                if (input.classList.contains("correct")){
+                    console.log("right:", input.value);
+                    answers += `(?%+${input.value}+%?)`;
+                }else{
+                    console.log("wrong:", input.value);
+                    answers += `(?%-${input.value}-%?)`;
+                }
             }
         }
     }
-
 
     questions = question.value;
     timeC = timeP.dataset.time;
@@ -113,6 +121,8 @@ button.addEventListener("click", ()=>{
     console.log("answers =", answers);
     document.cookie = `answers=${answers}; path=/;`;
     answers = null;
+
+    localStorage.removeItem("rightIndexes")
 })
 
 
@@ -130,9 +140,12 @@ window.addEventListener("DOMContentLoaded", () => {
     answerInputList.forEach((input, index) => {
         const saved = localStorage.getItem(`answer-${index}`);
         if (saved && saved.trim() !== "") {
+            console.log(button.type, "da")
+            if (document.querySelector(".question").value != ""){
+                button.type = "submit";
+                button.classList.remove("grey");
+            }
             input.value = saved;
-            input.classList.add("correct")
-
             
             const answerBlock = input.closest(".answer-block");
             if (answerBlock.classList.contains("hidden")) {
