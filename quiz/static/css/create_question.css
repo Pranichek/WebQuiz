@@ -88,6 +88,11 @@ body .main{
     text-decoration: none;
 }
 
+.purple{
+    background-color: #C48AF7;
+    color: #ffff;
+}
+
 .grey{
     background-color: #636262;
     color: #343434;
