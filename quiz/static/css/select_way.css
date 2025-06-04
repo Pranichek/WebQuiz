@@ -222,3 +222,15 @@ body {
 .question_mark {
     transform: translateX(-20px) translateY(25px) ;
 }
+
+@media(max-width: 800px){
+    .cards_row{
+        display: flex;
+        flex-direction: column;
+    }
+}
+@media(min-width: 800px){
+    .title-wrapper{
+        padding-bottom: 33px;
+    }
+}
