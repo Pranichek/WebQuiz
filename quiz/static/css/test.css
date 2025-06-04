@@ -382,6 +382,7 @@ form{
 
 .change-question{
     z-index: 1;
+    text-decoration: none;
 }
 
 .question-card{
@@ -460,12 +461,12 @@ form{
     justify-items: center;
     padding-left: 7px;
     padding-right: 7px;
-    
 }
 .pen-img{
     width: 25px;
     height: 25px;
 }
+/* .change-question */
 .edit_question a{
     color: #ffffff;
     font-weight: bold;
@@ -493,6 +494,8 @@ form{
 .answers p{
     /* width: 30%; */
     font-size: 13px;
+    color: #ffffff;
+    /* font-weight: medium; */
 }
 
 .test-title-input:disabled {
