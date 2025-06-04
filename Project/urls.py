@@ -58,6 +58,12 @@ userprofile.change_tests.add_url_rule(
     methods = ["GET","POST"]
 )
 
+userprofile.mentor.add_url_rule(
+    rule = "/mentor",
+    view_func = userprofile.render_mentor,
+    methods = ["GET","POST"]
+)
+
 quiz.test_pass.add_url_rule(
     rule = "/test",
     view_func= quiz.render_test,

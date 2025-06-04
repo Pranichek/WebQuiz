@@ -1,0 +1,285 @@
+.header_buttons {
+    display: flex;
+    margin-right: 25px;
+    gap: 19px;
+}
+
+
+.general_container_rect {
+    position: absolute;
+    top: 15%;
+    left: 3%;
+    display: flex;
+    background-color: rgba(138, 187, 247, 0.1);
+    width: 490px;
+    height: 713px;
+    border: 1px solid #C48AF7;
+    border-radius: 24px;
+    padding: 10px;
+}
+
+
+.mentor-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+
+.mentor-info-card {
+    width: 459px;
+    height: 289px;
+    background-color: #343434;
+    border-radius: 34px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column; 
+    align-items: center;    
+    justify-content: flex-start;
+    gap: 20px;
+    gap: 15px;
+}
+
+.mentor-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.mentor-avatar {
+    position: relative;
+    width: 89px;
+    height: 86px;
+    margin-right: 45px;
+}
+
+.mentor-avatar img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    border: 1px solid #94C4FF;
+    object-fit: cover;
+    background-color: white;
+}
+
+.you {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-weight: 500;
+    font-size: 16px;
+    border-radius: 0 6px 0 6px;
+    transform: translate(-10%, 50%);
+    
+}
+.mentor-info {
+    margin-left: 15px;
+    display: flex;
+    flex-direction: column;
+}
+.mentor_name {
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.email {
+    font-size: 16px;
+    color: #ffffff;
+    margin-top:5px
+}
+
+.topic {
+    margin-top: 45px;
+    width: 353px;
+    height: 90px;
+    background-color: #BCDAFF;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #000;
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+}
+
+
+.mentor-card {
+    display: flex;
+    flex-direction: column;
+    background-color: #343434;
+    width: 100%;
+    height: 100%;
+    border-radius: 34px;
+    padding: 10px;
+    gap: 10px;
+    position: relative;
+}
+
+
+.mentor-join-info {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    color: white;
+    margin-top: 20px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+.join {
+    display: flex;
+    justify-content: space-between;
+}
+.url {
+    display: flex;
+}
+
+.link-text {
+    border-bottom: 2px solid rgb(204, 0, 255);
+}
+
+.copy {
+    width: 22px;
+    height: 22px;
+    margin-left: 6px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.join-code {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-count {
+    display: flex;
+    align-items: center;
+}
+
+.code {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 16px;
+}
+
+#code {
+    width: 116px;
+    height: 27px;
+    text-align: center;
+    color: #ffffff;
+    border-radius: 10px;
+    border: 1px solid #FFB700;
+    padding: 3px 6px;
+}
+
+#amount_users {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 25px;
+    color: #FFB700;
+    padding-left: 20px;
+}
+
+.qr-code {
+    display: flex;
+    margin-top: 40px;
+    margin-left: 10px;
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    margin-bottom: 60px;
+}
+
+.qr-code img {
+    position: absolute;
+    top:45%;
+    right: 0;
+    margin-right: 30px;
+    
+}
+
+.mentor-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: auto;
+    padding: 0 20px;
+}
+
+.start,
+.end {
+    width: 199px;
+    height: 42px;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 10px;
+    color: white;
+    background-color: #C48AF7;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.participants-section {
+    position: absolute;
+    top: 15%;
+    left: 60%;
+    color: white;
+    width: 350px;
+}
+
+.participants {
+    font-size: 130%;
+    margin-bottom: 20px;
+}
+
+.participants-list {
+    display: flex;
+    gap: 15px;
+}
+
+.card {
+    width: 212px;
+    height: 77px;
+    background-color: rgba(0, 0, 0, 0.28);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    color: white;
+    padding: 10px 15px;
+    gap: 10px;
+    
+}
+
+.avatar img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 1px solid #94C4FF;
+    object-fit: cover;
+    background-color: white;
+}
+
+.username {
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.information {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.fires img {
+    width: 18px;
+    height: 18px;
+}

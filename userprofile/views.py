@@ -224,3 +224,10 @@ def render_change_tests():
         test=test,
         message=message
     )
+
+@login_decorate
+def render_mentor():
+    return flask.render_template(
+        "mentor.html",
+        mentor=True,
+    )

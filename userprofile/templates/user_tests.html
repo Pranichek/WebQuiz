@@ -20,6 +20,7 @@
                 <p>Кількість питаннь: {{ test.questions.count("?%?") + 1 }}</p>
                 
                 <a class="link" href="{{ url_for('change_tests.render_change_tests') }}?test_id={{ test.id }}">Редагувати тест</a>
+                <a class="link" href="{{ url_for('mentor.render_mentor') }}?test_id={{ test.id }}">Почати тест</a>
 
             </div>
         {% endfor %}
