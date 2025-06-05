@@ -205,9 +205,15 @@ def render_change_question(pk: int):
         current_answers = answers.split("?@?")[pk]
         answers_list = current_answers.split("%?)(?%")
         answers = []
+
+        correctAnswers = []
         for answer in answers_list:
             answer = answer.replace("(?%", "")
             answer = answer.replace("%?)", "")
+            if answer[0] == "+":
+                correctAnswers.append("correct")
+            else:
+                correctAnswers.append("not")
             answer = answer[1:-1]
             answers.append(answer)
         while True:
@@ -225,6 +231,10 @@ def render_change_question(pk: int):
         answer2 = answers[1],
         answer3 = answers[2],
         answer4 = answers[3],
+        correct1 = correctAnswers[0],
+        correct2 = correctAnswers[1],
+        correct3 = correctAnswers[2] if len(correctAnswers) > 2 else "not",
+        correct4 = correctAnswers[3] if len(correctAnswers) > 3 else "not",
         time = current_time,
         pk = pk
     )

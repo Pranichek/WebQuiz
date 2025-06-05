@@ -43,18 +43,21 @@ for (let deleteButton of deleteButtonList) {
                         const input = inputAnswerList[i];
                         if (input.id === id) {
                             
-                            let indexToRemove = correctIndex.indexOf(input.id);
-                            if (indexToRemove !== -1) {
-                                correctIndex.splice(indexToRemove, 1);
-                            }
-                            console.log(input.id, "offfnik")
+                            if (correctIndex !== null){
+                                let indexToRemove = correctIndex.indexOf(input.id);
+                                if (indexToRemove !== -1) {
+                                    correctIndex.splice(indexToRemove, 1);
+                                }
+                                console.log(input.id, "offfnik")
 
-                            let newString = ''
+                                let newString = ''
 
-                            for (let letter of correctIndex){
-                                newString += ' ' + letter
+                                for (let letter of correctIndex){
+                                    newString += ' ' + letter
+                                }
+                                localStorage.setItem("rightIndexes", newString)
                             }
-                            localStorage.setItem("rightIndexes", newString)
+                            
                             input.value = ""; 
                             if (input.classList.contains("correct")) {
                                 correctAnswerList = document.querySelectorAll(".correct");

@@ -34,13 +34,8 @@ socket.on('question', (data) => {
         const imgContainer = document.getElementById("image-container");
         imgContainer.innerHTML = "";
 
-        let question = document.querySelector(".question-test")
-        
-        question.textContent = data.question
-
         let answers = data.answers
         let amountAnswers = data.answers.length
-        document.querySelector(".num-que").textContent = `${data.index}/${data.amount_question}`
         
         let dataCookie = localStorage.getItem("time_question");
 
@@ -56,16 +51,36 @@ socket.on('question', (data) => {
 
 
         if (data.question_img != "not"){
+            const simpleQuestion = document.querySelector(".question");
+
+            simpleQuestion.innerHTML = `
+            `;
+            const imgQuestion = document.querySelector(".question-image");
+
+            imgQuestion.innerHTML = `
+                <div class="num-question">
+                    <p class="num-que">1/10</p>
+                </div>
+                <div class= "question-bg">
+                    <p class="question-test"></p>
+                </div>
+            `;
+
+            let question = document.querySelector(".question-test")
+        
+            question.textContent = data.question
+            document.querySelector(".num-que").textContent = `${data.index}/${data.amount_question}`
+
             document.querySelector(".answers-image").style.display = `flex`;
             document.querySelector(".question").style.height = `30vh`;
             if (data.type_question == "one_answer"){
                 const blockAnswersTop = document.querySelector(".top-answers")
 
                 blockAnswersTop.innerHTML = `
-                    <div class="coint coint-top" data-value="2">
+                    <div class="coint coint-top fade-in" data-value="2">
                         <p class="variant-text"></p>
                     </div>
-                    <div class="coint coint-top" data-value="3">
+                    <div class="coint coint-top fade-in-right" data-value="3">
                         <p class="variant-text"></p>
                     </div>
                 `;
@@ -73,18 +88,27 @@ socket.on('question', (data) => {
                 const blockAnswersBottom = document.querySelector(".bottom-answers")
 
                 blockAnswersBottom.innerHTML = `
-                    <div class="coint coint-buttom" data-value="0">
+                    <div class="coint coint-buttom fade-in" data-value="0">
 
                     </div>
                     <div class="bottom-image">
 
                     </div>
-                    <div class="coint coint-buttom" data-value="1">
+                    <div class="coint coint-buttom fade-in-right" data-value="1">
 
                     </div>
                 `;
 
+                setTimeout(() => {
+                    let divs = document.querySelectorAll(".coint")
+
+                    for (let div of divs){
+                        div.classList.add("show")
+                    }
+                }, 100)
+
                 let questionImage = document.querySelector(".question-image")
+                questionImage.classList.add("fade-up")
 
                 questionImage.innerHTML = `
                     <div class="num-question">
@@ -94,6 +118,10 @@ socket.on('question', (data) => {
                         <p class="question-test">${data.question}</p>
                     </div>
                 `;
+
+                setTimeout(() => {
+                    questionImage.classList.add("show-question")
+                }, 100)
 
                 let question = document.querySelector(".question-test")
         
@@ -175,18 +203,35 @@ socket.on('question', (data) => {
                     )
                 }
 
+                let countVisible = 0
+                const blockList = document.querySelectorAll(".coint")
+
+                for (let block of blockList){
+                    if (block.checkVisibility()){
+                        countVisible += 1;
+                    }
+                }
+
+                let width = 100 / countVisible
+                let colors = ["#ECEAA1", "#8AF7D4", "#94C4FF", "#C48AF7"]
+
+                for (let index = 0; index < amountAnswers; index++) {
+                    blockanswers[index].style.width = `${width}%`;
+                    blockanswers[index].style.backgroundColor = colors[index]
+                }
+
             }else {
                 const checkMarkUrl = "/static/images/check-mark.png";
                 const blockAnswersTop = document.querySelector(".top-answers")
 
                 blockAnswersTop.innerHTML = `
-                    <div class="coint coint-top" data-value="2">
+                    <div class="coint coint-top fade-in" data-value="2">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text">${answers[2]}</p>
                     </div>
-                    <div class="coint coint-top" data-value="3">
+                    <div class="coint coint-top fade-in-right" data-value="3">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
@@ -197,7 +242,7 @@ socket.on('question', (data) => {
                 const blockAnswersBottom = document.querySelector(".bottom-answers")
 
                 blockAnswersBottom.innerHTML = `
-                    <div class="coint coint-buttom" data-value="0">
+                    <div class="coint coint-buttom fade-in" data-value="0">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
@@ -206,13 +251,21 @@ socket.on('question', (data) => {
                     <div class="bottom-image">
 
                     </div>
-                    <div class="coint coint-buttom" data-value="1">
+                    <div class="coint coint-buttom fade-in-right" data-value="1">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text">${answers[1]}</p>
                     </div>
                 `;
+
+                setTimeout(() => {
+                    let divs = document.querySelectorAll(".coint")
+
+                    for (let div of divs){
+                        div.classList.add("show")
+                    }
+                }, 100)
 
                 let questionImage = document.querySelector(".question-image")
 
@@ -292,8 +345,10 @@ socket.on('question', (data) => {
                 let width = 100 / countVisible
                 let colors = ["#ECEAA1", "#8AF7D4", "#94C4FF", "#C48AF7"]
 
-                for (let index = 0; index < amountAnswers; index++) {
-                    blockList[index].style.backgroundColor = colors[index]
+                for (let index = 0; index < amountAnswers + 1; index++) {
+                    if (blockList[index]){
+                        blockList[index].style.backgroundColor = colors[index]
+                    }
                 }
 
                 let confirm_button = document.querySelector(".confirm-button")
@@ -347,24 +402,64 @@ socket.on('question', (data) => {
             document.querySelector(".bottom-image").appendChild(img);
 
         }else{
+            const simpleQuestion = document.querySelector(".question");
+
+            simpleQuestion.innerHTML = `
+                <div class="num-question">
+                    <p class="num-que">1/10</p>
+                </div>
+                <div class= "question-bg">
+                    <p class="question-test"></p>
+                </div>
+            `;
+
+            if (simpleQuestion.classList.contains("fade-up")){
+                simpleQuestion.classList.remove("fade-up")
+                simpleQuestion.classList.remove("show-question")
+            }
+            
+            simpleQuestion.classList.add("fade-up")
+
+            setTimeout(() => {
+                simpleQuestion.classList.add("show-question")
+            }, 100)
+
+            const imgQuestion = document.querySelector(".question-image");
+
+            let question = document.querySelector(".question-test")
+        
+            question.textContent = data.question
+
+            document.querySelector(".num-que").textContent = `${data.index}/${data.amount_question}`
+
+            imgQuestion.innerHTML = ``;
+
             document.querySelector(".answers-image").style.display = `none`;
             document.querySelector(".question").style.height = `30vh`;
 
             if (data.type_question == "one_answer"){
                 cont.innerHTML = `
-                    <div class="variant" data-value="0">
+                    <div class="variant fade-in" data-value="0">
                         <p class="variant-text"></p>
                     </div>
-                    <div class="variant" data-value="1">
+                    <div class="variant fade-in" data-value="1">
                         <p class="variant-text"></p>
                     </div>
-                    <div class="variant" data-value="2">
+                    <div class="variant fade-in-right" data-value="2">
                         <p class="variant-text"></p>
                     </div>
-                    <div class="variant" data-value="3">
+                    <div class="variant fade-in-right" data-value="3">
                         <p class="variant-text"></p>
                     </div>
                 `;
+
+                setTimeout(() => {
+                    let divs = document.querySelectorAll(".variant")
+
+                    for (let div of divs){
+                        div.classList.add("show")
+                    }
+                }, 100)
 
                 let blockanswers = document.querySelectorAll(".variant")
 
@@ -439,31 +534,39 @@ socket.on('question', (data) => {
                 const checkMarkUrl = "/static/images/check-mark.png";
 
                 cont.innerHTML = `
-                    <div class="many-variant" data-value="0">
+                    <div class="many-variant fade-in" data-value="0">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text"></p>
                     </div>
-                    <div class="many-variant" data-value="1">
+                    <div class="many-variant fade-in" data-value="1">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text"></p>
                     </div>
-                    <div class="many-variant" data-value="2">
+                    <div class="many-variant fade-in-right" data-value="2">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text">sdc</p>
                     </div>
-                    <div class="many-variant" data-value="3">
+                    <div class="many-variant fade-in-right" data-value="3">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="j">
                         </div>
                         <p class="variant-text"></p>
                     </div>
                 `;
+
+                setTimeout(() => {
+                    let divs = document.querySelectorAll(".many-variant")
+
+                    for (let div of divs){
+                        div.classList.add("show")
+                    }
+                }, 100)
                 
                 manyBlock = document.querySelectorAll(".many-variant")
 
@@ -681,5 +784,3 @@ function updateCircle(timeLeft) {
 
     circle.style.background = `conic-gradient(#677689 ${progress}deg, #8ABBF7 ${progress}deg)`;
 }
-
-
