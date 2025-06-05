@@ -56,6 +56,12 @@ nav {
     font-weight: bold;
 }
 
+.header_buttons {
+    display: flex;
+    margin-right: 25px;
+    gap: 19px;
+}
+
 .listener{
     height: 100px;
     width: 100px;

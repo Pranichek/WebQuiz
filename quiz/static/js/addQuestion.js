@@ -24,7 +24,6 @@ buttonPlus.addEventListener("click", ()=>{
 for (let deleteButton of deleteButtonList) {
     deleteButton.addEventListener("click", () => {
         let id = deleteButton.id;
-        console.log("zahodit")
 
         let correctIndex = localStorage.getItem("rightIndexes")
 

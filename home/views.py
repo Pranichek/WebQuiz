@@ -35,7 +35,13 @@ def render_home_auth():
     random_numbers = []
 
     if flask.request.method == "POST":
-        return flask.redirect("/filter_page")
+        check_value = flask.request.form.get("check_form")
+
+        if check_value == "filter":
+            return flask.redirect("/filter_page")
+        elif check_value == "enter-room":
+            data_code = flask.request.form["enter-code"]
+            return flask.redirect(f"student?room_code={data_code}")
 
     tests_first_topic = Test.query.filter(Test.category == first_topic, Test.check_del != "deleted").all()
     if len(tests_first_topic) > 0:
