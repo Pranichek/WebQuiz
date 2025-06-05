@@ -38,7 +38,7 @@
             <input type="text" class="question" name="question" id="question" placeholder="Питання" value="{{ question }}">
             <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image", value="{{ image }}"> 
             <!-- value="{{ image }}"> -->
-            <button type="button" style="display: none;" class="add-image" id="deleteImgButton" onclick="deleteImage(event);">Видалити зображення</button>
+            <button type="button" {% if not image_exists %}style="display: none;"{% endif %} class="add-image" id="deleteImgButton" onclick="deleteImage(event);">Видалити зображення</button>
         </div>
     </form>
 

@@ -238,9 +238,9 @@ def render_mentor():
     code = flask.request.args.get("room_code")
     
     return flask.render_template(
-        template_name_or_list = "user_tests.html",
-        tests = tests,
-        user = flask_login.current_user
+        "mentor.html",
+        mentor=True,
+        code = code
     )
 
 @login_decorate
@@ -280,8 +280,6 @@ def render_test_preview(pk: int):
             question_list = list_to_template
         )
     )
-
-    print(flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8'), "!=", test.questions)
 
     try:
         if flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8') != test.questions:
@@ -348,6 +346,19 @@ def render_change_question_preview(pk: int, id: int):
                 answers.append("hidden")
             else:
                 break
+
+    print("pk =", pk, "id =", id)
+    test_name = Test.query.get(pk).title_test
+    deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", test_name, str(id + 1)))
+    print("path =", deletion_path)
+    file_exists = None
+    try:
+        print("os.listdir(deletion_path) =", os.listdir(deletion_path))
+        os.listdir(deletion_path)[0]
+        file_exists = True
+    except:
+        pass
+    print("file exists =", file_exists)
     
     return flask.render_template(
         template_name_or_list = "change_question.html",
@@ -358,5 +369,10 @@ def render_change_question_preview(pk: int, id: int):
         answer3 = answers[2],
         answer4 = answers[3],
         time = current_time,
-        pk = id
+        pk = id,
+        image_exists = file_exists
     )
+
+@login_decorate
+def render_student():
+    return flask.render_template("student.html")

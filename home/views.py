@@ -71,17 +71,17 @@ def render_home_auth():
             second_four_test.append(tests_second_topic[num])
 
 
-    user : User = User.query.get(int(current_user.id))
-    third_random_numbers = user.user_profile.last_passed.split(" ")
-    all_tests = Test.query.all()
+    # user : User = User.query.get(int(current_user.id))
+    # third_random_numbers = user.user_profile.last_passed.split(" ")
+    # all_tests = Test.query.all()
 
-    third_ready_tests = []
+    # third_ready_tests = []
 
-    if '' in third_random_numbers:
-        third_random_numbers.remove('')
-    for test in range(0, len(third_random_numbers)):
-        if Test.query.get(int(third_random_numbers[test])).check_del != "deleted":
-            third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
+    # if '' in third_random_numbers:
+    #     third_random_numbers.remove('')
+    # for test in range(0, len(third_random_numbers)):
+    #     if Test.query.get(int(third_random_numbers[test])).check_del != "deleted":
+    #         third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
  
     return flask.render_template(
         "home_auth.html", 
@@ -92,8 +92,7 @@ def render_home_auth():
         first_topic = first_topic,
         second_topic = second_topic,
         second_tests = second_four_test,
-        third_tests = third_ready_tests
-        )
+    )
 
     
 

@@ -204,6 +204,9 @@ h3{
 .answer::placeholder{
     color: white;
 }
+.answer:focus{
+    outline: none;
+}
 
 .button img{
     width: 60px;
