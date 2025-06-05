@@ -205,3 +205,12 @@ def render_user_tests():
         user=flask_login.current_user,
         message = message
     )
+
+
+def render_buy_gifts():
+    if flask.request.method == "POST":
+        return flask.redirect("/buy_gifts")
+    
+    return flask.render_template(
+        template_name_or_list="buy_gifts.html"
+    )

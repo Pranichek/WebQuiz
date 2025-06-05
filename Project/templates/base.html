@@ -51,6 +51,12 @@
                         <div class="nav-links">
                             <a href="/select_way" class="test-button">+ Створити вікторину</a>
                         </div>
+                    <!-- {% elif buy_gifts %}
+                        <div class="nav-links">
+                            <div class="gifts">
+                                <img src="{{ url_for('static', filename='images/settings.png') }}" alt="">
+                            </div>
+                        </div> -->
                     {% else %}
                         <div class="nav-links">
                             <a href="/" class="enter-code">Додому</a>
@@ -79,6 +85,10 @@
                                     <a href="/edit_avatar">Аватар</a>
                                     <hr>
                                     <a href="">Нагороди</a>
+                                    <hr>
+                                </span>
+                                <span class="links">
+                                    <a href="/buy_gifts">Купівля подарунків</a>
                                     <hr>
                                 </span>
                             </span>
