@@ -3,10 +3,13 @@ function getQueryParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
 }
+
+
+
 const socket = io(); 
 
 const room = getQueryParam('room_code');
-const username = "Shopa Slona";  
+const username = document.querySelector(".save-nickname").value;  
 
 
 socket.on('connect', () => {
@@ -33,6 +36,5 @@ function sendMessage() {
         message: text
     });
 }
-
 
 document.getElementById("sendBtn").addEventListener("click", sendMessage);

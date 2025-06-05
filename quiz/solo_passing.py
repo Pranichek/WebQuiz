@@ -69,7 +69,7 @@ def handle_get_question(data_index):
         "answers": current_answers,
         "index": question_index + 1,
         "amount_question": len(questions),
-        "test_time": int(test_time),
+        "test_time": int(test_time) if test_time.isdigit() else test_time,
         "type_question": type_question,
         "question_img": img_url if name_img else "not"
     })
@@ -152,7 +152,7 @@ def handle_next_question(data_index):
         "answers": current_answers,
         "index": int(data_index["index"]) + 1,
         "amount_question": len(questions),
-        "test_time": int(test_time),
+        "test_time": int(test_time) if test_time.isdigit() else test_time,
         "type_question": type_question,
         "user_email": flask_login.current_user.email,
         "question_img": img_url if name_img else "not"
