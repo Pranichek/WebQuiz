@@ -25,9 +25,22 @@ submitFilter.addEventListener(
     () => {
         let input = document.querySelector(".filter-input")
         let inputData = input.value
-        // console.log(inputData, "inputData")
-        document.cookie = `filter_data=${inputData}; path=/;`
-        let form = document.querySelector("#filter-form")
-        form.submit();
+        localStorage.setItem("filter_data", inputData)
+        document.querySelector(".search-filter-link").href = `/filter_page?input_data=${inputData}`
+        document.querySelector(".search-filter-link").click();
     }
 )
+
+// Проверяем на нажатие enter 
+let input = document.querySelector(".filter-input");
+
+input.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
+
+    let inputData = input.value;
+    localStorage.setItem("filter_data", inputData);
+    document.querySelector(".search-filter-link").href = `/filter_page?input_data=${inputData}`;
+    document.querySelector(".search-filter-link").click();
+  }
+});

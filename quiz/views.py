@@ -38,7 +38,10 @@ def render_test():
     if flask.request.method == "POST":
         check_form = flask.request.form.get('check_post')
 
-        if check_form == "create_test":
+        cookie_questions = flask.request.cookies.get("questions")
+        answers_cookies = flask.request.cookies.get("answers")
+
+        if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
             # print(name_image, "name")
             test_title = flask.request.form["test_title"]
             question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
@@ -202,9 +205,15 @@ def render_change_question(pk: int):
         current_answers = answers.split("?@?")[pk]
         answers_list = current_answers.split("%?)(?%")
         answers = []
+
+        correctAnswers = []
         for answer in answers_list:
             answer = answer.replace("(?%", "")
             answer = answer.replace("%?)", "")
+            if answer[0] == "+":
+                correctAnswers.append("correct")
+            else:
+                correctAnswers.append("not")
             answer = answer[1:-1]
             answers.append(answer)
         while True:
@@ -213,6 +222,7 @@ def render_change_question(pk: int):
             else:
                 break
     
+    print(current_time, "oda vremya")
     return flask.render_template(
         template_name_or_list = "change_question.html",
         question = current_question,
@@ -221,6 +231,10 @@ def render_change_question(pk: int):
         answer2 = answers[1],
         answer3 = answers[2],
         answer4 = answers[3],
+        correct1 = correctAnswers[0],
+        correct2 = correctAnswers[1],
+        correct3 = correctAnswers[2] if len(correctAnswers) > 2 else "not",
+        correct4 = correctAnswers[3] if len(correctAnswers) > 3 else "not",
         time = current_time,
         pk = pk
     )

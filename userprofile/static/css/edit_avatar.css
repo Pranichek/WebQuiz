@@ -432,8 +432,8 @@ body{
     left: 50%; 
     transform: translate(-50%, -50%); 
     /* filter: blur(0px); */
-    width: 300px;
-    height: 300px;
+    width: 350px;
+    height: 350px;
     border-radius: 50%;
     border: 4px #ffffff solid;
     overflow: hidden;    /* overflow: hidden; */
@@ -509,7 +509,7 @@ body{
         display: flex;
         flex-direction: column;
         /* gap: 28px; */
-        justify-content: end;
+        /* justify-content: end; */
         align-items: center;
         padding: 0px;
         padding-left: 10px;
@@ -732,7 +732,6 @@ body{
         font-size: 20px;
         padding-left: 30px;
         padding-right: 30px;
-        background-color: brown;
     }
 
     .number-tests{
@@ -899,7 +898,7 @@ body{
         background-color: #343434;
         border: 1px #94C4FF solid;
         width: 90%;
-        height: 25%;
+        height: 20%;
         border-radius: 15px;
         display: flex;
         justify-content: space-between;
@@ -908,7 +907,7 @@ body{
         font-size: 20px;
         padding-left: 30px;
         padding-right: 30px;
-        background-color: #FFE177;
+       
     }
 
     .default-avatars{
@@ -930,7 +929,7 @@ body{
         border-radius: 34px;
         background-color: #464F5B;
         width: 100%;
-        height: 45%;
+        height: 25%;
         padding-left: 10px;
         padding-right: 10px;
     }
@@ -1038,7 +1037,7 @@ body{
     }
 }
 
-@media (min-width:1000px) and (max-width:1300px){
+@media (min-width:1001px) and (max-width:1300px){
     .data-user {
         display: flex;
         flex-direction: column;
@@ -1079,9 +1078,6 @@ body{
         width: 169px;
     }
 
-    .bottom-data{
-        background-color: pink;
-    }
 
     .nick{
         opacity: 1;
@@ -1096,6 +1092,7 @@ body{
 
     .button{
         height: 25%;
+        background-color: #343434;
     }
     .antoher-data .text-tests, .antoher-data .gmail{
         opacity: 0.8;

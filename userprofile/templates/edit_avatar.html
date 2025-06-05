@@ -99,7 +99,7 @@
         </div>
         <div class="look-picture">
             <div class="image-user">
-                <input type="range" name="input_range" class="size" min="100" max="200" value="100" onchange="ChangeSize()">
+                <input type="range" name="input_range" class="size" min="90" max="200" value="100" onchange="ChangeSize()">
 
                 <div class = "blur-image">
                     <img class="bg-image" src="{{ url_for('profile.static', filename = 'images/edit_avatar/' + user.email + '/cash/' +  cash_image) }}" alt="img">
@@ -133,7 +133,7 @@
                 </form>
                 <form action="" method="post" id="apply_image_form">
                     <!-- тут скрытый инпут, чтобы при пост запросе на бек мы могли получить значени что ввел пользователь -->
-                    <input type="range" name="hide-size" class="hide-size" min="100" max="200" value="100">
+                    <input type="range" name="hide-size" class="hide-size" min="90" max="200" value="100">
                     <input type="text" name="check_form" class = "check_name" value = "apply_image">
                     <button class="apply" type="submit">застосувати зображення</button>
                 </form>

@@ -7,6 +7,7 @@ from Project.db import DATABASE
 from .render_data import create_email, render_phone_number
 from home.send_email import send_code, generate_code 
 from Project.login_check import login_decorate
+from os.path import abspath, join, exists
 
 
 @login_decorate
@@ -50,9 +51,13 @@ def render_profile():
         elif check_form == "delete":
             user = User.query.get(flask_login.current_user.id)
             #удаляем папку с его медиа файлами
-            shutil.rmtree(os.path.abspath(os.path.join(__file__, "..", "static", "images", "edit_avatar", str(user.email))))
+            if os.path.exists(os.path.abspath(os.path.join(__file__, "..", "static", "images", "edit_avatar", str(user.email)))):
+                shutil.rmtree(os.path.abspath(os.path.join(__file__, "..", "static", "images", "edit_avatar", str(user.email))))
             user.email = "Deleted"
             user.phone_number = "Deleted"
+
+            for test in user.tests.all():
+                test.check_del = 'deleted'
             
             flask.session.clear()
             # DATABASE.session.delete(user)
@@ -105,13 +110,11 @@ def render_edit_avatar():
 
                     print(check_form)
                     data_range = int(flask.request.form.get("hide-size"))
-                    # if data_range == 100:
-                    #     flask_login.current_user.size_avatar = 100
-                    # else:
+
                     if data_range <= 140:
                         flask_login.current_user.size_avatar = 110 + int(data_range)
                     else:
-                        flask_login.current_user.size_avatar = 150 + int(data_range)
+                        flask_login.current_user.size_avatar = 155 + int(data_range)
                     DATABASE.session.commit()
 
                     img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "cash", str(flask.session["cash_image"]))))
@@ -173,7 +176,66 @@ def render_edit_avatar():
 @login_decorate
 def render_user_tests():
     user = User.query.get(flask_login.current_user.id)
-    tests = user.tests.all()
+    tests = user.tests.filter(Test.check_del != "deleted").all()
+    message = ''
+
+    # code = generate_code()
+    
+    return flask.render_template(
+        template_name_or_list="user_tests.html",
+        tests=tests,
+        user=flask_login.current_user,
+        message = message,
+        code = generate_code()
+    )
+
+@login_decorate
+def render_change_tests():
+    user = User.query.get(flask_login.current_user.id)
+    message = ''
+    
+    test_id = flask.request.args.get("test_id")
+    if not test_id:
+        return 
+
+    test = Test.query.filter_by(id=test_id, user_id=user.id).first()
+    if not test:
+        return 
+    if flask.request.method == "POST":
+        new_name = flask.request.form.get("new_name")
+        if new_name:
+            existing_test = Test.query.filter_by(user_id=user.id, title_test=new_name).first()
+            if existing_test:
+                message = "Тест із такою назвою вже є"
+            else:
+                old_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(test.title_test)))
+                new_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(new_name)))
+                os.rename(old_path, new_path)
+                test.title_test = new_name
+                DATABASE.session.commit()
+                message = "Назву змінено успішно"
+
+        delete_id = flask.request.form.get("delete-id")
+        if delete_id:
+            test.check_del = "deleted"
+            DATABASE.session.commit()
+            message = "Тест видалено"
+            return flask.redirect("/user_test")
+
+        create_room = flask.request.form.get("create-room")
+
+        if create_room:
+            print("ida")
+    
+    return flask.render_template(
+        "change_tests.html",
+        test=test,
+        message=message,
+    )
+
+@login_decorate
+def render_mentor():
+    code = flask.request.args.get("room_code")
     
     return flask.render_template(
         template_name_or_list = "user_tests.html",

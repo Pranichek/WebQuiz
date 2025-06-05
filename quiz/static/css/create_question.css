@@ -88,6 +88,11 @@ body .main{
     text-decoration: none;
 }
 
+.purple{
+    background-color: #C48AF7;
+    color: #ffff;
+}
+
 .grey{
     background-color: #636262;
     color: #343434;
@@ -216,6 +221,7 @@ h3{
     top: -5px;
     left: -5px;
 }
+
 
 .delete-answer{
     display: flex;

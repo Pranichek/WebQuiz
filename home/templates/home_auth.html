@@ -10,14 +10,15 @@
 
 {% block content %}
     <div class="background-blur"></div>
-    <div class="top-part" onclick="Profile()">
+    <div class="top-part">
         <div class="enter-code">
-            <div class="main-input">
-                <input type="number" placeholder="Enter a join code" class="code">
+            <form action="" method="post" class="main-input">
+                <input type="hidden" name="check_form" value="enter-room">
+                <input type="number" name="enter-code" maxlength="6" placeholder="Enter a join code" class="code">
                 <button type="submit" class="butn1">Join</button>
-            </div>
+            </form>
         </div>
-        <div class="data-user">
+        <div class="data-user" onclick="Profile()">
             <div class="main-data">
                 <div class="avatar-circle">
                     <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
@@ -40,66 +41,31 @@
             <a href="/" class="show-more-link">Побачити більше</a>
         </div>
         <div class="cards">
-            <div class="card card1">
-                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
-                <div class="card_image">
-                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
-                </div>
-                <div class="discription">
-                    <div class="test-name">
-                        <p class="topic-test">Python</p>
+            {% if third_tests|length > 0 %}
+                {% for test in third_tests %}
+                    <div class="card" onclick="this.querySelector('.topic-test').click();">
+                        <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                        {% if 'default' in test.image.split("/") %}
+                            <div class="card_image">
+                                <img class="image" src="{{ url_for('test_pass.static', filename='images/' + test.image.split('/')[-1]) }}" alt="">
+                            </div>
+                        {% else %}
+                            <div class="card_image">
+                                <img class="image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/user_tests/' + test.title_test + '/' + test.image ) }}" alt="">
+                            </div>
+                        {% endif %}
+                        <div class="discription">
+                            <div class="test-name">
+                                <a href="/test_data?id_test={{test.id}}" class="topic-test">{{ test.category }}</a>
+                            </div>
+                            <div class="discription-test">
+                                <p class="static-theme">тема:</p>
+                                <p class="theme-test">{{ test.title_test }}</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="discription-test">
-                        <p class="static-theme">тема:</p>
-                        <p class="theme-test">Функції</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card card2">
-                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
-                <div class="card_image">
-                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
-                </div>
-                <div class="discription">
-                    <div class="test-name">
-                        <p class="topic-test">Python</p>
-                    </div>
-                    <div class="discription-test">
-                        <p class="static-theme">тема:</p>
-                        <p class="theme-test">Функції</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card card3">
-                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
-                <div class="card_image">
-                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
-                </div>
-                <div class="discription">
-                    <div class="test-name">
-                        <p class="topic-test">Python</p>
-                    </div>
-                    <div class="discription-test">
-                        <p class="static-theme">тема:</p>
-                        <p class="theme-test">Функції</p>
-                    </div>
-                </div>
-            </div>
-            <div class="card card4">
-                <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
-                <div class="card_image">
-                    <img class="image" src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
-                </div>
-                <div class="discription">
-                    <div class="test-name">
-                        <p class="topic-test">Python</p>
-                    </div>
-                    <div class="discription-test">
-                        <p class="static-theme">тема:</p>
-                        <p class="theme-test">Функції</p>
-                    </div>
-                </div>
-            </div>
+                {% endfor %}
+            {% endif %}
         </div>
     </div>
 
@@ -178,11 +144,12 @@
 
     <div class="filter-test">
         <form action="" method="post" id="filter-form">
-            <input type="text" class="filter-input" placeholder="Знайти вікторину">
+            <input type="hidden" name="check_form" vlaue="filter">
+            <input type="text" class="filter-input" placeholder="Знайти вікторину" onkeydown="checkEnterPress(event)">
             <button type="button" class="submit-filter"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt=""></button>
         </form>
     </div>
-    
+    <a href="" class="search-filter-link"></a>
 
 {% endblock %}
 

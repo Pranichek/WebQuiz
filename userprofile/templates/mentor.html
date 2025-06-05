@@ -1,0 +1,129 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Ментор
+{% endblock %}
+    
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('profile.static', filename ='css/mentor.css') }}">
+{% endblock links %}
+    
+{% block content %}   
+    <div class="general_container_rect">
+        <div class="mentor-layout">
+
+      
+            <div class="mentor-info-card">
+                <div class="mentor-header">
+                    
+                    <div class="mentor-info">
+                        <span class="mentor_name">Mukola</span>
+                        <span class="email">scripnic@gmail.com</span>
+                    </div>
+                    <div class="mentor-avatar">
+                        <img src="{{ url_for('mentor.static', filename='images/mentor/mentor_avatar.png') }}" alt="Аватар ментора">
+                        <p class="you">ви</p>
+                    </div>
+                </div>
+                <div class="topic">
+                    тема тесту
+                </div>
+            </div>
+
+
+         
+            <div class="mentor-card">
+                <div class="mentor-join-info">
+                    <div class="join">
+                        <span>Приєднуйтесь з будь-якого пристрою:</span>
+                        <div class="url">
+                            <span class="link-text">joinquiz.com</span>
+                            <img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/copy.png') }}" alt="copy icon">
+                        </div>
+                    </div>
+
+                    <div class="join-code">
+                        <span>Код приєднання</span>
+                        <div class="code">
+                            <span id="code">{{ code }}</span>
+                            <img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/copy.png') }}" alt="copy icon">
+                        </div>
+                    </div>
+
+                    <div class="user-count">
+                        <span>Kількість учасників</span>
+                        <span id="amount_users">12</span>
+                    </div>
+
+                    <div class="qr-code">
+                        Скануй QR-Code <br>
+                        та приєднуприєднуйся до тесту 
+                        <img src="{{ url_for('mentor.static', filename='images/mentor/qr-code.png') }}">
+                    </div>
+
+
+
+                    <div class="mentor-buttons">
+                        <button class="start">почати зараз</button>
+                        <button class="end">кінець уроку</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <section class="participants-section">
+        <h2 class="participants">Учасники</h2>
+
+        
+        <div class="chat-box"></div>
+        <input type="text" class="message-input" placeholder="Введи повідомлення">
+        <button class="send-message">Надіслати</button>
+
+        <div class="participants-list">
+            <div class="card">
+                <div class="avatar"><img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/student_avatar.png') }}" alt="avatar"></div>
+                <div class="information">
+                    <span class="username">vova</span>
+                    <div class="fires">
+                        <img src="" alt="1">
+                        <img src="" alt="2">
+                        <img src="" alt="3">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="avatar"><img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/student_avatar.png') }}" alt="avatar"></div>
+                <div class="information">
+                    <span class="username">kemilli</span>
+                    <div class="fires">
+                        <img src="" alt="1">
+                        <img src="" alt="2">
+                        <img src="" alt="3">
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="avatar"><img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/student_avatar.png') }}" alt="avatar"></div>
+                <div class="information">
+                    <span class="username">lena</span>
+                    <div class="fires">
+                        <img src="" alt="1">
+                        <img src="" alt="2">
+                        <img src="" alt="3">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{%  endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('mentor.static', filename='js/mentor.js') }}"></script>
+{% endblock scripts %}

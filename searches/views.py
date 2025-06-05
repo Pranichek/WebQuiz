@@ -4,17 +4,23 @@ from Project.login_check import login_decorate
 
 @login_decorate
 def render_data_filter():
-    input_data = flask.request.cookies.get("filter_data")
+    # if flask.request.method == "POST":
+    #     input_data = flask.request.form.get("search-data")
+    # else:
+    #     input_data = None
+    input_data = flask.request.args.get("input_data")
+    print(input_data, "fd")
+    searching_test = []
+    user = ''
 
     if input_data is not None:
-        tests = Test.query.all()
+        tests = Test.query.filter(Test.check_del != "deleted").all()
 
-        searching_test = []
         if len(tests) > 0:
             for test in tests:
-            
-                begin = test.title_test[0]
-                if input_data.lower() in test.title_test.lower(): 
+                # убраем пробелы(еслт есть) и делаем текст нижнем регистре
+                title = test.title_test.strip().lower()
+                if title.startswith(input_data): 
                     searching_test.append(test)
         print(searching_test)
 

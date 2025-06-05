@@ -52,6 +52,24 @@ userprofile.profile.add_url_rule(
     methods = ["GET","POST"]
 )
 
+userprofile.change_tests.add_url_rule(
+    rule = "/change_tests",
+    view_func = userprofile.render_change_tests,
+    methods = ["GET","POST"]
+)
+
+userprofile.mentor.add_url_rule(
+    rule = "/mentor",
+    view_func = userprofile.render_mentor,
+    methods = ["GET","POST"]
+)
+
+userprofile.mentor.add_url_rule(
+    rule = "/student",
+    view_func = userprofile.render_student,
+    methods = ["GET","POST"]
+)
+
 userprofile.profile.add_url_rule(
     rule = "/test_preview/<int:pk>",
     view_func = userprofile.render_test_preview,

@@ -6,6 +6,8 @@ let inputList = document.querySelectorAll(".answer");
 let tickCircleList = document.querySelectorAll(".tick-circle");
 // Беремо усі кружечки у лівому куту кожної відповіді(блоку з відповіддю)
 let detectorList = document.querySelectorAll(".detector");
+// зміна де зберігаються дані правильних варіантів відповідей через localstorage
+let rightblock;
 
 // Робимо перебір по списку з кружечками
 for (let detector of detectorList){
@@ -21,18 +23,69 @@ for (let detector of detectorList){
                     if (tick.id == detector.id){
                         if (input.classList.contains("correct")){
                             let checkCorrectList = document.querySelectorAll(".correct");
+                            console.log(checkCorrectList, "bugaga")
                             if (checkCorrectList.length > 1){
                                 console.log("correct:", input.id);
                                 tick.style.display = "none";
                                 input.classList.remove("correct");
                             }
-                        } else {
+                        }else {
                             tick.style.display = "flex";
                             input.classList.add("correct");
                         }
+                        corretIndexes();
                     }
                 }
             }
         }
     })
 }
+
+
+function corretIndexes(){
+    let checkCorrectList = document.querySelectorAll(".answer");
+
+    let stringIndexes = ''
+
+    for (let input of checkCorrectList){
+        if (input.classList.contains("correct")){
+            stringIndexes += ' ' + input.id
+        }
+    }
+
+    localStorage.setItem("rightIndexes", stringIndexes)
+}
+
+
+window.addEventListener(
+    'load',
+    () => {
+        let checkCorrectList = document.querySelectorAll(".answer");
+        let correctindexes = localStorage.getItem("rightIndexes")
+
+        console.log(correctindexes, "lol")
+        
+        if(correctindexes !== null){
+            let lsitIndexes = correctindexes.split(" ")
+            
+            lsitIndexes.splice(0, 1)
+
+            console.log(lsitIndexes, "Da")
+            checkCorrectList.forEach(
+            (input, index) => {
+                    console.log(index, "input Index")
+                    if (lsitIndexes.includes(input.id)){
+                        if (input.value != ""){
+                            tickCircleList[index].style.display = `flex`;
+                            input.classList.add("correct");
+                        }else{
+                            if (input.id != 1 && input.id != "1" && lsitIndexes.length != 1 && lsitIndexes.includes("1")){
+                                tickCircleList[index].style.display = `none`;
+                            }
+                        }
+                    }
+                }
+            )
+        }
+    }
+)
