@@ -71,7 +71,7 @@
                     <!-- <img  src="{{ url_for('test_pass.static', filename='images/cover.png') }}" alt="" class="test-cover"> -->
                 
                     <div class="info">
-                        <input class="test-title-input" type="text" name="test_title" onchange="saveName();" value="{{ test.title_test }}" disabled>
+                        <textarea class="test-title-input" type="text" name="test_title" onchange="saveName();" value="{{ test.title_test }}" disabled></textarea>
                         <div class="checklist">
                             <div class="first-rule">
                                 <img class="icon-item username-like" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
