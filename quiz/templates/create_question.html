@@ -18,13 +18,13 @@
             <div>
                 <div class="timer"><p class="timer-p" id="time" value="" data-time="30">⏱ 30 секунд &#709</p>
                     <ul id="timeList" class="hidden-list">
-                        <li data-time="20">⏱ 20 секунд &#709</li>
-                        <li data-time="30">⏱ 30 секунд &#709</li>
-                        <li data-time="45">⏱ 45 секунд &#709</li>
-                        <li data-time="60">⏱ 1 хвилина &#709</li>
-                        <li data-time="120">⏱ 2 хвилини &#709</li>
-                        <li data-time="180">⏱ 3 хвилини &#709</li>
-                        <li data-time="not">⏱ Без часу &#709</li>
+                        <li value="0" class="list-time" data-time="20">⏱ 20 секунд &#709</li>
+                        <li value="1" class="list-time" data-time="30">⏱ 30 секунд &#709</li>
+                        <li value="2" class="list-time" data-time="45">⏱ 45 секунд &#709</li>
+                        <li value="3" class="list-time" data-time="60">⏱ 1 хвилина &#709</li>
+                        <li value="4" class="list-time" data-time="120">⏱ 2 хвилини &#709</li>
+                        <li value="5" class="list-time" data-time="180">⏱ 3 хвилини &#709</li>
+                        <li value="6" class="list-time" data-time="not">⏱ Без часу &#709</li>
                     </ul>
                 </div>
                 <button type="button" class="add-question" id="save">+ Додати питання</button>
@@ -32,14 +32,12 @@
         </div>
         
         <div class="question-name">
-            <input type="text" class="question" name="question" id="question" placeholder="Питання" required>
-            <div class="image-container question">
-                <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image">
+            <input type="text" class="question" name="question" id="question" placeholder="Введіть питання" required>
+                <label class="add-image">Додати зображення<input type="file" id="imgInput" name="image" accept="image/*" onchange="imageLoaded(event);" style="display:none;"></label>
                 <div class="is-image" style="display: none;" id="deleteImgButton">
                     <p class="img-success">Зображення успішно додано</p>
-                    <button type="button" class="add-image" onclick="deleteImage(event);">Видалити зображення</button>
+                    <label class="add-image">Видалити зображення<input type="button" onclick="deleteImage(event);" style="display:none;"></label>
                 </div>
-            </div>
         </div>
     </form>
 
@@ -50,7 +48,7 @@
             <div class="detector" id="1">
                 <img id="1" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <input type="text" class="answer correct first_input" name="answer" id="1" placeholder="Відповідь">
+            <input type="text" class="answer first_input" name="answer" id="1" placeholder="Відповідь">
             <div class="delete-answer" id="1">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>

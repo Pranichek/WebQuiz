@@ -66,6 +66,12 @@ socket.on('question', (data) => {
 
 
         if (data.question_img != "not"){
+            let justAnswerDiv = document.querySelector(".answers")
+            let answerImg = document.querySelector(".answers-image")
+
+            justAnswerDiv.style.display = "none"
+            answerImg.style.display = "flex"
+
             const simpleQuestion = document.querySelector(".question");
 
             simpleQuestion.innerHTML = `
@@ -176,7 +182,7 @@ socket.on('question', (data) => {
                 }
 
 
-                let blockanswers = document.querySelectorAll(".coint")
+                const blockanswers = document.querySelectorAll(".coint")
 
                 const footer = document.querySelector(".submit")
 
@@ -230,10 +236,10 @@ socket.on('question', (data) => {
                 let width = 100 / countVisible
                 let colors = ["#ECEAA1", "#8AF7D4", "#94C4FF", "#C48AF7"]
 
-                for (let index = 0; index < amountAnswers; index++) {
-                    blockanswers[index].style.width = `${width}%`;
-                    blockanswers[index].style.backgroundColor = colors[index]
-                }
+                blockanswers[0].style.backgroundColor = colors[0]
+                blockanswers[1].style.backgroundColor = colors[1]
+                blockanswers[2].style.backgroundColor = colors[2]
+                blockanswers[3].style.backgroundColor = colors[3]
 
             }else {
                 const checkMarkUrl = "/static/images/check-mark.png";
@@ -417,6 +423,12 @@ socket.on('question', (data) => {
             document.querySelector(".bottom-image").appendChild(img);
 
         }else{
+            let justAnswerDiv = document.querySelector(".answers")
+            let answerImg = document.querySelector(".answers-image")
+
+            justAnswerDiv.style.display = "flex"
+            answerImg.style.display = "none"
+
             const simpleQuestion = document.querySelector(".question");
 
             simpleQuestion.innerHTML = `

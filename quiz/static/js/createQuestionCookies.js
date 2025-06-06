@@ -61,6 +61,7 @@ button.addEventListener("click", ()=>{
     console.log(document.cookie.match("questions"))
     // Очистити question
     localStorage.removeItem("question");
+    localStorage.setItem("timeData", 1)
 
     // Очистити всі відповіді из localstorage
     answerInputList.forEach((input, index) => {
@@ -130,6 +131,14 @@ button.addEventListener("click", ()=>{
 
 // Загрузка из лоаклстораджа при запуске
 window.addEventListener("DOMContentLoaded", () => {
+    let timedata = localStorage.getItem("timeData")
+    const time = document.getElementById("time");
+    let liLists = document.querySelectorAll(".list-time")
+    if(timedata){
+        time.textContent = liLists[parseInt(timedata)].textContent;
+        time.dataset.time = liLists[parseInt(timedata)].dataset.time;
+    }
+
     const questionSaved = localStorage.getItem("question");
     if (questionSaved) {
         question.value = questionSaved;
