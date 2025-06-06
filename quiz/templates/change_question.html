@@ -12,7 +12,11 @@
 {% block content %}
     <form action="" method="post" enctype="multipart/form-data">
         <div class="pseudo-header">
-            <a href="/test" class="test-button">
+            <a {% if test_pk %}
+                href="/test_preview/{{ test_pk }}"
+            {% else %}
+                href="/test"
+            {% endif %} class="test-button">
                 <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
             </a>
 
@@ -36,9 +40,14 @@
         <div class="question-name">
             <p style="display: none;" id="pk">{{ pk }}</p>
             <input type="text" class="question" name="question" id="question" placeholder="Питання" value="{{ question }}">
-            <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image", value="{{ image }}"> 
+            <div class="image-container question">
+                <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image", value="{{ image }}"> 
+                <div class="is-image" style="display: none;" id="deleteImgButton">
+                    <p class="img-success">Зображення успішно додано</p>
+                    <button type="button" {% if not image_exists %}style="display: none;"{% endif %} class="add-image" id="deleteImgButton" onclick="deleteImage(event);">Видалити зображення</button>
+                </div>
+            </div>
             <!-- value="{{ image }}"> -->
-            <button type="button" {% if not image_exists %}style="display: none;"{% endif %} class="add-image" id="deleteImgButton" onclick="deleteImage(event);">Видалити зображення</button>
         </div>
     </form>
 

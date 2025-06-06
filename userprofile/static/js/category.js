@@ -3,16 +3,6 @@ const liList = document.getElementsByTagName("li");
 const time = document.getElementById("time");
 let answerInputList = document.querySelectorAll(".answer");
 
-function decodeEscapedUtf8(str) {
-    // Step 1: Convert escape sequences to a byte array
-    const bytes = str.replace(/\\(\d{3})/g, (_, oct) => String.fromCharCode(parseInt(oct, 8)));
-  
-    // Step 2: Decode the UTF-8 bytes into a Unicode string
-    const decoder = new TextDecoder('utf-8');
-    const uint8Array = new Uint8Array([...bytes].map(ch => ch.charCodeAt(0)));
-    return decoder.decode(uint8Array);
-  }
-
 time.addEventListener("click", ()=>{
     if (timeList.classList.contains("hidden-list")){
         timeList.classList.remove("hidden-list");
@@ -31,8 +21,15 @@ for (let li of liList){
     })
 }
 
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+    return null;
+}
+
 if (document.cookie.match("category") != ""){
-    time.textContent = decodeEscapedUtf8(document.cookie.split("category=")[1].split(";")[0]).replace('"', "").replace('"', "");
+    time.textContent = decodeURIComponent(getCookie("category")).replace(/"/g, "").replace(/"/g, "");
 }
 
 function ChangePhoto(text_li){

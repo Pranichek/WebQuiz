@@ -246,8 +246,8 @@ def render_mentor():
 @login_decorate
 def render_test_preview(pk: int):
     test = Test.query.get(pk)
-    print("test =", test)
-
+    category = test.category.encode('utf-8').decode('unicode_escape')
+    print("test =", category)
 
     list_to_template = []
     new_questions_list = test.questions.split("?%?")
@@ -294,14 +294,14 @@ def render_test_preview(pk: int):
             response.set_cookie('questions', test.questions)
             response.set_cookie('answers', test.answers)
             response.set_cookie('time', test.question_time)
-            response.set_cookie('category', test.category)
+            response.set_cookie('category', category)
             response.set_cookie('inputname', test.title_test)
 
     except:
         response.set_cookie('questions', test.questions)
         response.set_cookie('answers', test.answers)
         response.set_cookie('time', test.question_time)
-        response.set_cookie('category', test.category)
+        response.set_cookie('category', category)
         response.set_cookie('inputname', test.title_test)
 
     return response
@@ -370,7 +370,8 @@ def render_change_question_preview(pk: int, id: int):
         answer4 = answers[3],
         time = current_time,
         pk = id,
-        image_exists = file_exists
+        image_exists = file_exists,
+        test_pk = pk
     )
 
 @login_decorate
