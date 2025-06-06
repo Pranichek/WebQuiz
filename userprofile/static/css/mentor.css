@@ -6,13 +6,12 @@
 
 
 .general_container_rect {
-    position: absolute;
-    top: 15%;
-    left: 3%;
+    margin-left: 10vh;
+    margin-top: 12vh;
     display: flex;
     background-color: rgba(138, 187, 247, 0.1);
-    width: 490px;
-    height: 713px;
+    width: 38.28vh;
+    height: 56.41vh;
     border: 1px solid #C48AF7;
     border-radius: 24px;
     padding: 10px;
