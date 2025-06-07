@@ -53,15 +53,19 @@
                         </div>
                     {% elif mentor %}
                         <div class="header_buttons">
-                            <img src="{{ url_for('static', filename='images/sound.png') }}" alt="sound">
-                            <img src="{{ url_for('static', filename='images/settings.png') }}" alt="settings">
+                            <button type="submit" class="mentor-buttons">
+                                <img src="{{ url_for('static', filename='images/sound.png') }}" alt="sound">
+                            </button>
+                            <button type="submit" class="mentor-buttons">
+                                <img src="{{ url_for('static', filename='images/settings.png') }}" alt="settings">
+                            </button>
                         </div>
                     {% else %}
                         <div class="nav-links">
                             <a href="/" class="enter-code">Додому</a>
                         </div>
                     {% endif %}
-
+                    {% if not mentor %} 
                     <div class="panel-container">
                         <div class="listener">
                             <img src="{{ url_for('static', filename='images/open-panel.png') }}" alt="" class="open-panel">
@@ -90,8 +94,9 @@
                             <img class="sidebar-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
                         </div>
                     </div>
+                    {% endif %}
                 </nav>
-
+                    
             </header>
         {% endif %}
 
