@@ -10,6 +10,7 @@
 
 {% block content %}
     <form action="" method="post" enctype="multipart/form-data">
+        <input type="text" name="check_form" value="confirm-question">
         <div class="pseudo-header">
             <a href="/test" class="test-button">
                 <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">

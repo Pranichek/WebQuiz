@@ -10,7 +10,6 @@ class DataUser(DATABASE.Model):
     # айді останніх пройденів тестів
     last_passed = DATABASE.Column(DATABASE.String, default = '')
 
-    
 
     # зв'язок із моделлю користувача one-to-one
     user = DATABASE.relationship("User", back_populates="user_profile")
