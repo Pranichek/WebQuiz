@@ -63,17 +63,34 @@
     display: inline-block;
     margin-top: 5px;
     width: 100%;
+    display: flex;
+    justify-content: center;
 }
 
 .avatar {
-    width: 80px;
-    height: 80px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
     border: 2px solid white;
 }
 
 .favorite {
     text-align: center;
+    gap: 10px;
+}
+
+.pet1 {
+    width: 140px;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #C48AF7;
+    display: flex;
+    justify-content: center;
+}
+
+#own-pet{
+    width: 25px;
+    height: 25px;
 }
 
 .pet {
@@ -81,12 +98,20 @@
     border-radius: 8px;
     padding: 5px 10px;
     margin: 5px auto;
-    width: 100%;
+    width: 140px;
+    height: 120px;
+    display: flex;
 }
 
 .pet img {
     width: 40px;
     height: auto;
+    display: block;
+}
+
+#text-c {
+    color: #D6E8FE;
+    margin-top: 50px;
 }
 
 .tests {
@@ -112,6 +137,10 @@
     padding: 15px;
     text-align: center;
     transition: transform 0.2s;
+    display: flex;
+    width: 170px;
+    height: 200px;
+    flex-direction: column;
 }
 
 .pet-card:hover {
@@ -120,7 +149,7 @@
 }
 
 .pet-card img {
-    width: 60px;
+    width: auto;
     height: auto;
     margin-bottom: 10px;
 }
