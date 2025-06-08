@@ -25,12 +25,10 @@ def render_test():
     new_questions = ""
     new_answers = ""
     category = ""
-    name_image = ''
     try:
         new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
         new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
         category = flask.request.cookies.get("category").encode('raw_unicode_escape').decode('utf-8')
-        name_image = flask.request.cookies.get("test_url").encode('raw_unicode_escape').decode('utf-8')
     except:
         pass
 
@@ -244,16 +242,14 @@ def render_delete_image(pk: int):
     images_tests_dir = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
     deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
     shutil.rmtree(deletion_path)
-    for folder in os.scandir(images_tests_dir):
-        print("folder =", folder.name)
-        try:
-            print(folder.name, pk)
-            if int(folder.name) > pk:
-                current_dir = os.path.abspath(os.path.join(images_tests_dir, folder.name))
-                print(current_dir)
-                future_dir = os.path.abspath(os.path.join(images_tests_dir, str(int(folder.name) - 1)))
-                print(future_dir)
-                os.rename(current_dir, future_dir)
-        except:
-            pass
+    folders = [entry for entry in os.scandir(images_tests_dir) if entry.is_dir()]
+    folders_sorted = sorted(folders, key=lambda f: int(f.name))
+
+    for folder in folders_sorted:
+        folder_num = int(folder.name)
+        if folder_num > pk + 1:
+            src = os.path.join(images_tests_dir, folder.name)
+            dst = os.path.join(images_tests_dir, str(folder_num - 1))
+            print(f"Renaming {src} → {dst}")
+            os.rename(src, dst)
     return "Delete"

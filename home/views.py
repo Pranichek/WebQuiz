@@ -27,12 +27,12 @@ def render_home_auth():
     user = User.query.get(flask_login.current_user.id)
 
     # отримати баланс
-    money_user = user.user_profile.count_money
-    print(money_user, "money")
+    # money_user = user.user_profile.count_money
+    # print(money_user, "money")
 
     # змінити баланс
-    user.user_profile.count_money = 270
-    DATABASE.session.commit()
+    # user.user_profile.count_money = 270
+    # DATABASE.session.commit()
 
     category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
     first_topic = random.choice(category)

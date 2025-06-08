@@ -2,12 +2,15 @@ import flask, os, flask_login, random, shutil
 from threading import Thread
 import PIL.Image
 from home.models import User
-from quiz.models import Test
+from quiz.models import Test, TestData
+from quiz.del_files import delete_files_in_folder
+from quiz.generate_image import return_img
 from Project.db import DATABASE
 from .render_data import create_email, render_phone_number
 from home.send_email import send_code, generate_code 
 from Project.login_check import login_decorate
 from os.path import abspath, join, exists
+from flask_login import current_user
 
 
 @login_decorate
@@ -247,64 +250,123 @@ def render_mentor():
 
 @login_decorate
 def render_test_preview(pk: int):
-    test = Test.query.get(pk)
-    category = test.category.encode('utf-8').decode('unicode_escape')
-    print("test =", category)
-
-    list_to_template = []
-    new_questions_list = test.questions.split("?%?")
-    new_answers_list = test.answers.split("?@?")
-    new_time_list = test.question_time.split("?#?")
-
-    number = 0
-    for question in new_questions_list:
-        item = {}
-        item["question"] = question
-        answers_list = new_answers_list[number].split("%?)(?%")
-        temporary_answers_list = []
-        for answer in answers_list:
-            answer = answer.replace("(?%", "")
-            answer = answer.replace("%?)", "")
-            answer = answer[1:-1]
-            temporary_answers_list.append(answer)
-        item["answers"] = temporary_answers_list
-        item["pk"] = number
-        item["time"] = new_time_list[number]
-        list_to_template.append(item)
-        number += 1
-    print("list_to_template", list_to_template)
-
-    response = flask.make_response(
-        flask.render_template(
-            template_name_or_list = "test_preview.html",
-            test = test,
-            user = flask_login.current_user,
-            question_list = list_to_template
-        )
-    )
 
     try:
-        if flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8') != test.questions:
-            response.delete_cookie('questions')
-            response.delete_cookie('answers')
-            response.delete_cookie('time')
-            response.delete_cookie('category')
-            response.delete_cookie('inputname')
+        new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
+        new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
+        category = flask.request.cookies.get("category").encode('raw_unicode_escape').decode('utf-8')
+    except:
+        pass
 
-            print("change coookies")
+    if flask.request.method == "POST":
+        check_form = flask.request.form.get('check_post')
 
+        cookie_questions = flask.request.cookies.get("questions")
+        answers_cookies = flask.request.cookies.get("answers")
+
+        if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
+            # print(name_image, "name")
+            test_title = flask.request.form["test_title"]
+            question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
+
+            test = Test.query.filter_by(id = pk)
+
+            test.title_test = test_title,
+            test.questions = new_questions,
+            test.answers = new_answers,
+            test.question_time = question_time,
+            category = category,
+            image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else f"default/{return_img(category = category)}"
+
+            test_data = TestData()
+            test.test_profile = test_data
+
+            response = flask.make_response(flask.redirect('/'))
+
+            try:
+                response.delete_cookie("questions")
+                response.delete_cookie("answers")
+                response.delete_cookie("time")
+                response.delete_cookie("category")
+                response.delete_cookie("inputname")
+                response.delete_cookie("test_url")
+                response.delete_cookie("images")
+            except:
+                pass
+
+            DATABASE.session.commit()
+            return response
+        elif check_form == "image":
+            image = flask.request.files["image"]
+    
+            if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test"))):
+                os.mkdir(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test")))
+
+            flask.session["test_image"] = str(image.filename)
+            delete_files_in_folder(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test")))
+            image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
+        elif check_form == "del_image":
+            flask.session["test_image"] = "default"
+
+    else:
+        test = Test.query.get(pk)
+        category = test.category.encode('utf-8').decode('unicode_escape')
+        print("test =", category)
+
+        list_to_template = []
+        new_questions_list = test.questions.split("?%?")
+        new_answers_list = test.answers.split("?@?")
+        new_time_list = test.question_time.split("?#?")
+
+        number = 0
+        for question in new_questions_list:
+            item = {}
+            item["question"] = question
+            answers_list = new_answers_list[number].split("%?)(?%")
+            temporary_answers_list = []
+            for answer in answers_list:
+                answer = answer.replace("(?%", "")
+                answer = answer.replace("%?)", "")
+                answer = answer[1:-1]
+                temporary_answers_list.append(answer)
+            item["answers"] = temporary_answers_list
+            item["pk"] = number
+            item["time"] = new_time_list[number]
+            list_to_template.append(item)
+            number += 1
+        print("list_to_template", list_to_template)
+
+        response = flask.make_response(
+            flask.render_template(
+                template_name_or_list = "test_preview.html",
+                test = test,
+                user = flask_login.current_user,
+                question_list = list_to_template
+            )
+        )
+
+        try:
+            if flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8') != test.questions:
+                response.delete_cookie('questions')
+                response.delete_cookie('answers')
+                response.delete_cookie('time')
+                response.delete_cookie('category')
+                response.delete_cookie('inputname')
+
+                print("change coookies")
+
+                response.set_cookie('questions', test.questions)
+                response.set_cookie('answers', test.answers)
+                response.set_cookie('time', test.question_time)
+                response.set_cookie('category', category)
+                response.set_cookie('inputname', test.title_test)
+
+        except:
             response.set_cookie('questions', test.questions)
             response.set_cookie('answers', test.answers)
             response.set_cookie('time', test.question_time)
             response.set_cookie('category', category)
             response.set_cookie('inputname', test.title_test)
-
-    except:
-        response.set_cookie('questions', test.questions)
-        response.set_cookie('answers', test.answers)
-        response.set_cookie('time', test.question_time)
-        response.set_cookie('category', category)
-        response.set_cookie('inputname', test.title_test)
 
     return response
 
@@ -338,9 +400,15 @@ def render_change_question_preview(pk: int, id: int):
         current_answers = answers.split("?@?")[id]
         answers_list = current_answers.split("%?)(?%")
         answers = []
+
+        correctAnswers = []
         for answer in answers_list:
             answer = answer.replace("(?%", "")
             answer = answer.replace("%?)", "")
+            if answer[0] == "+":
+                correctAnswers.append("correct")
+            else:
+                correctAnswers.append("not")
             answer = answer[1:-1]
             answers.append(answer)
         while True:

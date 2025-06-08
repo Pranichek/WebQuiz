@@ -59,7 +59,7 @@
             <div class="detector" id="1">
                 <img id="1" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <textarea type="text" class="answer {{ correct1 }}" name="answer" id="1" value="{{ answer1 }}" placeholder="Відповідь"></textarea>
+            <textarea type="text" class="answer {{ correct1 }}" name="answer" id="1" value="{{ answer1 }}" placeholder="Відповідь">{% if answer1 %}{{ answer1 }}{% endif %}</textarea>
             <div class="delete-answer" id="1">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
@@ -68,7 +68,7 @@
             <div class="detector" id="2">
                 <img style="display: none;" id="2" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <textarea type="text" class="answer {{ correct2 }}" name="answer" id="2" value="{{ answer2 }}" placeholder="Відповідь"></textarea>
+            <textarea type="text" class="answer {{ correct2 }}" name="answer" id="2" value="{{ answer2 }}" placeholder="Відповідь">{% if answer2 %}{{ answer2 }}{% endif %}</textarea>
             <div class="delete-answer" id="2">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
@@ -79,7 +79,7 @@
                 <div class="detector" id="3">
                     <img style="display: none;" id="3" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
                 </div>
-                <textarea type="text" class="answer {{ correct3 }}" name="answer" id="3" value="{{ answer3 }}" placeholder="Відповідь"></textarea>
+                <textarea type="text" class="answer {{ correct3 }}" name="answer" id="3" value="{{ answer3 }}" placeholder="Відповідь">{% if answer3 %}{{ answer3 }}{% endif %}</textarea>
                 <div class="delete-answer" id="3">
                     <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
                 </div>
@@ -101,7 +101,7 @@
                 <div class="detector" id="4">
                     <img style="display: none;" id="4" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
                 </div>
-                <textarea type="text" class="answer {{ correct4 }}" name="answer" id="4" value="{{ answer4 }}" placeholder="Відповідь"></textarea>
+                <textarea type="text" class="answer {{ correct4 }}" name="answer" id="4" value="{{ answer4 }}" placeholder="Відповідь">{% if answer4 %}{{ answer4 }}{% endif %}</textarea>
                 <div class="delete-answer" id="4">
                     <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
                 </div>
