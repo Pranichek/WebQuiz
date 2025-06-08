@@ -318,7 +318,7 @@ img{
     }
 
     .transition2 {
-        transform: translateY(100px) translateX(100px) rotate(-11deg);
+        transform: translateY(120px) translateX(100px) rotate(-11deg);
         background-color: blue;
     }
     
@@ -328,7 +328,7 @@ img{
     }
     
     .transition3 {
-        transform: translateY(50px) translateX(50px) rotate(-11deg);
+        transform: translateY(65px) translateX(50px) rotate(-11deg);
         background-color: blueviolet;
     }
     
@@ -338,7 +338,7 @@ img{
     }
     
     .transition4 {
-        transform: translateY(0px);
+        transform: translateY(35px);
         background-color: cadetblue;
         z-index: 5;
     }
@@ -349,7 +349,7 @@ img{
     }
     
     .transition5 {
-        transform: translateY(50px) translateX(-50px) rotate(11deg);
+        transform: translateY(65px) translateX(-50px) rotate(11deg);
         background-color: chartreuse;
         z-index: 4;
     }
@@ -361,7 +361,7 @@ img{
     
     
     .transition6 {
-        transform: translateY(100px) translateX(-100px) rotate(11deg);
+        transform: translateY(120px) translateX(-100px) rotate(11deg);
         background-color: black;
         z-index: 3;
     }

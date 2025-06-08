@@ -3,23 +3,61 @@ from flask_socketio import emit
 from quiz import Test
 from Project.socket_config import socket
 from Project.login_check import login_decorate
+from home.models import User
+import flask_login
+from Project.login_check import login_decorate
 
 @login_decorate
 def render_finish_test():
-    return render_template("test_finish.html")
+    list_to_template = []
+    user = User.query.get(flask_login.current_user.id)
+    email = user.email
+    avatar = user.name_avatar
+    for test in user.tests:
+        new_answers_list = test.questions.split("?@?")
+        new_questions_list = test.questions.split("?%?")
+        print(new_answers_list, new_questions_list)
+        number = 0
+        for question in new_questions_list:
+            if number >= len(new_answers_list):
+                item = {}
+                item["question"] = question
+                answers_list = new_answers_list[number].split("%?)(?%")
+                print(answers_list)
+                temporary_answers_list = []
+                for answer in answers_list:
+                    answer = answer.replace("(?%", "")
+                    answer = answer.replace("%?)", "")
+                    answer = answer[1:-1]
+                    temporary_answers_list.append(answer)
+                item["answers"] = temporary_answers_list
+                item["pk"] = number
+                print(item)
+                list_to_template.append(item)
+                number += 1
+            else:
+                pass
+
+    return render_template(
+        "test_finish.html",
+        user = user,
+        email = email,
+        avatar = avatar,
+        tests = list_to_template
+        )
 
 @socket.on("finish_test")
 def handle_finish_test(data):
-    print("result")
+
     user_answers_raw = data.get("users_answers")
     if user_answers_raw == '':
-        print(888)
         user_answers_raw = 'skip'
-    print(user_answers_raw , 17)
+
     test_id = data.get("test_id")
 
     user_answers = user_answers_raw.split(",")
     test = Test.query.get(int(test_id))
+    
     questions = test.questions.split("?%?")
     answers = test.answers.split("?@?")
     correct_indexes = []
@@ -56,9 +94,6 @@ def handle_finish_test(data):
     amount_points = sum(len(indexes) for indexes in correct_indexes)
     accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
 
-    # amount_points = sum(len(indexes) for indexes in correct_indexes)
-    # accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
-    print(amount_points, accuracy, count_right_answers, "gg")
     emit("test_result", {
         "amount_questions": amount_points,
         "right_answers": count_right_answers,

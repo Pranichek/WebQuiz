@@ -11,6 +11,7 @@ def render_data_filter():
     input_data = flask.request.args.get("input_data")
     print(input_data, "fd")
     searching_test = []
+    user = ''
 
     if input_data is not None:
         tests = Test.query.filter(Test.check_del != "deleted").all()

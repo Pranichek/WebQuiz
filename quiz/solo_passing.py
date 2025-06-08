@@ -24,6 +24,7 @@ def handle_get_question(data_index):
 
 
     idx = question_index
+
     current_question = questions[idx]
     test_time = test_time[idx]
 
@@ -68,7 +69,7 @@ def handle_get_question(data_index):
         "answers": current_answers,
         "index": question_index + 1,
         "amount_question": len(questions),
-        "test_time": int(test_time),
+        "test_time": int(test_time) if test_time.isdigit() else test_time,
         "type_question": type_question,
         "question_img": img_url if name_img else "not"
     })
@@ -77,11 +78,6 @@ def handle_get_question(data_index):
 @socket.on("next_question")
 def handle_next_question(data_index):
     print("next_question")
-    if data_index["index"] == 100:
-        emit("question", {
-            "question": "Кінець",
-        })
-        return False
 
     test_id = data_index["test_id"]
     test = Test.query.get(int(test_id))
@@ -91,14 +87,15 @@ def handle_next_question(data_index):
     answers_blocks = test.answers.split("?@?")
 
     idx = int(data_index["index"])
-    print("Index:", idx)
+
     # Проверка на конец теста
-    if idx >= len(questions) or data_index["index"] == 100:
+    if idx >= len(questions) or int(data_index["index"]) == 100:
+        
         user = User.query.get(int(flask_login.current_user.id))
         user.user_profile.count_tests += 1
         last_tests = user.user_profile.last_passed.split(" ")
 
-        if len(last_tests) < 4:
+        if len(last_tests) < 5:
             if str(test.id) not in last_tests:
                 last_tests.append(str(test.id))
         else:
@@ -155,7 +152,7 @@ def handle_next_question(data_index):
         "answers": current_answers,
         "index": int(data_index["index"]) + 1,
         "amount_question": len(questions),
-        "test_time": int(test_time),
+        "test_time": int(test_time) if test_time.isdigit() else test_time,
         "type_question": type_question,
         "user_email": flask_login.current_user.email,
         "question_img": img_url if name_img else "not"

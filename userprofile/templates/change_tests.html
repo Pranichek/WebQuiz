@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('profile.static', filename = 'css/change_tests.css') }}">
+{% endblock links %}
+
+{% block content %}
+
+    {% if message %}
+        <p>{{ message }}</p>
+    {% endif %}
+
+    <form action="" method="POST">
+        <input type="hidden" name="test_id" value="{{ test.id }}">
+        <input type="text" name="new_name" placeholder="Нова назва">
+        <button type="submit">Змiнити назву</button>
+    </form>
+    <form action="" method="post">
+        <button value="{{ test.id }}" name="delete-id">Видалити тест</button>
+    </form>
+    
+{% endblock %}

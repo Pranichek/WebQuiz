@@ -378,10 +378,12 @@ form{
 
 .button-delete{
     z-index: 1;
+    display: none;
 }
 
 .change-question{
     z-index: 1;
+    text-decoration: none;
 }
 
 .question-card{
@@ -405,6 +407,9 @@ form{
 
 .question{
     z-index: 2;
+    font-size: 16px;
+    font-weight: bolder;
+    color: #ffffff;
 }
 
 .variant{
@@ -423,6 +428,51 @@ form{
     height: 100px;
     border-radius: 10px 10px 0px 0px;
 }
+
+.delete-question{
+    display: flex;
+    width: 30px;     
+    height: 30px;
+    background-color: #94C4FF; 
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    border: 1px solid #ffff;
+    border-radius: 4px; 
+    cursor: pointer;  
+}
+
+.small-img{
+    width: 25px;
+    height: 25px;
+}
+
+.edit_question{
+    display: flex;
+    /* width: 30px;     
+    height: 30px; */
+    background-color: #343434; 
+    position: absolute;
+    top: 60px;
+    right: 10px;
+    border: 1px solid #343434;
+    border-radius: 3px; 
+    cursor: pointer; 
+    text-align: center; 
+    justify-items: center;
+    padding-left: 7px;
+    padding-right: 7px;
+}
+.pen-img{
+    width: 25px;
+    height: 25px;
+}
+/* .change-question */
+.edit_question a{
+    color: #ffffff;
+    font-weight: bold;
+}
+
 
 .answers{
     /* position: relative;
@@ -445,6 +495,8 @@ form{
 .answers p{
     /* width: 30%; */
     font-size: 13px;
+    color: #ffffff;
+    /* font-weight: medium; */
 }
 
 .test-title-input:disabled {

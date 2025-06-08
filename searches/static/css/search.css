@@ -95,6 +95,10 @@
     color: #343434;
 }
 
+#search-data{
+    display: none;
+}
+
 
 @media(min-width: 1880px){
     .cards{

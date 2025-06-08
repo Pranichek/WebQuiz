@@ -51,6 +51,11 @@
                         <div class="nav-links">
                             <a href="/select_way" class="test-button">+ Створити вікторину</a>
                         </div>
+                    {% elif mentor %}
+                        <div class="header_buttons">
+                            <img src="{{ url_for('static', filename='images/sound.png') }}" alt="sound">
+                            <img src="{{ url_for('static', filename='images/settings.png') }}" alt="settings">
+                        </div>
                     {% else %}
                         <div class="nav-links">
                             <a href="/" class="enter-code">Додому</a>

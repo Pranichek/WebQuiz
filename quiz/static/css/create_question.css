@@ -189,6 +189,10 @@ h3{
     display: none;
 }
 
+.tick-circle{
+    display: none;
+}
+
 .answer{
     position: absolute;
     border: none;
