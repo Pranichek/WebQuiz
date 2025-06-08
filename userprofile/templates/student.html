@@ -8,7 +8,9 @@
     <input type="text" id="msg" placeholder="Введите сообщение">
     <button id="sendBtn">Отправить</button>
 
-{% endblock content %}
+    <input style="display: none;" type="text" value="{{ user.username }}" class="save-nickname"> 
+
+{% endblock content %} 
 
 {% block scripts %}
     {{ super() }}

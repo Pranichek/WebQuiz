@@ -17,8 +17,8 @@
                 <div class="mentor-header">
                     
                     <div class="mentor-info">
-                        <span class="mentor_name">Mukola</span>
-                        <span class="email">scripnic@gmail.com</span>
+                        <span class="mentor_name">{{ user.username }}</span>
+                        <span class="email">{{ user.email }}</span>
                     </div>
                     <div class="mentor-avatar">
                         <img src="{{ url_for('mentor.static', filename='images/mentor/mentor_avatar.png') }}" alt="Аватар ментора">
@@ -76,7 +76,7 @@
     <section class="participants-section">
         <h2 class="participants">Учасники</h2>
 
-        
+
         <div class="chat-box"></div>
         <input type="text" class="message-input" placeholder="Введи повідомлення">
         <button class="send-message">Надіслати</button>

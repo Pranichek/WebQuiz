@@ -6,7 +6,6 @@ def handle_join(data):
     username = data["username"]
     room = data["room"]
 
-    # створємо кімнату за кодом
     join_room(room)
 
     emit("user_joined", {"username": username}, room=room)
@@ -18,12 +17,3 @@ def handle_send_message(data):
     message = data["message"]
 
     emit("receive_message", {"sender": sender, "message": message}, room=room)
-
-@socket.on("leave_room")
-def handle_leave(data):
-    username = data["username"]
-    room = data["room"]
-
-    leave_room(room)
-    
-    emit("user_left", {"username": username}, room=room)

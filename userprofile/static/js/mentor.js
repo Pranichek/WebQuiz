@@ -17,7 +17,7 @@ function loadRoom() {
     const id_test = urlParams.get('id_test');
     const room_code = urlParams.get('room_code');
 
-    const username = "Mentor"; 
+    const username = document.querySelector(".mentor_name").textContent; 
 
     socket.emit('join_room', {
         username: username,
@@ -37,6 +37,7 @@ function loadRoom() {
     });
 
     const sendBtn = document.querySelector(".send-message");
+    
     sendBtn.addEventListener("click", () => {
         const msgInput = document.querySelector(".message-input");
         const text = msgInput.value;

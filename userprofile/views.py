@@ -236,11 +236,13 @@ def render_change_tests():
 @login_decorate
 def render_mentor():
     code = flask.request.args.get("room_code")
+    user = flask_login.current_user
     
     return flask.render_template(
         "mentor.html",
         mentor=True,
-        code = code
+        code = code,
+        user = user
     )
 
 @login_decorate
@@ -376,4 +378,7 @@ def render_change_question_preview(pk: int, id: int):
 
 @login_decorate
 def render_student():
-    return flask.render_template("student.html")
+    return flask.render_template(
+        "student.html",
+        user = flask_login.current_user
+    )

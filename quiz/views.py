@@ -222,7 +222,6 @@ def render_change_question(pk: int):
             else:
                 break
     
-    print(current_time, "oda vremya")
     return flask.render_template(
         template_name_or_list = "change_question.html",
         question = current_question,

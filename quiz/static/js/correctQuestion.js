@@ -87,5 +87,17 @@ window.addEventListener(
                 }
             )
         }
+        let count = 0;
+        let answers = document.querySelectorAll(".answer")
+        for (let tick of tickCircleList){
+            if (tick.style.display == "flex"){
+                count += 1;
+            }
+        }
+
+        if (count === 0){
+            tickCircleList[0].style.display = `flex`;
+            answers[0].classList.add("correct")
+        }
     }
 )
