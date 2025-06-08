@@ -16,5 +16,6 @@ for (let li of liList){
         time.textContent = li.textContent;
         time.dataset.time = li.dataset.time;
         timeList.classList.add("hidden-list");
+        localStorage.setItem("timeData", li.value)
     })
 }

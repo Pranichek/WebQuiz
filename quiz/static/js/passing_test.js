@@ -16,7 +16,6 @@ let manyBlock;
 
 
 if (localStorage.getItem("index_question") == "0"){
-    // localStorage.setItem('time_question', 'set');
     localStorage.setItem('index_question', '0');
     localStorage.setItem('users_answers', '')
 }
@@ -29,25 +28,36 @@ socket.emit('get_question',
     }
 );  
 
+
 socket.on('question', (data) => {
     if (data.question != "Кінець"){
         const imgContainer = document.getElementById("image-container");
         imgContainer.innerHTML = "";
 
-        let question = document.querySelector(".question-test")
-        
-        question.textContent = data.question
-
         let answers = data.answers
         let amountAnswers = data.answers.length
-        document.querySelector(".num-que").textContent = `${data.index}/${data.amount_question}`
         
         let dataCookie = localStorage.getItem("time_question");
 
         const cont = document.querySelector(".answers");
         if (dataCookie == "set"){
             timeQuestion = data.test_time;
-            timer.textContent = `${timeQuestion}`;
+            if (timeQuestion != "not"){
+                if (timeQuestion < 61){
+                    timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+                }else{
+                    const minutes = Math.floor(timeQuestion / 60);
+                    let remainingSeconds = timeQuestion % 60;
+
+                    if (remainingSeconds < 10) {
+                        remainingSeconds = '0' + remainingSeconds;
+                    }
+
+                    timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+                }
+            }else{
+                timer.textContent = "-"
+            }
             localStorage.setItem('time_question', timeQuestion);
             const maxTime = parseInt(data.test_time);
             localStorage.setItem('max_time', maxTime);
@@ -56,16 +66,42 @@ socket.on('question', (data) => {
 
 
         if (data.question_img != "not"){
+            let justAnswerDiv = document.querySelector(".answers")
+            let answerImg = document.querySelector(".answers-image")
+
+            justAnswerDiv.style.display = "none"
+            answerImg.style.display = "flex"
+
+            const simpleQuestion = document.querySelector(".question");
+
+            simpleQuestion.innerHTML = `
+            `;
+            const imgQuestion = document.querySelector(".question-image");
+
+            imgQuestion.innerHTML = `
+                <div class="num-question">
+                    <p class="num-que">1/10</p>
+                </div>
+                <div class= "question-bg">
+                    <p class="question-test"></p>
+                </div>
+            `;
+
+            let question = document.querySelector(".question-test")
+        
+            question.textContent = data.question
+            document.querySelector(".num-que").textContent = `${data.index}/${data.amount_question}`
+
             document.querySelector(".answers-image").style.display = `flex`;
             document.querySelector(".question").style.height = `30vh`;
             if (data.type_question == "one_answer"){
                 const blockAnswersTop = document.querySelector(".top-answers")
 
                 blockAnswersTop.innerHTML = `
-                    <div class="coint coint-top" data-value="2">
+                    <div class="coint coint-top fade-in" data-value="2">
                         <p class="variant-text"></p>
                     </div>
-                    <div class="coint coint-top" data-value="3">
+                    <div class="coint coint-top fade-in-right" data-value="3">
                         <p class="variant-text"></p>
                     </div>
                 `;
@@ -73,18 +109,27 @@ socket.on('question', (data) => {
                 const blockAnswersBottom = document.querySelector(".bottom-answers")
 
                 blockAnswersBottom.innerHTML = `
-                    <div class="coint coint-buttom" data-value="0">
+                    <div class="coint coint-buttom fade-in" data-value="0">
 
                     </div>
                     <div class="bottom-image">
 
                     </div>
-                    <div class="coint coint-buttom" data-value="1">
+                    <div class="coint coint-buttom fade-in-right" data-value="1">
 
                     </div>
                 `;
 
+                setTimeout(() => {
+                    let divs = document.querySelectorAll(".coint")
+
+                    for (let div of divs){
+                        div.classList.add("show")
+                    }
+                }, 100)
+
                 let questionImage = document.querySelector(".question-image")
+                questionImage.classList.add("fade-up")
 
                 questionImage.innerHTML = `
                     <div class="num-question">
@@ -95,10 +140,12 @@ socket.on('question', (data) => {
                     </div>
                 `;
 
+                setTimeout(() => {
+                    questionImage.classList.add("show-question")
+                }, 100)
+
                 let question = document.querySelector(".question-test")
         
-                console.log(question.textContent, "kj")
-
                 let buttomBlocks = document.querySelectorAll(".coint-buttom")
                 let topBlocks = document.querySelectorAll(".coint-top")
                 
@@ -135,7 +182,7 @@ socket.on('question', (data) => {
                 }
 
 
-                let blockanswers = document.querySelectorAll(".coint")
+                const blockanswers = document.querySelectorAll(".coint")
 
                 const footer = document.querySelector(".submit")
 
@@ -177,18 +224,35 @@ socket.on('question', (data) => {
                     )
                 }
 
+                let countVisible = 0
+                const blockList = document.querySelectorAll(".coint")
+
+                for (let block of blockList){
+                    if (block.checkVisibility()){
+                        countVisible += 1;
+                    }
+                }
+
+                let width = 100 / countVisible
+                let colors = ["#ECEAA1", "#8AF7D4", "#94C4FF", "#C48AF7"]
+
+                blockanswers[0].style.backgroundColor = colors[0]
+                blockanswers[1].style.backgroundColor = colors[1]
+                blockanswers[2].style.backgroundColor = colors[2]
+                blockanswers[3].style.backgroundColor = colors[3]
+
             }else {
                 const checkMarkUrl = "/static/images/check-mark.png";
                 const blockAnswersTop = document.querySelector(".top-answers")
 
                 blockAnswersTop.innerHTML = `
-                    <div class="coint coint-top" data-value="2">
+                    <div class="coint coint-top fade-in" data-value="2">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text">${answers[2]}</p>
                     </div>
-                    <div class="coint coint-top" data-value="3">
+                    <div class="coint coint-top fade-in-right" data-value="3">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
@@ -199,7 +263,7 @@ socket.on('question', (data) => {
                 const blockAnswersBottom = document.querySelector(".bottom-answers")
 
                 blockAnswersBottom.innerHTML = `
-                    <div class="coint coint-buttom" data-value="0">
+                    <div class="coint coint-buttom fade-in" data-value="0">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
@@ -208,13 +272,21 @@ socket.on('question', (data) => {
                     <div class="bottom-image">
 
                     </div>
-                    <div class="coint coint-buttom" data-value="1">
+                    <div class="coint coint-buttom fade-in-right" data-value="1">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text">${answers[1]}</p>
                     </div>
                 `;
+
+                setTimeout(() => {
+                    let divs = document.querySelectorAll(".coint")
+
+                    for (let div of divs){
+                        div.classList.add("show")
+                    }
+                }, 100)
 
                 let questionImage = document.querySelector(".question-image")
 
@@ -294,8 +366,10 @@ socket.on('question', (data) => {
                 let width = 100 / countVisible
                 let colors = ["#ECEAA1", "#8AF7D4", "#94C4FF", "#C48AF7"]
 
-                for (let index = 0; index < amountAnswers; index++) {
-                    blockList[index].style.backgroundColor = colors[index]
+                for (let index = 0; index < amountAnswers + 1; index++) {
+                    if (blockList[index]){
+                        blockList[index].style.backgroundColor = colors[index]
+                    }
                 }
 
                 let confirm_button = document.querySelector(".confirm-button")
@@ -349,24 +423,70 @@ socket.on('question', (data) => {
             document.querySelector(".bottom-image").appendChild(img);
 
         }else{
+            let justAnswerDiv = document.querySelector(".answers")
+            let answerImg = document.querySelector(".answers-image")
+
+            justAnswerDiv.style.display = "flex"
+            answerImg.style.display = "none"
+
+            const simpleQuestion = document.querySelector(".question");
+
+            simpleQuestion.innerHTML = `
+                <div class="num-question">
+                    <p class="num-que">1/10</p>
+                </div>
+                <div class= "question-bg">
+                    <p class="question-test"></p>
+                </div>
+            `;
+
+            if (simpleQuestion.classList.contains("fade-up")){
+                simpleQuestion.classList.remove("fade-up")
+                simpleQuestion.classList.remove("show-question")
+            }
+            
+            simpleQuestion.classList.add("fade-up")
+
+            setTimeout(() => {
+                simpleQuestion.classList.add("show-question")
+            }, 100)
+
+            const imgQuestion = document.querySelector(".question-image");
+
+            let question = document.querySelector(".question-test")
+        
+            question.textContent = data.question
+
+            document.querySelector(".num-que").textContent = `${data.index}/${data.amount_question}`
+
+            imgQuestion.innerHTML = ``;
+
             document.querySelector(".answers-image").style.display = `none`;
             document.querySelector(".question").style.height = `30vh`;
 
             if (data.type_question == "one_answer"){
                 cont.innerHTML = `
-                    <div class="variant" data-value="0">
+                    <div class="variant fade-in" data-value="0">
                         <p class="variant-text"></p>
                     </div>
-                    <div class="variant" data-value="1">
+                    <div class="variant fade-in" data-value="1">
                         <p class="variant-text"></p>
                     </div>
-                    <div class="variant" data-value="2">
+                    <div class="variant fade-in-right" data-value="2">
                         <p class="variant-text"></p>
                     </div>
-                    <div class="variant" data-value="3">
+                    <div class="variant fade-in-right" data-value="3">
                         <p class="variant-text"></p>
                     </div>
                 `;
+
+                setTimeout(() => {
+                    let divs = document.querySelectorAll(".variant")
+
+                    for (let div of divs){
+                        div.classList.add("show")
+                    }
+                }, 100)
 
                 let blockanswers = document.querySelectorAll(".variant")
 
@@ -441,31 +561,39 @@ socket.on('question', (data) => {
                 const checkMarkUrl = "/static/images/check-mark.png";
 
                 cont.innerHTML = `
-                    <div class="many-variant" data-value="0">
+                    <div class="many-variant fade-in" data-value="0">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text"></p>
                     </div>
-                    <div class="many-variant" data-value="1">
+                    <div class="many-variant fade-in" data-value="1">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text"></p>
                     </div>
-                    <div class="many-variant" data-value="2">
+                    <div class="many-variant fade-in-right" data-value="2">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text">sdc</p>
                     </div>
-                    <div class="many-variant" data-value="3">
+                    <div class="many-variant fade-in-right" data-value="3">
                         <div class="check-input">
                             <img src="${checkMarkUrl}" class="check-mark" alt="j">
                         </div>
                         <p class="variant-text"></p>
                     </div>
                 `;
+
+                setTimeout(() => {
+                    let divs = document.querySelectorAll(".many-variant")
+
+                    for (let div of divs){
+                        div.classList.add("show")
+                    }
+                }, 100)
                 
                 manyBlock = document.querySelectorAll(".many-variant")
 
@@ -580,17 +708,8 @@ socket.on('question', (data) => {
 window.addEventListener(
     'load',
     () => {
-        timeQuestion = parseInt(localStorage.getItem('time_question'));
-
-        if (isNaN(timeQuestion)) {
-            // Якщо немає часу або він некоректний 
-            timer.textContent = "-";
-            return; // або можна встановити якийсь дефолт, наприклад, 0
-        }
-        timeQuestion -= 1; // Зменшуємо yf 1
-        updateCircle(parseInt(timeQuestion))
-        timer.textContent = `${Math.trunc(timeQuestion)}`;
-        setTimeout(() => {
+        let checkTime = localStorage.getItem('time_question')
+        if (checkTime != "not"){
             timeQuestion = parseInt(localStorage.getItem('time_question'));
 
             if (isNaN(timeQuestion)) {
@@ -600,51 +719,107 @@ window.addEventListener(
             }
             timeQuestion -= 1; // Зменшуємо yf 1
             updateCircle(parseInt(timeQuestion))
-            timer.textContent = `${Math.trunc(timeQuestion)}`;
-        }, 1000);
+            if (timeQuestion < 61){
+                    timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+            }else{
+                const minutes = Math.floor(timeQuestion / 60);
+                let remainingSeconds = timeQuestion % 60;
+
+                if (remainingSeconds < 10) {
+                    remainingSeconds = '0' + remainingSeconds;
+                }
+
+                timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+            }
+
+
+            setTimeout(() => {
+                timeQuestion = parseInt(localStorage.getItem('time_question'));
+
+                if (isNaN(timeQuestion)) {
+                    // Якщо немає часу або він некоректний 
+                    timer.textContent = "-";
+                    return; // або можна встановити якийсь дефолт, наприклад, 0
+                }
+                timeQuestion -= 1; // Зменшуємо yf 1
+                updateCircle(parseInt(timeQuestion))
+
+                if (timeQuestion < 61){
+                    timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+                }else{
+                    const minutes = Math.floor(timeQuestion / 60);
+                    let remainingSeconds = timeQuestion % 60;
+
+                    if (remainingSeconds < 10) {
+                        remainingSeconds = '0' + remainingSeconds;
+                    }
+
+                    timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+                }
+                // timer.textContent = `${Math.trunc(timeQuestion)}`;
+            }, 1000);
+        }else{
+            timer.textContent = "-"
+        }
     }
 )
 
 // SetInterval - запускает функцию через определенный промежуток времени(в милисекундах)
 setInterval(() => {
-    // timeQuestion = parseInt(localStorage.getItem('time_question'));
+    let checkTime = localStorage.getItem('time_question')
+    if (checkTime != "not"){
+        timeQuestion = parseInt(localStorage.getItem('time_question'));
 
-    // if (isNaN(timeQuestion)) {
-    //     // Якщо немає часу або він некоректний 
-    //     timer.textContent = "-";
-    //     return; // або можна встановити якийсь дефолт, наприклад, 0
-    // }
-    // timeQuestion -= 1; // Зменшуємо yf 1
-    // updateCircle(parseInt(timeQuestion))
-    // timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-    // localStorage.setItem('time_question', timeQuestion)
-    if (timeQuestion <= 0){
-        localStorage.setItem('time_question', "set")
-        let chekcookies = localStorage.getItem("users_answers")
-        if (chekcookies){
-            // отримуємо старі відповіді якщо вони були
-            let oldCookie = localStorage.getItem("users_answers")
-            let cookieList = oldCookie.split(",")   
-            cookieList.push("skip")
-
-            localStorage.setItem("users_answers", cookieList)
-        }else{
-            localStorage.setItem("users_answers", "skip")
+        if (isNaN(timeQuestion)) {
+            // Якщо немає часу або він некоректний 
+            timer.textContent = "-";
+            return; // або можна встановити якийсь дефолт, наприклад, 0
         }
+        timeQuestion -= 1; // Зменшуємо yf 1
+        updateCircle(parseInt(timeQuestion))
+        if (timeQuestion < 61){
+            timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+        }else{
+            const minutes = Math.floor(timeQuestion / 60);
+            let remainingSeconds = timeQuestion % 60;
 
-        let index = localStorage.getItem("index_question")
-        index = parseInt(index) + 1;
-        localStorage.setItem("index_question", index)
+            if (remainingSeconds < 10) {
+                remainingSeconds = '0' + remainingSeconds;
+            }
 
-        console.log("Питання відправлено на сервер, чекаємо відповіді");
-        circle.style.background = `conic-gradient(#8ABBF7 0deg, #8ABBF7 360deg)`;
+            timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+        }
+        localStorage.setItem('time_question', timeQuestion)
+        if (timeQuestion <= 0){
+            localStorage.setItem('time_question', "set")
+            let chekcookies = localStorage.getItem("users_answers")
+            if (chekcookies){
+                // отримуємо старі відповіді якщо вони були
+                let oldCookie = localStorage.getItem("users_answers")
+                let cookieList = oldCookie.split(",")   
+                cookieList.push("skip")
+
+                localStorage.setItem("users_answers", cookieList)
+            }else{
+                localStorage.setItem("users_answers", "skip")
+            }
+
+            let index = localStorage.getItem("index_question")
+            index = parseInt(index) + 1;
+            localStorage.setItem("index_question", index)
+
+            console.log("Питання відправлено на сервер, чекаємо відповіді");
+            circle.style.background = `conic-gradient(#8ABBF7 0deg, #8ABBF7 360deg)`;
 
 
-        socket.emit('next_question', {
-            index: index,
-            test_id: localStorage.getItem("test_id")
-        })
-        // console.log("Питання відправлено на сервер, чекаємо відповіді");
+            socket.emit('next_question', {
+                index: index,
+                test_id: localStorage.getItem("test_id")
+            })
+            // console.log("Питання відправлено на сервер, чекаємо відповіді");
+        }
+    }else{
+        timer.textContent = "-"
     }
 }, 1000);
 

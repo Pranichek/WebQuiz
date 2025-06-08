@@ -10,16 +10,16 @@ def render_finish_test():
 
 @socket.on("finish_test")
 def handle_finish_test(data):
-    print("result")
+
     user_answers_raw = data.get("users_answers")
     if user_answers_raw == '':
-        print(888)
         user_answers_raw = 'skip'
-    print(user_answers_raw , 17)
+
     test_id = data.get("test_id")
 
     user_answers = user_answers_raw.split(",")
     test = Test.query.get(int(test_id))
+    
     questions = test.questions.split("?%?")
     answers = test.answers.split("?@?")
     correct_indexes = []
@@ -56,9 +56,6 @@ def handle_finish_test(data):
     amount_points = sum(len(indexes) for indexes in correct_indexes)
     accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
 
-    # amount_points = sum(len(indexes) for indexes in correct_indexes)
-    # accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
-    print(amount_points, accuracy, count_right_answers, "gg")
     emit("test_result", {
         "amount_questions": amount_points,
         "right_answers": count_right_answers,

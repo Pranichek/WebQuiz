@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Вітаємо у кімнаті</h1>
+
+    <div id="chat" style="border:1px solid #ccc; height:300px; overflow-y:scroll; padding:10px;"></div>
+
+    <input type="text" id="msg" placeholder="Введите сообщение">
+    <button id="sendBtn">Отправить</button>
+
+    <input style="display: none;" type="text" value="{{ user.username }}" class="save-nickname"> 
+
+{% endblock content %} 
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('student.static', filename='js/student.js') }}"></script>
+{% endblock scripts %}

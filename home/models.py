@@ -25,3 +25,6 @@ class User(DATABASE.Model, flask_login.UserMixin):
     user_profile = DATABASE.relationship("DataUser", back_populates="user", uselist=False)
 
 
+
+
+

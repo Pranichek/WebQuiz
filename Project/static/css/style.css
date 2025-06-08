@@ -66,6 +66,12 @@ nav {
     height: 35px;
 } */
 
+.header_buttons {
+    display: flex;
+    margin-right: 25px;
+    gap: 19px;
+}
+
 .listener{
     height: 100px;
     width: 100px;
@@ -259,6 +265,12 @@ header h2 {
 #declineBtn:hover {
   background-color: #4070f4;
   color: #fff;
+}
+
+@media (max-width: 600px){
+    .nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
+        margin: 0px;
+    }
 }
 
 @media (min-width: 1441px) and (max-width: 2000px){

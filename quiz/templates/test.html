@@ -145,12 +145,12 @@
                         <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
                         <span class="question-conainer">
                             <p class="question">{{ this_question.question }} pk={{ this_question.pk }}</p>
-                            <!-- <button type="button" class="button-delete {{ this_question.question }}" pk="{{ this_question.pk }}">delete</button> -->
+                            <button type="button" class="button-delete {{ this_question.question }}" pk="{{ this_question.pk }}" value="{{ this_question.pk }}">delete</button>
                             <div class="delete-question">
-                                <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="" data-number_question="{{ question_list.index(this_question) }}" data-answers="{{ this_question.answers }}" class="button-delete {{ this_question.question }}" pk="{{ this_question.pk }}">
+                                <img onclick="this.closest('.question-conainer').querySelector('.button-delete').click();" class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
                             </div>
                             <div class="edit_question">
-                                <img class="pen-img" src="{{ url_for('static', filename='images/brush.png') }}" alt="" >
+                                <img class="pen-img" src="{{ url_for('test_pass.static', filename = 'images/white_pen.png') }}" alt="" >
                                 <a class="change-question" href="/test/change_question/{{ this_question.pk }}">Редагувати питання</a>
                             </div>
                             

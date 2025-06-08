@@ -18,16 +18,16 @@
                 <p>Автор тесту: {{ user.username }}</p>
                 <p>Назва тесту: {{ test.title_test }}</p>
                 <p>Кількість питаннь: {{ test.questions.count("?%?") + 1 }}</p>
-                <form action="" method="POST">
-                    <input type="hidden" name="test_id" value="{{ test.id }}">
-                    <input type="text" name="new_name" placeholder="Нова назва">
-                    <button type="submit">Змiнити назву</button>
-                </form>
-                <form action="" method="post">
-                    <button value="{{ test.id }}" name="delete-id">delete</button>
-                </form>
+                
+                <a class="link" href="{{ url_for('change_tests.render_change_tests') }}?test_id={{ test.id }}">Редагувати тест</a>
+                <!-- <a class="link" href="{{ url_for('mentor.render_mentor') }}?test_id={{ test.id }}">Почати тест</a> -->
+                <button type="button" onclick="loadRoom();" class="loadroom" value="{{ test.id }}" data-test="{{ code }}">Почати тест</button>
 
             </div>
         {% endfor %}
     </div>
 {% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('mentor.static', filename='js/mentor.js') }}"></script>
+{% endblock scripts %}

@@ -1,6 +1,7 @@
 from .urls import *
 from .db import *
 from .loadenv import execute
+from .socket_config import *
 from .settings import project
 from .login_manager import *
 
@@ -13,7 +14,9 @@ project.register_blueprint(blueprint = home.registration)
 project.register_blueprint(blueprint = home.login)
 project.register_blueprint(blueprint = userprofile.profile)
 project.register_blueprint(blueprint = userprofile.edit_avatar)
-project.register_blueprint(blueprint = userprofile.buy_gifts)
+project.register_blueprint(blueprint = userprofile.change_tests)
+project.register_blueprint(blueprint = userprofile.mentor)
+project.register_blueprint(blueprint = userprofile.student)
 project.register_blueprint(blueprint = quiz.test_pass)
 project.register_blueprint(blueprint = pass_quiz.finish_test)
 project.register_blueprint(blueprint= searches.search)
