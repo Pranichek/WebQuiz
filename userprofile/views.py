@@ -251,3 +251,8 @@ def render_student():
         "student.html",
         user = flask_login.current_user
     )
+
+def render_buy_gifts():
+    return flask.render_template(
+        template_name_or_list="buy_gifts.html",
+    )
