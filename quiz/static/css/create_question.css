@@ -198,11 +198,14 @@ h3{
     border: none;
     background-color: #6D94C4;
     width: 80%;
-    height: 10%;
+    height: 50%;
     font-size: 24px;
 }
 .answer::placeholder{
     color: white;
+}
+.answer:focus{
+    outline: none;
 }
 
 .button img{

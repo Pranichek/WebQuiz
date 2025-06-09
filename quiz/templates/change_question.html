@@ -12,7 +12,11 @@
 {% block content %}
     <form action="" method="post" enctype="multipart/form-data">
         <div class="pseudo-header">
-            <a href="/test" class="test-button">
+            <a {% if test_pk or test_pk == 0 %}
+                href="/test_preview/{{ test_pk }}"
+            {% else %}
+                href="/test"
+            {% endif %} class="test-button">
                 <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
             </a>
 
@@ -37,9 +41,14 @@
         <div class="question-name">
             <p style="display: none;" id="pk">{{ pk }}</p>
             <input type="text" class="question" name="question" id="question" placeholder="Питання" value="{{ question }}">
-            <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image", value="{{ image }}"> 
+            <div class="image-container question">
+                <input type="file" id="imgInput" class="add-image" accept="image/*" onchange="imageLoaded(event);" name="image", value="{{ image }}"> 
+                <div class="is-image" style="display: none;" id="deleteImgButton">
+                    <p class="img-success">Зображення успішно додано</p>
+                    <button type="button" {% if not image_exists %}style="display: none;"{% endif %} class="add-image" id="deleteImgButton" onclick="deleteImage(event);">Видалити зображення</button>
+                </div>
+            </div>
             <!-- value="{{ image }}"> -->
-            <button type="button" style="display: none;" class="add-image" id="deleteImgButton" onclick="deleteImage(event);">Видалити зображення</button>
         </div>
     </form>
 
@@ -50,7 +59,7 @@
             <div class="detector" id="1">
                 <img id="1" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <input type="text" class="answer {{ correct1 }}" name="answer" id="1" value="{{ answer1 }}" placeholder="Відповідь">
+            <textarea type="text" class="answer {{ correct1 }}" name="answer" id="1" value="{{ answer1 }}" placeholder="Відповідь">{% if answer1 %}{{ answer1 }}{% endif %}</textarea>
             <div class="delete-answer" id="1">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
@@ -59,7 +68,7 @@
             <div class="detector" id="2">
                 <img style="display: none;" id="2" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <input type="text" class="answer {{ correct2 }}" name="answer" id="2" value="{{ answer2 }}" placeholder="Відповідь">
+            <textarea type="text" class="answer {{ correct2 }}" name="answer" id="2" value="{{ answer2 }}" placeholder="Відповідь">{% if answer2 %}{{ answer2 }}{% endif %}</textarea>
             <div class="delete-answer" id="2">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
@@ -70,7 +79,7 @@
                 <div class="detector" id="3">
                     <img style="display: none;" id="3" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
                 </div>
-                <input type="text" class="answer {{ correct3 }}" name="answer" id="3" value="{{ answer3 }}" placeholder="Відповідь">
+                <textarea type="text" class="answer {{ correct3 }}" name="answer" id="3" value="{{ answer3 }}" placeholder="Відповідь">{% if answer3 %}{{ answer3 }}{% endif %}</textarea>
                 <div class="delete-answer" id="3">
                     <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
                 </div>
@@ -80,7 +89,7 @@
                 <div class="detector" id="3">
                     <img style="display: none;" id="3" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
                 </div>
-                <input type="text" class="answer" name="answer" id="3" placeholder="Відповідь">
+                <textarea type="text" class="answer" name="answer" id="3" placeholder="Відповідь"></textarea>
                 <div class="delete-answer" id="3">
                     <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
                 </div>
@@ -92,7 +101,7 @@
                 <div class="detector" id="4">
                     <img style="display: none;" id="4" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
                 </div>
-                <input type="text" class="answer {{ correct4 }}" name="answer" id="4" value="{{ answer4 }}" placeholder="Відповідь">
+                <textarea type="text" class="answer {{ correct4 }}" name="answer" id="4" value="{{ answer4 }}" placeholder="Відповідь">{% if answer4 %}{{ answer4 }}{% endif %}</textarea>
                 <div class="delete-answer" id="4">
                     <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
                 </div>
@@ -102,7 +111,7 @@
                 <div class="detector" id="4">
                     <img style="display: none;" id="4" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
                 </div>
-                <input type="text" class="answer" name="answer" id="4" placeholder="Відповідь">
+                <textarea type="text" class="answer" name="answer" id="4" placeholder="Відповідь"></textarea>
                 <div class="delete-answer" id="4">
                     <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
                 </div>

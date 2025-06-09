@@ -8,8 +8,43 @@ import flask_login
 
 @login_decorate
 def render_finish_test():
+    list_to_template = []
+    user = User.query.get(flask_login.current_user.id)
+    email = user.email
+    avatar = user.name_avatar
+    for test in user.tests:
+        new_answers_list = test.questions.split("?@?")
+        new_questions_list = test.questions.split("?%?")
+        print(new_answers_list, new_questions_list)
+        number = 0
+        for question in new_questions_list:
+            if number >= len(new_answers_list):
+                item = {}
+                item["question"] = question
+                answers_list = new_answers_list[number].split("%?)(?%")
+                print(answers_list)
+                temporary_answers_list = []
+                for answer in answers_list:
+                    answer = answer.replace("(?%", "")
+                    answer = answer.replace("%?)", "")
+                    answer = answer[1:-1]
+                    temporary_answers_list.append(answer)
+                item["answers"] = temporary_answers_list
+                item["pk"] = number
+                print(item)
+                list_to_template.append(item)
+                number += 1
+            else:
+                pass
+
     return render_template(
-        "test_finish.html"        )
+        "test_finish.html",
+        user = user,
+        email = email,
+        avatar = avatar,
+        tests = list_to_template
+        )
+
 
 @socket.on("finish_test")
 def handle_finish_test(data):
