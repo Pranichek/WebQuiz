@@ -13,11 +13,9 @@ form{
 .top-block{
     display: flex;
     flex-direction: column;
-    /* padding: 20px; */
     gap: 7px;
     width: 100%;
     height: 250px;
-    /* overflow: hidden; */
     border-radius: 10px;
     background-color: #C7D7EB;
 }
@@ -27,7 +25,6 @@ form{
     justify-content: space-between;
     width: 100%;
     height: 75%;
-    /* background-color: #94C4FF; */
 }
 
 .additional-buttons{
@@ -36,7 +33,6 @@ form{
     justify-content: space-between;
     width: 100%;
     height: 25%;
-    /* background-color: #C48AF7; */
 }
 
 .info-block{
@@ -45,40 +41,63 @@ form{
     flex-direction: row;
     justify-content: start;
     gap: 7px;
-    width: 60%;
+    width: fit-content;
     height: 100%;
-    /* background-color: blue; */
 }
 
 
 
 .info{
-    /* width: 80%; */
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: start;
     gap: 10px;
     height: 100%;
-    /* background-color: #94C4FF; */
     padding-top: 15px;
 }
 
 .test-title-input{
-    /* width: 50%; */
-    /* min-width: 140px; */
-    height: 30px;
+    width: fit-content;
+    min-width: 5vw;
     font-size: 24px;
     border: none;
     color: #343434;
-    max-width: 150px;
-    margin-left: 9%;
     background: none;
     background-color: none;
     border: none;
     outline: none;
     transform: translateY(5px);
     font-weight: 600;
+}
+
+.input-sizer {
+    display: inline-grid;
+    vertical-align: top;
+    align-items: center;
+    position: relative;
+    width: min-content;
+    min-width: 120px;
+    font-size: 24px;
+    border-bottom: 1px solid #343434;
+}
+  .input-sizer.stacked {
+
+    align-items: stretch;
+}
+
+  .input-sizer::after,
+  .input-sizer input{
+    grid-area: 1/2;
+    font: inherit;
+    resize: none;
+    background: none;
+    border: none;
+}
+  .input-sizer::after {
+    content: attr(data-value) " ";
+    visibility: hidden;
+    white-space: pre-wrap;
 }
 
 .checklist{
@@ -198,11 +217,11 @@ form{
     -webkit-text-fill-color: #343434; 
 }
   
-.under-line{
+/* .under-line{
     background-color: #343434;
-    width: 71%;
+    width: 100%;
     height: 1.5px;
-}
+} */
 
 .outline-test{
     width: 171px;
@@ -374,11 +393,6 @@ form{
     padding: 40px;
     border-radius: 30px;
     background-color: #8ABBF733;
-}
-
-.button-delete{
-    z-index: 1;
-    display: none;
 }
 
 .change-question{

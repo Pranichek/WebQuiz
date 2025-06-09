@@ -126,3 +126,9 @@ searches.search.add_url_rule(
     view_func= searches.render_data_filter,
     methods = ["GET", "POST"]
 )
+
+userprofile.buy_gifts.add_url_rule(
+    rule = "/buy_gifts",
+    view_func = userprofile.render_buy_gifts,
+    methods = ["GET", "POST"]
+)
