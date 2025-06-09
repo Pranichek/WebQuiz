@@ -3,10 +3,13 @@ from flask_socketio import emit
 from quiz import Test
 from Project.socket_config import socket
 from Project.login_check import login_decorate
+from home.models import User
+import flask_login
 
 @login_decorate
 def render_finish_test():
-    return render_template("test_finish.html")
+    return render_template(
+        "test_finish.html"        )
 
 @socket.on("finish_test")
 def handle_finish_test(data):
@@ -27,33 +30,58 @@ def handle_finish_test(data):
     user_answers = user_answers_raw.split(",")
 
 
-    questions = test.questions.split("?%?")
-    answers = test.answers.split("?@?")
-    correct_indexes = []
+    #логика получение индекса правильного ответа даже если правильных несколько
+    # например, если правильные ответы на вопрос 1 это да и нет, то в массиве будет [[0, 1], [тут индексі уже следующего вопроса и тд]]
+    for index in range(len(questions)):
+        current_answer_list = answers[index]
+        data_str = ''
+        for symbol in current_answer_list:
+            if symbol == '+' or symbol == '-':
+                data_str += symbol
+        data_symbol = ['']
+        
+        symbol_list = []
+        for i in range(0 ,len(data_str), 2):
+            symbol_list.append(data_str[i:i+2]) 
 
-    for answer_string in answers:
-        data_str = ''.join([s for s in answer_string if s in "+-"])
-        symbol_list = [data_str[i:i+2] for i in range(0, len(data_str), 2)]
-
-        question_right_answers = [i for i, sym in enumerate(symbol_list) if sym == '++']
+        question_right_answers = []
+        for i in range(len(symbol_list)):
+            if symbol_list[i] == '++':
+                question_right_answers.append(i)
+        
         correct_indexes.append(question_right_answers)
 
+        
+    print(correct_indexes, "правильные индексы")
+    print(user_answers, "user_answers")
     count_right_answers = 0
-    list_users_answers = [ans.split("@") for ans in user_answers]
 
-    for i in range(min(len(correct_indexes), len(list_users_answers))):
-        user_ans = list_users_answers[i]
-        if user_ans[0] == "skip":
-            continue
-        if len(correct_indexes[i]) == 1:
-            if int(correct_indexes[i][0]) == int(user_ans[0]):
-                count_right_answers += 1
-        else:
-            for ans in user_ans:
-                if int(ans) in correct_indexes[i]:
+    list_users_answers = []
+    if len(user_answers) > 0:
+        for answers in user_answers:
+            small_list = []
+            list_users_answers.append(answers.split("@"))
+
+    print(list_users_answers, "hahahhah")
+    # проверка сколько правильно ответил юзер
+    print(user_answers)
+
+
+    for i in range(len(user_answers)):
+        if list_users_answers[i][0] != "skip":
+            if len(correct_indexes[i]) == 1:
+                if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
                     count_right_answers += 1
+            else:
+                for ans in list_users_answers[i]:
+                    if int(ans) in correct_indexes[i]:
+                        count_right_answers += 1
 
-    amount_points = sum(len(indexes) for indexes in correct_indexes)
+
+    # максимальное количество баллов
+    amount_points = 0
+    for index in correct_indexes:
+        amount_points += len(index)
     accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
 
     emit("test_result", {
