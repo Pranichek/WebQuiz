@@ -250,7 +250,7 @@ def render_mentor():
 
 @login_decorate
 def render_test_preview(pk: int):
-
+    print("1223")
     try:
         new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
         new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
@@ -265,7 +265,6 @@ def render_test_preview(pk: int):
         answers_cookies = flask.request.cookies.get("answers")
 
         if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
-            # print(name_image, "name")
             test_title = flask.request.form["test_title"]
             question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 
@@ -372,11 +371,13 @@ def render_test_preview(pk: int):
 
 @login_decorate
 def render_change_question_preview(pk: int, id: int):
+    test_name = Test.query.get(pk).title_test
     if flask.request.method == "POST":
         image = flask.request.files["image"]
         if image:
             print("pk (change)=", id)
-            dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "images_tests", str(id + 1)))
+            dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", test_name, str(id + 1)))
+            print("path =", dir_path)
             for filename in os.listdir(dir_path):
                 file_path = os.path.join(dir_path, filename)
                 try:
@@ -384,7 +385,7 @@ def render_change_question_preview(pk: int, id: int):
                 except Exception as e:
                     print(f"Failed to delete {file_path}. Reason: {e}")
             try:
-                image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "images_tests", str(id + 1), str(image.filename))))
+                image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", test_name, str(id + 1), str(image.filename))))
             except Exception as e:
                 print("saving image error:", e)
         return flask.redirect(f"/test_preview/{pk}")
@@ -418,7 +419,6 @@ def render_change_question_preview(pk: int, id: int):
                 break
 
     print("pk =", pk, "id =", id)
-    test_name = Test.query.get(pk).title_test
     deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", test_name, str(id + 1)))
     print("path =", deletion_path)
     file_exists = None

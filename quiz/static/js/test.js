@@ -55,7 +55,7 @@ for (let delbutton of DeleteButtons) {
         document.cookie = `time=${cleartime.join("?#?")}; path=/;`;
 
         // перезавантажуємо сторінку
-        location.reload();
+        // location.reload();
     });
 }
 

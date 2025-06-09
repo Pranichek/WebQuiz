@@ -395,11 +395,6 @@ form{
     background-color: #8ABBF733;
 }
 
-.button-delete{
-    z-index: 1;
-    display: none;
-}
-
 .change-question{
     z-index: 1;
     text-decoration: none;

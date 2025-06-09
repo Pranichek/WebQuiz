@@ -12,7 +12,7 @@
 {% block content %}
     <form action="" method="post" enctype="multipart/form-data">
         <div class="pseudo-header">
-            <a {% if test_pk %}
+            <a {% if test_pk or test_pk == 0 %}
                 href="/test_preview/{{ test_pk }}"
             {% else %}
                 href="/test"

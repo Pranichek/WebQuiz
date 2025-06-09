@@ -239,8 +239,24 @@ def render_change_question(pk: int):
 
 def render_delete_image(pk: int):
     print("pk =", pk, "; pk + 1 =", pk + 1)
-    images_tests_dir = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
-    deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+    
+    test_name = None
+    test_pk = flask.request.args.get("test_pk")
+    test_name = False
+    
+    try:
+        test_name = Test.query.get(int(test_pk)).title_test
+    except:
+        pass
+    print("test_pk =", test_pk, "test_name =", test_name)
+
+    if test_name:
+        images_tests_dir = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", test_name))
+        deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", test_name, str(pk + 1)))
+    else:
+        images_tests_dir = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
+        deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+
     shutil.rmtree(deletion_path)
     folders = [entry for entry in os.scandir(images_tests_dir) if entry.is_dir()]
     folders_sorted = sorted(folders, key=lambda f: int(f.name))
