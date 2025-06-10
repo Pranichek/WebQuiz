@@ -14,15 +14,16 @@
     <body class="body-web">
         <div class="wrapper">
             <header>
+                <img src="{{ url_for('static', filename='images/cookie.png') }}" alt="">
                 <i class="bx bx-cookie"></i>
-                <h2>Cookies Consent</h2>
             </header>
             <div class="data">
-                <p>This website use cookies to help you have a superior and more relevant browsing experience on the website. <a href="#"> Read more...</a></p>
+                <h2> Прийняти cookies :) </h2>
+                <p>Цей вебсайт використовує файли cookies, щоб допомогти вам отримати кращий та релевантніший досвід перегляду вебсайту.</p>
             </div>
             <div class="buttons">
-                <button class="button" id="acceptBtn">Accept</button>
-                <button class="button" id="declineBtn">Decline</button>
+                <button class="button" id="acceptBtn">прийняти</button>
+                <button class="button" id="declineBtn">вiдхилити</button>
             </div>
         </div>
         {% if not test_page %}
