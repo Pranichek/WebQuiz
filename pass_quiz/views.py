@@ -9,41 +9,15 @@ from Project.login_check import login_decorate
 
 @login_decorate
 def render_finish_test():
-    list_to_template = []
     user = User.query.get(flask_login.current_user.id)
     email = user.email
     avatar = user.name_avatar
-    for test in user.tests:
-        new_answers_list = test.questions.split("?@?")
-        new_questions_list = test.questions.split("?%?")
-        print(new_answers_list, new_questions_list)
-        number = 0
-        for question in new_questions_list:
-            if number >= len(new_answers_list):
-                item = {}
-                item["question"] = question
-                answers_list = new_answers_list[number].split("%?)(?%")
-                print(answers_list)
-                temporary_answers_list = []
-                for answer in answers_list:
-                    answer = answer.replace("(?%", "")
-                    answer = answer.replace("%?)", "")
-                    answer = answer[1:-1]
-                    temporary_answers_list.append(answer)
-                item["answers"] = temporary_answers_list
-                item["pk"] = number
-                print(item)
-                list_to_template.append(item)
-                number += 1
-            else:
-                pass
 
     return render_template(
         "test_finish.html",
         user = user,
         email = email,
         avatar = avatar,
-        tests = list_to_template
         )
 
 @socket.on("finish_test")
@@ -66,9 +40,32 @@ def handle_finish_test(data):
 
 
     questions = test.questions.split("?%?")
+    print("vvvvvvvvvv")
+    print(questions)
+    print("aaaaaaaaaa")
+    print(test.answers)
+    
+    count = 0
     answers = test.answers.split("?@?")
     correct_indexes = []
+    list_final = []
+    for question in questions:
+        one_question = {}
+        one_question["question"] = question
+        list_answers = []
+        for answer in answers:
+            answer = answer.replace("(?%", "")
+            answer = answer.replace("%?)", "")
+            answer = answer[1:-1]
+            answer = answer.split("+-")
+            print("-------------------")
+            print(answer)
+            list_answers.append(answer)
+        
 
+        one_question["answers"] = list_answers[count]
+        list_final.append(one_question)
+        count += 1
     for answer_string in answers:
         data_str = ''.join([s for s in answer_string if s in "+-"])
         symbol_list = [data_str[i:i+2] for i in range(0, len(data_str), 2)]
@@ -93,11 +90,13 @@ def handle_finish_test(data):
 
     amount_points = sum(len(indexes) for indexes in correct_indexes)
     accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
-
+    print("fffffffff")
+    print(list_final)
     emit("test_result", {
         "amount_questions": amount_points,
         "right_answers": count_right_answers,
-        "accuracy": accuracy
+        "accuracy": accuracy,
+        "questions": list_final 
     })
 
 
