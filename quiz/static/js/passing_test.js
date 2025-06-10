@@ -327,7 +327,7 @@ socket.on('question', (data) => {
                 const footer = document.querySelector(".submit")
 
                 footer.innerHTML = `
-                    <button type="button" class="confirm-button">Підтвержити відповідь</button>
+                    <button type="button" class="confirm-button">надіслати відповідь</button>
                 `;
 
                 let manyVariantsBlock = document.querySelectorAll(".coint");
@@ -351,6 +351,13 @@ socket.on('question', (data) => {
                         console.log(manyVariants, "manyVariants");
                         const listString = JSON.stringify(manyVariants);
                         localStorage.setItem("manyvariants", listString);
+
+                        const confirmButton = document.querySelector(".confirm-button");
+                        if (manyVariants.length > 0){
+                            confirmButton.style.background = `#C39FE4`;
+                        } else {
+                            confirmButton.style.background = `#9688a3`;
+                        }
                     });
                 }
 
@@ -600,7 +607,7 @@ socket.on('question', (data) => {
                 const footer = document.querySelector(".submit")
 
                 footer.innerHTML = `
-                    <button type="button" class="confirm-button">Підтвержити відповідь</button>
+                    <button type="button" class="confirm-button">надіслати відповідь</button>
                 `;
 
                 let manyVariantsBlock = document.querySelectorAll(".many-variant");
@@ -625,8 +632,16 @@ socket.on('question', (data) => {
                         console.log(manyVariants, "manyVariants");
                         const listString = JSON.stringify(manyVariants);
                         localStorage.setItem("manyvariants", listString);
+
+                        const confirmButton = document.querySelector(".confirm-button");
+                        if (manyVariants.length > 0){
+                            confirmButton.style.background = `#C39FE4`;
+                        } else {
+                            confirmButton.style.background = `#9688a3`;
+                        }
                     });
                 }
+
 
                 let confirm_button = document.querySelector(".confirm-button")
 
