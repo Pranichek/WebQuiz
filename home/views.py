@@ -26,6 +26,14 @@ def render_home():
 def render_home_auth():    
     user = User.query.get(flask_login.current_user.id)
 
+    # отримати баланс
+    money_user = user.user_profile.count_money
+    print(money_user, "money")
+
+    # змінити баланс
+    user.user_profile.count_money = 270
+    DATABASE.session.commit()
+
     category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
     first_topic = random.choice(category)
     category.remove(first_topic)
@@ -98,72 +106,72 @@ def render_home_auth():
     
 
 def render_registration():
-    try:
-        email_shake = ''
-        password_shake = ''
-        phone_shake = ''
-        message = ''
-        flask.session["count_email"] = 0
-        if flask.request.method == "POST":
-            check_form = flask.request.form.get("check_form")
-            if check_form == "registration":
-                username_form = flask.request.form["username"]
+    # try:
+    email_shake = ''
+    password_shake = ''
+    phone_shake = ''
+    message = ''
+    flask.session["count_email"] = 0
+    if flask.request.method == "POST":
+        check_form = flask.request.form.get("check_form")
+        if check_form == "registration":
+            username_form = flask.request.form["username"]
 
 
-                email_form = flask.request.form["email"]
-                # phone_number_form = flask.request.form["phone_number"]
-                mentor_form = flask.request.form["mentor"]
+            email_form = flask.request.form["email"]
+            # phone_number_form = flask.request.form["phone_number"]
+            mentor_form = flask.request.form["mentor"]
 
-                password_form = flask.request.form["password"]
-                confirm_password = flask.request.form["confirm-password"]
-                if password_form == confirm_password and len(password_form) == 8:
-                    if User.query.filter_by(email = email_form).first() is None:
-                        # if User.query.filter_by(phone_number = phone_number_form).first() is None:
-                        is_mentor = None
-                        if mentor_form == 'True':
-                            is_mentor = True
-                        else:
-                            is_mentor = False
-                        random_code = generate_code()
-
-                        flask.session["count_email"] += 1
-                        flask.session["code"] = random_code
-                        flask.session["email"] = email_form
-                        flask.session["username"] = username_form
-                        flask.session["check_mentor"] = is_mentor
-                        flask.session["password"] = password_form
-
-                        email = Thread(target = send_code, args = (email_form, flask.session["code"]))
-                        email.start()
-                        
-                        return flask.redirect("/verify_code")
+            password_form = flask.request.form["password"]
+            confirm_password = flask.request.form["confirm-password"]
+            if password_form == confirm_password and len(password_form) == 8:
+                if User.query.filter_by(email = email_form).first() is None:
+                    # if User.query.filter_by(phone_number = phone_number_form).first() is None:
+                    is_mentor = None
+                    if mentor_form == 'True':
+                        is_mentor = True
                     else:
-                        flask.session.clear()
-                        email_shake = "User already exists"
-                        message = "Користувач із такою поштою вже існує"
+                        is_mentor = False
+                    random_code = generate_code()
+
+                    flask.session["count_email"] += 1
+                    flask.session["code"] = random_code
+                    flask.session["email"] = email_form
+                    flask.session["username"] = username_form
+                    flask.session["check_mentor"] = is_mentor
+                    flask.session["password"] = password_form
+
+                    email = Thread(target = send_code, args = (email_form, flask.session["code"]))
+                    email.start()
+                    
+                    return flask.redirect("/verify_code")
                 else:
                     flask.session.clear()
-                    password_shake = "Password is not eqal each other"
-                    message = "Введені паролі не співпадають"
-            elif check_form == "clear_form":
-                print("da?")
-                email_shake = ''
-                password_shake = ''
-                phone_shake = ''
-                message = ''
-                
-        return flask.render_template(
-            template_name_or_list = "registration.html", 
-            email_shake = email_shake, 
-            registration_page = True,
-            password_shake = password_shake,
-            phone_shake = phone_shake,
-            message = message
-        )
-    except Exception as error:
-        print(error)
-        flask.session.clear()
-        return flask.redirect("/")
+                    email_shake = "User already exists"
+                    message = "Користувач із такою поштою вже існує"
+            else:
+                flask.session.clear()
+                password_shake = "Password is not eqal each other"
+                message = "Введені паролі не співпадають"
+        elif check_form == "clear_form":
+            print("da?")
+            email_shake = ''
+            password_shake = ''
+            phone_shake = ''
+            message = ''
+            
+    return flask.render_template(
+        template_name_or_list = "registration.html", 
+        email_shake = email_shake, 
+        registration_page = True,
+        password_shake = password_shake,
+        phone_shake = phone_shake,
+        message = message
+    )
+    # except Exception as error:
+    #     print(error)
+    #     flask.session.clear()
+    #     return flask.redirect("/")
 
 
 def render_code():
@@ -219,6 +227,7 @@ def render_code():
             return flask.render_template(template_name_or_list = "verify_code.html") 
         else:
             flask.session.pop("new_email", "code")
+            print(8237823788787)
             return flask.redirect("/")
     # except Exception as error:
     #     print(error)
