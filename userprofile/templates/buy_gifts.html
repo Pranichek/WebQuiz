@@ -11,13 +11,13 @@
             <div class="user-info">
                 <div class="right">
                     <div>
-                        <h2 class="text1">kemilli</h2>
-                        <a class="text" href="#">potuzhnii@gmail.com</a>
+                        <h2 class="text1">{{ user.username }}</h2>
+                        <a class="text" href="#">{{ user.email }}</a>
                     </div>
                     
                     <div class="score-block">
                         <span class="text">ваші бали</span>
-                        <div class="score">30
+                        <div id="score" class=".userMoney">{{ user.count_money }}
                             <img src="{{ url_for('profile.static', filename='images/robo-money.png') }}" alt="">
                         </div>
                     </div>
@@ -53,6 +53,7 @@
                     <img src="{{ url_for('profile.static', filename='images/pigeon.png') }}" alt="1">
                 </div>
                 <div class="cost">20 балів</div>
+                <button type="button" class="butButton" value="20"></button>
             </div>
 
             <div class="pet-card">

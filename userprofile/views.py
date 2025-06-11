@@ -254,6 +254,13 @@ def render_student():
 
 @login_decorate
 def render_buy_gifts():
+    user = flask_login.current_user
+    email = flask_login.current_user
+    count_money = user.user_profile.count_money
+
     return flask.render_template(
         template_name_or_list="buy_gifts.html",
+        user = user,
+        email = email,
+        count_money = count_money
     )

@@ -44,6 +44,12 @@
     font-size: 16px;
 }
 
+#text {
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 16px;
+}
+
 .score-block {
     margin-top: 10px;
     display: flex;
@@ -52,7 +58,7 @@
     text-align: center;
 }
 
-.score {
+#score {
     background: transparent;
     color: #ffffff;
     font-size: 20px;
@@ -128,6 +134,8 @@
     padding: 2%;
     border-radius: 20px;
     border: 1px solid #B9BDF5;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 .pet-card {
@@ -141,6 +149,7 @@
     width: 170px;
     height: 200px;
     flex-direction: column;
+    margin: 10px;
 }
 
 .pet-card:hover {
@@ -152,6 +161,8 @@
     width: auto;
     height: auto;
     margin-bottom: 10px;
+    margin-left: 25px;
+    margin-right: 25px;
 }
 
 .cost {
@@ -161,4 +172,19 @@
     border-radius: 8px;
     display: inline-block;
     font-size: 14px;
+}
+
+@media (min-width: 600px) and (max-width: 715px) {
+    .user-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .pet-list {
+        display: flex;
+        position: relative;
+        width: calc(50% - 20px); 
+        max-width: 250px;
+        flex-grow: 1;
+    }
 }
