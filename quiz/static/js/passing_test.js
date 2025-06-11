@@ -647,7 +647,8 @@ socket.on('question', (data) => {
 
                 confirm_button.addEventListener(
                     'click',
-                    () => {
+                    (e) => {
+                        e.preventDefault(); // Prevent default button behavior
                         if (manyVariants.length > 0){
                             localStorage.setItem('time_question', "set")
                             let chekcookies = localStorage.getItem("users_answers")
@@ -670,6 +671,9 @@ socket.on('question', (data) => {
                             index = parseInt(index) + 1;
                             localStorage.setItem("index_question", index)
                             
+                            // Clear selected variants for next question
+                            manyVariants.length = 0;
+
                             socket.emit('next_question', {
                                 index: index,
                                 answer: dataString,
