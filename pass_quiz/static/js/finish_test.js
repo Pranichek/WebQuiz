@@ -21,8 +21,28 @@ socket.on("test_result", (data) => {
 
     // document.querySelector(".accuracy").innerHTML = `
     //     accuracy = ${data.accuracy}
-    // // `;
+    // `;
     
+    const fill = document.querySelector(".fill");
+    const textPerc = document.querySelector(".text-perc p");
+    const quard = document.querySelector(".quard");
+
+    const target = data.accuracy;
+    let current = 0;
+
+    // Установка ширины и позиции
+    fill.style.width = target + "%";
+    quard.style.left = `calc(${target}% - 78px)`; // сдвиг на половину ширины .quard для выравнивания
+
+    const interval = setInterval(() => {
+        if (current < target) {
+            current++;
+            textPerc.textContent = current + "%";
+        } else {
+            clearInterval(interval);
+        }
+    }, 15);
+
     let mainQuestDiv = document.querySelector(".questions");
     
     // document.querySelector(".answer").innerHTML = `
@@ -60,6 +80,34 @@ socket.on("test_result", (data) => {
     });
     
 });
+
+
+
+// document.addEventListener("DOMContentLoaded", () => {
+//     const fill = document.querySelector(".fill");
+//     const textPerc = document.querySelector(".text-perc p");
+//     const quard = document.querySelector(".quard");
+
+//     const target = 78;
+//     let current = 0;
+
+//     // Установка ширины и позиции
+//     fill.style.width = target + "%";
+//     quard.style.left = `calc(${target}% - 48px)`; // сдвиг на половину ширины .quard для выравнивания
+
+//     const interval = setInterval(() => {
+//         if (current < target) {
+//             current++;
+//             textPerc.textContent = current + "%";
+//         } else {
+//             clearInterval(interval);
+//         }
+//     }, 15);
+// });
+
+
+
+
 
 window.addEventListener('popstate', function(event) {
     this.window.alert(3223)
