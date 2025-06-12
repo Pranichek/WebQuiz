@@ -181,6 +181,16 @@ h3{
     animation: appear-card 0.5s;
 }
 
+textarea.answer {
+    text-align: center;
+    padding-top: 20%;
+    resize: none; 
+  }
+
+textarea.answer::placeholder {
+    text-align: center;
+  }
+
 .hidden{
     display: none;
 }

@@ -10,7 +10,7 @@
 
 {% block content %}
     <form action="" method="post" enctype="multipart/form-data">
-        <input type="text" name="check_form" value="confirm-question">
+        <input type="hidden" name="check_form" value="confirm-question">
         <div class="pseudo-header">
             <a href="/test" class="test-button">
                 <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
@@ -71,7 +71,7 @@
             <div class="delete-answer" id="3">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
-        </div>
+        </div>  
         <div class="hidden answer-block" id="4">
             <div class="detector" id="4">
                 <img style="display: none;" id="4" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
