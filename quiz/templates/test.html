@@ -70,14 +70,16 @@
                     <!-- <img  src="{{ url_for('test_pass.static', filename='images/cover.png') }}" alt="" class="test-cover"> -->
                 
                     <div class="info">
-                        <input class="test-title-input" type="text" name="test_title" onchange="saveName();" placeholder="назва тесту" disabled>
+                        <input id="testInput" class="test-title-input" type="text" placeholder="назва тесту" disabled />
+                        <div class="under-line"></div>
+                        <div id="mirror"></div>
+
                         <div class="checklist">
                             <div class="first-rule">
                                 <img class="icon-item username-like" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
                                 <p class="checklist-item">Назва має складатися не менше, ніж з 5 літер</p>
                             </div>
                         </div>
-                        <div class="under-line"></div>
                         <div class="creator-info">
                             <!-- <img src="{{ url_for('test_pass.static', filename='images/avatar.jpg') }}" alt=""> -->
                             <div class="avatar-circle">
@@ -185,4 +187,5 @@
     <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/ajaxDeleteImage.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/createTest.js') }}" defer></script>
+    <script src="{{ url_for('test_pass.static', filename='js/underline.js') }}"></script>
 {% endblock %}

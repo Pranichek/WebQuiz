@@ -71,6 +71,21 @@ form{
     font-weight: 600;
 }
 
+.under-line {
+    height: 1.5px;
+    background-color: #343434;
+  }
+
+
+#mirror {
+    position: absolute;
+    visibility: hidden;
+    white-space: pre;
+    font-size: 24px;
+    font-weight: 600;
+    font-family: inherit;
+}
+
 .input-sizer {
     display: inline-grid;
     vertical-align: top;
@@ -216,12 +231,7 @@ form{
 .test-title-input:enabled {
     -webkit-text-fill-color: #343434; 
 }
-  
-/* .under-line{
-    background-color: #343434;
-    width: 100%;
-    height: 1.5px;
-} */
+
 
 .outline-test{
     width: 171px;
