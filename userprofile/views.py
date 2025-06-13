@@ -1,4 +1,4 @@
-import flask, os, flask_login, random, shutil
+import flask, os, flask_login, random, shutil, qrcode
 from threading import Thread
 import PIL.Image
 from home.models import User
@@ -250,7 +250,24 @@ def render_change_tests():
 def render_mentor():
     code = flask.request.args.get("room_code")
     user = flask_login.current_user
-    
+
+    qr = qrcode.QRCode(
+        error_correction = qrcode.constants.ERROR_CORRECT_H,
+        box_size = 15,
+        border = 2
+    )
+    qr.add_data(f"http://127.0.0.1:5000/mentor")
+    qr.make(fit = True)
+
+    image = qr.make_image(
+        fill_color = '#ffffff',
+        back_color = "#000000",
+    )
+
+    if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes"))):
+        os.makedirs(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes")))
+    image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes", f"{code}.png")))
+
     return flask.render_template(
         "mentor.html",
         mentor=True,
