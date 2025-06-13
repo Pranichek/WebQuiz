@@ -10,6 +10,8 @@ from userprofile.models import DataUser
 from Project.login_check import login_decorate
 from flask_login import current_user
 
+from Project.check_pet import cheker_for_pets
+
 #Просто головна сторінка
 def render_home():
     flask.session["code"] = ''
@@ -90,6 +92,12 @@ def render_home_auth():
     for test in range(0, len(third_random_numbers)):
         if Test.query.get(int(third_random_numbers[test])).check_del != "deleted":
             third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
+
+    # id_user = User.query.get(id_user)
+    # if cheker_for_pets(id_user = id_user) == "" or cheker_for_pets(id_user = id_user) == None:
+    #     return None
+    # else:
+    #     pet = cheker_for_pets(id_user = id_user)
  
     return flask.render_template(
         "home_auth.html", 
@@ -100,7 +108,9 @@ def render_home_auth():
         first_topic = first_topic,
         second_topic = second_topic,
         second_tests = second_four_test,
-        third_tests = third_ready_tests
+        third_tests = third_ready_tests,
+
+        # pets = pet
         )
 
     

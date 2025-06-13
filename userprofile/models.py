@@ -13,6 +13,7 @@ class DataUser(DATABASE.Model):
     # кількість грошей
     count_money = DATABASE.Column(DATABASE.Integer, default = 300)
 
+    pet_id = DATABASE.Column(DATABASE.String, default = '')
 
     # зв'язок із моделлю користувача one-to-one
     user = DATABASE.relationship("User", back_populates="user_profile")

@@ -6,6 +6,9 @@
 
 {% block content %}
 
+{% if pet_id %}
+<img src="{{ url_for('profile.static', filename='images/pets_id/'.png + user.email +'/'+ user.pet_id ) }}" alt="">
+{% endif %}
     <div class="main-form">
         <div class="profile-card">
             <div class="user-info">
@@ -48,49 +51,65 @@
             </div>
             {% endfor %}
 
-            <div class="pet-card">
+            <div class="pet-card" value="1">
                 <div class="pet">
                     <img src="{{ url_for('profile.static', filename='images/pigeon.png') }}" alt="1">
                 </div>
-                <div class="cost">20 балів</div>
-                <button type="button" class="butButton" value="20"></button>
+                <form action="" method="post">
+                    <button name="buy_gift" type="button" class="butButton" value="1/20">20 балів</button>
+                </form>
+                
             </div>
 
-            <div class="pet-card">
+            <div class="pet-card" value="2">
                 <div class="pet">
                     <img src="{{ url_for('profile.static', filename='images/homek.png') }}" alt="1">
                 </div>
-                <div class="cost">20 балів</div>
+                <form action="" method="post">
+                    <button name="buy_gift" type="button" class="butButton" value="2/20">20 балів</button>
+                </form>
             </div>
 
-            <div class="pet-card">
+            <div class="pet-card" value="3">
                 <div class="pet">
                     <img src="{{ url_for('profile.static', filename='images/copibara.png') }}" alt="">
                 </div>
-                <div class="cost">20 балів</div>
+                <form action="" method="post">
+                    <button name="buy_gift" type="button" class="butButton" value="3/20">20 балів</button>
+                </form>
             </div>
 
-            <div class="pet-card">
+            <div class="pet-card" value="4">
                 <div class="pet">
                     <img src="{{ url_for('profile.static', filename='images/frog.png') }}" alt="">
                 </div>
-                <div class="cost">20 балів</div>
+                <form action="" method="post">
+                    <button name="buy_gift" type="button" class="butButton" value="4/20">20 балів</button>
+                </form>
             </div>
 
-            <div class="pet-card">
+            <div class="pet-card" value="5">
                 <div class="pet">
                     <img src="{{ url_for('profile.static', filename='images/mouse.png') }}" alt="">
                 </div>
-                <div class="cost">20 балів</div>
+                <form action="" method="post">
+                    <button name="buy_gift" type="button" class="butButton" value="5/20">20 балів</button>
+                </form>
             </div>
 
-            <div class="pet-card">
+            <div class="pet-card" value="1">
                 <div class="pet">
                     <img src="{{ url_for('profile.static', filename='images/pigeon.png') }}" alt="">
                 </div>
-                <div class="cost">20 балів</div>
+                <form action="" method="post">
+                    <button name="buy_gift" type="button" class="butButton" value="1/20">20 балів</button>
+                </form>
             </div>
         </div>
     </div>
 
 {% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('buy_gifts.static', filename='js/shop.js') }}"></script>
+{% endblock scripts %}

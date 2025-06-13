@@ -258,6 +258,18 @@ def render_buy_gifts():
     email = flask_login.current_user
     count_money = user.user_profile.count_money
 
+    if flask.request.method == "POST":
+        check_form = flask.request.form.get("buy_gift")
+        data_button = check_form.split("/")
+
+        if count_money >= int(data_button[1]):
+            user.user_profile.count_money -= int(data_button[1])
+            user.user_profile.id_pets = int(data_button[0])
+            DATABASE.session.commit()
+        if check_form == "buy_gift":
+            gift_id = flask.request.form.get("gift_id")
+            if gift_id:
+                pass
     return flask.render_template(
         template_name_or_list="buy_gifts.html",
         user = user,
