@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('buy_gifts.static', filename='css/buy_gifts.css') }}">
+{% endblock links %}
+
+{% block content %}
+
+    <div class="main-form">
+        <div class="profile-card">
+            <div class="user-info">
+                <div class="right">
+                    <div>
+                        <h2 class="text1">kemilli</h2>
+                        <a class="text" href="#">potuzhnii@gmail.com</a>
+                    </div>
+                    
+                    <div class="score-block">
+                        <span class="text">ваші бали</span>
+                        <div class="score">30
+                            <img src="{{ url_for('profile.static', filename='images/robo-money.png') }}" alt="">
+                        </div>
+                    </div>
+                </div>
+
+                <img class="avatar" src="{{ url_for('profile.static', filename='images/default_avatar.png') }}" alt="avatar">
+
+                <div class="favorite">
+                    <span class="text">улюбленець</span>
+
+                    <div class="pet1">
+                        <img id="own-pet" src="{{ url_for('profile.static', filename='images/pigeon.png') }}" alt="">
+                    </div>
+
+                    <p class="text" id="text-c">пройдені тести: 
+                        <span class="tests">20</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="pet-list">
+            <!-- Приклад для автоматичного приеєднання краточки з улюбленцем -->
+            {% for pet in pets %}
+            <div class="pet-card">
+                <img src="{{ pet.image_url }}" alt="pet">
+                <div class="cost">{{ pet.cost }} балів</div>
+            </div>
+            {% endfor %}
+
+            <div class="pet-card">
+                <div class="pet">
+                    <img src="{{ url_for('profile.static', filename='images/pigeon.png') }}" alt="1">
+                </div>
+                <div class="cost">20 балів</div>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet">
+                    <img src="{{ url_for('profile.static', filename='images/homek.png') }}" alt="1">
+                </div>
+                <div class="cost">20 балів</div>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet">
+                    <img src="{{ url_for('profile.static', filename='images/copibara.png') }}" alt="">
+                </div>
+                <div class="cost">20 балів</div>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet">
+                    <img src="{{ url_for('profile.static', filename='images/frog.png') }}" alt="">
+                </div>
+                <div class="cost">20 балів</div>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet">
+                    <img src="{{ url_for('profile.static', filename='images/mouse.png') }}" alt="">
+                </div>
+                <div class="cost">20 балів</div>
+            </div>
+
+            <div class="pet-card">
+                <div class="pet">
+                    <img src="{{ url_for('profile.static', filename='images/pigeon.png') }}" alt="">
+                </div>
+                <div class="cost">20 балів</div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
