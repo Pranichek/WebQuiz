@@ -57,7 +57,7 @@ document.addEventListener("keyup", () => {
 });
 
 button.addEventListener("click", () => {
-    if (button.type !== "submit") return;  
+    // if (button.type !== "submit") return;  
 
     for (let input of answerInputList){
         if (input.checkVisibility()){

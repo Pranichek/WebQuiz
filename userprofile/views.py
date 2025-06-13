@@ -182,15 +182,25 @@ def render_user_tests():
     tests = user.tests.filter(Test.check_del != "deleted").all()
     message = ''
 
+    response = flask.make_response(
+        flask.render_template(
+            template_name_or_list="user_tests.html",
+            tests=tests,
+            user=flask_login.current_user,
+            message = message,
+            code = generate_code()
+        )
+    )
+
+    response.delete_cookie('questions')
+    response.delete_cookie('answers')
+    response.delete_cookie('time')
+    response.delete_cookie('category')
+    response.delete_cookie('inputname')
+
     # code = generate_code()
     
-    return flask.render_template(
-        template_name_or_list="user_tests.html",
-        tests=tests,
-        user=flask_login.current_user,
-        message = message,
-        code = generate_code()
-    )
+    return response
 
 @login_decorate
 def render_change_tests():
@@ -250,13 +260,15 @@ def render_mentor():
 
 @login_decorate
 def render_test_preview(pk: int):
-    print("1223")
-    try:
+    
+    new_questions = ""
+    new_answers = ""
+    category = ""
+    if flask.request.cookies.get("questions"):
         new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
         new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
         category = flask.request.cookies.get("category").encode('raw_unicode_escape').decode('utf-8')
-    except:
-        pass
+
 
     if flask.request.method == "POST":
         check_form = flask.request.form.get('check_post')
@@ -265,10 +277,11 @@ def render_test_preview(pk: int):
         answers_cookies = flask.request.cookies.get("answers")
 
         if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
+        # if cookie_questions is not None and answers_cookies is not None:
             test_title = flask.request.form["test_title"]
             question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 
-            test = Test.query.filter_by(id = pk)
+            test = Test.query.get(id = pk)
 
             test.title_test = test_title,
             test.questions = new_questions,
@@ -308,14 +321,25 @@ def render_test_preview(pk: int):
             flask.session["test_image"] = "default"
 
     else:
+
+        response = flask.make_response()
         test = Test.query.get(pk)
+        if not flask.request.cookies.get("questions"):
+            response.set_cookie('questions', test.questions)
+            response.set_cookie('answers', test.answers)
+            response.set_cookie('time', test.question_time)
+            response.set_cookie('category', category)
+            response.set_cookie('inputname', test.title_test)
+
         category = test.category.encode('utf-8').decode('unicode_escape')
         print("test =", category)
 
         list_to_template = []
-        new_questions_list = test.questions.split("?%?")
-        new_answers_list = test.answers.split("?@?")
-        new_time_list = test.question_time.split("?#?")
+        # new_questions_list = test.questions.split("?%?")
+        # new_answers_list = test.answers.split("?@?")
+        # new_time_list = test.question_time.split("?#?")
+        new_answers_list = new_answers.split("?@?")
+        new_questions_list = new_questions.split("?%?")
 
         number = 0
         for question in new_questions_list:
@@ -330,7 +354,7 @@ def render_test_preview(pk: int):
                 temporary_answers_list.append(answer)
             item["answers"] = temporary_answers_list
             item["pk"] = number
-            item["time"] = new_time_list[number]
+            # item["time"] = new_time_list[number]
             list_to_template.append(item)
             number += 1
         print("list_to_template", list_to_template)
@@ -343,29 +367,6 @@ def render_test_preview(pk: int):
                 question_list = list_to_template
             )
         )
-
-        try:
-            if flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8') != test.questions:
-                response.delete_cookie('questions')
-                response.delete_cookie('answers')
-                response.delete_cookie('time')
-                response.delete_cookie('category')
-                response.delete_cookie('inputname')
-
-                print("change coookies")
-
-                response.set_cookie('questions', test.questions)
-                response.set_cookie('answers', test.answers)
-                response.set_cookie('time', test.question_time)
-                response.set_cookie('category', category)
-                response.set_cookie('inputname', test.title_test)
-
-        except:
-            response.set_cookie('questions', test.questions)
-            response.set_cookie('answers', test.answers)
-            response.set_cookie('time', test.question_time)
-            response.set_cookie('category', category)
-            response.set_cookie('inputname', test.title_test)
 
     return response
 
