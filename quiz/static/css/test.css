@@ -58,7 +58,7 @@ form{
 }
 
 .test-title-input{
-    width: fit-content;
+    width: 150%;
     min-width: 5vw;
     font-size: 24px;
     border: none;
