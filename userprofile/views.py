@@ -256,18 +256,19 @@ def render_mentor():
         box_size = 15,
         border = 2
     )
-    qr.add_data(f"http://127.0.0.1:5000/mentor")
+    qr.add_data(f"http://127.0.0.1:5000/student?room_code={code}")
     qr.make(fit = True)
 
     image = qr.make_image(
-        fill_color = '#ffffff',
-        back_color = "#000000",
+        fill_color = '#000000',
+        back_color = "#ffffff",
     )
 
     if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes"))):
         os.makedirs(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes")))
     image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes", f"{code}.png")))
 
+    print("user =", user)
     return flask.render_template(
         "mentor.html",
         mentor=True,
@@ -285,7 +286,7 @@ def render_test_preview(pk: int):
         new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
         new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
         category = flask.request.cookies.get("category").encode('raw_unicode_escape').decode('utf-8')
-
+        print("new_questions =", new_questions)
 
     if flask.request.method == "POST":
         check_form = flask.request.form.get('check_post')
@@ -298,13 +299,14 @@ def render_test_preview(pk: int):
             test_title = flask.request.form["test_title"]
             question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 
-            test = Test.query.get(id = pk)
+            test = Test.query.get(pk)
+            print("test =", test)
 
-            test.title_test = test_title,
-            test.questions = new_questions,
-            test.answers = new_answers,
-            test.question_time = question_time,
-            category = category,
+            test.title_test = test_title
+            test.questions = new_questions
+            test.answers = new_answers
+            test.question_time = question_time
+            category = category
             image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else f"default/{return_img(category = category)}"
 
             test_data = TestData()
@@ -341,12 +343,6 @@ def render_test_preview(pk: int):
 
         response = flask.make_response()
         test = Test.query.get(pk)
-        if not flask.request.cookies.get("questions"):
-            response.set_cookie('questions', test.questions)
-            response.set_cookie('answers', test.answers)
-            response.set_cookie('time', test.question_time)
-            response.set_cookie('category', category)
-            response.set_cookie('inputname', test.title_test)
 
         category = test.category.encode('utf-8').decode('unicode_escape')
         print("test =", category)
@@ -384,6 +380,12 @@ def render_test_preview(pk: int):
                 question_list = list_to_template
             )
         )
+        if not flask.request.cookies.get("questions"):
+            response.set_cookie('questions', test.questions)
+            response.set_cookie('answers', test.answers)
+            response.set_cookie('time', test.question_time)
+            response.set_cookie('category', category)
+            response.set_cookie('inputname', test.title_test)
 
     return response
 
