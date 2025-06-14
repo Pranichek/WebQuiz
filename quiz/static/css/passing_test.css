@@ -187,6 +187,8 @@ span {
 }
 
 .coint {
+    object-fit: cover;
+    flex-wrap: wrap;
     width: 26%;
     height: 98%;
     border-radius: 15px;
@@ -200,6 +202,7 @@ span {
     transition: all 0.1s ease;
     border: 0px #ffffff solid;
     cursor: pointer;
+    border: #C48AF7 3px;
 }
 
 .bottom-answers {
@@ -214,6 +217,8 @@ span {
 }
 
 .variant, .many-variant {
+    flex-wrap: wrap;
+    object-fit: cover;
     display: none;
     flex-direction: column;
     justify-content: center;

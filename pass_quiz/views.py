@@ -137,6 +137,8 @@ def handle_finish_test(data):
                 for ans in list_users_answers[i]:
                     if int(ans) in correct_indexes[i]:
                         count_right_answers += 1
+                    else:
+                        count_right_answers -= 1
 
     # максимальное количество баллов
     amount_points = 0
