@@ -12,6 +12,7 @@ def render_finish_test():
     user = User.query.get(flask_login.current_user.id)
     email = user.email
     avatar = user.name_avatar
+
     for test in user.tests:
         new_answers_list = test.questions.split("?@?")
         new_questions_list = test.questions.split("?%?")
@@ -36,6 +37,8 @@ def render_finish_test():
                 number += 1
             else:
                 pass
+
+    print(list_to_template, "da")
 
     return render_template(
         "test_finish.html",
@@ -64,6 +67,35 @@ def handle_finish_test(data):
 
     user_answers = user_answers_raw.split(",")
 
+    questions = test.questions.split("?%?")
+    # print("vvvvvvvvvv")
+    # print(questions)
+    # # print("aaaaaaaaaa")
+    # print(test.answers)
+    
+    count = 0
+    answers = test.answers.split("?@?")
+    correct_indexes = []
+    list_final = []
+    for question in questions:
+        one_question = {}
+        one_question["question"] = question
+        list_answers = []
+        for ans in answers:
+            current_answers = []
+            ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
+            current_answers.append(ans_clean)
+            # print("-------------------")
+            # print(answer)
+            clear_answer = current_answers[0].split('*|*|*')
+            if (clear_answer[-1] == ''):
+                del clear_answer[-1]
+            list_answers.append(clear_answer)
+        
+        one_question["answers"] = list_answers[count]
+        list_final.append(one_question)
+        count += 1
+
 
     #логика получение индекса правильного ответа даже если правильных несколько
     # например, если правильные ответы на вопрос 1 это да и нет, то в массиве будет [[0, 1], [тут индексі уже следующего вопроса и тд]]
@@ -86,9 +118,8 @@ def handle_finish_test(data):
         
         correct_indexes.append(question_right_answers)
 
-        
-    print(correct_indexes, "правильные индексы")
-    print(user_answers, "user_answers")
+    print(correct_indexes, "correct indexes")
+
     count_right_answers = 0
 
     list_users_answers = []
@@ -96,11 +127,6 @@ def handle_finish_test(data):
         for answers in user_answers:
             small_list = []
             list_users_answers.append(answers.split("@"))
-
-    print(list_users_answers, "hahahhah")
-    # проверка сколько правильно ответил юзер
-    print(user_answers)
-
 
     for i in range(len(user_answers)):
         if list_users_answers[i][0] != "skip":
@@ -112,7 +138,6 @@ def handle_finish_test(data):
                     if int(ans) in correct_indexes[i]:
                         count_right_answers += 1
 
-
     # максимальное количество баллов
     amount_points = 0
     for index in correct_indexes:
@@ -122,7 +147,8 @@ def handle_finish_test(data):
     emit("test_result", {
         "amount_questions": amount_points,
         "right_answers": count_right_answers,
-        "accuracy": accuracy
+        "accuracy": accuracy,
+        "questions": list_final 
     })
 
 

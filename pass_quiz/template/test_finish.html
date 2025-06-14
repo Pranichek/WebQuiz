@@ -107,29 +107,12 @@
             <p>Оглядові питання</p>
             <p>натисніть на запитання, щоб поачити відповіді</p>
         </div>
-        <div class="question">
-            <div class="head">
-                
-            </div>
+        <div class="questions">
+
         </div>
+        
     </div>
-    {% for this_question in tests %}
-        <div class="question-card">          
-            <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
-            <span class="question-conainer">
-                <p class="question">{{ this_question.question }} pk={{ this_question.pk }}</p>
-                
-            </span>
-            <span class="answers">
-                {% for answer in this_question.answers %}
-                <div class="variant">
-                    <div class="circle"></div>
-                    <p class="answer">{{ answer }}</p>
-                </div>
-                {% endfor %}
-            </span>
-        </div>
-    {% endfor %}
+
     <!-- <h1>Ви набрали <p class="user_pimpa"></p> із <p class="user-pampa"></p>{{amount_questions}} питання</h1> -->
     <!-- <p class="accuracy">accuracy = </p> -->
 {% endblock content %}

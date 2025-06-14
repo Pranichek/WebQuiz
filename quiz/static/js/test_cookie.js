@@ -10,7 +10,13 @@ buttonplay.addEventListener(
     () => {
         // document.cookie = `test_id=${buttonplay.value}; path=/;`;
         localStorage.setItem("test_id", buttonplay.value)
-        formPLay.submit();
+
+        history.pushState(null, "", location.href);
+        window.onpopstate = function () {
+        history.pushState(null, "", location.href);
+        };
+        // const newTab = window.open("/passig_test", "_blank");
+        window.location.replace('/passig_test');
     }
 )
 

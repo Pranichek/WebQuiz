@@ -5,6 +5,7 @@ from flask_socketio import emit
 from os.path import abspath, join, exists
 from home.models import User
 from Project.db import DATABASE
+from .correct_answers import return_answers
 
 
 @socket.on("get_question")
@@ -22,8 +23,35 @@ def handle_get_question(data_index):
     answers_blocks = test.answers.split("?@?")
     test_time = test.question_time.split("?#?")
 
+    correct_answers = return_answers(index= question_index, test_id= int(test_id))
+
 
     idx = question_index
+
+    if idx >= len(questions):
+        
+        user = User.query.get(int(flask_login.current_user.id))
+        user.user_profile.count_tests += 1
+        last_tests = user.user_profile.last_passed.split(" ")
+
+        if len(last_tests) < 5:
+            if str(test.id) not in last_tests:
+                last_tests.append(str(test.id))
+        else:
+            if str(test.id) not in last_tests:
+                last_tests[r.randint(a = 0, b = 3)] = str(test.id)
+
+        string_last_tests = " ".join(last_tests)
+
+        user.user_profile.last_passed = string_last_tests
+
+        test.test_profile.amount_passes += 1
+
+        DATABASE.session.commit()
+        emit("question", {
+            "question": "Кінець",
+        })
+        return
 
     current_question = questions[idx]
     test_time = test_time[idx]
@@ -38,11 +66,17 @@ def handle_get_question(data_index):
 
         
     for ans in current_answers_list:
-        ans_clean = ans.replace("(?%+", "").replace("+%?)", " ").replace("(?%-", "").replace("-%?)", " ")
+        ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
         current_answers.append(ans_clean)
 
+    # print(current_answers, "lol")
+    current_answers = current_answers[0].split('*|*|*')
+    print(current_answers, "loli")
 
-    current_answers = current_answers[0].split(' ')
+    # if current_answers[-1] == '':
+    #     del current_answers[-1]
+    
+    print(current_answers, "loli")
 
 
     path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(idx + 1)))
@@ -71,7 +105,8 @@ def handle_get_question(data_index):
         "amount_question": len(questions),
         "test_time": int(test_time) if test_time.isdigit() else test_time,
         "type_question": type_question,
-        "question_img": img_url if name_img else "not"
+        "question_img": img_url if name_img else "not",
+        "correct_answers": correct_answers
     })
 
 
@@ -88,8 +123,10 @@ def handle_next_question(data_index):
 
     idx = int(data_index["index"])
 
+    correct_answers = return_answers(index= idx, test_id= int(test_id))
+
     # Проверка на конец теста
-    if idx >= len(questions) or int(data_index["index"]) == 100:
+    if idx >= len(questions):
         
         user = User.query.get(int(flask_login.current_user.id))
         user.user_profile.count_tests += 1
@@ -125,11 +162,17 @@ def handle_next_question(data_index):
     test_time = test_time[idx]
 
     for ans in current_answers_list:
-        ans_clean = ans.replace("(?%+", "").replace("+%?)", " ").replace("(?%-", "").replace("-%?)", " ")
+        ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
         current_answers.append(ans_clean)
 
-    current_answers = current_answers[0].split(' ')
-    del current_answers[-1]
+
+    # print(current_answers, "lol")
+    current_answers = current_answers[0].split('*|*|*')
+
+    if current_answers[-1] == '':
+        del current_answers[-1]
+    
+    print(current_answers, "loli")
 
     path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(idx + 1)))
     if exists(path):
@@ -155,5 +198,6 @@ def handle_next_question(data_index):
         "test_time": int(test_time) if test_time.isdigit() else test_time,
         "type_question": type_question,
         "user_email": flask_login.current_user.email,
-        "question_img": img_url if name_img else "not"
+        "question_img": img_url if name_img else "not",
+        "correct_answers": correct_answers
     })
