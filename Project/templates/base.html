@@ -110,7 +110,7 @@
         </main>
 
 
-        {% if home_auth %}
+        {% if home_auth %}     
             <footer class="footer">
                 <div class="ab">
                     <div class="about">
@@ -128,10 +128,18 @@
                         <p>Слідкуйте за нами</p>
                         </div>
                         <div class="img-link">
-                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
-                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
-                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/github_icon.png') }}" alt="Github" class="img-soc"></a>
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/telegram_icon.png') }}" alt="Telegram" class="img-soc"></a>
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/instagram_icon.png') }}" alt="" class="img-soc"></a>
                         </div>
+                    
+                    <div class="donate"> 
+                        Реквiзити для розвитку проекту:
+                        <div class="creditcard">
+                            Банкiвська карта: <span class="credit_number">5457082523089527</span>
+                        </div>
+                    </div>
+
                     </div>
             </footer>
         {% endif %}

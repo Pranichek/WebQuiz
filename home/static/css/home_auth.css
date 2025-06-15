@@ -377,6 +377,68 @@ a{
     width: fit-content;
 }
 
+.footer-section {
+    width: 100%;
+    background-color: #343434;
+    color: #D6E8FE;
+    padding: 30px 10vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 2px solid #C48AF7;
+    margin-top: 50px;
+}
+
+.footer-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.footer-logo img {
+    height: 60px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.footer-links a {
+    color: #D6E8FE;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.footer-links a:hover {
+    color: #8AF7D4;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 15px;
+}
+
+.footer-socials img {
+    height: 35px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .footer-links {
+        justify-content: center;
+    }
+}
+
 
 /* Планшеты */
 @media (max-width: 1024px) {
