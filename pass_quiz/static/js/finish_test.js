@@ -31,17 +31,22 @@ socket.on("test_result", (data) => {
     let current = 0;
 
     // Установка ширины и позиции
-    fill.style.width = target + "%";
-    quard.style.left = `calc(${target}% - 78px)`; // сдвиг на половину ширины .quard для выравнивания
-
     const interval = setInterval(() => {
-        if (current < target) {
-            current++;
-            textPerc.textContent = current + "%";
-        } else {
-            clearInterval(interval);
+    if (current <= target) {
+        fill.style.width = current + "%";
+        if(current > 0){
+            quard.style.left = `calc(${current}% - 68px)`;
         }
-    }, 15);
+        else{
+            quard.style.left = `calc(${current}% - 13px)`;
+        }
+       
+        textPerc.textContent = current + "%";
+        current++;
+    } else {
+        clearInterval(interval);
+    }
+}, 15);
 
     let mainQuestDiv = document.querySelector(".questions");
     
@@ -82,28 +87,6 @@ socket.on("test_result", (data) => {
 });
 
 
-
-// document.addEventListener("DOMContentLoaded", () => {
-//     const fill = document.querySelector(".fill");
-//     const textPerc = document.querySelector(".text-perc p");
-//     const quard = document.querySelector(".quard");
-
-//     const target = 78;
-//     let current = 0;
-
-//     // Установка ширины и позиции
-//     fill.style.width = target + "%";
-//     quard.style.left = `calc(${target}% - 48px)`; // сдвиг на половину ширины .quard для выравнивания
-
-//     const interval = setInterval(() => {
-//         if (current < target) {
-//             current++;
-//             textPerc.textContent = current + "%";
-//         } else {
-//             clearInterval(interval);
-//         }
-//     }, 15);
-// });
 
 
 
