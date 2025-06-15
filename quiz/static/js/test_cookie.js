@@ -1,6 +1,10 @@
 localStorage.setItem('time_question', 'set');
 localStorage.setItem('index_question', '0');
 localStorage.setItem('users_answers', '')
+// локал стордже где сохраняем время которое потратили на тест
+localStorage.setItem("wasted_time", '0');
+// локал стордже где сохраняем время которое человек потратил на один вопрос
+localStorage.setItem("timeData", '0');
 
 let buttonplay = document.querySelector(".play_test")
 let formPLay = document.querySelector("#play-form")

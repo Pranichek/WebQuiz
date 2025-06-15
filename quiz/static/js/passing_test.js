@@ -14,6 +14,8 @@ let circle = document.querySelector('.circle');
 let manyVariants = []
 let manyBlock;
 
+let checkOportunity;
+
 
 if (localStorage.getItem("index_question") == "0"){
     localStorage.setItem('index_question', '0');
@@ -78,7 +80,7 @@ socket.on('question', (data) => {
         } 
 
 
-        if (data.question_img != "not"){
+        if (data.question_img != "not" && checkOportunity != "not"){
             let justAnswerDiv = document.querySelector(".answers")
             let answerImg = document.querySelector(".answers-image")
 
@@ -207,6 +209,10 @@ socket.on('question', (data) => {
                     block.addEventListener(
                         'click',
                         () => {
+                            if (checkOportunity == "not"){
+                                return;
+                            }
+                            checkOportunity = "not";
                             // сбрасываем время если пользователь нажал на какой то ответ
                             localStorage.setItem('time_question', 'set');
 
@@ -239,13 +245,18 @@ socket.on('question', (data) => {
                             }, timeout = 699);
 
                             setTimeout(() => {
-                                console.log("Питання відправлено на сервер, чекаємо відповіді");
+                                let midletime = localStorage.getItem("wasted_time")
+                                midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                localStorage.setItem("wasted_time", midletime);
+                                
+                                localStorage.setItem("timeData", "0")
                                 
                                 socket.emit('next_question', {
                                     index: index,
                                     answer: block.dataset.value,
                                     test_id: localStorage.getItem("test_id")
                                 });
+                                checkOportunity = "able";
                                 circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
                             }, timeout = 2000);
                         }
@@ -362,6 +373,9 @@ socket.on('question', (data) => {
 
                 for (let manyblock of manyVariantsBlock){
                     manyblock.addEventListener('click', () => {
+                        if (checkOportunity == "not"){
+                            return;
+                        }
                         const value = manyblock.dataset.value;
                         const checkMark = manyblock.querySelector('.check-mark');
 
@@ -415,6 +429,8 @@ socket.on('question', (data) => {
                     'click',
                     () => {
                         if (manyVariants.length > 0){
+                            checkOportunity = "not";
+                            
                             localStorage.setItem('time_question', "set")
                             let chekcookies = localStorage.getItem("users_answers")
 
@@ -483,11 +499,18 @@ socket.on('question', (data) => {
                             }
 
                             setTimeout(() => {
+                                let midletime = localStorage.getItem("wasted_time")
+                                midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                localStorage.setItem("wasted_time", midletime);
+                                
+                                localStorage.setItem("timeData", "0")
+
                                 socket.emit('next_question', {
                                     index: index,
                                     answer: dataString,
                                     test_id: localStorage.getItem("test_id")
                                 });
+                                checkOportunity = "able";
                                 circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
                             }, timeout = 2000);
                         }
@@ -505,7 +528,7 @@ socket.on('question', (data) => {
 
             document.querySelector(".bottom-image").appendChild(img);
 
-        }else{
+        }else if (data.question_img == "not" || checkOportunity != "not"){
             let justAnswerDiv = document.querySelector(".answers")
             let answerImg = document.querySelector(".answers-image")
 
@@ -583,6 +606,10 @@ socket.on('question', (data) => {
                     block.addEventListener(
                         'click',
                         () => {
+                            if (checkOportunity == "not"){
+                                return;
+                            }
+                            checkOportunity = "not";
                             // сбрасываем время если пользователь нажал на какой то ответ
                             localStorage.setItem('time_question', 'set');
 
@@ -619,11 +646,18 @@ socket.on('question', (data) => {
                             localStorage.setItem("index_question", index)
 
                             setTimeout(() => {
+                                let midletime = localStorage.getItem("wasted_time")
+                                midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                localStorage.setItem("wasted_time", midletime);
+                                
+                                localStorage.setItem("timeData", "0")
+
                                 socket.emit('next_question', {
                                     index: index,
                                     answer: block.dataset.value,
                                     test_id: localStorage.getItem("test_id")
                                 });
+                                checkOportunity = "able";
                                 circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
                             }, timeout = 2000);
                         }
@@ -708,6 +742,9 @@ socket.on('question', (data) => {
 
                 for (let manyblock of manyVariantsBlock){
                     manyblock.addEventListener('click', () => {
+                        if (checkOportunity == "not"){
+                            return;
+                        }
                         const value = manyblock.dataset.value;
                         const checkMark = manyblock.querySelector('.check-mark');
 
@@ -741,7 +778,9 @@ socket.on('question', (data) => {
                 confirm_button.addEventListener(
                     'click',
                     (e) => {
-                        e.preventDefault(); // Prevent default button behavior
+                        checkOportunity = "not";
+
+                        e.preventDefault(); 
                         if (manyVariants.length > 0){
                             localStorage.setItem('time_question', "set")
                             let chekcookies = localStorage.getItem("users_answers")
@@ -810,11 +849,17 @@ socket.on('question', (data) => {
                             }
 
                             setTimeout(() => {
+                                let midletime = localStorage.getItem("wasted_time")
+                                midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                localStorage.setItem("wasted_time", midletime);
+                                
+                                localStorage.setItem("timeData", "0")
                                 socket.emit('next_question', {
                                     index: index,
                                     answer: dataString,
                                     test_id: localStorage.getItem("test_id")
                                 });
+                                checkOportunity = "able";
                                 circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
                             }, timeout = 2000);
                         }
@@ -921,63 +966,70 @@ window.addEventListener(
 )
 
 // SetInterval - запускает функцию через определенный промежуток времени(в милисекундах)
-// setInterval(() => {
-//     let checkTime = localStorage.getItem('time_question')
-//     if (checkTime != "not"){
-//         timeQuestion = parseInt(localStorage.getItem('time_question'));
+setInterval(() => {
+    let checkTime = localStorage.getItem('time_question')
+    if (checkTime != "not"){
+        timeQuestion = parseInt(localStorage.getItem('time_question'));
 
-//         if (isNaN(timeQuestion)) {
-//             // Якщо немає часу або він некоректний 
-//             // timer.textContent = "-";
-//             return; // або можна встановити якийсь дефолт, наприклад, 0
-//         }
-//         timeQuestion -= 1; // Зменшуємо yf 1
-//         updateCircle(parseInt(timeQuestion))
-//         if (timeQuestion < 61){
-//             timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-//         }else{
-//             const minutes = Math.floor(timeQuestion / 60);
-//             let remainingSeconds = timeQuestion % 60;
+        if (isNaN(timeQuestion)) {
+            // Якщо немає часу або він некоректний 
+            // timer.textContent = "-";
+            return; 
+        }
+        let wasted_time = parseInt(localStorage.getItem("timeData"))
+        wasted_time += 1;
+        localStorage.setItem("timeData", wasted_time)
+        timeQuestion -= 1; // Зменшуємо yf 1
+        updateCircle(parseInt(timeQuestion))
+        if (timeQuestion < 61){
+            timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+        }else{
+            const minutes = Math.floor(timeQuestion / 60);
+            let remainingSeconds = timeQuestion % 60;
 
-//             if (remainingSeconds < 10) {
-//                 remainingSeconds = '0' + remainingSeconds;
-//             }
+            if (remainingSeconds < 10) {
+                remainingSeconds = '0' + remainingSeconds;
+            }
 
-//             timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-//         }
-//         localStorage.setItem('time_question', timeQuestion)
-//         if (timeQuestion <= 0){
-//             localStorage.setItem('time_question', "set")
-//             let chekcookies = localStorage.getItem("users_answers")
-//             if (chekcookies){
-//                 // отримуємо старі відповіді якщо вони були
-//                 let oldCookie = localStorage.getItem("users_answers")
-//                 let cookieList = oldCookie.split(",")   
-//                 cookieList.push("skip")
+            timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+        }
+        localStorage.setItem('time_question', timeQuestion)
+        if (timeQuestion <= 0){
+            localStorage.setItem('time_question', "set")
+            let chekcookies = localStorage.getItem("users_answers")
+            if (chekcookies){
+                // отримуємо старі відповіді якщо вони були
+                let oldCookie = localStorage.getItem("users_answers")
+                let cookieList = oldCookie.split(",")   
+                cookieList.push("skip")
 
-//                 localStorage.setItem("users_answers", cookieList)
-//             }else{
-//                 localStorage.setItem("users_answers", "skip")
-//             }
+                localStorage.setItem("users_answers", cookieList)
+            }else{
+                localStorage.setItem("users_answers", "skip")
+            }
 
-//             let index = localStorage.getItem("index_question")
-//             index = parseInt(index) + 1;
-//             localStorage.setItem("index_question", index)
+            let index = localStorage.getItem("index_question")
+            index = parseInt(index) + 1;
+            localStorage.setItem("index_question", index)
 
-//             console.log("Питання відправлено на сервер, чекаємо відповіді");
-//             circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+            console.log("Питання відправлено на сервер, чекаємо відповіді");
+            circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
 
+            let midletime = localStorage.getItem("wasted_time")
+            midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+            localStorage.setItem("wasted_time", midletime);
 
-//             socket.emit('next_question', {
-//                 index: index,
-//                 test_id: localStorage.getItem("test_id")
-//             })
-//             // console.log("Питання відправлено на сервер, чекаємо відповіді");
-//         }
-//     }else{
-//         timer.textContent = "-"
-//     }
-// }, 1000);
+            localStorage.setItem("timeData", "0")
+            socket.emit('next_question', {
+                index: index,
+                test_id: localStorage.getItem("test_id")
+            })
+            // console.log("Питання відправлено на сервер, чекаємо відповіді");
+        }
+    }else{
+        timer.textContent = "-"
+    }
+}, 1000);
 
 
 
@@ -988,6 +1040,7 @@ leaveButton.addEventListener(
     () => {
         localStorage.setItem('time_question', "0")
 
+        localStorage.setItem("timeData", "0")
         // щоб гарантувати завершення – передай індекс явно великий
         socket.emit('next_question', {
             index: 100,

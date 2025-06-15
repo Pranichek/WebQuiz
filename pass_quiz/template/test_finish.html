@@ -63,26 +63,26 @@
 
     
     <div class="justify-btn">
-        <button class="btn">пройти знов</button>
-        <button class="btn">знайти інший тест</button>
+        <button class="btn play_again" value="">пройти знов</button>
+        <button class="btn" onclick="window.location.replace('/')">знайти інший тест</button>
     </div>
     
     <div class="inf">
         <div class="prt1">
             <div class="block-1">
                 <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/del.png'  ) }}" alt="img">
-                <p >0</p>
+                <p class="uncorrect-answers"></p>
                 <p>Невірних відповідей</p>
             </div>
             <div class="block-2">
                 <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/done.png'  ) }}" alt="img">
-                <p>10</p>
+                <p class="correct-answers"></p>
                 <p>Вірних відповідей</p>
             </div>
             <div class="block-3">
                 <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/time.png'  ) }}" alt="img">
                 <div class="seckond">
-                    <p>20</p>
+                    <p class="midle-time"></p>
                     <p>s</p>
                 </div>
                 <p>Час/питання</p>
@@ -92,8 +92,8 @@
             <img class="img" src="{{ url_for('finish_test.static', filename='images/salut1.png'  ) }}" alt="img">
             <div class="block-4">
                 <img class="img-achiv" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.png'  ) }}" alt="avatar">
-                <p>7</p>
-                <p>Місце</p>
+                <p class="mark"></p>
+                <p>Балів</p>
             </div>
             <img class="img" src="{{ url_for('finish_test.static', filename='images/salut2.png'  ) }}" alt="img">
         </div>

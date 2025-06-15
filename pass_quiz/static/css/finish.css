@@ -12,6 +12,8 @@
     z-index: -1;
     pointer-events: none;
 }
+
+
 .big-div{
     display: flex;
     align-items: center;

@@ -13,30 +13,6 @@ def render_finish_test():
     email = user.email
     avatar = user.name_avatar
 
-    for test in user.tests:
-        new_answers_list = test.questions.split("?@?")
-        new_questions_list = test.questions.split("?%?")
-        print(new_answers_list, new_questions_list)
-        number = 0
-        for question in new_questions_list:
-            if number >= len(new_answers_list):
-                item = {}
-                item["question"] = question
-                answers_list = new_answers_list[number].split("%?)(?%")
-                print(answers_list)
-                temporary_answers_list = []
-                for answer in answers_list:
-                    answer = answer.replace("(?%", "")
-                    answer = answer.replace("%?)", "")
-                    answer = answer[1:-1]
-                    temporary_answers_list.append(answer)
-                item["answers"] = temporary_answers_list
-                item["pk"] = number
-                print(item)
-                list_to_template.append(item)
-                number += 1
-            else:
-                pass
 
     print(list_to_template, "da")
 
@@ -68,10 +44,7 @@ def handle_finish_test(data):
     user_answers = user_answers_raw.split(",")
 
     questions = test.questions.split("?%?")
-    # print("vvvvvvvvvv")
-    # print(questions)
-    # # print("aaaaaaaaaa")
-    # print(test.answers)
+
     
     count = 0
     answers = test.answers.split("?@?")
@@ -128,8 +101,11 @@ def handle_finish_test(data):
             small_list = []
             list_users_answers.append(answers.split("@"))
 
+    count_uncorrect_answers = 0
+    count_answered = 0
     for i in range(len(user_answers)):
         if list_users_answers[i][0] != "skip":
+            count_answered += 1
             if len(correct_indexes[i]) == 1:
                 if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
                     count_right_answers += 1
@@ -139,6 +115,8 @@ def handle_finish_test(data):
                         count_right_answers += 1
                     else:
                         count_right_answers -= 1
+                        count_uncorrect_answers += 1
+
 
     # максимальное количество баллов
     amount_points = 0
@@ -146,11 +124,16 @@ def handle_finish_test(data):
         amount_points += len(index)
     accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
 
+    mark = (12 * accuracy) // 100
+
     emit("test_result", {
         "amount_questions": amount_points,
         "right_answers": count_right_answers,
+        "uncorrect_answers": count_uncorrect_answers,
         "accuracy": accuracy,
-        "questions": list_final 
+        "questions": list_final,
+        "test_id": test_id,
+        "mark": mark,
+        "count_answered": count_answered
     })
-
 

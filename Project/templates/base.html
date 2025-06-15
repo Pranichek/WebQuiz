@@ -63,7 +63,13 @@
                         </div>
                     {% else %}
                         <div class="nav-links">
-                            <a href="/" class="enter-code">Додому</a>
+                            {% if not finish_test %}
+                                <a href="/" class="enter-code">Додому</a>
+                            {% else %}
+                                <div class="nav-links">
+                                    <a href="/select_way" class="test-button">+ Створити вікторину</a>
+                                </div>
+                            {% endif %}
                         </div>
                     {% endif %}
                     {% if not mentor %} 
