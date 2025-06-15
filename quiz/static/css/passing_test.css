@@ -53,13 +53,29 @@ footer {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 0px 10px;
+    padding: 10px 10px 10px 22px;
 }
 
 .bonus-block {
-    width: 40px;
-    height: 30px;
-    background-color: #C39FE4;
+    width: 6vw;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    background-color: #636363;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 14px;
+}
+
+.text-bonus {
+    font-size: 20px;
+    font-weight: 400;
+    color: #ffffff;
+    text-align: center;
+
 }
 
 .settings {
@@ -193,7 +209,7 @@ span {
     height: 98%;
     border-radius: 15px;
     gap: 10px;
-    padding: 10px;
+    padding: 72px 10px;
     font-size: 24px;
     /* background-color: red; */
     min-width: 200px;
@@ -387,6 +403,7 @@ span {
     border: 1px black solid;
     border-radius: 50%;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .confirm-button {
