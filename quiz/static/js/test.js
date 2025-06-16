@@ -120,10 +120,17 @@ for (let delbutton of DeleteButtons) {
 let InputName = document.querySelector(".test-title-input")
 let ButtonName = document.querySelector(".set-name")
 
+
+InputName.addEventListener(
+    'input',
+    () => {
+        saveName();
+    }
+)
+
 ButtonName.addEventListener(
     'click',
     () => {
-        console.log(1);
         InputName.disabled = false;
         InputName.focus();
     }
@@ -139,7 +146,7 @@ function saveName(){
 }
 
 window.addEventListener(
-    'load',
+    'DOMContentLoaded',
     () => {
         let cookies = document.cookie.match("inputname")
         // answers=djshfuidh;inputname=dkklfl;session=njdn;
@@ -147,8 +154,6 @@ window.addEventListener(
             let cookiename = document.cookie.split("inputname=")[1].split(";")[0];
             if (cookies){
                 InputName.value = cookiename
-            }else{
-                InputName.value = "Назва тесту"
             }
         }
     }

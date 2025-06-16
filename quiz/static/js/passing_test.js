@@ -5,6 +5,7 @@ if (!chcklocal.includes("test_data")){
     window.location.replace('/');
 }
 
+
 // Створюємо об'єкт сокету 
 const socket = io();  
 let timeQuestion;
@@ -13,14 +14,28 @@ let amountAnswers;
 let circle = document.querySelector('.circle');
 let manyVariants = []
 let manyBlock;
+let valueBonus;
 
 let checkOportunity;
+
+// фунція підрахунку бонусів
+function addBonus(count_points) {
+    // Get the current bonus value from the input field
+    let bonusInput = document.getElementById("bonus");
+    let bonusValue = parseInt(bonusInput.dataset.value);
+
+    // Add the bonus value to the total bonus value
+    let totalBonusValue = bonusValue + count_points;
+
+    return totalBonusValue;
+};
 
 
 if (localStorage.getItem("index_question") == "0"){
     localStorage.setItem('index_question', '0');
     localStorage.setItem('users_answers', '')
 }
+
 
 
 socket.emit('get_question',
@@ -33,16 +48,12 @@ socket.emit('get_question',
 
 socket.on('question', (data) => {
     if (data.question != "Кінець"){
+        let bonusInput = document.getElementById("bonus");
+        bonusInput.style.width = `${data.value_bonus}%`;
 
         document.querySelector(".modal").style.display = "none";
         document.querySelector(".right-answer").classList.remove("fade-in-anim");
         document.querySelector(".uncorrect-answer").classList.remove("fade-in-anim");
-        // if (correctIndexes.includes(parseInt(block.dataset.value))) {
-        //     document.querySelector(".right-answer").classList.add("fade-in-anim")
-        // } else {
-        //     document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
-        // }
-
 
         const imgContainer = document.getElementById("image-container");
         imgContainer.innerHTML = "";
@@ -238,10 +249,15 @@ socket.on('question', (data) => {
                             setTimeout(() => {
                                 document.querySelector(".modal").style.display = "block";
                                 if (correctIndexes.includes(parseInt(block.dataset.value))) {
-                                document.querySelector(".right-answer").classList.add("fade-in-anim")
+                                    document.querySelector(".right-answer").classList.add("fade-in-anim");
+                                    valueBonus = "10";
+                                    let checkprocent = addBonus(10);
+                                    console.log(checkprocent, "checkprocent")
+
                                 }else {
-                                document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
-                                }
+                                    valueBonus = "0";
+                                    document.querySelector(".uncorrect-answer").classList.add("fade-in-anim");
+                                };
                             }, timeout = 699);
 
                             setTimeout(() => {
@@ -251,10 +267,12 @@ socket.on('question', (data) => {
                                 
                                 localStorage.setItem("timeData", "0")
                                 
+
                                 socket.emit('next_question', {
                                     index: index,
                                     answer: block.dataset.value,
-                                    test_id: localStorage.getItem("test_id")
+                                    test_id: localStorage.getItem("test_id"),
+                                    value_bonus: valueBonus
                                 });
                                 checkOportunity = "able";
                                 circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
@@ -478,6 +496,10 @@ socket.on('question', (data) => {
                                 setTimeout(() => {
                                     document.querySelector(".modal").style.display = "block";
                                     document.querySelector(".right-answer").classList.add("fade-in-anim")
+                                    valueBonus = "10";
+                                    let checkprocent = addBonus(10);
+
+                                    console.log(checkprocent, "checkprocent")
 
                                     for (let checkMark of checkMarks){
                                         if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
@@ -487,6 +509,7 @@ socket.on('question', (data) => {
                                 }, timeout = 699);
                             }else{
                                 setTimeout(() => {
+                                    valueBonus = "0";
                                     document.querySelector(".modal").style.display = "block";
                                     document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
 
@@ -508,7 +531,8 @@ socket.on('question', (data) => {
                                 socket.emit('next_question', {
                                     index: index,
                                     answer: dataString,
-                                    test_id: localStorage.getItem("test_id")
+                                    test_id: localStorage.getItem("test_id"),
+                                    value_bonus: valueBonus
                                 });
                                 checkOportunity = "able";
                                 circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
@@ -637,8 +661,13 @@ socket.on('question', (data) => {
                                 document.querySelector(".modal").style.display = "block";
                                 if (correctIndexes.includes(parseInt(block.dataset.value))) {
                                     document.querySelector(".right-answer").classList.add("fade-in-anim")
+                                    valueBonus = "10";
+                                    let checkprocent = addBonus(10);
+                                    console.log(checkprocent, "checkprocent")
+
                                 }else {
-                                document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
+                                    valueBonus = "0";
+                                    document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
                                 }
                             }, timeout = 699);
 
@@ -647,6 +676,7 @@ socket.on('question', (data) => {
 
                             setTimeout(() => {
                                 let midletime = localStorage.getItem("wasted_time")
+
                                 midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
                                 localStorage.setItem("wasted_time", midletime);
                                 
@@ -655,7 +685,8 @@ socket.on('question', (data) => {
                                 socket.emit('next_question', {
                                     index: index,
                                     answer: block.dataset.value,
-                                    test_id: localStorage.getItem("test_id")
+                                    test_id: localStorage.getItem("test_id"),
+                                    value_bonus: valueBonus
                                 });
                                 checkOportunity = "able";
                                 circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
@@ -828,6 +859,10 @@ socket.on('question', (data) => {
                                 setTimeout(() => {
                                     document.querySelector(".modal").style.display = "block";
                                     document.querySelector(".right-answer").classList.add("fade-in-anim")
+                                    valueBonus = "10";
+                                    let checkprocent = addBonus(10);
+                                    console.log(checkprocent, "checkprocent")
+
 
                                     for (let checkMark of checkMarks){
                                         if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
@@ -839,7 +874,7 @@ socket.on('question', (data) => {
                                 setTimeout(() => {
                                     document.querySelector(".modal").style.display = "block";
                                     document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
-
+                                    valueBonus = "0";
                                     for (let checkMark of checkMarks){
                                         if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
                                             checkMark.style.backgroundColor = '#8AF7D4';
@@ -857,7 +892,8 @@ socket.on('question', (data) => {
                                 socket.emit('next_question', {
                                     index: index,
                                     answer: dataString,
-                                    test_id: localStorage.getItem("test_id")
+                                    test_id: localStorage.getItem("test_id"),
+                                    value_bonus:valueBonus
                                 });
                                 checkOportunity = "able";
                                 circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
@@ -900,9 +936,9 @@ socket.on('question', (data) => {
 
         }   
     }else{
-        window.location.replace('/finish_test');
-        // localStorage.removeItem('time_question')
-        // document.querySelector("#end-test").submit();
+        setTimeout(() => {
+            window.location.replace('/finish_test');
+        }, 1000);
     }
 });
 

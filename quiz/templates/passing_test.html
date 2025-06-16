@@ -9,6 +9,7 @@
     <!-- <head> -->
     <div class="head-part">
         <div class="bonus-block">
+            <div class="full-bonus" data-value="{{ bonus_value }}" id="bonus"></div>
             <p class="text-bonus">бонус</p>
         </div>
         <button class="leave_test">Завершити тест</button>
@@ -79,4 +80,5 @@
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('test_pass.static', filename='js/passing_test.js') }}"></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/count_bonus.js') }}"></script>
 {% endblock scripts %}

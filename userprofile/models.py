@@ -13,9 +13,11 @@ class DataUser(DATABASE.Model):
     # кількість грошей
     count_money = DATABASE.Column(DATABASE.Integer, default = 300)
 
-
+    # кількість процентів, щоб забарти боунс за проходження тесту
+    percent_bonus = DATABASE.Column(DATABASE.Integer, default = 0)
 
     # зв'язок із моделлю користувача one-to-one
     user = DATABASE.relationship("User", back_populates="user_profile")
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id'), unique=True)
+
 

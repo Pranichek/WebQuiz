@@ -5,23 +5,29 @@ from Project.socket_config import socket
 from Project.login_check import login_decorate
 from home.models import User
 import flask_login
+from Project.db import DATABASE
 
 @login_decorate
 def render_finish_test():
     list_to_template = []
-    user = User.query.get(flask_login.current_user.id)
+    user : User = User.query.get(flask_login.current_user.id)
     email = user.email
     avatar = user.name_avatar
 
 
     print(list_to_template, "da")
 
+    if user.user_profile.percent_bonus >= 100:
+        user.user_profile.percent_bonus = 0
+        DATABASE.session.commit()
+
     return render_template(
         "test_finish.html",
         user = user,
         email = email,
         avatar = avatar,
-        tests = list_to_template
+        tests = list_to_template,
+        finish_test = True
         )
 
 
