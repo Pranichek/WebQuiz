@@ -62,6 +62,12 @@ nav {
     gap: 19px;
 }
 
+.mentor-buttons {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
 .listener{
     height: 100px;
     width: 100px;
@@ -155,6 +161,7 @@ nav {
 .img-soc{
     width: 40px;
     height: 40px;
+    margin-right: 20px;
     
 }
 .last{
@@ -164,6 +171,11 @@ nav {
     flex-direction: column;
     gap: 22px;
 }
+
+.ab {
+    margin-top: -5vh;
+}
+
 .about{
     display: flex;
     align-items: center;
@@ -181,42 +193,67 @@ nav {
 
 .footer-line {
     width: 675px;
-    border-top: 1px solid #b6b6b6;
+    border-top: 0.6px solid #b6b6b6;
+    transform: translateY(10px);
 }
+
+.text-donate{
+    font-weight: 400;
+}
+
+.donate {
+    position: absolute;
+    display: flex;
+    flex-direction: column; 
+    gap: 15px;
+    left: 15vh;
+    color:#fff;
+    font-size: 20px;
+    font-weight: 200;
+}
+
+.creditcard {
+    color: inherit;
+    font-size: inherit;
+    font-weight: 400;
+}
+
+.credit_number {
+    color: #FFB700;
+    font-size: inherit;
+    font-weight: 600;
+}
+
+
 
 .wrapper {
     position: fixed;
     bottom: 50px;
-    right: 20px;
-    width: clamp(300px, 90vw, 476px); /* динамічна ширина */
+    right: -570px;
+    width: 476px;
     height: 283px;
     border: 1px solid #B9BDF5;
     background: #353535;
     border-radius: 8px;
     padding: 15px 25px 22px;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    transform: translateX(150%);
-    opacity: 0;
+    transition: right 0.3s ease;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    z-index: 999999;
+    z-index: 98349838939989438934893434893849;
 }
-
 .wrapper.show {
-    transform: translateX(0%);
-    opacity: 1;
+    right: 20px;
 }
-.wrapper .header-cookie {
+.wrapper header {
     display: flex;
     flex-direction: column;
     justify-content: center;
     background-color: #353535;
-    /* background-color: #C48AF7; */
 }
-.header-cookie img {
+header img {
     height: 88px;
     width: 88px;
 }
-.header-cookie i {
+header i {
     color: #fff;
     font-size: 32px;
 }
@@ -276,7 +313,6 @@ nav {
     background-color: #B9BDF5;
     color: #fff;
 }
-
 
 @media (max-width: 600px){
     .nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
