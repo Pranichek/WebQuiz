@@ -8,8 +8,24 @@
     <a href="/finish_test?test_id="></a>
     <!-- <head> -->
     <div class="head-part">
-        <div class="bonus-block"></div>
+        <div class="bonus-block">
+            <div class="full-bonus" data-value="{{ bonus_value }}" id="bonus"></div>
+            <p class="text-bonus">бонус</p>
+        </div>
         <button class="leave_test">Завершити тест</button>
+    </div>
+
+    <div class="modal"></div>
+    <div class="right-answer">
+        <!-- сттворюємо div для блюру цього койнейнеру -->
+        <div class="blur"></div>
+        <p class="correct-text">ВІРНО!</p>
+    </div>
+
+    <div class="uncorrect-answer">
+        <!-- сттворюємо div для блюру цього койнейнеру -->
+        <div class="red-blur"></div>
+        <p class="uncorrect-text">НЕ ВІРНО!</p>
     </div>
         
     <!-- </head> -->
@@ -64,4 +80,5 @@
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('test_pass.static', filename='js/passing_test.js') }}"></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/count_bonus.js') }}"></script>
 {% endblock scripts %}

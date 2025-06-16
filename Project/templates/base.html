@@ -13,10 +13,10 @@
     
     <body class="body-web">
         <div class="wrapper">
-            <header>
+            <div class="header-cookie">
                 <img src="{{ url_for('static', filename='images/cookie.png') }}" alt="">
                 <i class="bx bx-cookie"></i>
-            </header>
+            </div>
             <div class="data">
                 <h2> Прийняти cookies :) </h2>
                 <p>Цей вебсайт використовує файли cookies, щоб допомогти вам отримати кращий та релевантніший досвід перегляду вебсайту.</p>
@@ -63,7 +63,13 @@
                         </div>
                     {% else %}
                         <div class="nav-links">
-                            <a href="/" class="enter-code">Додому</a>
+                            {% if not finish_test %}
+                                <a href="/" class="enter-code">Додому</a>
+                            {% else %}
+                                <div class="nav-links">
+                                    <a href="/select_way" class="test-button">+ Створити вікторину</a>
+                                </div>
+                            {% endif %}
                         </div>
                     {% endif %}
                     {% if not mentor %} 
@@ -134,7 +140,7 @@
                         </div>
                     
                     <div class="donate"> 
-                        Реквiзити для розвитку проекту:
+                        <p class="text-donate">Реквiзити для розвитку проекту:</p>
                         <div class="creditcard">
                             Банкiвська карта: <span class="credit_number">5457082523089527</span>
                         </div>

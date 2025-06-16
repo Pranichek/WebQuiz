@@ -47,40 +47,42 @@
         </div>
     </div>
     
+    
     <div class="result">
-        <p>точність</p>
+        <p>Точність</p>
         <div class="line">
-            <div class="fill" style="width: 50%;">
-                <div class="quard">
-                    <div class="text-perc">
-                        <p>50%</p>
-                    </div>
+            <div class="fill" data-accuracy="{{ accuracy }}"></div>
+            <div class="quard">
+                <div class="text-perc">
+                    <p>0%</p>
                 </div>
-            </div> 
+            </div>
         </div>  
     </div>
 
+
+    
     <div class="justify-btn">
-        <button class="btn">пройти знов</button>
-        <button class="btn">знайти інший тест</button>
+        <button class="btn play_again" value="">пройти знов</button>
+        <button class="btn" onclick="window.location.replace('/')">знайти інший тест</button>
     </div>
     
     <div class="inf">
         <div class="prt1">
             <div class="block-1">
                 <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/del.png'  ) }}" alt="img">
-                <p >0</p>
+                <p class="uncorrect-answers"></p>
                 <p>Невірних відповідей</p>
             </div>
             <div class="block-2">
                 <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/done.png'  ) }}" alt="img">
-                <p>10</p>
+                <p class="correct-answers"></p>
                 <p>Вірних відповідей</p>
             </div>
             <div class="block-3">
                 <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/time.png'  ) }}" alt="img">
                 <div class="seckond">
-                    <p>20</p>
+                    <p class="midle-time"></p>
                     <p>s</p>
                 </div>
                 <p>Час/питання</p>
@@ -90,8 +92,8 @@
             <img class="img" src="{{ url_for('finish_test.static', filename='images/salut1.png'  ) }}" alt="img">
             <div class="block-4">
                 <img class="img-achiv" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.png'  ) }}" alt="avatar">
-                <p>7</p>
-                <p>Місце</p>
+                <p class="mark"></p>
+                <p>Балів</p>
             </div>
             <img class="img" src="{{ url_for('finish_test.static', filename='images/salut2.png'  ) }}" alt="img">
         </div>
@@ -107,29 +109,12 @@
             <p>Оглядові питання</p>
             <p>натисніть на запитання, щоб поачити відповіді</p>
         </div>
-        <div class="question">
-            <div class="head">
-                
-            </div>
+        <div class="questions">
+
         </div>
+        
     </div>
-    {% for this_question in tests %}
-        <div class="question-card">          
-            <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
-            <span class="question-conainer">
-                <p class="question">{{ this_question.question }} pk={{ this_question.pk }}</p>
-                
-            </span>
-            <span class="answers">
-                {% for answer in this_question.answers %}
-                <div class="variant">
-                    <div class="circle"></div>
-                    <p class="answer">{{ answer }}</p>
-                </div>
-                {% endfor %}
-            </span>
-        </div>
-    {% endfor %}
+
     <!-- <h1>Ви набрали <p class="user_pimpa"></p> із <p class="user-pampa"></p>{{amount_questions}} питання</h1> -->
     <!-- <p class="accuracy">accuracy = </p> -->
 {% endblock content %}

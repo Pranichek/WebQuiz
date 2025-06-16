@@ -56,9 +56,9 @@
                     </div>
 
                     <div class="qr-code">
-                        Скануй QR-Code 
+                        Скануй QR-Code <br>
                         та приєднуприєднуйся до тесту 
-                        <img src="{{ url_for('mentor.static', filename='images/mentor/qr-code.png') }}">
+                        <img style="width: 100px; height: 100px;" src="{{ url_for('mentor.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
                     </div>
 
 
@@ -86,30 +86,6 @@
                 <div class="avatar"><img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/student_avatar.png') }}" alt="avatar"></div>
                 <div class="information">
                     <span class="username">vova</span>
-                    <div class="fires">
-                        <img src="" alt="1">
-                        <img src="" alt="2">
-                        <img src="" alt="3">
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="avatar"><img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/student_avatar.png') }}" alt="avatar"></div>
-                <div class="information">
-                    <span class="username">kemilli</span>
-                    <div class="fires">
-                        <img src="" alt="1">
-                        <img src="" alt="2">
-                        <img src="" alt="3">
-                    </div>
-                </div>
-            </div>
-
-            <div class="card">
-                <div class="avatar"><img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/student_avatar.png') }}" alt="avatar"></div>
-                <div class="information">
-                    <span class="username">lena</span>
                     <div class="fires">
                         <img src="" alt="1">
                         <img src="" alt="2">

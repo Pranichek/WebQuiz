@@ -15,6 +15,7 @@ def render_passing_test():
         return flask.render_template(
             template_name_or_list = 'passing_test.html',
             user = current_user,
+            bonus_value = current_user.user_profile.percent_bonus,
             test_page = True
             )
 

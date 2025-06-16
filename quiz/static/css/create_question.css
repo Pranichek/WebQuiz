@@ -25,9 +25,14 @@ body .main{
     gap: 10px;
 }
 
-.test-button img{
+.back-button .back-button{
+    background-color: green;
+}
+
+.back-button img{
     width: 30px;
     height: 30px;
+    /* background: none; */
 }
 
 .timer{
@@ -117,11 +122,28 @@ body .main{
     text-align: center;
 }
 
+.confirm-question{
+    display: none;
+}
+
 .image-container{
     height: fit-content;
     padding: 10px;
     gap: 30px;
 }
+
+textarea.answer {
+    /* background-color: red; */
+    text-align: center;
+    padding-top: 20%;
+    width: 80%;
+    height: 80%;
+    resize: none; 
+  }
+
+textarea.answer::placeholder {
+    text-align: center;
+  }
 
 .add-image{
     cursor: pointer;
