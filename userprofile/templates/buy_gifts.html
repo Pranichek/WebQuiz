@@ -24,7 +24,7 @@
                     <div class="score-block">
                         <span class="text">ваші бали</span>
                         <div id="score" class=".userMoney">
-                            <span class="text">{{ user.count_money }}</span>
+                            <span class="text">{{ user.user_profile.count_money }}</span>
                             <img src="{{ url_for('profile.static', filename='images/robo-money.png') }}" alt="">
                         </div>
                     </div>
@@ -49,7 +49,7 @@
                     {% endif %}
 
                     <p class="text" id="text-c">пройдені тести: 
-                        <span class="tests">20</span>
+                        <span class="tests">{{ user.user_profile.count_tests }}</span>
                     </p>
                 </div>
             </div>
