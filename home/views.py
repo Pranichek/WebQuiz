@@ -98,7 +98,10 @@ def render_home_auth():
     #     return None
     # else:
     #     pet = cheker_for_pets(id_user = id_user)
- 
+
+    pet_id = cheker_for_pets(user.id)
+
+
     return flask.render_template(
         "home_auth.html", 
         home_auth = True,
@@ -110,7 +113,7 @@ def render_home_auth():
         second_tests = second_four_test,
         third_tests = third_ready_tests,
 
-        # pets = pet
+        pet_id = pet_id,
         )
 
     

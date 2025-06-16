@@ -180,9 +180,14 @@
     position: relative;
     transition: color 0.3s ease;
     overflow: hidden;
+
+    box-sizing: border-box;
 }
-.butButton:hover {
-    color: transparent;
+.butButton span {
+    display: inline-block;
+    transition: opacity 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
 
 .butButton::after {
@@ -200,16 +205,23 @@
     top: 0;
     width: 100%;
     height: 100%;
+
     display: flex;
     align-items: center;
     justify-content: center;
     opacity: 0;
     transition: opacity 0.3s ease;
-    /* pointer-events: none;  */
+    pointer-events: none; 
+
+    z-index: 2;
+    box-sizing: border-box;
 }
 
 .butButton:hover::after {
     opacity: 1;
+}
+.butButton:hover span {
+    opacity: 0;
 }
 
 @media (min-width: 600px) and (max-width: 715px) {
