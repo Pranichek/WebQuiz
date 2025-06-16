@@ -115,12 +115,15 @@ def handle_finish_test(data):
             if len(correct_indexes[i]) == 1:
                 if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
                     count_right_answers += 1
+                else:
+                    count_uncorrect_answers += 1
+                    # count_right_answers -= 1
             else:
                 for ans in list_users_answers[i]:
                     if int(ans) in correct_indexes[i]:
                         count_right_answers += 1
                     else:
-                        count_right_answers -= 1
+                        # count_right_answers -= 1
                         count_uncorrect_answers += 1
 
 
