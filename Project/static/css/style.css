@@ -152,18 +152,20 @@ nav {
     position: relative;
     bottom: 0;
 }
+
 .social-network{
     width: 40px;
     height: 40px;
     background-color: transparent;
     border: none;
 }
+
 .img-soc{
     width: 40px;
     height: 40px;
     margin-right: 20px;
-    
 }
+
 .last{
     display: flex;
     justify-content: center;
