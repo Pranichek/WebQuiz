@@ -9,6 +9,8 @@ from home.send_email import send_code, generate_code
 from Project.login_check import login_decorate
 from os.path import abspath, join, exists
 
+from .apps import buy_gifts
+
 
 @login_decorate
 def render_profile():
@@ -253,36 +255,13 @@ def render_student():
     )
 
 
-# @buy_gifts.route("/buy_pet", methods=["POST"])
+@buy_gifts.route("/buy_pet", methods=["GET", "POST"])
 @login_decorate
 def render_buy_gifts():
-    # user = flask_login.current_user
-    # email = flask_login.current_user
-    # count_money = user.user_profile.count_money
-
-    # if flask.request.method == "POST":
-    #     check_form = flask.request.form.get("buy_gift")
-    #     data_button = check_form.split("/")
-    #     form_data = flask.request.form.get("buy_gift")
-
-    #     if count_money >= int(data_button[1]):
-    #         user.user_profile.count_money -= int(data_button[1])
-    #         user.user_profile.id_pets = int(data_button[0])
-    #         DATABASE.session.commit()
-    #     if check_form == "buy_gift":
-    #         gift_id = flask.request.form.get("gift_id")
-    #         if gift_id:
-    #             pass
-    # return flask.render_template(
-    #     template_name_or_list="buy_gifts.html",
-    #     user = user,
-    #     email = email,
-    #     count_money = count_money
-    # )
-
     user = flask_login.current_user
     email = flask_login.current_user
     count_money = user.user_profile.count_money
+    pet_id = user.user_profile.pet_id
 
     if flask.request.method == "POST":
         check_form = flask.request.form.get("buy_gift")
@@ -293,51 +272,24 @@ def render_buy_gifts():
             pet_cost = int(data_button[1])
 
             if count_money >= pet_cost:
-                # Списываем деньги и сохраняем выбранного питомца
-                user.user_profile.count_money -= pet_cost
-                user.user_profile.pet_id = pet_id  
-                DATABASE.session.commit()
-                flask.flash("Питомця успішно куплено!", "success")
+                # Проверяем, не куплен ли уже питомец
+                if str(user.user_profile.pet_id) != str(pet_id):
+                    user.user_profile.count_money -= pet_cost
+                    user.user_profile.pet_id = pet_id  
+                    DATABASE.session.commit()
+                    flask.flash("Питомця успішно куплено!", "success")
+                else:
+                    flask.flash("Цього улюбленця вже куплено", "info")
             else:
                 flask.flash("Недостатньо балів для покупки улюбленця", "error")
-        
-        # если передан подарок (оставлено из твоего старого кода)
-        # if check_form == "buy_gift":
-        #     gift_id = flask.request.form.get("gift_id")
-        #     if gift_id:
-        #         pass
+
+        # После обработки POST-запроса перенаправляем на ту же страницу (чтобы не было повторной отправки формы)
+        return flask.redirect(flask.url_for("buy_gifts.render_buy_gifts"))
 
     return flask.render_template(
-        template_name_or_list="buy_gifts.html",
-        user=user,
-        email=email,
-        count_money=count_money
+        template_name_or_list = "buy_gifts.html",
+        user = user,
+        email = email,
+        count_money = count_money,
+        pet_id = pet_id
     )
-
-    # user: User = flask_login.current_user
-    # form_data = flask.request.form.get("buy_gift")  # example: "2/20"
-    # email = flask_login.current_user
-    # count_money = user.user_profile.count_money
-
-    # if not form_data or "/" not in form_data:
-    #     flask.flash("Неправильні дані для покупки.")
-    #     return flask.redirect("/buy_gifts")
-
-    # pet_id_str, pet_cost_str = form_data.split("/")
-    # pet_id = pet_id_str.strip()
-    # pet_cost = int(pet_cost_str.strip())
-
-    # if user.user_profile.count_money >= pet_cost:
-    #     user.user_profile.count_money -= pet_cost
-    #     user.user_profile.pet_id = pet_id
-    #     DATABASE.session.commit()
-    #     flask.flash("Питомця успішно куплено!")
-    # else:
-    #     flask.flash("Недостатньо коштів для покупки.")
-
-    # return flask.render_template(
-    #     template_name_or_list="buy_gifts.html",
-    #     user = user,
-    #     email = email,
-    #     count_money = count_money
-    # )
