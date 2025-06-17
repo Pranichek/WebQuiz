@@ -9,6 +9,7 @@
     Запис + та - для відповідей у JavaScript
 '''
 
+import json
 import flask, os, flask_login, shutil, PIL.Image
 from .models import Test, TestData
 from Project.db import DATABASE
@@ -169,9 +170,22 @@ def render_create_question():
 
 @login_decorate
 def render_select_way():
-    return flask.render_template(
-        template_name_or_list = "select_way.html"
+    response = flask.make_response(
+        flask.render_template(
+            template_name_or_list = "select_way.html"
+        )
     )
+    try:
+        response.delete_cookie("questions")
+        response.delete_cookie("answers")
+        response.delete_cookie("time")
+        response.delete_cookie("category")
+        response.delete_cookie("inputname")
+        response.delete_cookie("test_url")
+        response.delete_cookie("images")
+    except:
+        pass
+    return response
 
 @login_decorate
 def render_change_question(pk: int):
@@ -179,7 +193,11 @@ def render_change_question(pk: int):
         image = flask.request.files["image"]
         if image:
             print("pk (change)=", pk)
-            dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+            dir_path = None
+            try:
+                dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+            except:
+                dir_path = os.makedirs(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1))))
             for filename in os.listdir(dir_path):
                 file_path = os.path.join(dir_path, filename)
                 try:
@@ -233,7 +251,7 @@ def render_change_question(pk: int):
         correct3 = correctAnswers[2] if len(correctAnswers) > 2 else "not",
         correct4 = correctAnswers[3] if len(correctAnswers) > 3 else "not",
         time = current_time,
-        pk = pk
+        pk = pk,
     )
 
 
