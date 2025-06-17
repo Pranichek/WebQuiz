@@ -13,16 +13,17 @@
     
     <body class="body-web">
         <div class="wrapper">
-            <header>
+            <div class="header-cookie">
+                <img src="{{ url_for('static', filename='images/cookie.png') }}" alt="">
                 <i class="bx bx-cookie"></i>
-                <h2>Cookies Consent</h2>
-            </header>
+            </div>
             <div class="data">
-                <p>This website use cookies to help you have a superior and more relevant browsing experience on the website. <a href="#"> Read more...</a></p>
+                <h2> Прийняти cookies :) </h2>
+                <p>Цей вебсайт використовує файли cookies, щоб допомогти вам отримати кращий та релевантніший досвід перегляду вебсайту.</p>
             </div>
             <div class="buttons">
-                <button class="button" id="acceptBtn">Accept</button>
-                <button class="button" id="declineBtn">Decline</button>
+                <button class="button" id="acceptBtn">прийняти</button>
+                <button class="button" id="declineBtn">вiдхилити</button>
             </div>
         </div>
         {% if not test_page %}
@@ -53,15 +54,25 @@
                         </div>
                     {% elif mentor %}
                         <div class="header_buttons">
-                            <img src="{{ url_for('static', filename='images/sound.png') }}" alt="sound">
-                            <img src="{{ url_for('static', filename='images/settings.png') }}" alt="settings">
+                            <button type="submit" class="mentor-buttons">
+                                <img src="{{ url_for('static', filename='images/sound.png') }}" alt="sound">
+                            </button>
+                            <button type="submit" class="mentor-buttons">
+                                <img src="{{ url_for('static', filename='images/settings.png') }}" alt="settings">
+                            </button>
                         </div>
                     {% else %}
                         <div class="nav-links">
-                            <a href="/" class="enter-code">Додому</a>
+                            {% if not finish_test %}
+                                <a href="/" class="enter-code">Додому</a>
+                            {% else %}
+                                <div class="nav-links">
+                                    <a href="/select_way" class="test-button">+ Створити вікторину</a>
+                                </div>
+                            {% endif %}
                         </div>
                     {% endif %}
-
+                    {% if not mentor %} 
                     <div class="panel-container">
                         <div class="listener">
                             <img src="{{ url_for('static', filename='images/open-panel.png') }}" alt="" class="open-panel">
@@ -94,8 +105,9 @@
                             <img class="sidebar-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
                         </div>
                     </div>
+                    {% endif %}
                 </nav>
-
+                    
             </header>
         {% endif %}
 
@@ -104,7 +116,7 @@
         </main>
 
 
-        {% if home_auth %}
+        {% if home_auth %}     
             <footer class="footer">
                 <div class="ab">
                     <div class="about">
@@ -122,10 +134,18 @@
                         <p>Слідкуйте за нами</p>
                         </div>
                         <div class="img-link">
-                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
-                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
-                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt="" class="img-soc"></a>
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/github_icon.png') }}" alt="Github" class="img-soc"></a>
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/telegram_icon.png') }}" alt="Telegram" class="img-soc"></a>
+                            <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('home.static', filename='images/home_auth/instagram_icon.png') }}" alt="" class="img-soc"></a>
                         </div>
+                    
+                    <div class="donate"> 
+                        <p class="text-donate">Реквiзити для розвитку проекту:</p>
+                        <div class="creditcard">
+                            Банкiвська карта: <span class="credit_number">5457082523089527</span>
+                        </div>
+                    </div>
+
                     </div>
             </footer>
         {% endif %}

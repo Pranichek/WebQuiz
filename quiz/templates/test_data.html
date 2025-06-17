@@ -8,14 +8,11 @@
     <h1>Назва тесту {{ test.title_test }}</h1>
     <p>СОздатель {{ test.user.username }}</p>
 
-    <form action="" method="post" id="play-form">
-        <input type="hidden" name="check_form" value="play-form">
-        <button type="button" class="play_test" value="{{ test.id }}">Пройти тест</button>
-    </form>
+    <button type="button" class="play_test" value="{{ test.id }}">Пройти тест</button>
 
    <form action="" method="post" id="copy-test">
         <input type="hidden" name="check_form" value="copy-form">
-        <input type="hidden" name="test_id" value="{{ test.id }}">
+        <input type="hidden" name="test_id" class="test_id" value="{{ test.id }}">
         <button type="submit" class="copy-test-button" value="{{ test.id }}">Скопіювати тест</button>
    </form>
 

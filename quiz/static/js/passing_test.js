@@ -5,6 +5,7 @@ if (!chcklocal.includes("test_data")){
     window.location.replace('/');
 }
 
+
 // Створюємо об'єкт сокету 
 const socket = io();  
 let timeQuestion;
@@ -13,12 +14,28 @@ let amountAnswers;
 let circle = document.querySelector('.circle');
 let manyVariants = []
 let manyBlock;
+let valueBonus;
+
+let checkOportunity;
+
+// фунція підрахунку бонусів
+function addBonus(count_points) {
+    // Get the current bonus value from the input field
+    let bonusInput = document.getElementById("bonus");
+    let bonusValue = parseInt(bonusInput.dataset.value);
+
+    // Add the bonus value to the total bonus value
+    let totalBonusValue = bonusValue + count_points;
+
+    return totalBonusValue;
+};
 
 
 if (localStorage.getItem("index_question") == "0"){
     localStorage.setItem('index_question', '0');
     localStorage.setItem('users_answers', '')
 }
+
 
 
 socket.emit('get_question',
@@ -31,6 +48,13 @@ socket.emit('get_question',
 
 socket.on('question', (data) => {
     if (data.question != "Кінець"){
+        let bonusInput = document.getElementById("bonus");
+        bonusInput.style.width = `${data.value_bonus}%`;
+
+        document.querySelector(".modal").style.display = "none";
+        document.querySelector(".right-answer").classList.remove("fade-in-anim");
+        document.querySelector(".uncorrect-answer").classList.remove("fade-in-anim");
+
         const imgContainer = document.getElementById("image-container");
         imgContainer.innerHTML = "";
 
@@ -38,6 +62,8 @@ socket.on('question', (data) => {
         let amountAnswers = data.answers.length
         
         let dataCookie = localStorage.getItem("time_question");
+
+        let correctIndexes = data.correct_answers
 
         const cont = document.querySelector(".answers");
         if (dataCookie == "set"){
@@ -65,7 +91,7 @@ socket.on('question', (data) => {
         } 
 
 
-        if (data.question_img != "not"){
+        if (data.question_img != "not" && checkOportunity != "not"){
             let justAnswerDiv = document.querySelector(".answers")
             let answerImg = document.querySelector(".answers-image")
 
@@ -80,7 +106,7 @@ socket.on('question', (data) => {
 
             imgQuestion.innerHTML = `
                 <div class="num-question">
-                    <p class="num-que">1/10</p>
+                    <p class="num-que">${data.index}/${data.amount_question}</p>
                 </div>
                 <div class= "question-bg">
                     <p class="question-test"></p>
@@ -116,7 +142,7 @@ socket.on('question', (data) => {
 
                     </div>
                     <div class="coint coint-buttom fade-in-right" data-value="1">
-
+                        
                     </div>
                 `;
 
@@ -133,7 +159,7 @@ socket.on('question', (data) => {
 
                 questionImage.innerHTML = `
                     <div class="num-question">
-                        <p class="num-que">1/10</p>
+                        <p class="num-que">${data.index}/${data.amount_question}</p>
                     </div>
                     <div class= "question-bg">
                         <p class="question-test">${data.question}</p>
@@ -194,6 +220,10 @@ socket.on('question', (data) => {
                     block.addEventListener(
                         'click',
                         () => {
+                            if (checkOportunity == "not"){
+                                return;
+                            }
+                            checkOportunity = "not";
                             // сбрасываем время если пользователь нажал на какой то ответ
                             localStorage.setItem('time_question', 'set');
 
@@ -211,15 +241,42 @@ socket.on('question', (data) => {
                             let index = localStorage.getItem("index_question")
                             index = parseInt(index) + 1;
                             localStorage.setItem("index_question", index)
-                            circle.style.background = `conic-gradient(#8ABBF7 0deg, #8ABBF7 360deg)`;
+                            // circle.style.background = `conic-gradient(#8ABBF7 0deg, #8ABBF7 360deg)`;
 
+                            block.style.border = "4px solid white"; // біла обводка
+                            block.style.transition = "all 0.3s ease"; // плавний перехід
                             
-                            socket.emit('next_question', {
-                                index: index,
-                                answer: block.dataset.value,
-                                test_id: localStorage.getItem("test_id")
-                            })
-                            console.log("Питання відправлено на сервер, чекаємо відповіді");
+                            setTimeout(() => {
+                                document.querySelector(".modal").style.display = "block";
+                                if (correctIndexes.includes(parseInt(block.dataset.value))) {
+                                    document.querySelector(".right-answer").classList.add("fade-in-anim");
+                                    valueBonus = "10";
+                                    let checkprocent = addBonus(10);
+                                    console.log(checkprocent, "checkprocent")
+
+                                }else {
+                                    valueBonus = "0";
+                                    document.querySelector(".uncorrect-answer").classList.add("fade-in-anim");
+                                };
+                            }, timeout = 699);
+
+                            setTimeout(() => {
+                                let midletime = localStorage.getItem("wasted_time")
+                                midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                localStorage.setItem("wasted_time", midletime);
+                                
+                                localStorage.setItem("timeData", "0")
+                                
+
+                                socket.emit('next_question', {
+                                    index: index,
+                                    answer: block.dataset.value,
+                                    test_id: localStorage.getItem("test_id"),
+                                    value_bonus: valueBonus
+                                });
+                                checkOportunity = "able";
+                                circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+                            }, timeout = 2000);
                         }
                     )
                 }
@@ -247,13 +304,13 @@ socket.on('question', (data) => {
 
                 blockAnswersTop.innerHTML = `
                     <div class="coint coint-top fade-in" data-value="2">
-                        <div class="check-input">
+                        <div class="check-input" data-value="2">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text">${answers[2]}</p>
                     </div>
                     <div class="coint coint-top fade-in-right" data-value="3">
-                        <div class="check-input">
+                        <div class="check-input" data-value="3">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text">${answers[3]}</p>
@@ -264,7 +321,7 @@ socket.on('question', (data) => {
 
                 blockAnswersBottom.innerHTML = `
                     <div class="coint coint-buttom fade-in" data-value="0">
-                        <div class="check-input">
+                        <div class="check-input" data-value="0">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text">${answers[0]}</p>
@@ -273,7 +330,7 @@ socket.on('question', (data) => {
 
                     </div>
                     <div class="coint coint-buttom fade-in-right" data-value="1">
-                        <div class="check-input">
+                        <div class="check-input" data-value="1">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text">${answers[1]}</p>
@@ -292,7 +349,7 @@ socket.on('question', (data) => {
 
                 questionImage.innerHTML = `
                     <div class="num-question">
-                        <p class="num-que">1/10</p>
+                        <p class="num-que">${data.index}/${data.amount_question}</p>
                     </div>
                     <div class= "question-bg">
                         <p class="question-test">${data.question}</p>
@@ -334,6 +391,9 @@ socket.on('question', (data) => {
 
                 for (let manyblock of manyVariantsBlock){
                     manyblock.addEventListener('click', () => {
+                        if (checkOportunity == "not"){
+                            return;
+                        }
                         const value = manyblock.dataset.value;
                         const checkMark = manyblock.querySelector('.check-mark');
 
@@ -358,6 +418,8 @@ socket.on('question', (data) => {
                         } else {
                             confirmButton.style.background = `#9688a3`;
                         }
+
+
                     });
                 }
 
@@ -385,6 +447,8 @@ socket.on('question', (data) => {
                     'click',
                     () => {
                         if (manyVariants.length > 0){
+                            checkOportunity = "not";
+                            
                             localStorage.setItem('time_question', "set")
                             let chekcookies = localStorage.getItem("users_answers")
 
@@ -405,13 +469,74 @@ socket.on('question', (data) => {
                             let index = localStorage.getItem("index_question")
                             index = parseInt(index) + 1;
                             localStorage.setItem("index_question", index)
-                            
-                            socket.emit('next_question', {
-                                index: index,
-                                answer: dataString,
-                                test_id: localStorage.getItem("test_id")
-                            })
-                            console.log("Питання відправлено на сервер, чекаємо відповіді");
+
+                            let currentCorrect = 0;
+                            let currentUncorrect = 0;
+
+                            let checkMarks = document.querySelectorAll(".check-input");
+
+                            for (let checkMark of checkMarks){
+                                if (manyVariants.includes(checkMark.dataset.value)){
+                                    if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
+                                        checkMark.style.backgroundColor = '#8AF7D4';
+                                        currentCorrect += 1;
+                                    }else{
+                                        checkMark.style.backgroundColor = '#E05359';
+                                        currentUncorrect += 1;
+                                    }
+                                }
+                            }
+
+
+                            // Clear selected variants for next question
+                            manyVariants.length = 0;
+                            const totalCorrect = correctIndexes.length;
+
+                            if (currentCorrect > totalCorrect / 2 && currentUncorrect === 0){
+                                setTimeout(() => {
+                                    document.querySelector(".modal").style.display = "block";
+                                    document.querySelector(".right-answer").classList.add("fade-in-anim")
+                                    valueBonus = "10";
+                                    let checkprocent = addBonus(10);
+
+                                    console.log(checkprocent, "checkprocent")
+
+                                    for (let checkMark of checkMarks){
+                                        if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
+                                            checkMark.style.backgroundColor = '#8AF7D4';
+                                        }
+                                    }
+                                }, timeout = 699);
+                            }else{
+                                setTimeout(() => {
+                                    valueBonus = "0";
+                                    document.querySelector(".modal").style.display = "block";
+                                    document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
+
+                                    for (let checkMark of checkMarks){
+                                        if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
+                                            checkMark.style.backgroundColor = '#8AF7D4';
+                                        }
+                                    }
+                                }, timeout = 699);
+                            }
+
+                            setTimeout(() => {
+                                let midletime = localStorage.getItem("wasted_time")
+                                midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                localStorage.setItem("wasted_time", midletime);
+                                
+                                localStorage.setItem("timeData", "0")
+
+                                socket.emit('next_question', {
+                                    index: index,
+                                    answer: dataString,
+                                    test_id: localStorage.getItem("test_id"),
+                                    value_bonus: valueBonus
+                                });
+                                checkOportunity = "able";
+                                circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+                            }, timeout = 2000);
                         }
                     }
                 )
@@ -421,15 +546,13 @@ socket.on('question', (data) => {
             document.querySelector(".question").style.height = `20%`;
             document.querySelector(".answers-image").style.display = `flex`;
             const img = document.createElement("img");
-            console.log(data.question_img)
-            // img.src = `${data.question_img}`; 
+
             img.src = `${data.question_img}`;
             img.alt = data.question_img;
-            img.width = 100;  
-            img.height = 121;
+
             document.querySelector(".bottom-image").appendChild(img);
 
-        }else{
+        }else if (data.question_img == "not" || checkOportunity != "not"){
             let justAnswerDiv = document.querySelector(".answers")
             let answerImg = document.querySelector(".answers-image")
 
@@ -440,7 +563,7 @@ socket.on('question', (data) => {
 
             simpleQuestion.innerHTML = `
                 <div class="num-question">
-                    <p class="num-que">1/10</p>
+                    <p class="num-que">${data.index}/${data.amount_question}</p>
                 </div>
                 <div class= "question-bg">
                     <p class="question-test"></p>
@@ -479,10 +602,10 @@ socket.on('question', (data) => {
                     <div class="variant fade-in" data-value="1">
                         <p class="variant-text"></p>
                     </div>
-                    <div class="variant fade-in-right" data-value="2">
+                    <div class="variant fade-in" data-value="2">
                         <p class="variant-text"></p>
                     </div>
-                    <div class="variant fade-in-right" data-value="3">
+                    <div class="variant fade-in" data-value="3">
                         <p class="variant-text"></p>
                     </div>
                 `;
@@ -507,6 +630,10 @@ socket.on('question', (data) => {
                     block.addEventListener(
                         'click',
                         () => {
+                            if (checkOportunity == "not"){
+                                return;
+                            }
+                            checkOportunity = "not";
                             // сбрасываем время если пользователь нажал на какой то ответ
                             localStorage.setItem('time_question', 'set');
 
@@ -522,17 +649,48 @@ socket.on('question', (data) => {
                                 localStorage.setItem("users_answers", block.dataset.value)
                             }
                             let index = localStorage.getItem("index_question")
+                            
+                            localStorage.setItem("index_question", index)
+                            // circle.style.background = `conic-gradient(#8ABBF7 0deg, #8ABBF7 360deg)`;
+
+
+                            block.style.border = "4px solid white"; // біла обводка
+                            block.style.transition = "all 0.3s ease"; // плавний перехід
+                            
+                            setTimeout(() => {
+                                document.querySelector(".modal").style.display = "block";
+                                if (correctIndexes.includes(parseInt(block.dataset.value))) {
+                                    document.querySelector(".right-answer").classList.add("fade-in-anim")
+                                    valueBonus = "10";
+                                    let checkprocent = addBonus(10);
+                                    console.log(checkprocent, "checkprocent")
+
+                                }else {
+                                    valueBonus = "0";
+                                    document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
+                                }
+                            }, timeout = 699);
+
                             index = parseInt(index) + 1;
                             localStorage.setItem("index_question", index)
-                            circle.style.background = `conic-gradient(#8ABBF7 0deg, #8ABBF7 360deg)`;
 
-                            
-                            socket.emit('next_question', {
-                                index: index,
-                                answer: block.dataset.value,
-                                test_id: localStorage.getItem("test_id")
-                            })
-                            console.log("Питання відправлено на сервер, чекаємо відповіді");
+                            setTimeout(() => {
+                                let midletime = localStorage.getItem("wasted_time")
+
+                                midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                localStorage.setItem("wasted_time", midletime);
+                                
+                                localStorage.setItem("timeData", "0")
+
+                                socket.emit('next_question', {
+                                    index: index,
+                                    answer: block.dataset.value,
+                                    test_id: localStorage.getItem("test_id"),
+                                    value_bonus: valueBonus
+                                });
+                                checkOportunity = "able";
+                                circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+                            }, timeout = 2000);
                         }
                     )
                 }
@@ -568,26 +726,26 @@ socket.on('question', (data) => {
                 const checkMarkUrl = "/static/images/check-mark.png";
 
                 cont.innerHTML = `
-                    <div class="many-variant fade-in" data-value="0">
-                        <div class="check-input">
+                    <div class="many-variant fade-in" data-value="0" value="0">
+                        <div class="check-input" data-value="0">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text"></p>
                     </div>
-                    <div class="many-variant fade-in" data-value="1">
-                        <div class="check-input">
+                    <div class="many-variant fade-in" data-value="1" value="1">
+                        <div class="check-input" data-value="1">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text"></p>
                     </div>
-                    <div class="many-variant fade-in-right" data-value="2">
-                        <div class="check-input">
+                    <div class="many-variant fade-in" data-value="2" value="2">
+                        <div class="check-input" data-value="2">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
                         <p class="variant-text">sdc</p>
                     </div>
-                    <div class="many-variant fade-in-right" data-value="3">
-                        <div class="check-input">
+                    <div class="many-variant fade-in" data-value="3" value="3">
+                        <div class="check-input" data-value="3">
                             <img src="${checkMarkUrl}" class="check-mark" alt="j">
                         </div>
                         <p class="variant-text"></p>
@@ -615,6 +773,9 @@ socket.on('question', (data) => {
 
                 for (let manyblock of manyVariantsBlock){
                     manyblock.addEventListener('click', () => {
+                        if (checkOportunity == "not"){
+                            return;
+                        }
                         const value = manyblock.dataset.value;
                         const checkMark = manyblock.querySelector('.check-mark');
 
@@ -647,7 +808,10 @@ socket.on('question', (data) => {
 
                 confirm_button.addEventListener(
                     'click',
-                    () => {
+                    (e) => {
+                        checkOportunity = "not";
+
+                        e.preventDefault(); 
                         if (manyVariants.length > 0){
                             localStorage.setItem('time_question', "set")
                             let chekcookies = localStorage.getItem("users_answers")
@@ -669,13 +833,71 @@ socket.on('question', (data) => {
                             let index = localStorage.getItem("index_question")
                             index = parseInt(index) + 1;
                             localStorage.setItem("index_question", index)
-                            
-                            socket.emit('next_question', {
-                                index: index,
-                                answer: dataString,
-                                test_id: localStorage.getItem("test_id")
-                            })
-                            console.log("Питання відправлено на сервер, чекаємо відповіді");
+
+                            let currentCorrect = 0;
+                            let currentUncorrect = 0;
+
+                            let checkMarks = document.querySelectorAll(".check-input");
+
+                            for (let checkMark of checkMarks){
+                                if (manyVariants.includes(checkMark.dataset.value)){
+                                    if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
+                                        checkMark.style.backgroundColor = '#8AF7D4';
+                                        currentCorrect += 1;
+                                    }else{
+                                        checkMark.style.backgroundColor = '#E05359';
+                                        currentUncorrect += 1;
+                                    }
+                                }
+                            }
+
+                            // Clear selected variants for next question
+                            manyVariants.length = 0;
+                            const totalCorrect = correctIndexes.length; 
+
+                            if (currentCorrect > totalCorrect / 2 && currentUncorrect === 0){
+                                setTimeout(() => {
+                                    document.querySelector(".modal").style.display = "block";
+                                    document.querySelector(".right-answer").classList.add("fade-in-anim")
+                                    valueBonus = "10";
+                                    let checkprocent = addBonus(10);
+                                    console.log(checkprocent, "checkprocent")
+
+
+                                    for (let checkMark of checkMarks){
+                                        if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
+                                            checkMark.style.backgroundColor = '#8AF7D4';
+                                        }
+                                    }
+                                }, timeout = 699);
+                            }else{
+                                setTimeout(() => {
+                                    document.querySelector(".modal").style.display = "block";
+                                    document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
+                                    valueBonus = "0";
+                                    for (let checkMark of checkMarks){
+                                        if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
+                                            checkMark.style.backgroundColor = '#8AF7D4';
+                                        }
+                                    }
+                                }, timeout = 699);
+                            }
+
+                            setTimeout(() => {
+                                let midletime = localStorage.getItem("wasted_time")
+                                midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                localStorage.setItem("wasted_time", midletime);
+                                
+                                localStorage.setItem("timeData", "0")
+                                socket.emit('next_question', {
+                                    index: index,
+                                    answer: dataString,
+                                    test_id: localStorage.getItem("test_id"),
+                                    value_bonus:valueBonus
+                                });
+                                checkOportunity = "able";
+                                circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+                            }, timeout = 2000);
                         }
                     }
                 )
@@ -714,9 +936,9 @@ socket.on('question', (data) => {
 
         }   
     }else{
-        window.location.replace('/finish_test');
-        // localStorage.removeItem('time_question')
-        // document.querySelector("#end-test").submit();
+        setTimeout(() => {
+            window.location.replace('/finish_test');
+        }, 1000);
     }
 });
 
@@ -787,9 +1009,12 @@ setInterval(() => {
 
         if (isNaN(timeQuestion)) {
             // Якщо немає часу або він некоректний 
-            timer.textContent = "-";
-            return; // або можна встановити якийсь дефолт, наприклад, 0
+            // timer.textContent = "-";
+            return; 
         }
+        let wasted_time = parseInt(localStorage.getItem("timeData"))
+        wasted_time += 1;
+        localStorage.setItem("timeData", wasted_time)
         timeQuestion -= 1; // Зменшуємо yf 1
         updateCircle(parseInt(timeQuestion))
         if (timeQuestion < 61){
@@ -824,9 +1049,13 @@ setInterval(() => {
             localStorage.setItem("index_question", index)
 
             console.log("Питання відправлено на сервер, чекаємо відповіді");
-            circle.style.background = `conic-gradient(#8ABBF7 0deg, #8ABBF7 360deg)`;
+            circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
 
+            let midletime = localStorage.getItem("wasted_time")
+            midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+            localStorage.setItem("wasted_time", midletime);
 
+            localStorage.setItem("timeData", "0")
             socket.emit('next_question', {
                 index: index,
                 test_id: localStorage.getItem("test_id")
@@ -847,6 +1076,7 @@ leaveButton.addEventListener(
     () => {
         localStorage.setItem('time_question', "0")
 
+        localStorage.setItem("timeData", "0")
         // щоб гарантувати завершення – передай індекс явно великий
         socket.emit('next_question', {
             index: 100,

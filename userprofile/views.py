@@ -1,4 +1,4 @@
-import flask, os, flask_login, random, shutil, qrcode, json, urllib.parse
+import flask, os, flask_login, random, shutil, qrcode
 from threading import Thread
 import PIL.Image
 from home.models import User
@@ -248,79 +248,83 @@ def render_change_tests():
 
 @login_decorate
 def render_mentor():
+    # отримуємо код кімнати з параметрів запиту
     code = flask.request.args.get("room_code")
+    # зберігаємо об'єкт користувача в змінну
     user = flask_login.current_user
 
+    # qrcode - 
+    # Створюємо QR-код(об'єкт) з посиланням на кімнату
     qr = qrcode.QRCode(
-        error_correction = qrcode.constants.ERROR_CORRECT_H,
+        # корекцыя помилок - висока
+        error_correction = qrcode.constants.ERROR_CORRECT_H, 
+        # розмір qrcode
         box_size = 15,
+        # розмір рамки навколо qrcode
         border = 2
     )
+    # задаємо посилання на яке буде вести QR-код
     qr.add_data(f"http://127.0.0.1:5000/student?room_code={code}")
+    # створюємо QR-код, але у вигляді закодовоного коду
     qr.make(fit = True)
 
+    # створюємо зображення QR-коду
     image = qr.make_image(
+        # кольори QR-коду
         fill_color = '#000000',
+        # колір фону QR-коду
         back_color = "#ffffff",
     )
 
+    # зберігаємо зображення QR-коду в папку користувача
     if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes"))):
         os.makedirs(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes")))
     image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes", f"{code}.png")))
 
-    print("user =", user)
     return flask.render_template(
         "mentor.html",
-        mentor=True,
+        mentor = True,
         code = code,
         user = user
     )
 
-from urllib.parse import quote, unquote
-import flask, flask_login
-from os.path import abspath, join, exists
-import os
-
 @login_decorate
 def render_test_preview(pk: int):
+    
     new_questions = ""
     new_answers = ""
     category = ""
-
-    # Load cookies safely (just plain strings — no JSON decoding needed)
     if flask.request.cookies.get("questions"):
-        new_questions = unquote(flask.request.cookies.get("questions"))
-        new_answers = unquote(flask.request.cookies.get("answers"))
-        category = unquote(flask.request.cookies.get("category"))
+        new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
+        new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
+        category = flask.request.cookies.get("category").encode('raw_unicode_escape').decode('utf-8')
+        print("new_questions =", new_questions)
 
     if flask.request.method == "POST":
-        check_form = flask.request.form.get("check_post")
+        check_form = flask.request.form.get('check_post')
 
         cookie_questions = flask.request.cookies.get("questions")
         answers_cookies = flask.request.cookies.get("answers")
 
-        if check_form == "create_test" and cookie_questions and answers_cookies:
+        if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
+        # if cookie_questions is not None and answers_cookies is not None:
             test_title = flask.request.form["test_title"]
-            question_time = flask.request.cookies.get("time")
+            question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 
             test = Test.query.get(pk)
             print("test =", test)
 
-            # Use unquoted values already extracted above
             test.title_test = test_title
             test.questions = new_questions
             test.answers = new_answers
             test.question_time = question_time
-            image = (
-                flask.session["test_image"]
-                if "test_image" in flask.session and flask.session["test_image"] != "default"
-                else f"default/{return_img(category=category)}"
-            )
+            category = category
+            image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else f"default/{return_img(category = category)}"
 
             test_data = TestData()
             test.test_profile = test_data
 
-            response = flask.make_response(flask.redirect("/"))
+            response = flask.make_response(flask.redirect('/'))
 
             try:
                 response.delete_cookie("questions")
@@ -335,63 +339,67 @@ def render_test_preview(pk: int):
 
             DATABASE.session.commit()
             return response
-
         elif check_form == "image":
             image = flask.request.files["image"]
-
-            image_dir = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test"))
-            if not exists(image_dir):
-                os.mkdir(image_dir)
+    
+            if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test"))):
+                os.mkdir(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test")))
 
             flask.session["test_image"] = str(image.filename)
-            delete_files_in_folder(image_dir)
-            image.save(join(image_dir, str(image.filename)))
-
+            delete_files_in_folder(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test")))
+            image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
         elif check_form == "del_image":
             flask.session["test_image"] = "default"
 
     else:
+
         response = flask.make_response()
         test = Test.query.get(pk)
 
-        category = test.category.encode("utf-8").decode("unicode_escape")
+        category = test.category.encode('utf-8').decode('unicode_escape')
         print("test =", category)
 
         list_to_template = []
+        # new_questions_list = test.questions.split("?%?")
+        # new_answers_list = test.answers.split("?@?")
+        # new_time_list = test.question_time.split("?#?")
         new_answers_list = new_answers.split("?@?")
         new_questions_list = new_questions.split("?%?")
 
-        for number, question in enumerate(new_questions_list):
-            item = {"question": question}
+        number = 0
+        for question in new_questions_list:
+            item = {}
+            item["question"] = question
             answers_list = new_answers_list[number].split("%?)(?%")
-            item["answers"] = [
-                answer.replace("(?%", "").replace("%?)", "")[1:-1]
-                for answer in answers_list
-            ]
+            temporary_answers_list = []
+            for answer in answers_list:
+                answer = answer.replace("(?%", "")
+                answer = answer.replace("%?)", "")
+                answer = answer[1:-1]
+                temporary_answers_list.append(answer)
+            item["answers"] = temporary_answers_list
             item["pk"] = number
+            # item["time"] = new_time_list[number]
             list_to_template.append(item)
-
+            number += 1
         print("list_to_template", list_to_template)
 
         response = flask.make_response(
             flask.render_template(
-                "test_preview.html",
-                test=test,
-                user=flask_login.current_user,
-                question_list=list_to_template,
+                template_name_or_list = "test_preview.html",
+                test = test,
+                user = flask_login.current_user,
+                question_list = list_to_template
             )
         )
-
         if not flask.request.cookies.get("questions"):
-            response.set_cookie("questions", quote(test.questions))
-            response.set_cookie("answers", quote(test.answers))
-            response.set_cookie("category", quote(test.category))
-            response.set_cookie("time", test.question_time)
-            response.set_cookie("inputname", quote(test.title_test))
-            print("category =", category)
+            response.set_cookie('questions', test.questions)
+            response.set_cookie('answers', test.answers)
+            response.set_cookie('time', test.question_time)
+            response.set_cookie('category', category)
+            response.set_cookie('inputname', test.title_test)
 
     return response
-
 
 @login_decorate
 def render_change_question_preview(pk: int, id: int):
@@ -420,7 +428,6 @@ def render_change_question_preview(pk: int, id: int):
         question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 
         # current_image = images.split("?&?")[pk]
-        print("id =", id)
         current_question = questions.split("?%?")[id]
         current_time = question_time.split("?#?")[id]
         current_answers = answers.split("?@?")[id]

@@ -121,8 +121,11 @@
 
 .pet-list {
     width: 90%;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: row;
+    /* grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); */
     gap: 20px;
     background: #343434;
     padding: 2%;

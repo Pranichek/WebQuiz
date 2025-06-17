@@ -48,11 +48,14 @@
             </div>
             {% endfor %}
 
-            <div class="pet-card">
+            <div class="pet-card" value="1">
                 <div class="pet">
                     <img src="{{ url_for('profile.static', filename='images/pigeon.png') }}" alt="1">
                 </div>
                 <div class="cost">20 балів</div>
+                <form action="" method="post">
+                    <button name="buy_gift" value="1/20">buy</button>
+                </form>
             </div>
 
             <div class="pet-card">
@@ -93,3 +96,7 @@
     </div>
 
 {% endblock %}
+
+{% block scripts %}
+    
+{% endblock scripts %}
