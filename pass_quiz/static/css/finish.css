@@ -374,6 +374,11 @@
     word-break: break-word;
     word-break: break-all;
 }
+.robots2{
+    display: flex;
+    gap: 75.3%;
+    position: absolute;
+}
 
 @media (max-width: 800px){
     .space{
@@ -464,7 +469,7 @@
 }
 @media (min-width: 1021px) and (max-width: 1500px){
     .space{
-        width: 90%;
+        width: 70%;
     }
     .question{
         width: 90%;
@@ -473,16 +478,16 @@
         width: 100%;
     }
     .result{
-        width: 100%;
+        width: 70%;
     }
     .line{
         width: 90%;
     }
     .inf{
-        width: 100%;
+        width: 70%;
     }
     .big-div{
-        width: 100%;
+        width: 75%;
         height: 500px;
     }
     .small-div{

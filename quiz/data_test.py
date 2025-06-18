@@ -16,6 +16,9 @@ def render_data_test():
         test_id = flask.request.args.get("id_test")
         test = Test.query.get(int(test_id))
 
+        test.user.username
+        test.category
+
         response = flask.make_response(
             flask.render_template(
             template_name_or_list = "test_data.html",
