@@ -271,3 +271,27 @@ def render_delete_image(pk: int):
             print(f"Renaming {src} → {dst}")
             os.rename(src, dst)
     return "Delete"
+
+
+def render_delete_only_image(pk: int):
+    print("pk =", pk, "; pk + 1 =", pk + 1)
+    
+    test_pk = flask.request.args.get("test_pk")
+    test_name = False
+    
+    try:
+        test_name = Test.query.get(int(test_pk)).title_test
+    except:
+        pass
+    print("test_pk =", test_pk, "test_name =", test_name)
+
+    if test_name:
+        deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", test_name, str(pk + 1)))
+    else:
+        deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+
+    file_list = os.listdir(deletion_path)
+    for file in file_list:
+        os.remove(os.path.join(deletion_path, file))
+
+    return "Delete"
