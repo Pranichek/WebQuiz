@@ -1,5 +1,5 @@
 import flask
-
+from flask_socketio import SocketIO
 
 profile = flask.Blueprint(
     name="profile",

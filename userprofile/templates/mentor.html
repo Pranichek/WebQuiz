@@ -101,5 +101,10 @@
 
 {% block scripts %}
     {{ super() }}
+    <script>
+        const staticBase = "{{ url_for('mentor.static', filename='images/mentor/student_avatar.png') }}";
+    </script>
     <script src="{{ url_for('mentor.static', filename='js/mentor.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('mentor.static', filename='js/getNewUser.js') }}"></script>
 {% endblock scripts %}

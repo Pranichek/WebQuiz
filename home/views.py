@@ -193,11 +193,11 @@ def render_code():
                 if form_code != '':
                     if str(flask.session["code"]) == form_code:
                         user = User(
-                                username = flask.session["username"],
-                                password = flask.session["password"],
-                                email = flask.session["email"],
-                                is_mentor = flask.session["check_mentor"]
-                            )
+                            username = flask.session["username"],
+                            password = flask.session["password"],
+                            email = flask.session["email"],
+                            is_mentor = flask.session["check_mentor"]
+                        )
                         
                         profile = DataUser()
                         user.user_profile = profile

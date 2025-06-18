@@ -161,10 +161,6 @@ def render_create_question():
 
         if not os.path.exists(path):
             os.makedirs(path)
-        
-        if image:
-            image.save(os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number), str(image.filename))))
-        return flask.redirect("/test")
 
     return flask.render_template(template_name_or_list= "create_question.html")
 
@@ -237,6 +233,15 @@ def render_change_question(pk: int):
                 answers.append("hidden")
             else:
                 break
+        deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "images_tests", str(pk + 1)))
+        print("path =", deletion_path)
+        file_exists = None
+        try:
+            print("os.listdir(deletion_path) =", os.listdir(deletion_path))
+            os.listdir(deletion_path)[0]
+            file_exists = True
+        except:
+            pass
     
     return flask.render_template(
         template_name_or_list = "change_question.html",
@@ -250,6 +255,7 @@ def render_change_question(pk: int):
         correct2 = correctAnswers[1],
         correct3 = correctAnswers[2] if len(correctAnswers) > 2 else "not",
         correct4 = correctAnswers[3] if len(correctAnswers) > 3 else "not",
+        image_exists = file_exists,
         time = current_time,
         pk = pk,
     )
@@ -258,7 +264,6 @@ def render_change_question(pk: int):
 def render_delete_image(pk: int):
     print("pk =", pk, "; pk + 1 =", pk + 1)
     
-    test_name = None
     test_pk = flask.request.args.get("test_pk")
     test_name = False
     
@@ -286,4 +291,27 @@ def render_delete_image(pk: int):
             dst = os.path.join(images_tests_dir, str(folder_num - 1))
             print(f"Renaming {src} → {dst}")
             os.rename(src, dst)
+    return "Delete"
+
+def render_delete_only_image(pk: int):
+    print("pk =", pk, "; pk + 1 =", pk + 1)
+    
+    test_pk = flask.request.args.get("test_pk")
+    test_name = False
+    
+    try:
+        test_name = Test.query.get(int(test_pk)).title_test
+    except:
+        pass
+    print("test_pk =", test_pk, "test_name =", test_name)
+
+    if test_name:
+        deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", test_name, str(pk + 1)))
+    else:
+        deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+
+    file_list = os.listdir(deletion_path)
+    for file in file_list:
+        os.remove(os.path.join(deletion_path, file))
+
     return "Delete"

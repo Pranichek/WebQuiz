@@ -1,8 +1,11 @@
 import flask, os, flask_login, random, shutil, qrcode
+from flask_socketio import emit
 from threading import Thread
 import PIL.Image
+from Project.socket_config import socket
 from home.models import User
 from quiz.models import Test, TestData
+from userprofile.models import DataUser
 from quiz.del_files import delete_files_in_folder
 from quiz.generate_image import return_img
 from Project.db import DATABASE
@@ -410,6 +413,8 @@ def render_change_question_preview(pk: int, id: int):
             print("pk (change)=", id)
             dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", test_name, str(id + 1)))
             print("path =", dir_path)
+            if not os.path.exists(dir_path):
+                os.makedirs(dir_path)
             for filename in os.listdir(dir_path):
                 file_path = os.path.join(dir_path, filename)
                 try:
@@ -478,6 +483,26 @@ def render_change_question_preview(pk: int, id: int):
 
 @login_decorate
 def render_student():
+    code = flask.request.args.get("room_code")
+
+    print("flask_login.current_user.id =", flask_login.current_user.id)
+    profile = None
+    user = None
+    try:
+        profile = DataUser.query.filter_by(user_id = flask_login.current_user.id).one_or_404()
+    except:
+        user = User.query.get(flask_login.current_user.id)
+        profile = DataUser()
+        user.user_profile = profile
+    print("user =", profile)
+
+    profile.is_passing = code
+
+    DATABASE.session.add(profile)
+    DATABASE.session.commit()
+
+    socket.emit('new_user', {'username': flask_login.current_user.username})
+
     return flask.render_template(
         "student.html",
         user = flask_login.current_user
