@@ -16,6 +16,8 @@ class DataUser(DATABASE.Model):
     # кількість процентів, щоб забарти боунс за проходження тесту
     percent_bonus = DATABASE.Column(DATABASE.Integer, default = 0)
 
+    pet_id = DATABASE.Column(DATABASE.String, default = '')
+
     # зв'язок із моделлю користувача one-to-one
     user = DATABASE.relationship("User", back_populates="user_profile")
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id'), unique=True)

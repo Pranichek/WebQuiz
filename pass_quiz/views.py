@@ -15,7 +15,6 @@ def render_finish_test():
     avatar = user.name_avatar
 
 
-    print(list_to_template, "da")
 
     if user.user_profile.percent_bonus >= 100:
         user.user_profile.percent_bonus = 0

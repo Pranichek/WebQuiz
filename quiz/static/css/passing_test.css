@@ -31,7 +31,7 @@ body {
     cursor: pointer;
 }
 
-footer {
+.footer-test {
     display: flex;
     flex-direction: row;
     justify-content: space-between;

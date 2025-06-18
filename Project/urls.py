@@ -122,7 +122,7 @@ searches.search.add_url_rule(
 )
 
 userprofile.buy_gifts.add_url_rule(
-    rule = "/buy_gifts",
+    rule = "/buy_pet",
     view_func = userprofile.render_buy_gifts,
     methods = ["GET", "POST"]
 )

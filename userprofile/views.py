@@ -11,6 +11,7 @@ from home.send_email import send_code, generate_code
 from Project.login_check import login_decorate
 from os.path import abspath, join, exists
 from flask_login import current_user
+from .apps import buy_gifts
 
 
 @login_decorate
@@ -493,6 +494,34 @@ def render_student():
 
 @login_decorate
 def render_buy_gifts():
+    user = flask_login.current_user
+    email = flask_login.current_user
+    count_money = user.user_profile.count_money
+    pet_id = user.user_profile.pet_id
+
+    if flask.request.method == "POST":
+        check_form = flask.request.form.get("buy_gift")
+
+        if check_form and "/" in check_form:
+            data_button = check_form.split("/")  # [pet_id, cost]
+            pet_id = data_button[0]
+            pet_cost = int(data_button[1])
+
+            if count_money >= pet_cost:
+                # Проверяем, не куплен ли уже питомец
+                if str(user.user_profile.pet_id) != str(pet_id):
+                    user.user_profile.count_money -= pet_cost
+                    user.user_profile.pet_id = pet_id  
+                    print("daaaaaaa")
+                    DATABASE.session.commit()
+
+        # После обработки POST-запроса перенаправляем на ту же страницу (чтобы не было повторной отправки формы)
+        # return flask.redirect(flask.url_for("buy_gifts.render_buy_gifts"))
+
     return flask.render_template(
-        template_name_or_list="buy_gifts.html",
+        template_name_or_list = "buy_gifts.html",
+        user = user,
+        email = email,
+        count_money = count_money,
+        pet_id = pet_id
     )
