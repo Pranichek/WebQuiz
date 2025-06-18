@@ -514,7 +514,7 @@ header {
     min-width: 160px;
     min-height: 160px;
     transition: 0.88s;
-    transform: translate(-48%, -80%); /* плавный подъем в центр */
+    transform: translate(-48%, -75%); /* плавный подъем в центр */
 }
 
 .coin-anim {
