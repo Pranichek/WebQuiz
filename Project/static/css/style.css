@@ -130,11 +130,11 @@ nav {
     width: 230px;
 }
 
-.body-web, body{
+/* .body-web, body{
     display: flex;
     flex-direction: column;
     justify-content: center;
-}
+} */
 
 .sidebar-robot{
     position: absolute;

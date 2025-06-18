@@ -1,5 +1,4 @@
-import PIL.Image
-import flask, flask_login, os, random
+import flask, flask_login, os, random, shutil
 from .models import User
 from Project.db import DATABASE
 from .send_email import send_code, generate_code
@@ -206,11 +205,13 @@ def render_code():
                         #створює папку із тим шляхом що указали
                         path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"])))
                         if not os.path.exists(path):
-                            os.mkdir(path = path)
-                            # creating a image object (main image) 
-                            default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.svg")))
-                            # save a image using extension
-                            default_img = default_img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(str(flask.session["email"])) ,"default_avatar.svg")))
+                            os.mkdir(path)
+
+                            default_avatar_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.svg"))
+
+                            destination_path = os.path.join(path, "default_avatar.svg")
+
+                            shutil.copyfile(default_avatar_path, destination_path)
 
                         DATABASE.session.add(user)
                         # DATABASE.session.add(profile)
