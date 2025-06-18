@@ -28,6 +28,7 @@ body {
     text-align: center;
     border: none;
     padding: 6px 25px;
+    cursor: pointer;
 }
 
 footer {
@@ -320,6 +321,7 @@ span {
 
 .text-kem {
     padding-right: 7px;
+    margin-left: 6px;
 }
 
 .line {
@@ -416,8 +418,8 @@ span {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border: 1px black solid;
     border-radius: 50%;
     overflow: hidden;
@@ -478,6 +480,7 @@ header {
 }
 
 .right-answer, .uncorrect-answer {
+    position: relative;
     background-color: #2D2D2D;
     width: 120vw;
     height: 12vh;
@@ -492,16 +495,168 @@ header {
     transform: translate(-50%, 500%); /* стартова позиція – нижче екрана */
     z-index: 401;
     overflow: hidden;
+    min-height: 50px;
+}
+
+.sad_robot , .happy_robot {
+    position: fixed;
+    top: 48%;
+    left: 48%;
+    width: 40vw;
+    height: 40vh;
+    min-width: 160px;
+    min-height: 160px;
+    transform: translate(-48%, 150%); 
+    z-index: 401;
+}
+
+.fade-in-anim-robot {
+    min-width: 160px;
+    min-height: 160px;
+    transition: 0.88s;
+    transform: translate(-48%, -80%); /* плавный подъем в центр */
+}
+
+.coin-anim {
+    /* background-color: pink; */
+    position: fixed;
+    width: 23vw;
+    height: 20vh;
+    min-width: 200px;
+    min-height: 100px;
+    max-width: 400px;
+    max-height: 300px;
+    margin: auto;
+    top: 22%;
+    left: 50%;
+    transform: translateX(-50%) translateY(150vh);
+    z-index: 401;
+}
+
+.fade-in-coin{
+    transition: 0.86s;
+    transform: translateX(-50%) translateY(0);
+}
+
+.first-coin {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    max-width: 71px;
+    max-height: 71px;
+    min-width: 40px;
+    min-height: 40px;
+    z-index: 408;
+    transform: rotate(40deg);
+    margin-left: 10px;
+}
+
+.second-coin {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40%;
+    height: 40%;
+    max-width: 71px;
+    max-height: 71px;
+    min-width: 40px;
+    min-height: 40px;
+    z-index: 401;
+    transform: rotate(-50deg);
+}
+
+.third-coin{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 45%;
+    height: 45%;
+    max-width: 71px;
+    max-height: 71px;
+    min-width: 40px;
+    min-height: 40px;
+    z-index: 401;
+    transform: rotate(-40deg);
+}
+
+.fourth-coin{
+    position: absolute;
+    top: 60%;
+    right: 0;
+    width: 23%;
+    height: 23%;
+    max-width: 71px;
+    max-height: 71px;
+    min-width: 20px;
+    min-height: 20px;
+    z-index: 401;
+    transform: rotate(-40deg);
+}
+
+.fifth-coin{
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    width: 20%;
+    height: 20%;
+    max-width: 71px;
+    max-height: 71px;
+    min-width: 20px;
+    min-height: 20px;
+    z-index: 401;
+    transform: rotate(40deg);
+}
+
+.sighn-plus{
+    position: absolute;
+    top: 44%;
+    left: 10%;
+    width: 20%;
+    height: 20%;
+    max-width: 71px;
+    max-height: 71px;
+    min-width: 20px;
+    min-height: 20px;
+    z-index: 410;
+    /* transform: rotate(40deg); */
+}
+
+.text-money {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    font-size: 24px;
+    z-index: 401;
+    font-weight: 800;
+    color: #ffffff; /* Колір тексту */
+    -webkit-text-stroke: 1.3px #FFB700; /* Обводка */
+    text-shadow: none;
+}
+.red-blur {
+    z-index: 0;
 }
 
 .fade-in-anim {
-    transition: 0.8s ease;
+    overflow:visible;
+    transition: 0.9s ease;
     transform: translate(-50%, -50%); /* центр екрана */
 }
 
 .uncorrect-answer {
     background-color: #E05359;
     border: #E05359 2px solid;
+}
+
+.count-money{
+    color: #FFB700;
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 7px;
+    margin-right: 5px;
+}
+
+.money{
+    transform: translateX(-5px);
 }
 
 .blur {

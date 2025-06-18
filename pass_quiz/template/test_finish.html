@@ -16,7 +16,8 @@
                 <div class="note">
                     <p>Ваші бали</p>
                     <div class="note-div">
-                        <p class="user_pimpa"></p>
+                        <!-- <p class="user_pimpa"></p> -->
+                        {{ user.user_profile.count_money }}
                         <img class="money" src="{{ url_for('finish_test.static', filename='images/money.png'  ) }}" alt="avatar">
                     </div>
                 </div>
@@ -35,7 +36,7 @@
                     
                     <div class="tests">
                         <p class="text">Пройдені тести:</p>
-                        <p class="num">20</p>
+                        <p class="num">{{ user.user_profile.count_tests }}</p>
                     </div>
                 </div>
                 
@@ -70,17 +71,17 @@
     <div class="inf">
         <div class="prt1">
             <div class="block-1">
-                <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/del.png'  ) }}" alt="img">
+                <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/del.svg'  ) }}" alt="img">
                 <p class="uncorrect-answers"></p>
                 <p>Невірних відповідей</p>
             </div>
             <div class="block-2">
-                <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/done.png'  ) }}" alt="img">
+                <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/done.svg'  ) }}" alt="img">
                 <p class="correct-answers"></p>
                 <p>Вірних відповідей</p>
             </div>
             <div class="block-3">
-                <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/time.png'  ) }}" alt="img">
+                <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/time.svg'  ) }}" alt="img">
                 <div class="seckond">
                     <p class="midle-time"></p>
                     <p>s</p>
@@ -91,7 +92,7 @@
         <div class="prt3">
             <img class="img" src="{{ url_for('finish_test.static', filename='images/salut1.png'  ) }}" alt="img">
             <div class="block-4">
-                <img class="img-achiv" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.png'  ) }}" alt="avatar">
+                <img class="img-achiv" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.name_avatar ) }}" alt="avatar">
                 <p class="mark"></p>
                 <p>Балів</p>
             </div>

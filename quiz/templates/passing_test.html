@@ -16,6 +16,25 @@
     </div>
 
     <div class="modal"></div>
+
+    <div class="coin-anim">
+        <img class="first-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+        <img class="second-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+        <img class="third-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+        <img class="fourth-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+        <img class="fifth-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+        <img class="sighn-plus" src="{{ url_for('test_pass.static', filename = 'images/plus.svg') }}" alt="">
+        <!-- <p class="text-money">20</p> -->
+        <!-- <img class="second-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+        <img class="third-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+        <img class="fourth-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+        <img class="fifth-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt=""> -->
+    </div>
+
+
+    <img class="sad_robot" src="{{ url_for('test_pass.static', filename='images/sad_robot.svg') }}" alt="">
+    <img class="happy_robot" src="{{ url_for('test_pass.static', filename='images/happy_robot.svg') }}" alt="">
+
     <div class="right-answer">
         <!-- сттворюємо div для блюру цього койнейнеру -->
         <div class="blur"></div>
@@ -55,9 +74,8 @@
             </div>
             <p class="text-kem">{{ user.username }}</p>
             <div class="line"></div>
-            <img class = "bonus1" src="/bonus.png" alt="">
-            <img class = "bonus2" src="/bonus.png" alt="">
-            <img class = "bonus3" src="/bonus.png" alt="">
+            <p class="count-money" data-value="{{ user.user_profile.count_money }}"></p>
+            <img class="money" src="{{ url_for('test_pass.static', filename='images/money.svg') }}" alt="avatar">
         </div>
 
         <div class="submit">
@@ -81,4 +99,5 @@
     {{ super() }}
     <script src="{{ url_for('test_pass.static', filename='js/passing_test.js') }}"></script>
     <script type="module" src="{{ url_for('test_pass.static', filename='js/count_bonus.js') }}"></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/count_money.js') }}"></script>
 {% endblock scripts %}

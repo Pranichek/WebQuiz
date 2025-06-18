@@ -118,13 +118,16 @@ def handle_next_question(data_index):
     test_id = data_index["test_id"]
     test = Test.query.get(int(test_id))
 
-    if int(data_index["value_bonus"]) > 0:
-        user = User.query.get(int(flask_login.current_user.id))
-        user.user_profile.percent_bonus += int(data_index["value_bonus"])
+    if 'value_bonus' in data_index.keys():
+        if int(data_index["value_bonus"]) > 0:
+            user = User.query.get(int(flask_login.current_user.id))
+            user.user_profile.percent_bonus += int(data_index["value_bonus"])
 
-        if user.user_profile.percent_bonus >= 100:
-            user.user_profile.percent_bonus = 0
-        DATABASE.session.commit()
+            if user.user_profile.percent_bonus >= 100:
+                user.user_profile.percent_bonus = 0
+                user.user_profile.count_money += 20
+            if user.user_profile.percent_bonus is not None:
+                DATABASE.session.commit()
     
     questions = test.questions.split("?%?")
     answers_blocks = test.answers.split("?@?")
@@ -208,5 +211,6 @@ def handle_next_question(data_index):
         "user_email": flask_login.current_user.email,
         "question_img": img_url if name_img else "not",
         "correct_answers": correct_answers,
-        "value_bonus": int(flask_login.current_user.user_profile.percent_bonus)
+        "value_bonus": int(flask_login.current_user.user_profile.percent_bonus),
+        "check_reload": f"da/{str(flask_login.current_user.user_profile.count_money)}" if flask_login.current_user.user_profile.percent_bonus == 0 else "not"
     })

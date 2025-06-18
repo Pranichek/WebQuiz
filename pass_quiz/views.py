@@ -19,7 +19,8 @@ def render_finish_test():
 
     if user.user_profile.percent_bonus >= 100:
         user.user_profile.percent_bonus = 0
-        DATABASE.session.commit()
+        if user.user_profile.percent_bonus is not None:
+            DATABASE.session.commit()
 
     return render_template(
         "test_finish.html",

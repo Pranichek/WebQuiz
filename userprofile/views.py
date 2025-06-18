@@ -78,7 +78,7 @@ def render_profile():
     
 @login_decorate
 def render_edit_avatar():
-    try:
+    # try:
         user = flask_login.current_user
         show = ['']
 
@@ -132,25 +132,33 @@ def render_edit_avatar():
                 name_avatar = ''
 
                 if number_avatar == "1":
-                    name_avatar = "default_avatar.png"
+                    name_avatar = "default_avatar.svg"
                 elif number_avatar == "2":
-                    name_avatar = "default_picture2.png"
+                    name_avatar = "default_picture2.svg"
                 elif number_avatar == "3":
-                    name_avatar = "default_picture3.png"
+                    name_avatar = "default_picture3.svg"
                 elif number_avatar == "4":
-                    name_avatar = "default_picture4.png"
+                    name_avatar = "default_picture4.svg"
                 elif number_avatar == "5":
-                    name_avatar = "default_picture5.png"
+                    name_avatar = "default_picture5.svg"
 
                 flask_login.current_user.size_avatar = 100
-                default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", name_avatar)))
-                # save a image using extension
-                if not os.path.exists(path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email) , name_avatar))):
-                    default_img = default_img.save(fp=os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email) , name_avatar)))
+                default_img_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", name_avatar))
+                user_img_dir = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email)))
+                user_img_path = os.path.join(user_img_dir, name_avatar)
+
+                # создаем директорию, если ее нет
+                if not os.path.exists(user_img_dir):
+                    os.makedirs(user_img_dir)
+
+                # копируем файл, если он еще не существует
+                if not os.path.exists(user_img_path):
+                    shutil.copyfile(default_img_path, user_img_path)
+
                 flask_login.current_user.name_avatar = name_avatar
                 DATABASE.session.commit()
             elif check_form == "del_image":
-                default_avatars = ["default_avatar.png", "default_picture2.png", "default_picture3.png", "default_picture4.png","default_picture5.png"]
+                default_avatars = ["default_avatar.svg", "default_picture2.svg", "default_picture3.svg", "default_picture4.svg","default_picture5.svg"]
                 if str(flask_login.current_user.name_avatar) not in default_avatars:
                     name_default_avatar = str(random.choice(default_avatars))
                     path = os.path.abspath(os.path.join(__file__, "..", "static", "images", "edit_avatar", str(flask_login.current_user.email), name_default_avatar))
@@ -173,8 +181,8 @@ def render_edit_avatar():
             show = show[0],
             cash_image = str(flask.session["cash_image"] if 'cash_image' in flask.session else "Nothing")
         )
-    except Exception as error:
-        return flask.redirect("/")
+    # except Exception as error:
+    #     return flask.redirect("/")
     
 @login_decorate
 def render_user_tests():

@@ -45,7 +45,20 @@ socket.emit('get_question',
     }
 );  
 
+function countMoney(value) {
+    let startValue = parseInt(document.querySelector(".count-money").textContent);
+    let delay = 20; 
+    let step = 2;   
+    let totalDelay = 0;
 
+    for (let i = startValue; i < value; i++) {
+        totalDelay += delay;
+        setTimeout(() => {
+            document.querySelector(".count-money").textContent = i + 1;
+        }, totalDelay);
+        delay += step;
+    }
+}
 socket.on('question', (data) => {
     if (data.question != "Кінець"){
         let bonusInput = document.getElementById("bonus");
@@ -54,6 +67,19 @@ socket.on('question', (data) => {
         document.querySelector(".modal").style.display = "none";
         document.querySelector(".right-answer").classList.remove("fade-in-anim");
         document.querySelector(".uncorrect-answer").classList.remove("fade-in-anim");
+        document.querySelector(".sad_robot").classList.remove("fade-in-anim-robot");
+        document.querySelector(".happy_robot").classList.remove("fade-in-anim-robot");
+        document.querySelector(".coin-anim").classList.remove("fade-in-coin")
+
+
+        
+        if (data.check_reload){
+            console.log((data.check_reload.split("/")))
+            if (data.check_reload.startsWith("da/")) {
+                const bonus = parseInt(data.check_reload.split("/")[1]);
+                countMoney(bonus);
+            }
+        }
 
         const imgContainer = document.getElementById("image-container");
         imgContainer.innerHTML = "";
@@ -250,13 +276,22 @@ socket.on('question', (data) => {
                                 document.querySelector(".modal").style.display = "block";
                                 if (correctIndexes.includes(parseInt(block.dataset.value))) {
                                     document.querySelector(".right-answer").classList.add("fade-in-anim");
+                                    document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
                                     valueBonus = "10";
                                     let checkprocent = addBonus(10);
-                                    console.log(checkprocent, "checkprocent")
 
+                                    let bonus = bonusInput.style.width 
+                                    let clearValue = parseInt(bonus.replace("%"))
+                                    bonusInput.style.width = `${clearValue + 10}%`;
+
+                                    if (clearValue + 10 >= 100){
+                                        document.querySelector(".coin-anim ").classList.add("fade-in-coin")
+                                    }
+                                    
                                 }else {
                                     valueBonus = "0";
                                     document.querySelector(".uncorrect-answer").classList.add("fade-in-anim");
+                                    document.querySelector(".sad_robot").classList.add("fade-in-anim-robot")
                                 };
                             }, timeout = 699);
 
@@ -495,9 +530,18 @@ socket.on('question', (data) => {
                             if (currentCorrect > totalCorrect / 2 && currentUncorrect === 0){
                                 setTimeout(() => {
                                     document.querySelector(".modal").style.display = "block";
-                                    document.querySelector(".right-answer").classList.add("fade-in-anim")
+                                    document.querySelector(".right-answer").classList.add("fade-in-anim");
+                                    document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
                                     valueBonus = "10";
                                     let checkprocent = addBonus(10);
+
+                                    let bonus = bonusInput.style.width 
+                                    let clearValue = parseInt(bonus.replace("%"))
+                                    bonusInput.style.width = `${clearValue + 10}%`;
+
+                                    if (clearValue + 10 >= 100){
+                                        document.querySelector(".coin-anim ").classList.add("fade-in-coin")
+                                    }
 
                                     console.log(checkprocent, "checkprocent")
 
@@ -512,6 +556,8 @@ socket.on('question', (data) => {
                                     valueBonus = "0";
                                     document.querySelector(".modal").style.display = "block";
                                     document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
+                                    document.querySelector(".sad_robot").classList.add("fade-in-anim-robot")
+
 
                                     for (let checkMark of checkMarks){
                                         if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
@@ -660,14 +706,24 @@ socket.on('question', (data) => {
                             setTimeout(() => {
                                 document.querySelector(".modal").style.display = "block";
                                 if (correctIndexes.includes(parseInt(block.dataset.value))) {
-                                    document.querySelector(".right-answer").classList.add("fade-in-anim")
+                                    document.querySelector(".right-answer").classList.add("fade-in-anim");
+                                    document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
                                     valueBonus = "10";
                                     let checkprocent = addBonus(10);
-                                    console.log(checkprocent, "checkprocent")
+
+                                    let bonus = bonusInput.style.width 
+                                    let clearValue = parseInt(bonus.replace("%"))
+                                    bonusInput.style.width = `${clearValue + 10}%`;
+
+                                    if (clearValue + 10 >= 100){
+                                        document.querySelector(".coin-anim ").classList.add("fade-in-coin")
+                                    }
 
                                 }else {
                                     valueBonus = "0";
                                     document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
+                                    document.querySelector(".sad_robot").classList.add("fade-in-anim-robot")
+
                                 }
                             }, timeout = 699);
 
@@ -858,8 +914,18 @@ socket.on('question', (data) => {
                             if (currentCorrect > totalCorrect / 2 && currentUncorrect === 0){
                                 setTimeout(() => {
                                     document.querySelector(".modal").style.display = "block";
-                                    document.querySelector(".right-answer").classList.add("fade-in-anim")
+                                    document.querySelector(".right-answer").classList.add("fade-in-anim");
+                                    document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
                                     valueBonus = "10";
+
+                                    let bonus = bonusInput.style.width 
+                                    let clearValue = parseInt(bonus.replace("%"))
+                                    bonusInput.style.width = `${clearValue + 10}%`;
+
+                                    if (clearValue + 10 >= 100){
+                                        document.querySelector(".coin-anim ").classList.add("fade-in-coin")
+                                    }
+                                    
                                     let checkprocent = addBonus(10);
                                     console.log(checkprocent, "checkprocent")
 
@@ -874,6 +940,7 @@ socket.on('question', (data) => {
                                 setTimeout(() => {
                                     document.querySelector(".modal").style.display = "block";
                                     document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
+                                    document.querySelector(".sad_robot").classList.add("fade-in-anim-robot")
                                     valueBonus = "0";
                                     for (let checkMark of checkMarks){
                                         if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
