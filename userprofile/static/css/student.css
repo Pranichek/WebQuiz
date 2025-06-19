@@ -285,3 +285,109 @@ main{
     width: 50px;
     height: 50px;
 }
+@media (min-width: 390px) and (max-width: 800px){
+    .waiting-data{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 15px;
+        
+    }
+    .people{
+        width: 30px;
+        height: 30px;
+    }
+    .prt1 p{
+        font-size: 20px;
+    }
+    .prt2 p{
+        font-size: 14px;
+    }
+    .load{
+        width: 30px;
+        height: 30px;
+    }
+    .icons-users{
+        height: 1000px;
+    }
+    .waiting-data{
+        margin-top: 500px;
+    }
+    .user-info{
+        flex-direction: column;
+        display: flex;
+        gap: 3px;
+    }
+    .user-info p{
+        font-size: 10px;
+    }
+    .avatark{
+        width: 30px;
+        height: 30px;
+    }
+    .data-test{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        gap: 15px;
+        padding-top: 0px;
+    }
+    .main-prt{
+        display: flex;
+        flex-direction: column;
+        gap: 3px;
+    }
+    .num{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-left: 0px;
+    }
+    .numero{
+        margin-left: 0px;
+    }
+    .join{
+        padding: 0px;
+    }
+    .achievement{
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+    }
+    .line-coint{
+        height: 700px;
+        margin-top: 300px;
+    }
+}
+@media (min-width: 801px) and (max-width: 1225px){
+    .icons-users{
+        display: flex;
+        height: 600px;
+    }
+    .user-info{
+        display: flex;
+        gap: 15px;
+    }
+    .main-prt{
+        display: flex;
+        gap: 5px;
+        flex-direction: column;
+    }
+    .num{
+        margin-left: 0px;
+    }
+    .numero{
+        margin-left: 0px;
+    }
+    .data-test{
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+    .achievement{
+        display: flex;
+        flex-direction: column;
+
+    }
+}
