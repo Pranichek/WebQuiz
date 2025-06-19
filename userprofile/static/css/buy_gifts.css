@@ -224,7 +224,7 @@
     opacity: 0;
 }
 
-@media (min-width: 600px) and (max-width: 715px) {
+@media (max-width: 715px) {
     .user-info {
         display: flex;
         flex-direction: column;

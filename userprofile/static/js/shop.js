@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     buyButtons.forEach(button => {
         button.addEventListener("click", () => {
-            const petData = button.getAttribute("data-pet"); // пример: "3/25"
+            const petData = button.getAttribute("data-pet"); // пример: 3/25
 
             fetch("/buy_gift", {
                 method: "POST",
@@ -37,7 +37,6 @@ document.addEventListener("DOMContentLoaded", () => {
                         moneyDisplay.innerHTML = `${data.new_money} <img src="/profile/static/images/robo-money.png" alt="">`;
                     }
 
-                    // Обновляем изображение питомца
                     if (petDisplay) {
                         petDisplay.src = `/profile/static/images/pets_id/${data.pet_id}.png`;
                     }
@@ -45,9 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     alert(data.message);
                 }
             })
-            .catch(error => {
-                console.error("Ошибка при покупке питомца:", error);
-            });
         });
     });
 });

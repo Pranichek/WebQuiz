@@ -1,0 +1,97 @@
+main{
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    height: 90vh;
+    /* display: inline-block; */
+}
+
+.data-users{
+    width: 60%;
+    height: 100%;
+    background-color: aqua;
+    padding: 55px 10px 10px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    position: relative;
+}
+
+.waiting-data{
+    width: 100%;
+    height: 20%;
+    background-color: chartreuse;
+}
+
+.icons-users{
+    width: 100%;
+    height: 50%;
+    background-color: dodgerblue;
+}
+
+.bottom-data{
+    width: 100%;
+    height: 30%;
+    background-color: mediumvioletred;
+}
+
+.user-data{
+    display: flex;
+    gap: 10px;
+    width: 40%;
+    height: 100%;
+    background-color: blueviolet;
+    justify-content: center;
+    align-items: center;
+    padding: 7px 0px 7px 0px;
+    position: relative;
+}
+
+.line-coint{
+    background-color: green;
+    width: 90%;
+    height: 98%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 24px;
+    padding: 10px;
+}
+
+.main-coint{
+    display: flex;
+    flex-direction: column;
+    background-color: black;
+    width: 96%;
+    height: 98%;
+    border-radius: 34px;
+    gap: 10px;
+    padding: 10px;
+    overflow: hidden;
+}
+
+.user-info{
+    width: 100%;
+    height: 18%;
+    background-color: blue;
+}
+
+.theme-test{
+    width: 100%;
+    height: 18%;
+    background-color: lawngreen;
+}
+
+.data-test{
+    width: 100%;
+    height: 40%;
+    background-color: blueviolet;
+}
+
+.achievement{
+    width: 100%;
+    height: 18%;
+    background-color: darkseagreen;
+    justify-content: space-between;
+}

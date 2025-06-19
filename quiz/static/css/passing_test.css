@@ -6,6 +6,7 @@
     color: #ffffff;
 }
 
+
 body {
     display: flex;
     flex-direction: column;
@@ -27,9 +28,10 @@ body {
     text-align: center;
     border: none;
     padding: 6px 25px;
+    cursor: pointer;
 }
 
-footer {
+.footer-test {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -52,13 +54,31 @@ footer {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 0px 10px;
+    padding: 10px 10px 10px 22px;
 }
 
 .bonus-block {
-    width: 40px;
-    height: 30px;
-    background-color: #C39FE4;
+    position: relative;
+    width: 6vw;
+    display: inline-block;
+    width: auto;
+    height: auto;
+    background-color: #636363;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    padding: 10px 14px;
+}
+
+.text-bonus {
+    font-size: 20px;
+    font-weight: 400;
+    color: #ffffff;
+    z-index: 1;
+    text-align: center;
+
 }
 
 .settings {
@@ -186,11 +206,13 @@ span {
 }
 
 .coint {
+    object-fit: cover;
+    flex-wrap: wrap;
     width: 26%;
     height: 98%;
     border-radius: 15px;
     gap: 10px;
-    padding: 10px;
+    padding: 72px 10px;
     font-size: 24px;
     /* background-color: red; */
     min-width: 200px;
@@ -199,6 +221,7 @@ span {
     transition: all 0.1s ease;
     border: 0px #ffffff solid;
     cursor: pointer;
+    border: #C48AF7 3px;
 }
 
 .bottom-answers {
@@ -213,6 +236,8 @@ span {
 }
 
 .variant, .many-variant {
+    flex-wrap: wrap;
+    object-fit: cover;
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -268,7 +293,6 @@ span {
     border: 1px #ffffff solid;
     border-radius: 3px;
 }
-
 .bonus-data {
     display: flex;
     flex-direction: row;
@@ -278,8 +302,26 @@ span {
     padding-left: 5px;
 }
 
+.full-bonus {
+    transition: all 0.6s ease;
+    position: absolute;
+    /* position: fixed; */
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 0%;
+    height: 100%;
+    background-color: #C48AF7;
+    z-index: 0;
+    border-radius: 5px;
+    /* padding: 10px; */
+}
+
 .text-kem {
     padding-right: 7px;
+    margin-left: 6px;
 }
 
 .line {
@@ -302,7 +344,7 @@ span {
 
 .fade-up {
     opacity: 0;
-    transform: translateY(-30px);
+    /* transform: translateY(-30px); */
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
@@ -376,17 +418,24 @@ span {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     border: 1px black solid;
     border-radius: 50%;
     overflow: hidden;
+    flex-shrink: 0;
 }
 
 .confirm-button {
-    width: 100px;
-    height: 20px;
-    background-color: green;
+    color: #ffffff;
+    border-radius: 5px;
+    background-color: #9688a3;
+    padding: 10px;
+    font-size: 20px;
+    border: none;
+    font-weight: 400;
+    transform: translateX(-55px);
+    cursor: pointer;
 }
 
 header {
@@ -395,5 +444,248 @@ header {
 
 
 .coint-buttom{
-    transform: translateY(-30px);
+    margin-bottom: 60px;
+}
+
+
+.check-input{
+    transition: 0.5s ease;
+}
+
+
+.bottom-image img:hover {
+    width: auto;
+    height: 500%;
+    object-fit: contain;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    z-index: 999;
+}
+
+/* сделай блюр и затемнее всего экрана кроме этих блоков */
+
+.modal{
+    display: none; 
+    position: fixed; 
+    z-index: 400; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
+    transition: 0.5s ease;
+}
+
+.right-answer, .uncorrect-answer {
+    position: relative;
+    background-color: #2D2D2D;
+    width: 120vw;
+    height: 12vh;
+    border: #8AF7D4 2px solid;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: fixed; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, 500%); /* стартова позиція – нижче екрана */
+    z-index: 401;
+    overflow: hidden;
+    min-height: 50px;
+}
+
+.sad_robot , .happy_robot {
+    position: fixed;
+    top: 48%;
+    left: 48%;
+    width: 40vw;
+    height: 40vh;
+    min-width: 160px;
+    min-height: 160px;
+    transform: translate(-48%, 150%); 
+    z-index: 401;
+}
+
+.fade-in-anim-robot {
+    min-width: 160px;
+    min-height: 160px;
+    transition: 0.88s;
+    transform: translate(-48%, -75%); /* плавный подъем в центр */
+}
+
+.coin-anim {
+    /* background-color: pink; */
+    position: fixed;
+    width: 23vw;
+    height: 20vh;
+    min-width: 200px;
+    min-height: 100px;
+    max-width: 400px;
+    max-height: 300px;
+    margin: auto;
+    top: 22%;
+    left: 50%;
+    transform: translateX(-50%) translateY(150vh);
+    z-index: 401;
+}
+
+.fade-in-coin{
+    transition: 0.86s;
+    transform: translateX(-50%) translateY(0);
+}
+
+.first-coin {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    max-width: 71px;
+    max-height: 71px;
+    min-width: 40px;
+    min-height: 40px;
+    z-index: 408;
+    transform: rotate(40deg);
+    margin-left: 10px;
+}
+
+.second-coin {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 40%;
+    height: 40%;
+    max-width: 71px;
+    max-height: 71px;
+    min-width: 40px;
+    min-height: 40px;
+    z-index: 401;
+    transform: rotate(-50deg);
+}
+
+.third-coin{
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 45%;
+    height: 45%;
+    max-width: 71px;
+    max-height: 71px;
+    min-width: 40px;
+    min-height: 40px;
+    z-index: 401;
+    transform: rotate(-40deg);
+}
+
+.fourth-coin{
+    position: absolute;
+    top: 60%;
+    right: 0;
+    width: 23%;
+    height: 23%;
+    max-width: 71px;
+    max-height: 71px;
+    min-width: 20px;
+    min-height: 20px;
+    z-index: 401;
+    transform: rotate(-40deg);
+}
+
+.fifth-coin{
+    position: absolute;
+    top: 30%;
+    left: 25%;
+    width: 20%;
+    height: 20%;
+    max-width: 71px;
+    max-height: 71px;
+    min-width: 20px;
+    min-height: 20px;
+    z-index: 401;
+    transform: rotate(40deg);
+}
+
+.sighn-plus{
+    position: absolute;
+    top: 44%;
+    left: 10%;
+    width: 20%;
+    height: 20%;
+    max-width: 71px;
+    max-height: 71px;
+    min-width: 20px;
+    min-height: 20px;
+    z-index: 410;
+    /* transform: rotate(40deg); */
+}
+
+.text-money {
+    position: absolute;
+    top: 50%;
+    left: 25%;
+    font-size: 24px;
+    z-index: 401;
+    font-weight: 800;
+    color: #ffffff; /* Колір тексту */
+    -webkit-text-stroke: 1.3px #FFB700; /* Обводка */
+    text-shadow: none;
+}
+.red-blur {
+    z-index: 0;
+}
+
+.fade-in-anim {
+    overflow:visible;
+    transition: 0.9s ease;
+    transform: translate(-50%, -50%); /* центр екрана */
+}
+
+.uncorrect-answer {
+    background-color: #E05359;
+    border: #E05359 2px solid;
+}
+
+.count-money{
+    color: #FFB700;
+    font-size: 22px;
+    font-weight: bold;
+    margin-left: 7px;
+    margin-right: 5px;
+}
+
+.money{
+    transform: translateX(-5px);
+}
+
+.blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #8AF7D4 0%, #2D2D2D 50%, #8AF7D4 100%);
+    filter: blur(20px); 
+    z-index: 0;
+    pointer-events: none;
+}
+
+.red-blur{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, #E05359 0%, #2D2D2D 50%, #E05359 90%);
+    filter: blur(20px); 
+    z-index: 0;
+    pointer-events: none;
+}
+
+.correct-text, .uncorrect-text{
+    color: #ffffff;
+    font-weight: 450;
+    font-size: 26px;
+    z-index: 402;
 }
