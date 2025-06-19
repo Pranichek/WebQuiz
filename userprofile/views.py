@@ -496,7 +496,8 @@ def render_student():
 @buy_gifts.route("/buy_pet", methods=["GET", "POST"])
 @login_decorate
 def render_buy_gifts():
-    user = flask_login.current_user
+    user_id = flask_login.current_user.id
+    user = User.query.get(user_id)
     email = flask_login.current_user
     count_money = user.user_profile.count_money
     pet_id = user.user_profile.pet_id

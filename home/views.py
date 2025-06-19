@@ -31,9 +31,14 @@ def render_home_auth():
     money_user = user.user_profile.count_money
     print(money_user, "money")
 
+    # щоб в майбутньому додавати монети після проходження тесту (?????)
+    # if flask.request.args.get("bonus") == "true":
+    #     user.user_profile.count_money += 20
+    #     DATABASE.session.commit()
+
     # змінити баланс
-    user.user_profile.count_money = 270
-    DATABASE.session.commit()
+    # user.user_profile.count_money = 270
+    # DATABASE.session.commit()
 
     category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
     first_topic = random.choice(category)

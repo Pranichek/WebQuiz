@@ -11,7 +11,7 @@ class DataUser(DATABASE.Model):
     last_passed = DATABASE.Column(DATABASE.String, default = '')
 
     # кількість грошей
-    count_money = DATABASE.Column(DATABASE.Integer, default = 3000)
+    count_money = DATABASE.Column(DATABASE.Integer, default = 300)
 
     # кількість процентів, щоб забарти боунс за проходження тесту
     percent_bonus = DATABASE.Column(DATABASE.Integer, default = 0)
