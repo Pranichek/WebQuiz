@@ -75,6 +75,8 @@
     background-color: #343434;
     border-radius: 10px;
     border: 1px, solid #C48AF7;
+    display: flex;
+    justify-content: center;
 }
 .anim{
     display: flex;
@@ -123,6 +125,12 @@
 .avatar-circle{
     margin-top: -175px;
 }
+
+#own-pet{
+    width: 33px;
+    height: 35px;
+} 
+
 .result{
     width: 947px;
     height: 102px;
