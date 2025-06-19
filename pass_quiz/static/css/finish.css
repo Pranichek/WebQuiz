@@ -107,14 +107,16 @@
     border-radius: 5px;
 }
 .btn-1{
-    border: 1px, solid, #0000;
+    border: 2px, solid, #0000;
     background-color: #7291B8;
     color: #FFFFFF;
+    cursor: pointer;
 }
 .btn-2{
-    border: 1px, solid, #94C4FF;
+    border: 2px, solid, #94C4FF;
     background-color: #D6E8FE;
     color: #343434;
+    cursor: pointer;
 }
 .avatar{
     width: 100px;

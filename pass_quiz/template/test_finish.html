@@ -2,10 +2,16 @@
 
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('finish_test.static', filename = 'css/finish.css') }}">
+    <link rel="stylesheet" href="{{ url_for('finish_test.static', filename = 'css/copy_modal.css') }}">
 {% endblock links %}
 
 {% block content %}
     <div class="background-blur"></div>
+
+    <div class="copy-coint">
+        <p>Ваші результати скопiйованi, ви можете їми поділитися</p>
+    </div>
+
     <div class="big-div">
         <div class="small-div">
             <div class="info">
@@ -16,7 +22,6 @@
                 <div class="note">
                     <p>Ваші бали</p>
                     <div class="note-div">
-                        <!-- <p class="user_pimpa"></p> -->
                         {{ user.user_profile.count_money }}
                         <img class="money" src="{{ url_for('finish_test.static', filename='images/money.png'  ) }}" alt="avatar">
                     </div>
@@ -41,7 +46,7 @@
                 </div>
                 
                 <div class="buttons">
-                    <button class="btn-1">поділитися результатом </button>
+                    <button type="button" class="btn-1 copy-result">поділитися результатом </button>
                     <button class="btn-2">додати у вибране</button>
                 </div>
             </div>
@@ -123,4 +128,5 @@
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('finish_test.static', filename='js/finish_test.js') }}" defer></script>
+    <script src="{{ url_for('finish_test.static', filename='js/copy_modal.js') }}"></script>
 {% endblock scripts %}
