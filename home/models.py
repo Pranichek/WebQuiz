@@ -12,7 +12,7 @@ class User(DATABASE.Model, flask_login.UserMixin):
     email = DATABASE.Column(DATABASE.String(150), nullable = False)
     is_mentor = DATABASE.Column(DATABASE.Boolean, default = False)
     
-    name_avatar = DATABASE.Column(DATABASE.String, default = "default_avatar.png")
+    name_avatar = DATABASE.Column(DATABASE.String, default = "default_avatar.svg")
     size_avatar = DATABASE.Column(DATABASE.Integer, default = 100)
 
     # Зв'язок з таблицею Test

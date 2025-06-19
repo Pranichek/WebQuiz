@@ -180,7 +180,6 @@ window.addEventListener("DOMContentLoaded", () => {
     }
 });
 
-
 // Сохранять вопрос при изменении
 question.addEventListener("input", () => {
     localStorage.setItem("question", question.value);

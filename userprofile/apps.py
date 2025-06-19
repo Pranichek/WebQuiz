@@ -41,3 +41,10 @@ student = flask.Blueprint(
     template_folder="templates",
 )
 
+buy_gifts = flask.Blueprint(
+    name="buy_gifts",
+    import_name="userprofile",
+    static_folder="static",
+    template_folder="templates",
+    static_url_path="/buy_gifts/static",
+)
