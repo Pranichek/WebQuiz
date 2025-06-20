@@ -83,6 +83,12 @@ quiz.test_pass.add_url_rule(
 )
 
 quiz.test_pass.add_url_rule(
+    rule = "/import_test",
+    view_func = quiz.render_import_test,
+    methods = ["GET", "POST"]
+)
+
+quiz.test_pass.add_url_rule(
     rule = "/test/create_question",
     view_func = quiz.render_create_question,
     methods = ["GET", "POST"]

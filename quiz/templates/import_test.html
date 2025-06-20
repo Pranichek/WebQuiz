@@ -1,0 +1,63 @@
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/import_test.css') }}">
+{% endblock links %}
+
+{% block content %}
+
+    <div class="all-parts">
+
+        <div class="top-part">
+            <div class="part1">
+                <div class="arrow">
+                    <a href="/select_way">
+                        <img src="{{ url_for('test_pass.static', filename='images/arrow.svg') }}" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <div class="choose-type">
+                <div class="docum">
+                    <img src="{{ url_for('test_pass.static', filename='images/doc.svg') }}" alt="">
+                    <p class="text">Документ</p>
+                </div>
+                <div class="docum">
+                    <p class="text">Вставити запитання</p>
+                </div>
+                <div class="docum">
+                    <p class="text">Google- форма</p>
+                </div>
+                <div class="docum">
+                    <p class="text">Електронна таблиця</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="bottom-part">
+            <div class="for-margin">
+                <div class="cloud">
+                    <img src="{{ url_for('test_pass.static', filename='images/cloud.svg') }}" alt="">
+                </div>
+                <div class="imp-thing">
+                    <div class="docum2">
+                        <img src="{{ url_for('test_pass.static', filename='images/comp.svg') }}" alt="">
+                        <p class="text">завантажити з пристрою</p>
+                    </div>
+                    <div class="docum2">
+                        <img src="{{ url_for('test_pass.static', filename='images/disk.svg') }}" alt="">
+                        <p class="text">імпорт з диска</p>
+                    </div>
+                </div>
+                <div class="formats">
+                    <div class="include-text">
+                        <p class="text">формати,що підтримуються</p>
+                        <div class="form-text">
+                            <p class="text1">PNG,DOCX,DOC,JPG і тд.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+    </div>
+
+{% endblock %}
