@@ -6,6 +6,7 @@ from Project.login_check import login_decorate
 from home.models import User
 import flask_login
 from Project.db import DATABASE
+import pyperclip
 
 @login_decorate
 def render_finish_test():
@@ -64,17 +65,16 @@ def handle_finish_test(data):
             current_answers = []
             ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
             current_answers.append(ans_clean)
-            # print("-------------------")
-            # print(answer)
+
             clear_answer = current_answers[0].split('*|*|*')
             if (clear_answer[-1] == ''):
                 del clear_answer[-1]
             list_answers.append(clear_answer)
-        
+            
+
         one_question["answers"] = list_answers[count]
         list_final.append(one_question)
         count += 1
-
 
     #логика получение индекса правильного ответа даже если правильных несколько
     # например, если правильные ответы на вопрос 1 это да и нет, то в массиве будет [[0, 1], [тут индексі уже следующего вопроса и тд]]
@@ -146,3 +146,20 @@ def handle_finish_test(data):
         "count_answered": count_answered
     })
 
+@socket.on("copy_result")
+def coput_result_function(data):    
+    test_id = int(data["test_id"])
+    test : Test = Test.query.get(test_id)
+
+    test_question = test.questions.split("?%?")
+    count_questions_test = len(test_question)
+    
+    test_text = "📋 Результати мого тесту:\n🧪 Назва тесту: {}\n✅ Правильних відповідей: {} з {}\n📈 Результат: {}\n⏱ Час проходження: {}".format(
+                                                                                                                                test.title_test,
+                                                                                                                                data["correct_answers"],
+                                                                                                                                count_questions_test,
+                                                                                                                                data["accuracy"],
+                                                                                                                                data["wasted_time"]
+                                                                                                                            )
+
+    pyperclip.copy(test_text)
