@@ -286,78 +286,27 @@ main{
     height: 50px;
 }
 @media (min-width: 390px) and (max-width: 800px){
-    .waiting-data{
+    .main{
         display: flex;
-        align-items: center;
         justify-content: center;
         flex-direction: column;
-        gap: 15px;
-        
     }
-    .people{
-        width: 30px;
-        height: 30px;
-    }
-    .prt1 p{
-        font-size: 20px;
-    }
-    .prt2 p{
-        font-size: 14px;
-    }
-    .load{
-        width: 30px;
-        height: 30px;
+    .data-users{
+        display: flex;
+        align-items: center;
+        height: auto;
+        margin-top: 800px;
+        width: 100%;
     }
     .icons-users{
-        height: 1000px;
+        height: 800px;
     }
-    .waiting-data{
-        margin-top: 500px;
-    }
-    .user-info{
-        flex-direction: column;
-        display: flex;
-        gap: 3px;
-    }
-    .user-info p{
-        font-size: 10px;
+    .user-data{
+        width: 100%;
     }
     .avatark{
-        width: 30px;
-        height: 30px;
-    }
-    .data-test{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-        gap: 15px;
-        padding-top: 0px;
-    }
-    .main-prt{
-        display: flex;
-        flex-direction: column;
-        gap: 3px;
-    }
-    .num{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-left: 0px;
-    }
-    .numero{
-        margin-left: 0px;
-    }
-    .join{
-        padding: 0px;
-    }
-    .achievement{
-        display: flex;
-        align-items: center;
-        flex-direction: column;
-    }
-    .line-coint{
-        height: 700px;
-        margin-top: 300px;
+        width: 40px;
+        height: 40px;
     }
 }
 @media (min-width: 801px) and (max-width: 1225px){
