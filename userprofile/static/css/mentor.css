@@ -202,9 +202,16 @@
     position: absolute;
     top: 15vh;
     right: 3vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
     color: white;
-    width: 30vw;
-    max-width: 360px;
+    width: 50vw;
+    height: 80vh;
+}
+
+.flex-block{
+    display: flex;
 }
 
 .participants {
@@ -212,19 +219,33 @@
     margin-bottom: 20px;
 }
 
+.participants-number{
+    font-size: large;
+    color: #FFB700;
+}
+
 .participants-list {
     display: flex;
     flex-direction: column;
+    justify-content: start;
+    align-items: start;
+    flex-wrap: wrap;
     gap: 15px;
+    height: 70vh;
+    width: 50vw;
 }
 
 .card {
+    position: relative;
     background-color: rgba(0, 0, 0, 0.28);
     border-radius: 15px;
     display: flex;
+    justify-content: left;
     align-items: center;
     color: white;
-    padding: 10px 15px;
+    padding: 1vw 1vh;
+    width: 15vw;
+    height: 10vh;
     gap: 10px;
 }
 
@@ -238,19 +259,40 @@
 }
 
 .username {
-    font-weight: bold;
+    height: 8vh;
+    text-align: start;
     font-size: 1rem;
 }
 
 .information {
+    position: absolute;
+    right: 1vw;
     display: flex;
     flex-direction: column;
+    justify-content: end;
+    align-items: center;
     gap: 5px;
+    height: 8vh;
+}
+
+.information p{
+    font-size: small;
+}
+
+.fires{
+    display: flex;
+    justify-content: center;
+    width: 7vw;
+    border: 1px solid #C48AF7;
+    border-radius: 1vh;
+    background-color: #3C3C3C;
 }
 
 .fires img {
-    width: 18px;
-    height: 18px;
+    background-color: red;
+    width: 3vh;
+    height: 3vh;
+    border-radius: 1234px;
 }
 
 /* Media Queries */

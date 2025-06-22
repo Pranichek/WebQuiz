@@ -284,11 +284,19 @@ def render_mentor():
         os.makedirs(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes")))
     image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes", f"{code}.png")))
 
+    all_participants = DataUser.query.filter_by(is_passing = code)
+    all_users = []
+    for profile in all_participants:
+        all_users.append(User.query.filter_by(id=profile.user_id).first())
+
+    socket.emit('new_user', {'username': flask_login.current_user.username})
+
     return flask.render_template(
         "mentor.html",
         mentor = True,
         code = code,
-        user = user
+        user = user,
+        all_participants = all_users
     )
 
 @login_decorate
@@ -501,11 +509,18 @@ def render_student():
     DATABASE.session.add(profile)
     DATABASE.session.commit()
 
+    all_participants = DataUser.query.filter_by(is_passing = code)
+    all_users = []
+    for profile in all_participants:
+        all_users.append(User.query.filter_by(id=profile.user_id).first())
+
     socket.emit('new_user', {'username': flask_login.current_user.username})
 
     return flask.render_template(
         "student.html",
-        user = flask_login.current_user
+        user = flask_login.current_user,
+        code = code,
+        all_participants = all_users
     )
 
 @login_decorate

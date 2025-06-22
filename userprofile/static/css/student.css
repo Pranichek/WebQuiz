@@ -1,0 +1,68 @@
+.main-content{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    padding: 0 5vw;
+}
+
+.general_container_rect{
+    height: 80vh;
+}
+
+.mentor-info-card{
+    height: 75vh;
+    gap: 7vh;
+}
+
+.mentor-join-info{
+    justify-content: space-between;
+}
+
+.gifts-container{
+    display: flex;
+    gap: 2vw;
+}
+
+.points{
+    display: flex;
+    flex-direction: column;
+}
+
+.button-like-block{
+    display: flex;
+    height: 5vh;
+    width: 10vw;
+    border: 1px solid #C48AF7;
+    border-radius: 1vh;
+    font-weight: bold;
+}
+
+.yellow{
+    border-color: #FFB700;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+}
+
+.participants-number-div{
+    display: flex;
+    justify-content: space-between;
+    width: 50vw;
+}
+
+.participants-number-div span{
+    display: flex;
+    gap: 2vw;
+}
+
+.waiting-par{
+    color: white;
+}
+
+.loading-img{
+    width: 4vh;
+    height: 4vh;
+}

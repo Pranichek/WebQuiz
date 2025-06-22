@@ -1,19 +1,21 @@
 const socket = io();
 const listElement = document.querySelector('.participants-list');
+const usersAmountToChange = document.querySelectorAll("#amount_users");
 
 socket.on('new_user', function(data) {
     console.log("data:", data);
+    for (let amountToChange of usersAmountToChange){
+        amountToChange.textContent = +amountToChange.textContent + 1;
+    }
     listElement.insertAdjacentHTML("afterbegin", 
         `<div class="card">
             <div class="avatar"><img class="copy" src=${staticBase} alt="avatar"></div>
+            <span class="username">${data.username}</span>
             <div class="information">
-                <span class="username">${data.username}</span>
+                <p>Улюбленець</p>
                 <div class="fires">
-                    <img src="" alt="1">
-                    <img src="" alt="2">
-                    <img src="" alt="3">
+                    <img src="" alt="">
                 </div>
-            </div>
         </div>`
     )
 });

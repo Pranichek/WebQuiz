@@ -1,11 +1,108 @@
 {% extends 'base.html' %}
 
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('profile.static', filename ='css/mentor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('profile.static', filename ='css/student.css') }}">
+{% endblock %}
+
 {% block content %}
-    <h1>Вітаємо у кімнаті</h1>
+    <div class="main-content">
+
+        <div class="general_container_rect">
+            <div class="mentor-info-card">
+                <div class="mentor-header">
+                    
+                    <div class="mentor-info">
+                        <span class="mentor_name">{{ user.username }}</span>
+                        <span class="email">{{ user.email }}</span>
+                    </div>
+                    <div class="mentor-avatar">
+                        <img src="{{ url_for('mentor.static', filename='images/mentor/mentor_avatar.png') }}" alt="Аватар ментора">
+                        <p class="you">Ви</p>
+                    </div>
+                </div>
+                <div class="topic">
+                    тема тесту
+                </div>
+
+                <div class="mentor-join-info">
+                    <div class="join">
+                        <span>Приєднуйтесь з будь-якого пристрою:</span>
+                        <div class="url">
+                            <span class="link-text">joinquiz.com</span>
+                            <img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/copy.png') }}" alt="copy icon">
+                        </div>
+                    </div>
+
+                    <div class="join-code">
+                        <span>Код приєднання</span>
+                        <div class="code">
+                            <span id="code">{{ code }}</span>
+                            <img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/copy.png') }}" alt="copy icon">
+                        </div>
+                    </div>
+
+                    <div class="user-count">
+                        <span>Kількість учасників</span>
+                        <span id="amount_users">{{ all_participants | length }}</span>
+                    </div>
+
+                    <div class="gifts-container">
+                        <span class="points">
+                            <p>Ваші бали</p>
+                            <span class="button-like-block yellow">
+                                30
+                                <img src="" alt="">
+                            </span>
+                        </span>
+                        <span class="points">
+                            <p>улюбленець</p>
+                            <span class="button-like-block">
+                                <img src="" alt="">
+                            </span>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        
+        </div>
+
+        <div class="content">
+            <div class="participants-number-div">
+                <span>
+                    <img src="{{ url_for('mentor.static', filename='images/mentor/participants.png') }}" alt="">
+                    <p class="participants-number" id="amount_users">{{ all_participants | length }}</p>
+                </span>
+                <span>
+                    <p class="waiting-par">очікування запуску тесту</p>
+                    <img class="loading-img" src="{{ url_for('mentor.static', filename='images/loading.png') }}" alt="">
+                </span>
+            </div>
+            
+            <div class="participants-list">
+
+                {% for participant in all_participants %}
+                    <div class="card">
+                        <div class="avatar"><img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/student_avatar.png') }}" alt="avatar"></div>
+                        <span class="username">{{ participant.username }}</span>
+                        <div class="information">
+                            <p>Улюбленець</p>
+                            <div class="fires">
+                                <img src="" alt="">
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+
 
     <div id="chat" style="border:1px solid #ccc; height:300px; overflow-y:scroll; padding:10px;"></div>
 
-    <input type="text" id="msg" placeholder="Введите сообщение">
+    <input class="text-input" type="text" id="msg" placeholder="Введите сообщение">
     <button id="sendBtn">Отправить</button>
 
     <input style="display: none;" type="text" value="{{ user.username }}" class="save-nickname"> 

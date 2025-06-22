@@ -68,6 +68,12 @@ nav {
     padding: 0;
     cursor: pointer;
 }
+
+.mentor-buttons img{
+    width: 5vh;
+    height: 5vh;
+}
+
 .listener{
     height: 100px;
     width: 100px;
