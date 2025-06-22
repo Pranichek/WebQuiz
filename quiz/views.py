@@ -297,3 +297,10 @@ def render_delete_only_image(pk: int):
         os.remove(os.path.join(deletion_path, file))
 
     return "Delete"
+
+
+@login_decorate
+def render_import_test():
+    return flask.render_template(
+        template_name_or_list = "import_test.html"
+    )

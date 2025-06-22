@@ -138,6 +138,16 @@
                         <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('static', filename='images/instagram.svg') }}" alt="" class="img-soc"></a>
                     </div>
                 </div>
+                <div class="for-media">
+                    <p class="follow-us-text1">Слідкуйте за нами</p>
+                    <div class="img-link1">
+                        <a href="https://www.worldit.academy" class="social-network1"><img src="{{ url_for('static', filename='images/github.svg') }}" alt="Github" class="img-soc"></a>
+                        <a href="https://www.worldit.academy" class="social-network1"><img src="{{ url_for('static', filename='images/telegram.svg') }}" alt="Telegram" class="img-soc"></a>
+                        <a href="https://www.worldit.academy" class="social-network1"><img src="{{ url_for('static', filename='images/instagram.svg') }}" alt="" class="img-soc"></a>
+                    </div>
+                    <p class="data-donate1">РЕКВІЗИТИ ДЛЯ ДОНАТІВ</p>
+                    <p class="data-card1">Нагодуйте безпритульних собак</p>
+                </div>
                 <!-- <div class="ab">
                     <div class="about">
                         <a href="" class="linkk">Контакти</a> 
@@ -170,9 +180,11 @@
                 </div> -->
             </footer>
         {% endif %}
-
+        
+        <script src="{{ url_for('static', filename='js/load_avatar.js') }}"></script>
         <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
         <script src="{{ url_for('static', filename='js/cookiemodal.js') }}"></script>
+        
 
         {% block scripts %}
             <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>

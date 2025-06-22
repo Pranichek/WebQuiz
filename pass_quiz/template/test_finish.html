@@ -28,8 +28,8 @@
                 </div>
             </div>
             
-            <div class="avatar-circle">
-                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.name_avatar ) }}" alt="avatar">
+            <div class="avatar-circle da">
+                <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
             </div>
 
             <div class="prt-2">
@@ -97,7 +97,13 @@
         <div class="prt3">
             <img class="img" src="{{ url_for('finish_test.static', filename='images/salut1.png'  ) }}" alt="img">
             <div class="block-4">
-                <img class="img-achiv" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.name_avatar ) }}" alt="avatar">
+                <!-- <div class="avatar-circle img-achiv">
+                    <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                </div> -->
+                <div class="avatar-circle img-achiv">
+                    <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                </div>
+                <!-- <img data-size="{{ user.size_avatar }}" class="img-achiv" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar"> -->
                 <p class="mark"></p>
                 <p>Балів</p>
             </div>

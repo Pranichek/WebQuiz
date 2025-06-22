@@ -146,7 +146,7 @@
                     <div class="question-card">          
                         <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
                         <span class="question-conainer">
-                            <p class="question">{{ this_question.question }} pk={{ this_question.pk }}</p>
+                            <p class="question">{{ this_question.question }}</p>
                             <button type="button" class="button-delete {{ this_question.question }}" pk="{{ this_question.pk }}" value="{{ this_question.pk }}">delete</button>
                             <div class="delete-question">
                                 <img onclick="this.closest('.question-conainer').querySelector('.button-delete').click();" class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">

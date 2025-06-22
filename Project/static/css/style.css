@@ -164,31 +164,41 @@ nav {
 .wrapper {
     position: fixed;
     bottom: 50px;
-    right: -570px;
-    width: 476px;
+    right: 20px;
+    width: clamp(300px, 90vw, 476px); /* динамічна ширина */
     height: 283px;
     border: 1px solid #B9BDF5;
     background: #353535;
     border-radius: 8px;
     padding: 15px 25px 22px;
-    transition: right 0.3s ease;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: translateX(150%);
+    opacity: 0;
     box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    z-index: 98349838939989438934893434893849;
+    z-index: 999999;
 }
+
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 .wrapper.show {
-    right: 20px;
+    transform: translateX(0%);
+    opacity: 1;
 }
-.wrapper header {
+.wrapper .header-cookie {
     display: flex;
     flex-direction: column;
     justify-content: center;
     background-color: #353535;
+    /* background-color: #C48AF7; */
 }
-header img {
+.header-cookie img {
     height: 88px;
     width: 88px;
 }
-header i {
+.header-cookie i {
     color: #fff;
     font-size: 32px;
 }

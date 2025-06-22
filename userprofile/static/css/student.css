@@ -285,3 +285,79 @@ main{
     width: 50px;
     height: 50px;
 }
+@media (min-width: 390px) and (max-width: 800px){
+    .main{
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+    }
+    .data-users{
+        display: flex;
+        align-items: center;
+        height: auto;
+        margin-top: 800px;
+        width: 100%;
+    }
+    .icons-users{
+        height: 800px;
+    }
+    .user-data{
+        width: 100%;
+    }
+    .avatark{
+        width: 40px;
+        height: 40px;
+    }
+}
+@media (min-width: 801px) and (max-width: 1225px){
+    .icons-users{
+        display: flex;
+        height: 600px;
+    }
+    .user-info{
+        display: flex;
+        gap: 15px;
+    }
+    .main-prt{
+        display: flex;
+        gap: 5px;
+        flex-direction: column;
+    }
+    .num{
+        margin-left: 0px;
+    }
+    .numero{
+        margin-left: 0px;
+    }
+    .data-test{
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+    }
+    .achievement{
+        display: flex;
+        flex-direction: column;
+
+    }
+}
+
+.avatar{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.avatar-circle{
+    object-fit: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    border: 1px black solid;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

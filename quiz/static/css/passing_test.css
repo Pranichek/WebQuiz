@@ -109,7 +109,7 @@ span {
     align-items: center;
     width: 100vw;
     height: 30vh;
-    padding: 10px;
+    padding: 0px 10px 10px 10px;
     /* background-color: green; */
 }
 
@@ -182,7 +182,7 @@ span {
     padding: 0px 60px;
 }
 
-.bottom-image {
+.bottom-image{
     width: 23%;
     height: 69%;
     max-width: 350px;
@@ -199,7 +199,24 @@ span {
     transform: translateY(-50px);
 }
 
-.bottom-image img{
+.simple-image{
+    width: 21%;
+    height: 69%;
+    min-width: 230px;
+    max-width: 350px;
+    max-height: 300px;
+    min-height: 150px;
+    border-radius: 15px;
+    background-color: none;
+    border: 3px #ffffff solid;
+    transition: 0.1s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.bottom-image img, .simple-image img{
     object-fit: contain;
     width: 100%;
     height: 100%;

@@ -11,7 +11,7 @@ from home.send_email import send_code, generate_code
 from Project.login_check import login_decorate
 from os.path import abspath, join, exists
 from flask_login import current_user
-from .apps import buy_gifts
+from Project.socket_config import socket
 
 
 @login_decorate
@@ -289,6 +289,9 @@ def render_mentor():
     if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes"))):
         os.makedirs(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes")))
     image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes", f"{code}.png")))
+
+    if flask.request.method == "POST":
+        socket.emit()
 
     return flask.render_template(
         "mentor.html",

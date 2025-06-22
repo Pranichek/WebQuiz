@@ -37,3 +37,5 @@ class TestData(DATABASE.Model):
     # Зв'язок із тестом(one to one)
     test = DATABASE.relationship("Test", back_populates="test_profile")
     test_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('test.id'), unique=True)
+
+
