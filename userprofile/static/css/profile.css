@@ -726,15 +726,6 @@ input{
         height: 700px;
     }
 
-    .main-info img {
-        position: absolute;
-        height: 80%;
-        width: 44%;
-        min-height: 50px;
-        border: 2px black solid;
-        border-radius: 50%;  /* округляем всегда картинку юзераа */
-    }
-
     .main-info{
         gap: 10px;
     }

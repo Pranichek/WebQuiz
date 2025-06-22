@@ -137,6 +137,8 @@ def render_test():
             item["pk"] = number
             list_to_template.append(item)
             number += 1
+
+    print(list_to_template, "kkllk")
     
     return flask.render_template(
         template_name_or_list= "test.html", 
@@ -295,3 +297,10 @@ def render_delete_only_image(pk: int):
         os.remove(os.path.join(deletion_path, file))
 
     return "Delete"
+
+
+@login_decorate
+def render_import_test():
+    return flask.render_template(
+        template_name_or_list = "import_test.html"
+    )

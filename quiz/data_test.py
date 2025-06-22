@@ -16,14 +16,39 @@ def render_data_test():
         test_id = flask.request.args.get("id_test")
         test = Test.query.get(int(test_id))
 
+        count = 0
+        answers = test.answers.split("?@?")
+        correct_indexes = []
+        list_final = []
+        questions = test.questions.split("?%?")
+        for question in questions:
+            one_question = {}
+            one_question["question"] = question
+            list_answers = []
+            for ans in answers:
+                current_answers = []
+                ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
+                current_answers.append(ans_clean)
+
+                clear_answer = current_answers[0].split('*|*|*')
+                if (clear_answer[-1] == ''):
+                    del clear_answer[-1]
+                list_answers.append(clear_answer)
+                
+
+            one_question["answers"] = list_answers[count]
+            list_final.append(one_question)
+            count += 1
+
         test.user.username
         test.category
 
         response = flask.make_response(
             flask.render_template(
             template_name_or_list = "test_data.html",
-            test = test
-        )
+            test = test,
+            list_final = list_final
+            )
         )
 
         if test.check_del != "deleted":
@@ -111,7 +136,8 @@ def render_data_test():
             flask.render_template(
                 "test_data.html", 
                 test= test,
-                message = message
+                message = message,
+                list_final = list_final
             )
         )
         return response

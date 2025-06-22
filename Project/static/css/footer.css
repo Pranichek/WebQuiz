@@ -56,7 +56,7 @@ footer{
     padding: 10px 10px;
     gap: 30px;
     position: relative;
-    max-width: 2000px;
+    max-width: 1800px;
 }
 
 .follow-us-text{
@@ -64,6 +64,12 @@ footer{
     top: 50%;
     left: 50%;
     transform: translateX(-50%) ;
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.follow-us-text1{
     font-size: 20px;
     color: #ffffff;
     font-weight: 400;
@@ -79,6 +85,12 @@ footer{
     left: 0;
 }
 
+.data-donate1{
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
 .cherity{
     /* background-color:blueviolet; */
     width: 100vw;
@@ -90,7 +102,7 @@ footer{
     padding: 10px 10px;
     gap: 30px;
     position: relative;
-    max-width: 2000px;
+    max-width: 1800px;
 }
 
 .data-card{
@@ -103,9 +115,50 @@ footer{
     font-weight: 600;
 }
 
+.data-card1{
+    color: #FFB700;
+    font-size: 20px;
+    font-weight: 600;
+}
+
 .img-link{
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 25px;
+}
+
+.for-media{
+    margin-top: 10px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 70%;
+    gap: 5px;
+}
+
+@media(max-width: 920px){
+    footer{
+        height: 34vh;
+        min-height: 250px;
+    }
+
+    .footer-line{
+        width: 440px;
+        min-width: 400px;
+    }
+
+    .for-media{
+        display: flex;
+    }
+
+    .cherity{
+        display: none;
+    }
+
+    .follow-us{
+        display: none;
+    }
 }

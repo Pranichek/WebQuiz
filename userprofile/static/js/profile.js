@@ -91,9 +91,6 @@ for (let button of buttonList){
 }
 
 
-
-
-
 let phone_number = document.getElementById("phone_form")
 
 phone_number.addEventListener(
@@ -126,12 +123,12 @@ window.addEventListener(
         document.getElementById('phone_form').style.width = '0%';
         document.getElementById('phone_form').style.transition = '0s';
 
-        let AvatarImage = document.querySelector(".avatar")
+        // let AvatarImage = document.querySelector(".avatar")
         
-        console.log("AvatarImage.dataset.size =", AvatarImage.dataset.size)
-        // подгружаем размер картинки тот что установил пользователь
-        AvatarImage.style.width = `${AvatarImage.dataset.size}%`;
-        AvatarImage.style.height = `${AvatarImage.dataset.size}%`;
+        // console.log("AvatarImage.dataset.size =", AvatarImage.dataset.size)
+        // // подгружаем размер картинки тот что установил пользователь
+        // AvatarImage.style.width = `${AvatarImage.dataset.size}%`;
+        // AvatarImage.style.height = `${AvatarImage.dataset.size}%`;
         
         setTimeout(() => {
             document.getElementById('foo').value = document.getElementById('foo').dataset.name;

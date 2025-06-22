@@ -1,0 +1,143 @@
+body {
+    background-color: #3C3C3C;
+    margin: 0px;
+}
+
+.text {
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+}
+.text1 {
+    color: white;
+    font-size: 20px;
+}
+
+.all-parts {
+    display: flex;
+    flex-direction: column;
+    gap: 100px;
+    /* align-items: center; */
+}
+
+.top-part {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.part1 {
+    background-color: #343434;
+    width: 100%;
+    height: 58px;
+}
+
+.arrow {
+    width: 33px;
+    height: 33px;
+    display: flex;
+    padding-top: 12px;
+    padding-left: 23px;
+    /* justify-content: center; */
+}
+
+.choose-type {
+    background-color: #343434;
+    width: 100%;
+    height: 111px;
+    gap: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.docum {
+    display: flex;
+    background-color: #7291B8;
+    width: 350px;
+    height: 50px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+.docum img {
+    width: 27px;
+    height: 27px;
+}
+
+
+.bottom-part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 5vw;
+    width: 90%;
+    background-color: #2D2D2D;
+    border-radius: 10px;
+    border: 1px #C48AF7 solid;
+
+    
+    /* background-size: cover; 
+    background-repeat: no-repeat;
+    background-position: center; */
+}
+
+.for-margin {
+    display: flex;
+    flex-direction: column;
+    margin: 70px;
+    gap: 40px;
+    align-items: center;
+}
+
+.cloud {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cloud img {
+    width: 100px;
+    height: 100px;
+}
+
+.imp-thing {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    gap: 45px;
+}
+
+.docum2 {
+    display: flex;
+    background-color: #C48AF7;
+    width: 350px;
+    height: 50px;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.formats {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60vw;
+    background-color: #3c3c3c;
+    border: 1px #94C4FF solid;
+}
+
+.include-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-text {
+    display: block;
+    /* align-items: flex-start; */
+    width: 100%;
+    left: 15px;
+    /* margin-right: 60vw; */
+}

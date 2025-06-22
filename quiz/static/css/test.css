@@ -943,6 +943,11 @@ label[for="image"] {
     margin-right: 10px;
 }
 
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+}
+
 #timeList {
     animation: appear 0.5s;
     z-index: 10000001; /* больше, чем у всего остального */

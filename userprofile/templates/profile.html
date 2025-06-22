@@ -16,7 +16,7 @@
         <div class="profile-headerline">
             <div class="main-info">
                 <div class="avatar-circle">
-                    <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                    <img data-size="{{ user.size_avatar }}"  class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
                 </div>
 
                 <p class="nickname">{{ user.username }}</p>
@@ -205,7 +205,7 @@
 
     </div>
     <!-- <button onclick="Blur()">Haha</button> -->
-    <script src="{{ url_for('profile.static', filename='js/profile.js') }}"></script>
+    <!-- <script src="{{ url_for('profile.static', filename='js/profile.js') }}"></script> -->
 {% endblock %}
 
 {% block scripts %}

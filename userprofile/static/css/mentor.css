@@ -99,7 +99,7 @@
     flex-direction: column;
     background-color: #343434;
     border-radius: 34px;
-    padding: 2vh 2vw;
+    padding: 20px 20px;
     gap: 2vh;
 }
 
@@ -110,12 +110,16 @@
     color: white;
     font-weight: 600;
     font-size: 0.85rem;
+    /* background-color: #FFB700; */
+    width: 100%;
 }
 
 .join {
     display: flex;
     justify-content: space-between;
     gap: 1vh;
+    /* background-color: #BCDAFF; */
+    width: 100%;
 }
 
 .url {
@@ -168,12 +172,38 @@
     color: #FFB700;
 }
 
+.avatar{
+    object-fit: contain;
+    width: 100%;
+    height: 100%;
+}
+
+.avatar-circle{
+    object-fit: contain;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    height: 80px;
+    /* width: 25%;
+    height: 100%; */
+    border: 1px black solid;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .qr-code {
     display: flex;
     font-family: 'Inter', sans-serif;
+    justify-content: space-between;
     font-weight: 600;
     font-size: 13px;
     margin-bottom: 60px;
+    width: 100%;
+    /* background-color: #C48AF7; */
 }
 
 .mentor-buttons {

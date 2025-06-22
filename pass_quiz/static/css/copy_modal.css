@@ -1,0 +1,29 @@
+
+.copy-coint{
+    width: 300px;
+    height: 200px;
+    background-color: aquamarine;
+    border-radius: 5px;
+    border: 2px black solid;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-500%);
+    z-index: 500;
+}
+
+.fade-in{
+    transition: 0.6s;
+    /* background-color: blue; */
+    transform: translateX(-50%) translateY(0%);
+}
+
+.fade-out{
+    transition: 0.6s;
+    /* background-color: blue; */
+    transform: translateX(-50%) translateY(-500%);
+}

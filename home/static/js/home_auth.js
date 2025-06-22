@@ -5,7 +5,7 @@ function Profile(){
 }
 
 window.addEventListener(
-    'load',
+    'DOMContentLoaded',
     () => {
         let AvatarImage = document.querySelector(".avatar")
         
@@ -44,3 +44,14 @@ input.addEventListener('keydown', (event) => {
     document.querySelector(".search-filter-link").click();
   }
 });
+
+const cardsFloors = document.querySelectorAll(".cards")
+
+for (let floor of cardsFloors){
+    let childrenFloor = floor.children;
+    for (let i = 0; i < childrenFloor.length; i++) {
+        // Пример массива цветов, можно добавить свои
+        const colors = ['#D6E8FE', '#F2FBFF', '#E7F2FF', '#F5E9FF'];
+        childrenFloor[i].style.backgroundColor = colors[i % colors.length];
+    }
+}
