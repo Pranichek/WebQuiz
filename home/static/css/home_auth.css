@@ -71,6 +71,14 @@ header{
     overflow: hidden;
 }
 
+#own-pet{
+    width: 33px;
+    height: 35px;
+}
+#pet-text {
+    color: white;
+}
+
 .main-data {
     display: flex;
     flex-direction: row;

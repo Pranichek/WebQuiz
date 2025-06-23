@@ -75,11 +75,20 @@
     background-color: #343434;
     border-radius: 10px;
     border: 1px, solid #C48AF7;
+    display: flex;
+    justify-content: center;
 }
 .anim{
     display: flex;
     flex-direction: column;
 
+}
+#own-pet{
+    width: 33px;
+    height: 35px;
+}
+#pet-text {
+    color: white;
 }
 .tests{
     display: flex;

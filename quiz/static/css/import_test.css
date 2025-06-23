@@ -1,3 +1,11 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+}
+
 body {
     background-color: #3C3C3C;
     margin: 0px;
@@ -16,7 +24,7 @@ body {
 .all-parts {
     display: flex;
     flex-direction: column;
-    gap: 100px;
+    gap: 70px;
     /* align-items: center; */
 }
 
@@ -48,7 +56,9 @@ body {
     gap: 50px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-between;
+    padding-left: 55px;
+    padding-right: 55px;
 }
 
 .docum {
@@ -77,10 +87,22 @@ body {
     border-radius: 10px;
     border: 1px #C48AF7 solid;
 
+    position: relative;
+    overflow: hidden;
     
     /* background-size: cover; 
     background-repeat: no-repeat;
     background-position: center; */
+}
+
+.bottom-part img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
 }
 
 .for-margin {
@@ -89,16 +111,19 @@ body {
     margin: 70px;
     gap: 40px;
     align-items: center;
+    z-index: 1;
 }
 
 .cloud {
     display: flex;
     align-items: center;
     justify-content: center;
+    /* position: relative; */
 }
 .cloud img {
     width: 100px;
     height: 100px;
+    position: relative;
 }
 
 .imp-thing {
@@ -107,6 +132,7 @@ body {
     justify-content: center;
     flex-direction: row;
     gap: 45px;
+    position: relative;
 }
 
 .docum2 {
@@ -118,26 +144,47 @@ body {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    position: relative;
+}
+
+.docum3 {
+    display: flex;
+    
+    align-items: center;
+    justify-content: center;
+}
+.docum3 img {
+    width: 25px;
+    height: 25px;
+    position: relative;
 }
 
 .formats {
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     width: 60vw;
     background-color: #3c3c3c;
     border: 1px #94C4FF solid;
-}
-
-.include-text {
-    display: flex;
     flex-direction: column;
+    gap: 10px;
+    position: relative;
+
+    padding-bottom: 10px;
+    padding-top: 10px;
 }
 
+.center-text {
+    display: flex;
+    justify-content: center;
+}
 .form-text {
-    display: block;
-    /* align-items: flex-start; */
+    display: flex;
+    align-items: flex-start;
     width: 100%;
     left: 15px;
+    position: relative;
     /* margin-right: 60vw; */
+    
+    padding-left: 20px;
 }

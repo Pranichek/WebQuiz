@@ -26,7 +26,9 @@
                     </div>
                 </div>
 
-                <img class="avatar" src="{{ url_for('profile.static', filename='images/default_avatar.png') }}" alt="avatar">
+                <div class="avatar-circle">
+                    <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                </div>
 
                 <div class="favorite">
                     <span class="text">улюбленець</span>
