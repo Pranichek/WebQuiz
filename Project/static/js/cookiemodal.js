@@ -18,3 +18,12 @@ const executeCodes = () => {
 };
 //executeCodes function will be called on webpage load
 window.addEventListener("load", executeCodes);
+
+
+document.querySelector(".created-test").addEventListener(
+  'click',
+  () => {
+    localStorage.removeItem('selectedCategories');
+    localStorage.removeItem('selectedSort');
+  }
+)

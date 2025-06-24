@@ -63,14 +63,12 @@ window.addEventListener(
         let checkCorrectList = document.querySelectorAll(".answer");
         let correctindexes = localStorage.getItem("rightIndexes")
 
-        console.log(correctindexes, "lol")
         
         if(correctindexes !== null){
             let lsitIndexes = correctindexes.split(" ")
             
             lsitIndexes.splice(0, 1)
 
-            console.log(lsitIndexes, "Da")
             checkCorrectList.forEach(
             (input, index) => {
                     console.log(index, "input Index")

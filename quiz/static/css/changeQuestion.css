@@ -13,6 +13,22 @@
     background: linear-gradient(210deg, #c48af76e, #ac90f325, #92bede2f, #96c4da65, #92bede1e, #ac90f33b, #c48af76b);
 }
 
+li, .timer-p{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li img{
+    width: 30px;
+    height: 30px;
+}
+
+.timer-p img{
+    width: 30px;
+    height: 30px;
+}
+
 .question{
     display: flex;
     flex-direction: column;

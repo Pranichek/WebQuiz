@@ -96,7 +96,6 @@ button.addEventListener("click", ()=>{
         timeCookie = document.cookie.split("time=")[1].split(";")[0];
         if (timeCookie != ""){
             timeC = timeCookie + "?#?" + timeP.dataset.time;
-            console.log("time =", timeC);
         }
 
         answerCookie = document.cookie.split("answers=")[1].split(";")[0];
@@ -137,6 +136,11 @@ window.addEventListener("DOMContentLoaded", () => {
     if(timedata){
         time.textContent = liLists[parseInt(timedata)].textContent;
         time.dataset.time = liLists[parseInt(timedata)].dataset.time;
+
+        const timeEl = document.querySelector("#time");
+        const imgUrl = timeEl.dataset.img;
+
+        timeEl.innerHTML += `<img src="${imgUrl}">`;
     }
 
     const questionSaved = localStorage.getItem("question");

@@ -182,11 +182,16 @@ def render_edit_avatar():
             show = show[0],
             cash_image = str(flask.session["cash_image"] if 'cash_image' in flask.session else "Nothing")
         )
-    # except Exception as error:
-    #     return flask.redirect("/")
+
     
 @login_decorate
 def render_user_tests():
+    if flask.request.method == "POST":
+        valueFilter = flask.request.form.get("by_filter_category")
+        valueSort = flask.request.form.get("by_filter_sort")
+
+        print(valueFilter, valueSort)
+
     user = User.query.get(flask_login.current_user.id)
     tests = user.tests.filter(Test.check_del != "deleted").all()
     message = ''
@@ -206,8 +211,6 @@ def render_user_tests():
     response.delete_cookie('time')
     response.delete_cookie('category')
     response.delete_cookie('inputname')
-
-    # code = generate_code()
     
     return response
 

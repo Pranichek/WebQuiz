@@ -6,6 +6,22 @@ body header{
     display: none;
 }
 
+li, .timer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+li img{
+    width: 30px;
+    height: 30px;
+}
+
+.timer-p img{
+    width: 30px;
+    height: 30px;
+}
+
 body .main{
     display: flex;
     flex-direction: column;

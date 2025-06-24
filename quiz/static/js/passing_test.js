@@ -611,6 +611,46 @@ socket.on('question', (data) => {
 
             document.querySelector(".bottom-image").appendChild(img);
 
+            let img4big = document.querySelector(".bottom-image")
+            let imgDiv = document.createElement("div")
+
+            img4big.addEventListener(
+                'click',
+                () => {
+                    imgDiv.className = "imgDiv"
+                    imgDiv.innerHTML = `
+                        <img src="${data.question_img}"></img>
+                    `
+                    document.body.appendChild(imgDiv)
+                    imgDiv.addEventListener(
+                        'click',
+                        () => {
+                            imgDiv.remove();
+                        }
+                    )
+                }
+            )
+
+
+            // let img2Big = document.querySelector(".simple-image")
+            // let big2Img = document.createElement("div")
+            // img2Big.addEventListener(
+            //     'click',
+            //     () => {
+            //         console.log("click2")
+                    
+            //         big2Img.className = "bigimg"
+            //         big2Img.innerHTML = `
+            //             <img src="${data.question_img}"></img>
+            //         `
+            //         document.body.appendChild(big2Img);
+            //         big2Img.addEventListener("click", () => {
+            //             big2Img.remove();
+            //         });
+            //     }
+            // )
+            // }
+
         }else if (checkOportunity != "not"){
             let justAnswerDiv = document.querySelector(".answers")
             let answerImg = document.querySelector(".answers-image")
@@ -641,8 +681,23 @@ socket.on('question', (data) => {
                         <img src="${data.question_img}"></img>
                     </div>
                 `;
+                let imgBig = document.querySelector(".simple-image")
+                let bigImg = document.createElement("div")
+                imgBig.addEventListener(
+                    'click',
+                    () => {
+                        
+                        bigImg.className = "bigimg"
+                        bigImg.innerHTML = `
+                            <img src="${data.question_img}"></img>
+                        `
+                        document.body.appendChild(bigImg);
+                        bigImg.addEventListener("click", () => {
+                            bigImg.remove();
+                        });
+                    }
+                )
             }
-            
             
 
             if (simpleQuestion.classList.contains("fade-up")){
