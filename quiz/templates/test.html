@@ -28,8 +28,8 @@
             <p class="add_text">Додати зображення</p>
         </div>
         <div class="load_text">
-            <button class="load_button" type="button">
-                
+            <button class="load_button" type="button" onclick="this.querySelector('audio').play()">
+                <audio src="{{ url_for('test_pass.static', filename = 'audio/button.mp3') }}"></audio>
                 <form action="" method="post" id = "image_form" enctype="multipart/form-data">
                     <input class="input_file" id="image" name="image" type="file" accept="image/*" onchange="previewImage(event);">
                     <input type="hidden" name="check_post" value="image">
@@ -47,9 +47,9 @@
             </div>
         </div>
         <div class="buttom-floor">
-            <button class="apply-image delete-photo" type="button" onclick="DeleteImage();">видалити фото</button>
-            <button class="back-button" type="button" class="close-modal" onclick="CloseModal();">назад</button>
-            <button class="apply-image" type="button" onclick="sumbmitIMage()">застосувати зображення </button>
+            <button class="apply-image delete-photo" type="button" onclick="DeleteImage();" onclick="this.querySelector('audio').play()">видалити фото <audio src="{{ url_for('test_pass.static', filename = 'audio/button.mp3') }}"></audio></button>
+            <button class="back-button" type="button" class="close-modal" onclick="CloseModal();" onclick="this.querySelector('audio').play()">назад <audio src="{{ url_for('test_pass.static', filename = 'audio/button.mp3') }}"></audio></button>
+            <button class="apply-image" type="button" onclick="sumbmitIMage()" onclick="this.querySelector('audio').play()">застосувати зображення <audio src="{{ url_for('test_pass.static', filename = 'audio/button.mp3') }}"></audio></button>
         </div>
     </div>
     <form action="" method="post" id="main-form" enctype="multipart/form-data">
@@ -104,9 +104,10 @@
             
             <div class="additional-buttons">
                 <div>
-                    <button class="set-name" type="button" onclick="ChangeName();">
+                    <button class="set-name" type="button" onclick="ChangeName();" onclick="this.querySelector('audio').play()">
                         <img class="sign" src="{{ url_for('test_pass.static', filename = 'images/pen.png') }}" alt="">
                         редагувати назву теста
+                        <audio src="{{ url_for('test_pass.static', filename = 'audio/button.mp3') }}"></audio>
                     </button>
                 </div>
                 <div class="right-buttons">
@@ -123,9 +124,10 @@
                         </ul>
                     </div>
                 
-                    <button class="watch_test" type="button">
+                    <button class="watch_test" type="button" onclick="this.querySelector('audio').play()">
                         <img class="sign" src="{{ url_for('test_pass.static', filename = 'images/watch_test.png') }}" alt="">
                         попердній перегляд
+                        <audio src="{{ url_for('test_pass.static', filename = 'audio/button.mp3') }}"></audio>
                     </button>
                 </div>
             </div>
@@ -135,8 +137,9 @@
             <a class="add" href="/test/create_question">
                 + Додати питання
             </a>
-            <button class="add">
+            <button class="add" onclick="this.querySelector('audio').play()">
                 + Згенерувати питання
+                <audio src="{{ url_for('test_pass.static', filename = 'audio/button.mp3') }}"></audio>
             </button>
         </div>
         <div class="all-cards">
@@ -147,7 +150,7 @@
                         <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
                         <span class="question-conainer">
                             <p class="question">{{ this_question.question }}</p>
-                            <button type="button" class="button-delete {{ this_question.question }}" pk="{{ this_question.pk }}" value="{{ this_question.pk }}">delete</button>
+                            <button type="button" class="button-delete {{ this_question.question }}" pk="{{ this_question.pk }}" value="{{ this_question.pk }}" class="leave_test" yonclick="this.querySelector('audio').play()">delete <audio src="{{ url_for('test_pass.static', filename = 'audio/button.mp3') }}"></audio></button>
                             <div class="delete-question">
                                 <img onclick="this.closest('.question-conainer').querySelector('.button-delete').click();" class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
                             </div>
@@ -173,8 +176,8 @@
         
         {% if question_list|length >= 2 %}
             <div class="buttons buttons-bottom">
-                <button class="add-test" type="button"> + Зберегти вікторину</button>
-                <button class="add-test" type="button">Почати тест</button>
+                <button class="add-test" type="button" onclick="this.querySelector('audio').play()"> + Зберегти вікторину <audio src="{{ url_for('test_pass.static', filename = 'audio/button.mp3') }}"></audio></button>
+                <button class="add-test" type="button" onclick="this.querySelector('audio').play()">Почати тест <audio src="{{ url_for('test_pass.static', filename = 'audio/button.mp3') }}"></audio></button>
             </div>
         {% endif %}
     </form>

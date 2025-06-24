@@ -28,7 +28,7 @@
                         <li value="6" class="list-time" data-time="not">⏱ Без часу &#709</li>
                     </ul>
                 </div>
-                <button type="button" class="add-question" id="save">+ Додати питання</button>
+                <button type="button" class="add-question" id="save" onclick="this.querySelector('audio').play()">+ Додати питання <audio src="{{ url_for('test_pass.static', filename = 'audio/button.mp3') }}"></audio></button>
             </div>
         </div>
         
