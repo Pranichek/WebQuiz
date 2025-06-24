@@ -469,20 +469,7 @@ header {
     transition: 0.5s ease;
 }
 
-
-.bottom-image img:hover {
-    width: auto;
-    height: 500%;
-    object-fit: contain;
-    transform: translate(-50%, -50%);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    z-index: 999;
-}
-
 /* сделай блюр и затемнее всего экрана кроме этих блоков */
-
 .modal{
     display: none; 
     position: fixed; 

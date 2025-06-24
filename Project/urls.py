@@ -132,3 +132,15 @@ userprofile.buy_gifts.add_url_rule(
     view_func = userprofile.render_buy_gifts,
     methods = ["GET", "POST"]
 )
+
+pass_quiz.passing_mentor.add_url_rule(
+    rule = "/passing_mentor",
+    view_func = pass_quiz.render_mentor_passing,
+    methods = ["GET", "POST"]
+)
+
+pass_quiz.passing_student.add_url_rule(
+    rule = "/passing_student",
+    view_func = pass_quiz.render_student_passing,
+    methods = ["GET", "POST"]
+)

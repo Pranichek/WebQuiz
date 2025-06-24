@@ -109,22 +109,31 @@ def handle_finish_test(data):
 
     count_uncorrect_answers = 0
     count_answered = 0
+
+    index_corect = []
     for i in range(len(user_answers)):
         if list_users_answers[i][0] != "skip":
             count_answered += 1
             if len(correct_indexes[i]) == 1:
                 if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
                     count_right_answers += 1
+                    index_corect.append(i)
                 else:
                     count_uncorrect_answers += 1
-                    # count_right_answers -= 1
             else:
+                correct = 0
+                uncorrect = 0
                 for ans in list_users_answers[i]:
                     if int(ans) in correct_indexes[i]:
                         count_right_answers += 1
+                        correct += 1
                     else:
                         # count_right_answers -= 1
                         count_uncorrect_answers += 1
+                        uncorrect += 1
+            
+                if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
+                    index_corect.append(i)
 
 
     # максимальное количество баллов
@@ -135,6 +144,11 @@ def handle_finish_test(data):
 
     mark = (12 * accuracy) // 100
 
+
+    for indexList in range(len(list_users_answers)):
+        for i in range(len(list_users_answers[indexList])):
+            list_users_answers[indexList][i] = int(list_users_answers[indexList][i])
+
     emit("test_result", {
         "amount_questions": amount_points,
         "right_answers": count_right_answers,
@@ -143,7 +157,10 @@ def handle_finish_test(data):
         "questions": list_final,
         "test_id": test_id,
         "mark": mark,
-        "count_answered": count_answered
+        "count_answered": count_answered,
+        "correct_index": index_corect,
+        "users_answers": list_users_answers,
+        "correct_answers": correct_indexes
     })
 
 @socket.on("copy_result")
