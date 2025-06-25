@@ -94,6 +94,12 @@ quiz.test_pass.add_url_rule(
 )
 
 quiz.test_pass.add_url_rule(
+    rule = "/import_test",
+    view_func = quiz.render_import_test,
+    methods = ["GET", "POST"]
+)
+
+quiz.test_pass.add_url_rule(
     rule = "/passig_test",
     view_func = quiz.render_passing_test,
     methods = ["GET", "POST"]
@@ -122,7 +128,19 @@ searches.search.add_url_rule(
 )
 
 userprofile.buy_gifts.add_url_rule(
-    rule = "/buy_gifts",
+    rule = "/buy_pet",
     view_func = userprofile.render_buy_gifts,
+    methods = ["GET", "POST"]
+)
+
+pass_quiz.passing_mentor.add_url_rule(
+    rule = "/passing_mentor",
+    view_func = pass_quiz.render_mentor_passing,
+    methods = ["GET", "POST"]
+)
+
+pass_quiz.passing_student.add_url_rule(
+    rule = "/passing_student",
+    view_func = pass_quiz.render_student_passing,
     methods = ["GET", "POST"]
 )

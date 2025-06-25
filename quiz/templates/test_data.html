@@ -9,27 +9,37 @@
 
     <div class="test-header"> 
         <div class="test-info">
-            <img src="{{ url_for('test_pass.static', filename='images/test_data/python.png' ) }}" class="python" alt="Python">
-                <div class="top_info">
-                    <p>Інформація про тест</p>
-                    <br>
-                    <p>тема: <span class="topic">{{ test.category }}</span></p>
-                    <br>
-                    <p>творець тесту: <span class="at">@</span><span class="author">{{ test.user.username }}</span></p>
-                    <br>
-                    <div class="stats">
-                        <span>10 питань</span>
-                        <span>20 проходжень</span>
-                    </div> 
-                </div>
+          <div class="python">
+               {% if img_test != 'default' %}
+                    <img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email  + '/user_tests' + '/' + test.title_test + '/' + test.image) }}" class="test-cover">
+               {% elif img_test == 'default' %}
+                    <img src="{{ url_for('test_pass.static', filename='images/' + img_part) }}" alt="cash_image" class="test-cover">
+               {% endif %}
+          </div>
+          <div class="top_info">
+               <p>Інформація про тест</p>
+               <br>
+               <p>тема: <span class="topic">{{ test.category }}</span></p>
+               <br>
+               <p>творець тесту: <span class="at">@</span><span class="author">{{ test.user.username }}</span></p>
+               <br>
+               <div class="stats">
+                    <span>{{ test.questions.count("?%?") + 1 }} питань</span>
+                    <span>{{ test.test_profile.amount_passes }} проходжень</span>
+               </div> 
+          </div>
         </div>  
         <div>
-            <img src="{{ url_for('test_pass.static', filename='images/test_data/robot_happy.png' ) }}" class="bot" alt="Bot">
+            <img src="{{ url_for('test_pass.static', filename='images/test_data/robot.svg' ) }}" class="bot" alt="Bot">
         </div>      
     </div>
     <div class="actions">
-        <button class="start-btn">Пройти тест ▶️</button>
-        <button class="profile-btn">Додати до профілю</button>
+        <button class="start-btn play_test" type="button" value="{{ test.id }}">Пройти тест<img class="play" src="{{ url_for('test_pass.static', filename='images/test_data/button_play.png' ) }}" alt=""></button>
+        <form action="" method="post" class="copy-form" id="copy-test">
+          <input type="hidden" name="check_form" value="copy-form">
+          <input type="hidden" name="test_id" class="test_id" value="{{ test.id }}">
+          <button type="submit" class="copy-test-button profile-btn" value="{{ test.id }}">Додати до профілю</button>
+     </form>
     </div>  
 
     <div class="questions-container">   
@@ -39,8 +49,8 @@
                 
                 <div class="question-block">
                     <div class="question_title"> 
-                        <img src="{{ url_for('test_pass.static', filename='images/test_data/title_question.svg' ) }}" class="question-bg" alt="gradient"> 
-                        <p class="question">{{ this_question.question }} pk={{ this_question.pk }}</p>
+                         <img class="gradient question-bg" src="{{ url_for('test_pass.static', filename='images/test_data/title_question.svg' ) }}" alt="gradient">
+                        <p class="question">{{ this_question.question }}</p>
                     </div> 
                     <div class="answers">
                         {% for answer in this_question.answers %}
@@ -55,10 +65,6 @@
         {% endif %}
     {% endfor %}
     </div>
-
-   {% if message %}
-        <p>{{ message }}</p>
-   {% endif %}
 {% endblock content %}
 
 {% block scripts %}

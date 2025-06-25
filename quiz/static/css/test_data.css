@@ -3,17 +3,25 @@
     position: relative;
     justify-content: space-between;
     padding: 20px 20% 0px 20%;
+    margin-bottom: 60px;
 }
 
 .python {
-    width: 300px;
-    height: auto;
+    width: 220px;
+    height: 220px;
     margin-right: 50px;
+    background-color: none;
+    border: 2px #455977 solid;
+    border-radius: 5px;
+    overflow: hidden;
+    padding: 0;
 }
 
 .bot {
-    width: 300px;
+    width: 250px;
     height: auto;
+    filter: drop-shadow(0 0 40px rgba(100, 149, 237, 0.4));
+    border-radius: 8px;
 }
 
 .test-info {
@@ -35,8 +43,17 @@
     color: #FFFAB0;
 }
 
+.play{
+    /* position: absolute; */
+    width: 20px;
+    height: 20px;
+    object-fit: contain;
+    margin-left: 6px;
+}
+
 .stats span {
-    margin: 0 10px;
+    /* margin: 0px 10px; */
+    margin-right: 10px;
     padding: 5px 15px;
     background: #D6E8FE;
     border-radius: 5px;
@@ -51,7 +68,8 @@
     justify-content: center;
 }
 
-.start-btn {
+.start-btn{
+    position: relative;
     background: #C48AF7;
     color: #fff;
     padding: 5px 15px;
@@ -60,12 +78,17 @@
     border-radius: 5px;
     border:1px solid #fff;
     cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
+
 
 .profile-btn {
     background: #7291B8;
     color: #fff;
-    padding: 5px 10px;
+    padding: 7px 15px;
     border: none;
     margin: 5px;
     border-radius: 5px;
@@ -100,7 +123,8 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 100px;
+    height: 80px;
+    /* background-color: #FFFAB0; */
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
     position: relative;
@@ -173,4 +197,19 @@
     word-break: break-word;     
     overflow-wrap: break-word;
     padding: 0 20px 0 20px;
+}
+
+
+.gradient{
+    width: 100%;
+    /* max-height: 5%; */
+    height: 80px;
+    position: absolute;
+}
+
+.python img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* object-fit: contain; */
 }

@@ -15,7 +15,23 @@
         <button class="leave_test">Завершити тест</button>
     </div>
 
+    <audio id="correct-sound" src="{{ url_for('test_pass.static', filename='audio/right.mp3') }}" preload="auto"></audio>
+    <audio id="incorrect-sound" src="{{ url_for('test_pass.static', filename='audio/false.mp3') }}" preload="auto"></audio>
     <div class="modal"></div>
+
+    <div class="coin-anim">
+        <img class="first-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+        <img class="second-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+        <img class="third-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+        <img class="fourth-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+        <img class="fifth-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+        <img class="sighn-plus" src="{{ url_for('test_pass.static', filename = 'images/plus.svg') }}" alt="">
+    </div>
+
+
+    <img class="sad_robot" src="{{ url_for('test_pass.static', filename='images/sad_robot.svg') }}" alt="">
+    <img class="happy_robot" src="{{ url_for('test_pass.static', filename='images/happy_robot.svg') }}" alt="">
+
     <div class="right-answer">
         <!-- сттворюємо div для блюру цього койнейнеру -->
         <div class="blur"></div>
@@ -30,8 +46,10 @@
         
     <!-- </head> -->
     <div class= 'question'>
- 
+        
     </div>
+
+
     <div id="image-container"></div>
     <!--  -->
     <div class= "answers">
@@ -48,16 +66,15 @@
         </div>
     </div>
     <!--  -->
-    <footer>
+    <div class="footer-test">
         <div class="bonus-data">
             <div class="avatar-circle">
                 <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
             </div>
             <p class="text-kem">{{ user.username }}</p>
             <div class="line"></div>
-            <img class = "bonus1" src="/bonus.png" alt="">
-            <img class = "bonus2" src="/bonus.png" alt="">
-            <img class = "bonus3" src="/bonus.png" alt="">
+            <p class="count-money" data-value="{{ user.user_profile.count_money }}"></p>
+            <img class="money" src="{{ url_for('test_pass.static', filename='images/money.svg') }}" alt="avatar">
         </div>
 
         <div class="submit">
@@ -73,7 +90,7 @@
             </div>
         </div>
 
-    </footer>
+    </div>
     </body>
 {% endblock content %}
 
@@ -81,4 +98,5 @@
     {{ super() }}
     <script src="{{ url_for('test_pass.static', filename='js/passing_test.js') }}"></script>
     <script type="module" src="{{ url_for('test_pass.static', filename='js/count_bonus.js') }}"></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/count_money.js') }}"></script>
 {% endblock scripts %}

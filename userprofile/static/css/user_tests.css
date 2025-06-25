@@ -1,19 +1,15 @@
-.title{
-    /* колір тексту */
+/* .title{
     color: #ffffff; 
-    /* поозиціювання тексту */
     text-align: center;
-    /* розмір шрифту */
     font-size: 40px;
-    /*  */
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 10vh;
-}
+} */
 
-
+/* 
 .tests{
     background-color: aqua;
     width: 100%;
@@ -24,7 +20,7 @@
     justify-content: center;
     align-items: center;
     padding-left: 60px;
-}
+} */
 
 
 .test{
@@ -48,4 +44,100 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.main{
+    display: flex;
+    flex-direction: row;
+}
+.sidebar{
+    position: relative;
+    background-color: blue;
+    width: 30vw;
+    height: 90vh;
+    padding: 10px 10px 10px 20px;
+}
+
+.main-part{
+    position: absolute;
+    background-color: #2F3239;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 24px;
+    width: 86%;
+    height: 95%;
+    padding: 30px 0px 30px 0px;
+    overflow: hidden;
+}
+
+.filter-part, .sort-part{
+    /* position: absolute; */
+    background-color: none;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    height: 50%;
+    border-top: 2px #575B64 solid;
+    border-bottom: 2px #575B64 solid;
+    padding-left: 30px;
+    gap: 25px;
+}
+
+input{
+    outline: none;
+    width: 20px;
+    height: 20px;
+    /* appearance: none;
+    -webkit-appearance: none; */
+    background-color: transparent;
+    border: 2px #ffffff solid;
+    border-radius: 5px;
+}
+
+label{
+    color: #ffffff;
+    font-size: 20px;
+    font-weight: 400;
+    display: flex;
+    flex-direction: row;
+}
+
+.paragraph{
+    margin-left: 10px;
+}
+
+
+.section-title{
+    font-size: 24px;
+    font-weight: 450;
+    color: #ffffff;
+}
+
+.tests-result{
+    position: relative;
+    background-color: darkorchid;
+    width: 70vw;
+    height: 90vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+
+h1{
+    position: absolute;
+    color: #ffffff;
+    left: 3%;
+    top: 5%;
+    font-weight: 600;
+}
+
+
+#post-form{
+    display: none;
 }

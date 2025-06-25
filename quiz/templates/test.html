@@ -67,7 +67,6 @@
                         </div>
                         <img src="{{ url_for('test_pass.static', filename='images/add.png') }}" alt="icon" onclick="ShowModal();" class="center-icon">
                     </div>
-                    <!-- <img  src="{{ url_for('test_pass.static', filename='images/cover.png') }}" alt="" class="test-cover"> -->
                 
                     <div class="info">
                         <input maxlength="30" id="testInput" class="test-title-input title_test" name="test_title" onchange="saveName()" type="text" placeholder="назва тесту" disabled />
@@ -146,7 +145,7 @@
                     <div class="question-card">          
                         <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
                         <span class="question-conainer">
-                            <p class="question">{{ this_question.question }} pk={{ this_question.pk }}</p>
+                            <p class="question">{{ this_question.question }}</p>
                             <button type="button" class="button-delete {{ this_question.question }}" pk="{{ this_question.pk }}" value="{{ this_question.pk }}">delete</button>
                             <div class="delete-question">
                                 <img onclick="this.closest('.question-conainer').querySelector('.button-delete').click();" class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">

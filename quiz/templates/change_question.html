@@ -22,15 +22,15 @@
 
             <div>
 
-                <div class="timer"><p class="timer-p" id="time" value="" data-time="{{ time }}"></p>
+                <div class="timer"><p class="timer-p" data-img="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" id="time" value="" data-time="{{ time }}"></p>
                     <ul id="timeList" class="hidden-list">
-                        <li value="0" class="list-time" data-time="20">⏱ 20 секунд &#709</li>
-                        <li value="1" class="list-time" data-time="30">⏱ 30 секунд &#709</li>
-                        <li value="2" class="list-time" data-time="45">⏱ 45 секунд &#709</li>
-                        <li value="3" class="list-time" data-time="60">⏱ 1 хвилина &#709</li>
-                        <li value="4" class="list-time" data-time="120">⏱ 2 хвилини &#709</li>
-                        <li value="5" class="list-time" data-time="180">⏱ 3 хвилини &#709</li>
-                        <li value="6" class="list-time" data-time="not">⏱ Без часу &#709</li>
+                        <li value="0" class="list-time" data-time="20">⏱ 20 секунд <img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></li>
+                        <li value="1" class="list-time" data-time="30">⏱ 30 секунд <img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></li>
+                        <li value="2" class="list-time" data-time="45">⏱ 45 секунд <img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></li>
+                        <li value="3" class="list-time" data-time="60">⏱ 1 хвилина <img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></li>
+                        <li value="4" class="list-time" data-time="120">⏱ 2 хвилини <img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></li>
+                        <li value="5" class="list-time" data-time="180">⏱ 3 хвилини <img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></li>
+                        <li value="6" class="list-time" data-time="not">⏱ Без часу <img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></li>
                     </ul>
                 </div>
                 <button class="add-question" id="save">Зберегти зміни</button>
@@ -117,7 +117,7 @@
                 </div>
             </div>
         {% endif %}
-        <p class="button" id="addQuestion">
+        <p class="button hidden-button" id="addQuestion">
             <img src="{{ url_for('test_pass.static', filename='images/plus.png') }}" alt="">
         </p>
 </div>

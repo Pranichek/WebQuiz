@@ -40,11 +40,17 @@ def render_data_test():
             list_final.append(one_question)
             count += 1
 
+        img_test = "default"
+        if "default" not in test.image.split("/"):
+            img_test = test.image
         response = flask.make_response(
             flask.render_template(
             template_name_or_list = "test_data.html",
             test = test,
-            question_list = list_final
+            question_list = list_final,
+            img_test = img_test,
+            user = current_user,
+            img_part = test.image.split('/')[1] if img_test == 'default' else test.image
         )
         )
 
@@ -129,12 +135,19 @@ def render_data_test():
                 )
             )
         
+        img_test = "default"
+        if "default" not in test.image.split("/"):
+            img_test = test.image
         response = flask.make_response(
             flask.render_template(
                 "test_data.html", 
                 test= test,
                 message = message,
-                question_list = list_final
+                question_list = list_final,
+                img_test = img_test,
+                user = current_user,
+                img_part = test.image.split('/')[1] if img_test == 'default' else test.image
+
             )
         )
         return response

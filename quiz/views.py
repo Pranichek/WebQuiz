@@ -92,12 +92,15 @@ def render_test():
             if len(os.listdir(from_path)) > 0:
                 shutil.move(from_path, to_path)
 
+            
             if "test_image" in flask.session and flask.session["test_image"] != "default":
+                source_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar",
+                                        str(current_user.email), "cash_test", flask.session["test_image"]))
+                dest_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar",
+                                        str(current_user.email), "user_tests", str(test_title), flask.session["test_image"]))
 
-                test_image = PIL.Image.open(fp = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"])))
-                test_image = test_image.save(fp = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", str(test_title), str(flask.session["test_image"]))))
-                os.remove(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"]))
-            )
+                shutil.copy(src=source_path, dst=dest_path)
+                os.remove(source_path)
 
             if "test_image" in flask.session:
                 flask.session.pop("test_image", None)
@@ -137,6 +140,8 @@ def render_test():
             item["pk"] = number
             list_to_template.append(item)
             number += 1
+
+    print(list_to_template, "kkllk")
     
     return flask.render_template(
         template_name_or_list= "test.html", 
@@ -271,3 +276,34 @@ def render_delete_image(pk: int):
             print(f"Renaming {src} → {dst}")
             os.rename(src, dst)
     return "Delete"
+
+
+def render_delete_only_image(pk: int):
+    print("pk =", pk, "; pk + 1 =", pk + 1)
+    
+    test_pk = flask.request.args.get("test_pk")
+    test_name = False
+    
+    try:
+        test_name = Test.query.get(int(test_pk)).title_test
+    except:
+        pass
+    print("test_pk =", test_pk, "test_name =", test_name)
+
+    if test_name:
+        deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "user_tests", test_name, str(pk + 1)))
+    else:
+        deletion_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+
+    file_list = os.listdir(deletion_path)
+    for file in file_list:
+        os.remove(os.path.join(deletion_path, file))
+
+    return "Delete"
+
+
+@login_decorate
+def render_import_test():
+    return flask.render_template(
+        template_name_or_list = "import_test.html"
+    )

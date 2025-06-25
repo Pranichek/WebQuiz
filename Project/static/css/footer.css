@@ -1,0 +1,164 @@
+footer{
+    background-color: #343434;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    width: 100vw;
+    height: 24vh;
+    min-height: 150px;
+    bottom: 0;
+    max-height: 300px;
+    position: relative;
+    /* background-color: #FFB700; */
+}
+
+.about-us{
+    /* background-color: aquamarine; */
+    position: relative;
+    width: 100vw;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 30px;
+    padding: 36px 10px 10px 10px;
+    max-width: 2000px;
+}
+
+.footer-line{
+    position: absolute;
+    width: 50%;
+    height: 1px;
+    background-color: #ffffff;
+    bottom: 0;
+    transform: translateY(10px);
+    min-width: 500px;
+    max-width: 800px;
+}
+
+.link-data{
+    text-decoration: none;
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.follow-us{
+    /* background-color: chocolate; */
+    width: 100vw;
+    height: 30%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    padding: 10px 10px;
+    gap: 30px;
+    position: relative;
+    max-width: 1800px;
+}
+
+.follow-us-text{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) ;
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.follow-us-text1{
+    font-size: 20px;
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.data-donate{
+    margin-left: 100px;
+    position: absolute;
+    bottom: 0;
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffffff;
+    left: 0;
+}
+
+.data-donate1{
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.cherity{
+    /* background-color:blueviolet; */
+    width: 100vw;
+    height: 40%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 10px;
+    gap: 30px;
+    position: relative;
+    max-width: 1800px;
+}
+
+.data-card{
+    position: absolute;
+    left: 0;
+    top: 25%;
+    margin-left: 50px;
+    color: #FFB700;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.data-card1{
+    color: #FFB700;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.img-link{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 25px;
+}
+
+.for-media{
+    margin-top: 10px;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 70%;
+    gap: 5px;
+}
+
+@media(max-width: 920px){
+    footer{
+        height: 34vh;
+        min-height: 250px;
+    }
+
+    .footer-line{
+        width: 440px;
+        min-width: 400px;
+    }
+
+    .for-media{
+        display: flex;
+    }
+
+    .cherity{
+        display: none;
+    }
+
+    .follow-us{
+        display: none;
+    }
+}
