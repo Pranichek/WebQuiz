@@ -10,28 +10,63 @@
         <input type="text" name="by_filter_sort" value="" class="by_filter_sort">
     </form>
 
-    <div class="sidebar">
+    <!-- <div class="sidebar">
         <div class="main-part">
             <div class="filter-part">
                 <p class="section-title">Фільтрування</p>
-                <label><input type="checkbox" class="category-input" name="filter-category" value="програмування"><p class="paragraph">Програмування</p></label>
-                <label><input type="checkbox" class="category-input" name="filter-category" value="фізика"><p class="paragraph">Фізика</p></label>
-                <label><input type="checkbox" class="category-input" name="filter-category" value="математика"><p class="paragraph">Математика</p></label>
-                <label><input type="checkbox" class="category-input" name="filter-category" value="англійська"><p class="paragraph">Англійська</p></label>
+                <label><input type="checkbox" class="category-input input-set" name="filter-category" value="програмування"><p class="paragraph">Програмування</p></label>
+                <label><input type="checkbox" class="category-input input-set" name="filter-category" value="фізика"><p class="paragraph">Фізика</p></label>
+                <label><input type="checkbox" class="category-input input-set" name="filter-category" value="математика"><p class="paragraph">Математика</p></label>
+                <label><input type="checkbox" class="category-input input-set" name="filter-category" value="англійська"><p class="paragraph">Англійська</p></label>
             </div>
             <div class="sort-part">
                 <p class="section-title">Сортування</p>
-                <label><input type="checkbox" class="sort-input" name="sort" value="newest"><p class="paragraph">Найновіше</p></label>
-                <label><input type="checkbox" class="sort-input" name="sort" value="oldest"><p class="paragraph">Найстаріші</p></label>
-                <label><input type="checkbox" class="sort-input" name="sort" value="questions"><p class="paragraph">Кількість питань</p></label>
-                <label><input type="checkbox" class="sort-input" name="sort" value="popular"><p class="paragraph">Кількість проходженнь</p></label>
+                <label><input type="checkbox" class="sort-input input-set" name="sort" value="newest"><p class="paragraph">Найновіше</p></label>
+                <label><input type="checkbox" class="sort-input input-set" name="sort" value="oldest"><p class="paragraph">Найстаріші</p></label>
+                <label><input type="checkbox" class="sort-input input-set" name="sort" value="questions"><p class="paragraph">Кількість питань</p></label>
+                <label><input type="checkbox" class="sort-input input-set" name="sort" value="popular"><p class="paragraph">Кількість проходженнь</p></label>
             </div>
         </div>
-    </div>
+    </div> -->
     <div class="tests-result">
-        <h1>Мої створені тести</h1>
+        <div class="settings-test">
+            <div class="filter-text">
+                <p>Фільтрування</p>
+                <span><img src="{{ url_for('profile.static', filename= 'images/user_tests/show-more.svg') }}" alt=""></span>
+                <div class="filter-part">
+                    <div class="line"></div>
+                    <label><input type="checkbox" class="category-input input-set" name="filter-category" value="програмування"><p class="paragraph">Програмування</p></label>
+                    <label><input type="checkbox" class="category-input input-set" name="filter-category" value="фізика"><p class="paragraph">Фізика</p></label>
+                    <label><input type="checkbox" class="category-input input-set" name="filter-category" value="математика"><p class="paragraph">Математика</p></label>
+                    <label><input type="checkbox" class="category-input input-set" name="filter-category" value="англійська"><p class="paragraph">Англійська</p></label>
+                    <label><input type="checkbox" class="category-input input-set" name="filter-category" value="історія"><p class="paragraph">Історія</p></label>
+                    <label><input type="checkbox" class="category-input input-set" name="filter-category" value="хімія"><p class="paragraph">Хімія</p></label>
+                    <label><input type="checkbox" class="category-input input-set" name="filter-category" value="інше"><p class="paragraph">Інше</p></label>
+                    <div class="line"></div>
+                </div>
+            </div>
+            <div class="sort-text">
+                <p>Сортування</p>
+                <span><img src="{{ url_for('profile.static', filename= 'images/user_tests/show-more.svg') }}" alt=""></span>
+                <div class="sort-part">
+                    <div class="line"></div>
+                    <label><input type="checkbox" class="sort-input input-set" name="sort" value="newest"><p class="paragraph">Найновіше</p></label>
+                    <label><input type="checkbox" class="sort-input input-set" name="sort" value="oldest"><p class="paragraph">Найстаріші</p></label>
+                    <label><input type="checkbox" class="sort-input input-set" name="sort" value="questions"><p class="paragraph">Кількість питань</p></label>
+                    <label><input type="checkbox" class="sort-input input-set" name="sort" value="popular"><p class="paragraph">Кількість проходженнь</p></label>
+                    <div class="line"></div>
+                </div>
+            </div>
+            <div class="find-by-text">
+                <form action="" method="post">
+                    <input type="text" class="findByname" placeholder="Знайти створені тести..." maxlength="60">
+                    <button class="lupa" type="button"><img class="img-lupa" src="{{ url_for('profile.static', filename= 'images/user_tests/lupa.svg') }}" alt=""></button>
+                </form>
+            </div>
+        </div>
+        <!-- <h1>Мої створені тести</h1> -->
         {% for test in tests %}
-            <div class="test" data-popular="{{ test.test_profile.amount_passes }}" data-category="{{ test.category }}" data-timecreated="{{ test.id }}" data-questions="{{ test.questions.count('?%?') + 1 }}">
+            <div class="test" data-name="{{ test.title_test }}" data-popular="{{ test.test_profile.amount_passes }}" data-category="{{ test.category }}" data-timecreated="{{ test.id }}" data-questions="{{ test.questions.count('?%?') + 1 }}">
                 <p>проходженнь: {{ test.test_profile.amount_passes }}</p>
                 <p>Назва тесту: {{ test.title_test }}</p>
                 <p>Кількість питаннь: {{ test.questions.count("?%?") + 1 }}</p>

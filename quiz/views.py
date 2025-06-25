@@ -9,7 +9,7 @@
     Запис + та - для відповідей у JavaScript
 '''
 
-import flask, os, flask_login, shutil, PIL.Image
+import flask, os, flask_login, shutil
 from .models import Test, TestData
 from Project.db import DATABASE
 from os.path import abspath, join, exists
@@ -119,7 +119,7 @@ def render_test():
             image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
         elif check_form == "del_image":
             flask.session["test_image"] = "default"
-    # else: 
+    
     new_answers_list = ''
     if new_questions:
         new_answers_list = new_answers.split("?@?")

@@ -22,6 +22,120 @@
     padding-left: 60px;
 } */
 
+.settings-test{
+    position: absolute;
+    top: 0;
+    margin-top: 15px;
+    width: 100vw;
+    height: 6.5vh;
+    background-color: green;
+    max-height: 8vh;
+    background-color: #343434;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 103px;
+    padding: 9px 40px 9px 130px;
+    cursor: pointer;
+    /* max-height: 50px; */
+}
+
+.filter-text, .sort-text{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    width: 12.5vw;
+    color: #ffffff;
+    font-size: 20px;
+    position: relative;
+}
+
+.filter-text span, .sort-text span{
+    margin-left: 7px;
+}
+
+.filter-part{
+    background-color: #2d2d2d;
+    position: absolute;
+    top: 0;
+    margin-top: 40px;
+    border-radius: 28px;
+    padding: 10px 0px 10px 0p;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 250px;
+    height: 330px;
+    gap: 15px;
+}
+
+.sort-part{
+    background-color: #2d2d2d;
+    position: absolute;
+    top: 0;
+    margin-top: 40px;
+    border-radius: 28px;
+    padding: 20px 0px 10px 0p;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 290px;
+    height: 230px;
+    gap: 15px;
+
+}
+
+.sort-input{
+    margin-left: 10px;
+}
+
+
+
+.filter-part label{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.line{
+    width: 100%;
+    height: 3px;
+    background-color: #575B64;
+}
+
+.find-by-text{
+    position: relative;
+    width: 46vw;
+    height: 82%;
+}
+
+.find-by-text form input{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #7b7b7b;
+    border: 1px #8ABBF7 solid;
+    border-radius: 12px;
+    outline: none;
+    box-shadow: none;
+    padding: 15px 15px;
+    color: #ffffff;
+    font-size: 16px;
+}
+
+input::placeholder {
+  color: #4a4a4a; 
+  opacity: 1; 
+  font-size: 16px;
+}
+
+.img-lupa{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-right: 15px;
+}
 
 .test{
     background-color: blue;
@@ -50,6 +164,7 @@
     display: flex;
     flex-direction: row;
 }
+
 .sidebar{
     position: relative;
     background-color: blue;
@@ -72,21 +187,8 @@
     overflow: hidden;
 }
 
-.filter-part, .sort-part{
-    /* position: absolute; */
-    background-color: none;
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    width: 100%;
-    height: 50%;
-    border-top: 2px #575B64 solid;
-    border-bottom: 2px #575B64 solid;
-    padding-left: 30px;
-    gap: 25px;
-}
 
-input{
+.input-set{
     outline: none;
     width: 20px;
     height: 20px;
@@ -106,9 +208,19 @@ label{
 }
 
 .paragraph{
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
+.category-input{
+    border-radius: 6px;
+    border: 2px #575B64 solid;
+    background: transparent;
+    background-color: green;
+}
+
+input[type="checkbox"] {
+  background-color: transparent;
+}
 
 .section-title{
     font-size: 24px;
@@ -116,10 +228,11 @@ label{
     color: #ffffff;
 }
 
+
 .tests-result{
     position: relative;
     background-color: darkorchid;
-    width: 70vw;
+    width: 100vw;
     height: 90vh;
     display: flex;
     flex-direction: row;
@@ -140,4 +253,110 @@ h1{
 
 #post-form{
     display: none;
+}
+
+/* Общие стили для input-set */
+input[type="checkbox"].input-set {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #575B64;
+  border-radius: 6px;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+}
+
+/* Псевдоэлемент для кружочка с плавным появлением */
+input[type="checkbox"].input-set::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: transparent;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: 
+    background-color 0.3s ease,
+    width 0.3s ease,
+    height 0.3s ease;
+  pointer-events: none;
+}
+
+/* Когда выбран — плавно появляется кружочек */
+input[type="checkbox"].input-set:checked::before {
+  width: 12px;
+  height: 12px;
+  background-color: #94C4FF;
+}
+
+/* --- */
+
+/* Общие стили для sort-input */
+input[type="checkbox"].sort-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #575B64;
+  border-radius: 50%;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+  display: inline-block;
+  transition: border-color 0.3s ease;
+}
+
+/* Псевдоэлемент с масштабированием кружочка */
+input[type="checkbox"].sort-input::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background-color: transparent;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: 
+    background-color 0.3s ease,
+    width 0.3s ease,
+    height 0.3s ease;
+  pointer-events: none;
+}
+
+/* При выборе масштабируем кружочек до 80% размера */
+input[type="checkbox"].sort-input:checked::before {
+  width: 80%;
+  height: 80%;
+  background-color: #94C4FF;
+}
+
+/* --- */
+
+input[type="checkbox"].category-input {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border: 2px solid #575B64;
+  border-radius: 4px;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
+  box-sizing: border-box;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* При виборі додаємо внутрішню заливку у вигляді box-shadow з відступом */
+input[type="checkbox"].category-input:checked {
+  border-color: #94C4FF;
+  box-shadow: inset 0 0 0 30px #94C4FF; /* 8px — відступ з усіх сторін */
 }

@@ -162,73 +162,66 @@ def render_registration():
         phone_shake = phone_shake,
         message = message
     )
-    # except Exception as error:
-    #     print(error)
-    #     flask.session.clear()
-    #     return flask.redirect("/")
+
 
 
 def render_code():
-    # try:
-        form_code = ''
-        if flask.request.method == "POST":
-            for num_tag in range(1, 7):
-                data = str(flask.request.form[f"verify_code{num_tag}"])
-                form_code += data
-            if "new_email" in flask.session:
-                if str(flask.session["code"]) == form_code:
-                    flask_login.current_user.email = flask.session["new_email"]
-                    DATABASE.session.commit()
-                    flask.session.pop("new_email", "code")
-                    old_name_folder = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile" "static", "images", "edit_avatar", str(flask_login.current_user.email)))
-                    new_name_folder = os.path.abspath(os.path.join(__file__, "..",  "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["new_email"])))
-                    os.rename(old_name_folder, new_name_folder)
-                    return flask.redirect("/")
-            else:
-                if form_code != '':
-                    if str(flask.session["code"]) == form_code:
-                        user = User(
-                                username = flask.session["username"],
-                                password = flask.session["password"],
-                                email = flask.session["email"],
-                                is_mentor = flask.session["check_mentor"]
-                            )
-                        
-                        profile = DataUser()
-                        user.user_profile = profile
-                        
-                        #створює папку із тим шляхом що указали
-                        path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"])))
-                        if not os.path.exists(path):
-                            os.mkdir(path)
-
-                            default_avatar_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.svg"))
-
-                            destination_path = os.path.join(path, "default_avatar.svg")
-
-                            shutil.copyfile(default_avatar_path, destination_path)
-
-                        DATABASE.session.add(user)
-                        # DATABASE.session.add(profile)
-                        DATABASE.session.commit()
-                        flask_login.login_user(user)
-                        flask.session["code"] = ''
-                        flask.session["email_sent"] = False
-                    else:
-                        flask.session["code"] = ''
-                        flask.session["email_sent"] = False
-                        return flask.redirect("/")
-                    
-        if not flask_login.current_user.is_authenticated or "new_email" in flask.session:
-            return flask.render_template(template_name_or_list = "verify_code.html") 
+    form_code = ''
+    if flask.request.method == "POST":
+        for num_tag in range(1, 7):
+            data = str(flask.request.form[f"verify_code{num_tag}"])
+            form_code += data
+        if "new_email" in flask.session:
+            if str(flask.session["code"]) == form_code:
+                flask_login.current_user.email = flask.session["new_email"]
+                DATABASE.session.commit()
+                flask.session.pop("new_email", "code")
+                old_name_folder = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile" "static", "images", "edit_avatar", str(flask_login.current_user.email)))
+                new_name_folder = os.path.abspath(os.path.join(__file__, "..",  "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["new_email"])))
+                os.rename(old_name_folder, new_name_folder)
+                return flask.redirect("/")
         else:
-            flask.session.pop("new_email", "code")
-            print(8237823788787)
-            return flask.redirect("/")
-    # except Exception as error:
-    #     print(error)
-    #     flask.session.clear()
-    #     return flask.redirect("/")
+            if form_code != '':
+                if str(flask.session["code"]) == form_code:
+                    user = User(
+                            username = flask.session["username"],
+                            password = flask.session["password"],
+                            email = flask.session["email"],
+                            is_mentor = flask.session["check_mentor"]
+                        )
+                    
+                    profile = DataUser()
+                    user.user_profile = profile
+                    
+                    #створює папку із тим шляхом що указали
+                    path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"])))
+                    if not os.path.exists(path):
+                        os.mkdir(path)
+
+                        default_avatar_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.svg"))
+
+                        destination_path = os.path.join(path, "default_avatar.svg")
+
+                        shutil.copyfile(default_avatar_path, destination_path)
+
+                    DATABASE.session.add(user)
+                    DATABASE.session.commit()
+                    
+                    flask_login.login_user(user)
+                    flask.session["code"] = ''
+                    flask.session["email_sent"] = False
+                else:
+                    flask.session["code"] = ''
+                    flask.session["email_sent"] = False
+                    return flask.redirect("/")
+                
+    if not flask_login.current_user.is_authenticated or "new_email" in flask.session:
+        return flask.render_template(template_name_or_list = "verify_code.html") 
+    else:
+        flask.session.pop("new_email", "code")
+        print(8237823788787)
+        return flask.redirect("/")
+
 
 
 def render_login():

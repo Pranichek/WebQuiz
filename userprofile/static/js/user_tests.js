@@ -26,7 +26,7 @@ for (let input of sortInputs){
     )
 }
 
-let allInputs = document.getElementsByTagName("input")
+let allInputs = document.querySelectorAll(".input-set")
 let postInputCategory = document.querySelector(".by_filter_category")
 let postInputSort = document.querySelector(".by_filter_sort")
     
@@ -35,13 +35,13 @@ for (let elem of allInputs){
         'click',
         () => {
             if (elem.checked){
-                if (elem.className == "category-input"){
+                if (elem.classList.contains("category-input")){
                     postInputCategory.value += "/" + elem.value
                 }else{
                     postInputSort.value = elem.value
                 }
             }else{
-                if (elem.className == "category-input"){
+                if (elem.classList.contains("category-input")){
                     let listInput = postInputCategory.value.split("/")
                     if(listInput.includes(elem.value)){
                         let index = listInput.indexOf(elem.value)
@@ -79,7 +79,7 @@ for (let elem of allInputs){
                 }
             }
             console.log(category.length)
-            if (category.length == 1){
+            if (category.length <= 1){
                 allCards.forEach(card => {
                     card.style.display = "flex";
                 })
@@ -127,6 +127,7 @@ for (let elem of allInputs){
     )
 }
 
+
 window.addEventListener(
     'DOMContentLoaded',
     () => {
@@ -147,12 +148,40 @@ window.addEventListener(
             }
         })
 
-        let allINput =Array.from(document.getElementsByTagName("input"))
+        let allINput =Array.from(document.querySelectorAll(".input-set"))
 
         allINput.forEach(input => {
             if (categoryFilter.includes(input.value) || sortData.includes(input.value)){
                 input.click();
             }
+        })
+    }
+)
+
+
+// --------------------------------------------------
+// Знаходження тесту за ім'ям
+document.querySelector(".findByname").addEventListener(
+    'input',
+    () => {
+        let Inputs = document.querySelectorAll(".input-set")
+        Inputs.forEach(input => {
+            let searchValue = document.querySelector(".findByname").value.toLowerCase();
+            let allCards = document.querySelectorAll(".test");
+            allCards.forEach(card => {
+                let nameData = card.dataset.name;
+
+                let testName = '';
+
+                if (nameData) {
+                    testName = nameData.toLowerCase();
+                }
+                if (testName.includes(searchValue)) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
         })
     }
 )
