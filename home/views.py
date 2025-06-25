@@ -81,7 +81,7 @@ def render_home_auth():
 
     if '' in third_random_numbers:
         third_random_numbers.remove('')
-    for test in range(0, len(third_random_numbers)):
+    for test in range(0, len(third_random_numbers) - 1):
         if Test.query.get(int(third_random_numbers[test])).check_del != "deleted":
             third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
  
@@ -206,7 +206,7 @@ def render_code():
 
                     DATABASE.session.add(user)
                     DATABASE.session.commit()
-                    
+
                     flask_login.login_user(user)
                     flask.session["code"] = ''
                     flask.session["email_sent"] = False

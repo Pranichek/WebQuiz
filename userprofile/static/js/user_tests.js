@@ -161,27 +161,97 @@ window.addEventListener(
 
 // --------------------------------------------------
 // Знаходження тесту за ім'ям
-document.querySelector(".findByname").addEventListener(
-    'input',
+
+function findResult(){
+    let Inputs = document.querySelectorAll(".input-set")
+    Inputs.forEach(input => {
+        let searchValue = document.querySelector(".findByname").value.toLowerCase();
+        let allCards = document.querySelectorAll(".test");
+        allCards.forEach(card => {
+            let nameData = card.dataset.name;
+
+            let testName = '';
+
+            if (nameData) {
+                testName = nameData.toLowerCase();
+            }
+            if (testName.includes(searchValue)) {
+                card.style.display = "flex";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    })
+}
+
+document.querySelector(".lupa").addEventListener(
+    'click',
     () => {
-        let Inputs = document.querySelectorAll(".input-set")
-        Inputs.forEach(input => {
-            let searchValue = document.querySelector(".findByname").value.toLowerCase();
-            let allCards = document.querySelectorAll(".test");
-            allCards.forEach(card => {
-                let nameData = card.dataset.name;
-
-                let testName = '';
-
-                if (nameData) {
-                    testName = nameData.toLowerCase();
-                }
-                if (testName.includes(searchValue)) {
-                    card.style.display = "flex";
-                } else {
-                    card.style.display = "none";
-                }
-            });
-        })
+        findResult()
     }
 )
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault()
+    findResult()
+  }
+});
+
+// открыть закрыть окно фильтров
+document.querySelector(".click-filter").addEventListener(
+    'click',
+    () => {
+        if (document.querySelector(".filter-part").classList.contains("hide")){
+            document.querySelector(".filter-part").classList.remove("hide")
+            document.querySelector(".show-filter").style.transform = 'rotate(180deg)'
+        }else{
+            document.querySelector(".filter-part").classList.add("hide")
+            document.querySelector(".show-filter").style.transform = 'rotate(0deg)'
+        }
+    }
+)
+
+document.querySelector(".click-sort").addEventListener(
+    'click',
+    () => {
+        if (document.querySelector(".sort-part").classList.contains("hide-sort")){
+            document.querySelector(".sort-part").classList.remove("hide-sort")
+            document.querySelector(".show-sort").style.transform = 'rotate(180deg)'
+        }else{
+            document.querySelector(".sort-part").classList.add("hide-sort")
+            document.querySelector(".show-sort").style.transform = 'rotate(0deg)'
+        }
+    }
+)
+
+let images = document.getElementsByClassName("img")
+
+for (let img of images){
+    img.addEventListener(
+        'click',
+        () => {
+            console.log(12)
+            if (img.classList.contains("click-sort") || img.classList.contains("click-filter")){
+                if (img.classList.contains("click-sort")){
+                    if (document.querySelector(".filter-part").classList.contains("hide")){
+                        document.querySelector(".filter-part").classList.remove("hide")
+                        document.querySelector(".show-filter").style.transform = 'rotate(180deg)'
+                    }else{
+                        document.querySelector(".filter-part").classList.add("hide")
+                        document.querySelector(".show-filter").style.transform = 'rotate(0deg)'
+                    }
+                }
+                else{
+                    if (document.querySelector(".sort-part").classList.contains("hide-sort")){
+                        document.querySelector(".sort-part").classList.remove("hide-sort")
+                        document.querySelector(".show-sort").style.transform = 'rotate(180deg)'
+                    }else{
+                        document.querySelector(".sort-part").classList.add("hide-sort")
+                        document.querySelector(".show-sort").style.transform = 'rotate(0deg)'
+                    }
+                }
+            }
+        }
+    )
+}

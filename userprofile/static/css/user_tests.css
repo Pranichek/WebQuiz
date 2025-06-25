@@ -1,27 +1,3 @@
-/* .title{
-    color: #ffffff; 
-    text-align: center;
-    font-size: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100vw;
-    height: 10vh;
-} */
-
-/* 
-.tests{
-    background-color: aqua;
-    width: 100%;
-    height: 90vh;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap:20px;
-    justify-content: center;
-    align-items: center;
-    padding-left: 60px;
-} */
-
 .settings-test{
     position: absolute;
     top: 0;
@@ -29,7 +5,7 @@
     width: 100vw;
     height: 6.5vh;
     background-color: green;
-    max-height: 8vh;
+    min-height: 50px;
     background-color: #343434;
     display: flex;
     flex-direction: row;
@@ -37,8 +13,24 @@
     gap: 103px;
     padding: 9px 40px 9px 130px;
     cursor: pointer;
-    /* max-height: 50px; */
+    align-items: center;
+    max-height: 80px;
+    z-index: 2;
 }
+
+.blur{
+    position: fixed;
+    top: 0;
+    /* left: 0;g */
+    right: 0;
+    width: 69vw;
+    height: 100vh;
+    background: linear-gradient(19deg, #3C3C3C 10%, #7c9abd 20%, #74919E 72%, #3C3C3C 5%);
+    filter: blur(100px);
+    z-index: -1;
+    pointer-events: none;
+}
+
 
 .filter-text, .sort-text{
     display: flex;
@@ -87,6 +79,10 @@
 
 }
 
+.hide, .hide-sort{
+    display: none;
+}
+
 .sort-input{
     margin-left: 10px;
 }
@@ -107,7 +103,9 @@
 .find-by-text{
     position: relative;
     width: 46vw;
-    height: 82%;
+    height: 92%;
+    min-width: 250px;
+    /* background-color: #8ABBF7; */
 }
 
 .find-by-text form input{
@@ -119,8 +117,9 @@
     border-radius: 12px;
     outline: none;
     box-shadow: none;
-    padding: 15px 15px;
+    /* padding: 0px 15px 0px 15px; */
     color: #ffffff;
+    padding-left: 15px;
     font-size: 16px;
 }
 
@@ -133,8 +132,10 @@ input::placeholder {
 .img-lupa{
     position: absolute;
     right: 0;
-    top: 0;
+    top: 50%;
+    transform: translateY(-50%);
     margin-right: 15px;
+    cursor: pointer;
 }
 
 .test{
@@ -231,14 +232,18 @@ input[type="checkbox"] {
 
 .tests-result{
     position: relative;
-    background-color: darkorchid;
+    /* background-color: darkorchid; */
     width: 100vw;
     height: 90vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
+    align-items: start;
     flex-wrap: wrap;
     gap: 20px;
+    padding-top: 100px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 
@@ -359,4 +364,108 @@ input[type="checkbox"].category-input {
 input[type="checkbox"].category-input:checked {
   border-color: #94C4FF;
   box-shadow: inset 0 0 0 30px #94C4FF; /* 8px — відступ з усіх сторін */
+}
+
+.card {
+    position: relative;
+    /* width: 21%;
+    height: 85%; */
+    width: 371px;
+    height: 210px;
+    overflow: hidden;
+    flex-direction: column;
+    background-color: #D6E8FE;
+    border-radius: 17px;
+    justify-content: end;
+    border: 1px black solid;
+    cursor: pointer;
+    min-width: 240px;
+    min-height: 180px;
+    padding-bottom: 10px;
+    max-width: 280px;
+}
+
+.card_image{
+    width: 100%;
+    height: 70%;
+    z-index: 1;
+    /* background-color: #74919E; */
+    border-radius: 80%;
+    background-color: #C48AF7;
+}
+
+.topic-test{
+    color: #343434;
+    font-size: 17px;
+    font-weight: 600;
+}
+
+a{
+    text-decoration: none;
+}
+
+.card_image img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+    border-radius: 0px 0px 30px 30px;
+    /* border-radius: 50% */
+    border-radius: 0% 0% 30% 30%;
+}
+
+
+.discription {
+    width: 100%;
+    /* background-color: #D6E8FE; */
+    height: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    font-weight:600;
+}
+
+.test-name{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    width: 100%;
+    height: 20%;
+    /* background-color: #FFE177; */
+    padding: 30px 20px 10px 20px;
+    color:#343434;
+    font-size: larger;
+
+}
+
+.discription-test{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    width: 100%;
+    height: 80%;
+    /* background-color: #8AF7D4; */
+    padding-left: 20px;
+    gap: 5px;
+}
+
+.image-robot {
+    bottom: 0;
+    right: 0;
+    margin-right: 10px;
+    position: absolute;
+    width: 40px;         
+    height: auto;
+    /* z-index: 10;      */
+    margin-bottom: 8px;
+    /* margin-right: 5px;     */
+}
+.static-theme{
+    color:#C48AF7;
+}
+
+.theme-test{
+    color: #343434;
 }
