@@ -25,7 +25,7 @@ function loadRoom() {
     socket.on(
         "start_passing",
         () => {
-            window.location.replace("/")
+            window.location.replace("/passing_mentor")
         }
     )
 

@@ -14,6 +14,7 @@
         </div>
         <button class="leave_test" onclick="this.querySelector('audio').play()">Завершити тест <audio src="{{ url_for('test_pass.static', filename = 'audio/button.mp3') }}"></audio></button>
     </div>
+
     <audio id="correct-sound" src="{{ url_for('test_pass.static', filename='audio/right.mp3') }}" preload="auto"></audio>
     <audio id="incorrect-sound" src="{{ url_for('test_pass.static', filename='audio/false.mp3') }}" preload="auto"></audio>
     <div class="modal"></div>

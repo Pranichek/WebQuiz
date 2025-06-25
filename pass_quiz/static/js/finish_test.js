@@ -61,6 +61,13 @@ socket.on("test_result", (data) => {
     data.questions.forEach(element => {
         let mainHead = document.createElement("div");
         mainHead.className = "head"
+
+        let indexel = data.questions.indexOf(element);
+        if (data.correct_index.includes(indexel)){
+            mainHead.className = "correct-head"
+        }else{
+            mainHead.className = "uncorrect-head"
+        }
         let questionDiv = document.createElement("div");
         let questText = document.createElement('div')
         
@@ -73,9 +80,28 @@ socket.on("test_result", (data) => {
         questionDiv.appendChild(questText)
         
         questionDiv.insertBefore(mainHead, questionDiv.firstChild)
-        element.answers.forEach(answ => {
+
+
+        element.answers.forEach((answ, index) => {
             let circle = document.createElement('div')
-            circle.className = "circle"
+
+            //  берем текущий список приавльных ответов для текущего вопроса
+            // Наприклвд: якщо правильні 1 і 2, то буде [1, 2] 
+            const correctForThisQuestion = data.correct_answers[indexel];
+            const userAnswersForThisQuestion = data.users_answers[indexel];
+
+            
+            if (correctForThisQuestion.includes(index)) {
+                circle.className = "correct-circle";
+            }
+
+            else if (userAnswersForThisQuestion.includes(index) && !correctForThisQuestion.includes(index)) {
+                circle.className = "uncorrect-circle";
+            }
+
+            else{
+                circle.className = "simple-circle"
+            }
             
             let answerDiv = document.createElement("div")
             answerDiv.innerHTML = `

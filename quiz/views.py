@@ -92,12 +92,15 @@ def render_test():
             if len(os.listdir(from_path)) > 0:
                 shutil.move(from_path, to_path)
 
+            
             if "test_image" in flask.session and flask.session["test_image"] != "default":
+                source_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar",
+                                        str(current_user.email), "cash_test", flask.session["test_image"]))
+                dest_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar",
+                                        str(current_user.email), "user_tests", str(test_title), flask.session["test_image"]))
 
-                test_image = PIL.Image.open(fp = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"])))
-                test_image = test_image.save(fp = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", str(test_title), str(flask.session["test_image"]))))
-                os.remove(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"]))
-            )
+                shutil.copy(src=source_path, dst=dest_path)
+                os.remove(source_path)
 
             if "test_image" in flask.session:
                 flask.session.pop("test_image", None)
