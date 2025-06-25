@@ -147,7 +147,8 @@ def handle_finish_test(data):
 
     for indexList in range(len(list_users_answers)):
         for i in range(len(list_users_answers[indexList])):
-            list_users_answers[indexList][i] = int(list_users_answers[indexList][i])
+            if list_users_answers[indexList][i] != "skip":
+                list_users_answers[indexList][i] = int(list_users_answers[indexList][i])
 
     emit("test_result", {
         "amount_questions": amount_points,

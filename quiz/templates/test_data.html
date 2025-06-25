@@ -1,24 +1,70 @@
 {% extends 'base.html' %}
 
 {% block links %}
-    
+    <link rel="stylesheet" href="{{ url_for('test_pass.static', filename = 'css/test_data.css') }}">
 {% endblock links %}
 
 {% block content %}
-    <h1>Назва тесту {{ test.title_test }}</h1>
-    <p>СОздатель {{ test.user.username }}</p>
 
-    <button type="button" class="play_test" value="{{ test.id }}">Пройти тест</button>
 
-   <form action="" method="post" id="copy-test">
-        <input type="hidden" name="check_form" value="copy-form">
-        <input type="hidden" name="test_id" class="test_id" value="{{ test.id }}">
-        <button type="submit" class="copy-test-button" value="{{ test.id }}">Скопіювати тест</button>\
-   </form>
+    <div class="test-header"> 
+        <div class="test-info">
+          <div class="python">
+               {% if img_test != 'default' %}
+                    <img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email  + '/user_tests' + '/' + test.title_test + '/' + test.image) }}" class="test-cover">
+               {% elif img_test == 'default' %}
+                    <img src="{{ url_for('test_pass.static', filename='images/' + img_part) }}" alt="cash_image" class="test-cover">
+               {% endif %}
+          </div>
+          <div class="top_info">
+               <p>Інформація про тест</p>
+               <br>
+               <p>тема: <span class="topic">{{ test.category }}</span></p>
+               <br>
+               <p>творець тесту: <span class="at">@</span><span class="author">{{ test.user.username }}</span></p>
+               <br>
+               <div class="stats">
+                    <span>{{ test.questions.count("?%?") + 1 }} питань</span>
+                    <span>{{ test.test_profile.amount_passes }} проходжень</span>
+               </div> 
+          </div>
+        </div>  
+        <div>
+            <img src="{{ url_for('test_pass.static', filename='images/test_data/robot.svg' ) }}" class="bot" alt="Bot">
+        </div>      
+    </div>
+    <div class="actions">
+        <button class="start-btn play_test" type="button" value="{{ test.id }}">Пройти тест<img class="play" src="{{ url_for('test_pass.static', filename='images/test_data/button_play.png' ) }}" alt=""></button>
+        <form action="" method="post" class="copy-form" id="copy-test">
+          <input type="hidden" name="check_form" value="copy-form">
+          <input type="hidden" name="test_id" class="test_id" value="{{ test.id }}">
+          <button type="submit" class="copy-test-button profile-btn" value="{{ test.id }}">Додати до профілю</button>
+     </form>
+    </div>  
 
-   {% if message %}
-        <p>{{ message }}</p>
-   {% endif %}
+    <div class="questions-container">   
+        {% for this_question in question_list %}
+            <!-- якщо довжина питання більше чим один символ, то можемо створити питання      -->
+            {% if this_question.question|length >= 1 %}
+                
+                <div class="question-block">
+                    <div class="question_title"> 
+                         <img class="gradient question-bg" src="{{ url_for('test_pass.static', filename='images/test_data/title_question.svg' ) }}" alt="gradient">
+                        <p class="question">{{ this_question.question }}</p>
+                    </div> 
+                    <div class="answers">
+                        {% for answer in this_question.answers %}
+                        <div class="variant">
+                            <div class="circle"></div>
+                            <p class="answer">{{ answer }}</p>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+    
+        {% endif %}
+    {% endfor %}
+    </div>
 {% endblock content %}
 
 {% block scripts %}

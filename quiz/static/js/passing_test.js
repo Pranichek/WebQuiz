@@ -60,6 +60,11 @@ function countMoney(value) {
     }
 }
 socket.on('question', (data) => {
+    const bigImg = document.querySelector(".bigimg");
+    if (bigImg) {
+        bigImg.remove();
+    }
+    
     if (data.question != "Кінець"){
         let bonusInput = document.getElementById("bonus");
         bonusInput.style.width = `${data.value_bonus}%`;
@@ -70,7 +75,6 @@ socket.on('question', (data) => {
         document.querySelector(".sad_robot").classList.remove("fade-in-anim-robot");
         document.querySelector(".happy_robot").classList.remove("fade-in-anim-robot");
         document.querySelector(".coin-anim").classList.remove("fade-in-coin")
-
 
         
         if (data.check_reload){
@@ -117,7 +121,7 @@ socket.on('question', (data) => {
         } 
 
 
-        if (data.question_img != "not" && checkOportunity != "not"  && amountAnswers != 3){
+        if (data.question_img != "not" && checkOportunity != "not"  && amountAnswers > 3){
             let justAnswerDiv = document.querySelector(".answers")
             let answerImg = document.querySelector(".answers-image")
 
@@ -171,6 +175,22 @@ socket.on('question', (data) => {
                         
                     </div>
                 `;
+                let imgBig = document.querySelector(".bottom-image")
+                let bigImg = document.createElement("div")
+                imgBig.addEventListener(
+                    'click',
+                    () => {
+                        
+                        bigImg.className = "bigimg"
+                        bigImg.innerHTML = `
+                            <img src="${data.question_img}"></img>
+                        `
+                        document.body.appendChild(bigImg);
+                        bigImg.addEventListener("click", () => {
+                            bigImg.remove();
+                        });
+                    }
+                )
 
                 setTimeout(() => {
                     let divs = document.querySelectorAll(".coint")
@@ -278,6 +298,9 @@ socket.on('question', (data) => {
                                     document.querySelector(".right-answer").classList.add("fade-in-anim");
                                     document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
                                     valueBonus = "10";
+
+                                    const audio = document.querySelector("#correct-sound");
+                                    if (audio) audio.play();
                                     let checkprocent = addBonus(10);
 
                                     let bonus = bonusInput.style.width 
@@ -292,6 +315,9 @@ socket.on('question', (data) => {
                                     valueBonus = "0";
                                     document.querySelector(".uncorrect-answer").classList.add("fade-in-anim");
                                     document.querySelector(".sad_robot").classList.add("fade-in-anim-robot")
+
+                                    const audioNegative = document.querySelector("#incorrect-sound");
+                                    if (audioNegative) audioNegative.play();
                                 };
                             }, timeout = 699);
 
@@ -371,6 +397,22 @@ socket.on('question', (data) => {
                         <p class="variant-text">${answers[1]}</p>
                     </div>
                 `;
+                let imgBig = document.querySelector(".bottom-image")
+                let bigImg = document.createElement("div")
+                imgBig.addEventListener(
+                    'click',
+                    () => {
+                        
+                        bigImg.className = "bigimg"
+                        bigImg.innerHTML = `
+                            <img src="${data.question_img}"></img>
+                        `
+                        document.body.appendChild(bigImg);
+                        bigImg.addEventListener("click", () => {
+                            bigImg.remove();
+                        });
+                    }
+                )
 
                 setTimeout(() => {
                     let divs = document.querySelectorAll(".coint")
@@ -533,6 +575,8 @@ socket.on('question', (data) => {
                                     document.querySelector(".right-answer").classList.add("fade-in-anim");
                                     document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
                                     valueBonus = "10";
+                                    const audio = document.querySelector("#correct-sound");
+                                    if (audio) audio.play();
                                     let checkprocent = addBonus(10);
 
                                     let bonus = bonusInput.style.width 
@@ -557,6 +601,9 @@ socket.on('question', (data) => {
                                     document.querySelector(".modal").style.display = "block";
                                     document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
                                     document.querySelector(".sad_robot").classList.add("fade-in-anim-robot")
+
+                                    const audioNegative = document.querySelector("#incorrect-sound");
+                                    if (audioNegative) audioNegative.play();
 
 
                                     for (let checkMark of checkMarks){
@@ -628,6 +675,23 @@ socket.on('question', (data) => {
                         <img src="${data.question_img}"></img>
                     </div>
                 `;
+
+                let imgBig = document.querySelector(".simple-image")
+                let bigImg = document.createElement("div")
+                imgBig.addEventListener(
+                    'click',
+                    () => {
+                        
+                        bigImg.className = "bigimg"
+                        bigImg.innerHTML = `
+                            <img src="${data.question_img}"></img>
+                        `
+                        document.body.appendChild(bigImg);
+                        bigImg.addEventListener("click", () => {
+                            bigImg.remove();
+                        });
+                    }
+                )
             }
             
             
@@ -728,6 +792,8 @@ socket.on('question', (data) => {
                                     document.querySelector(".right-answer").classList.add("fade-in-anim");
                                     document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
                                     valueBonus = "10";
+                                    const audio = document.querySelector("#correct-sound");
+                                    if (audio) audio.play();
                                     let checkprocent = addBonus(10);
 
                                     let bonus = bonusInput.style.width 
@@ -742,6 +808,9 @@ socket.on('question', (data) => {
                                     valueBonus = "0";
                                     document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
                                     document.querySelector(".sad_robot").classList.add("fade-in-anim-robot")
+
+                                    const audioNegative = document.querySelector("#incorrect-sound");
+                                    if (audioNegative) audioNegative.play();
 
                                 }
                             }, timeout = 699);
@@ -936,6 +1005,8 @@ socket.on('question', (data) => {
                                     document.querySelector(".right-answer").classList.add("fade-in-anim");
                                     document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
                                     valueBonus = "10";
+                                    const audio = document.querySelector("#correct-sound");
+                                    if (audio) audio.play();
 
                                     let bonus = bonusInput.style.width 
                                     let clearValue = parseInt(bonus.replace("%"))
@@ -961,6 +1032,9 @@ socket.on('question', (data) => {
                                     document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
                                     document.querySelector(".sad_robot").classList.add("fade-in-anim-robot")
                                     valueBonus = "0";
+
+                                    const audioNegative = document.querySelector("#incorrect-sound");
+                                    if (audioNegative) audioNegative.play();
                                     for (let checkMark of checkMarks){
                                         if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
                                             checkMark.style.backgroundColor = '#8AF7D4';
@@ -1088,70 +1162,70 @@ window.addEventListener(
 )
 
 // SetInterval - запускает функцию через определенный промежуток времени(в милисекундах)
-// setInterval(() => {
-//     let checkTime = localStorage.getItem('time_question')
-//     if (checkTime != "not"){
-//         timeQuestion = parseInt(localStorage.getItem('time_question'));
+setInterval(() => {
+    let checkTime = localStorage.getItem('time_question')
+    if (checkTime != "not"){
+        timeQuestion = parseInt(localStorage.getItem('time_question'));
 
-//         if (isNaN(timeQuestion)) {
-//             // Якщо немає часу або він некоректний 
-//             // timer.textContent = "-";
-//             return; 
-//         }
-//         let wasted_time = parseInt(localStorage.getItem("timeData"))
-//         wasted_time += 1;
-//         localStorage.setItem("timeData", wasted_time)
-//         timeQuestion -= 1; // Зменшуємо yf 1
-//         updateCircle(parseInt(timeQuestion))
-//         if (timeQuestion < 61){
-//             timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-//         }else{
-//             const minutes = Math.floor(timeQuestion / 60);
-//             let remainingSeconds = timeQuestion % 60;
+        if (isNaN(timeQuestion)) {
+            // Якщо немає часу або він некоректний 
+            // timer.textContent = "-";
+            return; 
+        }
+        let wasted_time = parseInt(localStorage.getItem("timeData"))
+        wasted_time += 1;
+        localStorage.setItem("timeData", wasted_time)
+        timeQuestion -= 1; // Зменшуємо yf 1
+        updateCircle(parseInt(timeQuestion))
+        if (timeQuestion < 61){
+            timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+        }else{
+            const minutes = Math.floor(timeQuestion / 60);
+            let remainingSeconds = timeQuestion % 60;
 
-//             if (remainingSeconds < 10) {
-//                 remainingSeconds = '0' + remainingSeconds;
-//             }
+            if (remainingSeconds < 10) {
+                remainingSeconds = '0' + remainingSeconds;
+            }
 
-//             timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-//         }
-//         localStorage.setItem('time_question', timeQuestion)
-//         if (timeQuestion <= 0){
-//             localStorage.setItem('time_question', "set")
-//             let chekcookies = localStorage.getItem("users_answers")
-//             if (chekcookies){
-//                 // отримуємо старі відповіді якщо вони були
-//                 let oldCookie = localStorage.getItem("users_answers")
-//                 let cookieList = oldCookie.split(",")   
-//                 cookieList.push("skip")
+            timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+        }
+        localStorage.setItem('time_question', timeQuestion)
+        if (timeQuestion <= 0){
+            localStorage.setItem('time_question', "set")
+            let chekcookies = localStorage.getItem("users_answers")
+            if (chekcookies){
+                // отримуємо старі відповіді якщо вони були
+                let oldCookie = localStorage.getItem("users_answers")
+                let cookieList = oldCookie.split(",")   
+                cookieList.push("skip")
 
-//                 localStorage.setItem("users_answers", cookieList)
-//             }else{
-//                 localStorage.setItem("users_answers", "skip")
-//             }
+                localStorage.setItem("users_answers", cookieList)
+            }else{
+                localStorage.setItem("users_answers", "skip")
+            }
 
-//             let index = localStorage.getItem("index_question")
-//             index = parseInt(index) + 1;
-//             localStorage.setItem("index_question", index)
+            let index = localStorage.getItem("index_question")
+            index = parseInt(index) + 1;
+            localStorage.setItem("index_question", index)
 
-//             console.log("Питання відправлено на сервер, чекаємо відповіді");
-//             circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+            console.log("Питання відправлено на сервер, чекаємо відповіді");
+            circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
 
-//             let midletime = localStorage.getItem("wasted_time")
-//             midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
-//             localStorage.setItem("wasted_time", midletime);
+            let midletime = localStorage.getItem("wasted_time")
+            midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+            localStorage.setItem("wasted_time", midletime);
 
-//             localStorage.setItem("timeData", "0")
-//             socket.emit('next_question', {
-//                 index: index,
-//                 test_id: localStorage.getItem("test_id")
-//             })
-//             // console.log("Питання відправлено на сервер, чекаємо відповіді");
-//         }
-//     }else{
-//         timer.textContent = "-"
-//     }
-// }, 1000);
+            localStorage.setItem("timeData", "0")
+            socket.emit('next_question', {
+                index: index,
+                test_id: localStorage.getItem("test_id")
+            })
+            // console.log("Питання відправлено на сервер, чекаємо відповіді");
+        }
+    }else{
+        timer.textContent = "-"
+    }
+}, 1000);
 
 
 
