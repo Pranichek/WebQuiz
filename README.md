@@ -1,5 +1,6 @@
 <h1>Web-Site "PlanetQuiz"</h1>
 
+![Main page](readme_images_gifs/main_page.png)
 ---
 
 <a name="articles"><h3>Table of contents</h3></a>
@@ -47,16 +48,16 @@
 <a name="headers"><h1>Project description</h1></a>
 Основна мета цього проєкту - закріпити та поліпшити навички роботи з базою даних та зі штучним інтелектом. Planet.quiz - це веб-застосунок на Flask для спільного та окремого проходження тестів, які можна створити самому або ж згенерувати за допомогою штучного інтелекту. Для того, щоб викладач міг поділитися створеним тестом для спільного проходження, генерується код, при введенні якого, створюється кімната де збираються всі учасники та чекають запуску самого тесту. Planet.quiz є повноцінним прикладом сучасного вебзастосунку з використанням серверного фреймворку Flask та реляційної бази даних. Він охоплює ключові аспекти бекенд- і фронтенд-розробки, логіки доступу, збереження та обробки даних, а також інтеграції зі штучним інтелектом. Також він демонструє принципи роботи з користувачами, з базою даних в якій зберігаються дані про нього, роботи з Flask та деякими бібліотеками Python. Веб-застосунок показує, як можна звʼязати та використовувати базу даних, а також як можна підключити до роботи штучний інтелект. Цей проєкт може бути корисним не лише як навчальний приклад, але й як основа для власних рішень інших розробників. Він демонструє інтеграцію ключових технологій у реальному застосунку, і тому може слугувати шаблоном для створення освітніх платформ, сервісів оцінювання, внутрішніх HR-інструментів або будь-яких застосунків, де потрібна перевірка знань. Код та архітектура Planet.quiz можуть бути адаптовані для різних потреб: від створення опитувальників до розгортання SaaS-платформи, що підтримує користувацькі тести, аналітику результатів та роботу зі штучним інтелектом.
 
-![Main page](readme_images_gifs/main_page.png)
 
 Щоб створити акаунт, потрібно:
  1. Ввести ім'я, пошту, пароль, підтвердити пароль
  2. Підтвердити пошту, отримавши та введучи код підтвердження
 
-<!-- ![Create account](readme_images_gifs/create.gif)
- 
+![Create account](readme_images_gifs/login.gif)
+
 Проходження тесту
-![Passing the test](readme_images_gifs/create.png) -->
+![pass_quiz](readme_image/pass_quiz.gif)
+
  
 <details>
 <summary> English version </summary>
@@ -159,7 +160,7 @@ To create an account, you need to:
 
 ## Installing this project
 1. Клонуйте проект
- - Перейшов на головну сторінку проекту на github.
+ - Перейдіть на головну сторінку проекту на github.
  - Натисніть зелену кнопку «Код», розташовану вгорі праворуч.
  - Виберіть параметр HTTPS і скопіюйте URL-адресу проекту.
 2. Відкрийте проект у IDE
@@ -228,7 +229,7 @@ Windows
 ```python
     python manage.py
 ```
-mac
+mac/Linux
 ```python
     python3 manage.py
 ```
@@ -263,6 +264,8 @@ mac
 * **pyperclip** — робота з буфером обміну (копіювати або вставити текст напряму).
 
 * **qrcode** — генерація QR-кодів із будь-якого тексту/посилання (збереження як зображення).
+
+* **os** - модуль, який використовується для побудови шляхів до файлів, роботи з директоріями
 ### BASE MODULES
 
 * **shutil** — це вбудований модуль Python (не потребує встановлення через pip), використовувся для переміщення файлів між директоріями.
@@ -287,31 +290,45 @@ mac
 <h3>cookiemodal.js</h3>
 Цей JavaScript-код відповідає за відображення банера cookie та очищення локального сховища при створенні нового тесту.
 
-<!-- ![achiv](readme_image/achieve.gif) -->
-
 <details>
 <summary>English version</summary>
 This is the main application package, where its main instance is created, operating parameters are configured (via the settings.py file), and key components are initialized — such as the database, routes, logging, etc. It is from this place that the entire web application is launched.
 </details>
 
 ```python
-    def execute():
-    # Визначаємо абсолютні шляхи до .env файлу та папки міграцій
-    ENV_PATH = abspath(join(__file__, "..", "..", ".env"))
-    MIGRATIONS_PATH = abspath(join(__file__, "..", "migrations"))
+    const cookieBox = document.querySelector(".wrapper"),
+    buttons = document.querySelectorAll(".button");
 
-    # Якщо файл .env існує — завантажуємо змінні середовища
-    if exists(ENV_PATH):
-        dotenv.load_dotenv(dotenv_path = ENV_PATH)
+    const executeCodes = () => {
+    //if cookie contains codinglab it will be returned and below of this code will not run
+    if (document.cookie.includes("planet.quiz")) return;
+    cookieBox.classList.add("show");
+    buttons.forEach((button) => {
+        button.addEventListener("click", () => {
+        cookieBox.classList.remove("show");
+        //if button has acceptBtn id
+        if (button.id == "acceptBtn") {
+            //set cookies for 1 month. 60 = 1 min, 60 = 1 hours, 24 = 1 day, 30 = 30 days
+            document.cookie = "cookieBy=planet.quiz; max-age=" + 60 * 60 * 24 * 30;
+        }
+        });
+    });
+    };
+    //executeCodes function will be called on webpage load
+    window.addEventListener("load", executeCodes);
 
-        # Якщо папка з міграціями не існує — ініціалізуємо її командою з оточення
-        if not exists(MIGRATIONS_PATH):
-            os.system(os.environ["DB_INIT"])
 
-        # Виконуємо команди міграції та оновлення бази даних
-        os.system(os.environ["DB_MIGRATE"])
-        os.system(os.environ["DB_UPGRADE"])
+    document.querySelector(".created-test").addEventListener(
+    'click',
+    () => {
+        localStorage.removeItem('selectedCategories');
+        localStorage.removeItem('selectedSort');
+    }
+    )
 ```
+
+<h3>налаштування сокету</h3>
+
 ```python
     # Створюємо екземпляр класу SocketIO, який пов'язаний із нашим проєктом
     socket = flask_socketio.SocketIO(app = project)
@@ -321,7 +338,7 @@ This is the main application package, where its main instance is created, operat
 [⬆️Table of contents](#articles)
 
 <a name="home"><h1>home</h1></a>
-<h1>views.py</h1>
+<h3>views.py</h3>
 Функція render_home() відповідає за показ головної сторінки неавторизованому користувачу або перенаправляє його на /home_auth, якщо вхід уже виконано. У render_home_auth() після авторизації користувач бачить персоналізовану сторінку з балансом, випадковими тестами за темами, а також останніми пройденими тестами. Додатково ця функція реагує на фільтрацію тестів або введення коду кімнати для спільного проходження. render_registration() обробляє створення нового акаунта: перевіряє правильність введених даних, наявність користувача в базі, генерує код підтвердження, зберігає дані в сесію та надсилає лист на email у фоновому потоці. Після цього render_code() перевіряє код підтвердження. Якщо все коректно — створюється новий користувач і папка з його аватаркою, копіюється стандартний аватар і виконується автоматичний вхід. Якщо ж код використовується для зміни пошти, оновлюється email і переназивається директорія зображень. render_login() реалізує процес входу: перевіряє наявність користувача, порівнює пароль і виконує вхід або виводить помилки. Весь модуль активно використовує flask.session для тимчасового зберігання даних і інтегрує Flask-Login, SQLAlchemy, Threading та файлову систему для персоналізації користувача. Цей код ілюструє, як у сучасному вебзастосунку можна реалізувати багаторівневу автентифікацію з перевіркою пошти, керуванням сесіями та зв’язком із базою даних.
 
 ```python
@@ -426,15 +443,40 @@ This is the main application package, where its main instance is created, operat
         mail.send(msg)
 ```
 
-<h1>models.py</h1>
-Цей клас User визначає модель користувача у Flask-додатку Planet.quiz, використовуючи SQLAlchemy як ORM та інтеграцію з Flask-Login для керування автентифікацією. 
+<h3>models.py</h3>
+Клас User — відповідає таблиці користувачів у базі даних. Він визначає структуру збереження інформації про користувача та логіку автентифікації/ідентифікації.
+Він також інтегрується з Flask-Login, що дозволяє зручно керувати входом/виходом користувачів, сесіями та захистом доступу до маршрутів.
 
-<h1></h1>
+```python
+    class User(DATABASE.Model, flask_login.UserMixin):
+        __tablename__ = "user"
+        id = DATABASE.Column(DATABASE.Integer, primary_key = True)
+
+        username = DATABASE.Column(DATABASE.String(150), nullable = False)
+        phone_number =  DATABASE.Column(DATABASE.Integer, nullable = False, default = "Не під'єднан")
+        nickname = DATABASE.Column(DATABASE.String(150))
+        password = DATABASE.Column(DATABASE.String(150), nullable = False)
+        email = DATABASE.Column(DATABASE.String(150), nullable = False)
+        is_mentor = DATABASE.Column(DATABASE.Boolean, default = False)
+        
+        name_avatar = DATABASE.Column(DATABASE.String, default = "default_avatar.svg")
+        size_avatar = DATABASE.Column(DATABASE.Integer, default = 100)
+
+        # Зв'язок з таблицею Test
+        # можно так, но если мы используем back_populates то тогда в таблице Test нужно самому создать поле user
+        tests = DATABASE.relationship("Test", back_populates="user", lazy="dynamic")
+        # можна так, и тогда нам не нужно в таблице Test создавать поле user
+        # tests = DATABASE.relationship("Test", backref="user", lazy="dynamic")
+
+        # Зв'язок one to one із моделлю інфи користувача
+        user_profile = DATABASE.relationship("DataUser", back_populates="user", uselist=False)
+
+```
 
 [⬆️Table of contents](#articles)
 
 <a name= "userprofile"><h1>userprofile</h1><a>
-<h1>models.py</h1>
+<h3>models.py</h3>
 Модель DataUser описує таблицю profile у базі даних, що використовується для зберігання додаткових даних про користувача, які не входять до основної таблиці user. Тут зберігається статистика: кількість пройдених тестів, кількість перемог, останні пройдені тести, а також віртуальний баланс користувача (count_money). Поле percent_bonus може використовуватись для нарахування бонусів за певний відсоток правильних відповідей у тестах, а pet_id — для зберігання ідентифікатора придбаного подарунку чи домашнього улюбленця (гейміфікація). Поле is_passing допомагає відслідковувати, чи користувач зараз проходить тест онлайн. Через поле user_id реалізовано зовнішній ключ до таблиці user, а завдяки параметру back_populates забезпечується двосторонній зв’язок один-до-одного з основною моделлю User. Така структура дозволяє розділити базову автентифікаційну інформацію від динамічної статистики користувача, забезпечуючи чисту та масштабовану архітектуру додатку.
 
 ```python
@@ -576,7 +618,7 @@ This is the main application package, where its main instance is created, operat
 
 
 <a name = "quiz"><h1>quiz</h1></a>
-Папка відповідає за створення/налаштування тесту
+Модуль відповідає за створення та налаштування тесту у додатку Planet.quiz. Він включає логіку формування нового тесту, вибір теми, типу та складності запитань, а також забезпечує інтерфейс для додавання, редагування й збереження запитань у базі даних. Крім того, модуль реалізує попередній перегляд тесту перед публікацією та його збереження для подальшого проходження користувачами.
 
 ```python
     @login_decorate
@@ -721,218 +763,219 @@ This is the main application package, where its main instance is created, operat
 результатів після завершення тесту. Код базується на фреймворку Flask та розширюється за 
 допомогою Flask-SocketIO для підтримки реального часу. У ньому реалізовано повний цикл роботи з тестами: від відображення інтерфейсу для різних типів користувачів (студент, ментор) до обробки результатів після завершення тесту з використанням WebSocket-з'єднання.
 
+<h4>views.py</h4>
+
 ```python
-
-@login_decorate
-def render_finish_test():
-    list_to_template = []
-    user : User = User.query.get(flask_login.current_user.id)
-    email = user.email
-    avatar = user.name_avatar
-
+    @login_decorate
+    def render_finish_test():
+        list_to_template = []
+        user : User = User.query.get(flask_login.current_user.id)
+        email = user.email
+        avatar = user.name_avatar
 
 
-    if user.user_profile.percent_bonus >= 100:
-        user.user_profile.percent_bonus = 0
-        if user.user_profile.percent_bonus is not None:
-            DATABASE.session.commit()
 
-    return render_template(
-        "test_finish.html",
-        user = user,
-        email = email,
-        avatar = avatar,
-        tests = list_to_template,
-        finish_test = True
+        if user.user_profile.percent_bonus >= 100:
+            user.user_profile.percent_bonus = 0
+            if user.user_profile.percent_bonus is not None:
+                DATABASE.session.commit()
+
+        return render_template(
+            "test_finish.html",
+            user = user,
+            email = email,
+            avatar = avatar,
+            tests = list_to_template,
+            finish_test = True
+            )
+
+
+    @socket.on("finish_test")
+    def handle_finish_test(data):
+
+        user_answers_raw = data.get("users_answers")
+        if user_answers_raw == '':
+            user_answers_raw = 'skip'
+
+        test_id = data.get("test_id")
+
+        user_answers = user_answers_raw.split(",")
+        test = Test.query.get(int(test_id))
+        
+        questions = test.questions.split("?%?")
+        answers = test.answers.split("?@?")
+        correct_indexes = []
+
+        user_answers = user_answers_raw.split(",")
+
+        questions = test.questions.split("?%?")
+
+        
+        count = 0
+        answers = test.answers.split("?@?")
+        correct_indexes = []
+        list_final = []
+        for question in questions:
+            one_question = {}
+            one_question["question"] = question
+            list_answers = []
+            for ans in answers:
+                current_answers = []
+                ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
+                current_answers.append(ans_clean)
+
+                clear_answer = current_answers[0].split('*|*|*')
+                if (clear_answer[-1] == ''):
+                    del clear_answer[-1]
+                list_answers.append(clear_answer)
+                
+
+            one_question["answers"] = list_answers[count]
+            list_final.append(one_question)
+            count += 1
+
+        #логика получение индекса правильного ответа даже если правильных несколько
+        # например, если правильные ответы на вопрос 1 это да и нет, то в массиве будет [[0, 1], [тут индексі уже следующего вопроса и тд]]
+        for index in range(len(questions)):
+            current_answer_list = answers[index]
+            data_str = ''
+            for symbol in current_answer_list:
+                if symbol == '+' or symbol == '-':
+                    data_str += symbol
+            data_symbol = ['']
+            
+            symbol_list = []
+            for i in range(0 ,len(data_str), 2):
+                symbol_list.append(data_str[i:i+2]) 
+
+            question_right_answers = []
+            for i in range(len(symbol_list)):
+                if symbol_list[i] == '++':
+                    question_right_answers.append(i)
+            
+            correct_indexes.append(question_right_answers)
+
+        print(correct_indexes, "correct indexes")
+
+        count_right_answers = 0
+
+        list_users_answers = []
+        if len(user_answers) > 0:
+            for answers in user_answers:
+                small_list = []
+                list_users_answers.append(answers.split("@"))
+
+        count_uncorrect_answers = 0
+        count_answered = 0
+
+        index_corect = []
+        for i in range(len(user_answers)):
+            if list_users_answers[i][0] != "skip":
+                count_answered += 1
+                if len(correct_indexes[i]) == 1:
+                    if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
+                        count_right_answers += 1
+                        index_corect.append(i)
+                    else:
+                        count_uncorrect_answers += 1
+                else:
+                    correct = 0
+                    uncorrect = 0
+                    for ans in list_users_answers[i]:
+                        if int(ans) in correct_indexes[i]:
+                            count_right_answers += 1
+                            correct += 1
+                        else:
+                            # count_right_answers -= 1
+                            count_uncorrect_answers += 1
+                            uncorrect += 1
+                
+                    if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
+                        index_corect.append(i)
+
+
+        # максимальное количество баллов
+        amount_points = 0
+        for index in correct_indexes:
+            amount_points += len(index)
+        accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
+
+        mark = (12 * accuracy) // 100
+
+
+        for indexList in range(len(list_users_answers)):
+            for i in range(len(list_users_answers[indexList])):
+                if list_users_answers[indexList][i] != "skip":
+                    list_users_answers[indexList][i] = int(list_users_answers[indexList][i])
+
+        emit("test_result", {
+            "amount_questions": amount_points,
+            "right_answers": count_right_answers,
+            "uncorrect_answers": count_uncorrect_answers,
+            "accuracy": accuracy,
+            "questions": list_final,
+            "test_id": test_id,
+            "mark": mark,
+            "count_answered": count_answered,
+            "correct_index": index_corect,
+            "users_answers": list_users_answers,
+            "correct_answers": correct_indexes
+        })
+
+    @socket.on("copy_result")
+    def coput_result_function(data):    
+        test_id = int(data["test_id"])
+        test : Test = Test.query.get(test_id)
+
+        test_question = test.questions.split("?%?")
+        count_questions_test = len(test_question)
+        
+        test_text = "📋 Результати мого тесту:\n🧪 Назва тесту: {}\n✅ Правильних відповідей: {} з {}\n📈 Результат: {}\n⏱ Час проходження: {}".format(
+            test.title_test,
+            data["correct_answers"],
+            count_questions_test,
+            data["accuracy"],
+            data["wasted_time"]
         )
 
-
-@socket.on("finish_test")
-def handle_finish_test(data):
-
-    user_answers_raw = data.get("users_answers")
-    if user_answers_raw == '':
-        user_answers_raw = 'skip'
-
-    test_id = data.get("test_id")
-
-    user_answers = user_answers_raw.split(",")
-    test = Test.query.get(int(test_id))
-    
-    questions = test.questions.split("?%?")
-    answers = test.answers.split("?@?")
-    correct_indexes = []
-
-    user_answers = user_answers_raw.split(",")
-
-    questions = test.questions.split("?%?")
-
-    
-    count = 0
-    answers = test.answers.split("?@?")
-    correct_indexes = []
-    list_final = []
-    for question in questions:
-        one_question = {}
-        one_question["question"] = question
-        list_answers = []
-        for ans in answers:
-            current_answers = []
-            ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
-            current_answers.append(ans_clean)
-
-            clear_answer = current_answers[0].split('*|*|*')
-            if (clear_answer[-1] == ''):
-                del clear_answer[-1]
-            list_answers.append(clear_answer)
-            
-
-        one_question["answers"] = list_answers[count]
-        list_final.append(one_question)
-        count += 1
-
-    #логика получение индекса правильного ответа даже если правильных несколько
-    # например, если правильные ответы на вопрос 1 это да и нет, то в массиве будет [[0, 1], [тут индексі уже следующего вопроса и тд]]
-    for index in range(len(questions)):
-        current_answer_list = answers[index]
-        data_str = ''
-        for symbol in current_answer_list:
-            if symbol == '+' or symbol == '-':
-                data_str += symbol
-        data_symbol = ['']
-        
-        symbol_list = []
-        for i in range(0 ,len(data_str), 2):
-            symbol_list.append(data_str[i:i+2]) 
-
-        question_right_answers = []
-        for i in range(len(symbol_list)):
-            if symbol_list[i] == '++':
-                question_right_answers.append(i)
-        
-        correct_indexes.append(question_right_answers)
-
-    print(correct_indexes, "correct indexes")
-
-    count_right_answers = 0
-
-    list_users_answers = []
-    if len(user_answers) > 0:
-        for answers in user_answers:
-            small_list = []
-            list_users_answers.append(answers.split("@"))
-
-    count_uncorrect_answers = 0
-    count_answered = 0
-
-    index_corect = []
-    for i in range(len(user_answers)):
-        if list_users_answers[i][0] != "skip":
-            count_answered += 1
-            if len(correct_indexes[i]) == 1:
-                if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
-                    count_right_answers += 1
-                    index_corect.append(i)
-                else:
-                    count_uncorrect_answers += 1
-            else:
-                correct = 0
-                uncorrect = 0
-                for ans in list_users_answers[i]:
-                    if int(ans) in correct_indexes[i]:
-                        count_right_answers += 1
-                        correct += 1
-                    else:
-                        # count_right_answers -= 1
-                        count_uncorrect_answers += 1
-                        uncorrect += 1
-            
-                if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
-                    index_corect.append(i)
-
-
-    # максимальное количество баллов
-    amount_points = 0
-    for index in correct_indexes:
-        amount_points += len(index)
-    accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
-
-    mark = (12 * accuracy) // 100
-
-
-    for indexList in range(len(list_users_answers)):
-        for i in range(len(list_users_answers[indexList])):
-            if list_users_answers[indexList][i] != "skip":
-                list_users_answers[indexList][i] = int(list_users_answers[indexList][i])
-
-    emit("test_result", {
-        "amount_questions": amount_points,
-        "right_answers": count_right_answers,
-        "uncorrect_answers": count_uncorrect_answers,
-        "accuracy": accuracy,
-        "questions": list_final,
-        "test_id": test_id,
-        "mark": mark,
-        "count_answered": count_answered,
-        "correct_index": index_corect,
-        "users_answers": list_users_answers,
-        "correct_answers": correct_indexes
-    })
-
-@socket.on("copy_result")
-def coput_result_function(data):    
-    test_id = int(data["test_id"])
-    test : Test = Test.query.get(test_id)
-
-    test_question = test.questions.split("?%?")
-    count_questions_test = len(test_question)
-    
-    test_text = "📋 Результати мого тесту:\n🧪 Назва тесту: {}\n✅ Правильних відповідей: {} з {}\n📈 Результат: {}\n⏱ Час проходження: {}".format(
-                                                                                                                                test.title_test,
-                                                                                                                                data["correct_answers"],
-                                                                                                                                count_questions_test,
-                                                                                                                                data["accuracy"],
-                                                                                                                                data["wasted_time"]
-                                                                                                                            )
-
-    pyperclip.copy(test_text)
+        pyperclip.copy(test_text)
 
 ```
 
 [⬆️Table of contents](#articles)
 
 <a name = "searches"><h1>searches</h1></a>
-Папка реалізує логіку пошуку в рамках веб-застосунку. Вона відповідає за функціональність, яка дозволяє користувачам шукати тести за їх назвою. Це важливий компонент у системі, де кількість тестів зростає, і зручний пошук стає необхідним для швидкого доступу до потрібного контенту.
+Модуль реалізує логіку пошуку в рамках веб-застосунку. Вона відповідає за функціональність, яка дозволяє користувачам шукати тести за їх назвою. Це важливий компонент у системі, де кількість тестів зростає, і зручний пошук стає необхідним для швидкого доступу до потрібного контенту.
 
 Після введення користувачем пошукового запиту, застосунок обробляє цей запит, знаходить відповідні тести (якщо вони існують), фільтрує ті, що були позначені як видалені, та відображає результати у вигляді списку на окремій сторінці.
 
 ```python
-@login_decorate
-def render_data_filter():
-    # if flask.request.method == "POST":
-    #     input_data = flask.request.form.get("search-data")
-    # else:
-    #     input_data = None
-    input_data = flask.request.args.get("input_data")
-    print(input_data, "fd")
-    searching_test = []
-    user = ''
+    @login_decorate
+    def render_data_filter():
+        # if flask.request.method == "POST":
+        #     input_data = flask.request.form.get("search-data")
+        # else:
+        #     input_data = None
+        input_data = flask.request.args.get("input_data")
+        print(input_data, "fd")
+        searching_test = []
+        user = ''
 
-    if input_data is not None:
-        tests = Test.query.filter(Test.check_del != "deleted").all()
+        if input_data is not None:
+            tests = Test.query.filter(Test.check_del != "deleted").all()
 
-        if len(tests) > 0:
-            for test in tests:
-                # убраем пробелы(еслт есть) и делаем текст нижнем регистре
-                title = test.title_test.strip().lower()
-                if title.startswith(input_data): 
-                    searching_test.append(test)
-        print(searching_test)
+            if len(tests) > 0:
+                for test in tests:
+                    # убраем пробелы(еслт есть) и делаем текст нижнем регистре
+                    title = test.title_test.strip().lower()
+                    if title.startswith(input_data): 
+                        searching_test.append(test)
+            print(searching_test)
 
-    return flask.render_template(
-        template_name_or_list = "search.html",
-        searching_test = searching_test
-    )
+        return flask.render_template(
+            template_name_or_list = "search.html",
+            searching_test = searching_test
+        )
 ```
 [⬆️Table of contents](#articles)
 
