@@ -7,10 +7,12 @@
 
 # Project Description  
 <h5>Опис проєкту</h5>
+
 [Project description](#headers)
 
 # Information about our team 
 <h5>Інформація про команду</h5>
+
 [Information about our team](#team)
 
 # Figma
@@ -18,14 +20,17 @@
 
 # Our project structure 
 <h5>Структура проєкту</h5>
+
 [structure of project](#structure)
 
 # Getting Started  
 <h5>Як запустити проєкт</h5>
+
 [Getting started](#getting_started)
 
 # Modules Description 
 <h6>Опис модулей</h6> 
+
 [Modules description](#modules)
 
 # Package Description  
