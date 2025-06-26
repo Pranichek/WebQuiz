@@ -47,14 +47,16 @@
 <a name="headers"><h1>Project description</h1></a>
 Основна мета цього проєкту - закріпити та поліпшити навички роботи з базою даних та зі штучним інтелектом. Planet.quiz - це веб-застосунок на Flask для спільного та окремого проходження тестів, які можна створити самому або ж згенерувати за допомогою штучного інтелекту. Для того, щоб викладач міг поділитися створеним тестом для спільного проходження, генерується код, при введенні якого, створюється кімната де збираються всі учасники та чекають запуску самого тесту. Planet.quiz є повноцінним прикладом сучасного вебзастосунку з використанням серверного фреймворку Flask та реляційної бази даних. Він охоплює ключові аспекти бекенд- і фронтенд-розробки, логіки доступу, збереження та обробки даних, а також інтеграції зі штучним інтелектом. Також він демонструє принципи роботи з користувачами, з базою даних в якій зберігаються дані про нього, роботи з Flask та деякими бібліотеками Python. Веб-застосунок показує, як можна звʼязати та використовувати базу даних, а також як можна підключити до роботи штучний інтелект. Цей проєкт може бути корисним не лише як навчальний приклад, але й як основа для власних рішень інших розробників. Він демонструє інтеграцію ключових технологій у реальному застосунку, і тому може слугувати шаблоном для створення освітніх платформ, сервісів оцінювання, внутрішніх HR-інструментів або будь-яких застосунків, де потрібна перевірка знань. Код та архітектура Planet.quiz можуть бути адаптовані для різних потреб: від створення опитувальників до розгортання SaaS-платформи, що підтримує користувацькі тести, аналітику результатів та роботу зі штучним інтелектом.
 
-![GAME](readme_image/main.png)
+![Main page](readme_images_gifs/main_page.png)
 
 Щоб створити акаунт, потрібно:
  1. Ввести ім'я, пошту, пароль, підтвердити пароль
  2. Підтвердити пошту, отримавши та введучи код підтвердження
 
-![Create](readme_image/create.png)
+<!-- ![Create account](readme_images_gifs/create.gif)
  
+Проходження тесту
+![Passing the test](readme_images_gifs/create.png) -->
  
 <details>
 <summary> English version </summary>
@@ -197,8 +199,13 @@ To create an account, you need to:
 
 9. Також створіть модуль .env
  - Використовуйте таку команду
+ mac/Linux
 ```python
     touch .env
+```
+Windows
+```python
+
 ```
 Вставте даний код
 ```python
@@ -206,26 +213,25 @@ To create an account, you need to:
     DB_MIGRATE = flask --app Project db migrate 
     DB_UPGRADE = flask --app Project db upgrade 
 
-    EMAIL_PASSWORD = 'xlct novj oxku qexm'
-    EMAIL_USERNAME = 'flasktestver@gmail.com'
+    EMAIL_PASSWORD = 'Ваш пароль'
+    EMAIL_USERNAME = 'Ваша пошта'
 
-    SECRET_KEY = "0fdc69309f198e8d93aea4b8b773b545cdcb42897d394be9a3f9b095d7a258e9"
+    SECRET_KEY = "Ваш ключ"
 ```
-У терміналі вставте дані рядки коду 
-```python
-    flask --app Project db init 
-    flask --app Project db migrate 
-    flask --app Project db upgrade 
-```
+
 
 
 8. Запуск програми
  - Щоб запустити сайт, використовуйте таку команду:
 
+Windows
 ```python
     python manage.py
 ```
-
+mac
+```python
+    python3 manage.py
+```
 
 [⬆️Table of contents](#articles)
 
@@ -931,77 +937,40 @@ def render_data_filter():
 [⬆️Table of contents](#articles)
 
 
-<!-- <a name="prbl_project"><h2>Problems during development</h2></a>
-Під час написання коду ми зіштовхнулися з низкою труднощів, які вплинули як на технічну реалізацію, так і на загальну структуру проєкту.
-Наприклад, ми виявили проблему з повторним запуском сервера. Якщо сервер вже було запущено, спроба повторного запуску викликала помилку. На жаль, це питання поки не вдалося вирішити, однак ми плануємо виправити його в майбутніх версіях, щоб забезпечити стабільність роботи програми.
-Складнощі виникли й під час реалізації розташування кораблів. Було необхідно забезпечити, щоб, кораблі не могли розташовуватися один на одному та зробити так, щоб розміщення кораблів відповідало правилам гри, тобто вони мали стояти з відступом в одну клітинку від інших кораблів.
+<a name="prbl_project"><h2>Problems during development</h2></a>
+Під час створення нашого вебсайту ми зіштовхнулися з рядом викликів, які стали для нас важливим етапом у професійному зростанні. Проєктування та реалізація сайту вимагали не лише технічних знань, а й вміння організовувати роботу в команді, планувати час та дотримуватися дедлайнів.
 
-Реалізація цієї логіки вимагала значного часу та зусиль, але на даний момент проблему вирішено, і розташування кораблів відповідає ігровим правилам.
-Найбільшою проблемою стала робота з клієнт-серверною системою. Початкова структура коду виявилася неефективною, що призвело до постійних багів із перепідключенням клієнта і сервера та проблем із коректним обміном даними.
-Через те, що ми спочатку передавали всю матрицю даних одразу, з'єднання між клієнтом і сервером часто розривалося, що серйозно заважало ігровому процесу. Щоб розв’язати цю проблему, ми кардинально змінили підхід до передачі даних: тепер дані передаються частинами через список, що значно знизило навантаження на мережу і покращило стабільність гри.
+Однією з основних проблем стало впровадження адаптивної верстки. Забезпечити коректне відображення сторінок на різних пристроях — комп’ютерах, планшетах, смартфонах — виявилося складнішим, ніж ми очікували. Ми не одразу врахували важливість мобільної оптимізації, тож частину роботи довелося переробляти. Використання медіа-запитів, гнучких сіток та адаптивних елементів дало нам змогу зрозуміти, наскільки важливо враховувати всі можливі сценарії взаємодії користувача з сайтом.
 
-Ще одним викликом стало те, що не вся гра написана через класи. Багато функцій, зокрема вікна гри, були реалізовані у вигляді окремих функцій, а не класів. Це ускладнювало модифікацію коду, але в перспективі ми плануємо переписати основні елементи, використовуючи класи для підвищення гнучкості та читабельності програми.
-Окрім цього, початкова структура проєкту була досить хаотичною, через що ускладнювався процес навігації та внесення змін. Ми провели перегляд та впорядкування коду, організували файли за фреймами, що покращило структурованість проєкту та зробило його зручнішим для подальшого розвитку.
+Ще одна складність полягала у початково невдало вибраній структурі проєкту. Через відсутність чіткої архітектури ми витрачали більше часу на навігацію у файлах, дублювали частину коду і стискалися з труднощами при масштабуванні функціоналу. Згодом ми усвідомили важливість правильного поділу на компоненти, зручної іменної структури та коментування коду.
 
-Попри всі труднощі, ми впоралися з багами та маємо дану гру.
+Окремо варто згадати про часові труднощі. Через відсутність регулярної взаємодії на початку роботи над проєктом, активна фаза розробки розпочалась запізно. Це змусило нас працювати інтенсивніше у короткий проміжок часу, іноді навіть у позаурочний час. Попри втому, команда показала згуртованість і бажання досягти спільної мети.
+
+Особливо відчутними ці труднощі стали для студентів першого курсу. Для багатьох з них це був перший досвід серйозної роботи з HTML, CSS та JavaScript. Потрібно було не тільки вивчити синтаксис і правила мови, а й навчитися застосовувати знання на практиці: створювати структуру сторінки, стилізувати елементи, реалізовувати логіку взаємодії користувача з інтерфейсом. Це вимагало чималих зусиль, терпіння й наполегливості.
+
+Незважаючи на всі труднощі, участь у створенні сайту стала цінною можливістю для професійного зростання. Ми отримали безцінний досвід роботи в команді, розвинули свої навички з веброзробки, навчились долати технічні та організаційні бар’єри. Проєкт став чудовим прикладом того, як спільна робота та мотивація здатні привести до досягнення поставлених цілей.
+
 <details>
 <summary>English version</summary>
-While writing the code, we encountered a number of difficulties that affected both the technical implementation and the overall structure of the project.
-For example, we discovered a problem with restarting the server. If the server was already running, an attempt to restart it caused an error. Unfortunately, this issue has not yet been resolved, but we plan to fix it in future versions to ensure the stability of the program.
-Difficulties also arose during the implementation of the ship placement mechanics. It was necessary to ensure that Ships could not be placed on top of each other, The placement of ships corresponded to the rules of the game, that is, they had to be placed one cell apart from other ships.
+During the creation of our website, we encountered a number of challenges that became an important stage in our professional growth. Designing and implementing the site required not only technical knowledge but also the ability to organize teamwork, plan time effectively, and meet deadlines.
 
-The implementation of this logic required considerable time and effort, but at the moment the problem has been resolved, and the placement of ships corresponds to the game rules.
-The biggest problem was working with the client-server system. The initial code structure turned out to be inefficient, which led to, Constant bugs with client and server reconnection, Problems with correct data exchange.
-Because we initially transferred the entire data matrix at once, the connection between the client and the server was often broken, which seriously interfered with the gameplay. To solve this problem, we radically changed the approach to data transfer: now data is transferred in parts via a list, which significantly reduced the load on the network and improved the stability of the game.
+One of the main issues we faced was implementing responsive design. Ensuring that pages displayed correctly on various devices—computers, tablets, and smartphones—turned out to be more difficult than we initially expected. We did not immediately recognize the importance of mobile optimization, so part of the work had to be redone. The use of media queries, flexible grids, and responsive elements helped us understand how crucial it is to consider all possible user interaction scenarios.
 
-Another challenge was that not the entire game was written in classes. Many functions, including the game windows, were implemented as separate functions, not classes. This made it difficult to modify the code, but in the future we plan to rewrite the main elements using classes to increase the flexibility and readability of the program.
-In addition, the initial project structure was quite chaotic, which complicated the process of navigation and making changes. We reviewed and organized the code, organized the files by frames, which improved the project's structure and made it more convenient for further development.
+Another challenge was the poorly chosen initial structure of the project. Due to the lack of a clear architecture, we spent more time navigating files, duplicating code, and encountering difficulties when trying to scale functionality. Eventually, we realized the importance of proper component separation, consistent naming conventions, and thorough code documentation.
 
-Despite all the difficulties, we managed to overcome the bugs and have this game.
+We also faced time-related difficulties. Due to a lack of regular communication at the start of the project, the active development phase began later than planned. This forced us to work more intensively in a short amount of time, sometimes even outside of regular hours. Despite the fatigue, the team demonstrated cohesion and a strong commitment to achieving our common goal.
+
+These challenges were particularly noticeable for first-year students. For many of them, this was their first experience working seriously with HTML, CSS, and JavaScript. They had to not only learn the syntax and rules of the languages but also apply that knowledge in practice: creating page structures, styling elements, and implementing user interface logic. This required significant effort, patience, and perseverance.
+
+Despite all the difficulties, participating in the website development project was a valuable opportunity for professional development. We gained invaluable experience working as a team, improved our web development skills, and learned to overcome technical and organizational obstacles. The project became a great example of how collaboration and motivation can lead to the successful achievement of goals.
 </details>
 
 
 <a name="conclusions"><h2>Conclusion</h2></a>
-Під час реалізації цього проєкту ми отримали дуже цінний досвід роботи в команді. Це дало нам можливість краще організовувати свою діяльність, планувати зустрічі для обговорення проблем і чітко розподіляти завдання між учасниками. Ми навчилися краще організовувати свою роботу і ставати більш дисциплінованими, що є важливим аспектом у розробці програмного забезпечення.
-
-Під час розробки гри ми вдосконалили навички роботи з модулем **pygame**, що є потужним інструментом для створення ігор на Python. Це був чудовий досвід для тих, хто раніше не працював з цією бібліотекою, і першокурсники змогли ознайомитися з її основами. Разом із тим, ми зрозуміли, що **pygame** не є найпростішим рушієм для Python, і робота з ним потребує терпіння та уважності, оскільки часто виникають технічні труднощі, які треба вирішувати під час розробки.
-
-У процесі роботи над проєктом ми також працювали з **матрицями**, що допомогло першокурсникам краще зрозуміти цей важливий математичний інструмент. Для старшокурсників це стало можливістю поглибити свої знання. Матриці застосовуються для зберігання даних у грі, таких як розташування об'єктів або стан клітинок на полі. Таке вивчення допомогло краще структурувати дані та спростити деякі розрахунки.
-
-Ще однією корисною навичкою, яку ми освоїли, було використання **Figma** для створення анімацій і графічних елементів для гри. Це дозволило нам зробити гру більш цікавою та привабливою для користувачів, оскільки ми змогли застосувати анімації та інші візуальні ефекти, що підвищують взаємодію з гравцями.
-
-Також ми навчилися правильно **структурувати файли** у проєкті та організовувати роботу з **віртуальними середовищами**. Це дозволило нам уникнути багатьох помилок, пов'язаних з неузгодженістю версій бібліотек і зависанням програми.
-
-Одним з важливих аспектів роботи над цим проєктом було **розуміння обміну даними між користувачами** через **IP-адреси** та **порти**. Ми детально вивчали принципи роботи інтернет-протоколів **IPv4** та **IPv6**, їх особливості і відмінності. 
-
-Завдяки використанню **TCP** ми змогли забезпечити безпечний обмін даними між клієнтом та сервером. Цей транспортний протокол гарантує, що дані будуть доставлені без помилок і не будуть загублені в процесі передачі. Ми також працювали з бібліотекою **socket**, що дозволила нам створювати з'єднання між клієнтами та серверами. Це стало важливою частиною нашої гри, оскільки без цієї бібліотеки ми не змогли б реалізувати багатокористувацький режим.
-
-Під час тестування гри ми зіштовхнулися з проблемами з'єднання, що змусило нас шукати рішення для забезпечення стабільної роботи серверу та клієнтів. Ми навчилися працювати з багатьма аспектами зв'язку і оптимізувати процес підключення для уникнення постійних розривів з'єднання.
-
-Один з цікавих висновків, який ми зробили, полягає в тому, що завдяки бібліотеці **socket** ми маємо можливість підключатися до пристрою іншого користувача без його відома. Це викликає питання безпеки, і ми з'ясували, наскільки важливо правильно налаштовувати з'єднання, щоб не допустити несанкціонованого доступу. 
-
-Ці знання стануть в нагоді для майбутніх проєктів, адже ми не тільки розв'язали практичні проблеми, а й отримали теоретичні знання, які є основою для розуміння сучасних технологій обміну даними та їх безпеки.
+додамо після завершення проєкту
 <details>
 <summary>English version</summary>
-During the implementation of this project, we gained very valuable experience working in a team. This gave us the opportunity to better organize our activities, plan meetings to discuss problems, and clearly distribute tasks among participants. We learned to better organize our work and become more disciplined, which is an important aspect in software development.
-
-During the development of the game, we improved our skills in working with the **pygame** module, which is a powerful tool for creating games in Python. It was a great experience for those who had not worked with this library before, and the first-year students were able to get acquainted with its basics. At the same time, we realized that **pygame** is not the easiest engine for Python, and working with it requires patience and attention, as technical difficulties often arise that need to be resolved during development.
-
-During the project, we also worked with **matrices**, which helped the first-year students better understand this important mathematical tool. For the senior students, it was an opportunity to deepen their knowledge. Matrices are used to store data in the game, such as the location of objects or the state of cells on the field. Such a study helped to better structure the data and simplify some calculations.
-
-Another useful skill that we mastered was using **Figma** to create animations and graphic elements for the game. This allowed us to make the game more interesting and attractive to users, as we were able to apply animations and other visual effects that increase interaction with players.
-
-We also learned how to **structure files** in the project correctly and organize work with **virtual environments**. This allowed us to avoid many errors related to library version inconsistencies and program hangs.
-
-One of the important aspects of working on this project was **understanding data exchange between users** via **IP addresses** and **ports**. We studied in detail the principles of operation of the **IPv4** and **IPv6** Internet protocols, their features and differences. 
-
-Using **TCP**, we were able to ensure secure data exchange between the client and the server. This transport protocol ensures that data is delivered without errors and is not lost during transmission. We also worked with the **socket** library, which allowed us to create connections between clients and servers. This became an important part of our game, since without this library we would not have been able to implement a multiplayer mode.
-
-While testing the game, we encountered connection problems, which forced us to look for solutions to ensure stable operation of the server and clients. We learned to work with many aspects of communication and optimize the connection process to avoid constant connection drops.
-
-One of the interesting conclusions we made is that thanks to the **socket** library, we have the ability to connect to another user's device without their knowledge. This raises security issues, and we learned how important it is to properly configure the connection to prevent unauthorized access.
-
-This knowledge will be useful for future projects, because we not only solved practical problems, but also gained theoretical knowledge that is the basis for understanding modern data exchange technologies and their security.
+We will finish after end of project
 </details>
  
-[⬆️Table of contents](#articles) -->
+[⬆️Table of contents](#articles)
