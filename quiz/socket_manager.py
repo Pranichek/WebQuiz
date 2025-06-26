@@ -3,6 +3,7 @@ from Project.socket_config import socket
 from flask_login import current_user
 import pyperclip
 
+
 @socket.on("join_room")
 def handle_join(data):
     username = data["username"]

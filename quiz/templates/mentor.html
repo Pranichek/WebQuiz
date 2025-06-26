@@ -5,7 +5,7 @@
 {% endblock %}
     
 {% block links %}
-    <link rel="stylesheet" href="{{ url_for('profile.static', filename ='css/mentor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('mentor.static', filename ='css/mentor.css') }}">
 {% endblock links %}
     
 {% block content %}   
@@ -40,7 +40,7 @@
                         <span>Приєднуйтесь з будь-якого пристрою:</span>
                         <div class="url">
                             <span class="link-text">joinquiz.com</span>
-                            <img class="copy-url copy" src="{{ url_for('mentor.static', filename='images/mentor/copy.png') }}" alt="copy icon">
+                            <img class="copy-url copy" src="{{ url_for('mentor.static', filename='images/mentor/copy.svg') }}" alt="copy icon">
                         </div>
                     </div>
 
@@ -48,7 +48,7 @@
                         <span>Код приєднання</span>
                         <div class="code">
                             <span id="code">{{ code }}</span>
-                            <img class="copy-code" src="{{ url_for('mentor.static', filename='images/mentor/copy.png') }}" alt="copy icon">
+                            <img class="copy-code" src="{{ url_for('mentor.static', filename='images/mentor/copy.svg') }}" alt="copy icon">
                         </div>
                     </div>
 
@@ -60,7 +60,7 @@
                     <div class="qr-code">
                         Скануй QR-Code <br>
                         та приєднуприєднуйся до тесту 
-                        <img style="width: 100px; height: 100px;" src="{{ url_for('mentor.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                        <img style="width: 100px; height: 100px;" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email + '/qrcodes/' + code + '.png') }}">
                     </div>
 
 

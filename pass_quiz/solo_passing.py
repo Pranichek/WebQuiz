@@ -1,6 +1,6 @@
 from Project.socket_config import socket
 import flask_login, flask, os, random as r
-from .models import Test
+from quiz.models import Test
 from flask_socketio import emit
 from os.path import abspath, join, exists
 from home.models import User

@@ -96,7 +96,7 @@
 
 {% block scripts %}
     {{ super() }}
-    <script src="{{ url_for('test_pass.static', filename='js/passing_test.js') }}"></script>
-    <script type="module" src="{{ url_for('test_pass.static', filename='js/count_bonus.js') }}"></script>
-    <script type="module" src="{{ url_for('test_pass.static', filename='js/count_money.js') }}"></script>
+    <script src="{{ url_for('passing_student.static', filename='js/passing_test.js') }}"></script>
+    <script type="module" src="{{ url_for('passing_student.static', filename='js/count_bonus.js') }}"></script>
+    <script type="module" src="{{ url_for('passing_student.static', filename='js/count_money.js') }}"></script>
 {% endblock scripts %}

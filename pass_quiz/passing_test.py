@@ -4,7 +4,7 @@
 
 import flask
 from flask_login import current_user
-from .models import Test
+from quiz.models import Test
 
 def render_passing_test():
     if current_user.is_authenticated:

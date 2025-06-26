@@ -52,21 +52,21 @@ userprofile.profile.add_url_rule(
     methods = ["GET","POST"]
 )
 
-userprofile.change_tests.add_url_rule(
+quiz.change_tests.add_url_rule(
     rule = "/change_tests",
-    view_func = userprofile.render_change_tests,
+    view_func = quiz.render_change_tests,
     methods = ["GET","POST"]
 )
 
-userprofile.mentor.add_url_rule(
+quiz.mentor.add_url_rule(
     rule = "/mentor",
-    view_func = userprofile.render_mentor,
+    view_func = quiz.render_mentor,
     methods = ["GET","POST"]
 )
 
-userprofile.mentor.add_url_rule(
+quiz.student.add_url_rule(
     rule = "/student",
-    view_func = userprofile.render_student,
+    view_func = quiz.render_student,
     methods = ["GET","POST"]
 )
 
@@ -101,7 +101,7 @@ quiz.test_pass.add_url_rule(
 
 quiz.test_pass.add_url_rule(
     rule = "/passig_test",
-    view_func = quiz.render_passing_test,
+    view_func = pass_quiz.render_passing_test,
     methods = ["GET", "POST"]
 )
 quiz.test_pass.add_url_rule(
