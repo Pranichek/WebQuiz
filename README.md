@@ -209,7 +209,7 @@ To create an account, you need to:
     pip install -r requirements.txt 
 ```
 
-9. Також створіть модуль .env
+9. <p id="env">Також створіть модуль .env</p>
  - Використовуйте таку команду
  mac/Linux
 ```python
