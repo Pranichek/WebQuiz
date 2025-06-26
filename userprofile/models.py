@@ -19,5 +19,3 @@ class DataUser(DATABASE.Model):
     # зв'язок із моделлю користувача one-to-one
     user = DATABASE.relationship("User", back_populates="user_profile")
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id'), unique=True)
-
-    is_passing = DATABASE.Column(DATABASE.String)

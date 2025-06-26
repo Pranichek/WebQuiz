@@ -36,6 +36,10 @@ function loadRoom() {
         chat.innerHTML += `<div><b>${data.sender}:</b> ${data.message}</div>`;
     });
 
+    socket.on('user_leave', (data) => {
+        console.log(`${data.username} покинув кімнату`);
+    });
+    
     const sendBtn = document.querySelector(".send-message");
     
     sendBtn.addEventListener("click", () => {

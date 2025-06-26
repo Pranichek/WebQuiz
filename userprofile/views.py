@@ -284,10 +284,6 @@ def render_mentor():
         os.makedirs(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes")))
     image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes", f"{code}.png")))
 
-    all_participants = DataUser.query.filter_by(is_passing = code)
-    all_users = []
-    for profile in all_participants:
-        all_users.append(User.query.filter_by(id=profile.user_id).first())
 
     socket.emit('new_user', {'username': flask_login.current_user.username})
 
@@ -296,7 +292,6 @@ def render_mentor():
         mentor = True,
         code = code,
         user = user,
-        all_participants = all_users
     )
 
 @login_decorate
@@ -494,25 +489,7 @@ def render_student():
     code = flask.request.args.get("room_code")
 
     print("flask_login.current_user.id =", flask_login.current_user.id)
-    profile = None
-    user = None
-    try:
-        profile = DataUser.query.filter_by(user_id = flask_login.current_user.id).one_or_404()
-    except:
-        user = User.query.get(flask_login.current_user.id)
-        profile = DataUser()
-        user.user_profile = profile
-    print("user =", profile)
 
-    profile.is_passing = code
-
-    DATABASE.session.add(profile)
-    DATABASE.session.commit()
-
-    all_participants = DataUser.query.filter_by(is_passing = code)
-    all_users = []
-    for profile in all_participants:
-        all_users.append(User.query.filter_by(id=profile.user_id).first())
 
     socket.emit('new_user', {'username': flask_login.current_user.username})
 
@@ -520,7 +497,6 @@ def render_student():
         "student.html",
         user = flask_login.current_user,
         code = code,
-        all_participants = all_users
     )
 
 @login_decorate

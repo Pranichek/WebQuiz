@@ -14,6 +14,7 @@ const username = document.querySelector(".save-nickname").value;
 
 socket.on('connect', () => {
     socket.emit('join_room', { username, room });
+    console.log("trying to join the room");
 });
 
 // Получение сообщений из комнаты
@@ -38,3 +39,18 @@ function sendMessage() {
 }
 
 document.getElementById("sendBtn").addEventListener("click", sendMessage);
+
+function leaveRoom() {
+    // socket.leave(room);
+    socket.emit(
+        'leave_room',
+        {
+            username: username,
+            room: room
+        });
+    socket.disconnect();
+}
+
+window.addEventListener('beforeunload', function(event) {
+    leaveRoom();
+})

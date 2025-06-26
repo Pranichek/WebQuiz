@@ -87,18 +87,6 @@
 
         <div class="participants-list">
 
-            {% for participant in all_participants %}
-                <div class="card">
-                    <div class="avatar"><img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/student_avatar.png') }}" alt="avatar"></div>
-                    <span class="username">{{ participant.username }}</span>
-                    <div class="information">
-                        <p>Улюбленець</p>
-                        <div class="fires">
-                            <img src="" alt="">
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
         </div>
     </section>
 
