@@ -17,8 +17,7 @@ socket.emit("finish_test", {
 
 socket.on("test_result", (data) => {
     playAgain.value = data.test_id;
-    // document.querySelector(".user_pimpa").innerHTML = `
-    //     ${data.right_answers}`;
+
 
     document.querySelector(".uncorrect-answers").textContent = data.uncorrect_answers;
     document.querySelector(".correct-answers").textContent = data.right_answers;

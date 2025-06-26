@@ -26,7 +26,7 @@ for (let input of sortInputs){
     )
 }
 
-let allInputs = document.getElementsByTagName("input")
+let allInputs = document.querySelectorAll(".input-set")
 let postInputCategory = document.querySelector(".by_filter_category")
 let postInputSort = document.querySelector(".by_filter_sort")
     
@@ -35,13 +35,13 @@ for (let elem of allInputs){
         'click',
         () => {
             if (elem.checked){
-                if (elem.className == "category-input"){
+                if (elem.classList.contains("category-input")){
                     postInputCategory.value += "/" + elem.value
                 }else{
                     postInputSort.value = elem.value
                 }
             }else{
-                if (elem.className == "category-input"){
+                if (elem.classList.contains("category-input")){
                     let listInput = postInputCategory.value.split("/")
                     if(listInput.includes(elem.value)){
                         let index = listInput.indexOf(elem.value)
@@ -79,7 +79,7 @@ for (let elem of allInputs){
                 }
             }
             console.log(category.length)
-            if (category.length == 1){
+            if (category.length <= 1){
                 allCards.forEach(card => {
                     card.style.display = "flex";
                 })
@@ -127,6 +127,7 @@ for (let elem of allInputs){
     )
 }
 
+
 window.addEventListener(
     'DOMContentLoaded',
     () => {
@@ -147,7 +148,7 @@ window.addEventListener(
             }
         })
 
-        let allINput =Array.from(document.getElementsByTagName("input"))
+        let allINput =Array.from(document.querySelectorAll(".input-set"))
 
         allINput.forEach(input => {
             if (categoryFilter.includes(input.value) || sortData.includes(input.value)){
@@ -156,3 +157,71 @@ window.addEventListener(
         })
     }
 )
+
+
+// --------------------------------------------------
+// Знаходження тесту за ім'ям
+
+function findResult(){
+    let Inputs = document.querySelectorAll(".input-set")
+    Inputs.forEach(input => {
+        let searchValue = document.querySelector(".findByname").value.toLowerCase();
+        let allCards = document.querySelectorAll(".test");
+        allCards.forEach(card => {
+            let nameData = card.dataset.name;
+
+            let testName = '';
+
+            if (nameData) {
+                testName = nameData.toLowerCase();
+            }
+            if (testName.includes(searchValue)) {
+                card.style.display = "flex";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    })
+}
+
+document.querySelector(".lupa").addEventListener(
+    'click',
+    () => {
+        findResult()
+    }
+)
+
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+    event.preventDefault()
+    findResult()
+  }
+});
+
+// открыть закрыть окно фильтров
+document.querySelector(".click-filter").addEventListener(
+    'click',
+    () => {
+        if (document.querySelector(".filter-part").classList.contains("hide")){
+            document.querySelector(".filter-part").classList.remove("hide")
+            document.querySelector(".show-filter").style.transform = 'rotate(180deg)'
+        }else{
+            document.querySelector(".filter-part").classList.add("hide")
+            document.querySelector(".show-filter").style.transform = 'rotate(0deg)'
+        }
+    }
+)
+
+document.querySelector(".click-sort").addEventListener(
+    'click',
+    () => {
+        if (document.querySelector(".sort-part").classList.contains("hide-sort")){
+            document.querySelector(".sort-part").classList.remove("hide-sort")
+            document.querySelector(".show-sort").style.transform = 'rotate(180deg)'
+        }else{
+            document.querySelector(".sort-part").classList.add("hide-sort")
+            document.querySelector(".show-sort").style.transform = 'rotate(0deg)'
+        }
+    }
+)
+
