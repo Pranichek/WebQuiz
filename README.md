@@ -205,7 +205,7 @@ To create an account, you need to:
 ```
 Windows
 ```python
-
+    new-item .env
 ```
 Вставте даний код
 ```python
