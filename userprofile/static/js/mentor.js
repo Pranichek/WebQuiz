@@ -1,4 +1,4 @@
-let createRooms = document.querySelectorAll(".loadroom")
+let createRooms = document.querySelectorAll(".loadroom");
 
 for (let button of createRooms){
     button.addEventListener(
@@ -28,6 +28,21 @@ function loadRoom() {
     // Коли хтось приєднався
     socket.on('user_joined', (data) => {
         console.log(`${data.username} приєднався до кімнати`);
+        const room = urlParams.get('room_code');
+        let userCardList = document.getElementsByClassName("card");
+        console.log("userCardList =", userCardList)
+        for (let card of userCardList){
+            card.addEventListener("click", ()=>{
+                let thisUsername = card.id;
+                socket.emit(
+                    'leave_room',
+                    {
+                        username: thisUsername,
+                        room: room
+                    });
+                socket.disconnect();
+            })
+        }
     });
 
     // когда пришло новое сообщение
@@ -38,6 +53,11 @@ function loadRoom() {
 
     socket.on('user_leave', (data) => {
         console.log(`${data.username} покинув кімнату`);
+        for (let amountToChange of usersAmountToChange){
+            amountToChange.textContent = +amountToChange.textContent - 1;
+        }
+        let userCard = document.getElementById(data.username)
+        userCard.remove()
     });
     
     const sendBtn = document.querySelector(".send-message");

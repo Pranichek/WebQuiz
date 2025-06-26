@@ -18,12 +18,3 @@ socket.on('new_user', function(data) {
         </div>`
     )
 });
-
-socket.on('user_leave', function(data) {
-    console.log("data in disconnect:", data);
-    for (let amountToChange of usersAmountToChange){
-        amountToChange.textContent = +amountToChange.textContent - 1;
-    }
-    let userCard = document.getElementById(data.username)
-    userCard.remove()
-});
