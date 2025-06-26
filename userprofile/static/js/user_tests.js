@@ -225,33 +225,3 @@ document.querySelector(".click-sort").addEventListener(
     }
 )
 
-let images = document.getElementsByClassName("img")
-
-for (let img of images){
-    img.addEventListener(
-        'click',
-        () => {
-            console.log(12)
-            if (img.classList.contains("click-sort") || img.classList.contains("click-filter")){
-                if (img.classList.contains("click-sort")){
-                    if (document.querySelector(".filter-part").classList.contains("hide")){
-                        document.querySelector(".filter-part").classList.remove("hide")
-                        document.querySelector(".show-filter").style.transform = 'rotate(180deg)'
-                    }else{
-                        document.querySelector(".filter-part").classList.add("hide")
-                        document.querySelector(".show-filter").style.transform = 'rotate(0deg)'
-                    }
-                }
-                else{
-                    if (document.querySelector(".sort-part").classList.contains("hide-sort")){
-                        document.querySelector(".sort-part").classList.remove("hide-sort")
-                        document.querySelector(".show-sort").style.transform = 'rotate(180deg)'
-                    }else{
-                        document.querySelector(".sort-part").classList.add("hide-sort")
-                        document.querySelector(".show-sort").style.transform = 'rotate(0deg)'
-                    }
-                }
-            }
-        }
-    )
-}

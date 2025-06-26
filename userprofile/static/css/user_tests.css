@@ -500,3 +500,8 @@ a{
     font-weight: 400;
     width: 120px;
 }
+
+.text-filter{
+    display: flex;
+    flex-direction: row;
+}

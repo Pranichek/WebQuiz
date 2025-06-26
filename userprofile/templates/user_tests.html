@@ -34,8 +34,7 @@
         <div class="settings-test">
 
             <div class="filter-text">
-                <p class="click-filter">Фільтрування</p>
-                <span class="click-filter"><img class="click-filter show-filter" src="{{ url_for('profile.static', filename= 'images/user_tests/show-more.svg') }}" alt=""></span>
+                <p class="click-filter text-filter">Фільтрування <span class="click-filter"><img class="click-filter show-filter" src="{{ url_for('profile.static', filename= 'images/user_tests/show-more.svg') }}" alt=""></span></p>
                 <div class="filter-part hide">
                     <div class="line"></div>
                     <label><input type="checkbox" class="category-input input-set" name="filter-category" value="програмування"><p class="paragraph">Програмування</p></label>
@@ -50,8 +49,7 @@
             </div>
 
             <div class="sort-text">
-                <p class="click-sort">Сортування</p>
-                <span class="click-sort"><img class="click-sort show-sort"  src="{{ url_for('profile.static', filename= 'images/user_tests/show-more.svg') }}" alt=""></span>
+                <p class="click-sort text-filter">Сортування <span class="click-sort"><img class="click-sort show-sort"  src="{{ url_for('profile.static', filename= 'images/user_tests/show-more.svg') }}" alt=""></span></p>
                 <div class="sort-part hide-sort">
                     <div class="line"></div>
                     <label><input type="checkbox" class="sort-input input-set" name="sort" value="newest"><p class="paragraph">Найновіше</p></label>
@@ -69,19 +67,7 @@
                 </form>
             </div>
         </div>
-        <!-- <h1>Мої створені тести</h1> -->
         {% for test in tests %}
-            <!-- <div class="test" data-name="{{ test.title_test }}" data-popular="{{ test.test_profile.amount_passes }}" data-category="{{ test.category }}" data-timecreated="{{ test.id }}" data-questions="{{ test.questions.count('?%?') + 1 }}">
-                <p>проходженнь: {{ test.test_profile.amount_passes }}</p>
-                <p>Назва тесту: {{ test.title_test }}</p>
-                <p>Кількість питаннь: {{ test.questions.count("?%?") + 1 }}</p>
-                <p>Категорія тесту: {{ test.category }}</p>
-                <p>Айді: {{ test.id }}</p>
-                
-                <a class="link" href="{{ url_for('change_tests.render_change_tests') }}?test_id={{ test.id }}">Редагувати тест</a>
-                <button type="button" onclick="loadRoom();" class="loadroom" value="{{ test.id }}" data-test="{{ code }}">Почати тест</button>
-
-            </div> -->
             <div class="card test" data-name="{{ test.title_test }}" data-popular="{{ test.test_profile.amount_passes }}" data-category="{{ test.category }}" data-timecreated="{{ test.id }}" data-questions="{{ test.questions.count('?%?') + 1 }}">
                 <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
                 {% if 'default' in test.image.split("/") %}

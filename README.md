@@ -1,4 +1,4 @@
-<h1>Web-Site "PlanetQuiz"</h1>
+<h1>Web-Site PlanetQuiz</h1>
 
 ![Main page](readme_images_gifs/main_p.svg)
 ---
