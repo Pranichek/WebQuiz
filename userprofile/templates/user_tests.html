@@ -101,6 +101,10 @@
                         <p class="static-theme">тема:</p>
                         <p class="theme-test">{{ test.title_test }}</p>
                     </div>
+                    <div class="buttons-test">
+                        <button type="button" onclick="loadRoom();" class="loadroom" value="{{ test.id }}" data-test="{{ code }}">Почати тест</button>
+                        <a class="link" href="{{ url_for('change_tests.render_change_tests') }}?test_id={{ test.id }}">Побачити більше</a>
+                    </div>
                 </div>
             </div>
         {% endfor %}
