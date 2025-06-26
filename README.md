@@ -56,7 +56,7 @@
 
 
 <a name="headers"><h1>Project description</h1></a>
-Основна мета цього проєкту - закріпити та поліпшити навички роботи з базою даних та зі штучним інтелектом. Planet.quiz - це веб-застосунок на Flask для спільного та окремого проходження тестів, які можна створити самому або ж згенерувати за допомогою штучного інтелекту. Для того, щоб викладач міг поділитися створеним тестом для спільного проходження, генерується код, при введенні якого, створюється кімната де збираються всі учасники та чекають запуску самого тесту. Planet.quiz є повноцінним прикладом сучасного вебзастосунку з використанням серверного фреймворку Flask та реляційної бази даних. Він охоплює ключові аспекти бекенд- і фронтенд-розробки, логіки доступу, збереження та обробки даних, а також інтеграції зі штучним інтелектом. Також він демонструє принципи роботи з користувачами, з базою даних в якій зберігаються дані про нього, роботи з Flask та деякими бібліотеками Python. Веб-застосунок показує, як можна звʼязати та використовувати базу даних, а також як можна підключити до роботи штучний інтелект. Цей проєкт може бути корисним не лише як навчальний приклад, але й як основа для власних рішень інших розробників. Він демонструє інтеграцію ключових технологій у реальному застосунку, і тому може слугувати шаблоном для створення освітніх платформ, сервісів оцінювання, внутрішніх HR-інструментів або будь-яких застосунків, де потрібна перевірка знань. Код та архітектура Planet.quiz можуть бути адаптовані для різних потреб: від створення опитувальників до розгортання SaaS-платформи, що підтримує користувацькі тести, аналітику результатів та роботу зі штучним інтелектом.
+Основна мета цього проєкту - закріпити та поліпшити навички роботи з базою даних та зі штучним інтелектом. Planet.quiz - це веб-застосунок на Flask для спільного та окремого проходження тестів, які можна створити самому або ж згенерувати за допомогою штучного інтелекту. Для того, щоб викладач міг поділитися створеним тестом для спільного проходження, генерується код, при введенні якого, створюється кімната де збираються всі учасники та чекають запуску самого тесту. Planet.quiz є повноцінним прикладом сучасного вебзастосунку з використанням серверного фреймворку Flask та реляційної бази даних. Він охоплює ключові аспекти бекенд- і фронтенд-розробки, логіки доступу, збереження та обробки даних, а також інтеграції зі штучним інтелектом. Також він демонструє принципи роботи з користувачами, з базою даних в якій зберігаються дані про нього, роботи з Flask та деякими бібліотеками Python. Веб-застосунок показує, як можна звʼязати та використовувати базу даних, а також як можна підключити до роботи штучний інтелект. Цей проєкт може бути корисним не лише як навчальний приклад, але й як основа для власних рішень інших розробників. Він демонструє інтеграцію ключових технологій у реальному застосунку, і тому може слугувати шаблоном для створення освітніх платформ, сервісів оцінювання або будь-яких застосунків, де потрібна перевірка знань. Код та архітектура Planet.quiz можуть бути адаптовані для різних потреб: від створення опитувальників до розгортання SaaS-платформи (Software as a Service, модель яка надає можливість програмного забезпечення як послуги через інтернет, тобто працює без встановлення) https://sendpulse.ua/support/glossary/saas#:~:text=SaaS%20—%20це%20тип%20готового%20програмного,створювати%20програми%20на%20цій%20платформі., що підтримує користувацькі тести, аналітику результатів та роботу зі штучним інтелектом.
 
 
 Щоб створити акаунт, потрібно:
@@ -66,7 +66,8 @@
 ![Create account](readme_images_gifs/login.gif)
 
 Проходження тесту
-![pass_quiz](readme_image/pass_quiz.gif)
+
+![pass_quiz](readme_images_gifs/pass_quiz.gif)
 
  
 <details>
@@ -75,7 +76,7 @@ To allow an instructor to share a created test for collaborative participation, 
 Planet.quiz is a fully-fledged example of a modern web application using the Flask server-side framework and a relational database. It covers key aspects of backend and frontend development, access logic, data storage and processing, as well as integration with artificial intelligence.
 It also demonstrates principles of working with users, managing a database that stores user data, and using Flask along with several Python libraries. The web application shows how to connect and utilize a database and how AI can be integrated into the workflow.
 This project is valuable not only as a learning example but also as a foundation for custom solutions by other developers. It showcases the integration of essential technologies in a real-world application, making it a potential template for creating educational platforms, assessment services, internal HR tools, or any applications requiring knowledge evaluation.
-The code and architecture of Planet.quiz can be adapted for various purposes — from building surveys to deploying a SaaS platform that supports custom tests, result analytics, and AI functionality.
+The code and architecture of Planet.quiz can be adapted for various purposes — from building surveys to deploying a SaaS platform (Software as a Service, a model that provides software as a service over the Internet, i.e. works without installation), that supports custom tests, result analytics, and AI functionality.
 
 
 To create an account, you need to:
@@ -219,9 +220,9 @@ Windows
     new-item .env
 ```
 Вставте даний код: <br>
-(У рядку EMAIL_PASSWORD вводимо пароль для пошти вашого веб-застосунку<br>
- У EMAIL_USERNAME ви повинні ввести пошту за якою буде працювати ваш веб-застосунок <br>
- У SECRET_KEY вводимо секректний ключ, який використовується, для забезпечення безпеки)
+* EMAIL_PASSWORD - вводимо пароль для пошти вашого веб-застосунку<br>
+* EMAIL_USERNAME - ввести пошту за якою буде працювати ваш веб-застосунок <br>
+* SECRET_KEY - вводимо секректний ключ, який використовується, для забезпечення безпеки
 ```python
     DB_INIT = flask --app Project db init 
     DB_MIGRATE = flask --app Project db migrate 
@@ -355,12 +356,10 @@ This is the main application package, where its main instance is created, operat
 Функція render_home() відповідає за показ головної сторінки неавторизованому користувачу або перенаправляє його на /home_auth, якщо вхід уже виконано. У render_home_auth() після авторизації користувач бачить персоналізовану сторінку з балансом, випадковими тестами за темами, а також останніми пройденими тестами. Додатково ця функція реагує на фільтрацію тестів або введення коду кімнати для спільного проходження. render_registration() обробляє створення нового акаунта: перевіряє правильність введених даних, наявність користувача в базі, генерує код підтвердження, зберігає дані в сесію та надсилає лист на email у фоновому потоці. Після цього render_code() перевіряє код підтвердження. Якщо все коректно — створюється новий користувач і папка з його аватаркою, копіюється стандартний аватар і виконується автоматичний вхід. Якщо ж код використовується для зміни пошти, оновлюється email і переназивається директорія зображень. render_login() реалізує процес входу: перевіряє наявність користувача, порівнює пароль і виконує вхід або виводить помилки. Весь модуль активно використовує flask.session для тимчасового зберігання даних і інтегрує Flask-Login, SQLAlchemy, Threading та файлову систему для персоналізації користувача. Цей код ілюструє, як у сучасному вебзастосунку можна реалізувати багаторівневу автентифікацію з перевіркою пошти, керуванням сесіями та зв’язком із базою даних.
 
 ```python
-    #головна сторінка коли користувач увійшов у акаунт
     @login_decorate
     def render_home_auth():    
         user = User.query.get(flask_login.current_user.id)
 
-        # отримати баланс
         money_user = user.user_profile.count_money
 
         category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
@@ -395,7 +394,6 @@ This is the main application package, where its main instance is created, operat
         second_four_test = []
         second_random_numbers = []
 
-        # tests_second_topic = Test.query.filter_by(category = second_topic).all()
         tests_second_topic = Test.query.filter(Test.category == second_topic, Test.check_del != "deleted").all()
         if len(tests_second_topic) > 0:
             while True:
@@ -475,13 +473,8 @@ This is the main application package, where its main instance is created, operat
         name_avatar = DATABASE.Column(DATABASE.String, default = "default_avatar.svg")
         size_avatar = DATABASE.Column(DATABASE.Integer, default = 100)
 
-        # Зв'язок з таблицею Test
-        # можно так, но если мы используем back_populates то тогда в таблице Test нужно самому создать поле user
         tests = DATABASE.relationship("Test", back_populates="user", lazy="dynamic")
-        # можна так, и тогда нам не нужно в таблице Test создавать поле user
-        # tests = DATABASE.relationship("Test", backref="user", lazy="dynamic")
 
-        # Зв'язок one to one із моделлю інфи користувача
         user_profile = DATABASE.relationship("DataUser", back_populates="user", uselist=False)
 
 ```
@@ -532,7 +525,6 @@ This is the main application package, where its main instance is created, operat
             answers_cookies = flask.request.cookies.get("answers")
 
             if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
-            # if cookie_questions is not None and answers_cookies is not None:
                 test_title = flask.request.form["test_title"]
                 question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 
@@ -585,9 +577,6 @@ This is the main application package, where its main instance is created, operat
             print("test =", category)
 
             list_to_template = []
-            # new_questions_list = test.questions.split("?%?")
-            # new_answers_list = test.answers.split("?@?")
-            # new_time_list = test.question_time.split("?#?")
             new_answers_list = new_answers.split("?@?")
             new_questions_list = new_questions.split("?%?")
 
@@ -604,7 +593,6 @@ This is the main application package, where its main instance is created, operat
                     temporary_answers_list.append(answer)
                 item["answers"] = temporary_answers_list
                 item["pk"] = number
-                # item["time"] = new_time_list[number]
                 list_to_template.append(item)
                 number += 1
             print("list_to_template", list_to_template)
@@ -657,7 +645,6 @@ This is the main application package, where its main instance is created, operat
             answers_cookies = flask.request.cookies.get("answers")
 
             if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
-                # print(name_image, "name")
                 test_title = flask.request.form["test_title"]
                 question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 
@@ -687,13 +674,10 @@ This is the main application package, where its main instance is created, operat
                 except:
                     pass
 
-                # try:
                 if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests"))):
                     os.mkdir(path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests")))
                 if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests",  str(test_title)))):
                     os.mkdir(path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests",  str(test_title))))
-                # except:
-                #     pass
 
                 from_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
                 for dir in os.listdir(from_path):
@@ -734,7 +718,7 @@ This is the main application package, where its main instance is created, operat
                 image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
             elif check_form == "del_image":
                 flask.session["test_image"] = "default"
-        # else: 
+                
         new_answers_list = ''
         if new_questions:
             new_answers_list = new_answers.split("?@?")
@@ -847,8 +831,6 @@ This is the main application package, where its main instance is created, operat
             list_final.append(one_question)
             count += 1
 
-        #логика получение индекса правильного ответа даже если правильных несколько
-        # например, если правильные ответы на вопрос 1 это да и нет, то в массиве будет [[0, 1], [тут индексі уже следующего вопроса и тд]]
         for index in range(len(questions)):
             current_answer_list = answers[index]
             data_str = ''
@@ -899,7 +881,6 @@ This is the main application package, where its main instance is created, operat
                             count_right_answers += 1
                             correct += 1
                         else:
-                            # count_right_answers -= 1
                             count_uncorrect_answers += 1
                             uncorrect += 1
                 
@@ -907,7 +888,6 @@ This is the main application package, where its main instance is created, operat
                         index_corect.append(i)
 
 
-        # максимальное количество баллов
         amount_points = 0
         for index in correct_indexes:
             amount_points += len(index)
@@ -965,10 +945,6 @@ This is the main application package, where its main instance is created, operat
 ```python
     @login_decorate
     def render_data_filter():
-        # if flask.request.method == "POST":
-        #     input_data = flask.request.form.get("search-data")
-        # else:
-        #     input_data = None
         input_data = flask.request.args.get("input_data")
         print(input_data, "fd")
         searching_test = []
@@ -979,7 +955,6 @@ This is the main application package, where its main instance is created, operat
 
             if len(tests) > 0:
                 for test in tests:
-                    # убраем пробелы(еслт есть) и делаем текст нижнем регистре
                     title = test.title_test.strip().lower()
                     if title.startswith(input_data): 
                         searching_test.append(test)
