@@ -25,6 +25,4 @@ buttonCopy.addEventListener(
             modalResult.classList.add("fade-out")
         }, 2000);
     }
-)
-
-
+);

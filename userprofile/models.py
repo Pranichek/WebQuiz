@@ -25,6 +25,8 @@ class DataUser(DATABASE.Model):
     # для проходження онлайн тесту
     is_passing = DATABASE.Column(DATABASE.String)
 
+    fav_tests = DATABASE.Column(DATABASE.String, default = '')
+
 
 
 

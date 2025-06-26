@@ -147,5 +147,14 @@ playAgain.addEventListener(
 //     }, 15);
 // });
 
+let buttonFav = document.querySelector(".fav-test");
 
+buttonFav.addEventListener(
+    'click',
+    () => {
 
+        socket.emit("fav-test", {
+            test_id: testId2
+    });
+    }
+)

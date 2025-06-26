@@ -182,5 +182,17 @@ def coput_result_function(data):
 
     pyperclip.copy(test_text)
 
+@socket.on("fav-test")
+def add_fav_test(data):    
+    test_id = str(data["test_id"])
+    user = flask_login.current_user
+    fav_tests = user.user_profile.fav_tests or ""
+    fav_tests_list = fav_tests.strip().split()
 
+    if test_id not in fav_tests_list:
+        fav_tests_list.append(test_id)  
+
+        user.user_profile.fav_tests = " ".join(fav_tests_list) + " "
+
+        DATABASE.session.commit()
 
