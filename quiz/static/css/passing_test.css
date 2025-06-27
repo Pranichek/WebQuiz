@@ -17,6 +17,22 @@ body {
     background-color: #3C3C3C;
 }
 
+.bigimg{
+    background-color: #0202028b;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000000;
+}
+.bigimg img{
+    width: 70%;
+    height: 80%;
+}
+
+
 .leave_test {
     background-color: #E05359;
     color: #ffffff;
@@ -146,6 +162,8 @@ span {
 #end-test {
     display: none;
 }
+
+
 
 .answers {
     display: flex;
@@ -469,20 +487,7 @@ header {
     transition: 0.5s ease;
 }
 
-
-.bottom-image img:hover {
-    width: auto;
-    height: 500%;
-    object-fit: contain;
-    transform: translate(-50%, -50%);
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    z-index: 999;
-}
-
 /* сделай блюр и затемнее всего экрана кроме этих блоков */
-
 .modal{
     display: none; 
     position: fixed; 

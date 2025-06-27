@@ -40,8 +40,7 @@ socket.on(
     'start_passing',
     data => {
         console.log(12)
-        window.location.replace("/")
+        window.location.replace("/passing_student")
     }
 )
 
-// document.getElementById("sendBtn").addEventListener("click", sendMessage);

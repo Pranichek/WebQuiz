@@ -182,11 +182,16 @@ def render_edit_avatar():
             show = show[0],
             cash_image = str(flask.session["cash_image"] if 'cash_image' in flask.session else "Nothing")
         )
-    # except Exception as error:
-    #     return flask.redirect("/")
+
     
 @login_decorate
 def render_user_tests():
+    if flask.request.method == "POST":
+        valueFilter = flask.request.form.get("by_filter_category")
+        valueSort = flask.request.form.get("by_filter_sort")
+
+        print(valueFilter, valueSort)
+
     user = User.query.get(flask_login.current_user.id)
     tests = user.tests.filter(Test.check_del != "deleted").all()
     message = ''
@@ -206,99 +211,10 @@ def render_user_tests():
     response.delete_cookie('time')
     response.delete_cookie('category')
     response.delete_cookie('inputname')
-
-    # code = generate_code()
     
     return response
 
-@login_decorate
-def render_change_tests():
-    user = User.query.get(flask_login.current_user.id)
-    message = ''
-    
-    test_id = flask.request.args.get("test_id")
-    if not test_id:
-        return 
 
-    test = Test.query.filter_by(id=test_id, user_id=user.id).first()
-    if not test:
-        return 
-    if flask.request.method == "POST":
-        new_name = flask.request.form.get("new_name")
-        if new_name:
-            existing_test = Test.query.filter_by(user_id=user.id, title_test=new_name).first()
-            if existing_test:
-                message = "Тест із такою назвою вже є"
-            else:
-                old_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(test.title_test)))
-                new_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(new_name)))
-                os.rename(old_path, new_path)
-                test.title_test = new_name
-                DATABASE.session.commit()
-                message = "Назву змінено успішно"
-
-        delete_id = flask.request.form.get("delete-id")
-        if delete_id:
-            test.check_del = "deleted"
-            DATABASE.session.commit()
-            message = "Тест видалено"
-            return flask.redirect("/user_test")
-
-        create_room = flask.request.form.get("create-room")
-
-        if create_room:
-            print("ida")
-    
-    return flask.render_template(
-        "change_tests.html",
-        test=test,
-        message=message,
-    )
-
-@login_decorate
-def render_mentor():
-    # отримуємо код кімнати з параметрів запиту
-    code = flask.request.args.get("room_code")
-    # зберігаємо об'єкт користувача в змінну
-    user = flask_login.current_user
-
-    # qrcode - 
-    # Створюємо QR-код(об'єкт) з посиланням на кімнату
-    qr = qrcode.QRCode(
-        # корекцыя помилок - висока
-        error_correction = qrcode.constants.ERROR_CORRECT_H, 
-        # розмір qrcode
-        box_size = 15,
-        # розмір рамки навколо qrcode
-        border = 2
-    )
-    # задаємо посилання на яке буде вести QR-код
-    qr.add_data(f"http://127.0.0.1:5000/student?room_code={code}")
-    # створюємо QR-код, але у вигляді закодовоного коду
-    qr.make(fit = True)
-
-    # створюємо зображення QR-коду
-    image = qr.make_image(
-        # кольори QR-коду
-        fill_color = '#000000',
-        # колір фону QR-коду
-        back_color = "#ffffff",
-    )
-
-    # зберігаємо зображення QR-коду в папку користувача
-    if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes"))):
-        os.makedirs(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes")))
-    image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes", f"{code}.png")))
-
-    if flask.request.method == "POST":
-        socket.emit()
-
-    return flask.render_template(
-        "mentor.html",
-        mentor = True,
-        code = code,
-        user = user
-    )
 
 @login_decorate
 def render_test_preview(pk: int):
@@ -488,12 +404,6 @@ def render_change_question_preview(pk: int, id: int):
         test_pk = pk
     )
 
-@login_decorate
-def render_student():
-    return flask.render_template(
-        "student.html",
-        user = flask_login.current_user
-    )
 
 @login_decorate
 def render_buy_gifts():

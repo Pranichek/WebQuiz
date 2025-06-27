@@ -276,8 +276,8 @@ input::-webkit-inner-spin-button {
     position: relative;
     /* width: 21%;
     height: 85%; */
-    width: 271px;
-    height: 190px;
+    width: 371px;
+    height: 210px;
     overflow: hidden;
     flex-direction: column;
     background-color: #D6E8FE;
@@ -451,7 +451,7 @@ a{
         min-width: 240px;
         min-height: 180px;
         padding-bottom: 10px;
-        max-width: 3200px;
+        max-width: 320px;
     }
     .test-name{
         font-size: 30px;
@@ -469,13 +469,16 @@ a{
         height: 50px;
     }
 
-    .static-theme{
+    /* .static-theme{
         width: 10px;
         height: 10px;
-    }
+    } */
 
     .image-robot{
-        margin-right: 0px;
+        background-color: #77d8b9;
+        /* width: 3px; */
+        height: 60px;
+        width: 40px;
     } 
     /* .nick{
         color: #D6E8FE;
@@ -518,9 +521,9 @@ a{
         font-size: small;
     }
 
-    .image-robot {
+    /* .image-robot {
         width: 30px;         
-    } 
+    }  */
     
     /* .discription{
         font-size: small;
