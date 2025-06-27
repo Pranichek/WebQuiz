@@ -42,6 +42,8 @@ header{
     display: flex;
     flex-direction: row;
     height: 10vh;
+    max-height: 125px;
+    /* background-color: #B9BDF5; */
     color: #ffffff;
     align-items: center;
     justify-content: space-between;

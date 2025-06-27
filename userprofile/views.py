@@ -186,12 +186,6 @@ def render_edit_avatar():
     
 @login_decorate
 def render_user_tests():
-    if flask.request.method == "POST":
-        valueFilter = flask.request.form.get("by_filter_category")
-        valueSort = flask.request.form.get("by_filter_sort")
-
-        print(valueFilter, valueSort)
-
     user = User.query.get(flask_login.current_user.id)
     tests = user.tests.filter(Test.check_del != "deleted").all()
     message = ''
@@ -202,7 +196,7 @@ def render_user_tests():
             tests=tests,
             user=flask_login.current_user,
             message = message,
-            code = generate_code()
+            page_name = "Мої створені тести"
         )
     )
 
@@ -438,3 +432,4 @@ def render_buy_gifts():
         count_money = count_money,
         pet_id = pet_id
     )
+
