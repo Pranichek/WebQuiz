@@ -11,6 +11,12 @@ home.home_app.add_url_rule(
 )
 
 home.home_app.add_url_rule(
+    rule = "/select_tests",
+    view_func = home.render_select_tests,
+    methods = ["GET", "POST"]
+)
+
+home.home_app.add_url_rule(
     rule="/home_auth",
     view_func = home.render_home_auth,
     methods = ["GET", "POST"]
@@ -51,7 +57,6 @@ userprofile.profile.add_url_rule(
     view_func = userprofile.render_user_tests,
     methods = ["GET","POST"]
 )
-
 
 quiz.change_tests.add_url_rule(
     rule = "/change_tests",

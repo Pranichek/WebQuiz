@@ -107,7 +107,7 @@ def handle_get_question(data_index):
         "type_question": type_question,
         "question_img": img_url if name_img else "not",
         "correct_answers": correct_answers,
-        "value_bonus": int(flask_login.current_user.user_profile.percent_bonus)
+        "value_bonus": int(flask_login.current_user.user_profile.percent_bonus) if flask_login.current_user.is_authenticated else "0"
     })
 
 
@@ -119,7 +119,7 @@ def handle_next_question(data_index):
     test = Test.query.get(int(test_id))
 
     if 'value_bonus' in data_index.keys():
-        if int(data_index["value_bonus"]) > 0:
+        if int(data_index["value_bonus"]) > 0 and flask_login.current_user.is_authenticated:
             user = User.query.get(int(flask_login.current_user.id))
             user.user_profile.percent_bonus += int(data_index["value_bonus"])
 
@@ -138,21 +138,21 @@ def handle_next_question(data_index):
 
     # Проверка на конец теста
     if idx >= len(questions):
-        
-        user = User.query.get(int(flask_login.current_user.id))
-        user.user_profile.count_tests += 1
-        last_tests = user.user_profile.last_passed.split(" ")
+        if flask_login.current_user.is_authenticated:
+            user = User.query.get(int(flask_login.current_user.id))
+            user.user_profile.count_tests += 1
+            last_tests = user.user_profile.last_passed.split(" ")
 
-        if len(last_tests) < 5:
-            if str(test.id) not in last_tests:
-                last_tests.append(str(test.id))
-        else:
-            if str(test.id) not in last_tests:
-                last_tests[r.randint(a = 0, b = 3)] = str(test.id)
+            if len(last_tests) < 5:
+                if str(test.id) not in last_tests:
+                    last_tests.append(str(test.id))
+            else:
+                if str(test.id) not in last_tests:
+                    last_tests[r.randint(a = 0, b = 3)] = str(test.id)
 
-        string_last_tests = " ".join(last_tests)
+            string_last_tests = " ".join(last_tests)
 
-        user.user_profile.last_passed = string_last_tests
+            user.user_profile.last_passed = string_last_tests
 
         test.test_profile.amount_passes += 1
 
@@ -208,9 +208,9 @@ def handle_next_question(data_index):
         "amount_question": len(questions),
         "test_time": int(test_time) if test_time.isdigit() else test_time,
         "type_question": type_question,
-        "user_email": flask_login.current_user.email,
+        "user_email": flask_login.current_user.email if flask_login.current_user.is_authenticated else None,
         "question_img": img_url if name_img else "not",
         "correct_answers": correct_answers,
-        "value_bonus": int(flask_login.current_user.user_profile.percent_bonus),
-        "check_reload": f"da/{str(flask_login.current_user.user_profile.count_money)}" if flask_login.current_user.user_profile.percent_bonus == 0 else "not"
+        "value_bonus": int(flask_login.current_user.user_profile.percent_bonus) if flask_login.current_user.is_authenticated else None,
+        "check_reload": f"da/{str(flask_login.current_user.user_profile.count_money)}" if flask_login.current_user.is_authenticated and flask_login.current_user.user_profile.percent_bonus == 0 else "not" 
     })

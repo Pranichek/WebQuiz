@@ -69,11 +69,24 @@
     <div class="footer-test">
         <div class="bonus-data">
             <div class="avatar-circle">
-                <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                {% if user.size_avatar %}
+                    <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                {% else %}
+                    <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.svg') }}" alt="avatar">
+
+                {% endif %}
             </div>
-            <p class="text-kem">{{ user.username }}</p>
+            {% if user.size_avatar %}
+                <p class="text-kem">{{ user.username }}</p>
+            {% else %}
+                <p class="text-kem">Guest</p>
+            {% endif %}
             <div class="line"></div>
-            <p class="count-money" data-value="{{ user.user_profile.count_money }}"></p>
+            {% if useruser_profile %}
+                <p class="count-money" data-value="{{ user.user_profile.count_money }}"></p>
+            {% else %}
+                <p class="count-money" data-value="0"></p>
+            {% endif %}
             <img class="money" src="{{ url_for('test_pass.static', filename='images/money.svg') }}" alt="avatar">
         </div>
 

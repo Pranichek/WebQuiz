@@ -28,3 +28,4 @@ project.config['MAIL_USE_TLS'] = True
 project.secret_key = os.getenv("SECRET_KEY")
 
 mail = Mail(app = project)
+

@@ -493,10 +493,11 @@ a{
     padding-left: 30px;
     gap: 25px;
     overflow-y: auto;
+    padding-top: 25px;
 }
 
 .filter-part{
-    padding-top: 25px;
+    
     padding-bottom: 10px;
     justify-content: start;
     /* padding-top: 0px; */

@@ -8,6 +8,7 @@ if (!chcklocal.includes("test_data")){
 
 // Створюємо об'єкт сокету 
 const socket = io();  
+
 let timeQuestion;
 let timer = document.querySelector(".timer");
 let amountAnswers;
