@@ -41,9 +41,6 @@
     - [describe quiz package](#quiz)
     - [describe searches package](#searches)
     - [describe userprofile package](#userprofile)
-- [.env package modules](#env)
-- [.gitignore package modules](#gitignore)
-- [manage.py modules](#manage)
 
 
 # Problems when creating a project
