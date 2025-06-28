@@ -1,6 +1,6 @@
 <h1>Web-Site PlanetQuiz</h1>
 
-![Main page](readme_images_gifs/main_p.mov)
+![Main page](readme_images_gifs/main_p.gif)
 ---
 
 <a name="articles"><h3>Table of contents</h3></a>
