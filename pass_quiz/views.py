@@ -181,3 +181,6 @@ def coput_result_function(data):
                                                                                                                             )
 
     pyperclip.copy(test_text)
+
+
+

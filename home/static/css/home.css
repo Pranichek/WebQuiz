@@ -19,7 +19,12 @@ body {
     z-index: -1;
     pointer-events: none;
 }
-
+button:hover {
+background-color: #D6E8FE;
+box-shadow: 0 2px #000000;
+transform: translateY(4px);
+color: #000000;
+}
 form{
     z-index: 1;
 }

@@ -26,3 +26,7 @@ class DataUser(DATABASE.Model):
     is_passing = DATABASE.Column(DATABASE.String)
 
 
+
+
+
+

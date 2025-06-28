@@ -18,6 +18,17 @@
     gap: 100px;
 }
 
+button:hover {
+background-color: #D6E8FE;
+box-shadow: 0 2px #000000;
+transform: translateY(4px);
+color: #000000;
+}
+
+.bonus:hover{
+    transform: translateZ(60px);
+}
+
 .registration{
     position: relative;
     z-index: 3;

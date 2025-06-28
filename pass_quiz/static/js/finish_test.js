@@ -17,8 +17,7 @@ socket.emit("finish_test", {
 
 socket.on("test_result", (data) => {
     playAgain.value = data.test_id;
-    // document.querySelector(".user_pimpa").innerHTML = `
-    //     ${data.right_answers}`;
+
 
     document.querySelector(".uncorrect-answers").textContent = data.uncorrect_answers;
     document.querySelector(".correct-answers").textContent = data.right_answers;
@@ -28,7 +27,7 @@ socket.on("test_result", (data) => {
     if (data.count_answered == 0) {
         document.querySelector(".midle-time").textContent = "0";
     } else {
-         let midleTime = localStorage.getItem("wasted_time") / data.count_answered;
+        let midleTime = localStorage.getItem("wasted_time") / data.count_answered;
         // округляем до целого ро числа
         midleTime = midleTime.toFixed(0);
         document.querySelector(".midle-time").textContent = midleTime;
@@ -40,10 +39,15 @@ socket.on("test_result", (data) => {
 
     const target = data.accuracy;
     let current = 0;
+    if (current > 0){
+        // Установка ширины и позиции
+        fill.style.width = target + "%";
+        quard.style.left = `calc(${target}% - 78px)`; // сдвиг на половину ширины .quard для выравнивания
+    }else{
+        fill.style.width = target + "%";
+        quard.style.left = `calc(${target}% + 0px)`;
+    }
 
-    // Установка ширины и позиции
-    fill.style.width = target + "%";
-    quard.style.left = `calc(${target}% - 78px)`; // сдвиг на половину ширины .quard для выравнивания
 
     const interval = setInterval(() => {
         if (current < target) {

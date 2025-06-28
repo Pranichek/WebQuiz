@@ -71,6 +71,18 @@ header{
     overflow: hidden;
 }
 
+
+/* button {
+    transition: all 9s ease;
+} */
+button:hover {
+    background-color: #D6E8FE;
+    box-shadow: 0 2px #000000;
+    transform: translateY(4px);
+    color: #000000;
+    transition: all 9s ease;
+}
+
 .main-data {
     display: flex;
     flex-direction: row;
@@ -265,10 +277,8 @@ input::-webkit-inner-spin-button {
 
 .card {
     position: relative;
-    /* width: 21%;
-    height: 85%; */
-    width: 271px;
-    height: 190px;
+    width: 371px;
+    height: 210px;
     overflow: hidden;
     flex-direction: column;
     background-color: #D6E8FE;
@@ -280,6 +290,16 @@ input::-webkit-inner-spin-button {
     min-height: 180px;
     padding-bottom: 10px;
     max-width: 280px;
+    transition: 0.5s ease;
+    box-shadow: 0 0 10px rgba(170, 114, 161, 0.454);
+}
+
+.card:hover{
+    transition: 0.5s ease;
+    width: 375px;
+    height: 220px;
+    transform: translateY(-20px);
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 .card-card4 {
     position: relative;
@@ -460,7 +480,7 @@ a{
         min-width: 240px;
         min-height: 180px;
         padding-bottom: 10px;
-        max-width: 3200px;
+        max-width: 320px;
     }
     .test-name{
         font-size: 30px;
@@ -478,13 +498,16 @@ a{
         height: 50px;
     }
 
-    .static-theme{
+    /* .static-theme{
         width: 10px;
         height: 10px;
-    }
+    } */
 
     .image-robot{
-        margin-right: 0px;
+        background-color: #77d8b9;
+        /* width: 3px; */
+        height: 60px;
+        width: 40px;
     } 
     /* .nick{
         color: #D6E8FE;
@@ -527,9 +550,9 @@ a{
         font-size: small;
     }
 
-    .image-robot {
+    /* .image-robot {
         width: 30px;         
-    } 
+    }  */
     
     /* .discription{
         font-size: small;

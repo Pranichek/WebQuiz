@@ -24,6 +24,13 @@ main{
     padding: 0px 10px 10px 10px;
 }
 
+button:hover {
+background-color: #D6E8FE;
+box-shadow: 0 2px #000000;
+transform: translateY(4px);
+color: #000000;
+}
+
 .answers-test{
     /* background-color: chartreuse; */
     width: calc(100% - 308px);

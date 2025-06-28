@@ -12,7 +12,12 @@
     border-radius: 10px;
     background: linear-gradient(210deg, #c48af76e, #ac90f325, #92bede2f, #96c4da65, #92bede1e, #ac90f33b, #c48af76b);
 }
-
+button:hover {
+background-color: #D6E8FE;
+box-shadow: 0 2px #000000;
+transform: translateY(4px);
+color: #000000;
+}
 li, .timer-p{
     display: flex;
     justify-content: space-between;

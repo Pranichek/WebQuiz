@@ -728,10 +728,6 @@ socket.on('question', (data) => {
                         <img src="${data.question_img}"></img>
                     </div>
                 `;
-<<<<<<< HEAD
-=======
-
->>>>>>> af117e5d46df6f95f1a8f21b878a00bdaa8aadb6
                 let imgBig = document.querySelector(".simple-image")
                 let bigImg = document.createElement("div")
                 imgBig.addEventListener(

@@ -4,7 +4,7 @@ from Project.db import DATABASE
 class User(DATABASE.Model, flask_login.UserMixin):
     __tablename__ = "user"
     id = DATABASE.Column(DATABASE.Integer, primary_key = True)
-
+    
     username = DATABASE.Column(DATABASE.String(150), nullable = False)
     phone_number =  DATABASE.Column(DATABASE.Integer, nullable = False, default = "Не під'єднан")
     nickname = DATABASE.Column(DATABASE.String(150))

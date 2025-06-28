@@ -19,7 +19,12 @@ form{
     border-radius: 10px;
     background-color: #C7D7EB;
 }
-
+button:hover {
+background-color: #D6E8FE;
+box-shadow: 0 2px #000000;
+transform: translateY(4px);
+color: #000000;
+}
 .main-info{
     display: flex;
     justify-content: space-between;

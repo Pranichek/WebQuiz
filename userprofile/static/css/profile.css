@@ -12,7 +12,12 @@
     cursor: pointer;
     z-index: 1100;
 }
-
+button:hover {
+background-color: #D6E8FE;
+box-shadow: 0 2px #000000;
+transform: translateY(4px);
+color: #000000;
+}
 .hidden1, .hidden2, .hidden3{
     display: none;
 }

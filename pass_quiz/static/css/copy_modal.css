@@ -16,6 +16,13 @@
     z-index: 500;
 }
 
+button:hover {
+background-color: #D6E8FE;
+box-shadow: 0 2px #000000;
+transform: translateY(4px);
+color: #000000;
+}
+
 .fade-in{
     transition: 0.6s;
     /* background-color: blue; */

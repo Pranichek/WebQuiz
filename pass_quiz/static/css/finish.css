@@ -380,13 +380,14 @@
     color: #FFFFFF;
 }
 
-/* .head{
-    width: 866px;
-    height: 41px;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    background-color: #D7FFF2;
-} */
+button:hover {
+background-color: #D6E8FE;
+box-shadow: 0 2px #000000;
+transform: translateY(4px);
+color: #000000;
+}
+
+
 
 .correct-head{
     width: 100%;

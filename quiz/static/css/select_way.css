@@ -16,7 +16,12 @@ body {
     justify-content: center;
     align-items: center;
 }
-
+button:hover {
+background-color: #D6E8FE;
+box-shadow: 0 2px #000000;
+transform: translateY(4px);
+color: #000000;
+}
 .top-bar {
     display: flex;
     justify-content: space-between;

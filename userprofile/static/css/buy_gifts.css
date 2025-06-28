@@ -15,7 +15,12 @@
     margin: 5%;
     padding: 2%;
 }
-
+button:hover {
+background-color: #D6E8FE;
+box-shadow: 0 2px #000000;
+transform: translateY(4px);
+color: #000000;
+}
 .user-info {
     display: flex;
     justify-content: space-between;
