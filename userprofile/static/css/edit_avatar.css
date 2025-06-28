@@ -1101,7 +1101,7 @@ main{
     }
     .edit-buttons{
         height: 500px;
-        background-color: #7c9abd;
+        background-color: #464F5B;
     }
 
     .button{
@@ -1146,7 +1146,7 @@ main{
         height: 150px;
         padding-right: 100px;
         padding-left: 100px;
-        background-color: #7c9abd;
+        background-color: #464F5B;
     }
 }
 
