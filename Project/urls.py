@@ -17,6 +17,13 @@ home.home_app.add_url_rule(
 )
 
 home.home_app.add_url_rule(
+    rule = "/catalog_tests",
+    view_func = home.render_catalog_tests,
+    methods = ["GET", "POST"]
+)
+
+
+home.home_app.add_url_rule(
     rule="/home_auth",
     view_func = home.render_home_auth,
     methods = ["GET", "POST"]
@@ -110,6 +117,8 @@ quiz.test_pass.add_url_rule(
     view_func = pass_quiz.render_passing_test,
     methods = ["GET", "POST"]
 )
+
+
 quiz.test_pass.add_url_rule(
     rule = "/test/change_question/<int:pk>",
     view_func= quiz.render_change_question,

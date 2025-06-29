@@ -84,8 +84,8 @@ for (let elem of allInputs){
                 }
             }
             // Save filter and sort state to localStorage
-            localStorage.setItem('selectedCategorieshome', postInputCategory.value);
-            localStorage.setItem('selectedSorthome', postInputSort.value);
+            localStorage.setItem('selectedCategoriesauth', postInputCategory.value);
+            localStorage.setItem('selectedSortauth', postInputSort.value);
 
             let category = postInputCategory.value.split("/")
             category.forEach(el => {
@@ -170,9 +170,30 @@ for (let elem of allInputs){
 window.addEventListener(
     'DOMContentLoaded',
     () => {
-        let categoryFilter = localStorage.getItem("selectedCategorieshome").split("/")
+        let inputText = localStorage.getItem("filter_data")
+        if (inputText){
+            console.log("piraty")
+            document.querySelector(".findByname").textContent = inputText
+            document.querySelector(".findByname").value = inputText
+            document.querySelector(".lupa").click()
+            localStorage.clear("filter_data")
+        }
+
+        let categoryFilter = localStorage.getItem("selectedCategoriesauth")
+        if (categoryFilter){
+            categoryFilter = categoryFilter.split("/")
+
+            categoryFilter.forEach(el => {
+                let idx = categoryFilter.indexOf(el)
+                if (categoryFilter[idx] == "/"){
+                    categoryFilter.splice(idx, 1)
+                }
+            })
+        }else{
+            categoryFilter = []
+        }
         console.log(categoryFilter, 'sdcds')
-        let sortData = localStorage.getItem("selectedSorthome")
+        let sortData = localStorage.getItem("selectedSortauth")
         if (sortData){
             sortData = sortData.split("/")
 
@@ -186,12 +207,7 @@ window.addEventListener(
             sortData = []
         }
 
-        categoryFilter.forEach(el => {
-            let idx = categoryFilter.indexOf(el)
-            if (categoryFilter[idx] == "/"){
-                categoryFilter.splice(idx, 1)
-            }
-        })
+        
 
         
 

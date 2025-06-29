@@ -91,6 +91,7 @@ form{
 }
 
 .card {
+    cursor: pointer;
     flex-grow: 0;
     flex-shrink: 0;
     height: 280px;
