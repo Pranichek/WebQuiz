@@ -51,7 +51,7 @@
                         <p>Улюбленець</p>
                     </div>
                     <div class="animal">
-                        {% if user.user_profile.pet_id %}
+                        {% if user.user_profile %}
                             <!-- <div class="pet1"> -->
                             <img id="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/' ~ user.user_profile.pet_id ~ '.png') }}" alt="pet">
                             <!-- </div> -->
