@@ -357,6 +357,11 @@ a{
     gap: 5px;
 }
 
+#own-pet{
+    height: 35px;
+    width: auto;
+}
+
 .image-robot {
     bottom: 0;
     right: 0;

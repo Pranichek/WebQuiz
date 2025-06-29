@@ -401,7 +401,7 @@ a{
     margin-bottom: 10px;
 }
 
-.loadroom{
+.loadroom, .play_test{
     background-color: #C48AF7;
     border-radius: 6px;
     color:#ffffff;
@@ -417,10 +417,12 @@ a{
     background: none;
     background-color: transparent;
     border: 1px black solid;
-    font-size: 12px;
+    font-size: 10px;
     color: #969DA6;
     font-weight: 400;
     width: 120px;
+    
+    /* background-color: #8d57bc; */
 }
 
 .text-filter{

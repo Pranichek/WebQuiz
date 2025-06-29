@@ -25,6 +25,15 @@
                     <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
                 </div>
                 <a class="nick" href="/profile">{{ user.username }}</a>
+                {% if user.user_profile.pet_id %}
+                    <!-- <div class="pet1"> -->
+                    <img id="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/' ~ user.user_profile.pet_id ~ '.png') }}" alt="pet">
+                    <!-- </div> -->
+                {% else %}
+                    <div class="pet1">
+                        <p class="text">немає</p>
+                    </div>
+                {% endif %}
             </div>
             <div class="antoher-data">
                 <p class="gmail">{{ user.email }}</p>
@@ -37,7 +46,7 @@
 
     <div class="cards-floor">
         <div class="show-more">
-            <a href="/" class="tests-topic">Недавно пройдені тести</a>
+            <a href="/" class="tests-topic">{{ fourt_topic }}</a>
             <a data-value="last_passed" class="show-more-link">Побачити більше</a>
         </div>
         <div class="cards">

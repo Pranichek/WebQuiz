@@ -186,19 +186,42 @@ def render_edit_avatar():
     
 @login_decorate
 def render_user_tests():
-    user = User.query.get(flask_login.current_user.id)
-    tests = user.tests.filter(Test.check_del != "deleted").all()
-    message = ''
+    cookie = flask.request.cookies.get("pageindex")
+    if cookie == "created":
+        user = User.query.get(flask_login.current_user.id)
+        tests = user.tests.filter(Test.check_del != "deleted").all()
+        message = ''
 
-    response = flask.make_response(
-        flask.render_template(
-            template_name_or_list="user_tests.html",
-            tests=tests,
-            user=flask_login.current_user,
-            message = message,
-            page_name = "Мої створені тести"
+        response = flask.make_response(
+            flask.render_template(
+                template_name_or_list="user_tests.html",
+                tests=tests,
+                user=flask_login.current_user,
+                message = message,
+                page_name = "Мої створені тести",
+                code = generate_code()
+            )
         )
-    )
+    else:
+        user = User.query.get(flask_login.current_user.id)
+        id_tests = user.user_profile.last_passed.split(" ")
+        print(id_tests, "dklscmsdlkmc")
+        tests = []
+        for test in Test.query.all():
+            if str(test.id) in id_tests:
+                tests.append(test)
+        message = ''
+
+        response = flask.make_response(
+            flask.render_template(
+                template_name_or_list="user_tests.html",
+                last_tests = tests,
+                user = flask_login.current_user,
+                message = message,
+                page_name = "Недавно пройдені тести"
+            )
+        )
+
 
     response.delete_cookie('questions')
     response.delete_cookie('answers')

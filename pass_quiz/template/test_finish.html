@@ -49,8 +49,19 @@
                 <div class="r">
                     <div class="anim">
                         <p>Улюбленець</p>
-                    <div class="animal"></div>
                     </div>
+                    <div class="animal">
+                        {% if user.user_profile.pet_id %}
+                            <!-- <div class="pet1"> -->
+                            <img id="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/' ~ user.user_profile.pet_id ~ '.png') }}" alt="pet">
+                            <!-- </div> -->
+                        {% else %}
+                            <div class="pet1">
+                                <p class="text">немає</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                    
                     
                     <div class="tests">
                         <p class="text">Пройдені тести:</p>

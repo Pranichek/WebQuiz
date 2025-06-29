@@ -20,22 +20,28 @@ def render_home():
     else:
         return flask.redirect("/home_auth")
     
+
+
+def get_random_tests(category=None, max_tests=4):
+    """
+    Отримує випадкові `max_tests` тестів з категорії.
+    Якщо category не вказано, вибирає з усіх.
+    """
+    if category:
+        all_tests = Test.query.filter(Test.category == category, Test.check_del != "deleted").all()
+    else:
+        all_tests = Test.query.filter(Test.check_del != "deleted").all()
+
+    if not all_tests:
+        return []
+
+    # перемешиваем список чтобы выдавало рандомные тесты
+    random.shuffle(all_tests)
+    return all_tests[0:4]
+
 #головна сторінка коли користувач увійшов у акаунт
 @login_decorate
 def render_home_auth():    
-    user = User.query.get(flask_login.current_user.id)
-
-    # отримати баланс
-    money_user = user.user_profile.count_money
-
-    category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
-    first_topic = random.choice(category)
-    category.remove(first_topic)
-    second_topic = random.choice(category)
-
-    first_four_test = []
-    random_numbers = []
-
     if flask.request.method == "POST":
         check_value = flask.request.form.get("check_form")
 
@@ -44,37 +50,58 @@ def render_home_auth():
         elif check_value == "enter-room":
             data_code = flask.request.form["enter-code"]
             return flask.redirect(f"student?room_code={data_code}")
+        
+    user = User.query.get(flask_login.current_user.id)
 
-    tests_first_topic = Test.query.filter(Test.category == first_topic, Test.check_del != "deleted").all()
-    if len(tests_first_topic) > 0:
-        while True:
-            random_num = random.randint(0, len(tests_first_topic) - 1)
-            if random_num not in random_numbers and tests_first_topic[random_num].check_del != "deleted":
-                random_numbers.append(random_num)
-            if len(random_numbers) == len(tests_first_topic) or len(random_numbers) >= 4:
-                break
-        print(random_numbers)
-        for num in random_numbers:
-            first_four_test.append(tests_first_topic[num])
+    # отримати баланс
+    money_user = user.user_profile.count_money
 
-    second_four_test = []
+    category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
+    first_topic = random.choice(category)
+    category.remove(first_topic)
+
+    first_four_test = get_random_tests(category=first_topic)
+    random_numbers = []
+
+    # tests_first_topic = Test.query.filter(Test.category == first_topic, Test.check_del != "deleted").all()
+    # if len(tests_first_topic) > 0:
+    #     while True:
+    #         random_num = random.randint(0, len(tests_first_topic) - 1)
+    #         if random_num not in random_numbers and tests_first_topic[random_num].check_del != "deleted":
+    #             random_numbers.append(random_num)
+    #         if len(random_numbers) == len(tests_first_topic) or len(random_numbers) >= 4:
+    #             break
+    #     print(random_numbers)
+    #     for num in random_numbers:
+    #         first_four_test.append(tests_first_topic[num])
+
+
+    second_topic = random.choice(category)
+    category.remove(second_topic)
+    second_four_test = get_random_tests(category=second_topic)
     second_random_numbers = []
 
     # tests_second_topic = Test.query.filter_by(category = second_topic).all()
-    tests_second_topic = Test.query.filter(Test.category == second_topic, Test.check_del != "deleted").all()
-    if len(tests_second_topic) > 0:
-        while True:
-            random_num = random.randint(0, len(tests_second_topic) - 1)
-            if random_num not in second_random_numbers and tests_second_topic[random_num].check_del != "deleted":
-                second_random_numbers.append(random_num)
-            if len(second_random_numbers) == len(tests_second_topic) or len(second_random_numbers) >= 4:
-                break
-        for num in second_random_numbers:
-            second_four_test.append(tests_second_topic[num])
+    # tests_second_topic = Test.query.filter(Test.category == second_topic, Test.check_del != "deleted").all()
+    # if len(tests_second_topic) > 0:
+    #     while True:
+    #         random_num = random.randint(0, len(tests_second_topic) - 1)
+    #         if random_num not in second_random_numbers and tests_second_topic[random_num].check_del != "deleted":
+    #             second_random_numbers.append(random_num)
+    #         if len(second_random_numbers) == len(tests_second_topic) or len(second_random_numbers) >= 4:
+    #             break
+    #     for num in second_random_numbers:
+    #         second_four_test.append(tests_second_topic[num])
 
 
     user : User = User.query.get(int(current_user.id))
     third_random_numbers = user.user_profile.last_passed.split(" ")
+    print("siska", third_random_numbers)
+    for el in third_random_numbers:
+        indx = third_random_numbers.index(el)
+        normal = el.split("/")[0]
+        third_random_numbers[indx] = normal
+
     all_tests = Test.query.all()
 
     third_ready_tests = []
@@ -84,6 +111,24 @@ def render_home_auth():
     for test in range(0, len(third_random_numbers) - 1):
         if Test.query.get(int(third_random_numbers[test])).check_del != "deleted":
             third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
+
+
+    fourth_topic = random.choice(category)
+    fourth_four_test = get_random_tests(category= fourth_topic)
+
+
+
+    # tests_second_topic = Test.query.filter_by(category = second_topic).all()
+    # tests_second_topic = Test.query.filter(Test.category == second_topic, Test.check_del != "deleted").all()
+    # if len(tests_second_topic) > 0:
+    #     while True:
+    #         random_num = random.randint(0, len(tests_second_topic) - 1)
+    #         if random_num not in second_random_numbers and tests_second_topic[random_num].check_del != "deleted":
+    #             second_random_numbers.append(random_num)
+    #         if len(second_random_numbers) == len(tests_second_topic) or len(second_random_numbers) >= 4:
+    #             break
+    #     for num in second_random_numbers:
+    #         second_four_test.append(tests_second_topic[num])
  
     return flask.render_template(
         "home_auth.html", 
@@ -94,7 +139,8 @@ def render_home_auth():
         first_topic = first_topic,
         second_topic = second_topic,
         second_tests = second_four_test,
-        third_tests = third_ready_tests
+        third_tests = third_ready_tests if len(third_ready_tests) >= 4 else fourth_four_test,
+        fourt_topic = "Недавно пройдені тести" if len(third_ready_tests) >= 4 else f"Тести із теми {fourth_topic}"
         )
 
     

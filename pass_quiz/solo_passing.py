@@ -153,6 +153,7 @@ def handle_next_question(data_index):
             string_last_tests = " ".join(last_tests)
 
             user.user_profile.last_passed = string_last_tests
+            print("kasha", string_last_tests)
 
         test.test_profile.amount_passes += 1
 

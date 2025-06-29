@@ -181,7 +181,12 @@ socket.on('question', (data) => {
                 imgBig.addEventListener(
                     'click',
                     () => {
-                        
+                        bigImg.style.opacity = "0";
+                        bigImg.style.transition = "opacity 0.3s ease";
+                        setTimeout(() => {
+                            bigImg.style.opacity = "1";
+                        }, 10);
+
                         bigImg.className = "bigimg"
                         bigImg.innerHTML = `
                             <img src="${data.question_img}"></img>
@@ -403,7 +408,12 @@ socket.on('question', (data) => {
                 imgBig.addEventListener(
                     'click',
                     () => {
-                        
+                        bigImg.style.opacity = "0";
+                        bigImg.style.transition = "opacity 0.3s ease";
+                        setTimeout(() => {
+                            bigImg.style.opacity = "1";
+                        }, 10);
+
                         bigImg.className = "bigimg"
                         bigImg.innerHTML = `
                             <img src="${data.question_img}"></img>
@@ -682,6 +692,11 @@ socket.on('question', (data) => {
                 imgBig.addEventListener(
                     'click',
                     () => {
+                        bigImg.style.opacity = "0";
+                        bigImg.style.transition = "opacity 0.3s ease";
+                        setTimeout(() => {
+                            bigImg.style.opacity = "1";
+                        }, 10);
                         
                         bigImg.className = "bigimg"
                         bigImg.innerHTML = `
