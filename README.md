@@ -431,7 +431,7 @@ This is the main application package, where its main instance is created, operat
 Зміна особистоії інформації
 ![Main page](readme_images_gifs/user_profile.gif)
 
-Просмотр історії тестів
+Перегляд історії тестів
 ![Main page](readme_images_gifs/user_tests.gif)
 
 <a name= "userprofile"><h1>userprofile</h1><a>
