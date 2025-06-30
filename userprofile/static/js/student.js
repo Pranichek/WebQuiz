@@ -4,16 +4,22 @@ function getQueryParam(param) {
     return urlParams.get(param);
 }
 
-
-
 const socket = io(); 
 
 const room = getQueryParam('room_code');
-const username = document.querySelector(".save-nickname").value;  
+const username = document.querySelector(".save-nickname").value; 
 
+socket.on("kicked", (data) => {
+    alert(data.reason || "You were kicked from the room");
+    socket.disconnect();
+    window.location.href = "/";
+});
 
 socket.on('connect', () => {
-    socket.emit('join_room', { username, room });
+    socket.emit("join_room", {
+        username: username,
+        room: room
+    });
     console.log("trying to join the room");
 });
 

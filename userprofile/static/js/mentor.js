@@ -31,18 +31,18 @@ function loadRoom() {
         const room = urlParams.get('room_code');
         let userCardList = document.getElementsByClassName("card");
         console.log("userCardList =", userCardList)
-        for (let card of userCardList){
-            card.addEventListener("click", ()=>{
-                let thisUsername = card.id;
-                socket.emit(
-                    'leave_room',
-                    {
-                        username: thisUsername,
-                        room: room
-                    });
-                socket.disconnect();
-            })
+        for (let card of userCardList) {
+            card.addEventListener("click", () => {
+                const targetUsername = card.id;
+                console.log("Kicking:", targetUsername);
+                socket.emit('kick_user', {
+                    target_username: targetUsername,
+                    room: room
+                });
+                card.remove()
+            });
         }
+
     });
 
     // когда пришло новое сообщение
@@ -51,14 +51,14 @@ function loadRoom() {
         chat.innerHTML += `<div><b>${data.sender}:</b> ${data.message}</div>`;
     });
 
-    socket.on('user_leave', (data) => {
-        console.log(`${data.username} покинув кімнату`);
-        for (let amountToChange of usersAmountToChange){
-            amountToChange.textContent = +amountToChange.textContent - 1;
-        }
-        let userCard = document.getElementById(data.username)
-        userCard.remove()
-    });
+    // socket.on('user_leave', (data) => {
+    //     console.log(`${data.username} покинув кімнату`);
+    //     for (let amountToChange of usersAmountToChange){
+    //         amountToChange.textContent = +amountToChange.textContent - 1;
+    //     }
+    //     let userCard = document.g(data.username)
+    //     userCard.remove()
+    // });
     
     const sendBtn = document.querySelector(".send-message");
     
