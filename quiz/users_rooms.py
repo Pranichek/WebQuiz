@@ -4,6 +4,7 @@ from os.path import exists, abspath, join
 from Project.socket_config import socket
 from flask_login import current_user
 from .del_files import delete_files_in_folder
+from .models import Test
 
 @login_decorate
 def render_mentor():
@@ -12,6 +13,12 @@ def render_mentor():
     # зберігаємо об'єкт користувача в змінну
     user = flask_login.current_user
 
+    test = (
+        Test.query
+            .filter_by(user_id=user.id, check_del="exists")
+            .order_by(Test.id.asc())
+            .first()
+    )
     # qrcode - 
     # Створюємо QR-код(об'єкт) з посиланням на кімнату
     qr = qrcode.QRCode(
@@ -54,7 +61,8 @@ def render_mentor():
         "mentor.html",
         mentor = True,
         code = code,
-        user = user
+        user = user,
+        test = test  
     )
 
 
