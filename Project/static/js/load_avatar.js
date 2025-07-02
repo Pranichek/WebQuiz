@@ -22,3 +22,31 @@ window.addEventListener(
         }
     }
 )
+
+const overlay = document.getElementById('circle-overlay');
+const links = document.querySelectorAll(".svaedanim");
+
+window.addEventListener('pageshow', (event) => {
+  if (event.persisted) {
+    // сторінка завантажена з bfcache (кеш назад/вперед)
+    overlay.classList.remove('active');
+  }
+});
+window.addEventListener('load', () => {
+    overlay.classList.remove('active');
+});
+
+for (let link of links) {
+link.addEventListener('click', e => {
+    const href = link.getAttribute('href');
+    if (!href || href.startsWith('#') || href.startsWith('javascript')) return;
+
+    e.preventDefault();
+
+    overlay.classList.add('active');
+
+    setTimeout(() => {
+    window.location.href = href;
+    }, 711);
+});
+}

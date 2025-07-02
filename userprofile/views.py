@@ -186,25 +186,42 @@ def render_edit_avatar():
     
 @login_decorate
 def render_user_tests():
-    if flask.request.method == "POST":
-        valueFilter = flask.request.form.get("by_filter_category")
-        valueSort = flask.request.form.get("by_filter_sort")
+    cookie = flask.request.cookies.get("pageindex")
+    if cookie == "created":
+        user = User.query.get(flask_login.current_user.id)
+        tests = user.tests.filter(Test.check_del != "deleted").all()
+        message = ''
 
-        print(valueFilter, valueSort)
-
-    user = User.query.get(flask_login.current_user.id)
-    tests = user.tests.filter(Test.check_del != "deleted").all()
-    message = ''
-
-    response = flask.make_response(
-        flask.render_template(
-            template_name_or_list="user_tests.html",
-            tests=tests,
-            user=flask_login.current_user,
-            message = message,
-            code = generate_code()
+        response = flask.make_response(
+            flask.render_template(
+                template_name_or_list="user_tests.html",
+                tests=tests,
+                user=flask_login.current_user,
+                message = message,
+                page_name = "Мої створені тести",
+                code = generate_code()
+            )
         )
-    )
+    else:
+        user = User.query.get(flask_login.current_user.id)
+        id_tests = user.user_profile.last_passed.split(" ")
+        print(id_tests, "dklscmsdlkmc")
+        tests = []
+        for test in Test.query.all():
+            if str(test.id) in id_tests:
+                tests.append(test)
+        message = ''
+
+        response = flask.make_response(
+            flask.render_template(
+                template_name_or_list="user_tests.html",
+                last_tests = tests,
+                user = flask_login.current_user,
+                message = message,
+                page_name = "Недавно пройдені тести"
+            )
+        )
+
 
     response.delete_cookie('questions')
     response.delete_cookie('answers')
@@ -438,3 +455,4 @@ def render_buy_gifts():
         count_money = count_money,
         pet_id = pet_id
     )
+

@@ -1,3 +1,9 @@
+let chcklocal = document.referrer
+
+if (!chcklocal.includes("passig_test")){
+    window.location.replace('/');
+}
+
 localStorage.setItem('index_question', '0');
 localStorage.setItem('time_question', 'set')
 localStorage.setItem("need_rolad", "True")

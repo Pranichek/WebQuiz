@@ -6,21 +6,25 @@ from Project.login_check import login_decorate
 from home.models import User
 import flask_login
 from Project.db import DATABASE
-import pyperclip
+import pyperclip, flask_login
 
-@login_decorate
+# @login_decorate
 def render_finish_test():
     list_to_template = []
-    user : User = User.query.get(flask_login.current_user.id)
-    email = user.email
-    avatar = user.name_avatar
+    if flask_login.current_user.is_authenticated:
+        user : User = User.query.get(flask_login.current_user.id)
+        email = user.email
+        avatar = user.name_avatar
 
 
-
-    if user.user_profile.percent_bonus >= 100:
-        user.user_profile.percent_bonus = 0
-        if user.user_profile.percent_bonus is not None:
-            DATABASE.session.commit()
+        if user.user_profile.percent_bonus >= 100:
+            user.user_profile.percent_bonus = 0
+            if user.user_profile.percent_bonus is not None:
+                DATABASE.session.commit()
+    else:
+        user = flask_login.current_user
+        email = None
+        avatar = None
 
     return render_template(
         "test_finish.html",
@@ -141,6 +145,16 @@ def handle_finish_test(data):
     for index in correct_indexes:
         amount_points += len(index)
     accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
+
+    # if flask_login.current_user.is_authenticated:
+    #     users_passes = flask_login.current_user.user_profile.last_passed.split(" ")
+    #     print("lololo", user_answers)
+    #     last_id = users_passes[-1]
+    #     user_answers[-1] = f"{last_id.split("/")[0]}/{int(accuracy)}"
+    #     string_last_tests = " ".join(user_answers)
+    #     print(user_answers, "kokok")
+    #     flask_login.current_user.user_profile.last_passed = string_last_tests
+    #     DATABASE.session.commit()
 
     mark = (12 * accuracy) // 100
 

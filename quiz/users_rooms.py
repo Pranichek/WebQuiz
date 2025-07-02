@@ -3,6 +3,7 @@ from Project.login_check import login_decorate
 from os.path import exists, abspath, join
 from Project.socket_config import socket
 from flask_login import current_user
+from .del_files import delete_files_in_folder
 
 @login_decorate
 def render_mentor():
@@ -37,7 +38,14 @@ def render_mentor():
     # зберігаємо зображення QR-коду в папку користувача
     if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes"))):
         os.makedirs(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes")))
+    if not os.path.exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes", f"{code}.png"))):
+        delete_files_in_folder(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes")))
+        with open((abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes", "chat.json"))), "w") as f:
+            f.write("")
+
     image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes", f"{code}.png")))
+    
+    
 
     if flask.request.method == "POST":
         socket.emit()
