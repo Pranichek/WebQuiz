@@ -11,15 +11,46 @@ from Project.db import DATABASE
 
 
 def render_data_test():
-    if current_user.is_authenticated:
+    # if current_user.is_authenticated:
         message = ''
         test_id = flask.request.args.get("id_test")
         test = Test.query.get(int(test_id))
 
+        count = 0
+        answers = test.answers.split("?@?")
+        correct_indexes = []
+        list_final = []
+        questions = test.questions.split("?%?")
+        for question in questions:
+            one_question = {}
+            one_question["question"] = question
+            list_answers = []
+            for ans in answers:
+                current_answers = []
+                ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
+                current_answers.append(ans_clean)
+
+                clear_answer = current_answers[0].split('*|*|*')
+                if (clear_answer[-1] == ''):
+                    del clear_answer[-1]
+                list_answers.append(clear_answer)
+                
+
+            one_question["answers"] = list_answers[count]
+            list_final.append(one_question)
+            count += 1
+
+        img_test = "default"
+        if "default" not in test.image.split("/"):
+            img_test = test.image
         response = flask.make_response(
             flask.render_template(
             template_name_or_list = "test_data.html",
-            test = test
+            test = test,
+            question_list = list_final,
+            img_test = img_test,
+            user = current_user,
+            img_part = test.image.split('/')[1] if img_test == 'default' else test.image
         )
         )
 
@@ -103,14 +134,22 @@ def render_data_test():
                     '/home_auth.html'
                 )
             )
-            
+        
+        img_test = "default"
+        if "default" not in test.image.split("/"):
+            img_test = test.image
         response = flask.make_response(
             flask.render_template(
                 "test_data.html", 
                 test= test,
-                message = message
+                message = message,
+                question_list = list_final,
+                img_test = img_test,
+                user = current_user,
+                img_part = test.image.split('/')[1] if img_test == 'default' else test.image
+
             )
         )
         return response
-    else:
-        return flask.redirect("/")
+    # else:
+    #     return flask.redirect("/")

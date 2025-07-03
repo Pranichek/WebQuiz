@@ -11,6 +11,19 @@ home.home_app.add_url_rule(
 )
 
 home.home_app.add_url_rule(
+    rule = "/select_tests",
+    view_func = home.render_select_tests,
+    methods = ["GET", "POST"]
+)
+
+home.home_app.add_url_rule(
+    rule = "/catalog_tests",
+    view_func = home.render_catalog_tests,
+    methods = ["GET", "POST"]
+)
+
+
+home.home_app.add_url_rule(
     rule="/home_auth",
     view_func = home.render_home_auth,
     methods = ["GET", "POST"]
@@ -52,21 +65,21 @@ userprofile.profile.add_url_rule(
     methods = ["GET","POST"]
 )
 
-userprofile.change_tests.add_url_rule(
+quiz.change_tests.add_url_rule(
     rule = "/change_tests",
-    view_func = userprofile.render_change_tests,
+    view_func = quiz.render_change_tests,
     methods = ["GET","POST"]
 )
 
-userprofile.mentor.add_url_rule(
+quiz.mentor.add_url_rule(
     rule = "/mentor",
-    view_func = userprofile.render_mentor,
+    view_func = quiz.render_mentor,
     methods = ["GET","POST"]
 )
 
-userprofile.mentor.add_url_rule(
+quiz.student.add_url_rule(
     rule = "/student",
-    view_func = userprofile.render_student,
+    view_func = quiz.render_student,
     methods = ["GET","POST"]
 )
 
@@ -105,10 +118,18 @@ quiz.test_pass.add_url_rule(
 )
 
 quiz.test_pass.add_url_rule(
-    rule = "/passig_test",
-    view_func = quiz.render_passing_test,
+    rule = "/import_test",
+    view_func = quiz.render_import_test,
     methods = ["GET", "POST"]
 )
+
+quiz.test_pass.add_url_rule(
+    rule = "/passig_test",
+    view_func = pass_quiz.render_passing_test,
+    methods = ["GET", "POST"]
+)
+
+
 quiz.test_pass.add_url_rule(
     rule = "/test/change_question/<int:pk>",
     view_func= quiz.render_change_question,
@@ -138,7 +159,19 @@ searches.search.add_url_rule(
 )
 
 userprofile.buy_gifts.add_url_rule(
-    rule = "/buy_gifts",
+    rule = "/buy_pet",
     view_func = userprofile.render_buy_gifts,
+    methods = ["GET", "POST"]
+)
+
+pass_quiz.passing_mentor.add_url_rule(
+    rule = "/passing_mentor",
+    view_func = pass_quiz.render_mentor_passing,
+    methods = ["GET", "POST"]
+)
+
+pass_quiz.passing_student.add_url_rule(
+    rule = "/passing_student",
+    view_func = pass_quiz.render_student_passing,
     methods = ["GET", "POST"]
 )

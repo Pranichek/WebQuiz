@@ -5,7 +5,7 @@ function Profile(){
 }
 
 window.addEventListener(
-    'load',
+    'DOMContentLoaded',
     () => {
         let AvatarImage = document.querySelector(".avatar")
         
@@ -26,8 +26,9 @@ submitFilter.addEventListener(
         let input = document.querySelector(".filter-input")
         let inputData = input.value
         localStorage.setItem("filter_data", inputData)
-        document.querySelector(".search-filter-link").href = `/filter_page?input_data=${inputData}`
-        document.querySelector(".search-filter-link").click();
+        location.replace("/catalog_tests")
+        // document.querySelector(".search-filter-link").href = `/filter_page?input_data=${inputData}`
+        // document.querySelector(".search-filter-link").click();
     }
 )
 
@@ -40,7 +41,31 @@ input.addEventListener('keydown', (event) => {
 
     let inputData = input.value;
     localStorage.setItem("filter_data", inputData);
-    document.querySelector(".search-filter-link").href = `/filter_page?input_data=${inputData}`;
-    document.querySelector(".search-filter-link").click();
+    location.replace("/catalog_tests")
+    // document.querySelector(".search-filter-link").href = `/filter_page?input_data=${inputData}`;
+    // document.querySelector(".search-filter-link").click();
   }
 });
+
+const cardsFloors = document.querySelectorAll(".cards")
+
+for (let floor of cardsFloors){
+    let childrenFloor = floor.children;
+    for (let i = 0; i < childrenFloor.length; i++) {
+        const colors = ['#D6E8FE', '#F2FBFF', '#E7F2FF', '#F5E9FF'];
+        childrenFloor[i].style.backgroundColor = colors[i % colors.length];
+    }
+}
+
+
+let showmores = document.querySelectorAll(".show-more-link")
+
+for (let show of showmores){
+    show.addEventListener(
+        'click',
+        () => {
+            localStorage.setItem("selectedCategoriesauth", show.dataset.value)
+            location.replace("/catalog_tests")
+        }
+    )
+}

@@ -14,6 +14,7 @@ from home.send_email import send_code, generate_code
 from Project.login_check import login_decorate
 from os.path import abspath, join, exists
 from flask_login import current_user
+from Project.socket_config import socket
 
 
 @login_decorate
@@ -81,7 +82,7 @@ def render_profile():
     
 @login_decorate
 def render_edit_avatar():
-    try:
+    # try:
         user = flask_login.current_user
         show = ['']
 
@@ -135,25 +136,33 @@ def render_edit_avatar():
                 name_avatar = ''
 
                 if number_avatar == "1":
-                    name_avatar = "default_avatar.png"
+                    name_avatar = "default_avatar.svg"
                 elif number_avatar == "2":
-                    name_avatar = "default_picture2.png"
+                    name_avatar = "default_picture2.svg"
                 elif number_avatar == "3":
-                    name_avatar = "default_picture3.png"
+                    name_avatar = "default_picture3.svg"
                 elif number_avatar == "4":
-                    name_avatar = "default_picture4.png"
+                    name_avatar = "default_picture4.svg"
                 elif number_avatar == "5":
-                    name_avatar = "default_picture5.png"
+                    name_avatar = "default_picture5.svg"
 
                 flask_login.current_user.size_avatar = 100
-                default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", name_avatar)))
-                # save a image using extension
-                if not os.path.exists(path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email) , name_avatar))):
-                    default_img = default_img.save(fp=os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email) , name_avatar)))
+                default_img_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", name_avatar))
+                user_img_dir = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email)))
+                user_img_path = os.path.join(user_img_dir, name_avatar)
+
+                # создаем директорию, если ее нет
+                if not os.path.exists(user_img_dir):
+                    os.makedirs(user_img_dir)
+
+                # копируем файл, если он еще не существует
+                if not os.path.exists(user_img_path):
+                    shutil.copyfile(default_img_path, user_img_path)
+
                 flask_login.current_user.name_avatar = name_avatar
                 DATABASE.session.commit()
             elif check_form == "del_image":
-                default_avatars = ["default_avatar.png", "default_picture2.png", "default_picture3.png", "default_picture4.png","default_picture5.png"]
+                default_avatars = ["default_avatar.svg", "default_picture2.svg", "default_picture3.svg", "default_picture4.svg","default_picture5.svg"]
                 if str(flask_login.current_user.name_avatar) not in default_avatars:
                     name_default_avatar = str(random.choice(default_avatars))
                     path = os.path.abspath(os.path.join(__file__, "..", "static", "images", "edit_avatar", str(flask_login.current_user.email), name_default_avatar))
@@ -176,32 +185,52 @@ def render_edit_avatar():
             show = show[0],
             cash_image = str(flask.session["cash_image"] if 'cash_image' in flask.session else "Nothing")
         )
-    except Exception as error:
-        return flask.redirect("/")
+
     
 @login_decorate
 def render_user_tests():
-    user = User.query.get(flask_login.current_user.id)
-    tests = user.tests.filter(Test.check_del != "deleted").all()
-    message = ''
+    cookie = flask.request.cookies.get("pageindex")
+    if cookie == "created":
+        user = User.query.get(flask_login.current_user.id)
+        tests = user.tests.filter(Test.check_del != "deleted").all()
+        message = ''
 
-    response = flask.make_response(
-        flask.render_template(
-            template_name_or_list="user_tests.html",
-            tests=tests,
-            user=flask_login.current_user,
-            message = message,
-            code = generate_code()
+        response = flask.make_response(
+            flask.render_template(
+                template_name_or_list="user_tests.html",
+                tests=tests,
+                user=flask_login.current_user,
+                message = message,
+                page_name = "Мої створені тести",
+                code = generate_code()
+            )
         )
-    )
+    else:
+        user = User.query.get(flask_login.current_user.id)
+        id_tests = user.user_profile.last_passed.split(" ")
+        print(id_tests, "dklscmsdlkmc")
+        tests = []
+        for test in Test.query.all():
+            if str(test.id) in id_tests:
+                tests.append(test)
+        message = ''
+
+        response = flask.make_response(
+            flask.render_template(
+                template_name_or_list="user_tests.html",
+                last_tests = tests,
+                user = flask_login.current_user,
+                message = message,
+                page_name = "Недавно пройдені тести"
+            )
+        )
+
 
     response.delete_cookie('questions')
     response.delete_cookie('answers')
     response.delete_cookie('time')
     response.delete_cookie('category')
     response.delete_cookie('inputname')
-
-    # code = generate_code()
     
     return response
 
@@ -501,6 +530,35 @@ def render_student():
 
 @login_decorate
 def render_buy_gifts():
+    user = flask_login.current_user
+    email = flask_login.current_user
+    count_money = user.user_profile.count_money
+    pet_id = user.user_profile.pet_id
+
+    if flask.request.method == "POST":
+        check_form = flask.request.form.get("buy_gift")
+
+        if check_form and "/" in check_form:
+            data_button = check_form.split("/")  # [pet_id, cost]
+            pet_id = data_button[0]
+            pet_cost = int(data_button[1])
+
+            if count_money >= pet_cost:
+                # Проверяем, не куплен ли уже питомец
+                if str(user.user_profile.pet_id) != str(pet_id):
+                    user.user_profile.count_money -= pet_cost
+                    user.user_profile.pet_id = pet_id  
+                    print("daaaaaaa")
+                    DATABASE.session.commit()
+
+        # После обработки POST-запроса перенаправляем на ту же страницу (чтобы не было повторной отправки формы)
+        # return flask.redirect(flask.url_for("buy_gifts.render_buy_gifts"))
+
     return flask.render_template(
-        template_name_or_list="buy_gifts.html",
+        template_name_or_list = "buy_gifts.html",
+        user = user,
+        email = email,
+        count_money = count_money,
+        pet_id = pet_id
     )
+

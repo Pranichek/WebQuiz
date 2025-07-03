@@ -96,12 +96,23 @@ button.addEventListener("click", () => {
 window.addEventListener("DOMContentLoaded", () => {
     if (document.querySelector("#time").dataset.time !== "not"){
         if (parseInt(document.querySelector("#time").dataset.time) < 60){
-            document.querySelector("#time").textContent = `⏱ ${document.querySelector("#time").dataset.time} секунд ˅`;
+            document.querySelector("#time").textContent = `⏱ ${document.querySelector("#time").dataset.time} секунд`;
+            const timeEl = document.querySelector("#time");
+            const imgUrl = timeEl.dataset.img;
+
+            timeEl.innerHTML += `<img src="${imgUrl}">`;
         }else{
-            document.querySelector("#time").textContent = `⏱ ${parseInt(document.querySelector("#time").dataset.time) / 60} хвилин ˅`;
-        }
+            document.querySelector("#time").textContent = `⏱ ${parseInt(document.querySelector("#time").dataset.time) / 60} хвилин`;
+            const timeEl = document.querySelector("#time");
+            const imgUrl = timeEl.dataset.img;
+
+            timeEl.innerHTML += `<img src="${imgUrl}">`;        }
     }else{
-        document.querySelector("#time").textContent = `⏱ Без часу ˅`;
+        document.querySelector("#time").textContent = `⏱ Без часу`;
+        const timeEl = document.querySelector("#time");
+        const imgUrl = timeEl.dataset.img;
+
+        timeEl.innerHTML += `<img src="${imgUrl}">`;
     }
 });
 

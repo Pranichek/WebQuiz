@@ -9,8 +9,7 @@
     Запис + та - для відповідей у JavaScript
 '''
 
-import json
-import flask, os, flask_login, shutil, PIL.Image
+import flask, os, flask_login, shutil
 from .models import Test, TestData
 from Project.db import DATABASE
 from os.path import abspath, join, exists
@@ -18,6 +17,7 @@ from flask_login import current_user
 from .del_files import delete_files_in_folder
 from .generate_image import return_img
 from Project.login_check import login_decorate
+from home.models import User
 
 
 @login_decorate
@@ -91,12 +91,15 @@ def render_test():
             if len(os.listdir(from_path)) > 0:
                 shutil.move(from_path, to_path)
 
+            
             if "test_image" in flask.session and flask.session["test_image"] != "default":
+                source_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar",
+                                        str(current_user.email), "cash_test", flask.session["test_image"]))
+                dest_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar",
+                                        str(current_user.email), "user_tests", str(test_title), flask.session["test_image"]))
 
-                test_image = PIL.Image.open(fp = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"])))
-                test_image = test_image.save(fp = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", str(test_title), str(flask.session["test_image"]))))
-                os.remove(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test", flask.session["test_image"]))
-            )
+                shutil.copy(src=source_path, dst=dest_path)
+                os.remove(source_path)
 
             if "test_image" in flask.session:
                 flask.session.pop("test_image", None)
@@ -115,7 +118,7 @@ def render_test():
             image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
         elif check_form == "del_image":
             flask.session["test_image"] = "default"
-    # else: 
+    
     new_answers_list = ''
     if new_questions:
         new_answers_list = new_answers.split("?@?")
@@ -136,6 +139,8 @@ def render_test():
             item["pk"] = number
             list_to_template.append(item)
             number += 1
+
+    print(list_to_template, "kkllk")
     
     return flask.render_template(
         template_name_or_list= "test.html", 
@@ -293,6 +298,7 @@ def render_delete_image(pk: int):
             os.rename(src, dst)
     return "Delete"
 
+
 def render_delete_only_image(pk: int):
     print("pk =", pk, "; pk + 1 =", pk + 1)
     
@@ -315,3 +321,55 @@ def render_delete_only_image(pk: int):
         os.remove(os.path.join(deletion_path, file))
 
     return "Delete"
+
+
+@login_decorate
+def render_import_test():
+    return flask.render_template(
+        template_name_or_list = "import_test.html"
+    )
+
+
+@login_decorate
+def render_change_tests():
+    user = User.query.get(flask_login.current_user.id)
+    message = ''
+    
+    test_id = flask.request.args.get("test_id")
+    if not test_id:
+        return 
+
+    test = Test.query.filter_by(id=test_id, user_id=user.id).first()
+    if not test:
+        return 
+    if flask.request.method == "POST":
+        new_name = flask.request.form.get("new_name")
+        if new_name:
+            existing_test = Test.query.filter_by(user_id=user.id, title_test=new_name).first()
+            if existing_test:
+                message = "Тест із такою назвою вже є"
+            else:
+                old_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(test.title_test)))
+                new_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(new_name)))
+                os.rename(old_path, new_path)
+                test.title_test = new_name
+                DATABASE.session.commit()
+                message = "Назву змінено успішно"
+
+        delete_id = flask.request.form.get("delete-id")
+        if delete_id:
+            test.check_del = "deleted"
+            DATABASE.session.commit()
+            message = "Тест видалено"
+            return flask.redirect("/user_test")
+
+        create_room = flask.request.form.get("create-room")
+
+        if create_room:
+            print("ida")
+    
+    return flask.render_template(
+        "change_tests.html",
+        test=test,
+        message=message,
+    )

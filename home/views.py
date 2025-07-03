@@ -1,5 +1,4 @@
-import PIL.Image
-import flask, flask_login, os, random
+import flask, flask_login, os, random, shutil
 from .models import User
 from Project.db import DATABASE
 from .send_email import send_code, generate_code
@@ -21,6 +20,25 @@ def render_home():
     else:
         return flask.redirect("/home_auth")
     
+
+
+def get_random_tests(category=None, max_tests=4):
+    """
+    Отримує випадкові `max_tests` тестів з категорії.
+    Якщо category не вказано, вибирає з усіх.
+    """
+    if category:
+        all_tests = Test.query.filter(Test.category == category, Test.check_del != "deleted").all()
+    else:
+        all_tests = Test.query.filter(Test.check_del != "deleted").all()
+
+    if not all_tests:
+        return []
+
+    # перемешиваем список чтобы выдавало рандомные тесты
+    random.shuffle(all_tests)
+    return all_tests[0:4]
+
 #головна сторінка коли користувач увійшов у акаунт
 @login_decorate
 def render_home_auth():    
@@ -50,33 +68,48 @@ def render_home_auth():
         elif check_value == "enter-room":
             data_code = flask.request.form["enter-code"]
             return flask.redirect(f"student?room_code={data_code}")
+        
+    user = User.query.get(flask_login.current_user.id)
 
-    tests_first_topic = Test.query.filter(Test.category == first_topic, Test.check_del != "deleted").all()
-    if len(tests_first_topic) > 0:
-        while True:
-            random_num = random.randint(0, len(tests_first_topic) - 1)
-            if random_num not in random_numbers and tests_first_topic[random_num].check_del != "deleted":
-                random_numbers.append(random_num)
-            if len(random_numbers) == len(tests_first_topic) or len(random_numbers) >= 4:
-                break
-        print(random_numbers)
-        for num in random_numbers:
-            first_four_test.append(tests_first_topic[num])
+    # отримати баланс
+    money_user = user.user_profile.count_money
 
-    second_four_test = []
+    category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
+    first_topic = random.choice(category)
+    category.remove(first_topic)
+
+    first_four_test = get_random_tests(category=first_topic)
+    random_numbers = []
+
+    # tests_first_topic = Test.query.filter(Test.category == first_topic, Test.check_del != "deleted").all()
+    # if len(tests_first_topic) > 0:
+    #     while True:
+    #         random_num = random.randint(0, len(tests_first_topic) - 1)
+    #         if random_num not in random_numbers and tests_first_topic[random_num].check_del != "deleted":
+    #             random_numbers.append(random_num)
+    #         if len(random_numbers) == len(tests_first_topic) or len(random_numbers) >= 4:
+    #             break
+    #     print(random_numbers)
+    #     for num in random_numbers:
+    #         first_four_test.append(tests_first_topic[num])
+
+
+    second_topic = random.choice(category)
+    category.remove(second_topic)
+    second_four_test = get_random_tests(category=second_topic)
     second_random_numbers = []
 
     # tests_second_topic = Test.query.filter_by(category = second_topic).all()
-    tests_second_topic = Test.query.filter(Test.category == second_topic, Test.check_del != "deleted").all()
-    if len(tests_second_topic) > 0:
-        while True:
-            random_num = random.randint(0, len(tests_second_topic) - 1)
-            if random_num not in second_random_numbers and tests_second_topic[random_num].check_del != "deleted":
-                second_random_numbers.append(random_num)
-            if len(second_random_numbers) == len(tests_second_topic) or len(second_random_numbers) >= 4:
-                break
-        for num in second_random_numbers:
-            second_four_test.append(tests_second_topic[num])
+    # tests_second_topic = Test.query.filter(Test.category == second_topic, Test.check_del != "deleted").all()
+    # if len(tests_second_topic) > 0:
+    #     while True:
+    #         random_num = random.randint(0, len(tests_second_topic) - 1)
+    #         if random_num not in second_random_numbers and tests_second_topic[random_num].check_del != "deleted":
+    #             second_random_numbers.append(random_num)
+    #         if len(second_random_numbers) == len(tests_second_topic) or len(second_random_numbers) >= 4:
+    #             break
+    #     for num in second_random_numbers:
+    #         second_four_test.append(tests_second_topic[num])
 
 
     # user : User = User.query.get(int(current_user.id))
@@ -85,6 +118,29 @@ def render_home_auth():
 
     # third_ready_tests = []
 
+    if '' in third_random_numbers:
+        third_random_numbers.remove('')
+    for test in range(0, len(third_random_numbers) - 1):
+        if Test.query.get(int(third_random_numbers[test])).check_del != "deleted":
+            third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
+
+
+    fourth_topic = random.choice(category)
+    fourth_four_test = get_random_tests(category= fourth_topic)
+
+
+
+    # tests_second_topic = Test.query.filter_by(category = second_topic).all()
+    # tests_second_topic = Test.query.filter(Test.category == second_topic, Test.check_del != "deleted").all()
+    # if len(tests_second_topic) > 0:
+    #     while True:
+    #         random_num = random.randint(0, len(tests_second_topic) - 1)
+    #         if random_num not in second_random_numbers and tests_second_topic[random_num].check_del != "deleted":
+    #             second_random_numbers.append(random_num)
+    #         if len(second_random_numbers) == len(tests_second_topic) or len(second_random_numbers) >= 4:
+    #             break
+    #     for num in second_random_numbers:
+    #         second_four_test.append(tests_second_topic[num])
     # if '' in third_random_numbers:
     #     third_random_numbers.remove('')
     # for test in range(0, len(third_random_numbers)):
@@ -100,6 +156,9 @@ def render_home_auth():
         first_topic = first_topic,
         second_topic = second_topic,
         second_tests = second_four_test,
+        third_tests = third_ready_tests if len(third_ready_tests) >= 4 else fourth_four_test,
+        fourt_topic = "Недавно пройдені тести" if len(third_ready_tests) >= 4 else f"Тести із теми {fourth_topic}"
+        )
     )
 
     
@@ -167,13 +226,47 @@ def render_registration():
         phone_shake = phone_shake,
         message = message
     )
-    # except Exception as error:
-    #     print(error)
-    #     flask.session.clear()
-    #     return flask.redirect("/")
+
 
 
 def render_code():
+    form_code = ''
+    if flask.request.method == "POST":
+        for num_tag in range(1, 7):
+            data = str(flask.request.form[f"verify_code{num_tag}"])
+            form_code += data
+        if "new_email" in flask.session:
+            if str(flask.session["code"]) == form_code:
+                flask_login.current_user.email = flask.session["new_email"]
+                DATABASE.session.commit()
+                flask.session.pop("new_email", "code")
+                old_name_folder = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile" "static", "images", "edit_avatar", str(flask_login.current_user.email)))
+                new_name_folder = os.path.abspath(os.path.join(__file__, "..",  "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["new_email"])))
+                os.rename(old_name_folder, new_name_folder)
+                return flask.redirect("/")
+        else:
+            if form_code != '':
+                if str(flask.session["code"]) == form_code:
+                    user = User(
+                            username = flask.session["username"],
+                            password = flask.session["password"],
+                            email = flask.session["email"],
+                            is_mentor = flask.session["check_mentor"]
+                        )
+                    
+                    profile = DataUser()
+                    user.user_profile = profile
+                    
+                    #створює папку із тим шляхом що указали
+                    path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"])))
+                    if not os.path.exists(path):
+                        os.mkdir(path)
+
+                        default_avatar_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.svg"))
+
+                        destination_path = os.path.join(path, "default_avatar.svg")
+
+                        shutil.copyfile(default_avatar_path, destination_path)
     # try:
         form_code = ''
         if flask.request.method == "POST":
@@ -211,27 +304,24 @@ def render_code():
                             # save a image using extension
                             default_img = default_img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(str(flask.session["email"])) ,"default_avatar.png")))
 
-                        DATABASE.session.add(user)
-                        # DATABASE.session.add(profile)
-                        DATABASE.session.commit()
-                        flask_login.login_user(user)
-                        flask.session["code"] = ''
-                        flask.session["email_sent"] = False
-                    else:
-                        flask.session["code"] = ''
-                        flask.session["email_sent"] = False
-                        return flask.redirect("/")
-                    
-        if not flask_login.current_user.is_authenticated or "new_email" in flask.session:
-            return flask.render_template(template_name_or_list = "verify_code.html") 
-        else:
-            flask.session.pop("new_email", "code")
-            print(8237823788787)
-            return flask.redirect("/")
-    # except Exception as error:
-    #     print(error)
-    #     flask.session.clear()
-    #     return flask.redirect("/")
+                    DATABASE.session.add(user)
+                    DATABASE.session.commit()
+
+                    flask_login.login_user(user)
+                    flask.session["code"] = ''
+                    flask.session["email_sent"] = False
+                else:
+                    flask.session["code"] = ''
+                    flask.session["email_sent"] = False
+                    return flask.redirect("/")
+                
+    if not flask_login.current_user.is_authenticated or "new_email" in flask.session:
+        return flask.render_template(template_name_or_list = "verify_code.html") 
+    else:
+        flask.session.pop("new_email", "code")
+        print(8237823788787)
+        return flask.redirect("/")
+
 
 
 def render_login():

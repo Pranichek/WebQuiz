@@ -1,7 +1,10 @@
 import dotenv, os
 from os.path import abspath, join, exists
 
-def execute():
+def execute(): 
+    """
+        Ця функція автоматично налаштує базу даних
+    """
     ENV_PATH = abspath(join(__file__, "..", "..", ".env"))
     MIGRATIONS_PATH = abspath(join(__file__, "..", "migrations"))
 
