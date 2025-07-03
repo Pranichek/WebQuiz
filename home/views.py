@@ -72,14 +72,12 @@ def render_home_auth():
     user = User.query.get(flask_login.current_user.id)
 
     # отримати баланс
-    money_user = user.user_profile.count_money
 
     category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
     first_topic = random.choice(category)
     category.remove(first_topic)
 
     first_four_test = get_random_tests(category=first_topic)
-    random_numbers = []
 
     # tests_first_topic = Test.query.filter(Test.category == first_topic, Test.check_del != "deleted").all()
     # if len(tests_first_topic) > 0:
@@ -112,22 +110,26 @@ def render_home_auth():
     #         second_four_test.append(tests_second_topic[num])
 
 
-    # user : User = User.query.get(int(current_user.id))
+    user : User = User.query.get(int(current_user.id))
     # third_random_numbers = user.user_profile.last_passed.split(" ")
+    # for el in third_random_numbers:
+    #     indx = third_random_numbers.index(el)
+    #     normal = el.split("/")[0]
+    #     third_random_numbers[indx] = normal
+
     # all_tests = Test.query.all()
 
     # third_ready_tests = []
 
-    if '' in third_random_numbers:
-        third_random_numbers.remove('')
-    for test in range(0, len(third_random_numbers) - 1):
-        if Test.query.get(int(third_random_numbers[test])).check_del != "deleted":
-            third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
+    # if '' in third_random_numbers:
+    #     third_random_numbers.remove('')
+    # for test in range(0, len(third_random_numbers) - 1):
+    #     if Test.query.get(int(third_random_numbers[test])).check_del != "deleted":
+    #         third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
 
 
     fourth_topic = random.choice(category)
     fourth_four_test = get_random_tests(category= fourth_topic)
-
 
 
     # tests_second_topic = Test.query.filter_by(category = second_topic).all()
@@ -156,9 +158,8 @@ def render_home_auth():
         first_topic = first_topic,
         second_topic = second_topic,
         second_tests = second_four_test,
-        third_tests = third_ready_tests if len(third_ready_tests) >= 4 else fourth_four_test,
-        fourt_topic = "Недавно пройдені тести" if len(third_ready_tests) >= 4 else f"Тести із теми {fourth_topic}"
-        )
+        # third_tests = third_ready_tests if len(third_ready_tests) >= 4 else fourth_four_test,
+        # fourt_topic = "Недавно пройдені тести" if len(third_ready_tests) >= 4 else f"Тести із теми {fourth_topic}"
     )
 
     
