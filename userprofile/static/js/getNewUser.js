@@ -1,8 +1,8 @@
-const socket = io();
+const socketIo = io();
 const listElement = document.querySelector('.participants-list');
 const usersAmountToChange = document.querySelectorAll("#amount_users");
 
-socket.on('new_user', function(data) {
+socketIo.on('new_user', function(data) {
     for (let amountToChange of usersAmountToChange){
         amountToChange.textContent = +amountToChange.textContent + 1;
     }

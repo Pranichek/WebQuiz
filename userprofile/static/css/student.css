@@ -1,20 +1,17 @@
 .main-content{
     display: flex;
     flex-direction: row-reverse;
-    justify-content: space-between;
+    flex-wrap: wrap-reverse;
     padding: 0 5vw;
 }
 
-.general_container_rect{
-    height: 80vh;
-}
-
 .mentor-info-card{
-    height: 75vh;
     gap: 7vh;
+    height: 70vh;
 }
 
 .mentor-join-info{
+    height: 30vh;
     justify-content: space-between;
 }
 
@@ -41,25 +38,16 @@
     border-color: #FFB700;
 }
 
-.content{
+.hor-flex-box{
     display: flex;
     flex-direction: column;
-    gap: 5vh;
-}
-
-.participants-number-div{
-    display: flex;
-    justify-content: space-between;
-    width: 50vw;
-}
-
-.participants-number-div span{
-    display: flex;
-    gap: 2vw;
+    align-items: center;
 }
 
 .waiting-par{
+    text-align: center;
     color: white;
+    font-size: 2vh;
 }
 
 .loading-img{

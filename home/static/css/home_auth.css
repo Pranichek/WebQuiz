@@ -1,6 +1,7 @@
 *{
-    margin: 0px;
-    padding: 0px;
+    margin: 0;
+    padding: 0;
+    font-size: 2.5vh;
 }
 
 .background-blur {
@@ -10,7 +11,7 @@
     width: 100vw;
     height: 100vh;
     background: linear-gradient(69deg, #3C3C3C 10%, #7c9abd 20%, #74919E 72%, #3C3C3C 5%);
-    filter: blur(100px);
+    filter: blur(10vw);
     z-index: -1;
     pointer-events: none;
 }
@@ -22,7 +23,7 @@ body{
 }
 
 header{
-    margin-bottom: 40px;
+    margin-bottom: 5vh;
 }
 
 .top-part {
@@ -33,21 +34,20 @@ header{
     width: 100vw;
     cursor: pointer;
     /* background-color: gold; */
-    gap: 45px;
+    gap: 10vw;
     height: 30vh;
-    padding: 10px 10px 18px 10px;
+    padding: 2vh;
 }
 
 .enter-code{
     display: flex;
     flex-direction: column;
     background-color: #D6E8FE;
-    border-radius: 15px;
-    padding: 10px;
-    gap: 10px;
+    border-radius: 2vh;
+    padding: 2vh;
     border: 1px black solid;
     width: 60%;
-    height: 90%;
+    height: 30vh;
     overflow: hidden;
 }
 
@@ -57,8 +57,8 @@ header{
     background-color: none;
     border: 1px black solid;
     width: 22%;
-    height: 90%;
-    border-radius: 24px;
+    height: 30vh;
+    border-radius: 2vh;
     overflow: hidden;
 }
 
@@ -66,8 +66,8 @@ header{
     display: flex;
     flex-direction: row;
     background-color: #343434;
-    gap: 10px;
-    padding: 10px 10px 10px 10px;
+    gap: 1vw;
+    padding: 1vh;
     overflow: hidden;
     align-items: center;
     justify-content: start;
@@ -86,10 +86,8 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 71px;
-    height: 71px;
-    /* width: 25%;
-    height: 100%; */
+    width: 10vh;
+    height: 10vh;
     border: 1px black solid;
     border-radius: 50%;
     overflow: hidden;
@@ -99,7 +97,7 @@ header{
 }
 
 .username{
-    font-size: 17px;
+    font-size: 3vh;
     color: #ffffff;
 }
 
@@ -108,7 +106,7 @@ header{
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    padding: 10px 0px 10px 20px;
+    padding: 1vh 1vw;
     gap: 30%;
     width: 100%;
     height: 60%;
@@ -131,13 +129,17 @@ input::-webkit-inner-spin-button {
     flex-direction: row;
 }
 
+.tests-data img{
+    width: 7vw;
+}
+
 .number-tests {
     color: #FFE177;
     font-weight: bold;
 }
 
 .text-tests {
-    margin-right: 7px;
+    margin-right: 0.5vw;
 }
 
 .main-input {
@@ -145,33 +147,32 @@ input::-webkit-inner-spin-button {
     flex-direction: row;
     gap:2%;
     background-color: #ffffff;
-    border: 2px black solid;
-    padding: 4px;
-    border-radius: 15px;
+    border: 0.3vh black solid;
+    padding: 0.5vh;
+    border-radius: 2vh;
     width: 60%;
 }
 
 .main-input input{
-    border: 2px black solid;
-    border-radius: 10px;
-    /* padding: 15px 30px 15px 20px; */
+    border: 0.3vh black solid;
+    border-radius: 1vh;
     width: 90%;
     height: 100%;
     color: #636262;
     font-weight: bold;
-    font-size: larger;
-    padding-left: 30px;
+    font-size: 2vh;
+    padding-left: 2vw;
 }
 
 
 .main-input button{
     background-color: #8AF7D4;
     color: #000000;
-    border: 2px black solid;
+    border: 0.3vh black solid;
     font-weight: bold;
-    border-radius: 15px;
-    padding: 15px;
-
+    border-radius: 1vh;
+    padding: 1vh;
+    font-size: 2vh;
     width: 20%;
     text-align: center;
 }
@@ -183,7 +184,7 @@ input::-webkit-inner-spin-button {
 .cards-floor{
     width: 100vw;
     height: 45vh;
-    margin-bottom: 20px;
+    margin-bottom: 1vh;
 }
 
 .show-more {
@@ -199,22 +200,24 @@ input::-webkit-inner-spin-button {
 .show-more .show-more-link{
     background-color: #C48AF7;
     color: #ffffff;
-    border-radius: 5px;
+    border-radius: 1vh;
     text-decoration: none;
-    margin: 10px;
-    padding: 10px;
+    margin: 1vh;
+    padding: 1vh;
     text-align: center;
+    font-size: 2vh;
     font-weight: bold;
 }
 
 .tests-topic{
     background-color: #7291B8;
     color: #ffffff;
-    border-radius: 5px;
+    border-radius: 1vh;
     text-decoration: none;
-    margin: 10px;
-    padding: 10px;
+    margin: 1vh;
+    padding: 1vh;
     text-align: center;
+    font-size: 2vh;
     font-weight: bold;
 }
 
@@ -222,9 +225,8 @@ input::-webkit-inner-spin-button {
 .cards {
     width: 100%;
     height: 85%;
-    /* background-color: #FFE177; */
-    padding: 10px;
-    gap: 40px;
+    padding: 1vh;
+    gap: 2vw;
     display: flex;
     flex-direction: row;
 }
@@ -236,7 +238,7 @@ input::-webkit-inner-spin-button {
     overflow: hidden;
     flex-direction: column;
     background-color: #D6E8FE;
-    border-radius: 17px;
+    border-radius: 3vh;
     justify-content: end;
     border: 1px black solid;
     cursor: pointer;
@@ -250,7 +252,7 @@ input::-webkit-inner-spin-button {
 
 .topic-test{
     color: #343434;
-    font-size: 17px;
+    font-size: 3vh;
     font-weight: 600;
 }
 
@@ -263,7 +265,7 @@ a{
     height: 100%;
     object-fit: cover;
     z-index: 1;
-    border-radius: 0px 0px 30px 30px;
+    border-radius: 0 0 5vw 5vw;
 }
 
 .discription {
@@ -283,8 +285,7 @@ a{
     justify-content: start;
     width: 100%;
     height: 20%;
-    /* background-color: #FFE177; */
-    padding: 30px 20px 10px 20px;
+    padding: 2vh 2vw;
     color:#343434;
     font-size: larger;
 
@@ -297,17 +298,16 @@ a{
     align-items: center;
     width: 100%;
     height: 80%;
-    /* background-color: #8AF7D4; */
-    padding-left: 20px;
-    gap: 5px;
+    padding-left: 1vw;
+    gap: 1vw;
 }
 
 .image-robot {
     bottom: 0;
     right: 0;
-    margin-right: 10px;
+    margin-right: 1vw;
     position: absolute;
-    width: 40px;         
+    width: 5vh;         
     height: auto;
     z-index: 10;         
 }
@@ -328,7 +328,7 @@ a{
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 10px;
+    padding: 1vh;
 }
 
 .filter-input {
@@ -338,10 +338,10 @@ a{
     color: 636262;
     font-weight: bolder;
     padding: 3%;
-    border-radius: 25px;
-    border: 6px solid #343434; /* чёрная внешняя обводка внутри интпуута */
+    border-radius: 2vh;
+    border: 1vh solid #343434; /* чёрная внешняя обводка внутри интпуута */
     box-shadow: 0 0 0 1px #8AF7D4; 
-    font-size: 20px;
+    font-size: 3vh;
 }
 
 
@@ -356,7 +356,7 @@ a{
     width: 12%;
     height: 90%;
     margin-right: 2%;
-    border-radius: 20px;
+    border-radius: 2vh;
 
 }
 
@@ -379,7 +379,7 @@ a{
 
 
 /* Планшеты */
-@media (max-width: 1024px) {
+/* @media (max-width: 1024px) {
     .avatar-circle{
         width: 36px;
         height: 36px;
@@ -439,7 +439,6 @@ a{
     }
     .cards {
         height: 70%;
-        /* background-color: #74919E; */
     }
     .test-name{
         font-size: 10px;
@@ -476,7 +475,6 @@ a{
     .main-input input{
         border: 2px black solid;
         border-radius: 10px;
-        /* padding: 15px 30px 15px 20px; */
         width: 90%;
         height: 93%;
         color: #636262;
@@ -510,10 +508,6 @@ a{
         height: 95%;
         font-size: 90%;
     }
-    /* .avatar-circle{
-        width: 13%;
-        height: 90%;
-    } */
     .card{
         height: 100%;
     }
@@ -523,7 +517,6 @@ a{
     .avatar-circle{
         width: 50px;
         height: 50px;
-        /* border: #8AF7D4 2px solid; */
     }
 
     .nick{
@@ -598,7 +591,6 @@ a{
 
     .cards {
         height: 70%;
-        /* background-color: #74919E; */
     }
     .test-name{
         font-size: 17px;
@@ -606,7 +598,6 @@ a{
         margin-top: 8px;
         margin-left: 20px;
         margin-bottom: 0px;
-        /* margin: 0px; */
     }
 
     .cards-floor {
@@ -676,7 +667,6 @@ a{
 
     .cards {
         height: 70%;
-        /* background-color: #74919E; */
     }
     .test-name{
         font-size: 22px;
@@ -684,7 +674,6 @@ a{
         margin-top: 8px;
         margin-left: 20px;
         margin-bottom: 0px;
-        /* margin: 0px; */
     }
 
     .cards-floor {
@@ -762,7 +751,6 @@ a{
 
     .cards {
         height: 70%;
-        /* background-color: #74919E; */
     }
     .test-name{
         font-size: 25px;
@@ -770,7 +758,6 @@ a{
         margin-top: 8px;
         margin-left: 20px;
         margin-bottom: 0px;
-        /* margin: 0px; */
     }
 
     .cards-floor {
@@ -804,7 +791,7 @@ a{
         width: 80%;
         height: 90%;
     }
-}
+} */
 /* @media (min-width: 1025px) and (max-width: 1440px) { ... }
 
 @media (min-width: 1441px) and (max-width: 1920px) { ... }

@@ -13,16 +13,13 @@ body{
 
 
 .logo {
-    padding-left: 10px;
-    font-size: 1.5em;
+    font-size: 1.5vh;
     font-weight: 500;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap:5px;
-    margin-left: 14px;
-
+    gap: 1vw;
 }
 
 header{
@@ -47,19 +44,20 @@ nav {
 .nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
     background-color: #C48AF7;
     color: #ffffff;
-    border-radius: 5px;
+    border-radius: 1vh;
     text-decoration: none;
-    margin: 10px;
-    padding: 10px;
+    margin: 1vh;
+    padding: 1vh;
     display: inline-block;
     text-align: center;
     font-weight: bold;
+    font-size: 2vh;
 }
 
 .header_buttons {
     display: flex;
-    margin-right: 25px;
-    gap: 19px;
+    margin-right: 5vw;
+    gap: 1vh;
 }
 
 .mentor-buttons {
@@ -75,15 +73,15 @@ nav {
 }
 
 .listener{
-    height: 100px;
-    width: 100px;
+    height: 10vh;
+    width: 5vw;
     display: flex;
 }
 
 .open-panel{
-    width: 40px;
-    height: 40px;
-    margin-right: 20px;
+    width: 2.5vw;
+    height: 4.5vh;
+    margin-right: 1vw;
     z-index: 100;
 }
 
@@ -97,10 +95,10 @@ nav {
     flex-direction: column;
     justify-content: space-between;
     transition: width 0.5s;
-    width: 0px;
+    width: 0;
     height: 85vh;
-    border-radius: 10px;
-    padding-top: 20px;
+    border-radius: 1vh;
+    padding-top: 2vh;
     background-color: #343434;
     z-index: 100;
 }
@@ -108,7 +106,7 @@ nav {
 .link-container{
     display: flex;
     flex-direction: column;
-    gap: 90px;
+    gap: 5vh;
     z-index: 100;
 }
 
@@ -116,36 +114,35 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 15px;
+    gap: 1vh;
 }
 
 .links a{
-    size: 20px;
+    font-size: 2vh;
     color: #ffffff;
     text-decoration: none;
 }
 
 .links hr{
-    width: 230px;
+    width: 10vw;
 }
 
 .sidebar-robot{
     position: absolute;
-    right: 50px;
+    right: 5vw;
     bottom: 0;
-    width: 130px;
-    height: 190px;
+    width: 8vw;
+    height: 20vh;
 }
 
 .closed{
-    width: 0px;
+    width: 0;
     overflow: hidden;
 }
 
 .opened{
-    width: 300px;
+    width: 16vw;
 }
-
 
 .footer{
     background-color: #343434;
@@ -159,15 +156,15 @@ nav {
     bottom: 0;
 }
 .social-network{
-    width: 40px;
-    height: 40px;
+    width: 3vw;
+    height: 5vh;
     background-color: transparent;
     border: none;
 }
 .img-soc{
-    width: 40px;
-    height: 40px;
-    margin-right: 20px;
+    width: 5vh;
+    height: 5vh;
+    margin-right: 1vw;
     
 }
 .last{
@@ -175,7 +172,7 @@ nav {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 22px;
+    gap: 1vh;
 }
 
 .ab {
@@ -186,10 +183,9 @@ nav {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 30px;
+    gap: 1vw;
     color: #ffffff;
-    font-size: 20px;
-    padding-top: 28.5px;
+    padding-top: 5vh;
     
 }
 .linkk{
@@ -198,9 +194,9 @@ nav {
 }
 
 .footer-line {
-    width: 675px;
+    width: 60vw;
     border-top: 0.6px solid #b6b6b6;
-    transform: translateY(10px);
+    transform: translateY(1vh);
 }
 
 .text-donate{
@@ -211,10 +207,9 @@ nav {
     position: absolute;
     display: flex;
     flex-direction: column; 
-    gap: 15px;
+    gap: 1vh;
     left: 15vh;
     color:#fff;
-    font-size: 20px;
     font-weight: 200;
 }
 
@@ -229,8 +224,6 @@ nav {
     font-size: inherit;
     font-weight: 600;
 }
-
-
 
 .wrapper {
     position: fixed;
@@ -256,8 +249,8 @@ nav {
     background-color: #353535;
 }
 header img {
-    height: 88px;
-    width: 88px;
+    height: 8vh;
+    width: 8vh;
 }
 header i {
     color: #fff;
@@ -320,7 +313,7 @@ header i {
     color: #fff;
 }
 
-@media (max-width: 600px){
+/* @media (max-width: 600px){
     .nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
         margin: 0px;
     }
@@ -464,6 +457,5 @@ header i {
 @media (max-height: 650px){
     .panel{
         overflow-y: scroll;
-        /* z-index: 1000; */
     }
-}
+} */

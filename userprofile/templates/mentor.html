@@ -23,7 +23,6 @@
                     </div>
                     <div class="mentor-avatar">
                         <img src="{{ url_for('mentor.static', filename='images/mentor/mentor_avatar.png') }}" alt="Аватар ментора">
-                        <p class="you">Ви</p>
                     </div>
                 </div>
                 <div class="topic">
@@ -59,7 +58,7 @@
                     <div class="qr-code">
                         Скануй QR-Code <br>
                         та приєднуприєднуйся до тесту 
-                        <img style="width: 100px; height: 100px;" src="{{ url_for('mentor.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                        <img src="{{ url_for('mentor.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
                     </div>
 
 
