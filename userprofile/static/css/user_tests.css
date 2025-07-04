@@ -1,3 +1,7 @@
+*{
+    font-size: 3vh;
+}
+
 .settings-test{
     position: absolute;
     top: 0;
@@ -5,7 +9,6 @@
     width: 100vw;
     height: 6.5vh;
     background-color: green;
-    min-height: 50px;
     background-color: #343434;
     display: flex;
     flex-direction: row;
@@ -14,7 +17,6 @@
     padding: 9px 40px 9px 70px;
     cursor: pointer;
     align-items: center;
-    max-height: 80px;
     z-index: 2;
 }
 
@@ -51,7 +53,6 @@
     align-items: center;
     width: 12.5vw;
     color: #ffffff;
-    font-size: 20px;
     position: relative;
 }
 
@@ -75,17 +76,11 @@
 .find-by-text{
     position: relative;
     width: 46vw;
-    height: 92%;
-    min-width: 200px;
-    max-width: 400px;
-    max-height: 50px;
     /* background-color: #8ABBF7; */
 }
 
 .find-by-text form input{
     position: absolute;
-    width: 100%;
-    height: 100%;
     background-color: #7b7b7b;
     border: 1px #8ABBF7 solid;
     border-radius: 12px;
@@ -93,23 +88,20 @@
     box-shadow: none;
     /* padding: 0px 15px 0px 15px; */
     color: #ffffff;
-    padding-left: 15px;
-    font-size: 16px;
 }
 
 input::placeholder {
   color: #4a4a4a; 
   opacity: 1; 
-  font-size: 16px;
 }
 
 .img-lupa{
     position: absolute;
-    right: 0;
+    right: 19vw;
     top: 50%;
     transform: translateY(-50%);
-    margin-right: 15px;
     cursor: pointer;
+    height: 3vh;
 }
 
 .test{
@@ -145,7 +137,6 @@ input[type="checkbox"] {
 }
 
 .section-title{
-    font-size: 24px;
     font-weight: 450;
     color: #ffffff;
 }
@@ -318,7 +309,6 @@ input[type="checkbox"].category-input:checked {
 
 .topic-test{
     color: #343434;
-    font-size: 17px;
     font-weight: 600;
 }
 
@@ -357,7 +347,6 @@ a{
     /* background-color: #FFE177; */
     padding: 30px 20px 10px 15px;
     color:#343434;
-    font-size: larger;
 
 }
 
@@ -407,7 +396,6 @@ a{
     color:#ffffff;
     padding: 5px 7px 5px 7px;
     border: none;
-    font-size: 16px;
     font-weight: 500;
     margin-right: 10px;
 }
@@ -417,7 +405,6 @@ a{
     background: none;
     background-color: transparent;
     border: 1px black solid;
-    font-size: 10px;
     color: #969DA6;
     font-weight: 400;
     width: 120px;
@@ -468,16 +455,12 @@ a{
     align-items: center;
     left: 0;
     margin-left: 20px;
+    width: 20vw;
     border-radius: 24px;
-    width: 86%;
-    min-width: 300px;
-    min-height: 600px;
-    height: 85%;
+    height: 70vh;
     padding: 20px 0px 20px 0px;
     overflow: hidden;
     z-index: 10;
-    max-height: 600px;
-    max-width: 350px;
 }
 
 
@@ -498,17 +481,19 @@ a{
     padding-top: 25px;
 }
 
-.filter-part{
-    
+.filter-part{ 
     padding-bottom: 10px;
     justify-content: start;
     /* padding-top: 0px; */
     border-bottom: none;
 }
 
+.filter-part::-webkit-scrollbar, .sort-part::-webkit-scrollbar {
+    display: none;
+}
+
 label{
     color: #ffffff;
-    font-size: 20px;
     font-weight: 400;
     display: flex;
     flex-direction: row;
@@ -547,11 +532,7 @@ label{
     flex-direction: row;
     flex-wrap: wrap;
     gap: 20px;
-    /* background-color: #8ABBF7; */
-    
-    /* max-height: 520px; */
-    height: 92%;
-    max-height: 550px;
+    height: 60vh;
     overflow-y: auto;
     padding-top: 20px;    
 
@@ -561,16 +542,13 @@ label{
 
     border-radius: 12px;
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    max-width: 90%;
-    min-width: 800px;
+    width: 68vw;
     padding: 20px;
-    min-height: 300px;
 }
 
 
 .title {
     color: #ffffff;
-    font-size: 45px;
     font-weight: 600;
     /* padding-left: 6vw; */
     width: 90%;
@@ -584,6 +562,7 @@ label{
     flex-direction: row;
     justify-content: start;
     /* background-color: #7c9abd; */
+    font-size: 5vh;
 }
 
 
@@ -605,7 +584,6 @@ label{
 .error-text{
     position: absolute;
     color: #ffffff;
-    font-size: 50px;
     bottom: 0;
     margin-bottom: 40px;
 }
@@ -613,11 +591,11 @@ label{
 
 .text-filter a {
     position: relative;
-    font-size: 18px;
     color: #ffffff;
     font-weight: 500;
     transition: all 0.3s ease;
     padding-bottom: 4px;
+    font-size: 2vh;
 }
 
 .text-filter a::after {
@@ -658,9 +636,9 @@ label{
     border: 2px solid #575B64;
     border-radius: 12px;
     padding-left: 15px;
-    font-size: 16px;
     color: #ffffff;
     box-shadow: none;
+    height: 4vh;
 }
 
 .find-by-text input.findByname:focus {

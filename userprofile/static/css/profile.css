@@ -840,15 +840,6 @@ input{
         height: 900px;
     }
 
-    .main-info img {
-        position: absolute;
-        height: 90%;
-        width: 52%;
-        min-height: 50px;
-        border: 2px black solid;
-        border-radius: 50%;  /* округляем всегда картинку юзераа */
-    }
-
     .main-info{
         gap: 10px;
     }
@@ -956,4 +947,3 @@ input{
         max-width: 1900px;
     }
 }
-

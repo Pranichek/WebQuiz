@@ -1,3 +1,7 @@
+*{
+    font-size: 2vh;
+}
+
 .main-form{
     display: flex;
     width: 100%;
@@ -8,8 +12,8 @@
 }
 
 .profile-card {
-    width: 80%;
-    border-radius: 25px;
+    width: 70vw;
+    border-radius: 2vh;
     /* padding: 20px 30px; */
     border: 1px #8AF7D4 solid;
     margin: 5%;
@@ -24,7 +28,7 @@
     /* margin: 2%; */
     padding: 4%;
     background: #343434;
-    border-radius: 30px;
+    border-radius: 2vh;
 }
 
 .right {
@@ -34,20 +38,17 @@
 }
 
 .text1 {
-    font-size: 30px;
     color: #ffffff;
 }
 
 .text {
     color: #ffffff;
     text-decoration: none;
-    font-size: 16px;
 }
 
 #text {
     color: #ffffff;
     text-decoration: none;
-    font-size: 16px;
 }
 
 .score-block {
@@ -61,10 +62,9 @@
 #score {
     background: transparent;
     color: #ffffff;
-    font-size: 20px;
     font-weight: bold;
     border: 1px solid #FFB700;
-    border-radius: 8px;
+    border-radius: 1.5vh;
     padding: 5px 20px;
     display: inline-block;
     margin-top: 5px;
@@ -73,9 +73,14 @@
     justify-content: center;
 }
 
+#score img{
+    width: 5vh;
+    height: 5vh;
+}
+
 .avatar {
-    width: 100px;
-    height: 100px;
+    width: 20vh;
+    height: 20vh;
     border-radius: 50%;
     border: 2px solid white;
 }
@@ -86,12 +91,14 @@
 }
 
 .pet1 {
-    width: 140px;
-    height: 40px;
-    border-radius: 10px;
+    width: fit-content;
+    height: fit-content;
+    border-radius: 1.5vh;
     border: 1px solid #C48AF7;
     display: flex;
     justify-content: center;
+    padding: 1vh;
+    min-width: 100px;
 }
 
 #own-pet{
@@ -101,7 +108,7 @@
 
 .pet {
     border: 1px solid #94C4FF;
-    border-radius: 8px;
+    border-radius: 1.5vh;
     padding: 5px 10px;
     margin: 5px auto;
     width: 140px;
@@ -133,7 +140,7 @@
     gap: 20px;
     background: #343434;
     padding: 2%;
-    border-radius: 20px;
+    border-radius: 1.5vh;
     border: 1px solid #B9BDF5;
     flex-wrap: wrap;
     justify-content: center;
@@ -142,13 +149,13 @@
 .pet-card {
     background: #8ABBF715;
     border: 1px solid #94C4FF;
-    border-radius: 12px;
+    border-radius: 1.5vh;
     padding: 15px;
     text-align: center;
     transition: transform 0.2s;
     display: flex;
-    width: 170px;
-    height: 200px;
+    width: fit-content;
+    height: fit-content;
     flex-direction: column;
     margin: 10px;
 }
@@ -171,9 +178,8 @@
     color: #ffffff;
     background-color: #343434;
     padding: 5px 10px;
-    border-radius: 8px;
+    border-radius: 1vh;
     display: inline-block;
-    font-size: 14px;
     cursor: pointer;
     margin-top: 10px;
 
@@ -196,8 +202,7 @@
     border: 1px solid #343434;
     color: #343434;
     background-color: #FFB700;
-    border-radius: 8px;
-    font-size: 10px;
+    border-radius: 1vh;
     font-weight: bold;
 
     position: absolute;
