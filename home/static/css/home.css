@@ -1,3 +1,7 @@
+*{
+    font-size: 2vh;
+}
+
 body {
     display: flex;
     flex-direction: column;
@@ -39,11 +43,11 @@ form{
 
 
 .join-game h1 {
-    font-size: 2.5em;
+    font-size: 4vh;
 }
 
 .join-game p {
-    font-size: 1.2em;
+    font-size: 3vh;
 }
 
 .input-code {
@@ -52,8 +56,9 @@ form{
     align-items: center;
     max-width: 400px;
     background-color: white;
-    padding: 5px;
+    padding: 1vh;
     gap: 10px;
+    width: fit-content;
 }
 
 .input-code input {
@@ -256,14 +261,6 @@ img{
         overflow: hidden;
     }
 
-    .join-game h1 {
-        font-size: 1.4em;
-    }
-    
-    .join-game p {
-        font-size: 1em;
-    }
-    
     .input-code {
         display: flex;
         flex-direction: row;
@@ -275,7 +272,6 @@ img{
     }
     
     .input-code input {
-        padding: 10px;
         border-radius: 5px;
         border: none;
     }
@@ -398,15 +394,6 @@ img{
         overflow: hidden;
     }
 
-
-    .join-game h1 {
-        font-size: 2.7em;
-    }
-    
-    .join-game p {
-        font-size: 1.7em;
-    }
-    
     .input-code {
         display: flex;
         flex-direction: row;
@@ -414,7 +401,6 @@ img{
         min-width: none;
         max-width: 600px;
         background-color: white;
-        padding: 5px;
         gap: 15px;
     }
     
@@ -424,7 +410,6 @@ img{
         border: none;
         min-width: 330px;
         min-height: 37px;
-        font-size: large;
     }
     
     .input-code button {
@@ -546,13 +531,6 @@ img{
         overflow: hidden;
     }
 
-    .join-game h1 {
-        font-size: 2.2em;
-    }
-    
-    .join-game p {
-        font-size: 1.7em;
-    }
     
     .input-code {
         display: flex;
@@ -561,7 +539,6 @@ img{
         min-width: none;
         max-width: 600px;
         background-color: white;
-        padding: 5px;
         gap: 23px;
     }
     
@@ -571,7 +548,6 @@ img{
         border: none;
         min-width: 360px;
         min-height: 45px;
-        font-size: larger;
     }
     
     .input-code button {
@@ -680,14 +656,6 @@ img{
         overflow: hidden;
     }
 
-    .join-game h1 {
-        font-size: 3.8em;
-    }
-    
-    .join-game p {
-        font-size: 2.8em;
-    }
-    
     .input-code {
         display: flex;
         flex-direction: row;
@@ -695,7 +663,6 @@ img{
         min-width: none;
         max-width: 600px;
         background-color: white;
-        padding: 5px;
         gap: 15px;
     }
     
@@ -705,7 +672,6 @@ img{
         border: none;
         min-width: 460px;
         min-height: 71px;
-        font-size: larger;
     }
     
     .input-code button {
