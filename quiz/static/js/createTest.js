@@ -62,3 +62,31 @@ document.addEventListener("click", ()=>{
 document.addEventListener("keydown", ()=>{
     buttonColorChanging();
 })
+
+const errorModal = document.getElementById("error-modal");
+const closeErrorBtn = document.getElementById("close-error");
+
+let errorTimeout;
+
+for (let btn of createTestButtons) {
+    btn.addEventListener("click", () => {
+        if (btn.classList.contains("grey")) {
+            // Показываем модалку с анимацией
+            errorModal.classList.remove("hidden");
+            errorModal.classList.add("visible");
+
+            clearTimeout(errorTimeout);
+
+            errorTimeout = setTimeout(() => {
+                errorModal.classList.remove("visible");
+                errorModal.classList.add("hidden");
+            }, 5000);
+        }
+    });
+}
+
+closeErrorBtn.addEventListener("click", () => {
+    errorModal.classList.remove("visible");
+    errorModal.classList.add("hidden");
+    clearTimeout(errorTimeout);
+});

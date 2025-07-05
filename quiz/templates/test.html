@@ -176,6 +176,18 @@
                 <button class="add-test" type="button">Почати тест</button>
             </div>
         {% endif %}
+
+        <div id="error-modal" class="error-modal hidden">
+            <div class="error-container">
+              <button id="close-error" class="close-button" type="button">✖</button>
+              <div class="error-box">
+                <div class="error-wrapper">
+                  <p>Упс.. Виникла помилка!<br>Перевірте будь-ласка, чи все <br>ви відмітили</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
     </form>
 {% endblock %}
 
