@@ -2,6 +2,9 @@ const urlParams = new URLSearchParams(window.location.search);
 const room_code = urlParams.get('room_code');
 localStorage.setItem("room_code", room_code)
 
+const chat = document.querySelector(".messages");
+chat.innerHTML = ""; 
+
 function loadRoom() {
     const socket = io();
 
@@ -19,7 +22,13 @@ function loadRoom() {
     });
 
     socket.on('user_joined', (data) => {
-        console.log(`${data.username} приєднався до кімнати`);
+        socket.emit(
+            "mentor_email", 
+            {
+                email: document.querySelector(".email").textContent,
+                room: code
+            }
+        )
     });
 
     socket.on(
@@ -31,8 +40,10 @@ function loadRoom() {
 
     // когда пришло новое сообщение
     socket.on('receive_message', (data) => {
-        const chat = document.querySelector(".chat-box");
-        chat.innerHTML += `<div><b>${data.sender}:</b> ${data.message}</div>`;
+        const chat = document.querySelector(".messages");
+        chat.innerHTML += `<div class="message another-user">
+                                <p>${data["message"]}</p>
+                            </div>`;
     });
 
     const startTest = document.querySelector(".start")
@@ -51,11 +62,19 @@ function loadRoom() {
         const msgInput = document.querySelector(".message-input");
         const text = msgInput.value;
 
+        const chat = document.querySelector(".messages");
+        chat.innerHTML += `<div class="message user">
+                                <p>${text}</p>
+                            </div>`;
+
         socket.emit('send_message', {
             sender: username,
             room: code,
-            message: text
+            message: text,
+            email: document.querySelector(".email").textContent,
+            email_mentor: localStorage.getItem("email_mentor")
         });
+        msgInput.value = ''
     });
 
 
@@ -65,6 +84,7 @@ function loadRoom() {
         'click',
         () => {
             let code = localStorage.getItem("room_code")
+            console.log("hii")
 
             socket.emit('copy_code', {
                 code_room: code
@@ -85,6 +105,35 @@ function loadRoom() {
             });
         }
     )
+
+    socket.on(
+        "load_chat",
+        data => {
+            const chat = document.querySelector(".messages")
+            chat.innerHTML = ""
+
+            let dataList = data["chat_data"]
+
+            localStorage.setItem("email_mentor", data["mentor_email"])
+            
+
+            for (let dictData of dataList){
+                if (dictData["email"] == document.querySelector(".email").textContent){
+                    const chat = document.querySelector(".messages");
+                    chat.innerHTML += `<div class="message user">
+                                <p>${dictData["message"]}</p>
+                            </div>`;
+                }else{
+                    const chat = document.querySelector(".messages");
+                    chat.innerHTML += `<div class="message another-user">
+                                <p>${dictData["message"]}</p>
+                            </div>`;
+                }
+            }
+        }
+    )
 }
+
+    
 
 window.addEventListener("DOMContentLoaded", loadRoom);

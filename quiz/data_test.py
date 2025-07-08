@@ -11,7 +11,7 @@ from Project.db import DATABASE
 
 
 def render_data_test():
-    if current_user.is_authenticated:
+    # if current_user.is_authenticated:
         message = ''
         test_id = flask.request.args.get("id_test")
         test = Test.query.get(int(test_id))
@@ -151,5 +151,5 @@ def render_data_test():
             )
         )
         return response
-    else:
-        return flask.redirect("/")
+    # else:
+    #     return flask.redirect("/")

@@ -75,7 +75,23 @@
     background-color: #343434;
     border-radius: 10px;
     border: 1px, solid #C48AF7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
 }
+
+.animal .text{
+    font-size: 20px;
+}
+
+#own-pet{
+    width: auto;
+    height: 90%;
+    /* object-fit: cover; */
+}
+
 .anim{
     display: flex;
     flex-direction: column;

@@ -249,12 +249,12 @@ document.addEventListener('keydown', function(event) {
 
 document.querySelectorAll('.text-filter a').forEach(link => {
     link.addEventListener('click', function(e) {
-        // e.preventDefault();
 
         document.querySelectorAll('.text-filter a').forEach(el => {
             el.classList.remove('active')
             this.classList.add('active')
             localStorage.setItem("pageindex", this.classList[0])
+            document.cookie = `pageindex=${this.classList[0]}; path=/;`;
         })
     });
 });

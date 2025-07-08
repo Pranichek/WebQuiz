@@ -23,7 +23,27 @@
     </div>
     <div class="cointeiner">
 
-        <div class="card transition2">
+        <div class="card transition2" data-value="хімія">
+            <div class = "card-img">
+                <img src="{{ url_for('home.static', filename='images/chemistry_picture.png') }}" alt="">
+            </div>
+            <div class="card-discription">
+                <p class="name-test">Хімія</p>
+                <p class="interisting-text">20+ тестів по цьому предмету!<br>Перевір свої знання та стань профі!</p>
+                <p class="link-test">Тисни, щоб дізнатися більше!</p>
+            </div>
+        </div>
+        <div class="card transition3" data-value="англійська">
+            <div class = "card-img">
+                <img src="{{ url_for('home.static', filename='images/english_picture.png') }}" alt="">
+            </div>
+            <div class="card-discription">
+                <p class="name-test">Англійська мова</p>
+                <p class="interisting-text">20+ тестів по цьому предмету!<br>Перевір свої знання та стань профі!</p>
+                <p class="link-test">Тисни, щоб дізнатися більше!</p>
+            </div>
+        </div>
+        <div class="card transition4" data-value="програмування">
             <div class = "card-img">
                 <img src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
             </div>
@@ -33,42 +53,22 @@
                 <p class="link-test">Тисни, щоб дізнатися більше!</p>
             </div>
         </div>
-        <div class="card transition3">
+        <div class="card transition5" data-value="історія">
             <div class = "card-img">
-                <img src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
+                <img src="{{ url_for('home.static', filename='images/history_picture.png') }}" alt="">
             </div>
             <div class="card-discription">
-                <p class="name-test">Іспанська мова</p>
+                <p class="name-test">Історія</p>
                 <p class="interisting-text">20+ тестів по цьому предмету!<br>Перевір свої знання та стань профі!</p>
                 <p class="link-test">Тисни, щоб дізнатися більше!</p>
             </div>
         </div>
-        <div class="card transition4">
+        <div class="card transition6" data-value="фізика">
             <div class = "card-img">
-                <img src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
+                <img src="{{ url_for('home.static', filename='images/physics.png') }}" alt="">
             </div>
             <div class="card-discription">
-                <p class="name-test">Хімія</p>
-                <p class="interisting-text">20+ тестів по цьому предмету!<br>Перевір свої знання та стань профі!</p>
-                <p class="link-test">Тисни, щоб дізнатися більше!</p>
-            </div>
-        </div>
-        <div class="card transition5">
-            <div class = "card-img">
-                <img src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
-            </div>
-            <div class="card-discription">
-                <p class="name-test">Математика</p>
-                <p class="interisting-text">20+ тестів по цьому предмету!<br>Перевір свої знання та стань профі!</p>
-                <p class="link-test">Тисни, щоб дізнатися більше!</p>
-            </div>
-        </div>
-        <div class="card transition6">
-            <div class = "card-img">
-                <img src="{{ url_for('home.static', filename='images/home/programing.png') }}" alt="">
-            </div>
-            <div class="card-discription">
-                <p class="name-test">Англійська</p>
+                <p class="name-test">Фізика</p>
                 <p class="interisting-text">20+ тестів по цьому предмету!<br>Перевір свої знання та стань профі!</p>
                 <p  class="link-test">Тисни, щоб дізнатися більше!</p>
             </div>
@@ -78,3 +78,7 @@
         </div> -->
     </div>
 {% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('home.static', filename = 'js/home.js') }}"></script>
+{% endblock scripts %}
