@@ -66,67 +66,58 @@ socket.on("test_result", (data) => {
 
     let mainQuestDiv = document.querySelector(".questions");
     
-    // document.querySelector(".answer").innerHTML = `
-    // ${data.questions.answers}`;
-    data.questions.forEach(element => {
+
+    data.questions.forEach((element, indexel) => {
         let mainHead = document.createElement("div");
-        mainHead.className = "head"
 
-        let indexel = data.questions.indexOf(element);
-        if (data.correct_index.includes(indexel)){
-            mainHead.className = "correct-head"
-        }else{
-            mainHead.className = "uncorrect-head"
+        if (data.correct_index.includes(indexel)) {
+            mainHead.className = "correct-head";
+        } else {
+            mainHead.className = "uncorrect-head";
         }
+
         let questionDiv = document.createElement("div");
-        let questText = document.createElement('div')
-        
-        questionDiv.className = "question"
-        
-        questText.innerHTML = `
-        ${element.question}
-        `;
-        questText.className = "quest-text"
-        questionDiv.appendChild(questText)
-        
-        questionDiv.insertBefore(mainHead, questionDiv.firstChild)
+        questionDiv.className = "question";
 
+        let questText = document.createElement('div');
+        questText.className = "quest-text";
 
+        // Нумерация перед вопросом
+        questText.innerHTML = `${indexel + 1}. ${element.question}`;
+
+        questionDiv.appendChild(mainHead);
+        questionDiv.appendChild(questText);
+
+        // Перебираем ответы
         element.answers.forEach((answ, index) => {
-            let circle = document.createElement('div')
+            let circle = document.createElement('div');
 
-            //  берем текущий список приавльных ответов для текущего вопроса
-            // Наприклвд: якщо правильні 1 і 2, то буде [1, 2] 
             const correctForThisQuestion = data.correct_answers[indexel];
             const userAnswersForThisQuestion = data.users_answers[indexel];
 
-            
             if (correctForThisQuestion.includes(index)) {
                 circle.className = "correct-circle";
-            }
-
-            else if (userAnswersForThisQuestion.includes(index) && !correctForThisQuestion.includes(index)) {
+            } else if (userAnswersForThisQuestion.includes(index) && !correctForThisQuestion.includes(index)) {
                 circle.className = "uncorrect-circle";
+            } else {
+                circle.className = "simple-circle";
             }
 
-            else{
-                circle.className = "simple-circle"
-            }
-            
-            let answerDiv = document.createElement("div")
-            answerDiv.innerHTML = `
-            ${answ}
-            `
-            answerDiv.insertBefore(circle, answerDiv.firstChild)
-            answerDiv.className = "answ"
-            questionDiv.appendChild(answerDiv)
-        })
-        
-        mainQuestDiv.appendChild(questionDiv)
+            let answerDiv = document.createElement("div");
+            answerDiv.className = "answ";
+            answerDiv.innerHTML = `${answ}`;
 
+            // Вставляем кружок перед текстом
+            answerDiv.insertBefore(circle, answerDiv.firstChild);
+
+            // Добавляем в блок вопроса
+            questionDiv.appendChild(answerDiv);
+        });
+
+        // Финальное добавление в контейнер
+        mainQuestDiv.appendChild(questionDiv);
     });
-    
-});
+
 
 
 playAgain.addEventListener(
@@ -136,27 +127,4 @@ playAgain.addEventListener(
     }
 );
 
-// document.addEventListener("DOMContentLoaded", () => {
-//     const fill = document.querySelector(".fill");
-//     const textPerc = document.querySelector(".text-perc p");
-//     const quard = document.querySelector(".quard");
-
-//     const target = 78;
-//     let current = 0;
-
-//     // Установка ширины и позиции
-//     fill.style.width = target + "%";
-//     quard.style.left = `calc(${target}% - 48px)`; // сдвиг на половину ширины .quard для выравнивания
-
-//     const interval = setInterval(() => {
-//         if (current < target) {
-//             current++;
-//             textPerc.textContent = current + "%";
-//         } else {
-//             clearInterval(interval);
-//         }
-//     }, 15);
-// });
-
-
-
+})
