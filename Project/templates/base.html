@@ -82,9 +82,7 @@
                         <div class="panel closed">
                             <span class="link-container">
                                 <span class="links">
-                                    <a class="created-test" href="/user_test">Створені тести</a>
-                                    <hr>
-                                    <a href="">Пройдені тести</a>
+                                    <a class="created-test" href="/user_test">Історія тестів</a>
                                     <hr>
                                     <a href="">Діаграми</a>
                                     <hr>
@@ -98,13 +96,13 @@
                                     <hr>
                                     <a href="">Нагороди</a>
                                     <hr>
-                                </span>
-                                <span class="links">
                                     <a href="/buy_pet">Купівля подарунків</a>
                                     <hr>
                                 </span>
+                                <span class="links">
+                                    
+                                </span>
                             </span>
-                            <img class="sidebar-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
                         </div>
                     </div>
                     {% endif %}
@@ -112,6 +110,9 @@
                     
             </header>
         {% endif %}
+        
+        <div id="circle-overlay"></div>
+
 
         <main class="main">
             {% block content %}{% endblock %}

@@ -25,16 +25,15 @@
                     <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
                 </div>
                 <a class="nick" href="/profile">{{ user.username }}</a>
-            {% if user.user_profile.pet_id %}
-                <div class="animal">
+                {% if user.user_profile.pet_id %}
+                    <!-- <div class="pet1"> -->
                     <img id="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/' ~ user.user_profile.pet_id ~ '.png') }}" alt="pet">
-                </div>
-            {% else %}
-                <div class="animal">
-                    <p>У вас ще немає улюбленця.</p>
-                    <!-- <img id="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/default.png') }}" alt="pet"> -->
-                </div>
-            {% endif %}
+                    <!-- </div> -->
+                {% else %}
+                    <div class="pet1">
+                        <p class="text">немає</p>
+                    </div>
+                {% endif %}
             </div>
             
             <div class="antoher-data">
@@ -48,8 +47,8 @@
 
     <div class="cards-floor">
         <div class="show-more">
-            <a href="/" class="tests-topic">Недавно пройдені тести</a>
-            <a href="/" class="show-more-link">Побачити більше</a>
+            <a href="/" class="tests-topic">{{ fourt_topic }}</a>
+            <a data-value="last_passed" class="show-more-link">Побачити більше</a>
         </div>
         <div class="cards">
             {% if third_tests|length > 0 %}
@@ -87,7 +86,7 @@
             {% else %}
                 <a href="/" class="tests-topic">Різноманітні тести</a>
             {% endif %}
-            <a href="/" class="show-more-link">Побачити більше</a>
+            <a data-value="{{ first_topic }}" class="show-more-link">Побачити більше</a>
         </div>
         <div class="cards">
             {% for test in first_tests %}
@@ -123,7 +122,7 @@
             {% else %}
                 <a href="/" class="tests-topic">Різноманітні тести</a>
             {% endif %}
-            <a href="/" class="show-more-link">Побачити більше</a>
+            <a data-value="{{ second_topic }}" class="show-more-link">Побачити більше</a>
         </div>
         <div class="cards">
             {% for test in second_tests %}

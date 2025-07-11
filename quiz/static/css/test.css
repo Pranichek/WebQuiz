@@ -198,6 +198,7 @@ form{
 
 .hidden-list{
     display: none;
+    z-index: 100000000;
 }
 
 #timeList{
@@ -403,6 +404,8 @@ form{
     padding: 40px;
     border-radius: 30px;
     background-color: #8ABBF733;
+    z-index: -1;
+    margin-top: 100px;
 }
 
 .change-question{
@@ -926,6 +929,7 @@ label[for="image"] {
     }
 
     .all-cards{
+        margin-top: 20px;
         display: flex;
         flex-direction: column;
         gap: 50px;
@@ -934,6 +938,7 @@ label[for="image"] {
         padding: 40px;
         border-radius: 30px;
         background-color: #8ABBF733;
+        z-index: -1;
     }
 }
 
@@ -942,6 +947,7 @@ label[for="image"] {
     position: relative;
     margin-right: 10px;
 }
+
 
 html, body {
     overflow-x: hidden;

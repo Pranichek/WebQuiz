@@ -129,10 +129,24 @@
         </div>
         
         <div class="bottom-data">
-            <img class="rob" src="{{ url_for('profile.static', filename='images/small_robot.svg' ) }}" alt="">
-            <div>
-                <p>Співставляй.</p>
-                <p class="tetx">Знаєщь відповідь? <br>Відшукай іії у списку і сміливо тицяй</p>
+            <div class="chat-icon">
+                <div class="chat-box">
+                    <div class="header-chat">
+
+                    </div>
+                    <div class="messages">
+                        
+                    </div>
+                    <div class="input-text">
+                        <div class="message-user">
+                            <input type="text" placeholder="повідомлення" class="message-input">
+                            <span class="send-message"><img src="{{ url_for('mentor.static', filename='images/mentor/send-icon.svg') }}" alt=""></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="check-click">
+                    <img class="open-chat" src="{{ url_for('mentor.static', filename='images/mentor/chat_icon.png') }}" alt="">
+                </div>
             </div>
         </div>
     </div>
@@ -143,8 +157,8 @@
             <div class="main-coint">
                 <div class="user-info">
                     <div class="name">
-                        <p class="save-nickname" value="ken">{{ user.username }}</p>
-                        <p>{{ user.email }}</p>
+                        <p class="save-nickname">{{ user.username }}</p>
+                        <p class="email">{{ user.email }}</p>
                     </div>
                     
                     <div class="avatar-circle avatark">
@@ -198,4 +212,5 @@
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('student.static', filename='js/student.js') }}"></script>
+    <script src="{{ url_for('student.static', filename='js/chat.js') }}"></script>
 {% endblock scripts %}

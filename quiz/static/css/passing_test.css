@@ -30,6 +30,7 @@ body {
 .bigimg img{
     width: 70%;
     height: 80%;
+    object-fit: contain;
 }
 
 
