@@ -1,4 +1,7 @@
 import flask, os, flask_login, random, shutil, qrcode
+
+from .apps import edit_avatar
+
 from threading import Thread
 import PIL.Image
 from home.models import User
@@ -456,3 +459,29 @@ def render_buy_gifts():
         pet_id = pet_id
     )
 
+@edit_avatar.route('/save_photo', methods=['POST'])
+def save_photo():
+    import base64, os
+    from flask import request, jsonify, current_app
+
+    data = request.get_json()
+    image_data = data.get('image')
+
+    if not image_data:
+        return jsonify({'message': 'Дані зображення відсутні'}), 400
+
+    try:
+        header, encoded = image_data.split(',', 1)
+        decoded = base64.b64decode(encoded)
+
+        # Путь к файлу
+        filename = 'avatar.png'
+        save_path = os.path.join(current_app.static_folder, 'images', 'edit_avatar', filename)
+
+        with open(save_path, 'wb') as f:
+            f.write(decoded)
+
+        return jsonify({'message': 'Фото збережено успішно'})
+
+    except Exception as e:
+        return jsonify({'message': 'Помилка при збереженні', 'error': str(e)}), 500

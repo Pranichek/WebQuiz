@@ -51,10 +51,12 @@
                 </form>
             </div>
             
-            <div class="button">
+            <div class="button" id="take-photo">
                 <p class="button-text">Зробити фото</p>
                 <img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/photo.png') }}" alt="">
             </div>
+            <video id="video" autoplay playsinline style="display:none;"></video>
+            <canvas id="canvas" style="display:none;"></canvas>
 
             <div class="button" onclick="DeletePhoto();">
                 <p class="button-text">Видалити поточне фото</p>
@@ -154,4 +156,5 @@
 
 {% block scripts %}
     <script src="{{ url_for('profile.static', filename='js/editInfo.js') }}"></script>
+    <script src="{{ url_for('profile.static', filename='js/save_photo.js') }}"></script>
 {% endblock scripts %}
