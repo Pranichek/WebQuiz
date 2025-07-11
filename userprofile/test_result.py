@@ -1,62 +1,29 @@
-'''
-Обробка кінця тесту
-'''
-
-from flask import Flask, render_template, request
-from flask_socketio import emit
-from quiz import Test
+import flask, flask_login
 from Project.socket_config import socket
-from Project.login_check import login_decorate
-from home.models import User
-import flask_login
+from quiz.models import Test
 from Project.db import DATABASE
-import pyperclip, flask_login
-import flask
+from flask_socketio import emit
+from Project.login_check import login_decorate
 
-# @login_decorate
-def render_finish_test():
-    list_to_template = []
-    if flask_login.current_user.is_authenticated:
-        user : User = User.query.get(flask_login.current_user.id)
-        email = user.email
-        avatar = user.name_avatar
+@login_decorate
+def render_test_result():
 
-
-        if user.user_profile.percent_bonus >= 100:
-            user.user_profile.percent_bonus = 0
-            if user.user_profile.percent_bonus is not None:
-                DATABASE.session.commit()
-    else:
+    return flask.render_template(
+        "test_result.html",
         user = flask_login.current_user
-        email = None
-        avatar = None
+    )
 
-    return render_template(
-        "test_finish.html",
-        user = user,
-        email = email,
-        avatar = avatar,
-        tests = list_to_template,
-        finish_test = True
-        )
-
-
-@socket.on("finish_test")
-def handle_finish_test(data):
-    user_answers_raw = data.get("users_answers")
-    if user_answers_raw == '':
-        user_answers_raw = 'skip'
-
-    test_id = data.get("test_id")
-
-    user_answers = user_answers_raw.split(",")
+@socket.on("test_result")
+def get_data(data):
+    test_id = data["test_id"]
     test = Test.query.get(int(test_id))
     
     questions = test.questions.split("?%?")
     answers = test.answers.split("?@?")
     correct_indexes = []
 
-    user_answers = user_answers_raw.split(",")
+    user_answers = data["user_answers"].split(",")
+    print(user_answers, "dfv")
 
     questions = test.questions.split("?%?")
 
@@ -108,6 +75,23 @@ def handle_finish_test(data):
     count_right_answers = 0
 
 
+    old_data = flask_login.current_user.user_profile.last_passed #" 2"
+    
+    indexes = old_data.split(" ") # [" ", "2"]
+    if indexes[0] == "" or indexes[0] == " ":
+        indexes.pop(0)# ["2/0,1", "2/0,1", "2"]
+
+    for el in indexes:
+
+        if int(el.split("/")[0]) == int(test_id) and len(el.split("/")) == 1:
+
+            current_index = indexes.index(el)
+            formatted_answers = ",".join(user_answers)
+            indexes[current_index] = f"{test_id}/{formatted_answers}"
+
+    flask_login.current_user.user_profile.last_passed = " ".join(indexes)
+    DATABASE.session.commit()
+
     list_users_answers = []
     if len(user_answers) > 0:
         for answers in user_answers:
@@ -142,21 +126,6 @@ def handle_finish_test(data):
                 if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
                     index_corect.append(i)
 
-    old_data = flask_login.current_user.user_profile.last_passed #" 2"
-    indexes = old_data.split(" ") # [" ", "2"]
-    if indexes[0] == "" or indexes[0] == " ":
-        indexes.pop(0)# ["2/0,1", "2/0,1", "2"]
-
-    for el in indexes:
-
-        if int(el.split("/")[0]) == int(test_id) and len(el.split("/")) == 1:
-
-            current_index = indexes.index(el)
-            formatted_answers = ",".join(user_answers)
-            indexes[current_index] = f"{test_id}/{formatted_answers}/{int(int(data["wasted_time"]) / count_answered)}"
-
-    flask_login.current_user.user_profile.last_passed = " ".join(indexes)
-    DATABASE.session.commit()
 
     # максимальное количество баллов
     amount_points = 0
@@ -172,7 +141,7 @@ def handle_finish_test(data):
             if list_users_answers[indexList][i] != "skip":
                 list_users_answers[indexList][i] = int(list_users_answers[indexList][i])
 
-    emit("test_result", {
+    socket.emit("test_result_profile", {
         "amount_questions": amount_points,
         "right_answers": count_right_answers,
         "uncorrect_answers": count_uncorrect_answers,
@@ -185,25 +154,3 @@ def handle_finish_test(data):
         "users_answers": list_users_answers,
         "correct_answers": correct_indexes
     })
-
-
-@socket.on("copy_result")
-def coput_result_function(data):    
-    test_id = int(data["test_id"])
-    test : Test = Test.query.get(test_id)
-
-    test_question = test.questions.split("?%?")
-    count_questions_test = len(test_question)
-    
-    test_text = "📋 Результати мого тесту:\n🧪 Назва тесту: {}\n✅ Правильних відповідей: {} з {}\n📈 Результат: {}\n⏱ Час проходження: {}".format(
-                                                                                                                                test.title_test,
-                                                                                                                                data["correct_answers"],
-                                                                                                                                count_questions_test,
-                                                                                                                                data["accuracy"],
-                                                                                                                                data["wasted_time"]
-                                                                                                                            )
-
-    pyperclip.copy(test_text)
-
-
-

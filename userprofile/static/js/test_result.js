@@ -1,28 +1,17 @@
-let chcklocal = document.referrer
-
-if (!chcklocal.includes("passig_test")){
-    window.location.replace('/');
-}
-
-localStorage.setItem('index_question', '0');
-localStorage.setItem('time_question', 'set')
-localStorage.setItem("need_rolad", "True")
-
-
 const socket = io();
-
-const usersAnswers = localStorage.getItem("users_answers");
-const testId = localStorage.getItem("test_id");
 
 const playAgain = document.querySelector(".play_again");
 
-socket.emit("finish_test", {
-    users_answers: usersAnswers,
-    test_id: testId,
-    wasted_time: localStorage.getItem("wasted_time")
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
+const id_test = urlParams.get("test_id")
+socket.emit("test_result", {
+    test_id: id_test,
+    user_answers: urlParams.get("num_test")
 });
 
-socket.on("test_result", (data) => {
+socket.on("test_result_profile", (data) => {
     playAgain.value = data.test_id;
 
 
@@ -33,8 +22,7 @@ socket.on("test_result", (data) => {
     if (data.count_answered == 0) {
         document.querySelector(".midle-time").textContent = "0";
     } else {
-        let midleTime = localStorage.getItem("wasted_time") / data.count_answered;
-        midleTime = midleTime.toFixed(0);
+        let midleTime = urlParams.get("t");
         document.querySelector(".midle-time").textContent = midleTime;
     }
 

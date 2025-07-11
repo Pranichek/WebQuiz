@@ -195,6 +195,7 @@
     align-items: center;
     overflow: visible;
     border-radius: 24px;
+    /* background-color: #4DCE36; */
 }
 .fill{
     background: #84ffd8;

@@ -195,7 +195,7 @@ def render_user_tests():
         response = flask.make_response(
             flask.render_template(
                 template_name_or_list="user_tests.html",
-                tests=tests,
+                tests = tests,
                 user=flask_login.current_user,
                 message = message,
                 page_name = "Мої створені тести",
@@ -205,11 +205,30 @@ def render_user_tests():
     else:
         user = User.query.get(flask_login.current_user.id)
         id_tests = user.user_profile.last_passed.split(" ")
-        print(id_tests, "dklscmsdlkmc")
+
+
+        for elem in id_tests:
+            current_element = elem.split("/") 
+            index_element = id_tests.index(elem)
+            current_element.pop(1) 
+            current_element.pop(1)
+            id_tests[index_element] = current_element[0]
+
+    
         tests = []
-        for test in Test.query.all():
-            if str(test.id) in id_tests:
-                tests.append(test)
+        all_tests = Test.query.all()
+        print(id_tests)
+
+        for id_test in range(0,len(id_tests)):
+            old_data = user.user_profile.last_passed.split(" ")
+            current_id = id_tests[id_test]
+
+            for test in all_tests:
+                
+                if int(current_id) == int(test.id):
+                    tests.append((test, old_data[id_test].split("/")[1], old_data[id_test].split("/")[-1]))
+
+
         message = ''
 
         response = flask.make_response(
@@ -235,7 +254,6 @@ def render_user_tests():
 
 @login_decorate
 def render_test_preview(pk: int):
-    
     new_questions = ""
     new_answers = ""
     category = ""
@@ -252,7 +270,6 @@ def render_test_preview(pk: int):
         answers_cookies = flask.request.cookies.get("answers")
 
         if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
-        # if cookie_questions is not None and answers_cookies is not None:
             test_title = flask.request.form["test_title"]
             question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 
