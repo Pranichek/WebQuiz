@@ -1,6 +1,6 @@
-import flask, os, flask_login, random, shutil, qrcode
+import flask, os, flask_login, random, shutil, qrcode, base64, time
 
-from .apps import edit_avatar
+from .apps import edit_avatar, profile
 
 from threading import Thread
 import PIL.Image
@@ -476,7 +476,9 @@ def save_photo():
 
         # Путь к файлу
         filename = 'avatar.png'
-        save_path = os.path.join(current_app.static_folder, 'images', 'edit_avatar', filename)
+        folder_path = os.path.abspath(os.path.join(__file__, "..", "static", "images", "added_avatar"))
+        save_path = os.path.join(folder_path, filename)
+
 
         with open(save_path, 'wb') as f:
             f.write(decoded)
@@ -485,3 +487,13 @@ def save_photo():
 
     except Exception as e:
         return jsonify({'message': 'Помилка при збереженні', 'error': str(e)}), 500
+
+# @profile.route('/profile')
+# def profile():
+#     avatar_path = os.path.join(profile.root_path, 'static', 'images', 'edit_avatar', 'avatar.png')
+#     if os.path.exists(avatar_path):
+#         last_avatar_time = int(os.path.getmtime(avatar_path))  # Время последнего изменения
+#     else:
+#         last_avatar_time = int(time.time())
+
+#     return flask.render_template('profile.html', last_avatar_time=last_avatar_time)

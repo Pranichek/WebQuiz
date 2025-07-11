@@ -11,8 +11,8 @@
 {% block content %}
     <div class="back-blur"></div>
     <div class="main-block">
-        <div class="image" onclick="loadIMage()">
-            <img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/add_new.png') }}" alt="image">
+        <div class="image"  onclick="loadIMage()">
+            <img id="added_photo" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/add_new.png') }}" alt="image">
         </div>
         <div class="text">
             <p class="welcoming-text">Оберіть новий аватар</p>
