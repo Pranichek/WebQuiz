@@ -75,7 +75,7 @@
                 
                 <div class="buttons">
                     <button type="button" class="btn-1 copy-result">поділитися результатом </button>
-                    <button class="btn-2">додати у вибране</button>
+                    <button class="btn-2 add-favorite">додати у вибране</button>
                 </div>
             </div>
         </div>
@@ -162,4 +162,5 @@
     {{ super() }}
     <script src="{{ url_for('finish_test.static', filename='js/copy_modal.js') }}"></script>
     <script src="{{ url_for('test_result.static', filename='js/test_result.js') }}"></script> 
+    <script src="{{ url_for('finish_test.static', filename='js/add_favorite.js') }}"></script>
 {% endblock scripts %}

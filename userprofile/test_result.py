@@ -4,6 +4,7 @@ from quiz.models import Test
 from Project.db import DATABASE
 from flask_socketio import emit
 from Project.login_check import login_decorate
+from home.models import User
 
 @login_decorate
 def render_test_result():
@@ -154,3 +155,15 @@ def get_data(data):
         "users_answers": list_users_answers,
         "correct_answers": correct_indexes
     })
+
+@socket.on("add_favorite")
+def save_favorite(data: dict):
+    user : User = flask_login.current_user
+    test_id = data["test_id"]
+    all_favorites = user.user_profile.favorite_tests.split()
+
+    if test_id not in all_favorites:
+        all_favorites.append(test_id)
+       
+        user.user_profile.favorite_tests = " ".join(all_favorites)
+        DATABASE.session.commit()

@@ -22,7 +22,8 @@ socket.on("test_result_profile", (data) => {
     if (data.count_answered == 0) {
         document.querySelector(".midle-time").textContent = "0";
     } else {
-        let midleTime = urlParams.get("t");
+        let midleTime = localStorage.getItem("wasted_time") / data.count_answered;
+        midleTime = midleTime.toFixed(0);
         document.querySelector(".midle-time").textContent = midleTime;
     }
 
@@ -56,11 +57,12 @@ socket.on("test_result_profile", (data) => {
         mainHead.className = "head"
 
         let indexel = data.questions.indexOf(element);
-        if (data.correct_index.includes(indexel)){
-            mainHead.className = "correct-head"
-        }else{
-            mainHead.className = "uncorrect-head"
-        }
+        // if (data.correct_index.includes(indexel)){
+        //     mainHead.className = "correct-head"
+        // }else{
+        //     mainHead.className = "uncorrect-head"
+        // }
+
         let questionDiv = document.createElement("div");
         let questText = document.createElement('div')
         
@@ -83,18 +85,45 @@ socket.on("test_result_profile", (data) => {
             const correctForThisQuestion = data.correct_answers[indexel];
             const userAnswersForThisQuestion = data.users_answers[indexel];
 
+            let count_right = 0
+            for (let userAnswer of userAnswersForThisQuestion){
+                if (correctForThisQuestion.includes(userAnswer)){
+                    count_right++;
+                }
+            }
+
+            // let indexel = data.questions.indexOf(element);
+            if (correctForThisQuestion.length == count_right){
+                mainHead.className = "correct-head"
+            }else if(count_right >= 1){
+                mainHead.className = "yellow-head"
+            }else{
+                mainHead.className = "uncorrect-head"
+            }
+
+            if (correctForThisQuestion.length == 1 || correctForThisQuestion.length == count_right){
+                if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
+                    circle.className = "correct-circle";
+                }
+
+                else if (userAnswersForThisQuestion.includes(index) && !correctForThisQuestion.includes(index)) {
+                    circle.className = "uncorrect-circle";
+                }
+
+                else{
+                    circle.className = "simple-circle"
+                }
+            }else{
+                if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
+                    circle.className = "orange-circle";
+                }else if(userAnswersForThisQuestion.includes(index)){
+                    circle.className = "uncorrect-circle";
+                }
+                else{
+                    circle.className = "simple-circle"
+                }
+            }
             
-            if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
-                circle.className = "correct-circle";
-            }
-
-            else if (userAnswersForThisQuestion.includes(index) && !correctForThisQuestion.includes(index)) {
-                circle.className = "uncorrect-circle";
-            }
-
-            else{
-                circle.className = "simple-circle"
-            }
             
             let answerDiv = document.createElement("div")
             answerDiv.innerHTML = `
