@@ -1,30 +1,17 @@
 const socket = io();
 
-let chcklocal = document.referrer
-
-if (!chcklocal.includes("passig_test")){
-    window.location.replace('/');
-}
-
-localStorage.setItem('index_question', '0');
-localStorage.setItem('time_question', 'set')
-localStorage.setItem("need_rolad", "True")
-
-
-
-
-const usersAnswers = localStorage.getItem("users_answers");
-const testId = localStorage.getItem("test_id");
-
 const playAgain = document.querySelector(".play_again");
 
-socket.emit("finish_test", {
-    users_answers: usersAnswers,
-    test_id: testId,
-    wasted_time: localStorage.getItem("wasted_time")
+const queryString = window.location.search;
+const urlParams = new URLSearchParams(queryString);
+
+const id_test = urlParams.get("test_id")
+socket.emit("test_result", {
+    test_id: id_test,
+    user_answers: urlParams.get("num_test")
 });
 
-socket.on("test_result", (data) => {
+socket.on("test_result_profile", (data) => {
     playAgain.value = data.test_id;
 
 
@@ -77,21 +64,24 @@ socket.on("test_result", (data) => {
         // }
 
         let questionDiv = document.createElement("div");
-        questionDiv.className = "question";
+        let questText = document.createElement('div')
+        
+        questionDiv.className = "question"
+        
+        questText.innerHTML = `
+        ${element.question}
+        `;
+        questText.className = "quest-text"
+        questionDiv.appendChild(questText)
+        
+        questionDiv.insertBefore(mainHead, questionDiv.firstChild)
 
-        let questText = document.createElement('div');
-        questText.className = "quest-text";
 
-        // Нумерация перед вопросом
-        questText.innerHTML = `${indexel + 1}. ${element.question}`;
-
-        questionDiv.appendChild(mainHead);
-        questionDiv.appendChild(questText);
-
-        // Перебираем ответы
         element.answers.forEach((answ, index) => {
-            let circle = document.createElement('div');
+            let circle = document.createElement('div')
 
+            //  берем текущий список приавльных ответов для текущего вопроса
+            // Наприклвд: якщо правильні 1 і 2, то буде [1, 2] 
             const correctForThisQuestion = data.correct_answers[indexel];
             const userAnswersForThisQuestion = data.users_answers[indexel];
 

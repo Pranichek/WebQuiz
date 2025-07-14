@@ -143,12 +143,19 @@ def handle_next_question(data_index):
             user.user_profile.count_tests += 1
             last_tests = user.user_profile.last_passed.split(" ")
 
-            if len(last_tests) < 5:
+            # if len(last_tests) < 5:
+            #     if str(test.id) not in last_tests:
+            #         last_tests.append(str(test.id))
+            # else:
+            #     if str(test.id) not in last_tests:
+            #         last_tests[r.randint(a = 0, b = 3)] = str(test.id)
+            max_tests = 25
+            if len(last_tests) < max_tests:
                 if str(test.id) not in last_tests:
                     last_tests.append(str(test.id))
             else:
                 if str(test.id) not in last_tests:
-                    last_tests[r.randint(a = 0, b = 3)] = str(test.id)
+                    last_tests[r.randint(0, max_tests - 2)] = str(test.id)
 
             string_last_tests = " ".join(last_tests)
 

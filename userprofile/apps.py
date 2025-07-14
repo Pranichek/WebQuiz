@@ -6,7 +6,7 @@ profile = flask.Blueprint(
     import_name="userprofile",
     static_folder="static",
     template_folder="templates",
-    static_url_path="/profile/static",
+    static_url_path="/profile/static"
 )
 
 edit_avatar = flask.Blueprint(
@@ -14,7 +14,7 @@ edit_avatar = flask.Blueprint(
     import_name = "userprofile",
     static_url_path="/edit_avatar/static",
     static_folder="static",
-    template_folder="templates",
+    template_folder="templates"
 )
 
 
@@ -23,5 +23,14 @@ buy_gifts = flask.Blueprint(
     import_name="userprofile",
     static_folder="static",
     template_folder="templates",
-    static_url_path="/buy_gifts/static",
+    static_url_path="/buy_gifts/static"
 )
+
+test_result_app = flask.Blueprint(
+    name="test_result",
+    import_name = "userprofile",
+    static_folder="static",
+    template_folder="templates",
+    static_url_path="/test_result/static"
+)
+

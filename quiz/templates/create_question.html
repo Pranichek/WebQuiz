@@ -14,10 +14,30 @@
     <form action="" method="post" enctype="multipart/form-data">
         <input type="text" class="confirm-question" name="check_form" value="confirm-question">
         <div class="pseudo-header">
-            <a href="/test" class="back-button">
-                <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
-            </a>
+            <div class="left-part">
+                <a href="/test" class="back-button">
+                    <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
+                </a>
+                <div class="type-question">
+                    <p>Тип питання</p>
+                    <div class="category-questions">
+                        <ul>
+                            <li><input type="radio" class="check-type-question" name="question_type" id="">Множинний вибір відповідей</li>
+                        </ul>
+                        <ul>
+                            <li><input type="radio" class="check-type-question" name="question_type" id="">Одиночний вибір</li>
+                        </ul>
+                        <ul>
+                            <li><input type="radio" class="check-type-question" name="question_type" id="">Заповнити пропуск</li>
+                        </ul>
+                        <ul>
+                            <li><input type="radio" class="check-type-question" name="question_type" id="">Писемна відповідь</li>
+                        </ul>
+                    </div>
+                </div>
 
+            </div>
+            
             <div>
                 <div class="timer"><p class="timer-p" data-img="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" id="time" value="" data-time="30">⏱ 30 секунд</p>
                     <ul id="timeList" class="hidden-list">

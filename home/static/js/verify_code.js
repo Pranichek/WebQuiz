@@ -41,4 +41,24 @@ pinContainer.addEventListener('keydown', function (event) {
     target.value = "";
 }, false);
 
+let timer = 60
+let timerp = document.querySelector(".time")
+function decrement(){
+    if (timer > 0){
+        timer--
+        timerp.innerText = `00 : ${timer}`
+    }
 
+}
+setInterval(decrement, 1000)
+
+
+let againButton = document.querySelector(".again")
+let enterButton = document.querySelector(".submit")
+
+const buttonAgain = () => {
+    againButton.style.display = "flex"
+    enterButton.style.backgroundColor = "gray"
+}
+
+setInterval(buttonAgain, 59000)

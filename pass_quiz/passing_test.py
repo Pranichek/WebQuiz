@@ -19,5 +19,3 @@ def render_passing_test():
         test_page = True
         )
 
-    # else:
-    #     return flask.redirect("/")
