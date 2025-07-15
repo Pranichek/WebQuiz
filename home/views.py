@@ -200,15 +200,20 @@ def render_registration():
 def render_code():
     form_code = ''
     if flask.request.method == "POST":
+        print("posts")
         send_again = flask.request.form.get("again")
-                
-        for num_tag in range(1, 7):
-            data = str(flask.request.form[f"verify_code{num_tag}"])
-            form_code += data
-        if send_again == "clicked":
-            print("helo world")
-            email = Thread(target = send_code, args = (flask.session["email"], flask.session["code"]))
-            email.start()
+        end_code = flask.request.form.get("end")      
+        if end_code == "clear":
+            print(000000000)
+        if end_code != "clear":
+            for num_tag in range(1, 7):
+                data = str(flask.request.form[f"verify_code{num_tag}"])
+                form_code += data
+            if send_again == "clicked":
+                random_code = generate_code()
+                flask.session["code"] = random_code
+                email = Thread(target = send_code, args = (flask.session["email"], flask.session["code"]))
+                email.start()
         if "new_email" in flask.session:
             if str(flask.session["code"]) == form_code:
                 flask_login.current_user.email = flask.session["new_email"]

@@ -43,14 +43,19 @@ pinContainer.addEventListener('keydown', function (event) {
 
 let timer = 60
 let timerp = document.querySelector(".time")
+
 function decrement(){
     if (timer > 0){
         timer--
-        timerp.innerText = `00 : ${timer}`
+        let localTime = localStorage.setItem("time", timer)
+        timerp.innerText = `00 : ${localStorage.getItem("time")}`
     }
-
+    
 }
 setInterval(decrement, 1000)
+if (timer == 30){
+    document.querySelector(".send").submit()
+}
 
 
 let againButton = document.querySelector(".again")
