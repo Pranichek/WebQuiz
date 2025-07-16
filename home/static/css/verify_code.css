@@ -21,6 +21,41 @@
     width: 100vw;
     height: 30vh;
 }
+.time{
+    font-size: 15px;
+}
+.again{
+    width: 157px;
+    height: 5px;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    color: #ffffff;
+    border: none;
+    cursor: pointer;
+}
+.again:hover{
+    color: rgb(100, 103, 218);
+}
+
+.butt-again{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: -25px;
+    
+}
+
+
+/* button:hover {
+background-color: #D6E8FE;
+box-shadow: 0 2px #000000;
+transform: translateY(4px);
+color: #000000;
+} */
 
 p {  
     font-size: 24px;

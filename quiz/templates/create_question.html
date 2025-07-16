@@ -19,7 +19,7 @@
                     <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
                 </a>
                 <div class="type-question">
-                    <p>Тип питання</p>
+                    <p class="button-open">Тип питання</p>
                     <div class="category-questions">
                         <ul>
                             <li><input type="radio" class="check-type-question" name="question_type" id="">Множинний вибір відповідей</li>
@@ -116,4 +116,5 @@
     <script src="{{ url_for('test_pass.static', filename='js/correctQuestion.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/timer.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/addQuestionImage.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/question_type.js') }}"></script>
 {% endblock %}

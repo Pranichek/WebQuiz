@@ -65,7 +65,7 @@ socket.on("test_result", (data) => {
     let mainQuestDiv = document.querySelector(".questions");
     
 
-    data.questions.forEach(element => {
+    data.questions.forEach((element, index) => {
         let mainHead = document.createElement("div");
         mainHead.className = "head"
 
@@ -82,7 +82,7 @@ socket.on("test_result", (data) => {
         questionDiv.className = "question"
         
         questText.innerHTML = `
-        ${element.question}
+        ${index+1}. ${element.question}
         `;
         questText.className = "quest-text"
         questionDiv.appendChild(questText)
