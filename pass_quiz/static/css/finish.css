@@ -202,6 +202,7 @@
     align-items: center;
     overflow: visible;
     border-radius: 24px;
+    /* background-color: #4DCE36; */
 }
 .fill{
     background: #84ffd8;
@@ -427,6 +428,14 @@
     background-color: #FF767C;
 }
 
+.yellow-head{
+    width: 100%;
+    height: 41px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    background-color: #f1e272;
+}
+
 .quest-text{
     font-size: 36px;
     display: flex;
@@ -440,6 +449,14 @@
     width: 45px;
     height: 45px;
     background-color: #BBE3B3;
+    border-radius: 100px;
+    flex-shrink: 0; 
+}
+
+.orange-circle{
+    width: 45px;
+    height: 45px;
+    background-color: #f1e272;
     border-radius: 100px;
     flex-shrink: 0; 
 }
@@ -470,6 +487,7 @@
     padding-bottom: 35px;
     word-break: break-word;
     word-break: break-all;
+    
 }
 .robots2{
     display: flex;

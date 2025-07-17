@@ -279,3 +279,20 @@ document.addEventListener('DOMContentLoaded', function () {
         sidebar.classList.toggle('open');
     });
 });
+
+
+// убирать выбранные тесты из профиля
+let heartButtons = document.querySelectorAll(".heart")
+
+for (let button of heartButtons){
+    button.addEventListener(
+        'click',
+        () => {
+            let testId = button.dataset.value
+            document.querySelector(".save-id").value = testId
+            console.log("testId =", testId)
+            console.log("document.querySelector('.save-id').value =", document.querySelector(".save-id").value)
+            document.querySelector(".invisible-button").submit()
+        }
+    )
+}

@@ -65,6 +65,12 @@ userprofile.profile.add_url_rule(
     methods = ["GET","POST"]
 )
 
+userprofile.test_result_app.add_url_rule(
+    rule = "/test_result",
+    view_func = userprofile.render_test_result,
+    methods = ["GET","POST"]
+)
+
 quiz.change_tests.add_url_rule(
     rule = "/change_tests",
     view_func = quiz.render_change_tests,

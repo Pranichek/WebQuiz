@@ -43,6 +43,7 @@ function loadRoom() {
         const chat = document.querySelector(".messages");
         chat.innerHTML += `<div class="message another-user">
                                 <p>${data["message"]}</p>
+                                <p>${data["sender"]}</p>
                             </div>`;
     });
 
