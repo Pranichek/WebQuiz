@@ -37,7 +37,7 @@ takePhotoDiv.addEventListener('click', async () => {
         alert(result.message || 'Фото збережено');
 
         // При желании — обнови картинку в интерфейсе
-        document.querySelector('#added_photo').src = dataUrl;
+        document.querySelector('.avatar').src = dataUrl;
 
     } catch (err) {
         alert('Не вдалося зробити фото');

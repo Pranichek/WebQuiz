@@ -1,6 +1,7 @@
 import flask, os, flask_login, random, shutil, qrcode, base64, time
 
 from .apps import edit_avatar, profile
+from flask import request, jsonify, current_app
 
 from threading import Thread
 import PIL.Image
@@ -461,9 +462,6 @@ def render_buy_gifts():
 
 @edit_avatar.route('/save_photo', methods=['POST'])
 def save_photo():
-    import base64, os
-    from flask import request, jsonify, current_app
-
     data = request.get_json()
     image_data = data.get('image')
 
