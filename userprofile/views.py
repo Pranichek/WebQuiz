@@ -18,6 +18,7 @@ from flask_login import current_user
 from Project.socket_config import socket
 
 
+
 @login_decorate
 def render_profile():
     user = flask_login.current_user
@@ -269,7 +270,7 @@ def render_user_tests():
         
         # tests = user.tests.filter(Test.check_del != "deleted").all()
         tests = []
-        favorite_id = user.user_profile.favorite_tests.split()
+        favorite_id = user.user_profile.favorite_tests.split("")
         all_test = Test.query.filter(Test.check_del != "deleted").all()
         message = ''
 
