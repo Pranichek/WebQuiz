@@ -65,7 +65,7 @@ socket.on("test_result", (data) => {
     let mainQuestDiv = document.querySelector(".questions");
     
 
-    data.questions.forEach(element => {
+    data.questions.forEach((element, index) => {
         let mainHead = document.createElement("div");
         mainHead.className = "head"
 
@@ -77,18 +77,19 @@ socket.on("test_result", (data) => {
         // }
 
         let questionDiv = document.createElement("div");
-        questionDiv.className = "question";
+        let questText = document.createElement('div')
+        
+        questionDiv.className = "question"
+        
+        questText.innerHTML = `
+        ${index+1}. ${element.question}
+        `;
+        questText.className = "quest-text"
+        questionDiv.appendChild(questText)
+        
+        questionDiv.insertBefore(mainHead, questionDiv.firstChild)
 
-        let questText = document.createElement('div');
-        questText.className = "quest-text";
 
-        // Нумерация перед вопросом
-        questText.innerHTML = `${indexel + 1}. ${element.question}`;
-
-        questionDiv.appendChild(mainHead);
-        questionDiv.appendChild(questText);
-
-        // Перебираем ответы
         element.answers.forEach((answ, index) => {
             let circle = document.createElement('div');
 
@@ -147,6 +148,75 @@ socket.on("test_result", (data) => {
         mainQuestDiv.appendChild(questionDiv)
 
     });
+
+    let divAnsw = document.querySelectorAll(".question")
+    for (let cont of divAnsw){
+        cont.addEventListener(
+            'click',
+            () => {
+                let backWind = document.createElement("div")
+                backWind.className = "back-wind"
+                document.body.appendChild(backWind)
+
+                let windowQuestion = document.createElement('div')
+                windowQuestion.className = "window-question"
+                backWind.appendChild(windowQuestion)
+                
+                // цвет заголовка
+                let headMini = cont.getElementsByClassName("correct-head")
+                for (let i = 0; i < headMini.length; i++){
+                    const headNew = document.createElement("div");
+                    headNew.className = "correct-head";
+
+                    windowQuestion.appendChild(headNew);
+                }
+                let headMini2 = cont.getElementsByClassName("uncorrect-head")
+                for (let i = 0; i < headMini2.length; i++){
+                    const headNew = document.createElement("div");
+                    headNew.className = "uncorrect-head";
+                    windowQuestion.appendChild(headNew);
+                }
+                let headMini3 = cont.getElementsByClassName("yellow-head")
+                for (let i = 0; i < headMini3.length; i++){
+                    const headNew = document.createElement("div");
+                    headNew.className = "yellow-head";
+                    windowQuestion.appendChild(headNew);
+                }
+                
+
+                // заголовок
+                let qustion_text = cont.getElementsByClassName('quest-text')
+                for (let i = 0; i < qustion_text.length; i++){
+                    const textBlock = document.createElement('div');
+                    textBlock.className = "question-text"
+                    textBlock.innerHTML = qustion_text[i].innerHTML;
+                    windowQuestion.appendChild(textBlock);
+                }
+                
+                const unswerSpace = document.createElement("div")
+                unswerSpace.className = "space-div"
+                windowQuestion.appendChild(unswerSpace)
+
+                // кружки с ответами
+                let answersNew = cont.getElementsByClassName("answ")
+                for (let i = 0; i < answersNew.length; i++){
+                    const answDiv = document.createElement('div')
+                    answDiv.className = "answ2"
+                    answDiv.innerHTML = answersNew[i].innerHTML
+                    unswerSpace.appendChild(answDiv)
+                }
+
+                backWind.addEventListener(
+                    "click", 
+                    (event) => {
+                    if (event.target === backWind) {
+                        backWind.remove();
+                    }
+                });
+
+            }
+        )
+    }
     
 });
 

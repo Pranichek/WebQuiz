@@ -186,7 +186,6 @@ def render_change_question(pk: int):
     if flask.request.method == "POST":
         image = flask.request.files["image"]
         if image:
-            print("pk (change)=", pk)
             dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
             for filename in os.listdir(dir_path):
                 file_path = os.path.join(dir_path, filename)
@@ -245,9 +244,7 @@ def render_change_question(pk: int):
     )
 
 
-def render_delete_image(pk: int):
-    print("pk =", pk, "; pk + 1 =", pk + 1)
-    
+def render_delete_image(pk: int):    
     test_name = None
     test_pk = flask.request.args.get("test_pk")
     test_name = False
@@ -280,8 +277,6 @@ def render_delete_image(pk: int):
 
 
 def render_delete_only_image(pk: int):
-    print("pk =", pk, "; pk + 1 =", pk + 1)
-    
     test_pk = flask.request.args.get("test_pk")
     test_name = False
     

@@ -288,3 +288,8 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
+
+
+if (time == 0){
+    document.querySelector(".k").submit()
+}
