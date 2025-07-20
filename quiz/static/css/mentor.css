@@ -348,8 +348,8 @@
     align-items: center;
     justify-content: space-between;
     gap: 5px;
-    padding-left: 10%;
-    padding-right: 10%;
+    padding-left: 5%;
+    padding-right: 5%;
 }
 
 .coint-message{
@@ -386,8 +386,8 @@
 
 .user {
     align-self: flex-end;
-    background-color: #C48AF7;
-    color: #fff;
+    background-color: rgb(150, 196, 218, 0.9);
+    color: #000000;
 }
 
 .another-user {
@@ -407,6 +407,13 @@
     align-items: center;
 }
 
+.username2 {
+    display: flex;
+    font-size: 1rem;
+    margin-top: 5px;
+    font-weight: bold;
+    color: black;
+}
 
 .message-user{
     width: 90%;
