@@ -1,4 +1,4 @@
-import flask, flask_login, os, random, shutil
+import flask, flask_login, os, random, shutil, traceback
 from .models import User
 from Project.db import DATABASE
 from .send_email import send_code, generate_code
@@ -197,11 +197,25 @@ def render_registration():
     )
 
 
+def is_admin(function: object) -> float: # функція що приймає параметри для редіректу на сторінку
+    def handler(*args, **kwargs): # Функція обробник фунції параметру із wrapper
+        try:
+            if function:
+                function(*args, **kwargs)
+        except Exception as ERROR:
+            traceback.print_exc()
+        finally:
+            return flask.redirect('/verify_code')
+    return handler
 
-@socket.on("clear_code")
-def clear_code(data):
+@is_admin
+def clear_code():
+    """
+    Функція для очищення коду підтвердження.
+    Викликається при натисканні на кнопку "надіслати знову".
+    """
     random_code = generate_code()
-    flask.session["code"] = 0
+    flask.session["code"] = random_code
     flask.session["count_email"] = 0
     email = Thread(target = send_code, args = (flask.session["email"], flask.session["code"]))
     email.start()
@@ -209,19 +223,15 @@ def clear_code(data):
 def render_code():
     form_code = ''
     if flask.request.method == "POST":
-        print("posts")
         send_again = flask.request.form.get("again")
-        end_code = flask.request.form.get("end")      
+        end_code = flask.request.form.get("end")
+
 
         if end_code != "clear":
+
             for num_tag in range(1, 7):
                 data = str(flask.request.form[f"verify_code{num_tag}"])
                 form_code += data
-            # if send_again == "clicked":
-            #     random_code = generate_code()
-            #     flask.session["code"] = random_code
-            #     email = Thread(target = send_code, args = (flask.session["email"], flask.session["code"]))
-            #     email.start()
 
                 
         if "new_email" in flask.session:
@@ -264,16 +274,19 @@ def render_code():
                     flask.session["code"] = ''
                     flask.session["email_sent"] = False
                 else:
+                    print(str(flask.session["code"]))
+                    print(form_code)
+                    print("-------------------------------------------------")
                     flask.session["code"] = ''
                     flask.session["email_sent"] = False
                     return flask.redirect("/")
                 
     if not flask_login.current_user.is_authenticated or "new_email" in flask.session:
-        return flask.render_template(template_name_or_list = "verify_code.html") 
+        return flask.render_template(template_name_or_list = "verify_code.html", code = 34, code1 = flask.session["code"], verify_code_page = True) 
     else:
         flask.session.pop("new_email", "code")
-        print(8237823788787)
         return flask.redirect("/")
+
 
 
 

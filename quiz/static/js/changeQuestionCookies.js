@@ -10,6 +10,8 @@ let timeC;
 let imageC;
 let validAnswersFlag = false;
 
+const socket = io();
+
 function buttonColorChanging(){
     if (button.type == "button"){
         button.classList.add("grey");
@@ -71,6 +73,14 @@ button.addEventListener("click", () => {
         }
     }
 
+    if (document.querySelector(".is-image").style.display == "none"){
+        socket.emit("delImage", {
+            "pk": pk
+        });
+        console
+    }
+
+
     answers = answers?.replace("undefined", "").replace("answers", "").replace("null", "");
 
     questionCookie = document.cookie.split("questions=")[1].split(";")[0].split("?%?");
@@ -92,7 +102,7 @@ button.addEventListener("click", () => {
     answers = null;
 });
 
-// ⏱ Встановлення тексту таймера
+
 window.addEventListener("DOMContentLoaded", () => {
     if (document.querySelector("#time").dataset.time !== "not"){
         if (parseInt(document.querySelector("#time").dataset.time) < 60){
