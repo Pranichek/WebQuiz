@@ -3,6 +3,7 @@ import userprofile
 import quiz
 import pass_quiz
 import searches
+import graphics
 
 home.home_app.add_url_rule(
     rule = "/",
@@ -45,6 +46,11 @@ home.login.add_url_rule(
     rule = "/login",
     view_func = home.render_login,
     methods = ["GET", "POST"]
+)
+
+home.registration.add_url_rule(
+    rule = "/clear_code",
+    view_func = home.clear_code
 )
 
 userprofile.profile.add_url_rule(
@@ -154,6 +160,7 @@ userprofile.buy_gifts.add_url_rule(
     methods = ["GET", "POST"]
 )
 
+
 pass_quiz.passing_mentor.add_url_rule(
     rule = "/passing_mentor",
     view_func = pass_quiz.render_mentor_passing,
@@ -163,5 +170,17 @@ pass_quiz.passing_mentor.add_url_rule(
 pass_quiz.passing_student.add_url_rule(
     rule = "/passing_student",
     view_func = pass_quiz.render_student_passing,
+    methods = ["GET", "POST"]
+)
+
+
+graphics.choose_graphics.add_url_rule(
+    rule = "/graphics_choose",
+    view_func = graphics.render_graphic,
+    methods = ["GET", "POST"]
+)
+graphics.user_graphics.add_url_rule(
+    rule = "/graphics_user",
+    view_func = graphics.render_graphics,
     methods = ["GET", "POST"]
 )

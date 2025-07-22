@@ -19,5 +19,6 @@ def render_catalog_tests():
     return flask.render_template(
         "catalog_tests.html",
         tests = tests,
-        page_name = "Тести за обраною категорією"
+        page_name = "Тести за обраною категорією",
+        user = flask_login.current_user
     )

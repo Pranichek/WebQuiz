@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Londrina+Sketch&display=swap');
+
+*{
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+}
+
+.bck{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+.diagr{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    /* background-color: aqua; */
+    gap: 9px;
+    margin-top: 21px;
+    margin-bottom: 36px;
+}
+.diagr p{
+    font-size: 32px;
+    color: #ffff;
+    font-weight: 400;
+}
+
+.buttons{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 51px;
+    flex-direction: row;
+}
+
+.buttons button{
+    width: 375px;
+    height: 75px;
+    background-color: #C48AF7;
+    color: aliceblue;
+    border-radius: 15px;
+    border: none;
+    font-size: 24px;
+    cursor:pointer;
+}
+.buttons button:hover{
+    border: 4px #493b56 solid;
+    background-color: aquamarine;
+    color: black;
+}
+.btn{
+    text-decoration: transparent;
+    color: aliceblue;
+}

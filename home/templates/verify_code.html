@@ -28,19 +28,19 @@
             </div>
             <div class="butt-again">
                 <p class="time"></p>
-                <form action="" method="post" class="send-post">
-                    <button class="again" name="again" type="submit" value="clicked" style="display: none;">надіслати знову</button>
-                </form>
+                <button class="again" name="again" type="button" value="clicked" style="display: none;"><a class="check_text" href="/clear_code">надіслати знову</a></button>
             </div>
         </form>
-        <form action="" method="post" class="send" name="send">
-            <input type="text" class="end" name="end" value="clear" style="display: none; width: 1px; height: 1px;">
+
+        <form action="" method="post" id="clear_code">
+            <input type="text" class="end" name="end" value="not" style="display: none;">
         </form>
     </div>
 
 {% endblock %}
 
 {% block scripts %}
+    {{ super() }}
     <script src="{{ url_for('registration.static', filename='js/verify_code.js') }}"></script>
     <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
 {% endblock scripts %}

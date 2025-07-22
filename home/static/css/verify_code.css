@@ -49,6 +49,29 @@
     
 }
 
+.butt-again p{
+    color: rgb(172, 179, 179);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.butt-again a{
+    text-decoration: none;
+    color: #ffffff;
+    color: rgb(172, 179, 179);
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.butt-again a:hover{
+    transition: 0.1s;
+    color: rgb(100, 103, 218);
+}
+
+button{
+    cursor: pointer;
+    transition: 0.2s;
+}
 
 /* button:hover {
 background-color: #D6E8FE;
@@ -184,4 +207,8 @@ form{
         justify-content: center;
         align-items: center;
     }
+}
+
+#clear_code {
+    display: none;
 }

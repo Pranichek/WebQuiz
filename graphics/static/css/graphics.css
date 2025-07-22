@@ -1,0 +1,77 @@
+.bck{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+.circle{
+    width: 105px;
+    height: 106px;
+}
+.name{
+    width: 640px;
+    height: 162px;
+    /* background-color: brown; */
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding-left: 62px;
+    gap: 28px;
+}
+.name p{
+    color: aliceblue;
+    margin-top: -40px;
+    font-size: 25px;
+}
+.selection{
+    width: 100%;
+    height: 162px;
+    /* background-color: aqua; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 49px;
+}
+.prt1{
+    display: flex;
+    flex-direction: row;
+}
+
+.selectp{
+    width: 181px;
+    height: 44px;
+    border-radius: 10px;
+    background-color: #94C4FF;
+    color: aliceblue;
+    font-size: 15px;
+}
+.btn{
+    width: 285px;
+    height: 52px;
+    background-color: #94C4FF;
+    color: aliceblue;
+    font-size: 15px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+.dia1{
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 32px;
+    gap: 16px;
+    color: aliceblue;
+    font-weight: 500;
+    margin-left: 64px;
+}
+.dia1 img{
+    width: 80%;
+    height: 600px;
+    border-radius: 10px;
+    border: 2px #C48AF7 solid;
+    margin-bottom: 49px;
+}

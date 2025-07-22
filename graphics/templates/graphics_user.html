@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block tittle %}
+    graphics
+{% endblock %}
+
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('choose_graphics.static', filename='css/graphics.css') }}">
+{% endblock %}
+
+{% block content %}
+    <img class="bck" src="{{ url_for('choose_graphics.static', filename = 'images/back2.svg') }}" alt="back">
+    <div class="prt1">
+        <div class="name">
+            <img class="circle" data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+            <p>{{ user.username }}</p>
+        </div>
+        <div class="selection">
+            <select class="selectp" name="time" id="">
+                <option value="" selected disabled>оберіть період часу</option>
+                <option value="тиждень">тиждень</option>
+                <option value="місяць">місяць</option>
+                <option value="рік">рік</option>
+            </select>
+            <button class="btn">Переглянути діаграму групи/класу</button>
+        </div>
+    </div>
+
+    <div class="dia1">
+        <p>Діаграма створених тестів за поточний тиждень:</p>
+        <img src="{{ url_for('choose_graphics.static', filename = 'images/graphic/graphics_user/test_graphic.png') }}" alt="Error graphic">
+    </div>
+    <div class="dia1">
+        <p>Діаграма створених:</p>
+        <img src="{{ url_for('choose_graphics.static', filename = 'images/graphic/graphics_user/test_graphic.png') }}" alt="Error graphic">
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+{% endblock %}

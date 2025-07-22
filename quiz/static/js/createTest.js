@@ -33,10 +33,8 @@ function dataValidation() {
 
 function buttonColorChanging(){
     for (let createTestButton of createTestButtons){
-        console.log("createTestButton.type =", createTestButton.type);
         if (createTestButton.type == "button"){
             createTestButton.classList.add("grey");
-            console.log(createTestButton.classList);
         }
     }
 }

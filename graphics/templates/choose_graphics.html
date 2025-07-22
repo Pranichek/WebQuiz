@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block title %}Choose graphic{% endblock %}
+
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('choose_graphics.static', filename='css/choose_graphics.css') }}">
+{% endblock links %}
+
+{% block content %}
+
+    <img class="bck" src="{{ url_for('choose_graphics.static', filename = 'images/back.svg') }}" alt="back">
+
+    <div class="diagr">
+        <p>Оберіть варіант діаграми:</p>
+        <img src="{{ url_for('choose_graphics.static', filename = 'images/diagram.svg') }}" alt="back">
+    </div>
+    <div class="buttons">
+        <button><a class="btn" href="/graphics_user">Переглянути мою діаграму</a></button>
+        <button>Переглянути діаграму групи/класу</button>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock scripts %}
