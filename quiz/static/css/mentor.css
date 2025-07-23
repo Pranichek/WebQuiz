@@ -499,6 +499,67 @@ main, .main{
 }
 
 
+
+.modal-window {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: #3C3C3C;
+    border: #ffffff solid 1px;
+    padding: 20px;
+    border-radius: 10px;
+    position: relative;
+    text-align: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+}
+
+.close-btn {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 25px;
+    cursor: pointer;
+}
+.close-btn img {
+    width: 23px;
+    height: 23px;
+}
+
+.qrcode {
+    display: flex;
+    flex-direction: column;
+}
+.nameofcode {
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+.nameofcode2 {
+    color: #FFB700;
+    margin-bottom: 10px;
+    font-weight: lighter;
+}
+
+#for-text {
+    margin-top: 6vh;
+    font-weight: 400;
+}
+
+
+
+
+
 /* Media Queries */
 @media (max-width: 1024px) {
 

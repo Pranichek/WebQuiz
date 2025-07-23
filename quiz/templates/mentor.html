@@ -58,7 +58,35 @@
                     <div class="qr-code">
                         Скануй QR-Code <br>
                         та приєднуприєднуйся до тесту 
-                        <img style="width: 100px; height: 100px;" src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                        <a href="" onclick="event.preventDefault(); showQR() "                                           >
+                            <img style="width: 100px; height: 100px;" src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                        </a>
+                    </div>
+
+                    <div class="modal-window" id="qrModal" style="display: none;">
+                        <div class="modal-content">
+                            <div class="top-part">
+                                <div class="close-btn" onclick="hideQR()">
+                                    <img src="{{ url_for('mentor.static', filename='images/mentor/exit.svg') }}" alt="">
+                                </div>
+                                <div class="qrcode">
+                                    <div class="nameofcode">
+                                        <h2>QR-код</h2>
+                                    </div>
+                                    <div>
+                                        <img style="width: 300px; height: 300px;" src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bottom-part">
+                                <div class="nameofcode">
+                                    <h3 id="for-text">Або приєднуйся по коду!</h3>
+                                </div>
+                                <div class="nameofcode2">
+                                    <h2>{{ code }}</h2>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
 

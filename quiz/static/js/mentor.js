@@ -143,6 +143,12 @@ function loadRoom() {
     )
 }
 
+function showQR() {
+    document.getElementById("qrModal").style.display = "flex";
+}
+function hideQR() {
+    document.getElementById("qrModal").style.display = "none";
+}
     
 
 window.addEventListener("DOMContentLoaded", loadRoom);
