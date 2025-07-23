@@ -52,16 +52,15 @@ let enterButton = document.querySelector(".submit")
 againButton.addEventListener(
     'click',
     () => {
-        againButton.style.display = "none"
-        localStorage.setItem("time", 20)
-        socket.emit("clear_code", {"flag": "clear"})
-        location.reload()
+        againButton.style.display = "flex"
+        localStorage.setItem("time", 60)
     }
 )
 
 const buttonAgain = () => {
     againButton.style.display = "flex"
     enterButton.style.backgroundColor = "gray"
+    enterButton.disabled = true
 }
 
 
@@ -74,7 +73,6 @@ function decrement(){
         if (timer <= 0) {
             buttonAgain()
             againButton.style.display = "flex"
-            // document.querySelector(".send").submit()
         }
     }
 }
@@ -103,3 +101,12 @@ window.addEventListener(
         }
     }
 )
+
+if (document.querySelector(".again").style.display === "flex") {
+    enterButton.style.backgroundColor = "gray"
+    enterButton.disabled = true
+    document.querySelector(".check_text").textContent = "час триває"
+}else{
+    enterButton.disabled = false
+    document.querySelector(".check_text").textContent = "надіслати знову"
+}
