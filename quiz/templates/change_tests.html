@@ -1,12 +1,85 @@
 {% extends 'base.html' %}
 
 {% block links %}
-    <link rel="stylesheet" href="{{ url_for('profile.static', filename = 'css/change_tests.css') }}">
+    <link rel="stylesheet" href="{{ url_for('test_pass.static', filename = 'css/change_tests.css') }}">
 {% endblock links %}
 
 {% block content %}
+    <img class="back1" src="{{ url_for('test_pass.static', filename='images/back1.png') }}" alt="">
+    <img class="back2" src="{{ url_for('test_pass.static', filename='images/back2.png') }}" alt="">
+    <div class="information-test">
+        <div class="change-information">
+            <div class="text-information">
+                <p>Інформація про тест</p>
+            </div>
+            <div class="category-test">
+                <p>категорія:<p>програмування</p></p>
+            </div>
+            <div class="theme-test">
+                <p>тема:<p>пайтон</p></p>
+            </div>
+            <div class="creator-test">
+                <p>творець:<p>@vova</p></p>
+            </div>
+            <div class="count-questions">
+                <p>кількість питаннь:<p>12</p></p>
+            </div>
+            <div class="settings-buttons">
+                <button class="save-changed">Зберегти зміни</button>
+                <button class="delete-test">Видалити тест повністтю</button>
+            </div>
+        </div>
+        <div class="change-image">
+            <div class="outline-image">
 
-    {% if message %}
+            </div>
+            <button>Змінити фоток</button>
+        </div>
+    </div>
+    <div class="outline">
+        <p>Перелік питаннь: </p>
+    </div>
+    <div class="list-questions">
+        <div class="space-div">
+            <div class="head">
+                <img  src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
+                <button class="del"><img src="{{ url_for('test_pass.static', filename='images/del.svg') }}" alt=""></button>
+                <p> Для чого потрібен Auto Layout?</p>
+                <button class="btn">Редагувати</button>
+            </div>
+            <p>kkkkkk</p>
+            <p>mnnnnnn</p>
+            <p>kkkkkkkknnnnn</p>
+        </div>
+        <div class="space-div">
+            <div class="head">
+                <img src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
+                <button class="del"><img src="{{ url_for('test_pass.static', filename='images/del.svg') }}" alt=""></button>
+                <p> Для чого потрібен Auto Layout?</p>
+                <button class="btn">Редагувати</button>
+            </div>
+            
+        </div>
+        <div class="space-div">
+            <div class="head">
+                <img src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
+                <button class="del"><img src="{{ url_for('test_pass.static', filename='images/del.svg') }}" alt=""></button>
+                <p> Для чого потрібен Auto Layout?</p>
+                <button class="btn">Редагувати</button>
+            </div>
+            
+        </div>
+        <div class="space-div">
+            <div class="head">
+                <img src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
+                <button class="del"><img src="{{ url_for('test_pass.static', filename='images/del.svg') }}" alt=""></button>
+                <p> Для чого потрібен Auto Layout?</p>
+                <button class="btn">Редагувати</button>
+            </div>
+            
+        </div>
+    </div>
+    <!-- {% if message %}
         <p>{{ message }}</p>
     {% endif %}
 
@@ -17,6 +90,5 @@
     </form>
     <form action="" method="post">
         <button value="{{ test.id }}" name="delete-id">Видалити тест</button>
-    </form>
-    
+    </form> -->
 {% endblock %}
