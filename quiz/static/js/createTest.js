@@ -33,11 +33,8 @@ function dataValidation() {
 
 function buttonColorChanging(){
     for (let createTestButton of createTestButtons){
-        console.log("createTestButton.type =", createTestButton.type);
         if (createTestButton.type == "button"){
-            console.log("change button color");
             createTestButton.classList.add("grey");
-            console.log(createTestButton.classList);
         }
     }
 }
@@ -49,7 +46,6 @@ document.addEventListener("keydown", ()=>{
     dataValidation();
 })
 document.addEventListener("DOMContentLoaded", ()=>{
-    console.log("content loaded");
     dataValidation();
 })
 

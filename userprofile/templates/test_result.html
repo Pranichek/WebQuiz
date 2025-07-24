@@ -156,13 +156,11 @@
         
     </div>
 
-    <!-- <h1>Ви набрали <p class="user_pimpa"></p> із <p class="user-pampa"></p>{{amount_questions}} питання</h1> -->
-    <!-- <p class="accuracy">accuracy = </p> -->
 {% endblock content %}
 
 {% block scripts %}
     {{ super() }}
-    <script src="{{ url_for('finish_test.static', filename='js/finish_test.js') }}" defer></script>
     <script src="{{ url_for('finish_test.static', filename='js/copy_modal.js') }}"></script>
+    <script src="{{ url_for('test_result.static', filename='js/test_result.js') }}"></script> 
     <script src="{{ url_for('finish_test.static', filename='js/add_favorite.js') }}"></script>
 {% endblock scripts %}

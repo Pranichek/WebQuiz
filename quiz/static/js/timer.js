@@ -1,5 +1,5 @@
 const timeList = document.getElementById("timeList");
-const liList = document.getElementsByTagName("li");
+const liList = document.querySelectorAll(".list-time")
 const time = document.getElementById("time");
 
 time.addEventListener("click", ()=>{

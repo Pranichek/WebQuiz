@@ -43,6 +43,7 @@ function loadRoom() {
         const chat = document.querySelector(".messages");
         chat.innerHTML += `<div class="message another-user">
                                 <p>${data["message"]}</p>
+                                <p>${data["sender"]}</p>
                             </div>`;
     });
 
@@ -126,8 +127,16 @@ function loadRoom() {
                 }else{
                     const chat = document.querySelector(".messages");
                     chat.innerHTML += `<div class="message another-user">
+                            <div class="user-info">
+                                <div class="avatar-another">
+                                    <img src="${dictData["avatar_url"]}" alt="ava">
+                                </div>
+                                <span class="username-another">${dictData["username"]}</span>
+                            </div>
+                            <div class="message-text">
                                 <p>${dictData["message"]}</p>
-                            </div>`;
+                            </div>
+                        </div>`;
                 }
             }
         }

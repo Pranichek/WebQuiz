@@ -18,7 +18,7 @@ from .del_files import delete_files_in_folder
 from .generate_image import return_img
 from Project.login_check import login_decorate
 from home.models import User
-
+from Project.socket_config import socket
 
 @login_decorate
 def render_test():
@@ -43,9 +43,19 @@ def render_test():
         answers_cookies = flask.request.cookies.get("answers")
 
         if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
-            # print(name_image, "name")
             test_title = flask.request.form["test_title"]
             question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
+
+            len_questions = len(cookie_questions.split("?%?"))
+
+            images_directory = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
+
+            if exists(images_directory):
+                images = os.listdir(images_directory)
+                if len_questions < len(images):
+                    for i in range(len_questions, len_questions + (len(images) - len_questions)):
+                        shutil.rmtree(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(i + 1))))
+
 
             test = Test(
                 title_test = test_title,
@@ -78,8 +88,6 @@ def render_test():
                 os.mkdir(path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests")))
             if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests",  str(test_title)))):
                 os.mkdir(path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests",  str(test_title))))
-            # except:
-            #     pass
 
             from_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
             for dir in os.listdir(from_path):
@@ -186,7 +194,6 @@ def render_change_question(pk: int):
     if flask.request.method == "POST":
         image = flask.request.files["image"]
         if image:
-            print("pk (change)=", pk)
             dir_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
             for filename in os.listdir(dir_path):
                 file_path = os.path.join(dir_path, filename)
@@ -227,7 +234,16 @@ def render_change_question(pk: int):
                 answers.append("hidden")
             else:
                 break
-    
+
+    image_question = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+    exists_image = False
+    image_url = None
+    if os.path.exists(image_question):
+        if len(os.listdir(image_question)) > 0:
+            exists_image = True
+            image_url = os.path.join("userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1), os.listdir(image_question)[0])
+
+        
     return flask.render_template(
         template_name_or_list = "change_question.html",
         question = current_question,
@@ -241,13 +257,26 @@ def render_change_question(pk: int):
         correct3 = correctAnswers[2] if len(correctAnswers) > 2 else "not",
         correct4 = correctAnswers[3] if len(correctAnswers) > 3 else "not",
         time = current_time,
-        pk = pk
+        pk = pk,
+        exists_image = exists_image,
+        image_url = image_url
     )
 
+@socket.on("delImage")
+def del_image(data):
+    index_question = int(data["pk"]) + 1
+    user_diresctory = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(index_question)))
+    if exists(user_diresctory):
+        if len(os.listdir(user_diresctory)) > 0:
+            for file in os.listdir(user_diresctory):
+                file_path = os.path.join(user_diresctory, file)
+                try:
+                    # Delete the image
+                    os.remove(file_path)
+                except Exception as e:
+                    print(f"ошибка при удалении картинки")
 
-def render_delete_image(pk: int):
-    print("pk =", pk, "; pk + 1 =", pk + 1)
-    
+def render_delete_image(pk: int):    
     test_name = None
     test_pk = flask.request.args.get("test_pk")
     test_name = False
@@ -280,8 +309,6 @@ def render_delete_image(pk: int):
 
 
 def render_delete_only_image(pk: int):
-    print("pk =", pk, "; pk + 1 =", pk + 1)
-    
     test_pk = flask.request.args.get("test_pk")
     test_name = False
     

@@ -47,6 +47,11 @@ home.login.add_url_rule(
     methods = ["GET", "POST"]
 )
 
+home.registration.add_url_rule(
+    rule = "/clear_code",
+    view_func = home.clear_code
+)
+
 userprofile.profile.add_url_rule(
     rule = "/profile",
     view_func= userprofile.render_profile,
@@ -62,6 +67,12 @@ userprofile.edit_avatar.add_url_rule(
 userprofile.profile.add_url_rule(
     rule = "/user_test",
     view_func = userprofile.render_user_tests,
+    methods = ["GET","POST"]
+)
+
+userprofile.test_result_app.add_url_rule(
+    rule = "/test_result",
+    view_func = userprofile.render_test_result,
     methods = ["GET","POST"]
 )
 
@@ -145,6 +156,12 @@ searches.search.add_url_rule(
 userprofile.buy_gifts.add_url_rule(
     rule = "/buy_pet",
     view_func = userprofile.render_buy_gifts,
+    methods = ["GET", "POST"]
+)
+
+userprofile.user_graphics.add_url_rule(
+    rule = "/graphics_user",
+    view_func = userprofile.render_graphics,
     methods = ["GET", "POST"]
 )
 

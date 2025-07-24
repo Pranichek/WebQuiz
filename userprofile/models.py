@@ -9,6 +9,8 @@ class DataUser(DATABASE.Model):
     winners_counts = DATABASE.Column(DATABASE.Integer, default = 0, nullable = False)
     # айді останніх пройденів тестів
     last_passed = DATABASE.Column(DATABASE.String, default = '')
+    # айді тестів, що сподобались користувачу
+    favorite_tests = DATABASE.Column(DATABASE.String, default = ' ')
 
     # кількість грошей
     count_money = DATABASE.Column(DATABASE.Integer, default = 300)

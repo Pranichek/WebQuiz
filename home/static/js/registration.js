@@ -1,5 +1,6 @@
 const password1Input = document.querySelector('#password1');
 const eyeIcons1List = document.querySelectorAll("#eye1");
+localStorage.setItem("time", 60)
 
 let hidden1Icon;
 // тут ми пишмео код який перивіряє чи треба відчиняти/закривати пароль

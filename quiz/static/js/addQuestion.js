@@ -11,7 +11,6 @@ const deleteButtonList = document.querySelectorAll(".delete-answer");
 window.addEventListener(
     'DOMContentLoaded',
     () => {
-        console.log(1212)
         hidden = document.querySelectorAll(".hidden");
         if (hidden.length <= 1){
             buttonPlus.classList.add("hidden-button");
