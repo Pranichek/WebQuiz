@@ -94,8 +94,8 @@ form{
     cursor: pointer;
     flex-grow: 0;
     flex-shrink: 0;
-    height: 280px;
-    width: 220px;
+    height: 28vh;
+    width: 22vw;
     border: 0.5px solid black;
     z-index: 1;
     transition: 1s;
@@ -104,7 +104,7 @@ form{
     justify-content: center;
     align-items: center;
     text-align: center;
-    border-radius: 34px;
+    border-radius: 3.4vh;
     overflow: hidden;
 }
 
@@ -242,8 +242,8 @@ img{
     .card {
         flex-grow: 0;
         flex-shrink: 0;
-        height: 220px;
-        width: 180px;
+        height: 22vh;
+        width: 18vw;
         border: 0.5px solid black;
         z-index: 1;
         transition: 1s;
@@ -252,7 +252,7 @@ img{
         justify-content: center;
         align-items: center;
         text-align: center;
-        border-radius: 34px;
+        border-radius: 3.4vh;
         overflow: hidden;
     }
 
@@ -384,8 +384,8 @@ img{
     .card {
         flex-grow: 0;
         flex-shrink: 0;
-        height: 340px;
-        width: 250px;
+        height: 34vh;
+        width: 25vw;
         border: 0.5px solid black;
         z-index: 1;
         transition: 1s;
@@ -394,7 +394,7 @@ img{
         justify-content: center;
         align-items: center;
         text-align: center;
-        border-radius: 34px;
+        border-radius: 3.4vh;
         overflow: hidden;
     }
 
@@ -532,8 +532,8 @@ img{
     .card {
         flex-grow: 0;
         flex-shrink: 0;
-        height: 360px;
-        width: 271px;
+        height: 36vh;
+        width: 27vw;
         border: 0.5px solid black;
         z-index: 1;
         transition: 1s;
@@ -542,7 +542,7 @@ img{
         justify-content: center;
         align-items: center;
         text-align: center;
-        border-radius: 34px;
+        border-radius: 3.4vh;
         overflow: hidden;
     }
 
@@ -666,8 +666,8 @@ img{
     .card {
         flex-grow: 0;
         flex-shrink: 0;
-        height: 500px;
-        width: 360px;
+        height: 50vh;
+        width: 36vw;
         border: 0.5px solid black;
         z-index: 1;
         transition: 1s;
@@ -676,7 +676,7 @@ img{
         justify-content: center;
         align-items: center;
         text-align: center;
-        border-radius: 34px;
+        border-radius: 3.4vh;
         overflow: hidden;
     }
 
