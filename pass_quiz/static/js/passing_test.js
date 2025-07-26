@@ -88,7 +88,7 @@ socket.on('question', (data) => {
 
         const imgContainer = document.getElementById("image-container");
         imgContainer.innerHTML = "";
-
+        let typeQuestion = data.type
         let answers = data.answers
         let amountAnswers = data.answers.length
         
@@ -121,7 +121,7 @@ socket.on('question', (data) => {
             console.log("2112")
         } 
 
-
+        // checkOportunity - чтобы пользоватль не смог несколько раз ответь на один и тот же вопрос, если будет быстро кликать
         if (data.question_img != "not" && checkOportunity != "not"  && amountAnswers > 3){
             let justAnswerDiv = document.querySelector(".answers")
             let answerImg = document.querySelector(".answers-image")
@@ -151,7 +151,7 @@ socket.on('question', (data) => {
 
             document.querySelector(".answers-image").style.display = `flex`;
             document.querySelector(".question").style.height = `30vh`;
-            if (data.type_question == "one_answer"){
+            if (typeQuestion == "one-answer"){
                 const blockAnswersTop = document.querySelector(".top-answers")
 
                 blockAnswersTop.innerHTML = `
@@ -365,7 +365,7 @@ socket.on('question', (data) => {
                 blockanswers[2].style.backgroundColor = colors[2]
                 blockanswers[3].style.backgroundColor = colors[3]
 
-            }else {
+            }else if(typeQuestion == "many-answers"){
                 const checkMarkUrl = "/static/images/check-mark.png";
                 const blockAnswersTop = document.querySelector(".top-answers")
 
@@ -736,7 +736,7 @@ socket.on('question', (data) => {
             document.querySelector(".answers-image").style.display = `none`;
             document.querySelector(".question").style.height = `30vh`;
 
-            if (data.type_question == "one_answer"){
+            if (typeQuestion == "one-answer"){
                 cont.innerHTML = `
                     <div class="variant fade-in" data-value="0">
                         <p class="variant-text"></p>
@@ -882,7 +882,7 @@ socket.on('question', (data) => {
                     blockanswers[index].style.width = `${width}%`;
                     blockanswers[index].style.backgroundColor = colors[index]
                 }
-            }else if (data.type_question == "many_answers"){
+            }else if (typeQuestion == "many-answers"){
                 const checkMarkUrl = "/static/images/check-mark.png";
 
                 cont.innerHTML = `

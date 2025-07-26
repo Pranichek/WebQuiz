@@ -446,6 +446,23 @@ form{
     width: 45%;
     height: 50%;
     /* background-color: aliceblue; */
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    /* white-space: normal; */
+    /* background-color: green; */
+}
+
+.answer{
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    /* white-space: normal;   */
+}
+
+p.answer {
+    white-space: normal;        
+    word-break: break-word;     
+    overflow-wrap: break-word;  
+    overflow: hidden;           
 }
 
 .top-image{
@@ -503,12 +520,12 @@ form{
 
 
 .answers{
-    /* position: relative;
-    top: -100px; */
     display: flex;
     justify-content: start;
+    flex-direction: row;
     flex-wrap: wrap;
-    gap: 10px;
+    align-items: center;
+    gap: 5px;
     padding: 20px;
     height: fit-content;
 }
@@ -517,7 +534,9 @@ form{
     width: 20px;
     height: 20px;
     border: 1px solid #94C4FF;
-    border-radius: 1234px;
+    border-radius: 50%;
+    flex-shrink: 0; /* не дозволяти зжиматись у flex-контейнері */
+    flex-grow: 0;
 }
 
 .answers p{

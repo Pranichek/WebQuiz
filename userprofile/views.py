@@ -220,8 +220,8 @@ def render_user_tests():
         user = User.query.get(flask_login.current_user.id)
         id_tests = user.user_profile.last_passed.split(" ")
 
-
         for elem in id_tests:
+            print(elem, "elem")
             if len(elem) > 2:
                 current_element = elem.split("/") 
                 index_element = id_tests.index(elem)

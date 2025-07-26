@@ -11,8 +11,11 @@ class Test(DATABASE.Model):
     questions = DATABASE.Column(DATABASE.String, nullable = False)
     answers = DATABASE.Column(DATABASE.Text, nullable = False)
     question_time = DATABASE.Column(DATABASE.String, nullable = False)
+    # типи питаннь
+    type_questions = DATABASE.Column(DATABASE.String, nullable = False)
     image = DATABASE.Column(DATABASE.String)
     category = DATABASE.Column(DATABASE.String, nullable = False)
+
 
     # Перевірка для видалення теста
     check_del = DATABASE.Column(DATABASE.String, default = "exists")

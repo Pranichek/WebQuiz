@@ -1,13 +1,13 @@
 let validatorUsername = [
-    { regex: /^.{2,10}$/ },     
-    { regex: /^[a-zA-Zа-яА-Я]+$/ }
+    { regex: /^.{2,20}$/ },     
+    { regex: /^[a-zA-Zа-яА-Я ]+$/ }
 ]
 
 let usernameRules = document.querySelectorAll(".username-item")
 let usernameInput = document.querySelector(".username_input")
 
 usernameInput.addEventListener('keyup', () => {
-    usernameInput.value = usernameInput.value.replace(/[^a-zA-Zа-яА-Я]/g, '');
+    usernameInput.value = usernameInput.value.replace(/[^a-zA-Zа-яА-Я ]/g, '');
 
     validatorUsername.forEach((item, index) => {
         let isValid = item.regex.test(usernameInput.value)

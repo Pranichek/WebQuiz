@@ -131,7 +131,7 @@ body {
     cursor: pointer;
 }
 
-.card-text, a{
+.card-text{
     font-size: 19px;
     font-family: 'Inter', sans-serif;
     font-weight: 400;

@@ -22,9 +22,9 @@ def handle_get_question(data_index):
     questions = test.questions.split("?%?")
     answers_blocks = test.answers.split("?@?")
     test_time = test.question_time.split("?#?")
+    types = test.type_questions.split("?$?")
 
     correct_answers = return_answers(index= question_index, test_id= int(test_id))
-
 
     idx = question_index
 
@@ -55,6 +55,7 @@ def handle_get_question(data_index):
 
     current_question = questions[idx]
     test_time = test_time[idx]
+    current_type = types[idx]
 
     # Получаем варианты ответов и убираем маркеры
     current_answers_list = answers_blocks[idx].split("?@?")
@@ -73,9 +74,6 @@ def handle_get_question(data_index):
     current_answers = current_answers[0].split('*|*|*')
     print(current_answers, "loli")
 
-    # if current_answers[-1] == '':
-    #     del current_answers[-1]
-    
     print(current_answers, "loli")
 
 
@@ -99,6 +97,7 @@ def handle_get_question(data_index):
 
     del current_answers[-1]
     emit("question", {
+        "type": current_type,
         "question": current_question,
         "answers": current_answers,
         "index": question_index + 1,
@@ -131,6 +130,7 @@ def handle_next_question(data_index):
     
     questions = test.questions.split("?%?")
     answers_blocks = test.answers.split("?@?")
+    types = test.type_questions.split("?$?")
 
     idx = int(data_index["index"])
 
@@ -143,12 +143,6 @@ def handle_next_question(data_index):
             user.user_profile.count_tests += 1
             last_tests = user.user_profile.last_passed.split(" ")
 
-            # if len(last_tests) < 5:
-            #     if str(test.id) not in last_tests:
-            #         last_tests.append(str(test.id))
-            # else:
-            #     if str(test.id) not in last_tests:
-            #         last_tests[r.randint(a = 0, b = 3)] = str(test.id)
             max_tests = 25
             if len(last_tests) < max_tests:
                 if str(test.id) not in last_tests:
@@ -173,6 +167,7 @@ def handle_next_question(data_index):
     current_question = questions[idx]
     current_answers_list = answers_blocks[idx].split("?@?")
     current_answers = []
+    current_type = types[idx]
 
     current_answers_clear = answers_blocks[idx]
     type_question = "many_answers" if current_answers_clear.count("+") > 2 else "one_answer"
@@ -210,6 +205,7 @@ def handle_next_question(data_index):
         img_url = "not"
 
     emit("question", {
+        "type": current_type,
         "question": current_question,
         "answers": current_answers,
         "index": int(data_index["index"]) + 1,
