@@ -166,6 +166,8 @@ form{
 }
 
 .type-p{
+    width: 150px;
+    display: flex;
     align-items: center;
     cursor: pointer;
     background: #7291B8;
@@ -180,6 +182,17 @@ form{
     /* margin-right: 20px; */
     position: relative;
     text-align: center;
+    justify-content: space-between;
+    white-space: nowrap;
+}
+
+.category-arrow {
+    margin-left: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.category-p.active .category-arrow { 
+    transform: rotate(180deg);
 }
 
 .test-cover-wrapper {
@@ -196,32 +209,58 @@ form{
     height: 60px;
 }
 
-.hidden-list{
-    display: none;
-    z-index: 100000000;
-}
-
 #timeList{
     position: absolute;
-    top: 120%;
+    top: calc(100% + 5px);
+    left: 0;
+    width: 100%;
     border-radius: 5px;
     cursor: pointer;
     background: #7291B8;
     list-style-type: none;
-    border: 2px black solid;
-    width: auto;
-    text-align: start;
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+    z-index: 1;
+    text-align: center;
     color: #ffffff;
-    font-size: 17px;
-    /* z-index: 99999; */
 }
 
-
+#timeList.show-list {
+    border: 2px black solid;
+}
 
 #timeList li{
     padding: 6px 14px;
-    font-size: 20px;
+    font-size: 17px;
     font-family: 'Inter', sans-serif;
+    color: #ffffff;
+    border-top: 1px solid rgba(0, 0, 0, 0.2);
+    white-space: nowrap;
+    text-align: center;
+}
+
+#timeList li:first-child {
+    border-top: none;
+}
+
+#timeList li:hover {
+    background-color: #8daed6;
+}
+
+.test-cover-wrapper {
+    position: relative;
+}
+
+.center-icon {
+    position: absolute;
+    top: 55%;
+    left: 55%;
+    transform: translate(-50%, -50%);
+    width: 60px;
+    height: 60px;
 }
 
 .test-title-input:disabled {

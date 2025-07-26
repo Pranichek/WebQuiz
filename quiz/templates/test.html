@@ -6,6 +6,7 @@
 
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/test.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 {% endblock %}
 
 {% block content %}
@@ -110,8 +111,11 @@
                 </div>
                 <div class="right-buttons">
                     <div class="type">
-                        <p class="type-p timer-p" id="time">оберіть категорію тесту</p>
-                        <ul id="timeList" class="hidden-list">
+                        <p class="type-p category-p" id="categorySelect">
+                            <span id="categoryText">оберіть категорію тесту</span> 
+                            <i class="fas fa-chevron-down category-arrow"></i>
+                        </p>
+                        <ul id="timeList" class="hidden-list"> 
                             <li data-category="математика">математика</li>
                             <li data-category="англійська">англійська</li>
                             <li data-category="програмування">програмування</li>

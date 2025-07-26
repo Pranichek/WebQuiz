@@ -6,7 +6,8 @@
 
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/create_question.css') }}">
-        <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/changeQuestion.css') }}">
+    <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/changeQuestion.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 
 {% endblock %}
 
@@ -39,15 +40,20 @@
             </div>
             
             <div>
-                <div class="timer"><p class="timer-p" data-img="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" id="time" value="" data-time="30">⏱ 30 секунд</p>
+                <div class="timer">
+                    <p class="timer-p" data-img="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" value="" data-time="30">
+                        ⏱ <span id="time-text">30 секунд</span>
+                        <i class="fas fa-chevron-down timer-arrow"></i>
+                    </p>
+                    
                     <ul id="timeList" class="hidden-list">
-                        <li value="0" class="list-time" data-time="20">⏱ 20 секунд <img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></li>
-                        <li value="1" class="list-time" data-time="30">⏱ 30 секунд <img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></li>
-                        <li value="2" class="list-time" data-time="45">⏱ 45 секунд <img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></li>
-                        <li value="3" class="list-time" data-time="60">⏱ 1 хвилина <img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></li>
-                        <li value="4" class="list-time" data-time="120">⏱ 2 хвилини <img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></li>
-                        <li value="5" class="list-time" data-time="180">⏱ 3 хвилини <img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></li>
-                        <li value="6" class="list-time" data-time="not">⏱ Без часу <img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></li>
+                        <li value="0" class="list-time" data-time="20"> 20 секунд</li>
+                        <li value="1" class="list-time" data-time="30"> 30 секунд</li>
+                        <li value="2" class="list-time" data-time="45"> 45 секунд</li>
+                        <li value="3" class="list-time" data-time="60"> 1 хвилина</li>
+                        <li value="4" class="list-time" data-time="120"> 2 хвилини</li>
+                        <li value="5" class="list-time" data-time="180"> 3 хвилини</li>
+                        <li value="6" class="list-time" data-time="not"> Без часу</li>
                     </ul>
                 </div>
                 <button type="button" class="add-question" id="save">+ Додати питання</button>
