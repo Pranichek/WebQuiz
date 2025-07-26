@@ -65,7 +65,7 @@ function corretIndexes(){
 
 
 window.addEventListener(
-    'load',
+    'DOMContentLoaded',
     () => {
         let checkCorrectList = document.querySelectorAll(".answer")
         let correctindexes = localStorage.getItem("rightIndexes")
@@ -74,7 +74,6 @@ window.addEventListener(
         if(correctindexes !== null){
             let lsitIndexes = correctindexes.split(" ")
             
-            // lsitIndexes.splice(0, 1)
 
             checkCorrectList.forEach(
             (input, index) => {

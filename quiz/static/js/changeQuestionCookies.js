@@ -63,6 +63,19 @@ document.addEventListener("keyup", () => {
 button.addEventListener("click", () => {
     if (button.type !== "submit") return;  
 
+    let allBlocks = document.querySelectorAll(".answer-block")
+    let checkdel = document.querySelector(".check_del")
+
+    allBlocks.forEach((block) => {
+        if (!block.checkVisibility()){
+            let currentValue = checkdel.value.split(" ")
+            currentValue.push(block.id)
+            checkdel.value = currentValue.join(" ")
+        }
+    })
+
+    
+
     if (document.querySelector(".is-image").style.display == "none"){
         socket.emit("delImage", {
             "pk": pk
@@ -83,9 +96,9 @@ button.addEventListener("click", () => {
                 }
             }else{
                 if (ticks[index].style.display == "flex"){
-                    answers += `(?%+hereisimage+%?)`;
+                    answers += `(?%+image?#$?image+%?)`;
                 }else{
-                    answers += `(?%-hereisimage-%?)`;
+                    answers += `(?%-image?#$?image-%?)`;
                 }
             }
             
@@ -117,17 +130,6 @@ button.addEventListener("click", () => {
     document.cookie = `answers=${answerCookie}; path=/;`;
     document.cookie = `typeQuestions=${typesQuestion}; path=/;`
     answers = null;
-
-    let allBlocks = document.querySelectorAll(".answer-block")
-    let checkdel = document.querySelector(".check_del")
-
-    allBlocks.forEach((block) => {
-        if (!block.checkVisibility()){
-            let currentValue = checkdel.value.split(" ")
-            currentValue.push(block.id)
-            checkdel.value = currentValue.join(" ")
-        }
-    })
 });
 
 

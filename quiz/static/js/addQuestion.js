@@ -76,7 +76,7 @@ for (let deleteButton of deleteButtonList) {
                                 localStorage.setItem("rightIndexes", newString)
                             }
                             
-                            input.value = ""; 
+                            
                             if (input.classList.contains("correct")) {
                                 correctAnswerList = document.querySelectorAll(".correct");
                                 if (correctAnswerList.length > 1) {
@@ -94,6 +94,21 @@ for (let deleteButton of deleteButtonList) {
                             } else {
                                 answerBlock.classList.add("hidden");
                                 localStorage.removeItem(`answer-${i}`);
+                                input.value = ""; 
+                                answerBlock.querySelector(".inside-data").querySelector(".for-image").remove()
+                                answerBlock.querySelector("textarea").style.fontSize = "3vh"
+
+                                let icons = answerBlock.querySelectorAll(".load_img")
+                                for (let icon of icons){
+                                    if (icon.classList.contains("invisible")){
+                                        icon.classList.remove("invisible")
+                                        icon.dataset.state = "load"
+                                    }else{
+                                        icon.classList.add("invisible")
+                                        icon.dataset.state = "load"
+                                    }
+                                }
+                                // cansole.log(kj")
                                 // input.value = "";
 
                                 for (let tick of tickCircleListtwo) {
@@ -101,6 +116,7 @@ for (let deleteButton of deleteButtonList) {
                                         tick.style.display = "none";
                                     }
                                 }
+
                             }
 
                             settingsAddButton()

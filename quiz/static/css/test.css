@@ -1,12 +1,20 @@
 main{
     display: flex;
+    height: 90vh;
+    justify-content: start;
+    flex-direction: column;
+    /* background-color: #7291B8; */
+    padding: 0;
+    margin: 0;
 }
 
 form{
     display: flex;
     flex-direction: column;
     gap: 25px;
-    margin: 50px;
+    /* margin: 50px; */
+    margin-top: 4vh;
+    margin-bottom: 4vh;
     width: 75%;
 }
 
@@ -452,6 +460,11 @@ form{
     /* background-color: green; */
 }
 
+li:hover{
+    transition: 0.3s;
+    background-color: #516a88;
+}
+
 .answer{
     word-wrap: break-word;
     overflow-wrap: break-word;
@@ -727,6 +740,10 @@ label[for="image"] {
     margin-right: 20%;
 }
 
+.buttons-bottom{
+    margin-bottom: 4vh;
+}
+
 
 
 @media(max-width: 800px){
@@ -986,3 +1003,5 @@ html, body {
         opacity: 1;
     }
 }
+
+

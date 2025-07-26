@@ -122,14 +122,13 @@ document.addEventListener('keydown', function(event) {
       // КОд який при натискані кнопки enter буде працювати
       InputName.disabled = true;
       document.getElementById('main-form').addEventListener('submit', function(event) {
-            // Your code here
             event.preventDefault();
         });
     }
   });
 
 window.addEventListener(
-    'load',
+    'DOMContentLoaded',
     () => {
         let AvatarImage = document.querySelector(".avatar")
         

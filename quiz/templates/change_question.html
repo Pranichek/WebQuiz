@@ -105,13 +105,13 @@
 
             <div class="inside-data" id="1">
                 {% if list_checks[0] == "delete" %}
-                    <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {{ correct1 }} first_input" name="answer" id="1" value="{{ answer1 }}" placeholder="Відповідь">{% if answer1 %}{{ answer1 }}{% endif %}</textarea>
+                    <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {{ correct1 }} first_input" name="answer" id="1" value="{{ answer1 }}" placeholder="Відповідь">{% if answer1 != "image?#$?image" %}{{ answer1 }}{% endif %}</textarea>
 
                     <div class="for-image">
                         <img src="{{ list_urls[0] }}" alt="">
                     </div>
                 {% else %}
-                    <textarea maxlength="85" type="text" class="answer {{ correct1 }} first_input" name="answer" id="1" value="{{ answer1 }}" placeholder="Відповідь">{% if answer1 %}{{ answer1 }}{% endif %}</textarea>
+                    <textarea maxlength="85" type="text" class="answer {{ correct1 }} first_input" name="answer" id="1" value="{{ answer1 }}" placeholder="Відповідь">{% if answer1 != "image?#$?image" %}{{ answer1 }}{% endif %}</textarea>
 
                 {% endif %}
             </div>
@@ -130,6 +130,7 @@
                 {% endif %}
             </div>
         </div>
+
         <div class="answer-block" id="2">
             <div class="detector" id="2">
                 <img style="display: none;" id="2" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
@@ -138,13 +139,13 @@
             <div class="inside-data" id="2">
             
                 {% if list_checks[1] == "delete" %}
-                    <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {{ correct2 }} first_input" name="answer" id="2" value="{{ answer2 }}" placeholder="Відповідь">{% if answer2 %}{{ answer2 }}{% endif %}</textarea>
+                    <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {{ correct2 }} first_input" name="answer" id="2" value="{{ answer2 }}" placeholder="Відповідь">{% if answer2 != "image?#$?image" %}{{ answer2 }}{% endif %}</textarea>
 
                     <div class="for-image">
                         <img src="{{ list_urls[1] }}" alt="">
                     </div>
                 {% else %}
-                    <textarea maxlength="85" type="text" class="answer {{ correct2 }} first_input" name="answer" id="2" value="{{ answer2 }}" placeholder="Відповідь">{% if answer2 %}{{ answer2 }}{% endif %}</textarea>
+                    <textarea maxlength="85" type="text" class="answer {{ correct2 }} first_input" name="answer" id="2" value="{{ answer2 }}" placeholder="Відповідь">{% if answer2 != "image?#$?image" %}{{ answer2 }}{% endif %}</textarea>
 
                 {% endif %}
 
@@ -174,13 +175,13 @@
                 <div class="inside-data" id="3">
                     
                     {% if list_checks[2] == "delete" %}
-                        <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {{ correct3 }} first_input" name="answer" id="3" value="{{ answer3 }}" placeholder="Відповідь">{% if answer3 %}{{ answer3 }}{% endif %}</textarea>
+                        <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {{ correct3 }} first_input" name="answer" id="3" value="{{ answer3 }}" placeholder="Відповідь">{% if answer3 != "image?#$?image" %}{{ answer3 }}{% endif %}</textarea>
 
                         <div class="for-image">
                             <img src="{{ list_urls[2] }}" alt="">
                         </div>
                     {% else %}
-                        <textarea maxlength="85" type="text" class="answer {{ correct3 }} first_input" name="answer" id="3" value="{{ answer3 }}" placeholder="Відповідь">{% if answer3 %}{{ answer3 }}{% endif %}</textarea>
+                        <textarea maxlength="85" type="text" class="answer {{ correct3 }} first_input" name="answer" id="3" value="{{ answer3 }}" placeholder="Відповідь">{% if answer3 != "image?#$?image" %}{{ answer3 }}{% endif %}</textarea>
                     {% endif %}
                 </div>
                 <div class="delete-answer" id="3">
@@ -229,13 +230,13 @@
 
                 <div class="inside-data" id="4">
                     {% if list_checks[3] == "delete" %}
-                        <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {{ correct4 }} first_input" name="answer" id="4" value="{{ answer4 }}" placeholder="Відповідь">{% if answer4 %}{{ answer4 }}{% endif %}</textarea>
+                        <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {{ correct4 }} first_input" name="answer" id="4" value="{{ answer4 }}" placeholder="Відповідь">{% if answer4 != "image?#$?image" %}{{ answer4 }}{% endif %}</textarea>
 
                         <div class="for-image">
                             <img src="{{ list_urls[3] }}" alt="">
                         </div>
                     {% else %}
-                        <textarea maxlength="85" type="text" class="answer {{ correct4 }} first_input" name="answer" id="4" value="{{ answer4 }}" placeholder="Відповідь">{% if answer4 %}{{ answer4 }}{% endif %}</textarea>
+                        <textarea maxlength="85" type="text" class="answer {{ correct4 }} first_input" name="answer" id="4" value="{{ answer4 }}" placeholder="Відповідь">{% if answer4 != "image?#$?image" %}{{ answer4 }}{% endif %}</textarea>
                     {% endif %}
                 </div>
 

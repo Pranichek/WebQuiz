@@ -79,9 +79,9 @@ button.addEventListener("click", ()=>{
                 }
             }else{
                 if (ticks[index].style.display == "flex"){
-                    answers += `(?%+hereisimage+%?)`;
+                    answers += `(?%+image?#$?image+%?)`;
                 }else{
-                    answers += `(?%-hereisimage-%?)`;
+                    answers += `(?%-image?#$?image-%?)`;
                 }
             }
             

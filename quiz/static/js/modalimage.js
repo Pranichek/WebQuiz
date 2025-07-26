@@ -18,7 +18,7 @@ const previewImage = (event) => {
 }
 
 window.addEventListener(
-    'load',
+    'DOMContentLoaded',
     () => {
         let cookies = document.cookie.match("test_url")
         let testimage = document.querySelector(".test-cover")
@@ -29,6 +29,9 @@ window.addEventListener(
         if (!da.includes("cash_test")){
             if (cookies){
                 const testimageurl = document.cookie.split("test_url=")[1].split(";")[0];
+                testimage.src = testimageurl
+            }else{
+                const testimageurl = document.querySelector(".another-photo").dataset.another
                 testimage.src = testimageurl
             }
         }

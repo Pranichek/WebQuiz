@@ -261,7 +261,6 @@ html, body {
 
 }
 
-
 @media (max-width: 600px){
     .nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
         margin: 0px;

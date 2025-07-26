@@ -38,12 +38,24 @@ def render_test():
     except:
         pass
 
+    cookie_questions = flask.request.cookies.get("questions")
+    answers_cookies = flask.request.cookies.get("answers")
+
+    if cookie_questions == None or answers_cookies == None:
+        images_directory = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
+        if exists(images_directory):
+            shutil.rmtree(path= images_directory)
+
+
 
     if flask.request.method == "POST":
         check_form = flask.request.form.get('check_post')
 
         cookie_questions = flask.request.cookies.get("questions")
         answers_cookies = flask.request.cookies.get("answers")
+
+        
+
 
         if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
             test_title = flask.request.form["test_title"]
@@ -282,21 +294,25 @@ def render_change_question(pk: int):
                     if exists(path):
                         shutil.rmtree(path=path)
 
-
-        print(index_change, "fire")
-        print(check_del)
-        for index in index_change:
-            index_directory = os.listdir(dir_path)
-            if str(index) in index_directory and len(check_del) > 0:
-                if str(index) != "1":
-                    if str(index - 1) not in index_directory:
-                        cur_path = join(dir_path, str(index))
-                        os.rename(cur_path, join(dir_path, str(index - 1)))
-
+        check_del = flask.request.form["check5"].split()
+        for i in range(len(check_del)):
+            check_del[i] = int(check_del[i])
             
+        # изменение название папко где хранятся кратинки если пользователь удалил блок  ответом
+        rename_dir = [1, 2, 3, 4]
+        for el in rename_dir[:]:  
+            if el in check_del:
+                rename_dir.remove(el)
+ 
 
-
+        for i in range(1, len(rename_dir) + 1):
+            index = rename_dir[i - 1]
+            if str(index) in os.listdir(dir_path):
+                cur_path = join(dir_path, str(index))
+                os.rename(cur_path, join(dir_path, str(i)))
         
+
+
 
         image = flask.request.files["image"]
         if image:
@@ -370,11 +386,13 @@ def render_change_question(pk: int):
     for i in range(1, 5):
         current_path = join(path, str(i))
         if exists(current_path):
-            print(i)
             list_checks[i - 1] = "delete"
-            url = flask.url_for('profile.static', filename=join("images", "edit_avatar", str(current_user.email), "images_tests", str(int(pk) + 1), str(i), os.listdir(current_path)[0])) if len(os.listdir(current_path)) > 0 else False
-            if url:
+            check_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1), str(i)))
+            if len(os.listdir(check_path)) > 0:
+                url = flask.url_for('profile.static', filename=join("images", "edit_avatar", str(current_user.email), "images_tests", str(int(pk) + 1), str(i), os.listdir(current_path)[0])) if len(os.listdir(current_path)) > 0 else False
                 list_urls[i - 1] = url
+            else:
+                shutil.rmtree(path=check_path)
 
     
 
