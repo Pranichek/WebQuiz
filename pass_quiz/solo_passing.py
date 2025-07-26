@@ -79,16 +79,17 @@ def handle_get_question(data_index):
 
     path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(idx + 1)))
     if exists(path):
-        if len(os.listdir(path)) > 0:
-            name_img = os.listdir(path)[0]
-        else:
-            name_img = None
+        name_img = None
+        for small_path in os.listdir(path):
+            if small_path not in ["1", "2", "3", "4"]:
+                name_img = small_path
+                break            
     else:
         name_img = None
 
     index_img = idx + 1
-    email=test.user.email
-    title=test.title_test
+    email= test.user.email
+    title= test.title_test
 
     if name_img:
         img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{idx + 1}/{name_img}")
@@ -96,14 +97,26 @@ def handle_get_question(data_index):
         img_url = "not"
 
     del current_answers[-1]
+
+    # проверка на то что есть ли в ответах картинки или нет
+    image_urls = ["none", "none", "none", "none"]
+    if exists(path=path):
+        for index in range(1, 5):
+            current_path = join(path, str(index))
+            if exists(current_path) and len(os.listdir(current_path)) > 0:
+                url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{idx + 1}/{str(index)}/{os.listdir(current_path)[0]}")
+                image_urls[index - 1] = url
+
+    print(image_urls, "url")
+
     emit("question", {
+        "answers_image": image_urls,
         "type": current_type,
         "question": current_question,
         "answers": current_answers,
         "index": question_index + 1,
         "amount_question": len(questions),
         "test_time": int(test_time) if test_time.isdigit() else test_time,
-        "type_question": type_question,
         "question_img": img_url if name_img else "not",
         "correct_answers": correct_answers,
         "value_bonus": int(flask_login.current_user.user_profile.percent_bonus) if flask_login.current_user.is_authenticated else "0"
@@ -189,13 +202,16 @@ def handle_next_question(data_index):
     print(current_answers, "loli")
 
     path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(idx + 1)))
+    
     if exists(path):
-        if len(os.listdir(path)) > 0:
-            name_img = os.listdir(path)[0]
-        else:
-            name_img = None
+        name_img = None
+        for small_path in os.listdir(path):
+            if small_path not in ["1", "2", "3", "4"]:
+                name_img = small_path
+                break            
     else:
         name_img = None
+
     index_img = idx + 1
     email=test.user.email
     title=test.title_test
@@ -204,14 +220,24 @@ def handle_next_question(data_index):
     else:
         img_url = "not"
 
+    # проверка на то что есть ли в ответах картинки или нет
+    image_urls = ["none", "none", "none", "none"]
+    if exists(path=path):
+        for index in range(1, 5):
+            current_path = join(path, str(index))
+            if exists(current_path) and len(os.listdir(current_path)) > 0:
+                url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{idx + 1}/{str(index)}/{os.listdir(current_path)[0]}")
+                image_urls[index - 1] = url
+
+    print(image_urls, "url")
     emit("question", {
+        "answers_image": image_urls,
         "type": current_type,
         "question": current_question,
         "answers": current_answers,
         "index": int(data_index["index"]) + 1,
         "amount_question": len(questions),
         "test_time": int(test_time) if test_time.isdigit() else test_time,
-        "type_question": type_question,
         "user_email": flask_login.current_user.email if flask_login.current_user.is_authenticated else None,
         "question_img": img_url if name_img else "not",
         "correct_answers": correct_answers,

@@ -16,7 +16,10 @@ def render_data_test():
 
     message = ''
     test_id = flask.request.args.get("id_test")
-    test = Test.query.get(int(test_id))
+    try:
+        test = Test.query.get(int(test_id))
+    except:
+        return flask.redirect("/")
 
     count = 0
     answers = test.answers.split("?@?")

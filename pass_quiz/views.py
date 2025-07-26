@@ -169,7 +169,8 @@ def handle_finish_test(data: dict):
 
             current_index = indexes.index(el)
             formatted_answers = ",".join(user_answers)
-            indexes[current_index] = f"{test_id}/{formatted_answers}/{int(int(data["wasted_time"]) / count_answered)}/{accuracy}"
+            average_time = int(int(data["wasted_time"]) / count_answered) if count_answered != 0 else 0
+            indexes[current_index] = f"{test_id}/{formatted_answers}/{average_time}/{accuracy}"
 
     flask_login.current_user.user_profile.last_passed = " ".join(indexes)
     DATABASE.session.commit()
