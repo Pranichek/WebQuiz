@@ -141,6 +141,13 @@ function loadRoom() {
             }
         }
     )
+    
+    socket.on("update_user_count", (data) => {
+        const counter = document.getElementById("amount_users");
+        if (counter) {
+            counter.textContent = data.count;
+        }
+    });
 }
 
 function showQR() {

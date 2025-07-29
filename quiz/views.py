@@ -380,3 +380,28 @@ def render_change_tests():
         test=test,
         message=message,
     )
+
+rooms_users = {}
+
+@socket.on('join_room')
+def handle_join(data):
+    room = data["room"]
+    socket.join_room(room)
+
+    if room not in rooms_users:
+        rooms_users[room] = set()
+
+    rooms_users[room].add(flask.request.sid)
+
+    socket.emit("update_user_count", {"count": len(rooms_users[room])}, room=room)
+
+
+@socket.on('disconnect')
+def handle_disconnect():
+    sid = flask.request.sid
+
+    for room, users in rooms_users.items():
+        if sid in users:
+            users.remove(sid)
+            socket.emit("update_user_count", {"count": len(users)}, room=room)
+            break
