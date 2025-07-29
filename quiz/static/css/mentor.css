@@ -511,6 +511,14 @@ main, .main{
     align-items: center;
     justify-content: center;
     z-index: 1000;
+
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+.modal-window.show {
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .modal-content {
@@ -523,6 +531,15 @@ main, .main{
     align-items: center;
     display: flex;
     flex-direction: column;
+
+    /* Анимация появления */
+    transform: scale(0.9);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0;
+}
+.modal-window.show .modal-content {
+    transform: scale(1);
+    opacity: 1;
 }
 
 .close-btn {
