@@ -460,6 +460,11 @@ form{
     /* background-color: green; */
 }
 
+li{
+    border-bottom: 1px #5c6b7d solid;
+    text-align: center;
+}
+
 li:hover{
     transition: 0.3s;
     background-color: #516a88;
