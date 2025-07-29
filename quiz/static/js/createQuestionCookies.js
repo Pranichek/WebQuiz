@@ -89,7 +89,7 @@ button.addEventListener("click", ()=>{
     });
 
     let questions = question.value;
-    let timeC = timeP.dataset.time;
+    let timeC = document.getElementById("time-text").dataset.time;
 
     let newType = localStorage.getItem("type");
     if (document.cookie.match("questions") != null){
@@ -100,7 +100,7 @@ button.addEventListener("click", ()=>{
 
         let timeCookie = document.cookie.split("time=")[1].split(";")[0];
         if (timeCookie && timeCookie != ""){
-            timeC = timeCookie + "?#?" + timeP.dataset.time;
+            timeC = timeCookie + "?#?" + document.getElementById("time-text").dataset.time;
         }
 
         let answerCookie = document.cookie.split("answers=")[1].split(";")[0];
@@ -146,13 +146,11 @@ window.addEventListener("DOMContentLoaded", () => {
     const time = document.getElementById("time");
     let liLists = document.querySelectorAll(".list-time");
     if (timedata){
-        time.textContent = liLists[parseInt(timedata)].textContent;
-        time.dataset.time = liLists[parseInt(timedata)].dataset.time;
+        document.getElementById("time-text").textContent = liLists[parseInt(timedata)].textContent;
+        document.getElementById("time-text").dataset.time = liLists[parseInt(timedata)].dataset.time;
 
-        const timeEl = document.querySelector("#time");
-        const imgUrl = timeEl.dataset.img;
+        const imgUrl = document.getElementById("time-text").dataset.img;
 
-        timeEl.innerHTML += `<img src="${imgUrl}">`;
     }
 
     const questionSaved = localStorage.getItem("question");

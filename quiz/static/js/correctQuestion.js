@@ -78,7 +78,7 @@ window.addEventListener(
             checkCorrectList.forEach(
             (input, index) => {
                     if (lsitIndexes.includes(input.id)){
-                        if (input.value != ""){
+                        if (input){
                             tickCircleList[index].style.display = `flex`
                             input.classList.add("correct")
                         }else{

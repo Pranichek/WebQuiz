@@ -1,12 +1,13 @@
-let modal = document.querySelector(".modal-image")
+const modal = document.querySelector('.modal-image');
 
-function ShowModal(){
-    modal.style.display = "flex";
+function openModal() {
+    modal.classList.add('active');
+    document.querySelector(".modal-backdrop").classList.add("active");
 }
 
-
-function CloseModal(){
-    modal.style.display = "none";
+function closeModal() {
+    document.querySelector(".modal-backdrop").classList.remove("active");
+    modal.classList.remove('active');
 }
 const previewImage = (event) => {
     const files = event.target.files
@@ -41,4 +42,3 @@ window.addEventListener(
 function sumbmitIMage(){
     document.querySelector("#image_form").submit();
 }
-

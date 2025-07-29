@@ -134,25 +134,16 @@ button.addEventListener("click", () => {
 
 
 window.addEventListener("DOMContentLoaded", () => {
-    if (document.querySelector("#time").dataset.time !== "not"){
-        if (parseInt(document.querySelector("#time").dataset.time) < 60){
-            document.querySelector("#time").textContent = `⏱ ${document.querySelector("#time").dataset.time} секунд`;
-            const timeEl = document.querySelector("#time");
-            const imgUrl = timeEl.dataset.img;
-
-            timeEl.innerHTML += `<img src="${imgUrl}">`;
+    if (document.getElementById("time-text").dataset.time !== "not"){
+        if (parseInt(document.getElementById("time-text").dataset.time) < 60){
+            document.getElementById("time-text").textContent = `${document.getElementById("time-text").dataset.time} секунд`;
         }else{
-            document.querySelector("#time").textContent = `⏱ ${parseInt(document.querySelector("#time").dataset.time) / 60} хвилин`;
-            const timeEl = document.querySelector("#time");
-            const imgUrl = timeEl.dataset.img;
+            document.getElementById("time-text").textContent = `${parseInt(document.getElementById("time-text").dataset.time) / 60} хвилин`;
 
-            timeEl.innerHTML += `<img src="${imgUrl}">`;        }
+        }
     }else{
-        document.querySelector("#time").textContent = `⏱ Без часу`;
-        const timeEl = document.querySelector("#time");
-        const imgUrl = timeEl.dataset.img;
+        document.getElementById("time-text").textContent = `Без часу`;
 
-        timeEl.innerHTML += `<img src="${imgUrl}">`;
     }
 });
 

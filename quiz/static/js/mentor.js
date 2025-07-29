@@ -216,12 +216,16 @@ function loadRoom() {
     
 }
 
+
 function showQR() {
-    document.getElementById("qrModal").style.display = "flex";
+    // document.getElementById("qrModal").style.display = "flex";
+    const modal = document.getElementById("qrModal");
+    modal.classList.add("show");
 }
 function hideQR() {
-    document.getElementById("qrModal").style.display = "none";
-}
-    
+    // document.getElementById("qrModal").style.display = "none";
+    const modal = document.getElementById("qrModal");
+    modal.classList.remove("show");
+} 
 
 window.addEventListener("DOMContentLoaded", loadRoom);

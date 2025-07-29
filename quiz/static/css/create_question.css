@@ -65,6 +65,7 @@ body .main{
 
 .timer-p{
     width: 190px;
+    display: flex;
     align-items: center;
     cursor: pointer;
     background: #7291B8;
@@ -74,28 +75,54 @@ body .main{
     font-family: 'Inter', sans-serif;
     font-weight: 400;
     margin-right: 44px;
+    justify-content: space-between;
 }
 
-.hidden-list{
-    display: none;
+.timer-arrow {
+    margin-left: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.timer-p.active .timer-arrow {
+    transform: rotate(180deg);
 }
 
 #timeList{
     position: absolute;
     top: 50px;
-    right: 45px;
+    left: 0;
     width: 190px;
     border-radius: 5px;
     cursor: pointer;
     background: #7291B8;
     list-style-type: none;
     animation: appear 0.5s;
+    padding: 0;
+    margin: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out;
+    z-index: 1; 
+}
+
+.list-time{
+    justify-content: center;
 }
 
 #timeList li{
     padding: 6px 14px;
     font-size: 20px;
     font-family: 'Inter', sans-serif;
+    color: white;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+#timeList li:first-child {
+    border-top: none;
+}
+
+#timeList li:hover {
+    background-color: #8daed6;
 }
 
 .add-question {
@@ -117,6 +144,8 @@ body .main{
     background-color: #636262;
     color: #343434;
 }
+
+
 
 .question-name{
     display: flex;
@@ -195,9 +224,10 @@ h3{
 .answers-container{
     display: flex;
     flex-wrap: wrap;
-    gap: 10px;
+    gap: 0.9vw;
     padding: 10px;
-    width: 100%;
+    width: 100vw;
+    background-color: green;
 }
 
 .for-image{

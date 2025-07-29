@@ -56,7 +56,11 @@
                         {% for answer in this_question.answers %}
                         <div class="variant">
                             <div class="circle"></div>
-                            <p class="answer">{{ answer }}</p>
+                            {% if answer != "image?#$?image" %}
+                                <p class="answer">{{ answer }}</p>
+                            {% else %}
+                                <p class="answer">Зображення</p>
+                            {% endif %}
                         </div>
                         {% endfor %}
                     </div>
