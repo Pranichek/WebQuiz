@@ -10,27 +10,26 @@ let validAnswersFlag = false;
 
 function buttonColorChanging(){
     if (button.type == "button"){
-        console.log("change button color");
         button.classList.add("grey");
-        console.log(button.classList);
     }
 }
 
-function answerScanning(){
-    console.log("validAnswersFlag 1 =", validAnswersFlag);
+export function answerScanning(){
     validAnswersFlag = true;
     for (let input of answerInputList){
         if (input.checkVisibility()){
             button.type = "submit";
             button.classList.remove("grey");
             button.classList.add("purple");
-            if (input.value == ""){
+            let parentNode = input.parentNode
+            const checkImage = parentNode.querySelector(".for-image")
+            
+            if (input.value == "" && !checkImage){
                 validAnswersFlag = false;
             }
         }
     }
 
-    console.log("validAnswersFlag 2 =", validAnswersFlag);
     if (validAnswersFlag == false | document.querySelector(".question").value == ""){
         button.type = "button";
         button.classList.add("grey");
@@ -46,6 +45,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     buttonColorChanging();
     answerScanning();
 })
+
 document.addEventListener("click", ()=>{
     buttonColorChanging();
     answerScanning();
@@ -58,8 +58,6 @@ document.addEventListener("keyup", ()=>{
 })
 
 button.addEventListener("click", ()=>{
-    console.log(document.cookie.match("questions"))
-    // Очистити question
     localStorage.removeItem("question");
     localStorage.setItem("timeData", 1)
 
@@ -68,41 +66,54 @@ button.addEventListener("click", ()=>{
         localStorage.removeItem(`answer-${index}`);
     });
 
-    for (let input of answerInputList){
-        // проверяем блок ли видимій(то есть в нем есть ответ) чтобы понять надо его добавлять как оответ или нет
+    let ticks = document.querySelectorAll(".tick-circle")
+    answerInputList.forEach((input, index) => {
+        let ParentTag = input.parentNode
+        const checkImageCreate = ParentTag.querySelector(".for-image")
         if (input.checkVisibility()){
-            console.log(input.value);
             if (input.value != ''){
-                if (input.classList.contains("correct")){
-                    console.log("right:", input.value);
-                    answers += `(?%+${input.value}+%?)`;
+                if (ticks[index].style.display == "flex"){
+                answers += `(?%+${input.value}+%?)`;
                 }else{
-                    console.log("wrong:", input.value);
                     answers += `(?%-${input.value}-%?)`;
                 }
+            }else{
+                if (ticks[index].style.display == "flex"){
+                    answers += `(?%+image?#$?image+%?)`;
+                }else{
+                    answers += `(?%-image?#$?image-%?)`;
+                }
             }
+            
         }
-    }
+    });
 
-    questions = question.value;
-    timeC = timeP.dataset.time;
+    let questions = question.value;
+    let timeC = timeP.dataset.time;
+
+    let newType = localStorage.getItem("type");
     if (document.cookie.match("questions") != null){
-        questionCookie = document.cookie.split("questions=")[1].split(";")[0];
-        console.log("questionCookie =", questionCookie);
-        if (questionCookie != ""){
+        let questionCookie = document.cookie.split("questions=")[1].split(";")[0];
+        if (questionCookie && questionCookie != ""){
             questions = questionCookie + "?%?" + questions;
         }
 
-        timeCookie = document.cookie.split("time=")[1].split(";")[0];
-        if (timeCookie != ""){
+        let timeCookie = document.cookie.split("time=")[1].split(";")[0];
+        if (timeCookie && timeCookie != ""){
             timeC = timeCookie + "?#?" + timeP.dataset.time;
         }
 
-        answerCookie = document.cookie.split("answers=")[1].split(";")[0];
-        if (answerCookie != ""){
+        let answerCookie = document.cookie.split("answers=")[1].split(";")[0];
+        if (answerCookie && answerCookie != ""){
             answers = answerCookie + "?@?" + answers;
         }
+
+        let typeQuestions = document.cookie.split("typeQuestions=")[1].split(";")[0];
+        if (typeQuestions && typeQuestions != ""){
+            newType = typeQuestions + "?$?" + newType;
+        }
     }
+
     questions = questions.replace("undefined", "");
     questions = questions.replace("questions", "");
     questions = questions.replace("null", "");
@@ -118,22 +129,23 @@ button.addEventListener("click", ()=>{
     answers = answers.replace("undefined", "");
     answers = answers.replace("answers", "");
     answers = answers.replace("null", "");
-    console.log("answers =", answers);
     document.cookie = `answers=${answers}; path=/;`;
     answers = null;
 
-    localStorage.removeItem("rightIndexes")
+    newType = newType.replace("undefined", "");
+    newType = newType.replace("null", "");
+    document.cookie = `typeQuestions=${newType}; path=/`;
+
+    localStorage.removeItem("rightIndexes");
+    localStorage.setItem("type", "one-answer");
 })
 
-
-
-
-// Загрузка из лоаклстораджа при запуске
+// Загрузка из localStorage при запуске
 window.addEventListener("DOMContentLoaded", () => {
-    let timedata = localStorage.getItem("timeData")
+    let timedata = localStorage.getItem("timeData");
     const time = document.getElementById("time");
-    let liLists = document.querySelectorAll(".list-time")
-    if(timedata){
+    let liLists = document.querySelectorAll(".list-time");
+    if (timedata){
         time.textContent = liLists[parseInt(timedata)].textContent;
         time.dataset.time = liLists[parseInt(timedata)].dataset.time;
 
@@ -153,7 +165,6 @@ window.addEventListener("DOMContentLoaded", () => {
     answerInputList.forEach((input, index) => {
         const saved = localStorage.getItem(`answer-${index}`);
         if (saved && saved.trim() !== "") {
-            console.log(button.type, "da")
             if (document.querySelector(".question").value != ""){
                 button.type = "submit";
                 button.classList.remove("grey");
@@ -168,7 +179,6 @@ window.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // Якщо вже є 2 або більше заповнених відповідей, приховати кнопку додавання
     if (filledAnswersCount >= 4) {
         const buttonPlus = document.getElementById("addQuestion");
         buttonPlus.classList.add("hidden-button");

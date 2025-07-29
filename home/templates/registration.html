@@ -22,7 +22,7 @@
                 <!-- инпут для проверки post запроса -->
                 <input type="hidden" name="check_form" value="registration">
                 <div class="sua">
-                    <input minlength="2" maxlength="10" autocomplete="off" pattern="^.{2,10}$" class="text-input username_input" type="text" name= "username" placeholder= "Введіть ім'я" required>
+                    <input minlength="2" maxlength="20" autocomplete="off" pattern="^.{2,20}$" class="text-input username_input" type="text" name= "username" placeholder= "Введіть ім'я" required>
                     <div class="username-checklist">
                         <div class="top-part">
                             <h3 class="checklist-title">Ім'я повинен містити</h3>
@@ -32,7 +32,7 @@
                             <div class="first-rule">
                                 <img class="icon-item username-like1" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
                                 <img class="icon-item username-dislike1" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
-                                <li class="username-item">Довжина від 2 до 10 символів </li>
+                                <li class="username-item">Довжина від 2 до 20 символів </li>
                             </div>
                             <div class="checklist-line username-line1"></div>
                             <div class="first-rule">

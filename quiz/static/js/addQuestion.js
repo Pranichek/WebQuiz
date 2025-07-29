@@ -5,31 +5,39 @@ let correctAnswerList;
 let inputAnswerList;
 // Створюємо список де збергаються усі картинки з галочками
 let tickCircleListtwo = document.querySelectorAll(".tick-circle");
-
 const deleteButtonList = document.querySelectorAll(".delete-answer");
+
+function settingsAddButton(){
+    let answerBlocks = document.querySelectorAll(".answer-block")
+    let count = 0
+
+    for (let block of answerBlocks){
+        console.log(block.classList)
+        if (block.classList.contains("hidden")){
+            count++
+        }
+    }
+    if (count == 0){
+        buttonPlus.style.display = "none"
+    }else{
+        buttonPlus.style.display = "flex"
+    }
+}
 
 window.addEventListener(
     'DOMContentLoaded',
     () => {
-        hidden = document.querySelectorAll(".hidden");
-        if (hidden.length <= 1){
-            buttonPlus.classList.add("hidden-button");
-        }else{
-            buttonPlus.classList.remove("hidden-button");
-        }
+        settingsAddButton()
     }
 )
 
 buttonPlus.addEventListener("click", ()=>{
     hiddenAnswerBlocks = document.querySelectorAll(".hidden");
-    console.log("hiddenAnswerBlocks", hiddenAnswerBlocks)
     if (hiddenAnswerBlocks.length <= 2 && hiddenAnswerBlocks.length >= 1){
         hiddenAnswerBlocks[0].classList.remove("hidden");
         hiddenAnswerBlocks[0].classList.remove("correct")
         
-        if (hiddenAnswerBlocks.length == 1){
-            buttonPlus.classList.add("hidden-button");
-        }
+        settingsAddButton()
     }
 })
 
@@ -59,7 +67,6 @@ for (let deleteButton of deleteButtonList) {
                                 if (indexToRemove !== -1) {
                                     correctIndex.splice(indexToRemove, 1);
                                 }
-                                console.log(input.id, "offfnik")
 
                                 let newString = ''
 
@@ -69,7 +76,7 @@ for (let deleteButton of deleteButtonList) {
                                 localStorage.setItem("rightIndexes", newString)
                             }
                             
-                            input.value = ""; 
+                            
                             if (input.classList.contains("correct")) {
                                 correctAnswerList = document.querySelectorAll(".correct");
                                 if (correctAnswerList.length > 1) {
@@ -82,35 +89,42 @@ for (let deleteButton of deleteButtonList) {
                                             tick.style.display = "none";
                                         }
                                     }
-                                    if (buttonPlus.classList.contains("hidden-button")){
-                                        buttonPlus.classList.remove("hidden-button");
-                                    }   
+ 
                                 }
                             } else {
                                 answerBlock.classList.add("hidden");
                                 localStorage.removeItem(`answer-${i}`);
+                                input.value = ""; 
+                                answerBlock.querySelector(".inside-data").querySelector(".for-image").remove()
+                                answerBlock.querySelector("textarea").style.fontSize = "3vh"
+
+                                let icons = answerBlock.querySelectorAll(".load_img")
+                                for (let icon of icons){
+                                    if (icon.classList.contains("invisible")){
+                                        icon.classList.remove("invisible")
+                                        icon.dataset.state = "load"
+                                    }else{
+                                        icon.classList.add("invisible")
+                                        icon.dataset.state = "load"
+                                    }
+                                }
+                                // cansole.log(kj")
                                 // input.value = "";
-                                if (buttonPlus.classList.contains("hidden-button")){
-                                    buttonPlus.classList.remove("hidden-button");
-                                }   
 
                                 for (let tick of tickCircleListtwo) {
                                     if (tick.id === input.id) {
                                         tick.style.display = "none";
                                     }
                                 }
+
                             }
+
+                            settingsAddButton()
                         }
                     }
                 }
             }
         }
 
-
-        // Оновлюємо кнопку "додати"
-        // hiddenAnswerBlocks = document.querySelectorAll(".hidden");
-        // if (hiddenAnswerBlocks.length <= 3) {
-        //     buttonPlus.classList.remove("hidden-button");
-        // }
     });
 }

@@ -19,19 +19,19 @@
                     <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
                 </a>
                 <div class="type-question">
-                    <p class="button-open">Тип питання</p>
+                    <p class="button-open" data-value=""></p>
                     <div class="category-questions">
-                        <ul>
-                            <li><input type="radio" class="check-type-question" name="question_type" id="">Множинний вибір відповідей</li>
+                        <ul class="type-ul">
+                            <li data-value="many-answers" class="check-type-question"><input type="radio" data-value="many-answers" class="typeButton"  name="question_type" id="">Декілька відповідей</li>
                         </ul>
-                        <ul>
-                            <li><input type="radio" class="check-type-question" name="question_type" id="">Одиночний вибір</li>
+                        <ul class="type-ul">
+                            <li data-value="one-answer" class="check-type-question"><input type="radio" data-value="one-answer" class="typeButton"   name="question_type" id="">Одна відповідь</li>
                         </ul>
-                        <ul>
-                            <li><input type="radio" class="check-type-question" name="question_type" id="">Заповнити пропуск</li>
+                        <ul class="type-ul">
+                            <li data-value="input-gap" class="check-type-question"><input type="radio" data-value="input-gap" class="typeButton"  name="question_type" id="">Заповнити пропуск</li>
                         </ul>
-                        <ul>
-                            <li><input type="radio" class="check-type-question" name="question_type" id="">Писемна відповідь</li>
+                        <ul class="type-ul">
+                            <li data-value="write-answer" class="check-type-question"><input type="radio" data-value="write-answer"  class="typeButton"  name="question_type" id="">Писемна відповідь</li>
                         </ul>
                     </div>
                 </div>
@@ -62,6 +62,10 @@
                     <label class="add-image">Видалити зображення<input type="button" onclick="deleteImage(event);" style="display:none;"></label>
                 </div>
         </div>
+        <input type="file" name="image1" class="image1 input_load" id="1" value="" accept="image/*">
+        <input type="file" name="image2" class="image2 input_load" id="2" value="" accept="image/*">
+        <input type="file" name="image3" class="image3 input_load" id="3" value="" accept="image/*">
+        <input type="file" name="image4" class="image4 input_load" id="4" value="" accept="image/*">
     </form>
 
     <h3>Оберіть варіант відповіді</h3>
@@ -71,39 +75,74 @@
             <div class="detector" id="1">
                 <img id="1" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <textarea maxlength="65" type="text" class="answer correct first_input" name="answer" id="1" placeholder="Відповідь"></textarea>
+            <div class="inside-data" id="1">
+                <textarea maxlength="85" type="text" class="answer correct first_input" name="answer" id="1" placeholder="Відповідь"></textarea>
+            </div>
+            
             <div class="delete-answer" id="1">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
+
+            <div class="load_image" id="1">
+                <img class="small-img load_img" id="1" data-state="load" src="{{ url_for('test_pass.static', filename='images/load_image.png') }}" alt="">
+                <img class="small-img load_img invisible" id="1" data-state="load"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
+
+            </div>
         </div>
+
         <div class="answer-block second-block" id="2">
             <div class="detector" id="2">
                 <img style="display: none;" id="2" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <textarea maxlength="65" type="text" class="answer second-input" name="answer" id="2" placeholder="Відповідь"></textarea>
+
+             <div class="inside-data" id="2">
+                
+                <textarea maxlength="85" type="text" class="answer second-input" name="answer" id="2" placeholder="Відповідь"></textarea>
+            </div>
             <div class="delete-answer" id="2">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
+            <div class="load_image" id="2">
+                <img class="small-img load_img" id="2" data-state="load"  src="{{ url_for('test_pass.static', filename='images/load_image.png') }}" alt="">
+                <img class="small-img load_img invisible" id="2" data-state="load"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
+            </div>
         </div>
+
         <div class="hidden answer-block" id="3">
             <div class="detector" id="3">
                 <img style="display: none;" id="3" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <textarea maxlength="65" type="text" class="answer" name="answer" id="3" placeholder="Відповідь"></textarea>
+            <div class="inside-data" id="3">
+                
+                <textarea maxlength="85" type="text" class="answer" name="answer" id="3" placeholder="Відповідь"></textarea>
+            </div>
             <div class="delete-answer" id="3">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+            </div>
+            <div class="load_image" id="3">
+                <img class="small-img load_img" id="3" data-state="load"  src="{{ url_for('test_pass.static', filename='images/load_image.png') }}" alt="">
+                <img class="small-img load_img invisible" id="3" data-state="load"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
+
             </div>
         </div>
         <div class="hidden answer-block" id="4">
             <div class="detector" id="4">
                 <img style="display: none;" id="4" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
             </div>
-            <textarea maxlength="65" type="text" class="answer" name="answer" id="4" placeholder="Відповідь"></textarea>
+            <div class="inside-data" id="4">
+                
+                <textarea maxlength="85" type="text" class="answer" name="answer" id="4" placeholder="Відповідь"></textarea>
+            </div>
             <div class="delete-answer" id="4">
                 <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
             </div>
+            <div class="load_image" id="4">
+                <img class="small-img load_img" id="4" data-state="load"  src="{{ url_for('test_pass.static', filename='images/load_image.png') }}" alt="">
+                <img class="small-img load_img invisible" id="4" data-state="load"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
+
+            </div>
         </div>
-        <p class="button" id="addQuestion">
+        <p class="button" id="addQuestion" style="display: none;">
             <img src="{{ url_for('test_pass.static', filename='images/plus.png') }}" alt="">
         </p>
     </div>
@@ -111,10 +150,14 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ url_for('test_pass.static', filename='js/createQuestionCookies.js') }}" defer></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/createQuestionCookies.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/addQuestion.js') }}" defer></script>
-    <script src="{{ url_for('test_pass.static', filename='js/correctQuestion.js') }}" defer></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/correctQuestion.js') }}" defer></script>
     <script src="{{ url_for('test_pass.static', filename='js/timer.js') }}" defer></script>
-    <script src="{{ url_for('test_pass.static', filename='js/addQuestionImage.js') }}"></script>
-    <script src="{{ url_for('test_pass.static', filename='js/question_type.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/addQuestionImage.js') }}" defer></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/question_type.js') }}" defer></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/load_images.js') }}" defer></script>
+
+    <!-- файли де знаходять функції для кожного типу питання -->
+     <script src="{{ url_for('test_pass.static', filename='js/one_answer.js') }}" type="module" defer></script>
 {% endblock %}

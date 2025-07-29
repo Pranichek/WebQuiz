@@ -58,7 +58,35 @@
                     <div class="qr-code">
                         Скануй QR-Code <br>
                         та приєднуприєднуйся до тесту 
-                        <img style="width: 100px; height: 100px;" src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                        <a href="" onclick="event.preventDefault(); showQR() "                                           >
+                            <img style="width: 100px; height: 100px;" src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                        </a>
+                    </div>
+
+                    <div class="modal-window" id="qrModal" style="display: none;">
+                        <div class="modal-content">
+                            <div class="top-part">
+                                <div class="close-btn" onclick="hideQR()">
+                                    <img src="{{ url_for('mentor.static', filename='images/mentor/exit.svg') }}" alt="">
+                                </div>
+                                <div class="qrcode">
+                                    <div class="nameofcode">
+                                        <h2>QR-код</h2>
+                                    </div>
+                                    <div>
+                                        <img style="width: 300px; height: 300px;" src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bottom-part">
+                                <div class="nameofcode">
+                                    <h3 id="for-text">Або приєднуйся по коду!</h3>
+                                </div>
+                                <div class="nameofcode2">
+                                    <h2>{{ code }}</h2>
+                                </div>
+                            </div>
+                        </div>
                     </div>
 
 
@@ -85,7 +113,8 @@
                     <div class="avatar-circle-chat">
                         <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
                     </div>
-
+                    <span class="username">{{ user.username }}</span>
+                    
                     <p>Груповий чат</p>
 
                     <img src="{{ url_for('mentor.static', filename='images/chat/chat-robot.svg') }}" alt="">
@@ -94,14 +123,14 @@
                 
                 </div>
                 <div class="input-text">
-                    <div class="message-user">
+                    <div class="quiz/static/images/mentor/message-logo.svg">
                         <input type="text" placeholder="повідомлення" class="message-input">
                         <span class="send-message"><img src="{{ url_for('mentor.static', filename='images/mentor/send-icon.svg') }}" alt=""></span>
                     </div>
                 </div>
             </div>
             <div class="check-click">
-                <img class="open-chat" src="{{ url_for('mentor.static', filename='images/mentor/chat_icon.png') }}" alt="">
+                <img class="open-chat" src="{{ url_for('mentor.static', filename='images/mentor/message-logo.svg') }}" alt="">
             </div>
         </div>
 

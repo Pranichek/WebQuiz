@@ -18,7 +18,7 @@
                 <div>
                     {% if user.user_profile %}
                         <p class="name">{{ user.username }}</p>
-                        <p>{{ email }}</p>
+                        <p class="email-user"><a href="/profile" class="email-user" style="text-decoration: none;">{{ user.email }}</a></p>
                     {% else %}
                         <p>Guest</p>
                         <p>guest@gmail.com</p>

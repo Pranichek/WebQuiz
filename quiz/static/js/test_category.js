@@ -67,12 +67,11 @@ function ChangePhoto(text_li){
             testImage.src = massive[index_li];
         }
     }
-    // console.log("pred" , testImage.src)
 }
 
 
 window.addEventListener(
-    'load',
+    'DOMContentLoaded',
     () => {
         let cookies = document.cookie.match("category")
         if (cookies){

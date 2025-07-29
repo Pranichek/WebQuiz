@@ -48,7 +48,7 @@
         </div>
         <div class="buttom-floor">
             <button class="apply-image delete-photo" type="button" onclick="DeleteImage();">видалити фото</button>
-            <button class="back-button" type="button" class="close-modal" onclick="CloseModal();">назад</button>
+            <button class="back-button" type="button" class="close-modal" onclick="closeModal();">назад</button>
             <button class="apply-image" type="button" onclick="sumbmitIMage()">застосувати зображення </button>
         </div>
     </div>
@@ -62,14 +62,14 @@
                             {% if cash_image != 'default' %}
                                 <img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/cash_test/' + cash_image) }}" alt="cash_image" class="test-cover">
                             {% elif cash_image == 'default' %}
-                                <img src="{{ url_for('test_pass.static', filename='images/cover.png' ) }}" alt="default_image" class="test-cover">
+                                <img src="" alt="" class="test-cover">
                             {% endif %}
                         </div>
-                        <img src="{{ url_for('test_pass.static', filename='images/add.png') }}" alt="icon" onclick="ShowModal();" class="center-icon">
+                        <img src="{{ url_for('test_pass.static', filename='images/add.png') }}" alt="icon" onclick="openModal()"; class="center-icon">
                     </div>
                 
                     <div class="info">
-                        <input maxlength="30" id="testInput" class="test-title-input title_test" name="test_title" onchange="saveName()" type="text" placeholder="назва тесту" disabled />
+                        <input maxlength="30" id="testInput" class="test-title-input title_test" name="test_title" onchange="saveName()" type="text" placeholder="назва тесту" />
                         <div class="under-line"></div>
                         <div id="mirror"></div>
 
@@ -80,7 +80,6 @@
                             </div>
                         </div>
                         <div class="creator-info">
-                            <!-- <img src="{{ url_for('test_pass.static', filename='images/avatar.jpg') }}" alt=""> -->
                             <div class="avatar-circle">
                                 <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
                             </div>
@@ -151,7 +150,7 @@
                                 <img onclick="this.closest('.question-conainer').querySelector('.button-delete').click();" class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
                             </div>
                             <div class="edit_question">
-                                <img class="pen-img" src="{{ url_for('test_pass.static', filename = 'images/white_pen.png') }}" alt="" >
+                                <img class="pen-img" src="{{ url_for('test_pass.static', filename = 'images/white_pen.svg') }}" alt="" >
                                 <a class="change-question" href="/test/change_question/{{ this_question.pk }}">Редагувати питання</a>
                             </div>
                             
@@ -160,7 +159,7 @@
                             {% for answer in this_question.answers %}
                             <div class="variant">
                                 <div class="circle"></div>
-                                <p class="answer">{{ answer }}</p>
+                                <p class="answer">{% if answer != "image?#$?image" %}{{ answer }}{% else %}Зображення{% endif %}</p>
                             </div>
                             {% endfor %}
                         </span>
