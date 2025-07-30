@@ -186,6 +186,19 @@ def render_edit_avatar():
     
 @login_decorate
 def render_user_tests():
+    if flask.request.method == "POST":
+        delete_test_id = flask.request.form.get("test_id")
+        user = User.query.get(flask_login.current_user.id)
+        old_favorites = user.user_profile.favorite_tests.split()
+        print(delete_test_id ,1121212)
+
+        if str(delete_test_id) in old_favorites:
+            old_favorites.remove(str(delete_test_id))
+            
+            user.user_profile.favorite_tests = " ".join(old_favorites)
+            print("old_favorites =", user.user_profile.favorite_tests)
+            DATABASE.session.commit()
+
     cookie = flask.request.cookies.get("pageindex")
     if cookie == "created":
         user = User.query.get(flask_login.current_user.id)
@@ -195,22 +208,47 @@ def render_user_tests():
         response = flask.make_response(
             flask.render_template(
                 template_name_or_list="user_tests.html",
-                tests=tests,
+                tests = tests,
                 user=flask_login.current_user,
                 message = message,
-                page_name = "Мої створені тести",
+                page_name = "Колекція тестів",
                 code = generate_code()
             )
         )
-    else:
+
+    elif cookie == "recently-passed":
         user = User.query.get(flask_login.current_user.id)
         id_tests = user.user_profile.last_passed.split(" ")
-        print(id_tests, "dklscmsdlkmc")
+
+        for elem in id_tests:
+            print(elem, "elem")
+            if len(elem) > 2:
+                current_element = elem.split("/") 
+                index_element = id_tests.index(elem)
+                current_element.pop(1) 
+                current_element.pop(1)
+                current_element.pop(1)
+                id_tests[index_element] = current_element[0]
+
+    
         tests = []
-        for test in Test.query.all():
-            if str(test.id) in id_tests:
-                tests.append(test)
+        all_tests = Test.query.all()
+
+        for id_test in range(0,len(id_tests)):
+            old_data = user.user_profile.last_passed.split(" ")
+            current_id = id_tests[id_test]
+
+            for test in all_tests:
+                if current_id != '':
+                    if int(current_id) == int(test.id):
+                        tests.append((test, old_data[id_test].split("/")[1], old_data[id_test].split("/")[2], old_data[id_test].split("/")[-1]))
+
+
         message = ''
+
+        for test in tests:
+            if test[0].check_del != "exists":
+                tests.remove(test)
 
         response = flask.make_response(
             flask.render_template(
@@ -219,6 +257,30 @@ def render_user_tests():
                 user = flask_login.current_user,
                 message = message,
                 page_name = "Недавно пройдені тести"
+            )
+        )
+
+    else:
+        user : User = User.query.get(flask_login.current_user.id)
+        
+        # tests = user.tests.filter(Test.check_del != "deleted").all()
+        tests = []
+        favorite_id = user.user_profile.favorite_tests.split()
+        all_test = Test.query.filter(Test.check_del != "deleted").all()
+        message = ''
+
+        for test in all_test:
+            if str(test.id) in favorite_id:
+                tests.append(test)
+
+        response = flask.make_response(
+            flask.render_template(
+                template_name_or_list="user_tests.html",
+                saved_tests = tests,
+                user=flask_login.current_user,
+                message = message,
+                page_name = "Мої вибрані тести",
+                code = generate_code()
             )
         )
 
@@ -235,7 +297,6 @@ def render_user_tests():
 
 @login_decorate
 def render_test_preview(pk: int):
-    
     new_questions = ""
     new_answers = ""
     category = ""
@@ -252,7 +313,6 @@ def render_test_preview(pk: int):
         answers_cookies = flask.request.cookies.get("answers")
 
         if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
-        # if cookie_questions is not None and answers_cookies is not None:
             test_title = flask.request.form["test_title"]
             question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 

@@ -18,7 +18,7 @@
                 <div>
                     {% if user.user_profile %}
                         <p class="name">{{ user.username }}</p>
-                        <p>{{ email }}</p>
+                        <p class="email-user"><a href="/profile" class="email-user" style="text-decoration: none;">{{ user.email }}</a></p>
                     {% else %}
                         <p>Guest</p>
                         <p>guest@gmail.com</p>
@@ -75,7 +75,7 @@
                 
                 <div class="buttons">
                     <button type="button" class="btn-1 copy-result">поділитися результатом </button>
-                    <button class="btn-2">додати у вибране</button>
+                    <button class="btn-2 add-favorite">додати у вибране</button>
                 </div>
             </div>
         </div>
@@ -164,4 +164,5 @@
     {{ super() }}
     <script src="{{ url_for('finish_test.static', filename='js/finish_test.js') }}" defer></script>
     <script src="{{ url_for('finish_test.static', filename='js/copy_modal.js') }}"></script>
+    <script src="{{ url_for('finish_test.static', filename='js/add_favorite.js') }}"></script>
 {% endblock scripts %}

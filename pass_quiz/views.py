@@ -1,3 +1,7 @@
+'''
+Обробка кінця тесту
+'''
+
 from flask import Flask, render_template, request
 from flask_socketio import emit
 from quiz import Test
@@ -7,6 +11,7 @@ from home.models import User
 import flask_login
 from Project.db import DATABASE
 import pyperclip, flask_login
+import flask
 
 # @login_decorate
 def render_finish_test():
@@ -37,8 +42,7 @@ def render_finish_test():
 
 
 @socket.on("finish_test")
-def handle_finish_test(data):
-
+def handle_finish_test(data: dict):
     user_answers_raw = data.get("users_answers")
     if user_answers_raw == '':
         user_answers_raw = 'skip'
@@ -101,9 +105,8 @@ def handle_finish_test(data):
         
         correct_indexes.append(question_right_answers)
 
-    print(correct_indexes, "correct indexes")
-
     count_right_answers = 0
+
 
     list_users_answers = []
     if len(user_answers) > 0:
@@ -146,16 +149,6 @@ def handle_finish_test(data):
         amount_points += len(index)
     accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
 
-    # if flask_login.current_user.is_authenticated:
-    #     users_passes = flask_login.current_user.user_profile.last_passed.split(" ")
-    #     print("lololo", user_answers)
-    #     last_id = users_passes[-1]
-    #     user_answers[-1] = f"{last_id.split("/")[0]}/{int(accuracy)}"
-    #     string_last_tests = " ".join(user_answers)
-    #     print(user_answers, "kokok")
-    #     flask_login.current_user.user_profile.last_passed = string_last_tests
-    #     DATABASE.session.commit()
-
     mark = (12 * accuracy) // 100
 
 
@@ -163,6 +156,24 @@ def handle_finish_test(data):
         for i in range(len(list_users_answers[indexList])):
             if list_users_answers[indexList][i] != "skip":
                 list_users_answers[indexList][i] = int(list_users_answers[indexList][i])
+
+
+    old_data = flask_login.current_user.user_profile.last_passed #" 2"
+    indexes = old_data.split(" ") # [" ", "2"]
+    if indexes[0] == "" or indexes[0] == " ":
+        indexes.pop(0)# ["2/0,1", "2/0,1", "2"]
+
+    for el in indexes:
+
+        if int(el.split("/")[0]) == int(test_id) and len(el.split("/")) == 1:
+
+            current_index = indexes.index(el)
+            formatted_answers = ",".join(user_answers)
+            average_time = int(int(data["wasted_time"]) / count_answered) if count_answered != 0 else 0
+            indexes[current_index] = f"{test_id}/{formatted_answers}/{average_time}/{accuracy}"
+
+    flask_login.current_user.user_profile.last_passed = " ".join(indexes)
+    DATABASE.session.commit()
 
     emit("test_result", {
         "amount_questions": amount_points,
@@ -178,8 +189,9 @@ def handle_finish_test(data):
         "correct_answers": correct_indexes
     })
 
+
 @socket.on("copy_result")
-def coput_result_function(data):    
+def coput_result_function(data: dict):    
     test_id = int(data["test_id"])
     test : Test = Test.query.get(test_id)
 
@@ -198,3 +210,15 @@ def coput_result_function(data):
 
 
 
+
+@socket.on("add_favorite")
+def save_favorite(data: dict):
+    user : User = flask_login.current_user
+    test_id = data["test_id"]
+    all_favorites = user.user_profile.favorite_tests.split()
+
+    if test_id not in all_favorites:
+        all_favorites.append(test_id)
+       
+        user.user_profile.favorite_tests = " ".join(all_favorites)
+        DATABASE.session.commit()

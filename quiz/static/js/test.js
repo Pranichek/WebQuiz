@@ -29,30 +29,37 @@ for (let delbutton of DeleteButtons) {
         // Використовуємо функцію split, щоб отримати чисті дані із cookie
         let cleartime = questiontimes.split("?#?")
 
+        let typesQuestions = document.cookie.split("typeQuestions=")[1].split(";")[0];
+        let cleartypesQuestions = typesQuestions.split("?$?")
+
         // видаляємо питання зі змінної questions за індексом index_question
         questions.splice(index_question, 1);
-
         
         // видаляємо відповіді зі змінної answersclear за індексом index_question
         answersclear.splice(index_question, 1);
 
         cleartime.splice(index_question, 1)
 
+        cleartypesQuestions.splice(index_question, 1)
+
         if (questions[0] == '') {
             questions = [];
             answersclear = [];
             cleartime = [];
+            cleartypesQuestions = [];
         }
 
         // повністю очищуємо cookie
         document.cookie = "questions=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         document.cookie = "answers=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         document.cookie = "time=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        document.cookie = "typeQuestions=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
         // записуємо нові cookie
         document.cookie = `questions=${questions.join("?%?")}; path=/;`;
         document.cookie = `answers=${answersclear.join("?@?")}; path=/;`;
         document.cookie = `time=${cleartime.join("?#?")}; path=/;`;
+        document.cookie = `typeQuestions=${cleartypesQuestions.join("?$?")}; path=/;`;
 
         // перезавантажуємо сторінку
         // location.reload();
@@ -115,14 +122,13 @@ document.addEventListener('keydown', function(event) {
       // КОд який при натискані кнопки enter буде працювати
       InputName.disabled = true;
       document.getElementById('main-form').addEventListener('submit', function(event) {
-            // Your code here
             event.preventDefault();
         });
     }
   });
 
 window.addEventListener(
-    'load',
+    'DOMContentLoaded',
     () => {
         let AvatarImage = document.querySelector(".avatar")
         

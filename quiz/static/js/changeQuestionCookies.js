@@ -10,6 +10,8 @@ let timeC;
 let imageC;
 let validAnswersFlag = false;
 
+const socket = io();
+
 function buttonColorChanging(){
     if (button.type == "button"){
         button.classList.add("grey");
@@ -18,23 +20,25 @@ function buttonColorChanging(){
 
 function answerScanning(){
     validAnswersFlag = true;
-    let filledCount = 0;
-
     for (let input of answerInputList){
         if (input.checkVisibility()){
-            if (input.value.trim() === ""){
+            button.type = "submit";
+            button.classList.remove("grey");
+            button.classList.add("purple");
+            let parentNode = input.parentNode
+            const checkImage = parentNode.querySelector(".for-image")
+            
+            if (input.value == "" && !checkImage){
                 validAnswersFlag = false;
-            } else {
-                filledCount++;
             }
         }
     }
 
-    if (!validAnswersFlag || filledCount < 2 || question.value.trim() === ""){
+    if (validAnswersFlag == false | document.querySelector(".question").value == ""){
         button.type = "button";
         button.classList.add("grey");
         button.classList.remove("purple");
-    } else {
+    } else{
         button.type = "submit";
         button.classList.remove("grey");
         button.classList.add("purple");
@@ -59,17 +63,48 @@ document.addEventListener("keyup", () => {
 button.addEventListener("click", () => {
     // if (button.type !== "submit") return;  
 
-    for (let input of answerInputList){
+    let allBlocks = document.querySelectorAll(".answer-block")
+    let checkdel = document.querySelector(".check_del")
+
+    allBlocks.forEach((block) => {
+        if (!block.checkVisibility()){
+            let currentValue = checkdel.value.split(" ")
+            currentValue.push(block.id)
+            checkdel.value = currentValue.join(" ")
+        }
+    })
+
+    
+
+    if (document.querySelector(".is-image").style.display == "none"){
+        socket.emit("delImage", {
+            "pk": pk
+        });
+    }
+
+
+    let ticks = document.querySelectorAll(".tick-circle")
+    answerInputList.forEach((input, index) => {
+        let ParentTag = input.parentNode
+        const checkImageCreate = ParentTag.querySelector(".for-image")
         if (input.checkVisibility()){
-            if (input.value != ""){
-                if (input.classList.contains("correct")){
-                    answers += `(?%+${input.value}+%?)`;
-                } else {
+            if (input.value != ''){
+                if (ticks[index].style.display == "flex"){
+                answers += `(?%+${input.value}+%?)`;
+                }else{
                     answers += `(?%-${input.value}-%?)`;
                 }
+            }else{
+                if (ticks[index].style.display == "flex"){
+                    answers += `(?%+image?#$?image+%?)`;
+                }else{
+                    answers += `(?%-image?#$?image-%?)`;
+                }
             }
+            
         }
-    }
+    });
+
 
     answers = answers?.replace("undefined", "").replace("answers", "").replace("null", "");
 
@@ -82,6 +117,10 @@ button.addEventListener("click", () => {
     timeCookie[pk] = timeC;
     timeCookie = timeCookie.join("?#?");
 
+    typesQuestion = document.cookie.split("typeQuestions=")[1].split(";")[0].split("?$?");
+    typesQuestion[pk] = document.querySelector(".button-open").dataset.value
+    typesQuestion = typesQuestion.join("?$?")
+
     answerCookie = document.cookie.split("answers=")[1].split(";")[0].split("?@?");
     answerCookie[pk] = answers;
     answerCookie = answerCookie.join("?@?");
@@ -89,30 +128,22 @@ button.addEventListener("click", () => {
     document.cookie = `questions=${questionCookie}; path=/;`;
     document.cookie = `time=${timeCookie}; path=/;`;
     document.cookie = `answers=${answerCookie}; path=/;`;
+    document.cookie = `typeQuestions=${typesQuestion}; path=/;`
     answers = null;
 });
 
-// ⏱ Встановлення тексту таймера
+
 window.addEventListener("DOMContentLoaded", () => {
-    if (document.querySelector("#time").dataset.time !== "not"){
-        if (parseInt(document.querySelector("#time").dataset.time) < 60){
-            document.querySelector("#time").textContent = `⏱ ${document.querySelector("#time").dataset.time} секунд`;
-            const timeEl = document.querySelector("#time");
-            const imgUrl = timeEl.dataset.img;
-
-            timeEl.innerHTML += `<img src="${imgUrl}">`;
+    if (document.getElementById("time-text").dataset.time !== "not"){
+        if (parseInt(document.getElementById("time-text").dataset.time) < 60){
+            document.getElementById("time-text").textContent = `${document.getElementById("time-text").dataset.time} секунд`;
         }else{
-            document.querySelector("#time").textContent = `⏱ ${parseInt(document.querySelector("#time").dataset.time) / 60} хвилин`;
-            const timeEl = document.querySelector("#time");
-            const imgUrl = timeEl.dataset.img;
+            document.getElementById("time-text").textContent = `${parseInt(document.getElementById("time-text").dataset.time) / 60} хвилин`;
 
-            timeEl.innerHTML += `<img src="${imgUrl}">`;        }
+        }
     }else{
-        document.querySelector("#time").textContent = `⏱ Без часу`;
-        const timeEl = document.querySelector("#time");
-        const imgUrl = timeEl.dataset.img;
+        document.getElementById("time-text").textContent = `Без часу`;
 
-        timeEl.innerHTML += `<img src="${imgUrl}">`;
     }
 });
 
@@ -142,9 +173,7 @@ for (let detector of detectorList){
                     if (tick.id == detector.id){
                         if (input.classList.contains("correct")){
                             let checkCorrectList = document.querySelectorAll(".correct");
-                            console.log(checkCorrectList, "bugaga")
                             if (checkCorrectList.length > 1){
-                                console.log("correct:", input.id);
                                 tick.style.display = "none";
                                 input.classList.remove("correct");
                             }
@@ -159,7 +188,6 @@ for (let detector of detectorList){
     })
 }
 
-
 window.addEventListener(
     'DOMContentLoaded',
     () => {
@@ -167,7 +195,6 @@ window.addEventListener(
         let detector = document.querySelectorAll(".tick-circle")
 
         for (let block of blocks){
-            console.log(block.classList, "lolsd")
             if (block.classList.contains("correct")){
                 detector[parseInt(block.id) - 1].style.display = "flex";
             }

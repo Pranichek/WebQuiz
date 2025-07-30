@@ -47,7 +47,6 @@ document.addEventListener("keydown", ()=>{
     dataValidation();
 })
 document.addEventListener("DOMContentLoaded", ()=>{
-    console.log("content loaded");
     dataValidation();
 })
 

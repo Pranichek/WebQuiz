@@ -7,6 +7,10 @@
     font-family: 'Inter';
 }
 
+main{
+    width: 100vw;
+}
+
 body{
     background-color: #3C3C3C;
 }
@@ -127,6 +131,7 @@ nav {
 .links hr{
     width: 10vw;
 }
+
 
 .sidebar-robot{
     position: absolute;
@@ -314,7 +319,14 @@ header i {
     color: #fff;
 }
 
-/* @media (max-width: 600px){
+.nav-links a:hover{
+    transition: 0.3s;
+    background-color: #b67aeb;
+    cursor: pointer;
+
+}
+
+@media (max-width: 600px){
     .nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
         margin: 0px;
     }

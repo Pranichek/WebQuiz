@@ -17,8 +17,10 @@ function loadRoom() {
 
     socket.emit('join_room', {
         username: username,
+        email: document.querySelector(".email").textContent,
         room: code,
-        id_test: id_test
+        id_test: id_test,
+        flag: "mentor"
     });
 
     socket.on('user_joined', (data) => {
@@ -29,6 +31,75 @@ function loadRoom() {
                 room: code
             }
         )
+    });
+
+    // список подключенных
+    socket.on("update_users", (users) => {
+        console.log("Користувачі в кімнаті:", users);
+        const blockUsers = document.querySelector(".users")
+
+        blockUsers.innerHTML = "";
+
+        users.forEach(user => {
+            if (user.email != document.querySelector(".email").textContent){
+                const blockDiv = document.createElement("div")
+                blockDiv.classList.add("block")
+
+                const infDiv = document.createElement("div")
+                infDiv.classList.add("inf")
+
+                const avatarImg = document.createElement("img")
+                avatarImg.classList.add("ava")
+
+                const usernameP = document.createElement("p")
+                usernameP.textContent = user.username
+
+                infDiv.appendChild(avatarImg)
+                infDiv.appendChild(usernameP)
+
+                const blockTextDiv = document.createElement("div")
+                blockTextDiv.classList.add("block-text")
+
+                const emailP = document.createElement("p")
+                emailP.className = "email-paragraph"
+                emailP.textContent = user.email
+
+                const blockPetDiv = document.createElement("div")
+                blockPetDiv.classList.add("block-pet")
+
+                const petImg = document.createElement("img")
+                petImg.classList.add("pet")
+
+
+                blockPetDiv.appendChild(petImg)
+
+                blockTextDiv.appendChild(emailP)
+                blockTextDiv.appendChild(blockPetDiv)
+
+                blockDiv.appendChild(infDiv)
+                blockDiv.appendChild(blockTextDiv)
+
+                blockUsers.appendChild(blockDiv)
+            }
+        });
+
+        // видалення юзера із кімнати block
+
+        allBlocks = document.getElementsByClassName("block");
+        for (let block of allBlocks){
+            
+            block.addEventListener('click', ()=>{
+                socket.emit(
+                    "delete_user",
+                    {
+                        room: code,
+                        email: block.querySelector(".email-paragraph").textContent
+                    }
+                )
+            })
+        }
+
+
     });
 
     socket.on(
@@ -43,6 +114,7 @@ function loadRoom() {
         const chat = document.querySelector(".messages");
         chat.innerHTML += `<div class="message another-user">
                                 <p>${data["message"]}</p>
+                                <p>${data["sender"]}</p>
                             </div>`;
     });
 
@@ -126,14 +198,34 @@ function loadRoom() {
                 }else{
                     const chat = document.querySelector(".messages");
                     chat.innerHTML += `<div class="message another-user">
+                            <div class="user-info">
+                                <div class="avatar-another">
+                                    <img src="${dictData["avatar_url"]}" alt="ava">
+                                </div>
+                                <span class="username-another">${dictData["username"]}</span>
+                            </div>
+                            <div class="message-text">
                                 <p>${dictData["message"]}</p>
-                            </div>`;
+                            </div>
+                        </div>`;
                 }
             }
         }
     )
-}
 
     
+}
+
+
+function showQR() {
+    // document.getElementById("qrModal").style.display = "flex";
+    const modal = document.getElementById("qrModal");
+    modal.classList.add("show");
+}
+function hideQR() {
+    // document.getElementById("qrModal").style.display = "none";
+    const modal = document.getElementById("qrModal");
+    modal.classList.remove("show");
+} 
 
 window.addEventListener("DOMContentLoaded", loadRoom);

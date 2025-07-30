@@ -1,12 +1,13 @@
-let modal = document.querySelector(".modal-image")
+const modal = document.querySelector('.modal-image');
 
-function ShowModal(){
-    modal.style.display = "flex";
+function openModal() {
+    modal.classList.add('active');
+    document.querySelector(".modal-backdrop").classList.add("active");
 }
 
-
-function CloseModal(){
-    modal.style.display = "none";
+function closeModal() {
+    document.querySelector(".modal-backdrop").classList.remove("active");
+    modal.classList.remove('active');
 }
 const previewImage = (event) => {
     const files = event.target.files
@@ -18,7 +19,7 @@ const previewImage = (event) => {
 }
 
 window.addEventListener(
-    'load',
+    'DOMContentLoaded',
     () => {
         let cookies = document.cookie.match("test_url")
         let testimage = document.querySelector(".test-cover")
@@ -30,6 +31,9 @@ window.addEventListener(
             if (cookies){
                 const testimageurl = document.cookie.split("test_url=")[1].split(";")[0];
                 testimage.src = testimageurl
+            }else{
+                const testimageurl = document.querySelector(".another-photo").dataset.another
+                testimage.src = testimageurl
             }
         }
     }
@@ -38,4 +42,3 @@ window.addEventListener(
 function sumbmitIMage(){
     document.querySelector("#image_form").submit();
 }
-

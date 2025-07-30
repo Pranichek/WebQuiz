@@ -11,8 +11,11 @@ class Test(DATABASE.Model):
     questions = DATABASE.Column(DATABASE.String, nullable = False)
     answers = DATABASE.Column(DATABASE.Text, nullable = False)
     question_time = DATABASE.Column(DATABASE.String, nullable = False)
+    # типи питаннь
+    type_questions = DATABASE.Column(DATABASE.String, nullable = False)
     image = DATABASE.Column(DATABASE.String)
     category = DATABASE.Column(DATABASE.String, nullable = False)
+
 
     # Перевірка для видалення теста
     check_del = DATABASE.Column(DATABASE.String, default = "exists")
@@ -23,6 +26,8 @@ class Test(DATABASE.Model):
 
     # Зв'язок із таблицею даних про тест(one to one)
     test_profile = DATABASE.relationship("TestData", back_populates="test", uselist=False)
+
+
     
 
     
@@ -37,5 +42,4 @@ class TestData(DATABASE.Model):
     # Зв'язок із тестом(one to one)
     test = DATABASE.relationship("Test", back_populates="test_profile")
     test_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('test.id'), unique=True)
-
 

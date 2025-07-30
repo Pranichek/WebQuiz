@@ -362,19 +362,104 @@ a{
     gap: 5px;
 }
 
-.image-robot {
+.procent-bar{
+    width: 80%;
+    height: 12px;
+    background-color: #343434;
+    margin-right: 20%;
+    border-radius: 5px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    position: relative;
+}
+
+.procent-text{
+    color: #ffffff;
+    font-size: 70%;
+    margin-left: 4px;
+    transition: 0.3s ease;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    z-index: 100;
+    overflow: hidden;
+    padding-right: 10px;
+}
+
+
+.fill-bar{
+    width: 0%;
+    height: 100%;
+    background-color: #C48AF7;
+    border-radius: 5px;
+    transition: 0.3s ease;
+    position: absolute;
+}
+
+.last-passed-discription{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
+    white-space: nowrap;
+    /* overflow: hidden; */
+    text-overflow: ellipsis;
+}
+
+.main-discription{
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    white-space: nowrap;
+    width: 100%;
+}
+.settings-name .static-theme{
+    font-size: 19px;
+}
+
+.settings-name .theme-test{
+    font-size: 20px;
+}
+
+.another-set a{
+    font-size: 19px;
+    transform: translateY(5px);
+}
+
+.image-robot{
     bottom: 0;
     right: 0;
     margin-right: 10px;
     position: absolute;
     width: 40px;         
     height: auto;
-    /* z-index: 10;      */
     margin-bottom: 45px;
-    /* margin-right: 5px;     */
+}
+
+.heart{
+    top: 0;
+    right: 0;
+    margin-right: 10px;
+    margin-top: 10px;
+    position: absolute;
+    width: 40px;         
+    height: auto;
+    z-index: 10;
+}
+
+.saved-robot{
+    width: 60px;
+    margin-bottom: 20px;
 }
 .static-theme{
     color:#C48AF7;
+}
+
+.static-theme-discription{
+    margin-right: 5px;
 }
 
 .theme-test{
@@ -388,6 +473,7 @@ a{
     margin-left: 15px;
     margin-top: 10px;
     margin-bottom: 10px;
+    transform: translateY(-5px);
 }
 
 .loadroom, .play_test{
@@ -659,3 +745,6 @@ label{
 
 
 
+.invisible-button{
+    display: none;
+}

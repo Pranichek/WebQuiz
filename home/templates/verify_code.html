@@ -24,13 +24,23 @@
             </div>
             <div class="buttons-verify">
                 <a class="home-button" href="/">додому</a>
-                <button class="submit" type="submit">надіслати</button>
+                <button class="submit" type="submit" style="background-color: #C48AF7;">надіслати</button>
             </div>
+            <div class="butt-again">
+                <p class="time"></p>
+                <button class="again" name="again" type="button" value="clicked" style="display: none;"><a class="check_text" href="/clear_code">надіслати знову</a></button>
+            </div>
+        </form>
+
+        <form action="" method="post" id="clear_code">
+            <input type="text" class="end" name="end" value="not" style="display: none;">
         </form>
     </div>
 
 {% endblock %}
 
 {% block scripts %}
+    {{ super() }}
     <script src="{{ url_for('registration.static', filename='js/verify_code.js') }}"></script>
+    <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
 {% endblock scripts %}

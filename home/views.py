@@ -1,4 +1,4 @@
-import flask, flask_login, os, random, shutil
+import flask, flask_login, os, random, shutil, traceback
 from .models import User
 from Project.db import DATABASE
 from .send_email import send_code, generate_code
@@ -8,6 +8,7 @@ from quiz.models import Test
 from userprofile.models import DataUser
 from Project.login_check import login_decorate
 from flask_login import current_user
+from Project.socket_config import socket
 
 #Просто головна сторінка
 def render_home():
@@ -79,76 +80,52 @@ def render_home_auth():
 
     first_four_test = get_random_tests(category=first_topic)
 
-    # tests_first_topic = Test.query.filter(Test.category == first_topic, Test.check_del != "deleted").all()
-    # if len(tests_first_topic) > 0:
-    #     while True:
-    #         random_num = random.randint(0, len(tests_first_topic) - 1)
-    #         if random_num not in random_numbers and tests_first_topic[random_num].check_del != "deleted":
-    #             random_numbers.append(random_num)
-    #         if len(random_numbers) == len(tests_first_topic) or len(random_numbers) >= 4:
-    #             break
-    #     print(random_numbers)
-    #     for num in random_numbers:
-    #         first_four_test.append(tests_first_topic[num])
-
 
     second_topic = random.choice(category)
     category.remove(second_topic)
     second_four_test = get_random_tests(category=second_topic)
     second_random_numbers = []
 
-    # tests_second_topic = Test.query.filter_by(category = second_topic).all()
-    # tests_second_topic = Test.query.filter(Test.category == second_topic, Test.check_del != "deleted").all()
-    # if len(tests_second_topic) > 0:
-    #     while True:
-    #         random_num = random.randint(0, len(tests_second_topic) - 1)
-    #         if random_num not in second_random_numbers and tests_second_topic[random_num].check_del != "deleted":
-    #             second_random_numbers.append(random_num)
-    #         if len(second_random_numbers) == len(tests_second_topic) or len(second_random_numbers) >= 4:
-    #             break
-    #     for num in second_random_numbers:
-    #         second_four_test.append(tests_second_topic[num])
-
 
     user : User = User.query.get(int(current_user.id))
-    # third_random_numbers = user.user_profile.last_passed.split(" ")
-    # for el in third_random_numbers:
-    #     indx = third_random_numbers.index(el)
-    #     normal = el.split("/")[0]
-    #     third_random_numbers[indx] = normal
+    third_random_numbers = user.user_profile.last_passed.split(" ")
+    for el in third_random_numbers:
+        indx = third_random_numbers.index(el)
+        normal = el.split("/")[0]
+        third_random_numbers[indx] = normal
 
-    # all_tests = Test.query.all()
+    # list(set(third_random_numbers))
+    for element in third_random_numbers:
+        if third_random_numbers.count(element) >= 2:
+            count = third_random_numbers.count(element)
+            for i in range(count - 1):
+                third_random_numbers.remove(element)
+
+    random.shuffle(third_random_numbers)
+    all_tests = Test.query.all()
 
     # third_ready_tests = []
 
-    # if '' in third_random_numbers:
-    #     third_random_numbers.remove('')
-    # for test in range(0, len(third_random_numbers) - 1):
-    #     if Test.query.get(int(third_random_numbers[test])).check_del != "deleted":
-    #         third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
+    if '' in third_random_numbers:
+        third_random_numbers.remove('')
+    
+    if len(third_random_numbers) >= 5:
+        range_count = 5
+    else:
+        range_count = len(third_random_numbers)
+
+    
+    for test in range(0, range_count - 1):
+        
+        if Test.query.get(int(third_random_numbers[test])).check_del != "deleted" and Test.query.get(int(third_random_numbers[test])) not in third_ready_tests:
+            third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
 
 
     fourth_topic = random.choice(category)
     fourth_four_test = get_random_tests(category= fourth_topic)
 
 
-    # tests_second_topic = Test.query.filter_by(category = second_topic).all()
-    # tests_second_topic = Test.query.filter(Test.category == second_topic, Test.check_del != "deleted").all()
-    # if len(tests_second_topic) > 0:
-    #     while True:
-    #         random_num = random.randint(0, len(tests_second_topic) - 1)
-    #         if random_num not in second_random_numbers and tests_second_topic[random_num].check_del != "deleted":
-    #             second_random_numbers.append(random_num)
-    #         if len(second_random_numbers) == len(tests_second_topic) or len(second_random_numbers) >= 4:
-    #             break
-    #     for num in second_random_numbers:
-    #         second_four_test.append(tests_second_topic[num])
-    # if '' in third_random_numbers:
-    #     third_random_numbers.remove('')
-    # for test in range(0, len(third_random_numbers)):
-    #     if Test.query.get(int(third_random_numbers[test])).check_del != "deleted":
-    #         third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
- 
+
     return flask.render_template(
         "home_auth.html", 
         home_auth = True,
@@ -173,6 +150,9 @@ def render_registration():
     flask.session["count_email"] = 0
     if flask.request.method == "POST":
         check_form = flask.request.form.get("check_form")
+
+
+
         if check_form == "registration":
             username_form = flask.request.form["username"]
 
@@ -204,6 +184,10 @@ def render_registration():
                     email.start()
                     
                     return flask.redirect("/verify_code")
+                
+
+        
+
                 else:
                     flask.session.clear()
                     email_shake = "User already exists"
@@ -229,13 +213,43 @@ def render_registration():
     )
 
 
+def is_admin(function: object) -> float: # функція що приймає параметри для редіректу на сторінку
+    def handler(*args, **kwargs): # Функція обробник фунції параметру із wrapper
+        try:
+            if function:
+                function(*args, **kwargs)
+        except Exception as ERROR:
+            traceback.print_exc()
+        finally:
+            return flask.redirect('/verify_code')
+    return handler
+
+@is_admin
+def clear_code():
+    """
+    Функція для очищення коду підтвердження.
+    Викликається при натисканні на кнопку "надіслати знову".
+    """
+    random_code = generate_code()
+    flask.session["code"] = random_code
+    flask.session["count_email"] = 0
+    email = Thread(target = send_code, args = (flask.session["email"], flask.session["code"]))
+    email.start()
 
 def render_code():
     form_code = ''
     if flask.request.method == "POST":
-        for num_tag in range(1, 7):
-            data = str(flask.request.form[f"verify_code{num_tag}"])
-            form_code += data
+        send_again = flask.request.form.get("again")
+        end_code = flask.request.form.get("end")
+
+
+        if end_code != "clear":
+
+            for num_tag in range(1, 7):
+                data = str(flask.request.form[f"verify_code{num_tag}"])
+                form_code += data
+
+                
         if "new_email" in flask.session:
             if str(flask.session["code"]) == form_code:
                 flask_login.current_user.email = flask.session["new_email"]
@@ -312,16 +326,19 @@ def render_code():
                     flask.session["code"] = ''
                     flask.session["email_sent"] = False
                 else:
+                    print(str(flask.session["code"]))
+                    print(form_code)
+                    print("-------------------------------------------------")
                     flask.session["code"] = ''
                     flask.session["email_sent"] = False
                     return flask.redirect("/")
                 
     if not flask_login.current_user.is_authenticated or "new_email" in flask.session:
-        return flask.render_template(template_name_or_list = "verify_code.html") 
+        return flask.render_template(template_name_or_list = "verify_code.html", code = 34, code1 = flask.session["code"], verify_code_page = True) 
     else:
         flask.session.pop("new_email", "code")
-        print(8237823788787)
         return flask.redirect("/")
+
 
 
 
@@ -362,4 +379,3 @@ def render_login():
             )
     else:
         return flask.redirect("/")
-

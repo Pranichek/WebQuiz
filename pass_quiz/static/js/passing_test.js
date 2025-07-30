@@ -88,7 +88,7 @@ socket.on('question', (data) => {
 
         const imgContainer = document.getElementById("image-container");
         imgContainer.innerHTML = "";
-
+        let typeQuestion = data.type
         let answers = data.answers
         let amountAnswers = data.answers.length
         
@@ -118,11 +118,10 @@ socket.on('question', (data) => {
             localStorage.setItem('time_question', timeQuestion);
             const maxTime = parseInt(data.test_time);
             localStorage.setItem('max_time', maxTime);
-            console.log("2112")
         } 
 
-
-        if (data.question_img != "not" && checkOportunity != "not"  && amountAnswers > 3){
+        // checkOportunity - чтобы пользоватль не смог несколько раз ответь на один и тот же вопрос, если будет быстро кликать
+        if (data.question_img != "not" && checkOportunity != "not"  && amountAnswers > 4){
             let justAnswerDiv = document.querySelector(".answers")
             let answerImg = document.querySelector(".answers-image")
 
@@ -151,7 +150,7 @@ socket.on('question', (data) => {
 
             document.querySelector(".answers-image").style.display = `flex`;
             document.querySelector(".question").style.height = `30vh`;
-            if (data.type_question == "one_answer"){
+            if (typeQuestion == "one-answer"){
                 const blockAnswersTop = document.querySelector(".top-answers")
 
                 blockAnswersTop.innerHTML = `
@@ -365,7 +364,7 @@ socket.on('question', (data) => {
                 blockanswers[2].style.backgroundColor = colors[2]
                 blockanswers[3].style.backgroundColor = colors[3]
 
-            }else {
+            }else if(typeQuestion == "many-answers"){
                 const checkMarkUrl = "/static/images/check-mark.png";
                 const blockAnswersTop = document.querySelector(".top-answers")
 
@@ -736,21 +735,27 @@ socket.on('question', (data) => {
             document.querySelector(".answers-image").style.display = `none`;
             document.querySelector(".question").style.height = `30vh`;
 
-            if (data.type_question == "one_answer"){
+            if (typeQuestion == "one-answer"){
+                let list_images = data.answers_image
+
+
                 cont.innerHTML = `
-                    <div class="variant fade-in" data-value="0">
+                    <div class="variant fade-in" data-value="0" id="v0">
                         <p class="variant-text"></p>
                     </div>
-                    <div class="variant fade-in" data-value="1">
+                    <div class="variant fade-in" data-value="1" id="v1">
                         <p class="variant-text"></p>
                     </div>
-                    <div class="variant fade-in" data-value="2">
+                    <div class="variant fade-in" data-value="2" id="v2">
                         <p class="variant-text"></p>
                     </div>
-                    <div class="variant fade-in" data-value="3">
+                    <div class="variant fade-in" data-value="3" id="v3">
                         <p class="variant-text"></p>
                     </div>
                 `;
+
+                
+
                 if (data.question_img != "not"){
                 
                 }
@@ -857,12 +862,24 @@ socket.on('question', (data) => {
 
 
                 for (let index = 0; index < amountAnswers; index++) {
-                    blockanswers[index].style.display = 'flex';
+                    blockanswers[index].style.display = 'flex'
+                    if (list_images[index] != "none"){
+                        const imgContainer = document.createElement("div");
+                        imgContainer.className = "variant-image-container";
+
+                        const imgElem = document.createElement("img")
+                        imgContainer.appendChild(imgElem);
+                        imgElem.src = list_images[index]
+
+                        blockanswers[index].appendChild(imgContainer);
+                        blockanswers[index].querySelector(".variant-text").style.fontSize = "2.5vh"
+                        
+                    }
                 }
-        
+
                 for (let index = 0; index < amountAnswers; index++) {
                     if (blockanswers[index].style.display == "flex"){
-                        blockanswers[index].textContent = answers[index]
+                        blockanswers[index].querySelector(".variant-text").textContent = answers[index]
                     }
                 }
 
@@ -882,8 +899,9 @@ socket.on('question', (data) => {
                     blockanswers[index].style.width = `${width}%`;
                     blockanswers[index].style.backgroundColor = colors[index]
                 }
-            }else if (data.type_question == "many_answers"){
+            }else if (typeQuestion == "many-answers"){
                 const checkMarkUrl = "/static/images/check-mark.png";
+                let list_images = data.answers_image
 
                 cont.innerHTML = `
                     <div class="many-variant fade-in" data-value="0" value="0">
@@ -911,6 +929,8 @@ socket.on('question', (data) => {
                         <p class="variant-text"></p>
                     </div>
                 `;
+
+                
 
                 setTimeout(() => {
                     let divs = document.querySelectorAll(".many-variant")
@@ -1079,15 +1099,32 @@ socket.on('question', (data) => {
                 )
 
                 let manyBlockAnswers = document.querySelectorAll(".many-variant")
+                let variantText = document.querySelectorAll(".variant-text")
 
                 for (let index = 0; index < amountAnswers; index++) {
                     manyBlockAnswers[index].style.display = 'flex';
+                    if (list_images[index] != "none"){
+                        const imgContainer = document.createElement("div");
+                        imgContainer.className = "variant-image-container";
+
+                        const imgElem = document.createElement("img")
+                        imgContainer.appendChild(imgElem);
+                        imgElem.src = list_images[index]
+                        variantText[index].style.fontSize  = "2.5vh"
+
+
+                        manyBlockAnswers[index].appendChild(imgContainer);
+                         
+                    }
                 }
+
                 
-                let variantText = document.querySelectorAll(".variant-text")
+                
                 for (let index = 0; index < amountAnswers; index++) {
                     if (manyBlockAnswers[index].style.display == "flex"){
                         variantText[index].textContent = answers[index]
+                        // blockanswers[index].querySelector(".variant-text").textContent = answers[index]
+
                     }
                 }
             }
