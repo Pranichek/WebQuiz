@@ -28,6 +28,7 @@ for (let input of inputsImages){
             textAreas.forEach((textarea) => {
                 if (textarea.id == input.id){
                     textarea.style.fontSize = "2vh"
+                    textarea.style.height = "30%"
                 }
             })
 
@@ -79,6 +80,7 @@ for (let buttonLoad of loadButtons){
                 textAreas.forEach((textarea) => {
                     if (textarea.id == buttonLoad.id){
                         textarea.style.fontSize = "3vh"
+                        textarea.style.height = "80%"
                     }
                 })
                 loadButtons.forEach((button) => {

@@ -29,6 +29,20 @@ window.addEventListener(
 
             categoryButton.dataset.value = type
         }
+
+        const textType = document.querySelector(".text-type");
+        const blocks = document.querySelector(".blocks");
+        
+        const inputType = document.querySelector(".input-type");
+        if (type != "input-gap") {
+            textType.style.display = "flex";
+            blocks.style.display = "flex";
+            inputType.style.display = "none";
+        }else if (type === "input-gap"){
+            textType.style.display = "none";
+            blocks.style.display = "none";
+            inputType.style.display = "flex";
+        }
     
         for (let buttonType of buttonsTypes){
             if (buttonType.dataset.value == categoryButton.dataset.value){
@@ -47,9 +61,11 @@ for (let inputul of ulTypes){
             let li = inputul.querySelector("li")
             let radio = inputul.querySelector("input")
             radio.click()
+
             if (!document.querySelector(".button-open").classList.contains("change_type")){
                 localStorage.setItem("type", li.dataset.value)
             }
+
             categoryButton.dataset.value = li.dataset.value
             categoryButton.textContent = li.textContent
 
@@ -61,8 +77,25 @@ for (let inputul of ulTypes){
                 type = categoryButton.dataset.value;
             }
 
+            
+            const textType = document.querySelector(".text-type");
+            const blocks = document.querySelector(".blocks");
+           
+            const inputType = document.querySelector(".input-type");
+
             if (type === "one-answer") {
                 clear_answer();
+                textType.style.display = "flex";
+                blocks.style.display = "flex";
+                inputType.style.display = "none";
+            }else if (type === "input-gap"){
+                textType.style.display = "none";
+                blocks.style.display = "none";
+                inputType.style.display = "flex";
+            }else if(type == "many-answers"){
+                textType.style.display = "flex";
+                blocks.style.display = "flex";
+                inputType.style.display = "none";
             }
         }
     )
