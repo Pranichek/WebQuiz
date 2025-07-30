@@ -28,39 +28,21 @@ def get_random_tests(category=None, max_tests=4):
     Отримує випадкові `max_tests` тестів з категорії.
     Якщо category не вказано, вибирає з усіх.
     """
-    if category:
-        all_tests = Test.query.filter(Test.category == category, Test.check_del != "deleted").all()
-    else:
-        all_tests = Test.query.filter(Test.check_del != "deleted").all()
+    # if category:
+    #     all_tests = Test.query.filter(Test.category == category, Test.check_del != "deleted").all()
+    # else:
+    #     all_tests = Test.query.filter(Test.check_del != "deleted").all()
 
-    if not all_tests:
-        return []
+    # if not all_tests:
+    #     return []
 
     # перемешиваем список чтобы выдавало рандомные тесты
-    random.shuffle(all_tests)
-    return all_tests[0:4]
+    # random.shuffle(all_tests)
+    # return all_tests[0:4]
 
 #головна сторінка коли користувач увійшов у акаунт
 @login_decorate
 def render_home_auth():    
-    user = User.query.get(flask_login.current_user.id)
-
-    # отримати баланс
-    # money_user = user.user_profile.count_money
-    # print(money_user, "money")
-
-    # змінити баланс
-    # user.user_profile.count_money = 270
-    # DATABASE.session.commit()
-
-    category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
-    first_topic = random.choice(category)
-    category.remove(first_topic)
-    second_topic = random.choice(category)
-
-    first_four_test = []
-    random_numbers = []
-
     if flask.request.method == "POST":
         check_value = flask.request.form.get("check_form")
 
@@ -73,52 +55,54 @@ def render_home_auth():
     user = User.query.get(flask_login.current_user.id)
 
     # отримати баланс
+    # money_user = user.user_profile.count_money
 
     category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
     first_topic = random.choice(category)
     category.remove(first_topic)
 
     first_four_test = get_random_tests(category=first_topic)
+    # random_numbers = []
 
 
     second_topic = random.choice(category)
     category.remove(second_topic)
     second_four_test = get_random_tests(category=second_topic)
-    second_random_numbers = []
+    # second_random_numbers = []
 
 
     user : User = User.query.get(int(current_user.id))
-    third_random_numbers = user.user_profile.last_passed.split(" ")
-    for el in third_random_numbers:
-        indx = third_random_numbers.index(el)
-        normal = el.split("/")[0]
-        third_random_numbers[indx] = normal
+    # third_random_numbers = user.user_profile.last_passed.split(" ")
+    # for el in third_random_numbers:
+    #     indx = third_random_numbers.index(el)
+    #     normal = el.split("/")[0]
+    #     third_random_numbers[indx] = normal
 
     # list(set(third_random_numbers))
-    for element in third_random_numbers:
-        if third_random_numbers.count(element) >= 2:
-            count = third_random_numbers.count(element)
-            for i in range(count - 1):
-                third_random_numbers.remove(element)
+    # for element in third_random_numbers:
+    #     if third_random_numbers.count(element) >= 2:
+    #         count = third_random_numbers.count(element)
+    #         for i in range(count - 1):
+    #             third_random_numbers.remove(element)
 
-    random.shuffle(third_random_numbers)
-    all_tests = Test.query.all()
+    # random.shuffle(third_random_numbers)
+    # all_tests = Test.query.all()
 
-    # third_ready_tests = []
+    third_ready_tests = []
 
-    if '' in third_random_numbers:
-        third_random_numbers.remove('')
+    # if '' in third_random_numbers:
+    #     third_random_numbers.remove('')
     
-    if len(third_random_numbers) >= 5:
-        range_count = 5
-    else:
-        range_count = len(third_random_numbers)
+    # if len(third_random_numbers) >= 5:
+    #     range_count = 5
+    # else:
+    #     range_count = len(third_random_numbers)
 
     
-    for test in range(0, range_count - 1):
+    # for test in range(0, range_count - 1):
         
-        if Test.query.get(int(third_random_numbers[test])).check_del != "deleted" and Test.query.get(int(third_random_numbers[test])) not in third_ready_tests:
-            third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
+    #     if Test.query.get(int(third_random_numbers[test])).check_del != "deleted" and Test.query.get(int(third_random_numbers[test])) not in third_ready_tests:
+    #         third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
 
 
     fourth_topic = random.choice(category)
@@ -131,12 +115,15 @@ def render_home_auth():
         home_auth = True,
         count_tests = 0,
         user = user,
-        first_tests = first_four_test,
+        # first_tests = first_four_test,
+        first_tests = [],
         first_topic = first_topic,
         second_topic = second_topic,
-        second_tests = second_four_test,
+        # second_tests = second_four_test,
+        second_tests = [],
         # third_tests = third_ready_tests if len(third_ready_tests) >= 4 else fourth_four_test,
-        # fourt_topic = "Недавно пройдені тести" if len(third_ready_tests) >= 4 else f"Тести із теми {fourth_topic}"
+        third_tests = [],
+        fourt_topic = "Недавно пройдені тести" if len(third_ready_tests) >= 4 else f"Тести із теми {fourth_topic}"
     )
 
     
@@ -282,42 +269,6 @@ def render_code():
                         destination_path = os.path.join(path, "default_avatar.svg")
 
                         shutil.copyfile(default_avatar_path, destination_path)
-    # try:
-        form_code = ''
-        if flask.request.method == "POST":
-            for num_tag in range(1, 7):
-                data = str(flask.request.form[f"verify_code{num_tag}"])
-                form_code += data
-            if "new_email" in flask.session:
-                if str(flask.session["code"]) == form_code:
-                    flask_login.current_user.email = flask.session["new_email"]
-                    DATABASE.session.commit()
-                    flask.session.pop("new_email", "code")
-                    old_name_folder = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile" "static", "images", "edit_avatar", str(flask_login.current_user.email)))
-                    new_name_folder = os.path.abspath(os.path.join(__file__, "..",  "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["new_email"])))
-                    os.rename(old_name_folder, new_name_folder)
-                    return flask.redirect("/")
-            else:
-                if form_code != '':
-                    if str(flask.session["code"]) == form_code:
-                        user = User(
-                            username = flask.session["username"],
-                            password = flask.session["password"],
-                            email = flask.session["email"],
-                            is_mentor = flask.session["check_mentor"]
-                        )
-                        
-                        profile = DataUser()
-                        user.user_profile = profile
-                        
-                        #створює папку із тим шляхом що указали
-                        path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["email"])))
-                        if not os.path.exists(path):
-                            os.mkdir(path = path)
-                            # creating a image object (main image) 
-                            default_img = PIL.Image.open(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.png")))
-                            # save a image using extension
-                            default_img = default_img.save(fp = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(str(flask.session["email"])) ,"default_avatar.png")))
 
                     DATABASE.session.add(user)
                     DATABASE.session.commit()

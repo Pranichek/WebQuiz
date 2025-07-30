@@ -27,6 +27,8 @@ header{
 }
 
 .top-part {
+    position: relative;
+    top: -5vh;
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -34,9 +36,9 @@ header{
     width: 100vw;
     cursor: pointer;
     /* background-color: gold; */
-    gap: 10vw;
-    height: 30vh;
-    padding: 2vh;
+    gap: 3vw;
+    height: fit-content;
+    margin: 10vh 1vw;
 }
 
 .enter-code{
@@ -47,7 +49,7 @@ header{
     padding: 2vh;
     border: 1px black solid;
     width: 60%;
-    height: 30vh;
+    height: 25vh;
     overflow: hidden;
 }
 
@@ -57,7 +59,7 @@ header{
     background-color: none;
     border: 1px black solid;
     width: 22%;
-    height: 30vh;
+    height: 25vh;
     border-radius: 2vh;
     overflow: hidden;
 }
@@ -145,12 +147,13 @@ input::-webkit-inner-spin-button {
 .main-input {
     display: flex;
     flex-direction: row;
-    gap:2%;
+    gap: 2%;
     background-color: #ffffff;
     border: 0.3vh black solid;
     padding: 0.5vh;
     border-radius: 2vh;
     width: 60%;
+    height: 8vh;
 }
 
 .main-input input{
@@ -174,6 +177,7 @@ input::-webkit-inner-spin-button {
     padding: 1vh;
     font-size: 2vh;
     width: 20%;
+    height: 100%;
     text-align: center;
 }
 
