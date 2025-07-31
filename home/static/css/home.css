@@ -19,7 +19,7 @@ body {
     width: 100vw;
     height: 100vh;
     background: linear-gradient(170deg, #3C3C3C 10%, #7c9abd 20%, #74919E 42%, #3C3C3C 5%);
-    filter: blur(100px);
+    filter: blur(10vh);
     z-index: -1;
     pointer-events: none;
 }
@@ -34,11 +34,10 @@ form{
     align-items: center;
     text-align: center;
     justify-content: center;
-    gap: 10px;
-    /* border: 2px green solid; */
+    gap: 1vh;
     width: 100vw;
     height: 35vh;
-    padding-top: 20px;
+    padding-top: 2vh;
 }
 
 
@@ -54,30 +53,27 @@ form{
     display: flex;
     flex-direction: row;
     align-items: center;
-    max-width: 400px;
     background-color: white;
-    padding: 1vh;
-    gap: 10px;
+    padding: 0.6vh;
+    gap: 1vw;
     width: fit-content;
 }
 
 .input-code input {
-    padding: 10px;
-    border-radius: 5px;
+    padding: 1vh;
     border: none;
 }
 
 .input-code button {
-    padding: 10px 20px;
+    padding: 1vh 1vw;
     background-color: #8AF7D4;
     color: black;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
 }
 .input-code, .input-code input, .input-code button{
-    border: solid 1px black;
-    border-radius: 10px;
+    border: solid 0.1vh black;
+    border-radius: 1vh;
 }
 
 .cointeiner {
@@ -86,22 +82,20 @@ form{
     display: flex;
     position: fixed;
     top: 0;
-    /* border: 2px orange solid; */
-    /* border:  2px solid orange; */
     justify-content: center;
     flex-direction: row;
     align-items: end;
     overflow: hidden;   
-    padding-bottom: 40px; 
+    /* padding-bottom: 40px;  */
 }
 
 .card {
     cursor: pointer;
     flex-grow: 0;
     flex-shrink: 0;
-    height: 280px;
-    width: 220px;
-    border: 0.5px solid black;
+    height: 40vh;
+    width: 15vw;
+    border: 0.05vh solid black;
     z-index: 1;
     transition: 1s;
     display: flex;
@@ -109,7 +103,7 @@ form{
     justify-content: center;
     align-items: center;
     text-align: center;
-    border-radius: 34px;
+    border-radius: 4vh;
     overflow: hidden;
 }
 
@@ -121,7 +115,7 @@ p{
     background-color: green;
     width: 100%;
     height: 50%;
-    border-radius: 34px 34px 0px 0px;
+    border-radius: 4vh 4vh 0 0;
 }
 
 .card-img img{
@@ -135,66 +129,53 @@ p{
     width: 100%;
     height: 50%;
     background-color: #343434;
-    border-radius: 0px 0px 34px 34px;
+    border-radius: 0 0 4vh 4vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 0px;
-    margin: 0px;
-    padding: 0px;
 }
 
 .name-test{
     padding-bottom: 10%;
-    font-size: 15px;
+    font-size: 2vh;
 }
 
 .interisting-text{
     color: #a19e9e;
-    font-size: 11px;
+    font-size: 1.5vh;
 
 }
 
 .link-test{
     padding-top: 10%;
-    font-size: 15px;
+    font-size: 2vh;
 }
 
 img{
     position: relative;
     width: 100%;
     height: 100%;
-    border-radius: 34px 34px 0px 0px;
-}
-
-.transition {
-    transform: translateY(150px) translateX(175px) rotate(-11deg);
-    background-color: aquamarine;
-}
-
-.transition:hover {
-    transform: translateY(0px) translateX(175px);
-    z-index: 11;
+    border-radius: 4vh 4vh 0 0;
 }
 
 .transition2 {
-    transform: translateY(100px) translateX(100px) rotate(-11deg);
+    transform: translateY(13vh) translateX(5vw) rotate(-15deg);
     background-color: blue;
 }
 
 .transition2:hover {
-    transform: translateY(0px) translateX(100px);
+    transform: translateY(0px) translateX(5vw);
     z-index: 11;
 }
 
 .transition3 {
-    transform: translateY(50px) translateX(50px) rotate(-11deg);
+    transform: translateY(5vh) translateX(2vw) rotate(-11deg);
     background-color: blueviolet;
 }
 
 .transition3:hover {
-    transform: translateY(0px) translateX(50px);
+    transform: translateY(0px) translateX(2vw);
     z-index: 11;
 }
 
@@ -205,45 +186,34 @@ img{
 }
 
 .transition4:hover {
-    transform: translateY(-20px);
+    transform: translateY(-2vh);
     z-index: 11;
 }
 
 .transition5 {
-    transform: translateY(50px) translateX(-50px) rotate(11deg);
+    transform: translateY(5vh) translateX(-2vw) rotate(11deg);
     background-color: chartreuse;
     z-index: 4;
 }
 
 .transition5:hover {
-    transform: translateY(0px) translateX(-50px);
+    transform: translateY(0px) translateX(-2vw);
     z-index: 11;
 }
 
 
 .transition6 {
-    transform: translateY(100px) translateX(-100px) rotate(11deg);
+    transform: translateY(13vh) translateX(-5vw) rotate(15deg);
     background-color: black;
     z-index: 3;
 }
 
 .transition6:hover {
-    transform: translateY(0px) translateX(-100px);
+    transform: translateY(0px) translateX(-5vw);
     z-index: 11;
 }
 
-.transition7 {
-    transform: translateY(150px) translateX(-175px) rotate(11deg);
-    background-color: bisque;
-    z-index: 2;
-}
-
-.transition7:hover {
-    transform: translateY(0px) translateX(-175px);
-    z-index: 11;
-}
-
-@media (max-width: 899px){
+/* @media (max-width: 899px){
     .card {
         flex-grow: 0;
         flex-shrink: 0;
@@ -761,4 +731,4 @@ img{
     }
 }
 
-
+ */

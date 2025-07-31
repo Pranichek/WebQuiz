@@ -29,7 +29,7 @@
     flex-direction: column;
     gap: 2vh;
     background-color: #343434;
-    border: 2px solid #B9BDF5;
+    border: 0.4vh solid #B9BDF5;
     border-radius: 3vh;
     height: 90%;
     width: 40vw;
@@ -48,23 +48,20 @@
 }
 
 .text-input {
-    border: solid 2px black;
+    border: solid 0.4vh black;
     border-radius: 1vh;
     width: 80%;
     height: 10%;
     color: #414141;
     background-color: #B9BDF5;
     text-align: center;
-    font-size: 2vh;
 }
 
 .text-input::placeholder{
     color: #414141;
-    font-size: 2vh;
+    font-size: 3vh;
     font-weight: 600;
 }
-
-
 
 .password-checklist, .username-checklist{
     position: absolute;
@@ -78,7 +75,7 @@
     transform: translateY(2vh);
     transition: .5s ease;
     z-index: 100;
-    border: 2px #ffffff solid;
+    border: 0.4vh #ffffff solid;
     display: flex;
     flex-direction: column;
     gap: 1vh;
@@ -147,15 +144,13 @@
     gap: 1vh;
     justify-content: center;
     align-items: start;
-    /* background-color: aqua; */
 }
 
 .list-item, .username-item{
-    transform: translatey(-2px);
+    transform: translatey(-0.2vh);
 }
 
 .first-rule{
-    /* background-color: red; */
     width: 100%;
     height: 30%;
     display: flex;
@@ -184,46 +179,15 @@
     font-size: 2vh;
 }
 
-
 .checklist-line {
     margin-left: 1vw;
     opacity: 0;
     width: 0;
-    height: 1px;
+    height: 0.1vh;
     background-color: #C48AF7;
     transform: translateY(-1vh);
     transition: width 1s ease, opacity 0.3s ease;
 }
-
-/* .first_line{
-    transition: 1s ease;
-    width: 88%;
-}
-
-.second-line{
-    transition: 1s ease;
-    width: 92%;
-}
-
-.third-line{
-    transition: 1s ease;
-    width: 90%;
-} */
-/* .list-item::before{
-    color: #C48AF7;
-    display: inline-block;
-    margin: 8px 8px;
-    margin-left: -30px;
-    width: 20px;
-    font-size: 12px;
-} */
-
-
-
-/* .list-item.checked::before{
-    content: "✓";
-    color: aqua;
-} */
 
 .password-container, .sua{
     position: relative;
@@ -241,8 +205,8 @@
     position: absolute;
     right: 5%;
     z-index: 103;
-    width: 2vh;
-    height: 2vh;
+    width: 1.5vw;
+    height: 3vh;
 }
 
 #eye2{
@@ -254,7 +218,7 @@
 }
 
 .send-data{
-    border: solid 1px black;
+    border: solid 0.2vh black;
     border-radius: 1vh;
     width: 80%;
     height: 5vh;
@@ -301,7 +265,7 @@ input[type='radio']::before {
   border-radius: 50%;
   transform: translate(-50%, -50%);
   background-color: #8AF7D4;
-  border: 2px solid rgb(0, 0, 0);
+  border: 0.4vh solid rgb(0, 0, 0);
 }
 
 input[type='radio']:checked::after {
@@ -313,7 +277,7 @@ input[type='radio']:checked::after {
   height: 2vh;
   border-radius: 50%;
   background-color: #B9BDF5;
-  border: 2px solid rgb(0, 0, 0);
+  border: 0.4vh solid rgb(0, 0, 0);
   transform: translate(-50%, -50%);
   visibility: visible;
 }
@@ -327,13 +291,13 @@ input[type='radio']:checked::after {
 .bonuses{
     position: relative;
     display: flex;
-    gap: 1vh;
+    gap: 0.5vw;
 }
 
 .bonus{
     width: 10vh;
     height: 10vh;
-    border: 1px solid #C48AF7;
+    border: 0.2vh solid #C48AF7;
     border-radius: 2vh;
     background-color: #343434;
 }
@@ -343,7 +307,7 @@ input[type='radio']:checked::after {
     width: 100%;
     height: 100%;
     background-color: #b9bdf5b0;
-    filter: blur(2vh);
+    filter: blur(10vh);
 }
 
 .b1{
@@ -418,91 +382,3 @@ img:hover {
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
-
-
-
-/* @media (max-height: 700px){
-    .registration{
-        overflow-y: scroll;
-        gap: 10px;
-    }
-    .img-avatar .avatar{
-        display: none;
-    }
-}
-
-@media (max-width: 900px){
-    .content-registration{
-        padding: 50px 10px;
-        height: auto;
-    }
-    .registration{
-        width: 80%;
-    }
-}
-
-@media(max-width: 1370px){
-
-    .robot-glowing-area{
-        display: none;
-    }
-} */
-/* @media (max-height: 100px){
-
-    .registration{
-        overflow-y: scroll;
-        gap: 10px;
-    }
-    .img-avatar .avatar{
-        display: none;
-    }
-}
-
-@media (max-width: 900px){
-    .content-registration{
-        padding: 50px 10px;
-        height: auto;
-    }
-    .registration{
-        width: 80%;
-    }
-    .password-container .text-input, .sua .text-input{
-        width: 100%;
-        height: 40px;   
-    }
-    .text-input {
-        width: 80%;
-        height: 40px;
-
-    }
-}
-
-@media(max-width: 1370px){
-    .robot{
-        display: flex;
-        width: 60px;
-        height: 80px;
-        right: 10px;
-    }
-    .robot-glowing-area{
-        display: none;
-    }
-}
-
-@media(max-width: 600px){
-    .password-container .text-input, .sua .text-input{
-        width: 100%;
-        height: 40px;   
-    }
-    .text-input {
-        width: 80%;
-        height: 40px;
-
-    }
-    .robot{
-        display: flex;
-        width: 40px;
-        height: 60px;
-        right: 10px;
-    }
-} */

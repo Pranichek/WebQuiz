@@ -7,7 +7,7 @@ body{
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 71px;
+    gap: 7vh;
 }
 
 main{
@@ -20,7 +20,7 @@ main{
     position: absolute;
     bottom: 0;
     right: 0;
-    margin: 10px;
+    margin: 1vh;
     z-index: 2;
     display: none;
 }

@@ -69,7 +69,7 @@ header{
     flex-direction: row;
     background-color: #343434;
     gap: 1vw;
-    padding: 1vh;
+    padding: 1.5vh;
     overflow: hidden;
     align-items: center;
     justify-content: start;
@@ -88,9 +88,9 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 10vh;
-    height: 10vh;
-    border: 1px black solid;
+    width: 7vh;
+    height: 7vh;
+    border: 0.1vh black solid;
     border-radius: 50%;
     overflow: hidden;
     display: flex;
@@ -101,6 +101,11 @@ header{
 .username{
     font-size: 3vh;
     color: #ffffff;
+}
+
+#own-pet{
+    width: 5vh;
+    height: 5vh;
 }
 
 .antoher-data{
@@ -205,7 +210,7 @@ input::-webkit-inner-spin-button {
 .show-more .show-more-link{
     background-color: #C48AF7;
     color: #ffffff;
-    border-radius: 1vh;
+    border-radius: 0.5vh;
     text-decoration: none;
     margin: 1vh;
     padding: 1vh;
@@ -217,7 +222,7 @@ input::-webkit-inner-spin-button {
 .tests-topic{
     background-color: #7291B8;
     color: #ffffff;
-    border-radius: 1vh;
+    border-radius: 0.5vh;
     text-decoration: none;
     margin: 1vh;
     padding: 1vh;

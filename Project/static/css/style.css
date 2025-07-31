@@ -36,6 +36,10 @@ header{
     padding: 0 2vw;
 }
 
+header p{
+    font-size: 3vh;
+}
+
 nav {
     display: flex;
     align-items: center;
@@ -44,7 +48,7 @@ nav {
 .nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
     background-color: #C48AF7;
     color: #ffffff;
-    border-radius: 1vh;
+    border-radius: 0.5vh;
     text-decoration: none;
     margin: 1vh;
     padding: 1vh;
@@ -124,7 +128,8 @@ nav {
 }
 
 .links hr{
-    width: 10vw;
+    width: 12vw;
+    height: 0.1vh;
 }
 
 .sidebar-robot{
