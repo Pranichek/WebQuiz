@@ -69,12 +69,17 @@
                         <img class="avatar" data-size="{{ user.size_avatar }}" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
                     </div>
                     <a class="nick" href="/profile">{{ user.username }}</a>
+                    
+                    <img id="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/1.png') }}" alt="pet">
+
+                    {% if user.user_profile.pet_id %}
+                        <img id="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/' ~ user.user_profile.pet_id ~ '.png') }}" alt="pet">
+                    {% endif %}
                 </div>
                 <div class="antoher-data">
                     <p class="gmail">{{ user.email }}</p>
                     <div class="tests-data">
                         <p class="text-tests">пройдені тести: <p class="number-tests">0</p></p>
-                        <img class= "bonuses" src="{{ url_for('home.static', filename='images/home_auth/bonuses.png') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -123,7 +128,6 @@
                         <label class="change-photo" onclick="loadIMage()" for="file">змінити зозображення</label>
                         <input id="file-upload" name="file" type="file" class="get_photo" onchange="submitForm()">
                     </form>
-                    <!-- <button class="change-photo" type="submit">змінити зозображення </button> -->
                 </form>
             </div>
             <div class="second_part">
@@ -135,7 +139,7 @@
                     <!-- тут скрытый инпут, чтобы при пост запросе на бек мы могли получить значени что ввел пользователь -->
                     <input type="range" name="hide-size" class="hide-size" min="90" max="200" value="100">
                     <input type="text" name="check_form" class = "check_name" value = "apply_image">
-                    <button class="apply" type="submit">застосувати зображення</button>
+                    <button class="apply " type="submit">застосувати зображення</button>
                 </form>
             </div>
         </div>

@@ -26,9 +26,7 @@
                 </div>
                 <a class="nick" href="/profile">{{ user.username }}</a>
                 {% if user.user_profile.pet_id %}
-                    <!-- <div class="pet1"> -->
                     <img id="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/' ~ user.user_profile.pet_id ~ '.png') }}" alt="pet">
-                    <!-- </div> -->
                 {% endif %}
             </div>
             <div class="antoher-data">
