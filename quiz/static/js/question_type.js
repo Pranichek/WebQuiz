@@ -102,6 +102,22 @@ for (let inputul of ulTypes){
                 textType.style.display = "flex";
                 blocks.style.display = "flex";
                 inputType.style.display = "none";
+
+                let count = 0
+                let answers = document.querySelectorAll(".answer")
+                let tickCircleList = document.querySelectorAll(".tick-circle")
+                for (let tick of tickCircleList){
+                    if (tick.style.display == "flex"){
+                        count += 1
+                    }
+                }
+
+                if (count == 0){
+                    let input = document.getElementById("1") 
+                    let tick = document.querySelector(`.tick-circle[id="1"]`)
+                    tick.style.display = "flex"
+                    input.classList.add("correct")
+                }
             }
         }
     )

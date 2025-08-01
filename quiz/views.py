@@ -65,11 +65,18 @@ def render_test():
 
             images_directory = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
 
+            max = int(os.listdir(images_directory)[0])
+
+            for path in os.listdir(images_directory):
+                if int(path) > max:
+                    max = int(path)
+
             if exists(images_directory):
                 images = os.listdir(images_directory)
-                if len_questions < len(images):
-                    for i in range(len_questions, len_questions + (len(images) - len_questions)):
-                        shutil.rmtree(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(i + 1))))
+                if len_questions < max:
+                    for i in range(len_questions, len_questions + (max - len_questions)):
+                        if exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(i + 1)))):
+                            shutil.rmtree(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(i + 1))))
 
 
             test = Test(
@@ -212,14 +219,17 @@ def render_create_question():
         if not exists(path):
             os.mkdir(path=path)
 
-        for image in image_answers:
-            if image:
-                path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number) , str(image_answers.index(image) + 1)))
+        questions_types = flask.request.cookies.get("typeQuestions").encode('raw_unicode_escape').decode('utf-8')
+        current_type = questions_types.split("?$?")[-1]
+        if (current_type == "one-answer" or current_type == "many-answers"):
+            for image in image_answers:
+                if image:
+                    path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number) , str(image_answers.index(image) + 1)))
 
-                if not exists(path):
-                    os.mkdir(path)
+                    if not exists(path):
+                        os.mkdir(path)
 
-                image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number) , str(image_answers.index(image) +1 ), str(image.filename))))
+                    image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number) , str(image_answers.index(image) +1 ), str(image.filename))))
                                
         
         return flask.redirect("/test")
@@ -235,6 +245,20 @@ def render_select_way():
 @login_decorate
 def render_change_question(pk: int):
     if flask.request.method == "POST":
+        questions_types = flask.request.cookies.get("typeQuestions").encode('raw_unicode_escape').decode('utf-8')
+        current_type = questions_types.split("?$?")[pk]
+
+        if (current_type != "one-answer" or current_type != "many-answers"):
+            dir_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+            if exists(dir_path):
+                for dir in os.listdir(dir_path):
+                    if dir in ["1", "2", "3", "4"]:
+                        current_dir = join(dir_path, dir)
+                        shutil.rmtree(current_dir)
+            else:
+                os.mkdir(dir_path)
+
+
         # загруженные картинки
         image_answers = []
         img_answer1 = flask.request.files["image1"]
@@ -370,17 +394,14 @@ def render_change_question(pk: int):
             for answer in answers_list:
                 answer = answer.replace("(?%", "")
                 answer = answer.replace("%?)", "")
-                if answer[0] == "+":
-                    correctAnswers.append("correct")
-                else:
-                    correctAnswers.append("not")
-                answer = answer[1:-1]
-                answers.append(answer)
-            while True:
-                if len(answers) < 4:
-                    answers.append("hidden")
-                else:
-                    break
+                if (len(answer) > 0):
+                    if answer[0] == "+":
+                        correctAnswers.append("correct")
+                    else:
+                        correctAnswers.append("not")
+                    answer = answer[1:-1]
+                    answers.append(answer)
+
 
 
     image_question = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
@@ -393,7 +414,7 @@ def render_change_question(pk: int):
                 if image not in ["1", "2", "3", "4"]:
                     exists_image = True
                     image_url = join("userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1), image)
-                    
+
     
     
 
@@ -418,13 +439,13 @@ def render_change_question(pk: int):
     return flask.render_template(
         template_name_or_list = "change_question.html",
         question = current_question,
-        answer1 = answers[0],
-        answer2 = answers[1],
-        answer3 = answers[2],
-        answer4 = answers[3],
+        answer1 = answers[0] if len(answers) > 0 else "",
+        answer2 = answers[1] if len(answers) > 1 else "",
+        answer3 = answers[2] if len(answers) > 2 else "",
+        answer4 = answers[3] if len(answers) > 3 else "",
         answers_gap = answers,
-        correct1 = correctAnswers[0],
-        correct2 = correctAnswers[1],
+        correct1 = correctAnswers[0] if len(correctAnswers) > 0 else "",
+        correct2 = correctAnswers[1] if len(correctAnswers) > 1 else "",
         correct3 = correctAnswers[2] if len(correctAnswers) > 2 else "not",
         correct4 = correctAnswers[3] if len(correctAnswers) > 3 else "not",
         time = current_time,

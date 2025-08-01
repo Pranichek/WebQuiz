@@ -25,25 +25,30 @@ addButton.addEventListener(
 
         paragraph.addEventListener('click', () => {
             let idParagraph = paragraph.id
-                for (let el of list.childNodes){
-                    if (el.id == idParagraph){
-                        list.removeChild(el)
-                        
-                        let updatedData = []
-                        for (let el of list.childNodes) {
-                            if (el.className === "input-variant") {
-                                updatedData.push(el.textContent);
-                            }
+            let paragraphs = document.querySelectorAll(".input-variant")
+            
+            for (let el of list.childNodes){
+                if (el.id == idParagraph){
+                    list.removeChild(el)
+                    
+                    let updatedData = []
+                    for (let el of list.childNodes) {
+                        if (el.className === "input-variant") {
+                            updatedData.push(el.textContent);
                         }
-                        
+                    }
+                    
 
-                        for (let i = 0; i < list.childElementCount; i++){
-                            list.children[i].id = `${i}`;
-                        }
-
+                    for (let i = 0; i < list.childElementCount; i++){
+                        list.children[i].id = `${i}`;
+                    }
+                    if (!document.querySelector(".change_type")){
                         localStorage.setItem("input-data", updatedData.join(" "));
                     }
+                    break;
                 }
+            
+            }
         })
 
         let savedData = localStorage.getItem("input-data")
@@ -53,8 +58,9 @@ addButton.addEventListener(
         } else {
             savedData = inputText
         }
-
-        localStorage.setItem("input-data", savedData)
+        if (!document.querySelector(".change_type")){
+            localStorage.setItem("input-data", savedData)
+        }
 
         data.value = ""
 
@@ -65,7 +71,8 @@ addButton.addEventListener(
 window.addEventListener(
     'DOMContentLoaded',
     () => {
-        let data = localStorage.getItem("input-data")
+        if (!document.querySelector(".change_type")){
+            let data = localStorage.getItem("input-data")
         if (data){
             let dataArray = data.split(" ")
             const list = document.querySelector(".list")
@@ -78,30 +85,63 @@ window.addEventListener(
                 list.appendChild(paragraph)
                 paragraph.addEventListener('click', () => {
                     let idParagraph = paragraph.id
+                    
                     for (let el of list.childNodes){
-                        if (el.id == idParagraph){
-                            list.removeChild(el)
+                    if (el.id == idParagraph){
+                        list.removeChild(el)
 
-                            let updatedData = []
-                            for (let el of list.childNodes) {
-                                if (el.className === "input-variant") {
-                                    updatedData.push(el.textContent);
-                                }
+                        let updatedData = []
+                        for (let el of list.childNodes) {
+                            if (el.className === "input-variant") {
+                                updatedData.push(el.textContent);
                             }
+                        }
 
-                            for (let i = 0; i < list.childElementCount; i++){
-                                list.children[i].id = `${i}`;
-                            }
-
+                        for (let i = 0; i < list.childElementCount; i++){
+                            list.children[i].id = `${i}`;
+                        }
+                        if (!document.querySelector(".change_type")){
                             localStorage.setItem("input-data", updatedData.join(" "));
                         }
-                    }
+
+                        break;
+
+                        }
+                        }
+                        
+                    })
                 })
-            })
-            
-            
+            }
         }
     }
 )
 
 
+// удаление когда пользователь хчоет изменить вопрос
+let paragraphs = document.querySelectorAll(".input-variant")
+
+for (let paragraph of paragraphs){
+    paragraph.addEventListener(
+        'click',
+        () => {
+            const list = document.querySelector(".list");
+            let paragraphs = document.querySelectorAll(".input-variant");
+            for (let el of list.childNodes) {
+                if (el.id == paragraph.id) {
+                    list.removeChild(el);
+
+                    // Update IDs
+                    for (let i = 0; i < list.childElementCount; i++) {
+                        list.children[i].id = `${i}`;
+                    }
+
+                    if (!document.querySelector(".change_type")) {
+                        localStorage.setItem("input-data", updatedData.join(" "));
+                    }
+                    break;
+                }
+            }
+            
+        }
+    )
+}

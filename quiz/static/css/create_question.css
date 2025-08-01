@@ -120,12 +120,9 @@ body .main{
     display: flex;
     width: 100%;
     height: 70%;
-    background-color: #c591f6;
     border-radius: 5px;
     border: 0px;
-    color: #ffff;
     cursor: pointer;
-    font-family: 'Inter', sans-serif;
     font-weight: 500;
     font-size: 20px;
     text-decoration: none;
@@ -198,11 +195,6 @@ body .main{
     background-color: #8daed6;
 }
 
-.grey{
-    background-color: #636262;
-    color: #343434;
-}
-
 
 
 .question{
@@ -262,6 +254,7 @@ body .main{
     border-radius: 5px;
     background-color: #343434;
     text-align: center;
+    margin-bottom: 1vh;
 }
 
 h3{

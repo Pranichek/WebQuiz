@@ -17,7 +17,6 @@ function settingsAddButton(){
             count++
         }
     }
-    console.log(count, "hahah")
     if (buttonPlus){
         if (count == 0){
             buttonPlus.style.display = "none"

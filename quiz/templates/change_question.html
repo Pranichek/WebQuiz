@@ -69,9 +69,9 @@
             <p style="display: none;" id="pk">{{ pk }}</p>
             <input type="text" class="question" name="question" id="question" placeholder="Введіть питання" value="{{ question }}" required>
 
-                {% if exists_image == True or exists_image == true %}
+                {% if exists_image %}
                     <label class="add-image">Змінити зображення<input type="file" id="imgInput" name="image" accept="image/*" onchange="imageLoaded(event);" style="display:none;"></label>
-                    <div class="is-image" style="display: display;" id="deleteImgButton">
+                    <div class="is-image" style="display: block;" id="deleteImgButton">
                         <p class="img-success">Зображення успішно додано</p>
                         <label class="add-image">Видалити зображення<input type="button" onclick="deleteImage(event);" style="display:none;"></label>
                     </div>
@@ -110,13 +110,13 @@
 
                 <div class="inside-data" id="1">
                     {% if list_checks[0] == "delete" %}
-                        <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {{ correct1 }} first_input" name="answer" id="1" value="{{ answer1 }}" placeholder="Відповідь">{% if answer1 != "image?#$?image" %}{{ answer1 }}{% endif %}</textarea>
+                        <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {{ correct1 if current_type == 'one-answer' or current_type == 'many-answers' else '' }} first_input" name="answer" id="1"  value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer1 }}{% endif %}"placeholder="Відповідь">{% if answer1 != "image?#$?image" and current_type == "one-answer" or current_type == "many-answers" %}{{ answer1 }}{% endif %}</textarea>
 
                         <div class="for-image">
-                            <img src="{{ list_urls[0] }}" alt="">
+                            <img src="{{ list_urls[0]  }}" alt="">
                         </div>
                     {% else %}
-                        <textarea maxlength="85" type="text" class="answer {{ correct1 }} first_input" name="answer" id="1" value="{{ answer1 }}" placeholder="Відповідь">{% if answer1 != "image?#$?image" %}{{ answer1 }}{% endif %}</textarea>
+                        <textarea maxlength="85" type="text" class="answer {{ correct1 if current_type == 'one-answer' or current_type == 'many-answers' else '' }} first_input" name="answer" id="1" value="{{ answer1 if current_type == 'one-answer' or current_type == 'many-answers' else '' }}" placeholder="Відповідь">{% if answer1 != "image?#$?image" and current_type == "one-answer" or current_type == "many-answers" %}{{ answer1 }}{% endif %}</textarea>
 
                     {% endif %}
                 </div>
@@ -144,13 +144,13 @@
                 <div class="inside-data" id="2">
                 
                     {% if list_checks[1] == "delete" %}
-                        <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {{ correct2 }} first_input" name="answer" id="2" value="{{ answer2 }}" placeholder="Відповідь">{% if answer2 != "image?#$?image" %}{{ answer2 }}{% endif %}</textarea>
+                        <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct2 }}{% endif %} first_input" name="answer" id="2" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer2 }}{% endif %}" placeholder="Відповідь">{% if answer2 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer2 }}{% endif %}</textarea>
 
                         <div class="for-image">
                             <img src="{{ list_urls[1] }}" alt="">
                         </div>
                     {% else %}
-                        <textarea maxlength="85" type="text" class="answer {{ correct2 }} first_input" name="answer" id="2" value="{{ answer2 }}" placeholder="Відповідь">{% if answer2 != "image?#$?image" %}{{ answer2 }}{% endif %}</textarea>
+                        <textarea maxlength="85" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct2 }}{% endif %} first_input" name="answer" id="2" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer2 }}{% endif %}" placeholder="Відповідь">{% if answer2 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer2 }}{% endif %}</textarea>
 
                     {% endif %}
 
@@ -161,8 +161,8 @@
                 </div>
                 <div class="load_image" id="2">
                     {% if list_checks[1] == "load" %}
-                        <img class="small-img load_img" id="2" data-state="{{ list_checks[1] }}" src="{{ url_for('test_pass.static', filename='images/load_image.svg') }}" alt="">
-                        <img class="small-img load_img invisible" id="2" data-state="{{ list_checks[1] }}"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
+                        <img class="small-img load_img" id="2" data-state="{% if list_checks[1] %}{{ list_checks[1] }}{% else %}default{% endif %}" src="{{ url_for('test_pass.static', filename='images/load_image.svg') }}" alt="">
+                        <img class="small-img load_img invisible" id="2" data-state="{% if list_checks[1] %}{{ list_checks[1] }}{% else %}default{% endif %}"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
                     {% else %}
                         <img class="small-img load_img invisible" id="2" data-state="{{ list_checks[1] }}" src="{{ url_for('test_pass.static', filename='images/load_image.svg') }}" alt="">
                         <img class="small-img load_img" id="2" data-state="{{ list_checks[1] }}"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
@@ -170,33 +170,28 @@
 
                 </div>
             </div>
-
-            {% if answer3 != "hidden" %}
+            {% if answer3 != "hidden" and current_type == "one-answer" or answer3 != "hidden" and  current_type == "many-answers" %}
                 <div class="answer-block" id="3">
                     <div class="detector" id="3">
                         <img style="display: none;" id="3" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
                     </div>
-
                     <div class="inside-data" id="3">
-                        
                         {% if list_checks[2] == "delete" %}
-                            <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {{ correct3 }} first_input" name="answer" id="3" value="{{ answer3 }}" placeholder="Відповідь">{% if answer3 != "image?#$?image" %}{{ answer3 }}{% endif %}</textarea>
-
+                            <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct3 }}{% endif %} first_input" name="answer" id="3" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer3 }}{% endif %}" placeholder="Відповідь">{% if answer3 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer3 }}{% endif %}</textarea>
                             <div class="for-image">
                                 <img src="{{ list_urls[2] }}" alt="">
                             </div>
                         {% else %}
-                            <textarea maxlength="85" type="text" class="answer {{ correct3 }} first_input" name="answer" id="3" value="{{ answer3 }}" placeholder="Відповідь">{% if answer3 != "image?#$?image" %}{{ answer3 }}{% endif %}</textarea>
+                            <textarea maxlength="85" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct3 }}{% endif %} first_input" name="answer" id="3" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer3 }}{% endif %}" placeholder="Відповідь">{% if answer3 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer3 }}{% endif %}</textarea>
                         {% endif %}
                     </div>
                     <div class="delete-answer" id="3">
                         <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.svg') }}" alt="">
                     </div>
-
                     <div class="load_image" id="3">
                         {% if list_checks[2] == "load" %}
-                            <img class="small-img load_img" id="3" data-state="{{ list_checks[2] }}" src="{{ url_for('test_pass.static', filename='images/load_image.svg') }}" alt="">
-                            <img class="small-img load_img invisible" id="3" data-state="{{ list_checks[2] }}"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
+                            <img class="small-img load_img" id="3" data-state="{% if list_checks[2] %}{{ list_checks[2] }}{% else %}default{% endif %}" src="{{ url_for('test_pass.static', filename='images/load_image.svg') }}" alt="">
+                            <img class="small-img load_img invisible" id="3" data-state="{% if list_checks[2] %}{{ list_checks[2] }}{% else %}default{% endif %}"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
                         {% else %}
                             <img class="small-img load_img invisible" id="3" data-state="{{ list_checks[2] }}" src="{{ url_for('test_pass.static', filename='images/load_image.svg') }}" alt="">
                             <img class="small-img load_img" id="3" data-state="{{ list_checks[2] }}"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
@@ -214,49 +209,39 @@
                     <div class="delete-answer" id="3">
                         <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.svg') }}" alt="">
                     </div>
-
                     <div class="load_image" id="3">
                         <img class="small-img load_img" id="3" data-state="{{ list_checks[2] }}" src="{{ url_for('test_pass.static', filename='images/load_image.svg') }}" alt="">
                         <img class="small-img load_img invisible" id="3" data-state="{{ list_checks[2] }}"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
-
                     </div>
                 </div>
             {% endif %}
-            
-            {% if answer4 != "hidden" %}
+
+            {% if answer4 != "hidden" and current_type == "one-answer" or answer4 != "hidden" and  current_type == "many-answers" %}
                 <div class="answer-block" id="4">
                     <div class="detector" id="4">
                         <img style="display: none;" id="4" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
                     </div>
-                    
-                    <div class="delete-answer" id="4">
-                        <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.svg') }}" alt="">
-                    </div>
-
                     <div class="inside-data" id="4">
                         {% if list_checks[3] == "delete" %}
-                            <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {{ correct4 }} first_input" name="answer" id="4" value="{{ answer4 }}" placeholder="Відповідь">{% if answer4 != "image?#$?image" %}{{ answer4 }}{% endif %}</textarea>
-
+                            <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct4 }}{% endif %} first_input" name="answer" id="4" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer4 }}{% endif %}" placeholder="Відповідь">{% if answer4 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer4 }}{% endif %}</textarea>
                             <div class="for-image">
                                 <img src="{{ list_urls[3] }}" alt="">
                             </div>
                         {% else %}
-                            <textarea maxlength="85" type="text" class="answer {{ correct4 }} first_input" name="answer" id="4" value="{{ answer4 }}" placeholder="Відповідь">{% if answer4 != "image?#$?image" %}{{ answer4 }}{% endif %}</textarea>
+                            <textarea maxlength="85" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct4 }}{% endif %} first_input" name="answer" id="4" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer4 }}{% endif %}" placeholder="Відповідь">{% if answer4 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer4 }}{% endif %}</textarea>
                         {% endif %}
                     </div>
-
                     <div class="delete-answer" id="4">
                         <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.svg') }}" alt="">
                     </div>
                     <div class="load_image" id="4">
                         {% if list_checks[3] == "load" %}
-                            <img class="small-img load_img" id="4" data-state="{{ list_checks[3] }}" src="{{ url_for('test_pass.static', filename='images/load_image.svg') }}" alt="">
-                            <img class="small-img load_img invisible" id="4" data-state="{{ list_checks[3] }}"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
+                            <img class="small-img load_img" id="4" data-state="{% if list_checks[3] %}{{ list_checks[3] }}{% else %}default{% endif %}" src="{{ url_for('test_pass.static', filename='images/load_image.svg') }}" alt="">
+                            <img class="small-img load_img invisible" id="4" data-state="{% if list_checks[3] %}{{ list_checks[3] }}{% else %}default{% endif %}"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
                         {% else %}
                             <img class="small-img load_img invisible" id="4" data-state="{{ list_checks[3] }}" src="{{ url_for('test_pass.static', filename='images/load_image.svg') }}" alt="">
                             <img class="small-img load_img" id="4" data-state="{{ list_checks[3] }}"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
                         {% endif %}
-
                     </div>
                 </div>
             {% else %}
@@ -273,7 +258,6 @@
                     <div class="load_image" id="4">
                         <img class="small-img load_img" id="4" data-state="{{ list_checks[3] }}" src="{{ url_for('test_pass.static', filename='images/load_image.svg') }}" alt="">
                         <img class="small-img load_img invisible" id="4" data-state="{{ list_checks[3] }}"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
-
                     </div>
                 </div>
             {% endif %}
@@ -299,9 +283,11 @@
                 <p class="list-text">Можливі варіанти відповіді:</p>
                 
                 <div class="list">
-                    {% for answer in answers_gap %}
-                        <p id="{{ loop.index0 }}" class="input-variant">{{ answer }}</p>
-                    {% endfor %}
+                    {% if current_type == "input-gap" %}
+                        {% for answer in answers_gap %}
+                            <p id="{{ loop.index0 }}" class="input-variant">{{ answer }}</p>
+                        {% endfor %}
+                    {% endif %}
                 </div>
             </div>
 
@@ -312,17 +298,16 @@
 
 {% block scripts %}
     {{ super() }}
-    <script src="{{ url_for('test_pass.static', filename='js/changeQuestionCookies.js') }}" defer></script>
-    <script src="{{ url_for('test_pass.static', filename='js/addQuestion.js') }}" defer></script>
-    <script src="{{ url_for('test_pass.static', filename='js/timer.js') }}" defer></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/answers_scaning.js') }}" ></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/changeQuestionCookies.js') }}" > </script>
+    <script src="{{ url_for('test_pass.static', filename='js/addQuestion.js') }}" ></script> 
+    <script src="{{ url_for('test_pass.static', filename='js/timer.js') }}" ></script>
     <script src="{{ url_for('test_pass.static', filename='js/addQuestionImage.js') }}"></script>
     <script type="module" src="{{ url_for('test_pass.static', filename='js/question_type.js') }}"></script>
-    <script type="module" src="{{ url_for('test_pass.static', filename='js/load_images.js') }}" defer></script>
-    <script src="{{ url_for('test_pass.static', filename='js/change_check.js') }}" defer></script>
-    <script src="{{ url_for('test_pass.static', filename='js/inputType.js') }}" defer></script>
-
-
-
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/load_images.js') }}" ></script>
+    <script src="{{ url_for('test_pass.static', filename='js/change_check.js') }}" ></script>
+    <script src="{{ url_for('test_pass.static', filename='js/inputType.js') }}" ></script>
+    
 
     <script src="{{ url_for('test_pass.static', filename='js/one_answer.js') }}" type="module"></script>
 {% endblock %}

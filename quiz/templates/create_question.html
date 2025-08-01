@@ -186,15 +186,17 @@
 {% endblock %}
 
 {% block scripts %}
-    <script type="module" src="{{ url_for('test_pass.static', filename='js/createQuestionCookies.js') }}" defer></script>
-    <script src="{{ url_for('test_pass.static', filename='js/addQuestion.js') }}" defer></script>
-    <script type="module" src="{{ url_for('test_pass.static', filename='js/correctQuestion.js') }}" defer></script>
-    <script src="{{ url_for('test_pass.static', filename='js/timer.js') }}" defer></script>
-    <script src="{{ url_for('test_pass.static', filename='js/addQuestionImage.js') }}" defer></script>
-    <script type="module" src="{{ url_for('test_pass.static', filename='js/question_type.js') }}" defer></script>
-    <script type="module" src="{{ url_for('test_pass.static', filename='js/load_images.js') }}" defer></script>
-    <script src="{{ url_for('test_pass.static', filename='js/inputType.js') }}" defer></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/answers_scaning.js') }}" ></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/createQuestionCookies.js') }}" ></script>
+    <script src="{{ url_for('test_pass.static', filename='js/addQuestion.js') }}" ></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/correctQuestion.js') }}" ></script>
+    <script src="{{ url_for('test_pass.static', filename='js/timer.js') }}" ></script>
+    <script src="{{ url_for('test_pass.static', filename='js/addQuestionImage.js') }}" ></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/question_type.js') }}" ></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/load_images.js') }}" ></script>
+    <script src="{{ url_for('test_pass.static', filename='js/inputType.js') }}" ></script>
+    
 
     <!-- файли де знаходять функції для кожного типу питання -->
-     <script src="{{ url_for('test_pass.static', filename='js/one_answer.js') }}" type="module" defer></script>
+     <script src="{{ url_for('test_pass.static', filename='js/one_answer.js') }}" type="module" ></script>
 {% endblock %}

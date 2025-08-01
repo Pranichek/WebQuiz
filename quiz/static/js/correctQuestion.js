@@ -1,5 +1,5 @@
 // Файл який перевіряє яка відповдь є правильною чи ні
-import { answerScanning } from './createQuestionCookies.js';
+import { answerScanning } from './answers_scaning.js';
 
 
 // Беремо усі відповідь на питання по класу answer"
@@ -26,14 +26,26 @@ for (let detector of detectorList){
         let input = document.getElementById(detector_id) 
         let tick = document.querySelector(`.tick-circle[id="${detector_id}"]`)
 
+        
+
         if (type_question !== "one-answer") {
-            if (input.classList.contains("correct")) {
+            let count = 0
+            let answers = document.querySelectorAll(".answer")
+            for (let tick of tickCircleList){
+                if (tick.style.display == "flex"){
+                    count += 1
+                }
+            }
+
+            if (count > 1 && input.classList.contains("correct")){
                 tick.style.display = "none"
                 input.classList.remove("correct")
-            } else {
+                console.log("kak")
+            } else  {
                 tick.style.display = "flex"
                 input.classList.add("correct")
             }
+
         } else {
             for (let inp of inputList) {
                 inp.classList.remove("correct")
@@ -55,9 +67,9 @@ function corretIndexes(){
     let indexes = []
     let checkCorrectList = document.querySelectorAll(".tick-circle")
 
-    for (let input of checkCorrectList){
-        if (input.style.display == "flex"){
-            indexes.push(input.id)
+    for (let tick of checkCorrectList){
+        if (tick.style.display == "flex"){
+            indexes.push(tick.id)
         }
     }
     localStorage.setItem("rightIndexes", indexes.join(" "))
@@ -74,7 +86,6 @@ window.addEventListener(
         if(correctindexes !== null){
             let lsitIndexes = correctindexes.split(" ")
             
-
             checkCorrectList.forEach(
             (input, index) => {
                     if (lsitIndexes.includes(input.id)){

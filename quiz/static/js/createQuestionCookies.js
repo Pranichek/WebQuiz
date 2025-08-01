@@ -1,3 +1,5 @@
+import { answerScanning } from "./answers_scaning.js"
+
 const button = document.getElementById("save");
 const question = document.querySelector("#question");
 const inputImg = document.getElementById("imgInput");
@@ -8,54 +10,21 @@ let questions;
 let timeC;
 let validAnswersFlag = false;
 
-function buttonColorChanging(){
-    if (button.type == "button"){
-        button.classList.add("grey");
-    }
-}
 
-export function answerScanning(){
-    validAnswersFlag = true;
-    for (let input of answerInputList){
-        if (input.checkVisibility()){
-            button.type = "submit";
-            button.classList.remove("grey");
-            button.classList.add("purple");
-            let parentNode = input.parentNode
-            const checkImage = parentNode.querySelector(".for-image")
-            
-            if (input.value == "" && !checkImage){
-                validAnswersFlag = false;
-            }
-        }
-    }
+// document.addEventListener("DOMContentLoaded", ()=>{
+//     answerScanning();
+// })
 
-    if (validAnswersFlag == false | document.querySelector(".question").value == ""){
-        button.type = "button";
-        button.classList.add("grey");
-        button.classList.remove("purple");
-    } else{
-        button.type = "submit";
-        button.classList.remove("grey");
-        button.classList.add("purple");
-    }
-}
+// document.addEventListener("load", ()=>{
+//     window.click()
+// })
 
-document.addEventListener("DOMContentLoaded", ()=>{
-    buttonColorChanging();
-    answerScanning();
-})
+document.addEventListener("input", answerScanning);
+document.addEventListener("click", answerScanning);
+document.addEventListener("change", answerScanning);
+document.addEventListener("keyup", answerScanning);
+document.addEventListener("DOMContentLoaded", answerScanning);
 
-document.addEventListener("click", ()=>{
-    buttonColorChanging();
-    answerScanning();
-})
-document.addEventListener("keydown", ()=>{
-    buttonColorChanging();
-})
-document.addEventListener("keyup", ()=>{
-    answerScanning();
-})
 
 button.addEventListener("click", ()=>{
     localStorage.removeItem("question");
