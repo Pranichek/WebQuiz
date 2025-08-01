@@ -40,7 +40,7 @@ main{
     align-items: center;
     justify-content: start;
     width: 80vw;
-    height: 170vh;
+    height: 120vh;
     border: 0.1vh #94C4FF solid;
     border-radius: 3vh;
     background-color: #343434;
@@ -71,7 +71,7 @@ main{
     border-radius: 3vh;
     background-color: #464F5B;
     width: 100%;
-    height: 10%;
+    height: 11vh;
     padding-right: 10vw;
     padding-left: 10vw;
 }
@@ -89,7 +89,7 @@ main{
 
 .options-avatar{
     border-radius: 50%;
-    height: 15vh;
+    height: 10vh;
 }
 
 .edit-buttons{
@@ -102,7 +102,7 @@ main{
     border-radius: 3vh;
     background-color: #464F5B;
     width: 100%;
-    height: 40%;
+    padding: 3vh 0 3vh 0;
     padding-left: 10vw;
     padding-right: 10vw;
 }
@@ -111,7 +111,7 @@ main{
     background-color: #343434;
     border: 0.1vh #94C4FF solid;
     width: 100%;
-    height: 25%;
+    height: 10vh;
     border-radius: 1.5vh;
     display: flex;
     justify-content: space-between;
@@ -142,8 +142,8 @@ main{
     flex-direction: column;
     background-color: none;
     border: 0.1vh black solid;
-    width: 33%;
-    height: 90%;
+    width: 35vw;
+    height: 25vh;
     border-radius: 2vh;
     margin-right: 1.5vw;
     margin-left: 6vw;
@@ -160,7 +160,7 @@ main{
     align-items: center;
     justify-content: start;
     width: 100%;
-    height: 40%;
+    height: 16vh;
 }
 
 .avatar-circle{
@@ -169,8 +169,6 @@ main{
     align-items: center;
     width: 7vh;
     height: 7vh;
-    /* width: 25%;
-    height: 100%; */
     border-radius: 50%;
     border: 0.1vh black solid;
     overflow: hidden;
@@ -191,7 +189,7 @@ main{
 }
 
 .username{
-    font-size: 1.7vh;
+    font-size: 1vh;
     color: #ffffff;
 }
 
@@ -200,7 +198,7 @@ main{
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    padding: 1vh 0px 1vh 1.5vw;
+    padding: 0.5vh 0 0.5vh 1.5vw;
     gap: 5vh;
     width: 100%;
     height: 40vh;
@@ -259,8 +257,8 @@ main{
 }
 
 .image img{
-    height: 23vh;
-    width: 23vh;
+    height: 15vh;
+    width: 15vh;
 }
 
 .image-robot {
@@ -331,7 +329,7 @@ main{
     display: flex;
     flex-direction: column;
     margin: 1vh;
-    gap: 25px;
+    gap: 2.5vh;
     width: 100%;
 }
 
@@ -463,7 +461,7 @@ main{
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 10px;
+    gap: 1vw;
 }
 
 .del_current, .change-photo{

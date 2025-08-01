@@ -5,18 +5,18 @@ main{
 form{
     display: flex;
     flex-direction: column;
-    gap: 25px;
-    margin: 50px;
+    gap: 2.5vh;
+    margin: 5vh;
     width: 75%;
 }
 
 .top-block{
     display: flex;
     flex-direction: column;
-    gap: 7px;
+    gap: 0.7vh;
     width: 100%;
-    height: 250px;
-    border-radius: 10px;
+    height: 25vh;
+    border-radius: 1vh;
     background-color: #C7D7EB;
 }
 
@@ -40,7 +40,7 @@ form{
     align-items: center;
     flex-direction: row;
     justify-content: start;
-    gap: 7px;
+    gap: 0.5vw;
     width: fit-content;
     height: 100%;
 }
@@ -52,27 +52,27 @@ form{
     flex-direction: column;
     align-items: start;
     justify-content: start;
-    gap: 10px;
+    gap: 1vh;
     height: 100%;
-    padding-top: 15px;
+    padding-top: 1.5vh;
 }
 
 .test-title-input{
     width: 150%;
     min-width: 5vw;
-    font-size: 24px;
+    font-size: 2.4vh;
     border: none;
     color: #343434;
     background: none;
     background-color: none;
     border: none;
     outline: none;
-    transform: translateY(5px);
+    transform: translateY(0.5vh);
     font-weight: 600;
 }
 
 .under-line {
-    height: 1.5px;
+    height: 0.15vh;
     background-color: #343434;
   }
 
@@ -81,7 +81,7 @@ form{
     position: absolute;
     visibility: hidden;
     white-space: pre;
-    font-size: 24px;
+    font-size: 2.4vh;
     font-weight: 600;
     font-family: inherit;
 }
@@ -93,8 +93,8 @@ form{
     position: relative;
     width: min-content;
     min-width: 120px;
-    font-size: 24px;
-    border-bottom: 1px solid #343434;
+    font-size: 2.4vh;
+    border-bottom: 0.1vh solid #343434;
 }
   .input-sizer.stacked {
 
@@ -119,16 +119,16 @@ form{
     position: absolute;
     top: 10vh;
     left: 5vw;
-    padding: 20px 30px;
-    border-radius: 15px;
+    padding: 2vh 2.5vw;
+    border-radius: 1.5vh;
     opacity: 0;
     pointer-events: none;
     transform: translateY(20px);
     transition: .5s ease;
     z-index: 10;
-    border: 2px #ffffff solid;
+    border: 0.2vh #ffffff solid;
     display: flex;
-    gap: 6px;
+    gap: 0.5vw;
     justify-content: center;
     align-items: start;
     background-color: #414141;
@@ -821,239 +821,6 @@ label[for="image"] {
     line-height: 1;
     padding: 0;
 }
-
-@media(max-width: 800px){
-    .gray-block{
-        display: none;
-    }
-}
-
-@media(max-width:720px){
-    
-    .test-title-input{
-        height: 30px;
-        font-size: 17px;
-        border: none;
-        color: #343434;
-        max-width: 150px;
-        margin-left: 9%;
-        background: none;
-        background-color: none;
-        border: none;
-        outline: none;
-        transform: translateY(5px);
-        font-weight: 600;
-    }
-
-    .back-button{
-        background: none;
-        border: none;
-        background-color: none;
-        font-size: 17px;
-        color: #ffffff;
-        font-weight: 500;
-        margin-right: 5px;
-    }
-
-    .under-line{
-        background-color: #343434;
-        width: 51%;
-        height: 1.5px;
-        margin-left: 10px;
-    }
-
-    .creator-email{
-        color: #636262;
-        font-size: 14px;
-    }
-
-
-    .set-name, .watch_test{
-        display: flex;
-        align-items: center;
-        gap: 10px; /* расстояние между иконкой и текстом */
-    
-        padding: 4px 10px;
-        border: 2px black solid;
-        border-radius: 5px;
-        background-color: #ffffff;
-        margin-left: 5px;
-        color: #343434;
-        font-weight: 400;
-    }
-
-    .type-p{
-        padding: 4px 4px;
-        font-size: 12px;
-        font-weight: 400;
-        border-radius: 5px;
-        /* margin-right: 40px; */
-        min-width: 100px;
-        /* margin-left: 10px; */
-        min-height: 30px;
-        align-items: center;
-        text-align: center;
-    }
-
-    .modal-image{
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 520px; 
-        height: 429px;
-    }
-
-    form{
-        /* background-color: aqua; */
-        width: 100%;
-    }
-
-    .load_text{
-        margin-right: 150px;
-    }
-
-    
-    .top-block{
-        display: flex;
-        flex-direction: column;
-        /* padding: 20px; */
-        gap: 7px;
-        width: 100%;
-        height: 250px;
-        /* overflow: hidden; */
-        border-radius: 10px;
-        background-color: #C7D7EB;
-    }
-
-    #timeList li{
-        padding: 6px 10px;
-        font-size: 12px;
-        font-family: 'Inter', sans-serif;
-    }
-
-    .sign{
-        width: 22px;
-        height: 22px;
-    }
-
-    .outline-image{
-        width: 360px;
-        height: 220px;
-    }
-
-    .apply-image{
-        border: none;
-        color: #ffffff;
-        font-size: 15px;
-        padding: 10px;
-        border-radius: 5px;
-        gap: 3px;
-        font-weight: 500;
-        white-space: nowrap; /* не переносити текст */
-        text-align: center;   /* горизонтальне вирівнювання */
-        align-items: center;
-    }
-
-    .buttom-floor{
-        width: 100%;
-        height: 20%;
-        display: flex;
-        flex-direction: row;
-        justify-content: end;
-        align-items: start;
-        /* background-color: #C48AF7; */
-        padding-right: 15px;
-        gap:5px;
-        padding-top: 20px;
-    }
-}      
-
-@media (min-width: 721px) and (max-width: 1000px){
-    form{
-        width: 90%;
-    }
-
-    .load_text{
-        margin-right: 100px;
-    }
-
-    .modal-image{
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 620px; 
-        height: 429px;
-    }
-
-    .outline-image{
-        width: 380px;
-        height: 230px;
-    }
-
-    .set-name, .watch_test{
-        display: flex;
-        align-items: center;
-        gap: 10px; /* расстояние между иконкой и текстом */
-    
-        padding: 4px 10px;
-        border: 2px black solid;
-        border-radius: 5px;
-        background-color: #ffffff;
-        margin-left: 5px;
-        color: #343434;
-        font-weight: 400;
-    }
-
-    #timeList li{
-        padding: 6px 10px;
-        font-size: 15px;
-        font-family: 'Inter', sans-serif;
-    }
-
-    .apply-image{
-        font-size: 18px;
-        white-space: nowrap; /* не переносити текст */
-        text-align: center;   /* горизонтальне вирівнювання */
-        align-items: center;
-    }
-
-    .back-button{
-        margin-right: 10px;
-    }
-
-    .buttom-floor{
-        gap: 5px;
-    }
-}
-
-@media(min-width: 1001px) and (max-width: 1440px){
-    form{
-        width: 85%;
-        /* background-color: green; */
-    }
-}
-
-@media(min-width: 1441px){
-    form{
-        /* background-color: blue; */
-        max-width: 1300px;
-    }
-
-    .all-cards{
-        margin-top: 20px;
-        display: flex;
-        flex-direction: column;
-        gap: 50px;
-        width: 90%;
-        height: fit-content;
-        padding: 40px;
-        border-radius: 30px;
-        background-color: #8ABBF733;
-    }
-}
-
 
 .type {
     position: relative;
