@@ -99,6 +99,7 @@ socket.on("test_result", (data) => {
             if (correctForThisQuestion.length == 1 || correctForThisQuestion.length == count_right) {
                 if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
                     circle.className = "correct-circle";
+
                 } else if (userAnswersForThisQuestion.includes(index) && !correctForThisQuestion.includes(index)) {
                     circle.className = "uncorrect-circle";
                 } else {

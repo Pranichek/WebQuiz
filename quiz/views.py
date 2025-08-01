@@ -351,25 +351,41 @@ def render_change_question(pk: int):
         answers = []
 
         correctAnswers = []
-
-        for answer in answers_list:
-            answer = answer.replace("(?%", "")
-            answer = answer.replace("%?)", "")
-            if answer[0] == "+":
-                correctAnswers.append("correct")
-            else:
-                correctAnswers.append("not")
-            answer = answer[1:-1]
-            answers.append(answer)
-        while True:
-            if len(answers) < 4:
-                answers.append("hidden")
-            else:
-                break
+        if current_type == "one-answer" or current_type == "many-answers":
+            for answer in answers_list:
+                answer = answer.replace("(?%", "")
+                answer = answer.replace("%?)", "")
+                if answer[0] == "+":
+                    correctAnswers.append("correct")
+                else:
+                    correctAnswers.append("not")
+                answer = answer[1:-1]
+                answers.append(answer)
+            while True:
+                if len(answers) < 4:
+                    answers.append("hidden")
+                else:
+                    break
+        elif current_type == "input-gap":
+            for answer in answers_list:
+                answer = answer.replace("(?%", "")
+                answer = answer.replace("%?)", "")
+                if answer[0] == "+":
+                    correctAnswers.append("correct")
+                else:
+                    correctAnswers.append("not")
+                answer = answer[1:-1]
+                answers.append(answer)
+            while True:
+                if len(answers) < 4:
+                    answers.append("hidden")
+                else:
+                    break
 
 
     image_question = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
     exists_image = False
+
     image_url = None
     if exists(image_question):
         if len(os.listdir(image_question)) > 0:
@@ -377,6 +393,7 @@ def render_change_question(pk: int):
                 if image not in ["1", "2", "3", "4"]:
                     exists_image = True
                     image_url = join("userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1), image)
+                    
     
     
 
@@ -401,11 +418,11 @@ def render_change_question(pk: int):
     return flask.render_template(
         template_name_or_list = "change_question.html",
         question = current_question,
-        # image = current_image,
         answer1 = answers[0],
         answer2 = answers[1],
         answer3 = answers[2],
         answer4 = answers[3],
+        answers_gap = answers,
         correct1 = correctAnswers[0],
         correct2 = correctAnswers[1],
         correct3 = correctAnswers[2] if len(correctAnswers) > 2 else "not",

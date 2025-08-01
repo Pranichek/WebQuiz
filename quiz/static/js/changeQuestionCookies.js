@@ -84,26 +84,37 @@ button.addEventListener("click", () => {
 
 
     let ticks = document.querySelectorAll(".tick-circle")
-    answerInputList.forEach((input, index) => {
-        let ParentTag = input.parentNode
-        const checkImageCreate = ParentTag.querySelector(".for-image")
-        if (input.checkVisibility()){
-            if (input.value != ''){
-                if (ticks[index].style.display == "flex"){
-                answers += `(?%+${input.value}+%?)`;
+    let type = document.querySelector(".button-open").dataset.value
+
+    if (type == "one-answer" || type=="many-answers"){
+        answerInputList.forEach((input, index) => {
+            let ParentTag = input.parentNode
+            const checkImageCreate = ParentTag.querySelector(".for-image")
+            if (input.checkVisibility()){
+                if (input.value != ''){
+                    if (ticks[index].style.display == "flex"){
+                    answers += `(?%+${input.value}+%?)`;
+                    }else{
+                        answers += `(?%-${input.value}-%?)`;
+                    }
                 }else{
-                    answers += `(?%-${input.value}-%?)`;
+                    if (ticks[index].style.display == "flex"){
+                        answers += `(?%+image?#$?image+%?)`;
+                    }else{
+                        answers += `(?%-image?#$?image-%?)`;
+                    }
                 }
-            }else{
-                if (ticks[index].style.display == "flex"){
-                    answers += `(?%+image?#$?image+%?)`;
-                }else{
-                    answers += `(?%-image?#$?image-%?)`;
-                }
+                
             }
-            
-        }
-    });
+        });
+    }else if(type == "input-gap"){
+        let data = localStorage.getItem("input-data")
+        let arrayData = data.split(" ")
+        arrayData.forEach(data => {
+            answers += `(?%+${data}+%?)`;
+        })
+        localStorage.removeItem("input-data")
+    }
 
 
     answers = answers?.replace("undefined", "").replace("answers", "").replace("null", "");

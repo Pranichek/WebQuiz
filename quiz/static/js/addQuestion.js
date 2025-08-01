@@ -17,10 +17,13 @@ function settingsAddButton(){
             count++
         }
     }
-    if (count == 0){
-        buttonPlus.style.display = "none"
-    }else{
-        buttonPlus.style.display = "flex"
+    console.log(count, "hahah")
+    if (buttonPlus){
+        if (count == 0){
+            buttonPlus.style.display = "none"
+        }else{
+            buttonPlus.style.display = "flex"
+        }
     }
 }
 
@@ -31,15 +34,17 @@ window.addEventListener(
     }
 )
 
-buttonPlus.addEventListener("click", ()=>{
-    hiddenAnswerBlocks = document.querySelectorAll(".hidden");
-    if (hiddenAnswerBlocks.length <= 2 && hiddenAnswerBlocks.length >= 1){
-        hiddenAnswerBlocks[0].classList.remove("hidden");
-        hiddenAnswerBlocks[0].classList.remove("correct")
-        
-        settingsAddButton()
-    }
-})
+if (buttonPlus){
+    buttonPlus.addEventListener("click", ()=>{
+        hiddenAnswerBlocks = document.querySelectorAll(".hidden");
+        if (hiddenAnswerBlocks.length <= 2 && hiddenAnswerBlocks.length >= 1){
+            hiddenAnswerBlocks[0].classList.remove("hidden");
+            hiddenAnswerBlocks[0].classList.remove("correct")
+            
+            settingsAddButton()
+        }
+    })
+}
 
 for (let deleteButton of deleteButtonList) {
     deleteButton.addEventListener("click", () => {
@@ -95,8 +100,11 @@ for (let deleteButton of deleteButtonList) {
                                 answerBlock.classList.add("hidden");
                                 localStorage.removeItem(`answer-${i}`);
                                 input.value = ""; 
-                                answerBlock.querySelector(".inside-data").querySelector(".for-image").remove()
-                                answerBlock.querySelector("textarea").style.fontSize = "3vh"
+                                if (answerBlock.querySelector(".inside-data").querySelector(".for-image")){
+                                    answerBlock.querySelector(".inside-data").querySelector(".for-image").remove()
+                                    answerBlock.querySelector("textarea").style.fontSize = "3vh"
+                                }
+                                
 
                                 let icons = answerBlock.querySelectorAll(".load_img")
                                 for (let icon of icons){
@@ -108,8 +116,7 @@ for (let deleteButton of deleteButtonList) {
                                         icon.dataset.state = "load"
                                     }
                                 }
-                                // cansole.log(kj")
-                                // input.value = "";
+
 
                                 for (let tick of tickCircleListtwo) {
                                     if (tick.id === input.id) {
