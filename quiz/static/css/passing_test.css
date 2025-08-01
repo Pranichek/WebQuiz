@@ -205,6 +205,21 @@ span {
     width: 100vw;
 }
 
+
+
+.input-text{
+    font-size: 1.4vw;
+    color: #fff;
+}
+
+.confirm-answer{
+    flex-direction: row;
+}
+
+.confirm-answer input{
+    color: black;
+}
+
 .top-answers {
     display: flex;
     flex-direction: row;

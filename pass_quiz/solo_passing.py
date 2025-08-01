@@ -199,7 +199,6 @@ def handle_next_question(data_index):
     if current_answers[-1] == '':
         del current_answers[-1]
     
-    print(current_answers, "loli")
 
     path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(idx + 1)))
     
