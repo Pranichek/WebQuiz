@@ -292,7 +292,12 @@ span{
     align-items: center;
     margin-right: 0.4vw;
 }
-
+.img-quest{
+    width: 50vw;
+    height: 30vh;
+    position: relative;
+    
+}
 .gray-block{
     display: flex;
     gap: 5vw;

@@ -100,7 +100,7 @@ def handle_get_question(data_index):
 
     # проверка на то что есть ли в ответах картинки или нет
     image_urls = ["none", "none", "none", "none"]
-    if exists(path=path):
+    if exists(path):
         for index in range(1, 5):
             current_path = join(path, str(index))
             if exists(current_path) and len(os.listdir(current_path)) > 0:
@@ -222,7 +222,7 @@ def handle_next_question(data_index):
 
     # проверка на то что есть ли в ответах картинки или нет
     image_urls = ["none", "none", "none", "none"]
-    if exists(path=path):
+    if exists(path):
         for index in range(1, 5):
             current_path = join(path, str(index))
             if exists(current_path) and len(os.listdir(current_path)) > 0:

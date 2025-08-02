@@ -142,8 +142,12 @@
         <div class="all-cards">
             {% for this_question in question_list %}
                 <!-- якщо довжина питання більше чим один символ, то можемо створити питання -->
+                {% if images_urls[loop.index0] != 'nothing' %}   
+                    <img class="img-quest" src="{{ images_urls[loop.index0] }}">
+                {% endif %}
                 {% if this_question.question|length >= 1 %}
-                    <div class="question-card">          
+                    <div class="question-card">   
+                        
                         <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
                         <span class="question-conainer">
                             <p class="question">{{ this_question.question }}</p>

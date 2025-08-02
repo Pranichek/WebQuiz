@@ -514,13 +514,33 @@ color: #000000;
 }
 
 .correct-circle{
+    background-image: url("../images/galka.png");
+    background-repeat: no-repeat;
+    background-position-x: center;
     width: 45px;
     height: 45px;
     background-color: #BBE3B3;
     border-radius: 100px;
     flex-shrink: 0; 
 }
-
+.correct-quard{
+    background-image: url("../images/galka.png");
+    background-repeat: no-repeat;
+    background-position-x: center;
+    width: 45px;
+    height: 45px;
+    background-color: #BBE3B3;
+    border-radius: 7px;
+    flex-shrink: 0; 
+}
+.right-answs{
+    margin-left: -26px;
+    position: absolute;
+    width: 863px;
+    height: 57px;
+    background-color: #D9D9D9;
+    opacity: 0.1;
+}
 .orange-circle{
     width: 45px;
     height: 45px;
@@ -528,7 +548,16 @@ color: #000000;
     border-radius: 100px;
     flex-shrink: 0; 
 }
-
+.orange-quard{
+    background-image: url("../images/galka.png");
+    background-repeat: no-repeat;
+    background-position-x: center;
+    width: 45px;
+    height: 45px;
+    background-color: #f1e272;
+    border-radius: 7px;
+    flex-shrink: 0; 
+}
 .simple-circle{
     width: 45px;
     height: 45px;
@@ -536,7 +565,13 @@ color: #000000;
     border-radius: 100px;
     flex-shrink: 0; 
 }
-
+.simple-quard{
+    width: 45px;
+    height: 45px;
+    background-color: #D9D9D9;
+    border-radius: 7px;
+    flex-shrink: 0;
+}
 .uncorrect-circle{
     width: 45px;
     height: 45px;
@@ -544,7 +579,13 @@ color: #000000;
     flex-shrink: 0; 
     background-color: #FF767C;
 }
-
+.uncorrect-quard{
+    width: 45px;
+    height: 45px;
+    border-radius: 7px;
+    flex-shrink: 0; 
+    background-color: #FF767C;
+}
 .answ{
     display: flex;
     align-items: center;

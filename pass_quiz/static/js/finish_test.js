@@ -76,11 +76,14 @@ socket.on("test_result", (data) => {
         questionDiv.insertBefore(mainHead, questionDiv.firstChild);
 
         element.answers.forEach((answ, index) => {
+            
             let circle = document.createElement('div');
+            let divRight = document.createElement('div')
 
             const correctForThisQuestion = data.correct_answers[indexel];
             const userAnswersForThisQuestion = data.users_answers[indexel];
 
+            // console.log(data.correct_answers[1], "kkkkk")
             let count_right = 0;
             for (let userAnswer of userAnswersForThisQuestion) {
                 if (correctForThisQuestion.includes(userAnswer)) {
@@ -97,21 +100,47 @@ socket.on("test_result", (data) => {
             }
 
             if (correctForThisQuestion.length == 1 || correctForThisQuestion.length == count_right) {
+                if (correctForThisQuestion.includes(index)){
+                    divRight.className = "right-answs"
+                }
+                // Для одиночных правильных ответов
                 if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
-                    circle.className = "correct-circle";
+                    circle.className = "correct-circle"; // Правильный ответ
                 } else if (userAnswersForThisQuestion.includes(index) && !correctForThisQuestion.includes(index)) {
-                    circle.className = "uncorrect-circle";
+                    circle.className = "uncorrect-circle"; // Неправильный ответ
                 } else {
-                    circle.className = "simple-circle";
+                    circle.className = "simple-circle"; // Ответ не выбран
                 }
-            } else {
+            }
+            if (correctForThisQuestion.length > 1) {
+                if (correctForThisQuestion.includes(index)){
+                    divRight.className = "right-answs"
+                }
+                // Для множественных правильных ответов
                 if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
-                    circle.className = "orange-circle";
+                    circle.className = "correct-quard"; // Правильный ответ
+                    if (count_right >= 1){
+                        circle.className = "orange-quard"
+                    }
+                } else if (correctForThisQuestion.includes(index) && !userAnswersForThisQuestion.includes(index)) {
+                    circle.className = "simple-quard"; // Правильный вариант, но не выбран
                 } else if (userAnswersForThisQuestion.includes(index)) {
-                    circle.className = "uncorrect-circle";
+                    circle.className = "uncorrect-quard"; // Неправильный ответ
                 } else {
-                    circle.className = "simple-circle";
+                    circle.className = "simple-quard"; // Ответ не выбран
                 }
+            
+
+
+
+            // }else {
+            //     if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
+            //         circle.className = "orange-circle";
+            //     } else if (userAnswersForThisQuestion.includes(index)) {
+            //         circle.className = "uncorrect-circle";
+            //     } else {
+            //         circle.className = "simple-circle";
+            //     }
             }
 
             let answerDiv = document.createElement("div");
@@ -120,6 +149,7 @@ socket.on("test_result", (data) => {
             }else{
                 answerDiv.innerHTML = `Зображення`;
             }
+            answerDiv.appendChild(divRight)
             answerDiv.insertBefore(circle, answerDiv.firstChild);
             answerDiv.className = "answ";
             questionDiv.appendChild(answerDiv);

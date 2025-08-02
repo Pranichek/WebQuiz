@@ -29,6 +29,28 @@ def render_test():
     category = ""
     name_image = ''
     new_types_questions = ""
+
+    image_question_render = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
+    images_urls = []
+
+    static_root = os.path.abspath("userprofile/static")
+
+    for i in range(len(os.listdir(image_question_render))):
+        images_urls.append("nothing")
+
+    # Заполняем URL-ами
+    for indexImg in range(1, len(os.listdir(str(image_question_render))) + 1):
+        current_path = join(image_question_render, str(indexImg))
+        if exists(current_path):
+            for dir in os.listdir(current_path):
+                if dir not in ["1", "2", "3", "4"]:
+                    image_path = join(current_path, dir)
+                    relative_path = os.path.relpath(image_path, static_root).replace("\\", "/")
+                    images_urls[indexImg - 1] = flask.url_for("profile.static", filename=relative_path)
+
+
+
+
     try:
         new_questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
         new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
@@ -175,6 +197,7 @@ def render_test():
     print(list_to_template, "kkllk")
     
     return flask.render_template(
+        images_urls = images_urls,
         template_name_or_list= "test.html", 
         question_list = list_to_template,
         user = flask_login.current_user,
