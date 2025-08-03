@@ -12,17 +12,53 @@
             <div class="text-information">
                 <p>Інформація про тест</p>
             </div>
-            <div class="category-test">
-                <p>категорія:<p>програмування</p></p>
+            <div class="first-part">
+                <div class="category-test">
+                    <p id="info-text">категорія: 
+                        <span id="text-for-info">{{ test.category }}</span>
+                    </p>
+                </div>
+                <div class="buttons">
+                    <div class="type">
+                        <div class="type-p timer-p" id="time">
+                            <div class="time-select">
+                                <span class="text"></span>
+                                <img sty class="show_more_velocity" src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt="">
+
+                            </div>
+                        </div>
+                        <ul id="timeList" class="hidden-list">
+                            <li data-category="математика">математика</li>
+                            <li data-category="англійська">англійська</li>
+                            <li data-category="програмування">програмування</li>
+                            <li data-category="історія">історія</li>
+                            <li data-category="фізика">фізика</li>
+                            <li data-category="хімія">хімія</li>
+                            <li data-category="інше" class="last-li">інше</li>
+                        </ul>
+                        
+                    </div>
+                </div>
             </div>
-            <div class="theme-test">
-                <p>тема:<p>пайтон</p></p>
+            <div class="second-part">
+                <div class="theme-test">
+                    <p id="info-text">тема: 
+                        <span id="text-for-info">{{ test.title_test }}</span>
+                    </p>
+                </div>
+                <div class="btn-for-edit">
+                    <button class="edit-btn">Редагувати</button>
+                </div>
             </div>
             <div class="creator-test">
-                <p>творець:<p>@vova</p></p>
+                <p id="info-text">творець: 
+                    <span id="text-for-info">@{{ user.username }}</span>
+                </p>
             </div>
             <div class="count-questions">
-                <p>кількість питаннь:<p>12</p></p>
+                <p id="info-text">кількість питаннь: 
+                    <span id="text-for-info">{{ test.questions.count("?%?") + 1 }}</span>
+                </p>
             </div>
             <div class="settings-buttons">
                 <button class="save-changed">Зберегти зміни</button>
@@ -31,16 +67,53 @@
         </div>
         <div class="change-image">
             <div class="outline-image">
-
+                <!-- <img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/user_tests/' + test.title_test + '/' + test.image ) }}" alt="fgh"> -->
+                {% if img_test != 'default' %}
+                    <img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email  + '/user_tests' + '/' + test.title_test + '/' + test.image) }}" class="test-cover">
+                {% elif img_test == 'default' %}
+                    <img src="{{ url_for('test_pass.static', filename='images/' + img_part) }}" alt="cash_image" class="test-cover">
+                {% endif %}
             </div>
-            <button>Змінити фоток</button>
+            <button class="change-image-btn">
+                <img src="{{ url_for('test_pass.static', filename='images/add-photo.svg') }}" alt="Іконка додавання">
+                <span>Змінити фото</span>
+            </button>
         </div>
     </div>
     <div class="outline">
         <p>Перелік питаннь: </p>
     </div>
     <div class="list-questions">
-        <div class="space-div">
+        <!-- {% for this_question in question_list %}
+                <div class="question-card">          
+                    <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
+                    <span class="question-conainer">
+                        <p class="question">{{ this_question.question }}</p>
+                        <button type="button" class="button-delete {{ this_question.question }}" pk="{{ this_question.pk }}" value="{{ this_question.pk }}">delete</button>
+                        <div class="delete-question">
+                            <img onclick="this.closest('.question-conainer').querySelector('.button-delete').click();" class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.svg') }}" alt="">
+                        </div>
+                        <div class="edit_question">
+                            <img class="pen-img" src="{{ url_for('test_pass.static', filename = 'images/white_pen.svg') }}" alt="" >
+                            <a class="change-question" href="/test/change_question/{{ this_question.pk }}">Редагувати питання</a>
+                        </div>
+                        
+                    </span>
+                    <span class="answers">
+                        {% for answer in this_question.answers %}
+                        <div class="variant">
+                            <div class="circle"></div>
+                            <p class="answer">{% if answer != "image?#$?image" %}{{ answer }}{% else %}Зображення{% endif %}</p>
+                        </div>
+                        {% endfor %}
+                    </span>
+                </div>
+            {% endfor %} -->
+
+
+
+            
+        <!-- <div class="space-div">
             <div class="head">
                 <img  src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
                 <button class="del"><img src="{{ url_for('test_pass.static', filename='images/del.svg') }}" alt=""></button>
@@ -80,8 +153,10 @@
                 <button class="btn">Редагувати</button>
             </div>
             
-        </div>
+        </div> -->
+
     </div>
+    
     <!-- {% if message %}
         <p>{{ message }}</p>
     {% endif %}
@@ -95,3 +170,10 @@
         <button value="{{ test.id }}" name="delete-id">Видалити тест</button>
     </form> -->
 {% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('test_pass.static', filename = 'js/test_cookie.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename = 'js/test.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/test_category.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/createTest.js') }}" defer></script>
+{% endblock scripts %}

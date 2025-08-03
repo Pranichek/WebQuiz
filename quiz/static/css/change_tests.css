@@ -12,9 +12,10 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: space-between;
+    
     gap: 12vw;
     margin-top: 5vh;
+    margin-bottom: 3vh;
 }
 
 .change-information{
@@ -40,7 +41,19 @@
     font-weight: 500;
     font-size: 3vh;
 }
+.first-part {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2vw;
+    width: 40vw;
+}
 
+.category-selector {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
 .category-test, .theme-test, .creator-test, .count-questions{
     width: 100%;
     height: 15%;
@@ -50,6 +63,143 @@
     align-items: center;
     justify-content: start;
     padding-left: 1vw;
+}
+
+#info-text{
+    color: #353535;
+    font-weight: 800;
+}
+#text-for-info{
+    color: #ffffff;
+    font-weight: 400;
+}
+
+.buttons{
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+    margin-right: 3%;
+}
+.type{
+    display: flex;
+    align-items: flex-end;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+.type-p{
+    align-items: end;
+    cursor: pointer;
+    background: #7291B8;
+    padding: 1vh 1vw;
+    color: #ffffff;
+    font-weight: 400;
+    border: 0.11vw black solid;
+    border-radius: 5px;
+    position: relative;
+    flex-direction: row;
+    text-align: center;
+    width: 15vw;
+    justify-content: center;
+}
+
+.time-select {
+    display: flex;
+    position: relative;
+    align-items: center;
+    justify-content: space-between; /* или flex-start */
+    cursor: pointer;
+    gap: 0.5vw;
+    width: max-content; /* или 100%, если хочешь растянуть */
+    font-size: 1vw;
+    color: white;
+}
+
+.text{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#timeList {
+    position: absolute;
+    top: 31%;
+    border-radius: 5px;
+    background: #7291B8;
+    list-style-type: none;
+    border: 2px black solid;
+    width: auto;
+    text-align: start;
+    color: #ffffff;
+    transform-origin: top;
+    transform: scaleY(0);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 999;
+}
+
+#timeList.visible {
+    transform: scaleY(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+#timeList.hidden-list{
+    transform: scaleY(0);
+    opacity: 0;
+    visibility: none;
+}
+#timeList li{
+    padding: 0.8vh 1.4vh;
+    font-size: 1.3vw;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+
+.show_more_velocity{
+    transition: 0.3s ease;
+    transform: rotate(180deg);
+}
+li{
+    border-bottom: 0.1vw #5c6b7d solid;
+    text-align: center;
+}
+
+.last-li{
+    border-bottom: none;
+}
+
+li:hover{
+    transition: 0.3s;
+    background-color: #9AA8E2;
+}
+
+
+.second-part{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 2vw;
+    width: 40vw;
+}
+
+.btn-for-edit{
+    display: flex;
+    align-items: flex-end;
+    margin-right: 3%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+.edit-btn{
+    border-radius: 5px;
+    background-color: #7291B8;
+    padding: 0.5vw 0.8vw 0.5vw 0.8vw;
+    color: #ffffff;
+    font-size: 1vw;
+    border: 0.11vw black solid;
+    cursor: pointer;
 }
 
 .settings-buttons{
@@ -70,7 +220,8 @@
     padding: 0.5vw 0.8vw 0.5vw 0.8vw;
     color: #ffffff;
     font-size: 1vw;
-    border: 0.12vw black solid;
+    border: 0.11vw black solid;
+    cursor: pointer;
 }
 
 .delete-test{
@@ -92,9 +243,21 @@
     width: 98%;
     height: 80%;
     border-radius: 10px;
+    object-fit: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+.test-cover{
+    
+    object-fit: cover;
+    width: 98%;
+    height: 99%;
 }
 
-.change-image button{
+
+.change-image-btn{
     background-color: #C48AF7;
     width: 100%;
     height: 15%;
@@ -103,6 +266,13 @@
     color: #ffffff;
     font-size: 1.3vw;
     font-weight: 500;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5vw;
+    cursor: pointer;
+    /* transition: background-color 0.3s */
 }
 
 .outline{
@@ -127,6 +297,7 @@
     overflow-y: scroll;
     max-height: 70vh;
     width: 80vw;
+    height: fit-content;
     background-color: #8abbf752;
     /* height: 76vh; */
     margin-top: 5vh;
@@ -150,6 +321,52 @@
     right: 0;
     z-index: -1;
 }
+
+
+/* для настройки списку питань */
+/* .change-question{
+    z-index: 1;
+    text-decoration: none;
+}
+
+.question-card{
+    position: relative;
+    width: 100%;
+    height: fit-content;
+    border-radius: 15px;
+    border: 2px solid #94C4FF;
+    background-color: #343434;
+}
+
+.question-conainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 13vh;
+    overflow: hidden;
+}
+
+.question{
+    z-index: 2;
+    font-size: 2vh;
+    font-weight: bolder;
+    color: #ffffff;
+}
+
+.variant{
+    display: flex;
+    justify-content: start;
+    gap: 0.8vw;
+    width: 45%;
+    height: 50%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+ */
+
+
+
 
 .space-div{
     background-color: #343434;

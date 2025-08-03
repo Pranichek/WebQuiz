@@ -567,10 +567,14 @@ def render_change_tests():
 
         create_room = flask.request.form.get("create-room")
 
+    # questions = test.questions
+
 
     
     return flask.render_template(
         "change_tests.html",
         test=test,
         message=message,
+        user = user,
+        # question_list = questions,
     )
