@@ -20,14 +20,19 @@ categoryButton.addEventListener(
 window.addEventListener(
     'DOMContentLoaded',
     () => {
-        let type = localStorage.getItem("type")
-        if (categoryButton.dataset.value == ""){
-            if (!type){
-                localStorage.setItem("type", "one-answer")
-                type = localStorage.getItem("type")
-            }
+        let type;
+        if (!categoryButton.classList.contains("change_type")){
+            type = localStorage.getItem("type")
+            if (categoryButton.dataset.value == ""){
+                if (!type){
+                    localStorage.setItem("type", "one-answer")
+                    type = localStorage.getItem("type")
+                }
 
-            categoryButton.dataset.value = type
+                categoryButton.dataset.value = type
+            }
+        }else{
+            type = categoryButton.dataset.value
         }
 
         const textType = document.querySelector(".text-type");
@@ -38,6 +43,7 @@ window.addEventListener(
             textType.style.display = "flex";
             blocks.style.display = "flex";
             inputType.style.display = "none";
+            console.log("barbos")
         }else if (type === "input-gap"){
             textType.style.display = "none";
             blocks.style.display = "none";
@@ -96,6 +102,22 @@ for (let inputul of ulTypes){
                 textType.style.display = "flex";
                 blocks.style.display = "flex";
                 inputType.style.display = "none";
+
+                let count = 0
+                let answers = document.querySelectorAll(".answer")
+                let tickCircleList = document.querySelectorAll(".tick-circle")
+                for (let tick of tickCircleList){
+                    if (tick.style.display == "flex"){
+                        count += 1
+                    }
+                }
+
+                if (count == 0){
+                    let input = document.getElementById("1") 
+                    let tick = document.querySelector(`.tick-circle[id="1"]`)
+                    tick.style.display = "flex"
+                    input.classList.add("correct")
+                }
             }
         }
     )

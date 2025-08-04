@@ -1,3 +1,5 @@
+import { answerScanning } from "./answers_scaning.js"
+
 // отображение картинок которых он подргрузил к ответу
 let inputsImages = document.querySelectorAll(".input_load")
 let answerBlocks = document.querySelectorAll(".inside-data")

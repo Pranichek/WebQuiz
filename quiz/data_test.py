@@ -156,5 +156,3 @@ def render_data_test():
         )
     )
     return response
-    # else:
-    #     return flask.redirect("/")
