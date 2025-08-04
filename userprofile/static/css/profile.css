@@ -45,54 +45,52 @@ a{
     justify-content: center;
     align-items: center;
     background-color: #2f2f2f;
-    width: 562px;
-    height: 618px;
-    gap: 9px;
-    padding: 19px 10px 0px 10px;
+    width: 30vw;
+    height: 70vh;
+    gap: 1vh;
+    padding: 2vh 1vw;
     position: fixed;
     top: 50%;
     transform: translateY(-50%) translateX(0%);
     z-index: 800;
     overflow: hidden;
-    border-radius: 15px;
+    border-radius: 1.5vh;
 }
 
 .password-text{
     display: flex;
     flex-direction: column;
-    gap: 9px;
+    gap: 1vh;
     text-align: center;
     width: 100%;
     height: 20%;
-    /* background-color: #94C4FF; */
 }
 
 .topic-password{
     color: #ffffff;
-    font-size: 20px;
+    font-size: 2.5vh;
     font-weight: 600;
 }
 
 .rule-text{
     color: #ffffff;
-    font-size: 16px;
+    font-size: 2vh;
 }
 
 .inputs-passwords{
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: space-between;
     align-items: start;
-    gap: 9px;
     width: 100%;
     height: 80%;
     /* background-color:green; */
-    padding: 10px;
+    padding: 1vh;
 }
 
 .password-rule{
     color: #BFBFBF;
-    font-size: 20px;
+    font-size: 2.5vh;
     font-weight: 600;
 }
 
@@ -108,26 +106,24 @@ a{
 }
 
 .password-button{
-    padding: 10px 20px 10px 20px;
+    padding: 1vh 1vw;
     color: #ffffff;
     background-color: #C48AF7;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 0.5vh;
+    font-size: 2vh;
     border: none;
 }
 
 .back-password{
     background: none;
     border: none;
-    font-size: 16px;
-    padding: 10px;
-    margin-right: 10px;
+    font-size: 2vh;
+    padding: 1vh;
+    margin-right: 1vw;
 }
-/*  */
 
 .confirm-logout, .confirm-delete{
     background-color: #343434;
-    /* display: flex; */
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -135,11 +131,11 @@ a{
     top: 50%;
     transform: translateY(-50%);
     z-index: 1000;
-    width: 562px;
-    height: 234px;
-    text-align: center;
-    gap: 15px;
-    border-radius: 15px;
+    width: 30vw;
+    height: 30vh;
+    gap: 1vh;
+    padding: 2vh 1vw;
+    border-radius: 1.5vh;
     overflow: hidden;
 }
 
@@ -151,27 +147,27 @@ a{
     flex-direction: column;
     align-items: center;
     justify-content: end;
-    margin-bottom: 10px;
+    margin-bottom: 1vh;
 }
 
 .deny-text{
     color: #ffffff;
-    font-size: 16px;
+    font-size: 2vh;
     font-weight: 500;
 }
 
 .button-deny{
     background: none;
     border: none;
-    font-size: 16px;
+    font-size: 2vh;
     font-weight: 500;
 }
 
 .logout-text{
     color: #ffffff;
-    font-size: 20px;
+    font-size: 2.5vh;
     font-weight: 700;
-    margin-bottom: 10px;
+    margin-bottom: 1vh;
 }
 
 .logout-buttons{
@@ -182,16 +178,16 @@ a{
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 1vw;
 }
 
 .logout{
     background-color: #FD6363;
     color: #ffffff;
-    border-radius: 3px;
-    padding: 10px 30px 10px 30px;
+    border-radius: 0.5vh;
+    padding: 1vh 2vw;
     border: none;
-    font-size: 16px;
+    font-size: 2vh;
     font-weight: 500;
 }
 
@@ -207,7 +203,7 @@ input{
     rotate: 25deg;
     height: 100vh;
     background: linear-gradient( to right, #3C3C3C 10%, #7c9abd 30%, #96cbe3 98%, #3C3C3C 5%);
-    filter: blur(100px);
+    filter: blur(10vh);
     z-index: -1;
     pointer-events: none;
 }
@@ -217,26 +213,26 @@ input{
     display: flex;
     /* background-color: chartreuse; */
     width: 100%;
-    height:69px;
+    height: 7vh;
 }
 
 .first-password .eye-hide{
     position: absolute;
     right: 5%;
     /* z-index: 3; */
-    width: 30px;
-    height: 30px;
+    width: 3vh;
+    height: 3vh;
 }
 
 
 .first-password input{
-    border: 2px #94C4FF solid;
-    padding: 10px;
+    border: 0.2vh #94C4FF solid;
+    padding: 1vh;
     width: 100%;
     height: 100%;
     /* background: none; */
-    border-radius: 10px;
-    font-size: 16px;
+    border-radius: 1vh;
+    font-size: 2vh;
     color: #ffffff;
     font-weight: 700;
     background-color: #2f2f2f;
@@ -247,8 +243,8 @@ input{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 30px;
-    padding: 50px 10px;
+    gap: 3vh;
+    padding: 10vh 7vw;
 }
 
 .info-container{
@@ -259,10 +255,9 @@ input{
     justify-content: center;
     gap: 0;
     width: 60vw;
-    min-width: 450px;
-    height: 600px;
+    height: 60vh;
     overflow: hidden;
-    border-radius: 30px;
+    border-radius: 3vh;
     /* background-color: aqua; */
 }
 
@@ -272,7 +267,7 @@ input{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 50px;
+    padding: 1vh 2vw;
     width: 100%;
     height: 20%;
     background-color: #343434;
@@ -282,8 +277,7 @@ input{
     position: relative;
     display: flex;
     justify-content: start;
-    min-width: 200px;
-    height: 100px;
+    height: 10vh;
 }
 
 .avatar-circle{
@@ -291,12 +285,12 @@ input{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 71px;
-    height: 71px;
+    width: 7vh;
+    height: 7vh;
     /* width: 25%;
     height: 100%; */
     border-radius: 50%;
-    border: 1px black solid;
+    border: 0.1vh black solid;
     overflow: hidden;
     display: flex;
     justify-content: center;
@@ -313,23 +307,22 @@ input{
 
 .nickname{
     position: absolute;
-    left: 40%;
-    font-size: 22px;
+    left: 5vw;
+    font-size: 3vh;
     color: white;
 }
 
 .avatar-changing{
-    width: 184px;
-    height: 38px;
-    /* top: 92px;
-    left: 596px; */
-    /* gap: 10px; */
-    border-radius: 5px;
-    padding: 10px 30px 10px 30px;
+    width: 15vw;
+    height: 5vh;
+    border-radius: 0.5vh;
+    padding: 1vh 2vw;
     background-color: #C48AF7; 
     display: flex;
     align-items: center; /* выравнивание по вертикали */
     justify-content: center;
+    font-size: 2vh;
+    text-align: center;
 }
 
 .background{
@@ -361,7 +354,7 @@ input{
     justify-content: center;
     width: 80%;
     height: 80%;
-    border-radius: 30px;
+    border-radius: 3vh;
     background-color: #343434;
 }
 
@@ -375,11 +368,11 @@ input{
 }
 
 .info-item p{
-    font-size: 20px;
+    font-size: 2.5vh;
 }
 
 .info-item input{
-    font-size: 20px;
+    font-size: 2.5vh;
     background-color: none;
     color: #ffffff;
     background: none;
@@ -388,9 +381,9 @@ input{
 }
 
 .input_email{
-    padding-top: 11px;
+    padding-top: 1vh;
     width: 100%;
-    font-size: 20px;
+    font-size: 2.5vh;
     background-color: none;
     color: #ffffff;
     background: none;
@@ -399,48 +392,27 @@ input{
 }
 
 .deny-button{
-    font-size: 16px;
+    font-size: 2vh;
     color: #ffffff;
     font-weight: bold;
     background: none;
     border: none;
-    margin-right: 10px;
+    margin-right: 1vw;
 }
 
-.accept-nick{
+.accept-nick, .accept-email, .accept-phone{
     color: #ffffff;
     background-color: #7291B8;
-    border-radius: 3px;
-    font-size: 16px;
+    border-radius: 0.3vh;
+    font-size: 2vh;
     font-weight: bold;
     border: none;
-    padding: 10px;
+    padding: 1vh;
 }
-
-.accept-email{
-    color: #ffffff;
-    background-color: #7291B8;
-    border-radius: 3px;
-    font-size: 15px;
-    font-weight: bold;
-    border: none;
-    padding: 10px;
-}
-
-.accept-phone{
-    color: #ffffff;
-    background-color: #7291B8;
-    border-radius: 3px;
-    font-size: 16px;
-    font-weight: bold;
-    border: none;
-    padding: 10px;
-}
-
 
 .text-name {
     position: relative;
-    padding-top: 11px;
+    padding-top: 1vh;
     background: none;
     border: none;
     outline: none;
@@ -453,21 +425,19 @@ input{
     font-weight: 500;
 }
 
-.change{
-    width: 22%;
-    min-width: 80px;
-    height: 42px;
-    gap: 10px;
-    border-radius: 5px;
-    padding: 10px;
+.change, .account-button{
+    width: 8vw;
+    height: 4vh;
+    border-radius: 0.5vh;
+    padding: 1vh;
     background-color: #C48AF7;
-    font-size: 16px;
+    font-size: 2vh;
     border: none;
 }
 
 .text-in-between{
     font-weight: 500;
-    font-size: 24px;
+    font-size: 3vh;
     line-height: 100%;
     letter-spacing: 0%;
     text-align: center;
@@ -480,11 +450,11 @@ input{
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 35px;
-    width: 70%;
-    height: 400px;
-    border: 1px solid black;
-    border-radius: 30px;
+    padding: 2vh 2vw;
+    width: 60vw;
+    height: 40vh;
+    border: 0.1vh solid black;
+    border-radius: 3vh;
 }
 
 .control-option{
@@ -493,42 +463,32 @@ input{
     justify-content: space-between;
     width: 100%;
     height: 30%;
-    gap: 10px;
-    border-radius: 15px;
-    border-width: 2px;
-    padding: 50px;
+    gap: 1vh;
+    border-radius: 1.5vh;
+    padding: 5vh;
     background-color: #343434;
-    border: 2px #94C4FF solid;
+    border: 0.2vh #94C4FF solid;
 }
 
 .control-option p{
-    font-size: 20px;
+    font-size: 2.5vh;
 }
-
-.account-button{
-    width: 100px;
-    height: 40px;
-    border-radius: 5px;
-    background-color: #C48AF7;
-    border: none;
-}
-
 
 .password-checklist{
     position: absolute;
     top: calc(80%);
     width: 90%;
-    padding: 20px 30px;
+    padding: 2vh 2vw;
     background: #414141;
-    border-radius: 15px;
+    border-radius: 1.5vh;
     opacity: 0;
     pointer-events: none;
-    transform: translateY(20px);
+    transform: translateY(2vh);
     transition: .5s ease;
-    border: 2px #ffffff solid;
+    border: 0.2vh #ffffff solid;
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: 0.5vh;
     justify-content: center;
     align-items: start;
     z-index: 108;
@@ -538,13 +498,11 @@ input{
 .top-part {
     width: 100%;
     margin-top: 0;
-    /* padding-top: 10px; */
-    /* background-color: green; */
     display: flex;
     flex-direction: row;
     justify-content: center; 
     align-items: end;  
-    gap: 10px;   
+    gap: 1vh;   
 }
 
 .top-part h3{
@@ -557,8 +515,8 @@ input{
 .img-checklist{
     margin: 0;
     padding: 0;
-    width: 21px;
-    height: 25px;
+    width: 1.5vw;
+    height: 2.8vh;
 }
 
 .new_password{
@@ -574,24 +532,23 @@ input{
 
 .checklist-title{
     color: #ffffff;
-    font-size: 17px;
+    font-size: 2vh;
     font-weight: 500;
-    /* margin-bottom: 10px; */
 }
 
 .checklist{
-    margin-top: 10px;
+    margin-top: 1vh;
     list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 1vh;
     justify-content: center;
     align-items: start;
     /* background-color: aqua; */
 }
 
 .list-item{
-    transform: translatey(-2px);
+    transform: translatey(-0.2vh);
 }
 
 .first-rule{
@@ -602,12 +559,11 @@ input{
     flex-direction: row;
     justify-content: start;
     align-items: center;
-    gap: 0px;
 }
 
 .icon-item{
-    width: 20px;
-    height: 20px;
+    width: 2vh;
+    height: 2vh;
     margin: 0;
     padding: 0;
     transition: "";
@@ -618,332 +574,18 @@ input{
 }
 
 .list-item{
-    padding-left: 10px;
+    padding-left: 0.7vw;
     color: #ffffff;
     font-weight: 300;
-    font-size: 16px;
+    font-size: 2vh;
 }
 
-/* .checklist-line{
-    display: none;
-    margin-left: 30px;
-    width: 0%;
-    height: 1px;
-    background-color: #C48AF7;
-    transform: translateY(-6px);
-} */
 .checklist-line {
-    margin-left: 30px;
+    margin-left: 2vw;
     opacity: 0;
     width: 0;
-    height: 1px;
+    height: 0.1vh;
     background-color: #C48AF7;
-    transform: translateY(-6px);
+    transform: translateY(-0.6vh);
     transition: width 1s ease, opacity 0.3s ease;
-}
-
-/* .first_line{
-    transition: 1s ease;
-    width: 88%;
-}
-
-.second-line{
-    transition: 1s ease;
-    width: 92%;
-}
-
-.third-line{
-    transition: 1s ease;
-    width: 90%;
-} */
-/* .list-item::before{
-    color: #C48AF7;
-    display: inline-block;
-    margin: 8px 8px;
-    margin-left: -30px;
-    width: 20px;
-    font-size: 12px;
-} */
-
-
-
-/* .list-item.checked::before{
-    content: "✓";
-    color: aqua;
-} */
-
-@media (max-width: 450px){
-    .info-container{
-        width: 100%;
-    }
-}
-
-@media (min-width:451px) and (max-width: 799px){
-    .input_email, .input_phone, .text-name{
-        max-width: 100px;
-    }
-
-    .info-item .label{
-        color: #BFBFBF;
-        font-size: 16px;
-    }
-
-    .avatar-changing{
-        width: 250px;
-        height: 50px;
-        border-radius: 5px;
-        padding: 0px;
-        background-color: #C48AF7; 
-        font-size: 20px;
-        text-align: center;
-    }
-}
-
-@media (min-width: 800px) and (max-width:899px){
-    .input_email{
-        max-width: 200px;
-    }
-}
-
-@media (min-width: 900px) and (max-width:1100px){
-    .input_email{
-        max-width: 250px;
-    }
-}
-
-@media(min-width: 1600px) and (max-width: 1999px){
-    .avatar-changing{
-        width: 220px;
-        height: 50px;
-        border-radius: 5px;
-        padding: 0px;
-        background-color: #C48AF7; 
-        font-size: 25px;
-        text-align: center;
-    }
-
-    .info-container{
-        height: 700px;
-    }
-
-    .main-info{
-        gap: 10px;
-    }
-
-    .nickname{
-        position: absolute;
-        left: 50%;
-        font-size: 30px;
-        color: white;
-    }
-
-    .info-item .label{
-        color: #BFBFBF;
-        font-weight: 500;
-        font-size: 28px;
-    }
-
-    .info-item input{
-        font-size: 28px;
-        background-color: none;
-        color: #ffffff;
-        background: none;
-        border: none;
-        outline:none;
-    }
-
-    .input_email{
-        min-width: 350px;
-    }
-
-    .info-item .change{
-        width: 30%;
-        min-width: 80px;
-        height: 50px;
-        gap: 10px;
-        border-radius: 5px;
-        padding: 10px;
-        background-color: #C48AF7;
-        font-size: 21px;
-        border: none;
-    }
-
-    .deny-button{
-        font-size: 23px;
-        color: #ffffff;
-        font-weight: bold;
-        background: none;
-        border: none;
-        margin-right: 15px;
-    }
-
-    .accept-nick, .accept-phone{
-        color: #ffffff;
-        background-color: #7291B8;
-        border-radius: 3px;
-        font-size: 20px;
-        font-weight: bold;
-        border: none;
-        padding: 10px;
-    }
-
-    .accept-email{
-        color: #ffffff;
-        background-color: #7291B8;
-        border-radius: 3px;
-        font-size: 20px;
-        font-weight: bold;
-        border: none;
-        padding: 10px;
-    }
-
-    .account-control{
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 35px;
-        width: 70%;
-        height: 480px;
-        border: 1px solid black;
-        border-radius: 30px;
-    }
-
-    .account-control p{
-        font-size: 27px;
-    }
-
-    .account-control button{
-        width: 200px;
-        height: 60px;
-        font-size: 23px;
-    }
-
-    .text-in-between{
-        font-size: 28px;
-    }
-}
-
-@media (min-width: 2001px){
-    .avatar-changing{
-        width: 220px;
-        height: 50px;
-        border-radius: 5px;
-        padding: 0px;
-        background-color: #C48AF7; 
-        font-size: 25px;
-        text-align: center;
-    }
-
-    .info-container{
-        height: 900px;
-    }
-
-    .main-info{
-        gap: 10px;
-    }
-
-    .nickname{
-        position: absolute;
-        left: 58%;
-        font-size: 35px;
-        color: white;
-    }
-
-    .info-item .label{
-        color: #BFBFBF;
-        font-weight: 500;
-        font-size: 32px;
-    }
-
-    .info-item input{
-        font-size: 32px;
-        background-color: none;
-        color: #ffffff;
-        background: none;
-        border: none;
-        outline:none;
-    }
-
-    .input_email{
-        min-width: 160%;
-    }
-
-    .info-item .change{
-        width: 30%;
-        min-width: 80px;
-        height: 50px;
-        gap: 10px;
-        border-radius: 5px;
-        padding: 10px;
-        background-color: #C48AF7;
-        font-size: 26px;
-        font-weight: 700;
-        border: none;
-    }
-
-    .deny-button{
-        font-size: 26px;
-        color: #ffffff;
-        font-weight: bold;
-        background: none;
-        border: none;
-        margin-right: 15px;
-    }
-
-    .accept-nick, .accept-phone{
-        color: #ffffff;
-        background-color: #7291B8;
-        border-radius: 3px;
-        font-size: 26px;
-        font-weight: bold;
-        border: none;
-        padding: 10px;
-    }
-
-    .accept-email{
-        color: #ffffff;
-        background-color: #7291B8;
-        border-radius: 3px;
-        font-size: 26px;
-        font-weight: bold;
-        border: none;
-        padding: 10px;
-    }
-
-    .account-control{
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 35px;
-        width: 80%;
-        height: 600px;
-        border: 1px solid black;
-        border-radius: 30px;
-    }
-
-    .account-control p{
-        font-size: 34px;
-    }
-
-    .account-control button{
-        width: 260px;
-        height: 68px;
-        font-size: 29px;
-    }
-
-    .text-in-between{
-        font-size: 34px;
-    }
-
-    .info-container{
-        max-width: 1400px;
-    }
-
-    .account-control{
-        max-width: 1900px;
-    }
 }
