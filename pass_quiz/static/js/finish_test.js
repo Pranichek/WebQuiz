@@ -76,11 +76,14 @@ socket.on("test_result", (data) => {
         questionDiv.insertBefore(mainHead, questionDiv.firstChild);
 
         element.answers.forEach((answ, index) => {
+            
             let circle = document.createElement('div');
+            let divRight = document.createElement('div')
 
             const correctForThisQuestion = data.correct_answers[indexel];
             const userAnswersForThisQuestion = data.users_answers[indexel];
 
+            // console.log(data.correct_answers[1], "kkkkk")
             let count_right = 0;
             for (let userAnswer of userAnswersForThisQuestion) {
                 if (correctForThisQuestion.includes(userAnswer)) {
@@ -92,27 +95,54 @@ socket.on("test_result", (data) => {
                 mainHead.className = "correct-head";
             } else if (count_right >= 1) {
                 mainHead.className = "yellow-head";
+            }else if (userAnswersForThisQuestion.includes("skip")){
+                mainHead.className = "skip-head";
             } else {
                 mainHead.className = "uncorrect-head";
             }
 
             if (correctForThisQuestion.length == 1 || correctForThisQuestion.length == count_right) {
+                if (correctForThisQuestion.includes(index)){
+                    divRight.className = "right-answs"
+                }
+                // Для одиночных правильных ответов
                 if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
-                    circle.className = "correct-circle";
-
+                    circle.className = "correct-circle"; // Правильный ответ
                 } else if (userAnswersForThisQuestion.includes(index) && !correctForThisQuestion.includes(index)) {
-                    circle.className = "uncorrect-circle";
+                    circle.className = "uncorrect-circle"; // Неправильный ответ
                 } else {
-                    circle.className = "simple-circle";
+                    circle.className = "simple-circle"; // Ответ не выбран
                 }
-            } else {
+            }
+            if (correctForThisQuestion.length > 1) {
+                if (correctForThisQuestion.includes(index)){
+                    divRight.className = "right-answs"
+                }
+                // Для множественных правильных ответов
                 if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
-                    circle.className = "orange-circle";
+                    circle.className = "correct-quard"; // Правильный ответ
+                    if (count_right >= 1){
+                        circle.className = "orange-quard"
+                    }
+                } else if (correctForThisQuestion.includes(index) && !userAnswersForThisQuestion.includes(index)) {
+                    circle.className = "simple-quard"; // Правильный вариант, но не выбран
                 } else if (userAnswersForThisQuestion.includes(index)) {
-                    circle.className = "uncorrect-circle";
+                    circle.className = "uncorrect-quard"; // Неправильный ответ
                 } else {
-                    circle.className = "simple-circle";
+                    circle.className = "simple-quard"; // Ответ не выбран
                 }
+            
+
+
+
+            // }else {
+            //     if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
+            //         circle.className = "orange-circle";
+            //     } else if (userAnswersForThisQuestion.includes(index)) {
+            //         circle.className = "uncorrect-circle";
+            //     } else {
+            //         circle.className = "simple-circle";
+            //     }
             }
 
             let answerDiv = document.createElement("div");
@@ -121,6 +151,7 @@ socket.on("test_result", (data) => {
             }else{
                 answerDiv.innerHTML = `Зображення`;
             }
+            answerDiv.appendChild(divRight)
             answerDiv.insertBefore(circle, answerDiv.firstChild);
             answerDiv.className = "answ";
             questionDiv.appendChild(answerDiv);
@@ -160,6 +191,13 @@ socket.on("test_result", (data) => {
                 windowQuestion.appendChild(headNew);
             }
 
+            let headMini4 = cont.getElementsByClassName("skip-head");
+            for (let i = 0; i < headMini4.length; i++) {
+                const headNew = document.createElement("div");
+                headNew.className = "yellow-head";
+                windowQuestion.appendChild(headNew);
+            }
+
             // текст вопроса
             let qustion_text = cont.getElementsByClassName('quest-text');
             for (let i = 0; i < qustion_text.length; i++) {
@@ -194,7 +232,6 @@ socket.on("test_result", (data) => {
 playAgain.addEventListener("click", () => {
     window.location.replace(`/test_data?id_test=${playAgain.value}`);
 });
-
 
 
 

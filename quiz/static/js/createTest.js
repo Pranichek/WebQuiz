@@ -1,20 +1,18 @@
-// const category = document.getElementById("time");
-// const testTitle = document.querySelector(".test-title-input");
-const createTestButtons = document.getElementsByClassName("add-test");
+import { ShowMessage } from '/static/js/showMessage.js';
 
-// function dataValidation(){
-//     // console.log("Value = ", testTitle.value);
-//     if (document.cookie.match("inputname") && document.cookie.split("inputname=")[1].split(";")[0] != ""){
-//         console.log(":", document.cookie.match("category"));
-//         if (document.cookie.match("category")){
-//         //     console.log("category.textContent =", category.textContent)
-//             for (let createTestButton of createTestButtons){
-//                 createTestButton.classList.remove("grey");
-//                 createTestButton.type = "submit";
-//             }
-//         }
-//     }
-// }
+const createTestButtons = document.getElementsByClassName("add-test")
+const StartButton = document.getElementById("apple")
+
+StartButton.addEventListener(
+    'click',
+    () => {
+        // ShowMessage("Упс.. Виникла помилка!Перевірте будь-ласка, чи все ви відмітили")
+        if (StartButton.type == "button"){
+            ShowMessage("Упс.. Виникла помилка!Перевірте будь-ласка, чи все ви відмітили")
+        }
+    }
+)
+
 
 function dataValidation() {
     const hasName = document.cookie.match("inputname") && document.cookie.split("inputname=")[1].split(";")[0] != "";
@@ -41,20 +39,14 @@ function buttonColorChanging(){
 
 document.addEventListener("click", ()=>{
     dataValidation();
+    buttonColorChanging();
 })
 document.addEventListener("keydown", ()=>{
     dataValidation();
+    buttonColorChanging();
 })
 document.addEventListener("DOMContentLoaded", ()=>{
     dataValidation();
+    buttonColorChanging();
 })
 
-document.addEventListener("DOMContentLoaded", ()=>{
-    buttonColorChanging();
-})
-document.addEventListener("click", ()=>{
-    buttonColorChanging();
-})
-document.addEventListener("keydown", ()=>{
-    buttonColorChanging();
-})

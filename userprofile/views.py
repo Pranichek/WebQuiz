@@ -3,7 +3,7 @@ from threading import Thread
 import PIL.Image
 from home.models import User
 from quiz.models import Test, TestData
-from quiz.del_files import delete_files_in_folder
+from online_passing.del_files import delete_files_in_folder
 from quiz.generate_image import return_img
 from Project.db import DATABASE
 from .render_data import create_email, render_phone_number

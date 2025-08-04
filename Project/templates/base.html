@@ -7,6 +7,7 @@
         {% block links %}{% endblock %}
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/footer.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/message.css') }}">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -152,6 +153,15 @@
 
             </footer>
         {% endif %}
+
+        <div class="message">
+            <div class="box-message">
+                <p class="text-message"></p>
+            </div>
+            <div class="cross-box">
+                <img class="cross-img" src="{{ url_for('static', filename = 'images/cross.svg') }}" alt="" >
+            </div>
+        </div>
         
         <script src="{{ url_for('static', filename='js/load_avatar.js') }}"></script>
         <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>

@@ -43,7 +43,7 @@ window.addEventListener(
             textType.style.display = "flex";
             blocks.style.display = "flex";
             inputType.style.display = "none";
-            console.log("barbos")
+            
         }else if (type === "input-gap"){
             textType.style.display = "none";
             blocks.style.display = "none";
@@ -94,14 +94,17 @@ for (let inputul of ulTypes){
                 textType.style.display = "flex";
                 blocks.style.display = "flex";
                 inputType.style.display = "none";
+
             }else if (type === "input-gap"){
                 textType.style.display = "none";
                 blocks.style.display = "none";
                 inputType.style.display = "flex";
+
             }else if(type == "many-answers"){
                 textType.style.display = "flex";
                 blocks.style.display = "flex";
                 inputType.style.display = "none";
+
 
                 let count = 0
                 let answers = document.querySelectorAll(".answer")

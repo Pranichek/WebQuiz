@@ -1,10 +1,9 @@
 // Перевірка на те що користувач потрапив на сторінку проходження тесту не через пошукову стрічку
 let chcklocal = document.referrer
 
-if (!chcklocal.includes("test_data")){
+if (!chcklocal.includes("student")){
     window.location.replace('/');
 }
-
 
 // Створюємо об'єкт сокету 
 const socket = io();  

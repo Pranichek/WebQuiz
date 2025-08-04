@@ -27,6 +27,7 @@ body {
     border-radius: 10px;
     margin-bottom: 10vh;
     margin-bottom: 30px;
+    background-color: green;
 }
 
 
@@ -193,7 +194,9 @@ span {
     align-items: center;
     width: 100vw;
     height: 50vh;
+    /* background-color: #8ABBF7; */
     padding: 10px;
+    /* margin-top: 200px; */
 }
 
 .answers-image {
