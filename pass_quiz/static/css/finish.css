@@ -533,7 +533,7 @@
     border-radius: 7px;
     flex-shrink: 0; 
 }
-.right-answs{
+.answ2 .right-answs{
     margin-left: -26px;
     position: absolute;
     width: 863px;
@@ -596,6 +596,7 @@
     padding-bottom: 35px;
     word-break: break-word;
     word-break: break-all;
+    /* background-color: green; */
     
 }
 .robots2{

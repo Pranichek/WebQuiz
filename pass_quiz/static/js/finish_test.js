@@ -134,15 +134,6 @@ socket.on("test_result", (data) => {
             
 
 
-
-            // }else {
-            //     if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
-            //         circle.className = "orange-circle";
-            //     } else if (userAnswersForThisQuestion.includes(index)) {
-            //         circle.className = "uncorrect-circle";
-            //     } else {
-            //         circle.className = "simple-circle";
-            //     }
             }
 
             let answerDiv = document.createElement("div");
