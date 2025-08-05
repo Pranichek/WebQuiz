@@ -70,11 +70,11 @@ def handle_get_question(data_index):
         ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
         current_answers.append(ans_clean)
 
-    # print(current_answers, "lol")
+    # ###########print(current_answers, "lol")
     current_answers = current_answers[0].split('*|*|*')
-    print(current_answers, "loli")
+    ###########print(current_answers, "loli")
 
-    print(current_answers, "loli")
+    ###########print(current_answers, "loli")
 
 
     path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(idx + 1)))
@@ -107,7 +107,7 @@ def handle_get_question(data_index):
                 url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{idx + 1}/{str(index)}/{os.listdir(current_path)[0]}")
                 image_urls[index - 1] = url
 
-    print(image_urls, "url")
+    ###########print(image_urls, "url")
 
     emit("question", {
         "answers_image": image_urls,
@@ -125,7 +125,7 @@ def handle_get_question(data_index):
 
 @socket.on("next_question")
 def handle_next_question(data_index):
-    print("next_question")
+    ###########print("next_question")
 
     test_id = data_index["test_id"]
     test = Test.query.get(int(test_id))
@@ -167,7 +167,7 @@ def handle_next_question(data_index):
             string_last_tests = " ".join(last_tests)
 
             user.user_profile.last_passed = string_last_tests
-            print("kasha", string_last_tests)
+            ###########print("kasha", string_last_tests)
 
         test.test_profile.amount_passes += 1
 
@@ -193,7 +193,7 @@ def handle_next_question(data_index):
         current_answers.append(ans_clean)
 
 
-    # print(current_answers, "lol")
+    # ###########print(current_answers, "lol")
     current_answers = current_answers[0].split('*|*|*')
 
     if current_answers[-1] == '':
@@ -228,7 +228,7 @@ def handle_next_question(data_index):
                 url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{idx + 1}/{str(index)}/{os.listdir(current_path)[0]}")
                 image_urls[index - 1] = url
 
-    print(image_urls, "url")
+    ###########print(image_urls, "url")
     emit("question", {
         "answers_image": image_urls,
         "type": current_type,

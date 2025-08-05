@@ -67,7 +67,6 @@ def handle_finish_test(data: dict):
         # types_quest.append(a)
     
     
-    print(types_quest)
 
     count = 0
     answers = test.answers.split("?@?")

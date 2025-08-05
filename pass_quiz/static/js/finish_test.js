@@ -76,7 +76,7 @@ socket.on("test_result", (data) => {
         questionDiv.insertBefore(mainHead, questionDiv.firstChild);
 
         element.answers.forEach((answ, index) => {
-            
+            // console.log(answ)
             let circle = document.createElement('div');
             let divRight = document.createElement('div')
 
@@ -108,7 +108,7 @@ socket.on("test_result", (data) => {
                         // Для множественных правильных ответов
                         if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
                             circle.className = "correct-quard"; // Правильный ответ
-                            if (count_right <= 1){
+                            if (userAnswersForThisQuestion.length < correctForThisQuestion.length){
                                 circle.className = "orange-quard"
                             }
                         } else if (correctForThisQuestion.includes(index) && !userAnswersForThisQuestion.includes(index)) {
@@ -118,8 +118,7 @@ socket.on("test_result", (data) => {
                         } else {
                             circle.className = "simple-quard"; // Ответ не выбран
                         }
-                }else{
-                    // if (correctForThisQuestion.length == 1 || correctForThisQuestion.length == count_right) {
+                }else if (type_quest === 'one-answer'){
                     if (correctForThisQuestion.includes(index)){
                         divRight.className = "right-answs"
                     }
@@ -132,7 +131,33 @@ socket.on("test_result", (data) => {
                     } else {
                         circle.className = "simple-circle"; // Ответ не выбран
                     }
-                    // }
+                }else if (type_quest === 'input-gap'){
+                    const oldBlock = questionDiv.querySelector('.block-inp');
+                    if (oldBlock) {
+                        oldBlock.remove()
+                    }
+                    let blockInp = document.createElement('div')
+                    blockInp.className = "block-inp"
+                    questionDiv.appendChild(blockInp)
+                    blockInp.innerHTML = "";
+                    
+                    for (let i = 0; i < answ.length; i++){
+                        quardInp = document.createElement("div")
+                        if (answ === userAnswersForThisQuestion[indexel]){
+                            quardInp.className = "quard-inp"
+                            mainHead.className = "correct-head";
+                        }else{
+                            quardInp.className = "quard-inp-red"
+                            mainHead.className = "uncorrect-head";
+                        }
+
+                        let letterDiv = document.createElement("div");
+                        letterDiv.className = "letter";
+                        letterDiv.textContent = answ[i];
+
+                        quardInp.appendChild(letterDiv);
+                        blockInp.appendChild(quardInp);
+                    }
                 }
             }
             
