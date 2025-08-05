@@ -83,7 +83,6 @@ socket.on("test_result", (data) => {
             const correctForThisQuestion = data.correct_answers[indexel];
             const userAnswersForThisQuestion = data.users_answers[indexel];
 
-            // console.log(data.correct_answers[1], "kkkkk")
             let count_right = 0;
             for (let userAnswer of userAnswersForThisQuestion) {
                 if (correctForThisQuestion.includes(userAnswer)) {
