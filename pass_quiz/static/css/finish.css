@@ -221,8 +221,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 100px;
-    height: 100px;
+    width: 11vw;
+    /* left: 0;
+    top: 0; */
+    height: 11vw;
+    /* width: 25%;
+    height: 100%; */
     border: 1px black solid;
     border-radius: 50%;
     overflow: hidden;
@@ -239,6 +243,9 @@
     width: 100px;
     height: 100px;
 }
+/* .avatar-circle{
+    margin-top: -175px;
+} */
 .result{
     width: 947px;
     height: 102px;
@@ -464,6 +471,13 @@
     color: #FFFFFF;
 }
 
+button:hover {
+background-color: #D6E8FE;
+box-shadow: 0 2px #000000;
+transform: translateY(4px);
+color: #000000;
+}
+
 
 
 .correct-head{
@@ -472,6 +486,14 @@
     border-top-left-radius: 30px;
     border-top-right-radius: 30px;
     background-color: #D7FFF2;
+}
+
+.uncorrect-head{
+    width: 100%;
+    height: 41px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    background-color: #FF767C;
 }
 
 .skip-head{
@@ -486,14 +508,6 @@
     justify-content: center;
     font-weight: bold;
     font-size: 22px;
-}
-
-.uncorrect-head{
-    width: 100%;
-    height: 41px;
-    border-top-left-radius: 30px;
-    border-top-right-radius: 30px;
-    background-color: #FF767C;
 }
 
 .yellow-head{
@@ -514,7 +528,6 @@
 }
 
 .correct-circle{
-    background-image: url("../images/galka.png");
     background-repeat: no-repeat;
     background-position-x: center;
     width: 45px;
@@ -524,7 +537,6 @@
     flex-shrink: 0; 
 }
 .correct-quard{
-    background-image: url("../images/galka.png");
     background-repeat: no-repeat;
     background-position-x: center;
     width: 45px;
@@ -533,6 +545,11 @@
     border-radius: 7px;
     flex-shrink: 0; 
 }
+
+.answ2 .correct-circle, .answ2 .correct-circle, .answ2 .orange-quard{
+    background-image: url("../images/galka.svg");
+}
+
 .answ2 .right-answs{
     margin-left: -26px;
     position: absolute;
@@ -549,7 +566,6 @@
     flex-shrink: 0; 
 }
 .orange-quard{
-    background-image: url("../images/galka.png");
     background-repeat: no-repeat;
     background-position-x: center;
     width: 45px;
@@ -596,7 +612,6 @@
     padding-bottom: 35px;
     word-break: break-word;
     word-break: break-all;
-    /* background-color: green; */
     
 }
 .robots2{
@@ -617,7 +632,6 @@
     color: #ffffff;
     transform: scale(1.01);
 }
-
 
 @media (max-width: 800px){
     .space{

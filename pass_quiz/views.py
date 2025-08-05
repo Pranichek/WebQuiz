@@ -13,6 +13,9 @@ from Project.db import DATABASE
 import pyperclip, flask_login
 import flask
 
+
+
+
 # @login_decorate
 def render_finish_test():
     list_to_template = []
@@ -43,33 +46,32 @@ def render_finish_test():
 
 @socket.on("finish_test")
 def handle_finish_test(data: dict):
-    test_id = data.get("test_id")
-    test = Test.query.get(int(test_id))
-    
-
     user_answers_raw = data.get("users_answers")
+    if user_answers_raw == '':
+        user_answers_raw = 'skip'
 
-    if len(user_answers_raw) == 0:
-        list_skip = []
-        for i in range(0, test.questions.count("?%?") + 1):
-            list_skip.append("skip")
-        user_answers = list_skip
-    else:
-        user_answers = user_answers_raw.split(",")
-        print(test.questions.count("?%?") + 1)
-        if len(user_answers) < test.questions.count("?%?") + 1:
-            for i in range((test.questions.count("?%?") + 1) - len(user_answers), test.questions.count("?%?") + 1):
-                user_answers.append("skip")
+    test_id = data.get("test_id")
 
-
+    user_answers = user_answers_raw.split(",")
+    test = Test.query.get(int(test_id))
     
     questions = test.questions.split("?%?")
     answers = test.answers.split("?@?")
     correct_indexes = []
 
+    user_answers = user_answers_raw.split(",")
+
     questions = test.questions.split("?%?")
 
+    raw_type = DATABASE.session.query(Test.type_questions).filter_by(id=test_id).first()
+    # types_quest = []
+    for el in raw_type:
+        types_quest = el.split("?$?")
+        # types_quest.append(a)
     
+    
+    print(types_quest)
+
     count = 0
     answers = test.answers.split("?@?")
     correct_indexes = []
@@ -94,7 +96,7 @@ def handle_finish_test(data: dict):
         count += 1
 
     #логика получение индекса правильного ответа даже если правильных несколько
-    # например, если правильные ответы на вопрос 1 это первый вариант и второй, то в массиве будет [[0, 1]]
+    # например, если правильные ответы на вопрос 1 это да и нет, то в массиве будет [[0, 1], [тут индексі уже следующего вопроса и тд]]
     for index in range(len(questions)):
         current_answer_list = answers[index]
         data_str = ''
@@ -120,8 +122,8 @@ def handle_finish_test(data: dict):
     list_users_answers = []
     if len(user_answers) > 0:
         for answers in user_answers:
+            small_list = []
             list_users_answers.append(answers.split("@"))
-
 
     count_uncorrect_answers = 0
     count_answered = 0
@@ -136,7 +138,6 @@ def handle_finish_test(data: dict):
                     index_corect.append(i)
                 else:
                     count_uncorrect_answers += 1
-
             elif list_users_answers[i][0].isdigit():
                 correct = 0
                 uncorrect = 0
@@ -145,6 +146,7 @@ def handle_finish_test(data: dict):
                         count_right_answers += 1
                         correct += 1
                     else:
+                        # count_right_answers -= 1
                         count_uncorrect_answers += 1
                         uncorrect += 1
             
@@ -158,7 +160,6 @@ def handle_finish_test(data: dict):
                     index_corect.append(i)
                 else:
                     count_uncorrect_answers += 1
-            
 
 
     # максимальное количество баллов
@@ -169,15 +170,14 @@ def handle_finish_test(data: dict):
 
     mark = (12 * accuracy) // 100
 
-    print(list_users_answers, "meow")
+
     for indexList in range(len(list_users_answers)):
         for i in range(len(list_users_answers[indexList])):
-            if "skip" not in list_users_answers[indexList]:
+            if list_users_answers[indexList][i] != "skip":
                 if list_users_answers[indexList][i].isdigit():
                     list_users_answers[indexList][i] = int(list_users_answers[indexList][i])
                 else:
-                    list_users_answers[indexList][i] = list_users_answers[indexList][i]
-
+                    list_users_answers[indexList][i] = list_users_answers[i][0]
 
 
     old_data = flask_login.current_user.user_profile.last_passed #" 2"
@@ -208,7 +208,8 @@ def handle_finish_test(data: dict):
         "count_answered": count_answered,
         "correct_index": index_corect,
         "users_answers": list_users_answers,
-        "correct_answers": correct_indexes
+        "correct_answers": correct_indexes,
+        "type_question": types_quest
     })
 
 

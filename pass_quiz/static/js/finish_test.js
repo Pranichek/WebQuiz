@@ -83,6 +83,7 @@ socket.on("test_result", (data) => {
             const correctForThisQuestion = data.correct_answers[indexel];
             const userAnswersForThisQuestion = data.users_answers[indexel];
 
+            // console.log(data.correct_answers[1], "kkkkk")
             let count_right = 0;
             for (let userAnswer of userAnswersForThisQuestion) {
                 if (correctForThisQuestion.includes(userAnswer)) {
@@ -95,46 +96,48 @@ socket.on("test_result", (data) => {
             } else if (count_right >= 1) {
                 mainHead.className = "yellow-head";
             }else if (userAnswersForThisQuestion.includes("skip")){
-                mainHead.className = "skip-head";
-            } else {
+                mainHead.className = "skip-head"
+            }else {
                 mainHead.className = "uncorrect-head";
             }
 
-            if (correctForThisQuestion.length == 1 || correctForThisQuestion.length == count_right) {
-                if (correctForThisQuestion.includes(index)){
-                    divRight.className = "right-answs"
-                }
-                // Для одиночных правильных ответов
-                if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
-                    circle.className = "correct-circle"; // Правильный ответ
-                } else if (userAnswersForThisQuestion.includes(index) && !correctForThisQuestion.includes(index)) {
-                    circle.className = "uncorrect-circle"; // Неправильный ответ
-                } else {
-                    circle.className = "simple-circle"; // Ответ не выбран
-                }
-            }
-            if (correctForThisQuestion.length > 1) {
-                if (correctForThisQuestion.includes(index)){
-                    divRight.className = "right-answs"
-                }
-                // Для множественных правильных ответов
-                if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
-                    circle.className = "correct-quard"; // Правильный ответ
-                    if (count_right >= 1){
-                        circle.className = "orange-quard"
+            const type_quest = data.type_question[indexel];
+            for (let i = 0; i < type_quest.length + 1; i++){
+                if (type_quest === 'many-answers'){
+                        if (correctForThisQuestion.includes(index)){
+                            divRight.className = "right-answs"
+                        }
+                        // Для множественных правильных ответов
+                        if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
+                            circle.className = "correct-quard"; // Правильный ответ
+                            if (count_right <= 1){
+                                circle.className = "orange-quard"
+                            }
+                        } else if (correctForThisQuestion.includes(index) && !userAnswersForThisQuestion.includes(index)) {
+                            circle.className = "simple-quard"; // Правильный вариант, но не выбран
+                        } else if (userAnswersForThisQuestion.includes(index)) {
+                            circle.className = "uncorrect-quard"; // Неправильный ответ
+                        } else {
+                            circle.className = "simple-quard"; // Ответ не выбран
+                        }
+                }else{
+                    // if (correctForThisQuestion.length == 1 || correctForThisQuestion.length == count_right) {
+                    if (correctForThisQuestion.includes(index)){
+                        divRight.className = "right-answs"
                     }
-                } else if (correctForThisQuestion.includes(index) && !userAnswersForThisQuestion.includes(index)) {
-                    circle.className = "simple-quard"; // Правильный вариант, но не выбран
-                } else if (userAnswersForThisQuestion.includes(index)) {
-                    circle.className = "uncorrect-quard"; // Неправильный ответ
-                } else {
-                    circle.className = "simple-quard"; // Ответ не выбран
+                    // Для одиночных правильных ответов
+                    if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
+                        circle.className = "correct-circle";
+
+                    } else if (userAnswersForThisQuestion.includes(index) && !correctForThisQuestion.includes(index)) {
+                        circle.className = "uncorrect-circle"; // Неправильный ответ
+                    } else {
+                        circle.className = "simple-circle"; // Ответ не выбран
+                    }
+                    // }
                 }
-            
-
-
             }
-
+            
             let answerDiv = document.createElement("div");
             if (answ!= "image?#$?image"){
                 answerDiv.innerHTML = `${answ}`;
@@ -184,7 +187,7 @@ socket.on("test_result", (data) => {
             let headMini4 = cont.getElementsByClassName("skip-head");
             for (let i = 0; i < headMini4.length; i++) {
                 const headNew = document.createElement("div");
-                headNew.className = "yellow-head";
+                headNew.className = "skip-head";
                 windowQuestion.appendChild(headNew);
             }
 
@@ -201,6 +204,7 @@ socket.on("test_result", (data) => {
             unswerSpace.className = "space-div";
             windowQuestion.appendChild(unswerSpace);
 
+            
             // ответы
             let answersNew = cont.getElementsByClassName("answ");
             for (let i = 0; i < answersNew.length; i++) {
@@ -222,6 +226,5 @@ socket.on("test_result", (data) => {
 playAgain.addEventListener("click", () => {
     window.location.replace(`/test_data?id_test=${playAgain.value}`);
 });
-
 
 
