@@ -16,7 +16,6 @@ export function clear_answer(){
         // Якщо є, то видаляємо клас correct у відповіді
         // Якщо немає, то добавляємо клас correct у відповіді
 
-
         let input = document.getElementById("1") 
         let tick = document.querySelector(`.tick-circle[id="${1}"]`)
 
@@ -46,6 +45,5 @@ function corretIndexes(){
             indexes.push(input.id)
         }
     }
-    console.log(indexes)
     localStorage.setItem("rightIndexes", indexes.join(" "))
 }

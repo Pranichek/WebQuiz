@@ -143,7 +143,7 @@
             {% for this_question in question_list %}
                 <!-- якщо довжина питання більше чим один символ, то можемо створити питання -->
                 {% if this_question.question|length >= 1 %}
-                    <div class="question-card">          
+                    <div class="question-card">   
                         <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
                         <span class="question-conainer">
                             <p class="question">{{ this_question.question }}</p>
@@ -173,7 +173,7 @@
         
         {% if question_list|length >= 2 %}
             <div class="buttons buttons-bottom">
-                <button class="add-test" type="button"> + Зберегти вікторину</button>
+                <button class="add-test" id="apple" type="button">+ Зберегти вікторину</button>
                 <button class="add-test" type="button">Почати тест</button>
             </div>
         {% endif %}
@@ -181,11 +181,13 @@
 {% endblock %}
 
 {% block scripts %}
+    <script type="module" src="{{ url_for('static', filename= 'js/showMessage.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/test.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/test_category.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/modalimage.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/ajaxDeleteImage.js') }}"></script>
-    <script src="{{ url_for('test_pass.static', filename='js/createTest.js') }}" defer></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/createTest.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/underline.js') }}"></script>
+
 {% endblock %}

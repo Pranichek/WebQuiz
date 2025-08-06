@@ -31,7 +31,6 @@ def return_answers(index: int, test_id: int) -> list:
             if symbol_list[i] == '++':
                 question_right_answers.append(i)
 
-        print(question_right_answers, "question_right_answers")
         
         
         return question_right_answers

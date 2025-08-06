@@ -13,6 +13,9 @@ from Project.db import DATABASE
 import pyperclip, flask_login
 import flask
 
+
+
+
 # @login_decorate
 def render_finish_test():
     list_to_template = []
@@ -60,7 +63,15 @@ def handle_finish_test(data: dict):
 
     questions = test.questions.split("?%?")
 
+    raw_type = DATABASE.session.query(Test.type_questions).filter_by(id=test_id).first()
+    # types_quest = []
+    for el in raw_type:
+        types_quest = el.split("?$?")
+        # types_quest.append(a)
     
+    
+    print(types_quest)
+
     count = 0
     answers = test.answers.split("?@?")
     correct_indexes = []
@@ -121,13 +132,13 @@ def handle_finish_test(data: dict):
     for i in range(len(user_answers)):
         if list_users_answers[i][0] != "skip":
             count_answered += 1
-            if len(correct_indexes[i]) == 1:
+            if len(correct_indexes[i]) == 1 and list_users_answers[i][0].isdigit():
                 if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
                     count_right_answers += 1
                     index_corect.append(i)
                 else:
                     count_uncorrect_answers += 1
-            else:
+            elif list_users_answers[i][0].isdigit():
                 correct = 0
                 uncorrect = 0
                 for ans in list_users_answers[i]:
@@ -141,6 +152,14 @@ def handle_finish_test(data: dict):
             
                 if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
                     index_corect.append(i)
+            else:
+                user_answer_value = list_users_answers[i][0]
+                correct_answer_values = [answers[idx].replace("(?%+", "").replace("+%?)", "").replace("(?%-", "").replace("-%?)", "") for idx in correct_indexes[i] if idx < len(answers)]
+                if user_answer_value in correct_answer_values:
+                    count_right_answers += 1
+                    index_corect.append(i)
+                else:
+                    count_uncorrect_answers += 1
 
 
     # максимальное количество баллов
@@ -155,7 +174,10 @@ def handle_finish_test(data: dict):
     for indexList in range(len(list_users_answers)):
         for i in range(len(list_users_answers[indexList])):
             if list_users_answers[indexList][i] != "skip":
-                list_users_answers[indexList][i] = int(list_users_answers[indexList][i])
+                if list_users_answers[indexList][i].isdigit():
+                    list_users_answers[indexList][i] = int(list_users_answers[indexList][i])
+                else:
+                    list_users_answers[indexList][i] = list_users_answers[i][0]
 
 
     old_data = flask_login.current_user.user_profile.last_passed #" 2"
@@ -186,7 +208,8 @@ def handle_finish_test(data: dict):
         "count_answered": count_answered,
         "correct_index": index_corect,
         "users_answers": list_users_answers,
-        "correct_answers": correct_indexes
+        "correct_answers": correct_indexes,
+        "type_question": types_quest
     })
 
 

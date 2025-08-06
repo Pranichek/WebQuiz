@@ -51,6 +51,7 @@
 
 
     <div id="image-container"></div>
+
     <!--  -->
     <div class= "answers">
         
@@ -65,6 +66,7 @@
         <div class="bottom-answers">
         </div>
     </div>
+    
     <!--  -->
     <div class="footer-test">
         <div class="bonus-data">
@@ -108,7 +110,7 @@
 
 {% block scripts %}
     {{ super() }}
-    <script src="{{ url_for('solo_passing.static', filename='js/passing_test.js') }}"></script>
-    <script type="module" src="{{ url_for('solo_passing.static', filename='js/count_bonus.js') }}"></script>
-    <script type="module" src="{{ url_for('solo_passing.static', filename='js/count_money.js') }}"></script>
+    <script src="{{ url_for('student.static', filename='js/passing_test.js') }}"></script>
+    <!-- <script type="module" src="{{ url_for('student.static', filename='js/count_bonus.js') }}"></script>
+    <script type="module" src="{{ url_for('student.static', filename='js/count_money.js') }}"></script> -->
 {% endblock scripts %}

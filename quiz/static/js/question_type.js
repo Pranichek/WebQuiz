@@ -20,14 +20,34 @@ categoryButton.addEventListener(
 window.addEventListener(
     'DOMContentLoaded',
     () => {
-        let type = localStorage.getItem("type")
-        if (categoryButton.dataset.value == ""){
-            if (!type){
-                localStorage.setItem("type", "one-answer")
-                type = localStorage.getItem("type")
-            }
+        let type;
+        if (!categoryButton.classList.contains("change_type")){
+            type = localStorage.getItem("type")
+            if (categoryButton.dataset.value == ""){
+                if (!type){
+                    localStorage.setItem("type", "one-answer")
+                    type = localStorage.getItem("type")
+                }
 
-            categoryButton.dataset.value = type
+                categoryButton.dataset.value = type
+            }
+        }else{
+            type = categoryButton.dataset.value
+        }
+
+        const textType = document.querySelector(".text-type");
+        const blocks = document.querySelector(".blocks");
+        
+        const inputType = document.querySelector(".input-type");
+        if (type != "input-gap") {
+            textType.style.display = "flex";
+            blocks.style.display = "flex";
+            inputType.style.display = "none";
+            
+        }else if (type === "input-gap"){
+            textType.style.display = "none";
+            blocks.style.display = "none";
+            inputType.style.display = "flex";
         }
     
         for (let buttonType of buttonsTypes){
@@ -47,9 +67,11 @@ for (let inputul of ulTypes){
             let li = inputul.querySelector("li")
             let radio = inputul.querySelector("input")
             radio.click()
+
             if (!document.querySelector(".button-open").classList.contains("change_type")){
                 localStorage.setItem("type", li.dataset.value)
             }
+
             categoryButton.dataset.value = li.dataset.value
             categoryButton.textContent = li.textContent
 
@@ -61,8 +83,44 @@ for (let inputul of ulTypes){
                 type = categoryButton.dataset.value;
             }
 
+            
+            const textType = document.querySelector(".text-type");
+            const blocks = document.querySelector(".blocks");
+           
+            const inputType = document.querySelector(".input-type");
+
             if (type === "one-answer") {
                 clear_answer();
+                textType.style.display = "flex";
+                blocks.style.display = "flex";
+                inputType.style.display = "none";
+
+            }else if (type === "input-gap"){
+                textType.style.display = "none";
+                blocks.style.display = "none";
+                inputType.style.display = "flex";
+
+            }else if(type == "many-answers"){
+                textType.style.display = "flex";
+                blocks.style.display = "flex";
+                inputType.style.display = "none";
+
+
+                let count = 0
+                let answers = document.querySelectorAll(".answer")
+                let tickCircleList = document.querySelectorAll(".tick-circle")
+                for (let tick of tickCircleList){
+                    if (tick.style.display == "flex"){
+                        count += 1
+                    }
+                }
+
+                if (count == 0){
+                    let input = document.getElementById("1") 
+                    let tick = document.querySelector(`.tick-circle[id="1"]`)
+                    tick.style.display = "flex"
+                    input.classList.add("correct")
+                }
             }
         }
     )
