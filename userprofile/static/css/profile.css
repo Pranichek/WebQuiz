@@ -151,6 +151,7 @@ a{
 }
 
 .deny-text{
+    text-align: center;
     color: #ffffff;
     font-size: 2vh;
     font-weight: 500;
@@ -255,10 +256,10 @@ input{
     justify-content: center;
     gap: 0;
     width: 60vw;
-    height: 60vh;
+    height: 80vh;
     overflow: hidden;
     border-radius: 3vh;
-    /* background-color: aqua; */
+    border: 0.1vh solid black;
 }
 
 .profile-headerline{
@@ -269,7 +270,7 @@ input{
     align-items: center;
     padding: 1vh 2vw;
     width: 100%;
-    height: 20%;
+    height: 15%;
     background-color: #343434;
 }
 
@@ -285,8 +286,8 @@ input{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 7vh;
-    height: 7vh;
+    width: 9vh;
+    height: 9vh;
     /* width: 25%;
     height: 100%; */
     border-radius: 50%;
@@ -332,10 +333,9 @@ input{
     justify-content: center;
     bottom: 0;
     width: 100%;
-    height: 80%;
+    height: 85%;
     transition: 2s;
     overflow: hidden;
-    /* background-color: aliceblue; */
 }
 
 .background-img{
@@ -352,7 +352,7 @@ input{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 80%;
+    width: 75%;
     height: 80%;
     border-radius: 3vh;
     background-color: #343434;
@@ -427,7 +427,7 @@ input{
 
 .change, .account-button{
     width: 8vw;
-    height: 4vh;
+    height: 5vh;
     border-radius: 0.5vh;
     padding: 1vh;
     background-color: #C48AF7;

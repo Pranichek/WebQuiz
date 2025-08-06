@@ -11,7 +11,7 @@
     flex-direction: row;
     flex-wrap: wrap;
     width: 100vw;
-    height: 60vh;
+    height: 70vh;
     align-items: center;
     gap: 10vw;
     margin-top: 10vh;
@@ -26,7 +26,7 @@
     flex-direction: column;
     gap: 2vh;
     background-color: #343434;
-    border: 0.4vh solid #B9BDF5;
+    border: 0.1vh solid #B9BDF5;
     border-radius: 3vh;
     height: 90%;
     width: 40vw;
@@ -45,20 +45,26 @@
 }
 
 .text-input {
-    border: solid 0.4vh black;
+    border: solid 0.1vh black;
     border-radius: 1vh;
     width: 80%;
-    height: 16%;
+    height: 14%;
     color: #414141;
     background-color: #B9BDF5;
     text-align: center;
+}
+
+.text-input::placeholder{
+    color: #414141;
+    font-size: 3vh;
+    font-weight: 600;
 }
 
 .password-container{
     position: relative;
     display: flex;
     width: 80%;
-    height: 17%;
+    height: 14%;
 }
 
 .password-container .text-input{
@@ -70,8 +76,8 @@
     position: absolute;
     right: 5%;
     z-index: 3;
-    width: 1.5vw;
-    height: 3vh;
+    width: 2vw;
+    height: 4vh;
 }
 
 .hidden{
@@ -79,10 +85,10 @@
 }
 
 .send-data{
-    border: solid 0.2vh black;
+    border: solid 0.1vh black;
     border-radius: 1vh;
     width: 80%;
-    height: 5vh;
+    height: 6vh;
     background-color: #C48AF7;
     color: white;
     text-align: center;
@@ -101,6 +107,7 @@
     font-size: 3vh;
 }
 
+
 .promotion{
     display: flex;
     flex-direction: column;
@@ -114,11 +121,16 @@
 }
 
 .bonus{
-    width: 10vh;
-    height: 10vh;
-    border: 0.2vh solid #C48AF7;
+    width: 13vh;
+    height: 13vh;
+    border: 0.1vh solid #C48AF7;
     border-radius: 2vh;
     background-color: #343434;
+}
+
+.bonus img{
+    width: 12vh;
+    height: 12vh;
 }
 
 .glowing-area{
@@ -140,8 +152,8 @@
 }
 
 .avatar{
-    width: 10vh;
-    height: 10vh;
+    width: 15vh;
+    height: 15vh;
 }
 
 .info-text p{
@@ -151,8 +163,10 @@
 
 .robot{
     position: absolute;
-    right: 3vw;
-    bottom: 3vh;
+    right: 0;
+    bottom: 0;
+    margin-right: 3vw;
+    margin-bottom: 3vw;
     width: 7vw;
     height: 19vh;
 }

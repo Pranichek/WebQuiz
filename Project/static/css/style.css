@@ -18,7 +18,11 @@ body{
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    gap: 1vw;
+    gap: 0.5vw;
+}
+
+.img-logo{
+    height: 6vh;
 }
 
 header{
@@ -46,12 +50,13 @@ nav {
 }
 
 .nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
+    height: 5vh;
     background-color: #C48AF7;
     color: #ffffff;
     border-radius: 0.5vh;
     text-decoration: none;
     margin: 1vh;
-    padding: 1vh;
+    padding: 1.2vh;
     display: inline-block;
     text-align: center;
     font-weight: bold;
@@ -83,8 +88,8 @@ nav {
 }
 
 .open-panel{
-    width: 2.5vw;
-    height: 4.5vh;
+    width: 6vh;
+    height: 6vh;
     margin-right: 1vw;
     z-index: 100;
 }
@@ -317,150 +322,3 @@ header i {
     background-color: #B9BDF5;
     color: #fff;
 }
-
-/* @media (max-width: 600px){
-    .nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
-        margin: 0px;
-    }
-}
-
-@media (min-width: 1441px) and (max-width: 2000px){
-    .nav-links .auth-button{
-        background-color: #C48AF7;
-        color: #ffffff;
-        border-radius: 5px;
-        text-decoration: none;
-        width: 10vw;
-        margin: 15px;
-        padding: 10px 13px;
-        display: inline-block;
-        text-align: center;
-        font-weight: bold;
-    }
-
-    .nav-links .login-button{
-        background-color: #C48AF7;
-        color: #ffffff;
-        border-radius: 5px;
-        text-decoration: none;
-        width: 6vw;
-        margin: 15px;
-        padding: 10px 13px;
-        display: inline-block;
-        text-align: center;
-        font-weight: bold;
-    }
-
-    .nav-links .enter-code, .test-button{
-        background-color: #C48AF7;
-        color: #ffffff;
-        border-radius: 5px;
-        text-decoration: none;
-        width: 10vw;
-        margin: 15px;
-        padding: 10px 8px;
-        display: inline-block;
-        text-align: center;
-        font-weight: bold;
-    }
-
-    .test-button{
-        background-color: #C48AF7;
-        color: #ffffff;
-        border-radius: 5px;
-        text-decoration: none;
-        width: 13vw;
-        margin: 15px;
-        padding: 5px;
-        display: inline-block;
-        text-align: center;
-        font-weight: bold;
-    }
-
-    .logo {
-        font-size: 1.7em;
-        font-weight: bold;
-        margin-left: 24px;
-    }
-}
-
-@media (min-width: 2001px){
-
-    .listener img{
-        height: 71px;
-        width: 71px;
-        display: flex;
-    }
-    
-    .nav-links .auth-button{
-        background-color: #C48AF7;
-        color: #ffffff;
-        border-radius: 5px;
-        text-decoration: none;
-        width: 13vw;
-        margin: 15px;
-        padding: 15px;
-        display: inline-block;
-        text-align: center;
-        font-weight: bold;
-        font-size:31px;
-    }
-
-    .nav-links .login-button{
-        background-color: #C48AF7;
-        color: #ffffff;
-        border-radius: 5px;
-        text-decoration: none;
-        width: 8vw;
-        margin: 15px;
-        padding: 15px;
-        display: inline-block;
-        text-align: center;
-        font-weight: bold;
-        font-size:31px;
-    }
-
-    .nav-links .test-button{
-        width: 15vw;
-        margin: 0px;
-        padding: 15px;
-        font-size: larger;
-    }
-
-    .nav-links .enter-code{
-        background-color: #C48AF7;
-        color: #ffffff;
-        border-radius: 5px;
-        text-decoration: none;
-        width: 12vw;
-        margin: 15px;
-        padding: 15px;
-        display: inline-block;
-        text-align: center;
-        font-weight: bold;
-        font-size:31px;
-    }
-
-    
-
-    .logo {
-        font-size: 2.4em;
-        font-weight: bold;
-        margin-left: 24px;
-    }
-
-    header{
-        justify-content: center;
-        gap: 1200px;
-    }
-}
-@media (max-height: 800px){
-    .sidebar-robot{
-        display: none;
-    }
-}
-@media (max-height: 650px){
-    .panel{
-        overflow-y: scroll;
-    }
-} */
