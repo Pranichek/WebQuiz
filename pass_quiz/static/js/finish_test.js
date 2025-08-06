@@ -203,9 +203,8 @@ socket.on("test_result", (data) => {
             const unswerSpace = document.createElement("div");
             unswerSpace.className = "space-div";
             windowQuestion.appendChild(unswerSpace);
-
             
-            // ответы
+            // ответы для модальных
             let answersNew = cont.getElementsByClassName("answ");
             for (let i = 0; i < answersNew.length; i++) {
                 const answDiv = document.createElement('div');

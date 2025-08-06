@@ -1,10 +1,12 @@
 const urlParamsStudent = new URLSearchParams(window.location.search);
 const room_code = urlParamsStudent.get('room_code');
+
 localStorage.setItem("room_code_user", room_code)
+localStorage.setItem("test_id", "1")
+localStorage.setItem("index_question", "0")
 
 const chat = document.querySelector(".messages");
 chat.innerHTML = ""; 
-
 
 
 const socket = io(); 
@@ -100,12 +102,11 @@ msgInput.value = '';
 });
 
 socket.on(
-'start_passing',
-data => {
-    window.location.replace("/passing_student")
-}
+    'start_passing',
+    data => {
+        window.location.replace("/passing_student")
+    }
 )
-
 
 socket.on(
 "load_chat",

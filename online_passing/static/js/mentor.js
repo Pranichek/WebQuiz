@@ -12,6 +12,7 @@ function loadRoom() {
     const urlParams = new URLSearchParams(window.location.search);
     const id_test = urlParams.get('id_test');
 
+    
     const username = document.querySelector(".mentor_name").textContent; 
     let code = localStorage.getItem("room_code")
 
@@ -104,7 +105,10 @@ function loadRoom() {
 
     socket.on(
         "start_passing",
-        () => {
+        data => {
+            localStorage.setItem("index_question", "0")
+            localStorage.setItem("room_id", data.code)
+            localStorage.setItem("test_id", id_test)
             window.location.replace("/passing_mentor")
         }
     )

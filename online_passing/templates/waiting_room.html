@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>waiting room with your result</h1>
+{% endblock content %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('student.static', filename='js/waiting_student.js') }}"></script>
+{% endblock %}

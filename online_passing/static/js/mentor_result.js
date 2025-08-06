@@ -1,0 +1,25 @@
+const socket = io()
+
+// чтобі не терять связ с комнатой
+socket.emit(
+    "connect_again",
+    {code: localStorage.getItem("room_code")}
+)
+
+socket.on("next_question",
+    data => {
+        window.location.replace("/passing_mentor")
+    }
+)
+
+document.querySelector(".next-question").addEventListener(
+    'click',
+    () => {
+        socket.emit('next_one', {
+            index: localStorage.getItem("index_question"),
+            test_id: localStorage.getItem("test_id"),
+            room: localStorage.getItem("room_code"),
+        })
+    }
+)
+
