@@ -46,12 +46,27 @@ def next_question(data):
 
     test : Test = Test.query.get(test_id)
 
-    if index_question < test.questions.count("?%?") + 1:
+    print(index_question, "mentor_index")
+    if index_question + 1 < test.questions.count("?%?") + 1:
         emit(
             "next_question",
             room=room,
             broadcast= True
         )
+    else:
+        emit(
+            "end_test",
+            room=room,
+            broadcast= True
+        )
+
+@socket.on("add_time")
+def add_time(data):
+    emit("add_some_time", room=data["code"], broadcast= True)
+
+@socket.on('end_question')
+def end_question(data):
+    emit("end_this_question", room=data["code"], broadcast= True, include_self=False)
 # @socket.on('get_users')
 # def return_users(data):
 #     user_list = []

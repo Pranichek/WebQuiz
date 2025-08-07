@@ -194,3 +194,12 @@ online_passing.mentor.add_url_rule(
     rule="/result_mentor",
     view_func = online_passing.render_result_mentor
 )
+online_passing.mentor.add_url_rule(
+    rule="/finish_student",
+    view_func = online_passing.render_finish_student
+)
+
+online_passing.mentor.add_url_rule(
+    rule="/finish_mentor",
+    view_func = online_passing.render_finish_mentor
+)

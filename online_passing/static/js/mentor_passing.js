@@ -66,9 +66,15 @@ socket.on("update_users", (users) => {
     )
 
     if (count_answered == count_users){
-        let index = localStorage.getItem("index_question")
-        index = parseInt(index) + 1;
-        localStorage.setItem("index_question", index)
+        let index = localStorage.getItem("index_question");
+        if (!index || isNaN(parseInt(index))) {
+            index = 0;
+        } else {
+            index = parseInt(index);
+        }
+        index = index + 1;
+        localStorage.setItem("index_question", index);
+
         socket.emit(
             "end_question",
             {code: localStorage.getItem("room_code")}
@@ -95,5 +101,25 @@ socket.on("update_users", (users) => {
 socket.on("page_result",
     data => {
         window.location.replace("/result_mentor")
+    }
+)
+
+document.querySelector('.add-time').addEventListener(
+    'click',
+    () => {
+        socket.emit(
+            'add_time',
+            {code: localStorage.getItem("room_code")}
+        )
+    }
+)
+
+document.querySelector('.end_question').addEventListener(
+    'click',
+    () => {
+        socket.emit(
+            'end_question',
+            {code: localStorage.getItem("room_code")}
+        )
     }
 )

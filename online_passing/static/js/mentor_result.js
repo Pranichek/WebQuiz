@@ -12,6 +12,13 @@ socket.on("next_question",
     }
 )
 
+socket.on("end_test",
+    data => {
+        window.location.replace("/finish_mentor")
+    }
+)
+
+
 document.querySelector(".next-question").addEventListener(
     'click',
     () => {

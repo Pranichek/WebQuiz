@@ -10,3 +10,9 @@ socket.on("next_question",
         window.location.replace("/passing_student")
     }
 )
+
+socket.on("end_test",
+    data => {
+        window.location.replace("/finish_student")
+    }
+)

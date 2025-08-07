@@ -12,9 +12,8 @@ from .correct_answers import return_answers
 def connect_to_room(data):
     id_test = int(data["test_id"])
     room_code = data["code"]
-    index_question = int(data["index"]) - 1
+    index_question = int(data["index"]) 
 
-    print(index_question, "hahahahahahhaahahahhaahah")
     test : Test = Test.query.get(int(id_test))
 
     questions = test.questions.split("?%?")

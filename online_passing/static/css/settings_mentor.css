@@ -124,6 +124,9 @@ main{
     justify-content: start;
     align-items: start;
 }
+.add-time{
+    cursor: pointer;
+}
 
 .count-answered{
     display: flex;

@@ -81,10 +81,6 @@ socket_student.on("page_result",
             localStorage.setItem("users_answers", "skip")
         }
 
-        let index = localStorage.getItem("index_question")
-        index = parseInt(index) + 1;
-        localStorage.setItem("index_question", index)
-
         circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
 
         let midletime = localStorage.getItem("wasted_time")
@@ -307,16 +303,14 @@ socket_student.on('student_question', (data) => {
                             // сбрасываем время если пользователь нажал на какой то ответ
                             localStorage.setItem('time_question', 'set');
 
-                            let chekcookies = localStorage.getItem("users_answers")
+                            let chekcookies = localStorage.getItem("users_answers");
 
-                            if (chekcookies != ''){
-                                // отримуємо старі відповіді якщо вони були
-                                let oldCookie = localStorage.getItem("users_answers")
-                                let cookieList = oldCookie.split(",")   
-                                cookieList.push(block.dataset.value)
-                                localStorage.setItem("users_answers", cookieList)
-                            }else{
-                                localStorage.setItem("users_answers", block.dataset.value)
+                            if (chekcookies && chekcookies !== '') {
+                                let cookieList = chekcookies.split(",");
+                                cookieList.push(block.dataset.value);
+                                localStorage.setItem("users_answers", cookieList.join(","));
+                            } else {
+                                localStorage.setItem("users_answers", block.dataset.value);
                             }
                             let index = localStorage.getItem("index_question")
                             
@@ -356,8 +350,6 @@ socket_student.on('student_question', (data) => {
                                 }
                             }, timeout = 699);
 
-                            index = parseInt(index) + 1;
-                            localStorage.setItem("index_question", index)
 
                             setTimeout(() => {
                                 let midletime = localStorage.getItem("wasted_time")
@@ -366,7 +358,8 @@ socket_student.on('student_question', (data) => {
                                 localStorage.setItem("wasted_time", midletime);
                                 
                                 localStorage.setItem("timeData", "0")
-
+                                index = parseInt(index) + 1;
+                                localStorage.setItem("index_question", index)
                                 checkOportunity = "able";
                                 circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
                                 socket_student.emit(
@@ -529,9 +522,6 @@ socket_student.on('student_question', (data) => {
                                 localStorage.setItem("users_answers", dataString)
                             }
 
-                            let index = localStorage.getItem("index_question")
-                            index = parseInt(index) + 1;
-                            localStorage.setItem("index_question", index)
 
                             let currentCorrect = 0;
                             let currentUncorrect = 0;
@@ -605,6 +595,9 @@ socket_student.on('student_question', (data) => {
                                 localStorage.setItem("timeData", "0")
                                 
                                 checkOportunity = "able";
+                                let index = localStorage.getItem("index_question")
+                                index = parseInt(index) + 1;
+                                localStorage.setItem("index_question", index)
                                 circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
                                 socket_student.emit(
                                     'answered',
@@ -760,9 +753,6 @@ socket_student.on('student_question', (data) => {
                                     localStorage.setItem("users_answers", dataString)
                                 }
 
-                                let index = localStorage.getItem("index_question")
-                                index = parseInt(index) + 1;
-                                localStorage.setItem("index_question", index)
 
     
                                 let answers = data.answers
@@ -823,6 +813,9 @@ socket_student.on('student_question', (data) => {
                                     localStorage.setItem("timeData", "0")
                                     
                                     checkOportunity = "able";
+                                    let index = localStorage.getItem("index_question")
+                                    index = parseInt(index) + 1;
+                                    localStorage.setItem("index_question", index)
                                     circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
                                     socket_student.emit(
                                         'answered',
@@ -904,9 +897,7 @@ socket_student.on('student_question', (data) => {
                                     localStorage.setItem("users_answers", dataString)
                                 }
 
-                                let index = localStorage.getItem("index_question")
-                                index = parseInt(index) + 1;
-                                localStorage.setItem("index_question", index)
+                            
 
     
                                 let answers = data.answers
@@ -963,6 +954,9 @@ socket_student.on('student_question', (data) => {
                                     localStorage.setItem("timeData", "0")
                                     
                                     checkOportunity = "able";
+                                    let index = localStorage.getItem("index_question")
+                                    index = parseInt(index) + 1;
+                                    localStorage.setItem("index_question", index)
                                     circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
                                     socket_student.emit(
                                         'answered',
@@ -1060,6 +1054,48 @@ window.addEventListener(
  
 
 // SetInterval - запускает функцию через определенный промежуток времени(в милисекундах)
+socket_student.on("add_some_time",
+    data => {
+        timeQuestion = parseInt(localStorage.getItem('time_question'));
+        wasted_time = parseInt(timeQuestion)
+        localStorage.setItem('time_question', wasted_time+15)
+    }
+
+)
+
+socket_student.on("end_this_question",
+    data => {
+        
+        localStorage.setItem('time_question', "set")
+        let chekcookies = localStorage.getItem("users_answers")
+        if (chekcookies){
+            // отримуємо старі відповіді якщо вони були
+            let oldCookie = localStorage.getItem("users_answers")
+            let cookieList = oldCookie.split(",")   
+            cookieList.push("skip")
+
+            localStorage.setItem("users_answers", cookieList)
+        }else{
+            localStorage.setItem("users_answers", "skip")
+        }
+        let index = localStorage.getItem("index_question")
+        index = parseInt(index) + 1;
+        localStorage.setItem("index_question", index)
+
+        circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+
+        let midletime = localStorage.getItem("wasted_time")
+        midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+        localStorage.setItem("wasted_time", midletime);
+
+        localStorage.setItem("timeData", "0")
+        socket_student.emit(
+            'answered',
+            {code: localStorage.getItem("room_code_user")}
+        )
+    }
+)
+
 setInterval(() => {
     let checkTime = localStorage.getItem('time_question')
     if (checkTime != "not"){

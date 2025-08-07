@@ -41,3 +41,19 @@ def render_result_mentor():
         'result_mentor.html',
         user = flask_login.current_user
     )
+
+# страница финиша ментора
+@login_decorate
+def render_finish_mentor():
+    return flask.render_template(
+        'finish_mentor.html',
+        user = flask_login.current_user
+    )
+
+# страница финиша студента
+@login_decorate
+def render_finish_student():
+    return flask.render_template(
+        'finish_student.html',
+        user = flask_login.current_user
+    )
