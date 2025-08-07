@@ -23,7 +23,6 @@ def handle_join(data):
             if not existing_room:
                 room = Rooms(room_code=room_code, user_id=str(current_user.id), users=f'{current_user.id}')
                 DATABASE.session.add(room)
-                
             else:
                 existing_room.room_code = room_code 
                 existing_room.users = f'{current_user.id}' 
@@ -44,7 +43,12 @@ def handle_join(data):
 
     user_list = []
     room = Rooms.query.filter_by(room_code=room_code).first()
+    # тернарній опертор
     user_ids = room.users.split() if room and room.users else []
+    # if room:
+    #     user_ids = room.users.split()
+    # else:
+    #     user_ids = []
 
     for user_id in user_ids:
         user = User.query.get(int(user_id))
@@ -56,6 +60,7 @@ def handle_join(data):
             })
 
     emit("update_users", user_list, room=room_code, broadcast=True)
+    
 
 @socket.on("send_message")
 def handle_send_message(data):
@@ -103,7 +108,7 @@ def save_mentor_email(data):
     path_file = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", email, "qrcodes", "chat.json"))
     chat_data = read_json(path_json=path_file)
 
-    emit("load_chat", {"chat_data": chat_data, "user_email": current_user.email, "mentor_email": email}, room=data["room"])
+    emit("load_chat", {"chat_data": chat_data, "user_email": current_user.email, "mentor_email": email, "id_test": data["id_test"]}, room=data["room"])
 
 @socket.on("connect_again")
 def connect_to_room(data):

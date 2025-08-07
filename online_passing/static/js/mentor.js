@@ -1,6 +1,8 @@
 const urlParams = new URLSearchParams(window.location.search);
 const room_code = urlParams.get('room_code');
+
 localStorage.setItem("room_code", room_code)
+localStorage.setItem("flag_time", "true")
 
 const chat = document.querySelector(".messages");
 chat.innerHTML = ""; 
@@ -29,7 +31,8 @@ function loadRoom() {
             "mentor_email", 
             {
                 email: document.querySelector(".email").textContent,
-                room: code
+                room: code,
+                id_test: id_test
             }
         )
     });

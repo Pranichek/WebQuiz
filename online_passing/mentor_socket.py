@@ -4,6 +4,7 @@ from quiz.models import Test
 from .models import Rooms
 from home.models import User
 from flask_socketio import emit, join_room
+from Project.db import DATABASE
 # from .socket_manager import users_rooms
 
 @socket.on("load_question")
@@ -15,7 +16,9 @@ def load_question_mentor(data):
     user_ids = room.users.split() if room and room.users else []
 
     for user_id in user_ids:
-        user = User.query.get(int(user_id))
+        user : User  = User.query.get(int(user_id))
+        user.user_profile.answering_answer = "відповідає"
+        DATABASE.session.commit()
         if user and user.id != flask_login.current_user.id:
             user_list.append({
                 "username": user.username,
@@ -24,6 +27,7 @@ def load_question_mentor(data):
             })
 
     emit("update_users", user_list, room=data["room"], broadcast=True)
+
 
 @socket.on("end_question")
 def end_question(data):
@@ -46,7 +50,7 @@ def next_question(data):
 
     test : Test = Test.query.get(test_id)
 
-    print(index_question, "mentor_index")
+    
     if index_question + 1 < test.questions.count("?%?") + 1:
         emit(
             "next_question",
@@ -67,20 +71,8 @@ def add_time(data):
 @socket.on('end_question')
 def end_question(data):
     emit("end_this_question", room=data["code"], broadcast= True, include_self=False)
-# @socket.on('get_users')
-# def return_users(data):
-#     user_list = []
-#     room = Rooms.query.filter_by(room_code= data["room"]).first()
-#     user_ids = room.users.split() if room and room.users else []
 
-#     for user_id in user_ids:
-#         user = User.query.get(int(user_id))
-#         if user and user.id != flask_login.current_user.id:
-#             user_list.append({
-#                 "username": user.username,
-#                 "email": user.email,
-#                 "ready": "not"
-#             })
-
-#     print(user_list, "hihihihihi")
-#     emit("update_users", user_list, room=data["room"], broadcast=True)
+@socket.on("stopTime")
+def stop_time(data):
+    room_code = data["code"]
+    emit("stop_time", room = room_code, broadcast = True)

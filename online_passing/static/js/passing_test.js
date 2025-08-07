@@ -1096,9 +1096,24 @@ socket_student.on("end_this_question",
     }
 )
 
+
+socket_student.on("stop_time",
+    data => {
+        let checkdata = localStorage.getItem("flag_time")
+        if (checkdata == "false"){
+            localStorage.setItem("flag_time", "true")
+        }else{
+            localStorage.setItem("flag_time", "false")
+        }
+    }
+)
+
 setInterval(() => {
     let checkTime = localStorage.getItem('time_question')
-    if (checkTime != "not"){
+
+    flag_time = localStorage.getItem("flag_time")
+
+    if (checkTime != "not" && flag_time == 'true'){
         timeQuestion = parseInt(localStorage.getItem('time_question'));
 
         if (isNaN(timeQuestion)) {

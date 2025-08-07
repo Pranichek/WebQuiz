@@ -1,6 +1,6 @@
 const socket = io()
 
-if (localStorage.getItem("index_question") == "0"){
+if (localStorage.getItem("index_question")){
     socket.emit('load_question', {
         index: localStorage.getItem("index_question"),
         test_id: localStorage.getItem("test_id"),
@@ -66,15 +66,6 @@ socket.on("update_users", (users) => {
     )
 
     if (count_answered == count_users){
-        let index = localStorage.getItem("index_question");
-        if (!index || isNaN(parseInt(index))) {
-            index = 0;
-        } else {
-            index = parseInt(index);
-        }
-        index = index + 1;
-        localStorage.setItem("index_question", index);
-
         socket.emit(
             "end_question",
             {code: localStorage.getItem("room_code")}

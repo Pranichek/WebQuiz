@@ -1,5 +1,7 @@
 const socket = io()
 
+localStorage.setItem("flag_time", "true")
+
 // чтобі не терять связ с комнатой
 socket.emit(
     "connect_again",
@@ -8,6 +10,9 @@ socket.emit(
 
 socket.on("next_question",
     data => {
+        let index = localStorage.getItem("index_question");
+        index = index + 1;
+        localStorage.setItem("index_question", index);
         window.location.replace("/passing_mentor")
     }
 )

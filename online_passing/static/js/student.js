@@ -2,8 +2,8 @@ const urlParamsStudent = new URLSearchParams(window.location.search);
 const room_code = urlParamsStudent.get('room_code');
 
 localStorage.setItem("room_code_user", room_code)
-localStorage.setItem("test_id", "1")
 localStorage.setItem("index_question", "0")
+localStorage.setItem("flag_time", "true")
 
 const chat = document.querySelector(".messages");
 chat.innerHTML = ""; 
@@ -109,29 +109,30 @@ socket.on(
 )
 
 socket.on(
-"load_chat",
-data => {
-    const chat = document.querySelector(".messages");
-    chat.innerHTML = ""; 
+    "load_chat",
+    data => {
+        const chat = document.querySelector(".messages");
+        chat.innerHTML = ""; 
 
-    localStorage.setItem("email_mentor", data["mentor_email"])
+        localStorage.setItem("email_mentor", data["mentor_email"])
+        localStorage.setItem("test_id", data["id_test"])
 
-    let dataList = data["chat_data"]
+        let dataList = data["chat_data"]
 
-    for (let dictData of dataList){
-        if (dictData["email"] == document.querySelector(".email").textContent){
-            const chat = document.querySelector(".messages");
-            chat.innerHTML += `<div class="message user">
-                        <p>${dictData["message"]}</p>
-                    </div>`;
-        }else{
-            const chat = document.querySelector(".messages");
-            chat.innerHTML += `<div class="message another-user">
-                        <p>${dictData["message"]}</p>
-                    </div>`;
+        for (let dictData of dataList){
+            if (dictData["email"] == document.querySelector(".email").textContent){
+                const chat = document.querySelector(".messages");
+                chat.innerHTML += `<div class="message user">
+                            <p>${dictData["message"]}</p>
+                        </div>`;
+            }else{
+                const chat = document.querySelector(".messages");
+                chat.innerHTML += `<div class="message another-user">
+                            <p>${dictData["message"]}</p>
+                        </div>`;
+            }
         }
     }
-}
 )
 
 
