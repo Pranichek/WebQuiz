@@ -11,14 +11,13 @@ class DataUser(DATABASE.Model):
     last_passed = DATABASE.Column(DATABASE.String, default = '')
     # айді тестів, що сподобались користувачу
     favorite_tests = DATABASE.Column(DATABASE.String, default = ' ')
-
     # кількість грошей
     count_money = DATABASE.Column(DATABASE.Integer, default = 300)
-
     # кількість процентів, щоб забарти боунс за проходження тесту
     percent_bonus = DATABASE.Column(DATABASE.Integer, default = 0)
-
     pet_id = DATABASE.Column(DATABASE.String, default = '1')
+    # чи відповів користувач на питання при онлайн проходженні
+    answering_answer = DATABASE.Column(DATABASE.String, default = "відповідає", nullable = False)
 
     # зв'язок із моделлю користувача one-to-one
     user = DATABASE.relationship("User", back_populates="user_profile")

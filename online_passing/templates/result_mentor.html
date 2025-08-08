@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>result for metor</h1>
+    <button type="button" class="next-question">Next_Question</button>
+{% endblock content %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('mentor.static', filename='js/mentor_result.js') }}"></script>
+{% endblock %}
