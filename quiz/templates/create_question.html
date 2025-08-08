@@ -45,7 +45,7 @@
                         <i class="fas fa-chevron-down timer-arrow"><img src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></i>
                     </p>
                     
-                    <ul id="timeList" class="hidden-list">
+                    <ul id="timeList" style="max-height: 0px;">
                         <li value="0" class="list-time" data-time="20"> 20 секунд</li>
                         <li value="1" class="list-time" data-time="30"> 30 секунд</li>
                         <li value="2" class="list-time" data-time="45"> 45 секунд</li>
@@ -63,11 +63,18 @@
         
         <div class="question-name">
             <input type="text" class="question" name="question" id="question" placeholder="Введіть питання" required>
-                <label class="add-image">Додати зображення<input type="file" id="imgInput" name="image" accept="image/*" onchange="imageLoaded(event);" style="display:none;"></label>
-                <div class="is-image" style="display: none;" id="deleteImgButton">
-                    <p class="img-success">Зображення успішно додано</p>
-                    <label class="add-image">Видалити зображення<input type="button" onclick="deleteImage(event);" style="display:none;"></label>
-                </div>
+            <label class="add-image">Додати зображення<input type="file" id="imgInput" name="image" accept="image/*" onchange="imageLoaded(event);" style="display:none;"></label>
+            <div class="is-image" style="display: none;" id="deleteImgButton">
+                <p class="img-success">Зображення успішно додано</p>
+                <label class="add-image">Видалити зображення<input type="button" onclick="deleteImage(event);" style="display:none;"></label>
+            </div>
+
+            <div class="new-answer-form">
+                <input type="text" class="new-answer" placeholder="Введіть свою відповідь у поле">
+                <!-- <button type="button" class="button-answer"> -->
+                <img class="button-answer" src="{{ url_for('test_pass.static', filename='images/plus_answer.png') }}" alt="">
+                <!-- </button> -->
+            </div>
         </div>
 
         <input type="file" name="image1" class="image1 input_load" id="1" value="" accept="image/*">
@@ -159,24 +166,20 @@
 
 
         <div class="input-type" style="display: none;">
-            <div class="input-answer">
-                
-                <p>Відображення у студента</p>
 
-                <form action="">
-                    <input type="text" class="new-answer">
-                    <button type="button" class="button-answer">Додати</button>
-                </form>
-                
+            <div class="titles">
+                <p>Відображення у студента</p>
+                <p class="list-text">Можливі варіанти відповіді:</p>
             </div>
 
-            <div class="list-answers">
+            <div class="input-answer">
                 
-                <p class="list-text">Можливі варіанти відповіді:</p>
-                
-                <div class="list">
+                <span class="check-answer" style="display: none;"></span>
 
-                </div>
+                <span class="check-cubic-answer"></span>
+                
+                <div class="list"></div>
+                
             </div>
 
         </div>
@@ -195,7 +198,7 @@
     <script type="module" src="{{ url_for('test_pass.static', filename='js/question_type.js') }}" ></script>
     <script type="module" src="{{ url_for('test_pass.static', filename='js/load_images.js') }}" ></script>
     <script src="{{ url_for('test_pass.static', filename='js/inputType.js') }}" ></script>
-    
+    <script src="{{ url_for('test_pass.static', filename='js/addAnswerOption.js') }}" ></script>
 
     <!-- файли де знаходять функції для кожного типу питання -->
     <script src="{{ url_for('test_pass.static', filename='js/one_answer.js') }}" type="module" ></script>

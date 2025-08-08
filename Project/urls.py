@@ -83,17 +83,17 @@ quiz.change_tests.add_url_rule(
     methods = ["GET","POST"]
 )
 
-quiz.mentor.add_url_rule(
-    rule = "/mentor",
-    view_func = quiz.render_mentor,
-    methods = ["GET","POST"]
-)
+# quiz.mentor.add_url_rule(
+#     rule = "/mentor",
+#     view_func = quiz.render_mentor,
+#     methods = ["GET","POST"]
+# )
 
-quiz.student.add_url_rule(
-    rule = "/student",
-    view_func = quiz.render_student,
-    methods = ["GET","POST"]
-)
+# quiz.student.add_url_rule(
+#     rule = "/student",
+#     view_func = quiz.render_student,
+#     methods = ["GET","POST"]
+# )
 
 userprofile.profile.add_url_rule(
     rule = "/test_preview/<int:pk>",
