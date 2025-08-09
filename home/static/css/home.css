@@ -97,8 +97,8 @@ form{
     cursor: pointer;
     flex-grow: 0;
     flex-shrink: 0;
-    width: 18vw;        
-    height: 46vh;      
+    width: 19vw;        
+    height: 48vh;      
     border: 0.15vh solid black;
     z-index: 1;
     transition: 1s;

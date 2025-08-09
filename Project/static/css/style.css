@@ -12,18 +12,6 @@ body{
 }
 
 
-.logo {
-    font-weight: 500;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap: 0.2vw;
-}
-
-.img-logo{
-    height: 7vh;
-}
 
 header{
     z-index: 1000;
@@ -37,7 +25,22 @@ header{
     top: 0; 
     width: 100%;
     overflow: hidden;
-    padding: 0 2vw;
+    /* padding: 0 2vw; */
+    padding-left: 1vw;
+}
+
+.logo {
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.2vw;
+    /* background-color: green; */
+}
+
+.img-logo{
+    height: 7vh;
 }
 
 header p{
@@ -47,6 +50,12 @@ header p{
 nav {
     display: flex;
     align-items: center;
+    gap: 1vw;
+    margin-right: 1vw;
+}
+.nav-links{
+    display: flex;
+    gap: 0.8vw;
 }
 
 .nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
@@ -55,17 +64,22 @@ nav {
     color: #ffffff;
     border-radius: 0.5vh;
     text-decoration: none;
-    margin: 1vh;
+    /* margin: 1vh; */
     padding: 1.2vh;
     display: inline-block;
     text-align: center;
     font-weight: bold;
     font-size: 2vh;
+    transition: 0.3s ease;
+}
+
+.nav-links .auth-button:hover, .nav-links .login-button:hover, .nav-links .test-button:hover, .nav-links .enter-code:hover{
+    background-color: #b06aed;
+
 }
 
 .header_buttons {
     display: flex;
-    margin-right: 5vw;
     gap: 1vh;
 }
 
@@ -83,14 +97,12 @@ nav {
 
 .listener{
     height: 10vh;
-    width: 5vw;
     display: flex;
 }
 
 .open-panel{
     width: 6vh;
     height: 6vh;
-    margin-right: 1vw;
     z-index: 100;
 }
 

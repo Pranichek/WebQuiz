@@ -23,7 +23,8 @@ def load_question_mentor(data):
             user_list.append({
                 "username": user.username,
                 "email": user.email,
-                "ready": user.user_profile.answering_answer
+                "ready": user.user_profile.answering_answer,
+                "count_points": user.user_profile.count_points
             })
 
     emit("update_users", user_list, room=data["room"], broadcast=True)

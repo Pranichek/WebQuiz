@@ -3,6 +3,8 @@ from Project.db import DATABASE
 class DataUser(DATABASE.Model):
     __tablename__ = 'profile'
     id = DATABASE.Column(DATABASE.Integer, primary_key = True)
+    # кількість балів за пройдений тест
+    count_points = DATABASE.Column(DATABASE.Integer, default = 0, nullable = False)
     # кількість проїдених тестів
     count_tests = DATABASE.Column(DATABASE.Integer, default = 0, nullable = False)
     # кількість переможних місць
@@ -10,7 +12,7 @@ class DataUser(DATABASE.Model):
     # айді останніх пройденів тестів
     last_passed = DATABASE.Column(DATABASE.String, default = '')
     # айді тестів, що сподобались користувачу
-    favorite_tests = DATABASE.Column(DATABASE.String, default = ' ')
+    favorite_tests = DATABASE.Column(DATABASE.String, default = '')
     # кількість грошей
     count_money = DATABASE.Column(DATABASE.Integer, default = 300)
     # кількість процентів, щоб забарти боунс за проходження тесту
@@ -22,9 +24,6 @@ class DataUser(DATABASE.Model):
     # зв'язок із моделлю користувача one-to-one
     user = DATABASE.relationship("User", back_populates="user_profile")
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id'), unique=True)
-
-    # для проходження онлайн тесту
-    is_passing = DATABASE.Column(DATABASE.String)
 
 
 

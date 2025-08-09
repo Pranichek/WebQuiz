@@ -5,23 +5,32 @@ let createRooms = document.querySelectorAll(".loadroom")
 // saved - збережені
 // created - створені тести
 
-let pageInfo = localStorage.getItem("pageindex")
-if (!pageInfo){
-    localStorage.setItem("pageindex", "created")
-}
 
-window.addEventListener(
-    'DOMContentLoaded',
-    () => {
-        document.querySelectorAll('.text-filter a').forEach(link => {
-        
-        if (link.classList.contains(localStorage.getItem("pageindex"))){
-                document.querySelector(".page-type").value = link.className
-                link.classList.add("active")
-            }
-        })
+
+window.addEventListener('DOMContentLoaded', () => {
+    let pageInfo = localStorage.getItem("pageindex");
+    let cookieCheck = document.cookie.split('; ').find(row => row.startsWith('pageindex='));
+
+    if (!pageInfo) {
+        pageInfo = "created";
+        localStorage.setItem("pageindex", pageInfo);
     }
-)
+
+    if (!cookieCheck) {
+        document.cookie = `pageindex=${pageInfo}; path=/`;
+        location.reload()
+    }
+
+    document.querySelectorAll('.text-filter a').forEach(link => {
+        if (link.classList.contains(pageInfo)) {
+            link.classList.add("active");
+            document.querySelector(".page-type").value = link.classList[0];
+        } else {
+            link.classList.remove("active");
+        }
+    });
+});
+
 
 for (let button of createRooms){
     button.addEventListener(
@@ -170,8 +179,9 @@ for (let elem of allInputs){
 window.addEventListener(
     'DOMContentLoaded',
     () => {
-        let categoryFilter = localStorage.getItem("selectedCategories").split("/")
-        let sortData = localStorage.getItem("selectedSort").split("/")
+        let categoryFilter = (localStorage.getItem("selectedCategories") || "").split("/");
+        let sortData = (localStorage.getItem("selectedSort") || "").split("/");
+
 
         categoryFilter.forEach(el => {
             let idx = categoryFilter.indexOf(el)
@@ -290,8 +300,7 @@ for (let button of heartButtons){
         () => {
             let testId = button.dataset.value
             document.querySelector(".save-id").value = testId
-            console.log("testId =", testId)
-            console.log("document.querySelector('.save-id').value =", document.querySelector(".save-id").value)
+           
             document.querySelector(".invisible-button").submit()
         }
     )
