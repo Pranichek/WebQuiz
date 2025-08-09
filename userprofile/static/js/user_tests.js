@@ -22,9 +22,10 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelectorAll('.text-filter a').forEach(link => {
-        if (link.classList.contains(pageInfo)) {
+        console.log(cookieCheck.split("=")[1], "lololo")
+        if (link.classList.contains(cookieCheck.split("=")[1])) {
             link.classList.add("active");
-            document.querySelector(".page-type").value = link.classList[0];
+            document.querySelector(".page-type").value = cookieCheck.split("=")[1];
         } else {
             link.classList.remove("active");
         }
