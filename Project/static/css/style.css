@@ -47,12 +47,20 @@ header p{
 nav {
     display: flex;
     align-items: center;
+    gap: 1vw;
+    margin-right: 1vw;
+}
+.nav-links{
+    display: flex;
+    gap: 0.8vw;
 }
 
 .nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
     height: 5vh;
+    height: 5vh;
     background-color: #C48AF7;
     color: #ffffff;
+    border-radius: 0.5vh;
     border-radius: 0.5vh;
     text-decoration: none;
     margin: 1vh;
@@ -75,6 +83,12 @@ nav {
     padding: 0;
     cursor: pointer;
 }
+
+.mentor-buttons img{
+    width: 5vh;
+    height: 5vh;
+}
+
 
 .mentor-buttons img{
     width: 5vh;
@@ -131,6 +145,8 @@ nav {
     color: #ffffff;
     text-decoration: none;
 }
+
+
 
 .links hr{
     width: 12vw;
@@ -254,7 +270,7 @@ nav {
 }
 .wrapper header {
     display: flex;
-    flex-direction: column;
+    align-items: center;
     justify-content: center;
     background-color: #353535;
 }
@@ -266,32 +282,19 @@ header i {
     color: #fff;
     font-size: 32px;
 }
-.wrapper .data {
+.last{
     display: flex;
-    flex-direction: column;
     justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1vh;
 }
 
-.wrapper .data h2 {
-    color:#fff;
-    font-weight: 500;
-    margin-bottom: 10px;
+.ab {
+    margin-top: -5vh;
 }
 
-.wrapper .data p {
-    text-align: center;
-    color:#fff;
-    font-size: 16px;
-    
-}
-.data p a {
-    text-decoration: none;
-}
-.data p a:hover {
-    text-decoration: underline;
-}
-.wrapper .buttons {
-    margin-top: 16px;
+.about{
     display: flex;
     align-items: center;
     justify-content: center;

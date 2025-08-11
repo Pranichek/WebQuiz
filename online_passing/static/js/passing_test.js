@@ -5,8 +5,19 @@ if (!chcklocal.includes("student")){
     window.location.replace('/');
 }
 
+
 // Створюємо об'єкт сокету 
-const socket = io();  
+const socket_student = io(); 
+
+
+socket_student.emit("connect_room",
+    {
+        code: localStorage.getItem("room_code_user"),
+        index: localStorage.getItem("index_question"),
+        test_id: localStorage.getItem("test_id")
+    }
+)
+
 
 let timeQuestion;
 let timer = document.querySelector(".timer");
@@ -15,6 +26,8 @@ let circle = document.querySelector('.circle');
 let manyVariants = []
 let manyBlock;
 let valueBonus;
+// для проверки получил ли пользователь вопрос или нет
+let checkQuestion = false
 
 let checkOportunity;
 
@@ -31,20 +44,6 @@ function addBonus(count_points) {
 };
 
 
-if (localStorage.getItem("index_question") == "0"){
-    localStorage.setItem('index_question', '0');
-    localStorage.setItem('users_answers', '')
-}
-
-
-
-socket.emit('get_question',
-    {
-        index: localStorage.getItem("index_question"),
-        test_id: localStorage.getItem("test_id")
-    }
-);  
-
 function countMoney(value) {
     let startValue = parseInt(document.querySelector(".count-money").textContent);
     let delay = 20; 
@@ -59,13 +58,59 @@ function countMoney(value) {
         delay += step;
     }
 }
-socket.on('question', (data) => {
+
+socket_student.on("page_waiting", 
+    data => {
+        window.location.replace("/waiting_student")
+    }
+)
+
+socket_student.on("page_result",
+    data => {
+
+        localStorage.setItem('time_question', "set")
+        let chekcookies = localStorage.getItem("users_answers")
+        if (chekcookies){
+            // отримуємо старі відповіді якщо вони були
+            let oldCookie = localStorage.getItem("users_answers")
+            let cookieList = oldCookie.split(",")   
+            cookieList.push("skip")
+
+            localStorage.setItem("users_answers", cookieList)
+        }else{
+            localStorage.setItem("users_answers", "skip")
+        }
+
+        circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+
+        let midletime = localStorage.getItem("wasted_time")
+        midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+        localStorage.setItem("wasted_time", midletime);
+
+        localStorage.setItem("timeData", "0")
+        window.location.replace("/result_student")
+    }
+)
+
+// socket_student.on("leave_user",
+//     data => {
+//         if (data["email"] == document.querySelector(".email").textContent){
+//             window.location.replace("/")
+//         }
+//     }
+// )
+
+socket_student.on('student_question', (data) => {
     const bigImg = document.querySelector(".bigimg");
     if (bigImg) {
         bigImg.remove();
     }
     
     if (data.question != "Кінець"){
+        // задаем начальное количество времени на этот вопрос
+        localStorage.setItem("default_time", data.test_time)
+
+
         const divQuestion = document.querySelector(".question")
         divQuestion.style.marginBottom = "0vh";
 
@@ -130,541 +175,7 @@ socket.on('question', (data) => {
         } 
 
         // checkOportunity - чтобы пользоватль не смог несколько раз ответь на один и тот же вопрос, если будет быстро кликать
-        if (data.question_img != "not" && checkOportunity != "not"  && amountAnswers > 4){
-            let justAnswerDiv = document.querySelector(".answers")
-            let answerImg = document.querySelector(".answers-image")
-
-            justAnswerDiv.style.display = "none"
-            answerImg.style.display = "flex"
-
-            const simpleQuestion = document.querySelector(".question");
-
-            simpleQuestion.innerHTML = `
-            `;
-            const imgQuestion = document.querySelector(".question-image");
-
-            imgQuestion.innerHTML = `
-                <div class="num-question">
-                    <p class="num-que">${data.index}/${data.amount_question}</p>
-                </div>
-                <div class= "question-bg">
-                    <p class="question-test"></p>
-                </div>
-            `;
-
-            let question = document.querySelector(".question-test")
-        
-            question.textContent = data.question
-            document.querySelector(".num-que").textContent = `${data.index}/${data.amount_question}`
-
-            document.querySelector(".answers-image").style.display = `flex`;
-            document.querySelector(".question").style.height = `30vh`;
-            if (typeQuestion == "one-answer"){
-                const blockAnswersTop = document.querySelector(".top-answers")
-
-                blockAnswersTop.innerHTML = `
-                    <div class="coint coint-top fade-in" data-value="2">
-                        <p class="variant-text"></p>
-                    </div>
-                    <div class="coint coint-top fade-in-right" data-value="3">
-                        <p class="variant-text"></p>
-                    </div>
-                `;
-
-                const blockAnswersBottom = document.querySelector(".bottom-answers")
-
-                blockAnswersBottom.innerHTML = `
-                    <div class="coint coint-buttom fade-in" data-value="0">
-
-                    </div>
-                    <div class="bottom-image">
-
-                    </div>
-                    <div class="coint coint-buttom fade-in-right" data-value="1">
-                        
-                    </div>
-                `;
-                let imgBig = document.querySelector(".bottom-image")
-                let bigImg = document.createElement("div")
-                imgBig.addEventListener(
-                    'click',
-                    () => {
-                        bigImg.style.opacity = "0";
-                        bigImg.style.transition = "opacity 0.3s ease";
-                        setTimeout(() => {
-                            bigImg.style.opacity = "1";
-                        }, 10);
-
-                        bigImg.className = "bigimg"
-                        bigImg.innerHTML = `
-                            <img src="${data.question_img}"></img>
-                        `
-                        document.body.appendChild(bigImg);
-                        bigImg.addEventListener("click", () => {
-                            bigImg.remove();
-                        });
-                    }
-                )
-
-                setTimeout(() => {
-                    let divs = document.querySelectorAll(".coint")
-
-                    for (let div of divs){
-                        div.classList.add("show")
-                    }
-                }, 100)
-
-                let questionImage = document.querySelector(".question-image")
-                questionImage.classList.add("fade-up")
-
-                questionImage.innerHTML = `
-                    <div class="num-question">
-                        <p class="num-que">${data.index}/${data.amount_question}</p>
-                    </div>
-                    <div class= "question-bg">
-                        <p class="question-test">${data.question}</p>
-                    </div>
-                `;
-
-                setTimeout(() => {
-                    questionImage.classList.add("show-question")
-                }, 100)
-
-                let question = document.querySelector(".question-test")
-        
-                let buttomBlocks = document.querySelectorAll(".coint-buttom")
-                let topBlocks = document.querySelectorAll(".coint-top")
-                
-                if (amountAnswers < 3){
-                    for (let index = 0; index < 2; index++) {
-                        buttomBlocks[index].style.display = 'flex';
-                    }
-                    for (let index = 0; index < 2; index++) {
-                        if (buttomBlocks[index].style.display == "flex"){
-                            buttomBlocks[index].textContent = answers[index]
-                        }
-                    }
-                }else{
-                    for (let index = 0; index < 2; index++) {
-                        buttomBlocks[index].style.display = 'flex';
-                    }
-                    let countTop = parseInt(amountAnswers) - 2
-                    for (let index = 0; index < countTop; index++) {
-                        topBlocks[index].style.display = 'flex';
-                    }
-
-                    // показать сам вопрос
-                    for (let index = 0; index < 2; index++) {
-                        if (buttomBlocks[index].style.display == "flex"){
-                            buttomBlocks[index].textContent = answers[index]
-                        }
-                    }
-
-                    for (let index = 2; index < countTop + 2; index++) {
-                        if (topBlocks[index - 2].style.display == "flex"){
-                            topBlocks[index - 2].textContent = answers[index]
-                        }
-                    }
-                }
-
-
-                const blockanswers = document.querySelectorAll(".coint")
-
-                const footer = document.querySelector(".submit")
-
-                footer.innerHTML = `
-                `;
-
-                // Подавання наступного питання, та збереження індексу питання
-                for (let block of blockanswers){
-                    block.addEventListener(
-                        'click',
-                        () => {
-                            if (checkOportunity == "not"){
-                                return;
-                            }
-                            checkOportunity = "not";
-                            // сбрасываем время если пользователь нажал на какой то ответ
-                            localStorage.setItem('time_question', 'set');
-
-                            let chekcookies = localStorage.getItem("users_answers")
-
-                            if (chekcookies != ''){
-                                // отримуємо старі відповіді якщо вони були
-                                let oldCookie = localStorage.getItem("users_answers")
-                                let cookieList = oldCookie.split(",")   
-                                cookieList.push(block.dataset.value)
-                                localStorage.setItem("users_answers", cookieList)
-                            }else{
-                                localStorage.setItem("users_answers", block.dataset.value)
-                            }
-                            let index = localStorage.getItem("index_question")
-                            index = parseInt(index) + 1;
-                            localStorage.setItem("index_question", index)
-                            // circle.style.background = `conic-gradient(#8ABBF7 0deg, #8ABBF7 360deg)`;
-
-                            block.style.border = "4px solid white"; // біла обводка
-                            block.style.transition = "all 0.3s ease"; // плавний перехід
-                            
-                            setTimeout(() => {
-                                document.querySelector(".modal").style.display = "block";
-                                if (correctIndexes.includes(parseInt(block.dataset.value))) {
-                                    document.querySelector(".right-answer").classList.add("fade-in-anim");
-                                    document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
-                                    valueBonus = "10";
-
-                                    const audio = document.querySelector("#correct-sound");
-                                    if (audio) audio.play();
-                                    let checkprocent = addBonus(10);
-
-                                    let bonus = bonusInput.style.width 
-                                    let clearValue = parseInt(bonus.replace("%"))
-                                    bonusInput.style.width = `${clearValue + 10}%`;
-
-                                    if (clearValue + 10 >= 100){
-                                        document.querySelector(".coin-anim ").classList.add("fade-in-coin")
-                                    }
-                                    
-                                }else {
-                                    valueBonus = "0";
-                                    document.querySelector(".uncorrect-answer").classList.add("fade-in-anim");
-                                    document.querySelector(".sad_robot").classList.add("fade-in-anim-robot")
-
-                                    const audioNegative = document.querySelector("#incorrect-sound");
-                                    if (audioNegative) audioNegative.play();
-                                };
-                            }, timeout = 699);
-
-                            setTimeout(() => {
-                                let midletime = localStorage.getItem("wasted_time")
-                                midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
-                                localStorage.setItem("wasted_time", midletime);
-                                
-                                localStorage.setItem("timeData", "0")
-                                
-
-                                socket.emit('next_question', {
-                                    index: index,
-                                    answer: block.dataset.value,
-                                    test_id: localStorage.getItem("test_id"),
-                                    value_bonus: valueBonus
-                                });
-                                checkOportunity = "able";
-                                circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
-                            }, timeout = 2000);
-                        }
-                    )
-                }
-
-                let countVisible = 0
-                const blockList = document.querySelectorAll(".coint")
-
-                for (let block of blockList){
-                    if (block.checkVisibility()){
-                        countVisible += 1;
-                    }
-                }
-
-                let width = 100 / countVisible
-                let colors = ["#ECEAA1", "#8AF7D4", "#94C4FF", "#C48AF7"]
-
-                blockanswers[0].style.backgroundColor = colors[0]
-                blockanswers[1].style.backgroundColor = colors[1]
-                blockanswers[2].style.backgroundColor = colors[2]
-                blockanswers[3].style.backgroundColor = colors[3]
-
-            }else if(typeQuestion == "many-answers"){
-                const checkMarkUrl = "/static/images/check-mark.png";
-                const blockAnswersTop = document.querySelector(".top-answers")
-
-                blockAnswersTop.innerHTML = `
-                    <div class="coint coint-top fade-in" data-value="2">
-                        <div class="check-input" data-value="2">
-                            <img src="${checkMarkUrl}" class="check-mark" alt="">
-                        </div>
-                        <p class="variant-text">${answers[2]}</p>
-                    </div>
-                    <div class="coint coint-top fade-in-right" data-value="3">
-                        <div class="check-input" data-value="3">
-                            <img src="${checkMarkUrl}" class="check-mark" alt="">
-                        </div>
-                        <p class="variant-text">${answers[3]}</p>
-                    </div>
-                `;
-
-                const blockAnswersBottom = document.querySelector(".bottom-answers")
-
-                blockAnswersBottom.innerHTML = `
-                    <div class="coint coint-buttom fade-in" data-value="0">
-                        <div class="check-input" data-value="0">
-                            <img src="${checkMarkUrl}" class="check-mark" alt="">
-                        </div>
-                        <p class="variant-text">${answers[0]}</p>
-                    </div>
-                    <div class="bottom-image">
-
-                    </div>
-                    <div class="coint coint-buttom fade-in-right" data-value="1">
-                        <div class="check-input" data-value="1">
-                            <img src="${checkMarkUrl}" class="check-mark" alt="">
-                        </div>
-                        <p class="variant-text">${answers[1]}</p>
-                    </div>
-                `;
-                let imgBig = document.querySelector(".bottom-image")
-                let bigImg = document.createElement("div")
-                imgBig.addEventListener(
-                    'click',
-                    () => {
-                        bigImg.style.opacity = "0";
-                        bigImg.style.transition = "opacity 0.3s ease";
-                        setTimeout(() => {
-                            bigImg.style.opacity = "1";
-                        }, 10);
-
-                        bigImg.className = "bigimg"
-                        bigImg.innerHTML = `
-                            <img src="${data.question_img}"></img>
-                        `
-                        document.body.appendChild(bigImg);
-                        bigImg.addEventListener("click", () => {
-                            bigImg.remove();
-                        });
-                    }
-                )
-
-                setTimeout(() => {
-                    let divs = document.querySelectorAll(".coint")
-
-                    for (let div of divs){
-                        div.classList.add("show")
-                    }
-                }, 100)
-
-                let questionImage = document.querySelector(".question-image")
-
-                questionImage.innerHTML = `
-                    <div class="num-question">
-                        <p class="num-que">${data.index}/${data.amount_question}</p>
-                    </div>
-                    <div class= "question-bg">
-                        <p class="question-test">${data.question}</p>
-                    </div>
-                `;
-
-                let question = document.querySelector(".question-test")
-        
-                console.log(question.textContent, "kj")
-
-                let buttomBlocks = document.querySelectorAll(".coint-buttom")
-                let textblock = document.querySelectorAll(".variant-text")
-                let topBlocks = document.querySelectorAll(".coint-top")
-                
-                if (amountAnswers < 3){
-                    for (let index = 0; index < 2; index++) {
-                        buttomBlocks[index].style.display = 'flex';
-                    }
-                }else{
-                    for (let index = 0; index < 2; index++) {
-                        buttomBlocks[index].style.display = 'flex';
-                    }
-                    let countTop = parseInt(amountAnswers) - 2
-                    for (let index = 0; index < countTop; index++) {
-                        topBlocks[index].style.display = 'flex';
-                    }
-                }
-
-
-                manyBlock = document.querySelectorAll(".many-variant")
-
-                const footer = document.querySelector(".submit")
-
-                footer.innerHTML = `
-                    <button type="button" class="confirm-button">надіслати відповідь</button>
-                `;
-
-                let manyVariantsBlock = document.querySelectorAll(".coint");
-
-                for (let manyblock of manyVariantsBlock){
-                    manyblock.addEventListener('click', () => {
-                        if (checkOportunity == "not"){
-                            return;
-                        }
-                        const value = manyblock.dataset.value;
-                        const checkMark = manyblock.querySelector('.check-mark');
-
-                        let index = manyVariants.indexOf(value);
-                        if (index === -1) {
-                            manyVariants.push(value);
-                            manyblock.style.borderWidth = '3px';
-                            checkMark.style.display = 'flex';
-                        } else {
-                            manyVariants.splice(index, 1);
-                            manyblock.style.borderWidth = '0px';
-                            checkMark.style.display = 'none';
-                        }
-
-                        console.log(manyVariants, "manyVariants");
-                        const listString = JSON.stringify(manyVariants);
-                        localStorage.setItem("manyvariants", listString);
-
-                        const confirmButton = document.querySelector(".confirm-button");
-                        if (manyVariants.length > 0){
-                            confirmButton.style.background = `#C39FE4`;
-                        } else {
-                            confirmButton.style.background = `#9688a3`;
-                        }
-
-
-                    });
-                }
-
-                let countVisible = 0
-                const blockList = document.querySelectorAll(".coint")
-
-                for (let block of blockList){
-                    if (block.checkVisibility()){
-                        countVisible += 1;
-                    }
-                }
-
-                let width = 100 / countVisible
-                let colors = ["#ECEAA1", "#8AF7D4", "#94C4FF", "#C48AF7"]
-
-                for (let index = 0; index < amountAnswers + 1; index++) {
-                    if (blockList[index]){
-                        blockList[index].style.backgroundColor = colors[index]
-                    }
-                }
-
-                let confirm_button = document.querySelector(".confirm-button")
-
-                confirm_button.addEventListener(
-                    'click',
-                    () => {
-                        if (manyVariants.length > 0){
-                            checkOportunity = "not";
-                            
-                            localStorage.setItem('time_question', "set")
-                            let chekcookies = localStorage.getItem("users_answers")
-
-                            let dataString = manyVariants.join("@");
-                            console.log(dataString)
-
-                            if (chekcookies != ''){
-                                // отримуємо старі відповіді якщо вони були
-                                let oldCookie = localStorage.getItem("users_answers")
-                                let cookieList = oldCookie.split(",")   
-                                cookieList.push(dataString)
-
-                                localStorage.setItem("users_answers", cookieList)
-                            }else{
-                                localStorage.setItem("users_answers", dataString)
-                            }
-
-                            let index = localStorage.getItem("index_question")
-                            index = parseInt(index) + 1;
-                            localStorage.setItem("index_question", index)
-
-                            let currentCorrect = 0;
-                            let currentUncorrect = 0;
-
-                            let checkMarks = document.querySelectorAll(".check-input");
-
-                            for (let checkMark of checkMarks){
-                                if (manyVariants.includes(checkMark.dataset.value)){
-                                    if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
-                                        checkMark.style.backgroundColor = '#8AF7D4';
-                                        currentCorrect += 1;
-                                    }else{
-                                        checkMark.style.backgroundColor = '#E05359';
-                                        currentUncorrect += 1;
-                                    }
-                                }
-                            }
-
-
-                            // Clear selected variants for next question
-                            manyVariants.length = 0;
-                            const totalCorrect = correctIndexes.length;
-
-                            if (currentCorrect > totalCorrect / 2 && currentUncorrect === 0){
-                                setTimeout(() => {
-                                    document.querySelector(".modal").style.display = "block";
-                                    document.querySelector(".right-answer").classList.add("fade-in-anim");
-                                    document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
-                                    valueBonus = "10";
-                                    const audio = document.querySelector("#correct-sound");
-                                    if (audio) audio.play();
-                                    let checkprocent = addBonus(10);
-
-                                    let bonus = bonusInput.style.width 
-                                    let clearValue = parseInt(bonus.replace("%"))
-                                    bonusInput.style.width = `${clearValue + 10}%`;
-
-                                    if (clearValue + 10 >= 100){
-                                        document.querySelector(".coin-anim ").classList.add("fade-in-coin")
-                                    }
-
-                                    console.log(checkprocent, "checkprocent")
-
-                                    for (let checkMark of checkMarks){
-                                        if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
-                                            checkMark.style.backgroundColor = '#8AF7D4';
-                                        }
-                                    }
-                                }, timeout = 699);
-                            }else{
-                                setTimeout(() => {
-                                    valueBonus = "0";
-                                    document.querySelector(".modal").style.display = "block";
-                                    document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
-                                    document.querySelector(".sad_robot").classList.add("fade-in-anim-robot")
-
-                                    const audioNegative = document.querySelector("#incorrect-sound");
-                                    if (audioNegative) audioNegative.play();
-
-
-                                    for (let checkMark of checkMarks){
-                                        if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
-                                            checkMark.style.backgroundColor = '#8AF7D4';
-                                        }
-                                    }
-                                }, timeout = 699);
-                            }
-
-                            setTimeout(() => {
-                                let midletime = localStorage.getItem("wasted_time")
-                                midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
-                                localStorage.setItem("wasted_time", midletime);
-                                
-                                localStorage.setItem("timeData", "0")
-
-                                socket.emit('next_question', {
-                                    index: index,
-                                    answer: dataString,
-                                    test_id: localStorage.getItem("test_id"),
-                                    value_bonus: valueBonus
-                                });
-                                checkOportunity = "able";
-                                circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
-                            }, timeout = 2000);
-                        }
-                    }
-                )
-            }
-
-
-            document.querySelector(".question").style.height = `20%`;
-            document.querySelector(".answers-image").style.display = `flex`;
-            const img = document.createElement("img");
-
-            img.src = `${data.question_img}`;
-            img.alt = data.question_img;
-
-            document.querySelector(".bottom-image").appendChild(img);
-
-        }else if (checkOportunity != "not"){
+        if (checkOportunity != "not"){
             let justAnswerDiv = document.querySelector(".answers")
             let answerImg = document.querySelector(".answers-image")
 
@@ -796,16 +307,14 @@ socket.on('question', (data) => {
                             // сбрасываем время если пользователь нажал на какой то ответ
                             localStorage.setItem('time_question', 'set');
 
-                            let chekcookies = localStorage.getItem("users_answers")
+                            let chekcookies = localStorage.getItem("users_answers");
 
-                            if (chekcookies != ''){
-                                // отримуємо старі відповіді якщо вони були
-                                let oldCookie = localStorage.getItem("users_answers")
-                                let cookieList = oldCookie.split(",")   
-                                cookieList.push(block.dataset.value)
-                                localStorage.setItem("users_answers", cookieList)
-                            }else{
-                                localStorage.setItem("users_answers", block.dataset.value)
+                            if (chekcookies && chekcookies !== '') {
+                                let cookieList = chekcookies.split(",");
+                                cookieList.push(block.dataset.value);
+                                localStorage.setItem("users_answers", cookieList.join(","));
+                            } else {
+                                localStorage.setItem("users_answers", block.dataset.value);
                             }
                             let index = localStorage.getItem("index_question")
                             
@@ -815,10 +324,11 @@ socket.on('question', (data) => {
 
                             block.style.border = "4px solid white"; // біла обводка
                             block.style.transition = "all 0.3s ease"; // плавний перехід
-                            
+                            let checkCorrect = false
                             setTimeout(() => {
                                 document.querySelector(".modal").style.display = "block";
                                 if (correctIndexes.includes(parseInt(block.dataset.value))) {
+                                    checkCorrect = true
                                     document.querySelector(".right-answer").classList.add("fade-in-anim");
                                     document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
                                     valueBonus = "10";
@@ -845,25 +355,43 @@ socket.on('question', (data) => {
                                 }
                             }, timeout = 699);
 
-                            index = parseInt(index) + 1;
-                            localStorage.setItem("index_question", index)
 
                             setTimeout(() => {
                                 let midletime = localStorage.getItem("wasted_time")
 
                                 midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                if (checkCorrect == true){
+                                    socket_student.emit(
+                                        'answered',
+                                        {
+                                            code: localStorage.getItem("room_code_user"), 
+                                            total_time: localStorage.getItem("default_time"), 
+                                            wasted_time: parseInt(localStorage.getItem("timeData")),
+                                            right_answered: "yes"
+                                        }
+                                    )
+                                }else{
+                                    socket_student.emit(
+                                        'answered',
+                                        {
+                                            code: localStorage.getItem("room_code_user"), 
+                                            total_time: localStorage.getItem("default_time"), 
+                                            wasted_time: parseInt(localStorage.getItem("timeData")),
+                                            right_answered: "not"
+                                        }
+                                    )
+                                }
+                                
+
                                 localStorage.setItem("wasted_time", midletime);
                                 
                                 localStorage.setItem("timeData", "0")
-
-                                socket.emit('next_question', {
-                                    index: index,
-                                    answer: block.dataset.value,
-                                    test_id: localStorage.getItem("test_id"),
-                                    value_bonus: valueBonus
-                                });
+                                index = parseInt(index) + 1;
+                                localStorage.setItem("index_question", index)
                                 checkOportunity = "able";
                                 circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+                                
+                                //window.location.replace("/waiting_student")
                             }, timeout = 2000);
                         }
                     )
@@ -1019,9 +547,6 @@ socket.on('question', (data) => {
                                 localStorage.setItem("users_answers", dataString)
                             }
 
-                            let index = localStorage.getItem("index_question")
-                            index = parseInt(index) + 1;
-                            localStorage.setItem("index_question", index)
 
                             let currentCorrect = 0;
                             let currentUncorrect = 0;
@@ -1042,9 +567,11 @@ socket.on('question', (data) => {
 
                             manyVariants.length = 0;
                             const totalCorrect = correctIndexes.length; 
+                            let checkCorrect = false
 
                             if (currentCorrect > totalCorrect / 2 && currentUncorrect === 0){
                                 setTimeout(() => {
+                                    checkCorrect = true
                                     document.querySelector(".modal").style.display = "block";
                                     document.querySelector(".right-answer").classList.add("fade-in-anim");
                                     document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
@@ -1090,17 +617,38 @@ socket.on('question', (data) => {
                             setTimeout(() => {
                                 let midletime = localStorage.getItem("wasted_time")
                                 midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                if (checkCorrect == true){
+                                    socket_student.emit(
+                                        'answered',
+                                        {
+                                            code: localStorage.getItem("room_code_user"), 
+                                            total_time: localStorage.getItem("default_time"), 
+                                            wasted_time: parseInt(localStorage.getItem("timeData")),
+                                            right_answered: "yes"
+                                        }
+                                    )
+                                }else{
+                                    socket_student.emit(
+                                        'answered',
+                                        {
+                                            code: localStorage.getItem("room_code_user"), 
+                                            total_time: localStorage.getItem("default_time"), 
+                                            wasted_time: parseInt(localStorage.getItem("timeData")),
+                                            right_answered: "not"
+                                        }
+                                    )
+                                }
                                 localStorage.setItem("wasted_time", midletime);
                                 
                                 localStorage.setItem("timeData", "0")
-                                socket.emit('next_question', {
-                                    index: index,
-                                    answer: dataString,
-                                    test_id: localStorage.getItem("test_id"),
-                                    value_bonus:valueBonus
-                                });
+                                
                                 checkOportunity = "able";
+                                let index = localStorage.getItem("index_question")
+                                index = parseInt(index) + 1;
+                                localStorage.setItem("index_question", index)
                                 circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+                                
+                                //window.location.replace("/waiting_student")
                             }, timeout = 2000);
                         }
                     }
@@ -1250,19 +798,17 @@ socket.on('question', (data) => {
                                     localStorage.setItem("users_answers", dataString)
                                 }
 
-                                let index = localStorage.getItem("index_question")
-                                index = parseInt(index) + 1;
-                                localStorage.setItem("index_question", index)
 
     
                                 let answers = data.answers
-
+                                let checkCorrect = false
                                 if (answers.includes(dataString)){
                                     setTimeout(() => {
                                         document.querySelector(".modal").style.display = "block";
                                         document.querySelector(".right-answer").classList.add("fade-in-anim");
                                         document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
                                         valueBonus = "10";
+                                        checkCorrect = true
                                         const audio = document.querySelector("#correct-sound");
                                         if (audio) audio.play();
 
@@ -1308,17 +854,38 @@ socket.on('question', (data) => {
                                 setTimeout(() => {
                                     let midletime = localStorage.getItem("wasted_time")
                                     midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                    if (checkCorrect == true){
+                                        socket_student.emit(
+                                            'answered',
+                                            {
+                                                code: localStorage.getItem("room_code_user"), 
+                                                total_time: localStorage.getItem("default_time"), 
+                                                wasted_time: parseInt(localStorage.getItem("timeData")),
+                                                right_answered: "yes"
+                                            }
+                                        )
+                                    }else{
+                                        socket_student.emit(
+                                            'answered',
+                                            {
+                                                code: localStorage.getItem("room_code_user"), 
+                                                total_time: localStorage.getItem("default_time"), 
+                                                wasted_time: parseInt(localStorage.getItem("timeData")),
+                                                right_answered: "not"
+                                            }
+                                        )
+                                    }
                                     localStorage.setItem("wasted_time", midletime);
                                     
                                     localStorage.setItem("timeData", "0")
-                                    socket.emit('next_question', {
-                                        index: index,
-                                        answer: dataString,
-                                        test_id: localStorage.getItem("test_id"),
-                                        value_bonus:valueBonus
-                                    });
+                                    
                                     checkOportunity = "able";
+                                    let index = localStorage.getItem("index_question")
+                                    index = parseInt(index) + 1;
+                                    localStorage.setItem("index_question", index)
                                     circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+                                    
+                                    //window.location.replace("/waiting_student")
                                 }, timeout = 2000);
                             }
                         }
@@ -1394,18 +961,17 @@ socket.on('question', (data) => {
                                     localStorage.setItem("users_answers", dataString)
                                 }
 
-                                let index = localStorage.getItem("index_question")
-                                index = parseInt(index) + 1;
-                                localStorage.setItem("index_question", index)
+                            
 
     
                                 let answers = data.answers
-
+                                let checkCorrect = false
                                 if (answers.includes(dataString)){
                                     setTimeout(() => {
                                         document.querySelector(".modal").style.display = "block";
                                         document.querySelector(".right-answer").classList.add("fade-in-anim");
                                         document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
+                                        checkCorrect = true
                                         valueBonus = "10";
                                         const audio = document.querySelector("#correct-sound");
                                         if (audio) audio.play();
@@ -1448,17 +1014,38 @@ socket.on('question', (data) => {
                                 setTimeout(() => {
                                     let midletime = localStorage.getItem("wasted_time")
                                     midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                    if (checkCorrect == true){
+                                        socket_student.emit(
+                                            'answered',
+                                            {
+                                                code: localStorage.getItem("room_code_user"), 
+                                                total_time: localStorage.getItem("default_time"), 
+                                                wasted_time: parseInt(localStorage.getItem("timeData")),
+                                                right_answered: "yes"
+                                            }
+                                        )
+                                    }else{
+                                        socket_student.emit(
+                                            'answered',
+                                            {
+                                                code: localStorage.getItem("room_code_user"), 
+                                                total_time: localStorage.getItem("default_time"), 
+                                                wasted_time: parseInt(localStorage.getItem("timeData")),
+                                                right_answered: "not"
+                                            }
+                                        )
+                                    }
                                     localStorage.setItem("wasted_time", midletime);
                                     
                                     localStorage.setItem("timeData", "0")
-                                    socket.emit('next_question', {
-                                        index: index,
-                                        answer: dataString,
-                                        test_id: localStorage.getItem("test_id"),
-                                        value_bonus:valueBonus
-                                    });
+                                    
                                     checkOportunity = "able";
+                                    let index = localStorage.getItem("index_question")
+                                    index = parseInt(index) + 1;
+                                    localStorage.setItem("index_question", index)
                                     circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+                                    
+                                    //window.location.replace("/waiting_student")
                                 }, timeout = 2000);
                             }
                         }
@@ -1547,72 +1134,141 @@ window.addEventListener(
         }
     }
 )
+ 
 
 // SetInterval - запускает функцию через определенный промежуток времени(в милисекундах)
-// setInterval(() => {
-//     let checkTime = localStorage.getItem('time_question')
-//     if (checkTime != "not"){
-//         timeQuestion = parseInt(localStorage.getItem('time_question'));
+socket_student.on("add_some_time",
+    data => {
+        timeQuestion = parseInt(localStorage.getItem('time_question'));
+        wasted_time = parseInt(timeQuestion)
+        localStorage.setItem('time_question', wasted_time+15)
+    }
 
-//         if (isNaN(timeQuestion)) {
-//             // Якщо немає часу або він некоректний 
-//             // timer.textContent = "-";
-//             return; 
-//         }
-//         let wasted_time = parseInt(localStorage.getItem("timeData"))
-//         wasted_time += 1;
-//         localStorage.setItem("timeData", wasted_time)
-//         timeQuestion -= 1; // Зменшуємо yf 1
-//         updateCircle(parseInt(timeQuestion))
-//         if (timeQuestion < 61){
-//             timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-//         }else{
-//             const minutes = Math.floor(timeQuestion / 60);
-//             let remainingSeconds = timeQuestion % 60;
+)
 
-//             if (remainingSeconds < 10) {
-//                 remainingSeconds = '0' + remainingSeconds;
-//             }
+socket_student.on("end_this_question",
+    data => {
+        
+        localStorage.setItem('time_question', "set")
+        let chekcookies = localStorage.getItem("users_answers")
+        if (chekcookies){
+            // отримуємо старі відповіді якщо вони були
+            let oldCookie = localStorage.getItem("users_answers")
+            let cookieList = oldCookie.split(",")   
+            cookieList.push("skip")
 
-//             timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-//         }
-//         localStorage.setItem('time_question', timeQuestion)
-//         if (timeQuestion <= 0){
-//             localStorage.setItem('time_question', "set")
-//             let chekcookies = localStorage.getItem("users_answers")
-//             if (chekcookies){
-//                 // отримуємо старі відповіді якщо вони були
-//                 let oldCookie = localStorage.getItem("users_answers")
-//                 let cookieList = oldCookie.split(",")   
-//                 cookieList.push("skip")
+            localStorage.setItem("users_answers", cookieList)
+        }else{
+            localStorage.setItem("users_answers", "skip")
+        }
+        let index = localStorage.getItem("index_question")
+        index = parseInt(index) + 1;
+        localStorage.setItem("index_question", index)
 
-//                 localStorage.setItem("users_answers", cookieList)
-//             }else{
-//                 localStorage.setItem("users_answers", "skip")
-//             }
+        circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
 
-//             let index = localStorage.getItem("index_question")
-//             index = parseInt(index) + 1;
-//             localStorage.setItem("index_question", index)
+        let midletime = localStorage.getItem("wasted_time")
+        socket_student.emit(
+            'answered',
+            {
+                code: localStorage.getItem("room_code_user"), 
+                total_time: localStorage.getItem("default_time"), 
+                wasted_time: 0,
+                right_answered: "not"
+            }
+        )
+        midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+        localStorage.setItem("wasted_time", midletime);
 
-//             console.log("Питання відправлено на сервер, чекаємо відповіді");
-//             circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+        localStorage.setItem("timeData", "0")
+        
+    }
+)
 
-//             let midletime = localStorage.getItem("wasted_time")
-//             midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
-//             localStorage.setItem("wasted_time", midletime);
 
-//             localStorage.setItem("timeData", "0")
-//             socket.emit('next_question', {
-//                 index: index,
-//                 test_id: localStorage.getItem("test_id")
-//             })
-//             // console.log("Питання відправлено на сервер, чекаємо відповіді");
-//         }
-//     }else{
-//         timer.textContent = "-"
-//     }
-// }, 1000);
+socket_student.on("stop_time",
+    data => {
+        let checkdata = localStorage.getItem("flag_time")
+        if (checkdata == "false"){
+            localStorage.setItem("flag_time", "true")
+        }else{
+            localStorage.setItem("flag_time", "false")
+        }
+    }
+)
+
+setInterval(() => {
+    let checkTime = localStorage.getItem('time_question')
+
+    flag_time = localStorage.getItem("flag_time")
+
+    if (checkTime != "not" && flag_time != "false"){
+        timeQuestion = parseInt(localStorage.getItem('time_question'));
+
+        if (isNaN(timeQuestion)) {
+            // Якщо немає часу або він некоректний 
+            // timer.textContent = "-";
+            return; 
+        }
+        let wasted_time = parseInt(localStorage.getItem("timeData"))
+        wasted_time += 1;
+        localStorage.setItem("timeData", wasted_time)
+        timeQuestion -= 1; 
+        updateCircle(parseInt(timeQuestion))
+        if (timeQuestion < 61){
+            timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+        }else{
+            const minutes = Math.floor(timeQuestion / 60);
+            let remainingSeconds = timeQuestion % 60;
+
+            if (remainingSeconds < 10) {
+                remainingSeconds = '0' + remainingSeconds;
+            }
+
+            timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+        }
+        localStorage.setItem('time_question', timeQuestion)
+        if (timeQuestion <= 0){
+            localStorage.setItem('time_question', "set")
+            let chekcookies = localStorage.getItem("users_answers")
+            if (chekcookies){
+                // отримуємо старі відповіді якщо вони були
+                let oldCookie = localStorage.getItem("users_answers")
+                let cookieList = oldCookie.split(",")   
+                cookieList.push("skip")
+
+                localStorage.setItem("users_answers", cookieList)
+            }else{
+                localStorage.setItem("users_answers", "skip")
+            }
+
+            let index = localStorage.getItem("index_question")
+            index = parseInt(index) + 1;
+            localStorage.setItem("index_question", index)
+
+            circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+
+            let midletime = localStorage.getItem("wasted_time")
+            midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+            localStorage.setItem("wasted_time", midletime);
+
+            localStorage.setItem("timeData", "0")
+
+            socket_student.emit(
+                'answered',
+                {
+                    code: localStorage.getItem("room_code_user"), 
+                    total_time: localStorage.getItem("default_time"), 
+                    wasted_time: 0,
+                    right_answered: "not"
+                }
+            )
+            // console.log("Питання відправлено на сервер, чекаємо відповіді");
+        }
+    }else{
+        timer.textContent = "-"
+    }
+}, 1000);
 
 
 
@@ -1627,7 +1283,7 @@ leaveButton.addEventListener(
         
 
         // щоб гарантувати завершення – передай індекс явно великий
-        socket.emit('next_question', {
+        socket_student.emit('next_question', {
             index: 9999,
             test_id: localStorage.getItem("test_id")
         })
@@ -1636,12 +1292,11 @@ leaveButton.addEventListener(
 
 if (localStorage.getItem("reload") == "yes"){
     localStorage.setItem("reload", "no")
-    console.log(18)
     // location.reload()
 }
 
 let progress = 0; 
- // максимальний час в секундах
+ // максимальний час в 
 
 function updateCircle(timeLeft) {
     let maxTime = parseInt(localStorage.getItem('max_time'))

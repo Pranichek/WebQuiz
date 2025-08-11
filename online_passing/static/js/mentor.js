@@ -1,6 +1,8 @@
 const urlParams = new URLSearchParams(window.location.search);
 const room_code = urlParams.get('room_code');
+
 localStorage.setItem("room_code", room_code)
+localStorage.setItem("flag_time", "true")
 
 const chat = document.querySelector(".messages");
 chat.innerHTML = ""; 
@@ -12,6 +14,7 @@ function loadRoom() {
     const urlParams = new URLSearchParams(window.location.search);
     const id_test = urlParams.get('id_test');
 
+    
     const username = document.querySelector(".mentor_name").textContent; 
     let code = localStorage.getItem("room_code")
 
@@ -28,7 +31,8 @@ function loadRoom() {
             "mentor_email", 
             {
                 email: document.querySelector(".email").textContent,
-                room: code
+                room: code,
+                id_test: id_test
             }
         )
     });
@@ -104,7 +108,10 @@ function loadRoom() {
 
     socket.on(
         "start_passing",
-        () => {
+        data => {
+            localStorage.setItem("index_question", "0")
+            localStorage.setItem("room_id", data.code)
+            localStorage.setItem("test_id", id_test)
             window.location.replace("/passing_mentor")
         }
     )

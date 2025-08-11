@@ -207,3 +207,27 @@ online_passing.student.add_url_rule(
     view_func = online_passing.render_student,
     methods = ["GET","POST"]
 )
+
+online_passing.student.add_url_rule(
+    rule="/waiting_student",
+    view_func = online_passing.render_wait_student
+)
+
+online_passing.student.add_url_rule(
+    rule="/result_student",
+    view_func = online_passing.render_result_student
+)
+
+online_passing.mentor.add_url_rule(
+    rule="/result_mentor",
+    view_func = online_passing.render_result_mentor
+)
+online_passing.mentor.add_url_rule(
+    rule="/finish_student",
+    view_func = online_passing.render_finish_student
+)
+
+online_passing.mentor.add_url_rule(
+    rule="/finish_mentor",
+    view_func = online_passing.render_finish_mentor
+)

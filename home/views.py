@@ -5,6 +5,7 @@ from .send_email import send_code, generate_code
 from threading import Thread
 import PIL
 from quiz.models import Test
+from online_passing.models import Rooms
 from userprofile.models import DataUser
 from Project.login_check import login_decorate
 from flask_login import current_user
@@ -50,7 +51,13 @@ def render_home_auth():
             return flask.redirect("/filter_page")
         elif check_value == "enter-room":
             data_code = flask.request.form["enter-code"]
-            return flask.redirect(f"student?room_code={data_code}")
+
+            room = Rooms.query.filter_by(room_code = data_code).first()
+            
+            if room:
+                return flask.redirect(f"student?room_code={data_code}")
+
+
         
     user = User.query.get(flask_login.current_user.id)
 

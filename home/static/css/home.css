@@ -38,6 +38,7 @@ form{
     width: 100vw;
     height: 35vh;
     padding-top: 2vh;
+    padding-top: 2vh;
 }
 
 
@@ -60,6 +61,7 @@ form{
 }
 
 .input-code input {
+    padding: 1vh;
     padding: 1vh;
     border: none;
     width: 24vw;
@@ -106,27 +108,27 @@ form{
     text-align: center;
     border-radius: 4vh;
     overflow: hidden;
+    position: relative;
 }
 
 p{
     cursor: pointer;
 }
 
-.card-img{
-    background-color: green;
+.card-img {
     width: 100%;
     height: 50%;
     border-radius: 4vh 4vh 0 0;
 }
 
-.card-img img{
+.card-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 3vh 3vh 0 0;
 }
 
-
-.card-discription{
+.card-discription {
     width: 100%;
     height: 50%;
     background-color: #343434;
@@ -137,12 +139,14 @@ p{
     align-items: center;
 }
 
+
+
 .name-test{
     padding-bottom: 10%;
     font-size: 2.5vh;
 }
 
-.interisting-text{
+.interisting-text {
     color: #a19e9e;
     font-size: 1.6vh;
 
@@ -152,6 +156,7 @@ p{
     padding-top: 10%;
     font-size: 2vh;
 }
+
 
 img{
     position: relative;
@@ -180,8 +185,7 @@ img{
 }
 
 .transition4 {
-    transform: translateY(0px);
-    background-color: cadetblue;
+    transform: translateY(9vh) translateX(0vw) rotate(0deg);
     z-index: 5;
 }
 
@@ -200,7 +204,6 @@ img{
     transform: translateY(0px) translateX(-2vw);
     z-index: 11;
 }
-
 
 .transition6 {
     transform: translateY(15vh) translateX(-5vw) rotate(15deg);
