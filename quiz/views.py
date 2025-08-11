@@ -457,7 +457,7 @@ def render_change_question(pk: int):
         correct2 = correctAnswers[1] if len(correctAnswers) > 1 else "",
         correct3 = correctAnswers[2] if len(correctAnswers) > 2 else "not",
         correct4 = correctAnswers[3] if len(correctAnswers) > 3 else "not",
-        image_exists = file_exists,
+        # image_exists = file_exists,
         time = current_time,
         pk = pk,
         exists_image = exists_image,

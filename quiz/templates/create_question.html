@@ -70,10 +70,8 @@
             </div>
 
             <div class="new-answer-form">
-                <input type="text" class="new-answer" placeholder="Введіть свою відповідь у поле">
-                <!-- <button type="button" class="button-answer"> -->
+                <input type="text" class="new-answer" placeholder="Введіть свою відповідь у поле" maxlength="20" style="user-select: none;">
                 <img class="button-answer" src="{{ url_for('test_pass.static', filename='images/plus_answer.png') }}" alt="">
-                <!-- </button> -->
             </div>
         </div>
 
