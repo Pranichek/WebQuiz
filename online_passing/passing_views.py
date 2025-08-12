@@ -2,6 +2,7 @@ import flask, flask_login
 from Project.login_check import login_decorate
 from flask_socketio import join_room
 
+
 @login_decorate
 def render_mentor_passing():
     return flask.render_template(
@@ -11,6 +12,7 @@ def render_mentor_passing():
 
 @login_decorate
 def render_student_passing():
+
     return flask.render_template(
         "student_passing.html",
         user = flask_login.current_user,
@@ -23,7 +25,8 @@ def render_student_passing():
 def render_wait_student():
     return flask.render_template(
         'waiting_room.html',
-        user = flask_login.current_user
+        user = flask_login.current_user,
+        test_page = True
     )
 
 # страница результатов студента
@@ -31,15 +34,19 @@ def render_wait_student():
 def render_result_student():
     return flask.render_template(
         'result_student.html',
-        user = flask_login.current_user
+        user = flask_login.current_user,
+        test_page = True
     )
 
 # страница результатов ментора
 @login_decorate
 def render_result_mentor():
+    
+
     return flask.render_template(
         'result_mentor.html',
-        user = flask_login.current_user
+        user = flask_login.current_user,
+        test_page = True
     )
 
 # страница финиша ментора
@@ -47,7 +54,8 @@ def render_result_mentor():
 def render_finish_mentor():
     return flask.render_template(
         'finish_mentor.html',
-        user = flask_login.current_user
+        user = flask_login.current_user,
+        test_page = True
     )
 
 # страница финиша студента
@@ -55,5 +63,6 @@ def render_finish_mentor():
 def render_finish_student():
     return flask.render_template(
         'finish_student.html',
-        user = flask_login.current_user
+        user = flask_login.current_user,
+        test_page = True
     )

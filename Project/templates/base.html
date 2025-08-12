@@ -8,6 +8,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/footer.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/message.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/cookie_modal.css') }}">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,13 +16,12 @@
     </head>
     
     <body class="body-web">
-        <div class="wrapper">
+        <div class="cookie-modal" id="cookieModal">
             <div class="header-cookie">
                 <img src="{{ url_for('static', filename='images/cookie.png') }}" alt="">
-                <i class="bx bx-cookie"></i>
             </div>
             <div class="data">
-                <h2> Прийняти cookies :) </h2>
+                <h2>Прийняти cookies :)</h2>
                 <p>Цей вебсайт використовує файли cookies, щоб допомогти вам отримати кращий та релевантніший досвід перегляду вебсайту.</p>
             </div>
             <div class="buttons">
@@ -29,6 +29,7 @@
                 <button class="button" id="declineBtn">вiдхилити</button>
             </div>
         </div>
+
         {% if not test_page %}
             <header>
                 <div class = "logo">
@@ -166,7 +167,6 @@
         <script src="{{ url_for('static', filename='js/load_avatar.js') }}"></script>
         <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
         <script src="{{ url_for('static', filename='js/cookiemodal.js') }}"></script>
-        
 
         {% block scripts %}
             <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>

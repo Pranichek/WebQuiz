@@ -56,11 +56,12 @@ def handle_join(data):
             user_list.append({
                 "username": user.username,
                 "email": user.email,
-                "ready": user.user_profile.answering_answer
+                "ready": user.user_profile.answering_answer,
+                "count_points": user.user_profile.count_points
             })
 
     emit("update_users", user_list, room=room_code, broadcast=True)
-    
+
 
 @socket.on("send_message")
 def handle_send_message(data):
@@ -166,7 +167,8 @@ def handler_delete(data):
                         user_list.append({
                             "username": u.username,
                             "email": u.email,
-                            "ready": user.user_profile.answering_answer
+                            "ready": user.user_profile.answering_answer,
+                            "count_points": user.user_profile.count_points
                         })
 
                 emit("update_users", user_list, room=room.room_code)

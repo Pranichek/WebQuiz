@@ -74,14 +74,16 @@ def render_data_test():
                 if exists(path= path):
                     if test_title not in os.listdir(path = path):
                         new_test = Test(
-                        title_test = test_title,
-                        questions = test.questions,
-                        answers = test.answers,
-                        question_time = test.question_time,
-                        user_id = current_user.id,
-                        category = test.category,
-                        image = test.image
-                    )   
+                            title_test = test_title,
+                            questions = test.questions,
+                            answers = test.answers,
+                            question_time = test.question_time,
+                            user_id = current_user.id,
+                            category = test.category,
+                            image = test.image,
+                            type_questions = test.type_questions
+                        )   
+
                         path_owner = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(owner.email), "user_tests", str(test.title_test)))
                         path_user = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", str(new_test.title_test)))
                         shutil.copytree(path_owner, path_user)
@@ -93,14 +95,15 @@ def render_data_test():
                         count_copy = 1
                         while True:
                             new_test = Test(
-                            title_test = test_title + ("_copy" * count_copy),
-                            questions = test.questions,
-                            answers = test.answers,
-                            question_time = test.question_time,
-                            user_id = current_user.id,
-                            category = test.category,
-                            image = test.image
-                        )   
+                                title_test = test_title + ("_copy" * count_copy),
+                                questions = test.questions,
+                                answers = test.answers,
+                                question_time = test.question_time,
+                                user_id = current_user.id,
+                                category = test.category,
+                                image = test.image,
+                                type_questions = test.type_questions
+                            )   
                             try:
                                 path_owner = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(owner.email), "user_tests", str(test.title_test)))
                                 path_user = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", str(new_test.title_test)))
@@ -120,7 +123,8 @@ def render_data_test():
                         question_time = test.question_time,
                         user_id = current_user.id,
                         category = test.category,
-                        image = test.image
+                        image = test.image,
+                        type_questions = test.type_questions
                     )
 
                     path_owner = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(owner.email), "user_tests", str(test.title_test)))

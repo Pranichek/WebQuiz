@@ -105,41 +105,28 @@ def connect_to_room(data):
             user_list.append({
                 "username": user.username,
                 "email": user.email,
-                "ready": user.user_profile.answering_answer
+                "ready": user.user_profile.answering_answer,
+                "count_points": user.user_profile.count_points
             })
 
     emit("update_users", user_list, room=data["code"], broadcast=True)
 
-# @socket.on("reconnect")
-# def reconnect(data):
-#     join_room(room=data["code"])
-
-#     code = data["code"]
-#     room = Rooms.query.filter_by(room_code=code).first()
-
-#     user_ids = room.users.split() if room.users else []
-#     if str(flask_login.current_user.id) not in user_ids:
-#         user_ids.append(str(flask_login.current_user.id))
-#         room.users = " ".join(user_ids)
-#         DATABASE.session.commit()
-
-#     user_list = []
-#     room = Rooms.query.filter_by(room_code= data["code"]).first()
-#     user_ids = room.users.split() if room and room.users else []
-
-#     for user_id in user_ids:
-#         user = User.query.get(int(user_id))
-#         if user and user.id != room.user_id:
-#             user_list.append({
-#                 "username": user.username,
-#                 "email": user.email,
-#                 "ready": user.user_profile.answering_answer
-#             })
-
-#     emit("update_users", user_list, room=data["code"], broadcast=True)
+# remaining_time = max(total_time - time_taken, 0)
+# score = max_score * (0.5 + (1 - 0.5) * (remaining_time / total_time))
 
 @socket.on("answered")
 def answer_the_question(data):
+    if (data["right_answered"] != "not"):
+        print(int(data["total_time"]), "totalka")
+        print(int(data["wasted_time"]), "potracheno")
+        remaining_time = max(int(data["total_time"]) - int(data["wasted_time"]), 0)
+        score = 1000 * (0.2 + (1 - 0.2) * (remaining_time / int(data["total_time"])))
+
+        old_points = flask_login.current_user.user_profile.count_points
+        new_points = old_points + score
+        flask_login.current_user.user_profile.count_points = int(new_points)
+        DATABASE.session.commit()
+
     flask_login.current_user.user_profile.answering_answer = "відповів"
     DATABASE.session.commit()
 
@@ -158,7 +145,8 @@ def answer_the_question(data):
             user_list.append({
                 "username": user.username,
                 "email": user.email,
-                "ready": user.user_profile.answering_answer
+                "ready": user.user_profile.answering_answer,
+                "count_points": flask_login.current_user.user_profile.count_points
             })
     if count_answered >= count_people:
         DATABASE.session.commit()
@@ -199,11 +187,13 @@ def return_data(data):
     else:
         img_url = "not"
 
+    user_answers = ["uncorrect", "uncorrect", "uncorrect", "uncorrect"]
     
     emit(
         "show_data",
         {
             "image":img_url,
-            "question": current_question
+            "question": current_question,
+            
         }
     )

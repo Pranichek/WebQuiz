@@ -77,8 +77,12 @@ form{
     font-size: 1rem;
     border: solid 0.15vh black;
     border-radius: 0.8vh;
+    transition: 0.3s all;
 }
 
+.input-code button:hover{
+    background-color: #6ddab7;
+}
 
 .cointeiner {
     width: 100vw;
@@ -97,8 +101,8 @@ form{
     cursor: pointer;
     flex-grow: 0;
     flex-shrink: 0;
-    width: 18vw;        
-    height: 46vh;      
+    width: 19vw;        
+    height: 48vh;      
     border: 0.15vh solid black;
     z-index: 1;
     transition: 1s;

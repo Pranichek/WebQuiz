@@ -20,10 +20,33 @@ const executeCodes = () => {
 window.addEventListener("load", executeCodes);
 
 
-document.querySelector(".created-test").addEventListener(
-  'click',
-  () => {
-    localStorage.removeItem('selectedCategories');
-    localStorage.removeItem('selectedSort');
-  }
-)
+document.addEventListener("DOMContentLoaded", () => {
+    const cookieModal = document.getElementById("cookieModal");
+    const acceptBtn = document.getElementById("acceptBtn");
+    const declineBtn = document.getElementById("declineBtn");
+
+    // Проверка, есть ли уже cookie
+    if (!document.cookie.includes("cookieBy=planet.quiz")) {
+        cookieModal.classList.add("show");
+    }
+
+    // Принять cookies
+    acceptBtn.addEventListener("click", () => {
+        document.cookie = "cookieBy=planet.quiz; max-age=" + 60 * 60 * 24 * 30;
+        cookieModal.classList.remove("show");
+    });
+
+    // Отклонить cookies
+    declineBtn.addEventListener("click", () => {
+        cookieModal.classList.remove("show");
+    });
+
+    // Очистка localStorage при клике на историю тестов
+    const createdTestLink = document.querySelector(".created-test");
+    if (createdTestLink) {
+        createdTestLink.addEventListener("click", () => {
+            localStorage.removeItem("selectedCategories");
+            localStorage.removeItem("selectedSort");
+        });
+    }
+});

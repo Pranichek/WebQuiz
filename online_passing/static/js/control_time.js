@@ -1,21 +1,25 @@
 let stopButton = document.querySelector(".stop-button") 
 
 
-stopButton.textContent = "Зупинити час"
-
+window.addEventListener(
+    'DOMContentLoaded',
+    () => {
+        if (localStorage.getItem("flag_time") == "false"){
+            stopButton.textContent = "Зупинити час"
+        }else{
+            stopButton.textContent = "Запустити час"
+        }
+    }
+)
 
 socket.on("stop_time",
     data => {
         let checkdata = localStorage.getItem("flag_time")
         if (checkdata == "false"){
             localStorage.setItem("flag_time", "true")
-        }else{
-            localStorage.setItem("flag_time", "false")
-        }
-
-        if (localStorage.getItem("flag_time") == "false"){
             stopButton.textContent = "Запустити час"
         }else{
+            localStorage.setItem("flag_time", "false")
             stopButton.textContent = "Зупинити час"
         }
     }

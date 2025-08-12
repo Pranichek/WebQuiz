@@ -33,3 +33,6 @@ socket_wait.on("show_data",
         cont.appendChild(question)
     }
 )
+
+
+
