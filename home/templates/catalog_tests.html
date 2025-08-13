@@ -27,6 +27,36 @@
         </div>
     
         <div class="main-part"> 
+            <div class="filter-sort-container">
+                <div class="filter-wrapper">
+                    <div class="filter dropdown-header">
+                        Фільтрування
+                        <span class="dropdown-arrow"></span>
+                    </div>
+                    <div class="filter-part dropdown-content hidden-content">
+                        <label class="dropdown-item"><input type="checkbox" class="category-input input-set input-check" name="filter-category" value="програмування"><p class="paragraph">Програмування</p></label>
+                        <label class="dropdown-item"><input type="checkbox" class="category-input input-set input-check" name="filter-category" value="фізика"><p class="paragraph">Фізика</p></label>
+                        <label class="dropdown-item"><input type="checkbox" class="category-input input-set input-check" name="filter-category" value="математика"><p class="paragraph">Математика</p></label>
+                        <label class="dropdown-item"><input type="checkbox" class="category-input input-set input-check" name="filter-category" value="англійська"><p class="paragraph">Англійська</p></label>
+                        <label class="dropdown-item"><input type="checkbox" class="category-input input-set input-check" name="filter-category" value="історія"><p class="paragraph">Історія</p></label>
+                        <label class="dropdown-item"><input type="checkbox" class="category-input input-set input-check" name="filter-category" value="хімія"><p class="paragraph">Хімія</p></label>
+                        <label class="dropdown-item"><input type="checkbox" class="category-input input-set input-check" name="filter-category" value="інше"><p class="paragraph">Інше</p></label>
+                    </div>
+                </div>
+
+                <div class="sort-wrapper">
+                    <div class="sort dropdown-header">
+                        Сортування
+                        <span class="dropdown-arrow"></span>
+                    </div>
+                    <div class="sort-part dropdown-content hidden-content">
+                        <label class="dropdown-item"><input type="radio" class="sort-input input-check" name="sort" value="newest" checked><p class="paragraph">Найновіше</p></label>
+                        <label class="dropdown-item"><input type="radio" class="sort-input input-check" name="sort" value="oldest"><p class="paragraph">Старіше</p></label>
+                        <label class="dropdown-item"><input type="radio" class="sort-input input-check" name="sort" value="popular"><p class="paragraph">Популярність</p></label>
+                        <label class="dropdown-item"><input type="radio" class="sort-input input-check" name="sort" value="questions"><p class="paragraph">Кількість питань</p></label>
+                    </div>
+                </div>
+            </div>
             <div class="cards-outline">
 
                 <img class="sad-robot hidden" src="{{ url_for('profile.static', filename = 'images/user_tests/sad_robot.svg') }}" alt="sad-robot">
@@ -80,43 +110,6 @@
                 </div>
                 
             </div>
-        </div>
-
-
-        <div class="cards">
-            
-            <p class="title"><button class="sidebar-toggle">☰ Меню</button> {{ page_name }}</p>
-
-            <div class="cards-outline">
-                <img class="sad-robot hidden" src="{{ url_for('profile.static', filename = 'images/user_tests/sad_robor.png') }}" alt="sad-robot">
-                <p class="error-text hidden">Тести не знайдено</p>
-
-
-                {% for test in tests %}
-                    <div class="card" onclick="this.querySelector('.topic-test').click();" data-name="{{ test.title_test }}" data-popular="{{ test.test_profile.amount_passes }}" data-category="{{ test.category }}" data-timecreated="{{ test.id }}" data-questions="{{ test.questions.count('?%?') + 1 }}">
-                        <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
-                        {% if 'default' in test.image.split("/") %}
-                            <div class="card_image">
-                                <img class="image" src="{{ url_for('test_pass.static', filename='images/' + test.image.split('/')[-1]) }}" alt="">
-                            </div>
-                        {% else %}
-                            <div class="card_image">
-                                <img class="image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/user_tests/' + test.title_test + '/' + test.image ) }}" alt="">
-                            </div>
-                        {% endif %}
-                        <div class="discription">
-                            <div class="test-name">
-                                <a href="/test_data?id_test={{test.id}}" class="topic-test">{{ test.category }}</a>
-                            </div>
-                            <div class="discription-test">
-                                <p class="static-theme">тема:</p>
-                                <p class="theme-test">{{ test.title_test }}</p>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        
         </div>
     </div> -->
 
