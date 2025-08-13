@@ -83,7 +83,6 @@ for (let elem of allInputs){
                     postInputSort.value = ''
                 }
             }
-            // Save filter and sort state to localStorage
             localStorage.setItem('selectedCategoriesauth', postInputCategory.value);
             localStorage.setItem('selectedSortauth', postInputSort.value);
 

@@ -8,6 +8,66 @@ socket.emit(
     {code: localStorage.getItem("room_code")}
 )
 
+socket.emit(
+    'users_results',
+    {room: localStorage.getItem("room_code")}
+)
+
+socket.on("list_results",
+    user_list => {  
+        const usersCOnts = document.querySelector(".cont-users")
+        usersCOnts.innerHTML = ""  
+        user_list.forEach((element, index) => {
+            const cont = document.createElement("div")
+            cont.className = `userCont ${element.email}`
+
+            const number = document.createElement("p")
+            number.textContent = `№ ${index + 1}`  
+
+            const username = document.createElement("p")
+            username.textContent = element.username
+
+            const div = document.createElement("div");
+            div.className = "avatar-circle";
+
+            const img = document.createElement("img");
+            img.className = "avatar";
+            img.setAttribute("data-size", element.avatar_size);
+            img.src = element.user_avatar
+            div.appendChild(img)
+
+            cont.appendChild(number)
+            cont.appendChild(username)
+            cont.appendChild(div)
+            usersCOnts.append(cont)
+        });
+    }
+)
+
+socket.on("student_answers", data => {
+    const userBlocks = document.querySelector(".cont-users").childNodes
+
+    userBlocks.forEach(block => {
+        const inner =  document.getElementsByClassName(`${data.email}`)
+        if (inner) {
+
+            const newblock = document.createElement("div")
+
+            const text = document.createElement("p")
+            text.textContent = "обрана відповідь"
+
+            const answers = document.createElement("p")
+            answers.textContent = data.answers
+
+            newblock.appendChild(text)
+            newblock.appendChild(answers)
+
+            block.appendChild(newblock)
+        }
+    });
+});
+
+
 socket.on("next_question",
     data => {
         let index = localStorage.getItem("index_question");

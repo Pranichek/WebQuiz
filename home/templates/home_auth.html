@@ -24,16 +24,22 @@
                 <div class="avatar-circle">
                     <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
                 </div>
-                <a class="nick" href="/profile">{{ user.username }}</a>
-                {% if user.user_profile.pet_id %}
-                    <!-- <div class="pet1"> -->
-                    <img id="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/' ~ user.user_profile.pet_id ~ '.png') }}" alt="pet">
-                    <!-- </div> -->
-                {% else %}
-                    <div class="pet1">
-                        <p class="text">немає</p>
+                <a class="nick" href="/profile">
+                    <div class="name-cont">
+                        {{ user.username }}
                     </div>
-                {% endif %}
+                    <div class="pet-cont">
+                        {% if user.user_profile.pet_id %}
+                            <!-- <div class="pet1"> -->
+                            <img id="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/' ~ user.user_profile.pet_id ~ '.png') }}" alt="pet">
+                            <!-- </div> -->
+                        {% else %}
+                            <div class="pet1">
+                                <p class="text">немає</p>
+                            </div>
+                        {% endif %}
+                    </div>
+                </a>
             </div>
             <div class="antoher-data">
                 <p class="gmail">{{ user.email }}</p>

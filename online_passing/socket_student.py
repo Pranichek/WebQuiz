@@ -197,3 +197,27 @@ def return_data(data):
             
         }
     )
+
+@socket.on("student_answers")
+def upload_answers(data):
+    test : Test = Test.query.get(int(data["id_test"]))
+    answers = test.answers.split("?@?")
+    type = test.type_questions.split("?$?")[int(data["index"]) - 1]
+    ready_answers = ""
+    if type != "input-gap":
+        current_answers = []
+        current_answers_list = answers[int(data["index"]) - 1].split("?@?")
+
+        for ans in current_answers_list:
+            ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
+            current_answers.append(ans_clean.split("*|*|*"))
+
+        ready_answers = ""
+        user_answers = data["lastanswers"]
+        for answer in user_answers:
+            ready_answers += current_answers[0][int(answer)] + " "
+    else:
+        ready_answers = data["lastanswers"]
+
+    
+    emit("student_answers", {"answers":ready_answers, "email":flask_login.current_user.email}, room = data["code"],broadcast=True, include_self=False)

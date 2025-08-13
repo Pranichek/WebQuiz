@@ -106,6 +106,7 @@ header{
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .username{
@@ -133,6 +134,21 @@ header{
 
 .nick{
     font-size: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+
+.nick .name-cont{
+    height: 100%;
+    width: 65%;
+}
+
+.nick .pet-cont{
+    height: 100%;
+    width: 29%;
 }
 
 input::-webkit-outer-spin-button,

@@ -19,3 +19,19 @@ socket.on("end_test",
         window.location.replace("/finish_student")
     }
 )
+
+socket.on(
+    "last_answers",
+    data => {
+        let answers = localStorage.getItem("users_answers").split(",")
+        let lastAnswers = answers[parseInt(localStorage.getItem("index_question")) + 1]
+        socket.emit(
+            "student_answers",
+            {lastanswers: lastAnswers, 
+            code: localStorage.getItem("room_code_user"),
+            id_test: localStorage.getItem("test_id"),
+            index: localStorage.getItem("index_question"),
+            }
+        )
+    }
+)
