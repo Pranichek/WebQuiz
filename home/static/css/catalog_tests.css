@@ -638,6 +638,7 @@ a{
     overflow-y: auto;
 }
 
+
 .sort-part.open {
     height: 27vh;
     overflow-y: hidden;
@@ -723,4 +724,28 @@ a{
     margin: 0;
     font-size: 1.5vh;
     transition: color 0.2s ease;
+}
+
+.filter-part::-webkit-scrollbar {
+  width: 1vh; 
+}
+
+.filter-part::-webkit-scrollbar-track {
+  background: #3C3C3C; 
+  border-radius: 1.2vh;
+}
+
+.filter-part::-webkit-scrollbar-thumb {
+  background-color: #94C4FF;
+  border-radius: 1.2vh;
+  border: 0.2vh solid #3C3C3C;
+}
+
+.filter-part::-webkit-scrollbar-thumb:hover {
+  background-color: #7c9abd;
+}
+
+.filter-part {
+  scrollbar-width: auto; 
+  scrollbar-color: #94C4FF #3C3C3C; 
 }
