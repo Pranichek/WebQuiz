@@ -52,7 +52,7 @@ input::placeholder {
 }
 
 .lupa{
-    background:transparent;
+    display: none;
 }
 
 .img-lupa{
