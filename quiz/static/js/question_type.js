@@ -2,8 +2,13 @@ import { clear_answer } from "./one_answer.js"
 
 let categoruMenu = document.querySelector(".category-questions");
 let categoryButton = document.querySelector(".button-open");
-let buttonsTypes = document.querySelectorAll(".check-type-question")
-let ulTypes = document.querySelectorAll(".type-ul")
+let buttonsTypes = document.querySelectorAll(".check-type-question");
+let ulTypes = document.querySelectorAll(".type-ul");
+const textType = document.querySelector(".text-type");
+const blocks = document.querySelector(".blocks");
+const newAnswerInput = document.querySelector(".new-answer-form");
+
+const inputType = document.querySelector(".input-type");
 
 categoryButton.addEventListener(
     "click",
@@ -35,19 +40,17 @@ window.addEventListener(
             type = categoryButton.dataset.value
         }
 
-        const textType = document.querySelector(".text-type");
-        const blocks = document.querySelector(".blocks");
-        
-        const inputType = document.querySelector(".input-type");
         if (type != "input-gap") {
             textType.style.display = "flex";
             blocks.style.display = "flex";
             inputType.style.display = "none";
+            newAnswerInput.style.display = "none";
             
         }else if (type === "input-gap"){
             textType.style.display = "none";
             blocks.style.display = "none";
             inputType.style.display = "flex";
+            newAnswerInput.style.display = "flex";
         }
     
         for (let buttonType of buttonsTypes){
@@ -83,27 +86,24 @@ for (let inputul of ulTypes){
                 type = categoryButton.dataset.value;
             }
 
-            
-            const textType = document.querySelector(".text-type");
-            const blocks = document.querySelector(".blocks");
-           
-            const inputType = document.querySelector(".input-type");
-
             if (type === "one-answer") {
                 clear_answer();
                 textType.style.display = "flex";
                 blocks.style.display = "flex";
                 inputType.style.display = "none";
+                newAnswerInput.style.display = "none";
 
             }else if (type === "input-gap"){
                 textType.style.display = "none";
                 blocks.style.display = "none";
                 inputType.style.display = "flex";
+                newAnswerInput.style.display = "flex";
 
             }else if(type == "many-answers"){
                 textType.style.display = "flex";
                 blocks.style.display = "flex";
                 inputType.style.display = "none";
+                newAnswerInput.style.display = "none";
 
 
                 let count = 0
