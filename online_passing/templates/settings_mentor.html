@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block links %}
-    <link rel="stylesheet" href="{{ url_for('passing_mentor.static', filename = 'css/settings_mentor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('mentor.static', filename = 'css/settings_mentor.css') }}">
 {% endblock links %}
 
 {% block content %}
@@ -35,13 +35,13 @@
 
         <div class="test-settings">
             <div class="count-persons">
-                <img src="{{ url_for('passing_student.static', filename = 'images/people.svg') }}" alt="">
+                <img src="{{ url_for('mentor.static', filename = 'images/people.svg') }}" alt="">
                 <span class="num-people">12</span>
             </div>
 
             <p class="time-text">УПРАВЛІННЯ<br>ЧАСОМ</p>
             <div class="part-timer">
-                <img class="robo-img" src="{{ url_for('passing_student.static', filename = 'images/robot-time.svg') }}" alt="kjn">
+                <img class="robo-img" src="{{ url_for('mentor.static', filename = 'images/robot-time.svg') }}" alt="kjn">
                 <div class="main-taimer">
                     <div class="left-part">
                         <p>00</p>
@@ -59,9 +59,9 @@
 
             <div class="first-buttons-group">
                 <button class="first-button">Додати<br>час</button>
-                <button class="first-button">Зупинити<br>час</button>
-                <button class="first-button">Завершити<br>питання</button>
-                <button class="first-button">+15 Секунд</button>
+                <button class="first-button stop-button">Зупинити<br>час</button>
+                <button class="first-button end_question">Завершити<br>питання</button>
+                <button class="first-button add-time">+15 Секунд</button>
             </div>
 
             <div class="second-buttons-group">
@@ -75,3 +75,10 @@
         <p class="count-answered">відповіли  5 / <span class="count-people">12</span></p>
     </div>
 {% endblock content %}
+
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('mentor.static', filename='js/mentor_passing.js') }}"></script>
+    <script src="{{ url_for('mentor.static', filename='js/control_time.js') }}"></script>
+{% endblock scripts %}

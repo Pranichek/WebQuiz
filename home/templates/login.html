@@ -19,7 +19,7 @@
                 <input inputmode="email"  class="text-input input_email {% if email == 'shake' %}email_input{% endif %}" type= "email" name= "email" placeholder= "Введіть email" required>
 
                 <div class="password-container">
-                    <input class="text-input input_password {% if password == 'shake' %}password{% endif %}" type="password" maxlength="8" minlength="8" name="password" placeholder="Введіть Ваш пароль" id="password" required>
+                    <input class="text-input input_password {% if password == 'shake' %}password{% endif %}" type="password" name="password" placeholder="Введіть Ваш пароль" id="password" required>
                     <img id="eye" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
                     <img class="hidden" id="eye" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
                 </div>

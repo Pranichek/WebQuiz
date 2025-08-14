@@ -3,6 +3,8 @@ import userprofile
 import quiz
 import pass_quiz
 import searches
+import online_passing
+import class_create
 
 home.home_app.add_url_rule(
     rule = "/",
@@ -82,18 +84,6 @@ quiz.change_tests.add_url_rule(
     methods = ["GET","POST"]
 )
 
-quiz.mentor.add_url_rule(
-    rule = "/mentor",
-    view_func = quiz.render_mentor,
-    methods = ["GET","POST"]
-)
-
-quiz.student.add_url_rule(
-    rule = "/student",
-    view_func = quiz.render_student,
-    methods = ["GET","POST"]
-)
-
 quiz.test_pass.add_url_rule(
     rule = "/test",
     view_func= quiz.render_test,
@@ -123,9 +113,9 @@ quiz.test_pass.add_url_rule(
     methods = ["GET", "POST"]
 )
 
-quiz.test_pass.add_url_rule(
-    rule = "/passig_test",
-    view_func = pass_quiz.render_passing_test,
+class_create.class_create.add_url_rule(
+    rule="/class_create",
+    view_func= class_create.render_class,
     methods = ["GET", "POST"]
 )
 
@@ -147,6 +137,12 @@ pass_quiz.finish_test.add_url_rule(
     methods = ["GET", "POST"]
 )
 
+pass_quiz.solo_pass.add_url_rule(
+    rule = "/passig_test",
+    view_func = pass_quiz.render_passing_test,
+    methods = ["GET", "POST"]
+)
+
 searches.search.add_url_rule(
     rule="/filter_page",
     view_func= searches.render_data_filter,
@@ -165,14 +161,51 @@ userprofile.user_graphics.add_url_rule(
     methods = ["GET", "POST"]
 )
 
-pass_quiz.passing_mentor.add_url_rule(
+online_passing.mentor.add_url_rule(
     rule = "/passing_mentor",
-    view_func = pass_quiz.render_mentor_passing,
+    view_func = online_passing.render_mentor_passing,
     methods = ["GET", "POST"]
 )
 
-pass_quiz.passing_student.add_url_rule(
+online_passing.student.add_url_rule(
     rule = "/passing_student",
-    view_func = pass_quiz.render_student_passing,
+    view_func = online_passing.render_student_passing,
     methods = ["GET", "POST"]
+)
+
+
+online_passing.mentor.add_url_rule(
+    rule = "/mentor",
+    view_func = online_passing.render_mentor,
+    methods = ["GET","POST"]
+)
+
+online_passing.student.add_url_rule(
+    rule = "/student",
+    view_func = online_passing.render_student,
+    methods = ["GET","POST"]
+)
+
+online_passing.student.add_url_rule(
+    rule="/waiting_student",
+    view_func = online_passing.render_wait_student
+)
+
+online_passing.student.add_url_rule(
+    rule="/result_student",
+    view_func = online_passing.render_result_student
+)
+
+online_passing.mentor.add_url_rule(
+    rule="/result_mentor",
+    view_func = online_passing.render_result_mentor
+)
+online_passing.mentor.add_url_rule(
+    rule="/finish_student",
+    view_func = online_passing.render_finish_student
+)
+
+online_passing.mentor.add_url_rule(
+    rule="/finish_mentor",
+    view_func = online_passing.render_finish_mentor
 )

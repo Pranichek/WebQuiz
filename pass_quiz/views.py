@@ -13,6 +13,9 @@ from Project.db import DATABASE
 import pyperclip, flask_login
 import flask
 
+
+
+
 # @login_decorate
 def render_finish_test():
     list_to_template = []
@@ -67,6 +70,7 @@ def handle_finish_test(data: dict):
         # types_quest.append(a)
     
     
+    print(types_quest)
 
     count = 0
     answers = test.answers.split("?@?")

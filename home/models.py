@@ -24,6 +24,13 @@ class User(DATABASE.Model, flask_login.UserMixin):
     # Зв'язок one to one із моделлю інфи користувача
     user_profile = DATABASE.relationship("DataUser", back_populates="user", uselist=False)
 
+    # Зв'язок one to one із моделлю кімнати
+    room = DATABASE.relationship("Rooms", back_populates="user", uselist=False)
+
+
+
+
+
 
 
 

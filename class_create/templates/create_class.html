@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Class
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('class_create.static', filename='css/create_class.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <div class="main">
+        <div class="create">
+            <p>Створення класу: </p>
+        </div>
+        <div class="create-class">
+            <div class="text">
+                <p>Заповніть інформацію про клас:</p>
+            </div>
+            <div class="inp1">
+                <input type="text" placeholder="Назва класу" class="name">
+                <div class="sel">
+                    <p>Оберіть клас:</p>
+                    <div class="sels">
+                        <select name="№" id="" class="sel1">
+                            <option value="" selected disabled>№</option>
+                            <option value="">1</option>
+                            <option value="">2</option>
+                            <option value="">3</option>
+                            <option value="">4</option>
+                            <option value="">5</option>
+                            <option value="">6</option>
+                            <option value="">7</option>
+                            <option value="">8</option>
+                            <option value="">9</option>
+                            <option value="">10</option>
+                            <option value="">11</option>
+                        </select>
+                        <p>-</p>
+                        <select name="№" id="" class="sel1">
+                            <option value="" selected disabled>А...</option>
+                            <option value="">А</option>
+                            <option value="">Б</option>
+                            <option value="">В</option>
+                            <option value="">Г</option>
+                            <option value="">Д</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="inp">
+                <input type="text" class="inp2" placeholder="Опис класу (не обов'язково)">
+            </div>
+            <div class="lstin">
+                <select name="№" id="" class="obj">
+                    <option value="" selected disabled>Оберіть предмет класу</option>
+                    <option value="">математика</option>
+                    <option value="">англійська</option>
+                    <option value="">програмування</option>
+                    <option value="">історія</option>
+                    <option value="">фізика</option>
+                    <option value="">хімія</option>
+                    <option value="">інше</option>
+                </select>
+                <select name="№" id="" class="choo">
+                    <option selected disabled>тип приєднання до класу</option>
+                    <option value="">Лише за кодом</option>
+                    <option value="">Лише за запрошенням</option>
+                    <option value="">Відкритий для всіх</option>
+                </select>
+            </div>
+        </div>
+        <div class="bottom-div">
+
+        </div>
+    </div>
+    
+{% endblock %}
+
+{% block scripts %}
+    
+{% endblock scripts %}

@@ -67,6 +67,9 @@ socket.on('question', (data) => {
     }
     
     if (data.question != "Кінець"){
+        const divQuestion = document.querySelector(".question")
+        divQuestion.style.marginBottom = "0vh";
+
         let bonusInput = document.getElementById("bonus");
         bonusInput.style.width = `${data.value_bonus}%`;
 
@@ -94,6 +97,7 @@ socket.on('question', (data) => {
 
         const imgContainer = document.getElementById("image-container");
         imgContainer.innerHTML = "";
+
         let typeQuestion = data.type
         let answers = data.answers
         let amountAnswers = data.answers.length
@@ -1117,7 +1121,6 @@ socket.on('question', (data) => {
                         imgElem.src = list_images[index]
                         variantText[index].style.fontSize  = "2.5vh"
 
-
                         manyBlockAnswers[index].appendChild(imgContainer);
                          
                     }
@@ -1134,6 +1137,9 @@ socket.on('question', (data) => {
                 }
             }
             else if (typeQuestion == "input-gap"){
+                const divQuestion = document.querySelector(".question")
+                divQuestion.style.marginBottom = "5vh";
+
                 const footer = document.querySelector(".submit")
 
                 footer.innerHTML = `
@@ -1150,9 +1156,10 @@ socket.on('question', (data) => {
                     for (let i = 0; i < answer.length; i++) {
                         const input = document.createElement("input");
                         input.className = "small-input-answer";
+                        input.style.color = "#ffffff"
                         input.maxLength = 1;
-                        input.style.width = "3vw";
-                        input.style.margin = "0 0.5vw";
+                        input.style.width = "4.4vw";
+                        input.style.margin = "0 0.4vw";
                         input.autocomplete = "off";
                         input.type = "text";
                         input.inputMode = "text";
@@ -1165,6 +1172,7 @@ socket.on('question', (data) => {
                                 if (nextInput) nextInput.focus();
                             }
                         });
+
                         input.addEventListener("keydown", function (e) {
                             if (e.key === "Backspace" && this.value === "" && i > 0) {
                                 const prevInput = inputDiv.querySelector(`input[data-index="${i - 1}"]`);
@@ -1175,6 +1183,8 @@ socket.on('question', (data) => {
                         inputDiv.appendChild(input);
                     }
                     divparent.appendChild(inputDiv);
+
+                    
 
                     divparent.style.height = "35vh"
                     divparent.style.flexDirection = "column"
@@ -1322,6 +1332,7 @@ socket.on('question', (data) => {
                     const text = document.createElement("p")
                     text.textContent = "введіть свою відповідь у поле"
                     text.className = "input-text"
+                    text.style.color = "#ffffff"
 
                     const inputDiv = document.createElement("div")
                     const input = document.createElement("input")
@@ -1539,70 +1550,70 @@ window.addEventListener(
 )
 
 // SetInterval - запускает функцию через определенный промежуток времени(в милисекундах)
-// setInterval(() => {
-//     let checkTime = localStorage.getItem('time_question')
-//     if (checkTime != "not"){
-//         timeQuestion = parseInt(localStorage.getItem('time_question'));
+setInterval(() => {
+    let checkTime = localStorage.getItem('time_question')
+    if (checkTime != "not"){
+        timeQuestion = parseInt(localStorage.getItem('time_question'));
 
-//         if (isNaN(timeQuestion)) {
-//             // Якщо немає часу або він некоректний 
-//             // timer.textContent = "-";
-//             return; 
-//         }
-//         let wasted_time = parseInt(localStorage.getItem("timeData"))
-//         wasted_time += 1;
-//         localStorage.setItem("timeData", wasted_time)
-//         timeQuestion -= 1; // Зменшуємо yf 1
-//         updateCircle(parseInt(timeQuestion))
-//         if (timeQuestion < 61){
-//             timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-//         }else{
-//             const minutes = Math.floor(timeQuestion / 60);
-//             let remainingSeconds = timeQuestion % 60;
+        if (isNaN(timeQuestion)) {
+            // Якщо немає часу або він некоректний 
+            // timer.textContent = "-";
+            return; 
+        }
+        let wasted_time = parseInt(localStorage.getItem("timeData"))
+        wasted_time += 1;
+        localStorage.setItem("timeData", wasted_time)
+        timeQuestion -= 1; // Зменшуємо yf 1
+        updateCircle(parseInt(timeQuestion))
+        if (timeQuestion < 61){
+            timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+        }else{
+            const minutes = Math.floor(timeQuestion / 60);
+            let remainingSeconds = timeQuestion % 60;
 
-//             if (remainingSeconds < 10) {
-//                 remainingSeconds = '0' + remainingSeconds;
-//             }
+            if (remainingSeconds < 10) {
+                remainingSeconds = '0' + remainingSeconds;
+            }
 
-//             timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-//         }
-//         localStorage.setItem('time_question', timeQuestion)
-//         if (timeQuestion <= 0){
-//             localStorage.setItem('time_question', "set")
-//             let chekcookies = localStorage.getItem("users_answers")
-//             if (chekcookies){
-//                 // отримуємо старі відповіді якщо вони були
-//                 let oldCookie = localStorage.getItem("users_answers")
-//                 let cookieList = oldCookie.split(",")   
-//                 cookieList.push("skip")
+            timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+        }
+        localStorage.setItem('time_question', timeQuestion)
+        if (timeQuestion <= 0){
+            localStorage.setItem('time_question', "set")
+            let chekcookies = localStorage.getItem("users_answers")
+            if (chekcookies){
+                // отримуємо старі відповіді якщо вони були
+                let oldCookie = localStorage.getItem("users_answers")
+                let cookieList = oldCookie.split(",")   
+                cookieList.push("skip")
 
-//                 localStorage.setItem("users_answers", cookieList)
-//             }else{
-//                 localStorage.setItem("users_answers", "skip")
-//             }
+                localStorage.setItem("users_answers", cookieList)
+            }else{
+                localStorage.setItem("users_answers", "skip")
+            }
 
-//             let index = localStorage.getItem("index_question")
-//             index = parseInt(index) + 1;
-//             localStorage.setItem("index_question", index)
+            let index = localStorage.getItem("index_question")
+            index = parseInt(index) + 1;
+            localStorage.setItem("index_question", index)
 
-//             console.log("Питання відправлено на сервер, чекаємо відповіді");
-//             circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+            console.log("Питання відправлено на сервер, чекаємо відповіді");
+            circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
 
-//             let midletime = localStorage.getItem("wasted_time")
-//             midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
-//             localStorage.setItem("wasted_time", midletime);
+            let midletime = localStorage.getItem("wasted_time")
+            midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+            localStorage.setItem("wasted_time", midletime);
 
-//             localStorage.setItem("timeData", "0")
-//             socket.emit('next_question', {
-//                 index: index,
-//                 test_id: localStorage.getItem("test_id")
-//             })
-//             // console.log("Питання відправлено на сервер, чекаємо відповіді");
-//         }
-//     }else{
-//         timer.textContent = "-"
-//     }
-// }, 1000);
+            localStorage.setItem("timeData", "0")
+            socket.emit('next_question', {
+                index: index,
+                test_id: localStorage.getItem("test_id")
+            })
+            // console.log("Питання відправлено на сервер, чекаємо відповіді");
+        }
+    }else{
+        timer.textContent = "-"
+    }
+}, 1000);
 
 
 
@@ -1614,9 +1625,11 @@ leaveButton.addEventListener(
         localStorage.setItem('time_question', "0")
 
         localStorage.setItem("timeData", "0")
+        
+
         // щоб гарантувати завершення – передай індекс явно великий
         socket.emit('next_question', {
-            index: 100,
+            index: 9999,
             test_id: localStorage.getItem("test_id")
         })
     }

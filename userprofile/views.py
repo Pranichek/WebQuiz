@@ -3,7 +3,7 @@ from threading import Thread
 import PIL.Image
 from home.models import User
 from quiz.models import Test, TestData
-from quiz.del_files import delete_files_in_folder
+from online_passing.del_files import delete_files_in_folder
 from quiz.generate_image import return_img
 from Project.db import DATABASE
 from .render_data import create_email, render_phone_number
@@ -186,17 +186,16 @@ def render_edit_avatar():
     
 @login_decorate
 def render_user_tests():
+    response = None
     if flask.request.method == "POST":
         delete_test_id = flask.request.form.get("test_id")
         user = User.query.get(flask_login.current_user.id)
         old_favorites = user.user_profile.favorite_tests.split()
-        print(delete_test_id ,1121212)
 
         if str(delete_test_id) in old_favorites:
             old_favorites.remove(str(delete_test_id))
             
             user.user_profile.favorite_tests = " ".join(old_favorites)
-            print("old_favorites =", user.user_profile.favorite_tests)
             DATABASE.session.commit()
 
     cookie = flask.request.cookies.get("pageindex")
@@ -260,7 +259,7 @@ def render_user_tests():
             )
         )
 
-    else:
+    elif cookie == "saved":
         user : User = User.query.get(flask_login.current_user.id)
         
         # tests = user.tests.filter(Test.check_del != "deleted").all()
@@ -279,19 +278,23 @@ def render_user_tests():
                 saved_tests = tests,
                 user=flask_login.current_user,
                 message = message,
-                page_name = "Мої вибрані тести",
+                page_name = "Мої обрані тести",
                 code = generate_code()
             )
         )
 
 
-    response.delete_cookie('questions')
-    response.delete_cookie('answers')
-    response.delete_cookie('time')
-    response.delete_cookie('category')
-    response.delete_cookie('inputname')
+    if response != None:
+        response.delete_cookie('questions')
+        response.delete_cookie('answers')
+        response.delete_cookie('time')
+        response.delete_cookie('category')
+        response.delete_cookie('inputname')
     
-    return response
+    if response != None:
+        return response
+    else:
+        return flask.render_template("user_tests.html")
 
 
 

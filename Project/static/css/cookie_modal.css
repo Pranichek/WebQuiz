@@ -1,0 +1,93 @@
+.cookie-modal {
+    position: fixed;
+    bottom: 20px;
+    left: 20px; 
+    width: clamp(280px, 90vw, 420px);
+    background: #353535;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.35);
+    z-index: 9999;
+    
+    opacity: 0;
+    transform: translateX(-120%); /* Спрятано за экраном слева */
+    pointer-events: none;
+    transition: 
+        opacity 0.4s ease, 
+        transform 0.4s cubic-bezier(0.25, 1, 0.3, 1);
+}
+
+.cookie-modal.show {
+    opacity: 1;
+    transform: translateX(0); /* Выезжает на место */
+    pointer-events: auto;
+}
+
+.cookie-modal .header-cookie {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+}
+.cookie-modal .header-cookie img {
+    height: 80px;
+    width: 80px;
+}
+
+.cookie-modal .data {
+    text-align: center;
+}
+.cookie-modal .data h2 {
+    color: #fff;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+.cookie-modal .data p {
+    color: #ccc;
+    font-size: 14px;
+    line-height: 1.4;
+}
+
+.cookie-modal .buttons {
+    margin-top: 15px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.cookie-modal .button {
+    flex: 1;
+    font-size: 14px;
+    padding: 8px 0;
+    border-radius: 8px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+.cookie-modal #acceptBtn {
+    background: #B9BDF5;
+    color: #353535;
+}
+.cookie-modal #acceptBtn:hover {
+    background: #fff;
+}
+.cookie-modal #declineBtn {
+    background: transparent;
+    border: 2px solid #B9BDF5;
+    color: #B9BDF5;
+}
+.cookie-modal #declineBtn:hover {
+    background: #B9BDF5;
+    color: #fff;
+}
+
+/* Мобільна адаптація */
+@media (max-width: 480px) {
+    .cookie-modal {
+        bottom: 10px;
+        left: 10px; 
+        padding: 15px;
+    }
+    .cookie-modal .data p {
+        font-size: 13px;
+    }
+}

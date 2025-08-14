@@ -76,7 +76,7 @@ socket.on("test_result", (data) => {
         questionDiv.insertBefore(mainHead, questionDiv.firstChild);
 
         element.answers.forEach((answ, index) => {
-            // console.log(answ)
+            
             let circle = document.createElement('div');
             let divRight = document.createElement('div')
 
@@ -95,7 +95,9 @@ socket.on("test_result", (data) => {
                 mainHead.className = "correct-head";
             } else if (count_right >= 1) {
                 mainHead.className = "yellow-head";
-            } else {
+            }else if (userAnswersForThisQuestion.includes("skip")){
+                mainHead.className = "skip-head"
+            }else {
                 mainHead.className = "uncorrect-head";
             }
 
@@ -108,7 +110,7 @@ socket.on("test_result", (data) => {
                         // Для множественных правильных ответов
                         if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
                             circle.className = "correct-quard"; // Правильный ответ
-                            if (userAnswersForThisQuestion.length < correctForThisQuestion.length){
+                            if (count_right <= 1){
                                 circle.className = "orange-quard"
                             }
                         } else if (correctForThisQuestion.includes(index) && !userAnswersForThisQuestion.includes(index)) {
@@ -118,7 +120,8 @@ socket.on("test_result", (data) => {
                         } else {
                             circle.className = "simple-quard"; // Ответ не выбран
                         }
-                }else if (type_quest === 'one-answer'){
+                }else{
+                    // if (correctForThisQuestion.length == 1 || correctForThisQuestion.length == count_right) {
                     if (correctForThisQuestion.includes(index)){
                         divRight.className = "right-answs"
                     }
@@ -131,33 +134,7 @@ socket.on("test_result", (data) => {
                     } else {
                         circle.className = "simple-circle"; // Ответ не выбран
                     }
-                }else if (type_quest === 'input-gap'){
-                    const oldBlock = questionDiv.querySelector('.block-inp');
-                    if (oldBlock) {
-                        oldBlock.remove()
-                    }
-                    let blockInp = document.createElement('div')
-                    blockInp.className = "block-inp"
-                    questionDiv.appendChild(blockInp)
-                    blockInp.innerHTML = "";
-                    
-                    for (let i = 0; i < answ.length; i++){
-                        quardInp = document.createElement("div")
-                        if (answ === userAnswersForThisQuestion[indexel]){
-                            quardInp.className = "quard-inp"
-                            mainHead.className = "correct-head";
-                        }else{
-                            quardInp.className = "quard-inp-red"
-                            mainHead.className = "uncorrect-head";
-                        }
-
-                        let letterDiv = document.createElement("div");
-                        letterDiv.className = "letter";
-                        letterDiv.textContent = answ[i];
-
-                        quardInp.appendChild(letterDiv);
-                        blockInp.appendChild(quardInp);
-                    }
+                    // }
                 }
             }
             
@@ -207,6 +184,13 @@ socket.on("test_result", (data) => {
                 windowQuestion.appendChild(headNew);
             }
 
+            let headMini4 = cont.getElementsByClassName("skip-head");
+            for (let i = 0; i < headMini4.length; i++) {
+                const headNew = document.createElement("div");
+                headNew.className = "skip-head";
+                windowQuestion.appendChild(headNew);
+            }
+
             // текст вопроса
             let qustion_text = cont.getElementsByClassName('quest-text');
             for (let i = 0; i < qustion_text.length; i++) {
@@ -219,9 +203,8 @@ socket.on("test_result", (data) => {
             const unswerSpace = document.createElement("div");
             unswerSpace.className = "space-div";
             windowQuestion.appendChild(unswerSpace);
-
             
-            // ответы
+            // ответы для модальных
             let answersNew = cont.getElementsByClassName("answ");
             for (let i = 0; i < answersNew.length; i++) {
                 const answDiv = document.createElement('div');
@@ -242,6 +225,5 @@ socket.on("test_result", (data) => {
 playAgain.addEventListener("click", () => {
     window.location.replace(`/test_data?id_test=${playAgain.value}`);
 });
-
 
 

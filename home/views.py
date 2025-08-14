@@ -5,6 +5,7 @@ from .send_email import send_code, generate_code
 from threading import Thread
 import PIL
 from quiz.models import Test
+from online_passing.models import Rooms
 from userprofile.models import DataUser
 from Project.login_check import login_decorate
 from flask_login import current_user
@@ -50,7 +51,13 @@ def render_home_auth():
             return flask.redirect("/filter_page")
         elif check_value == "enter-room":
             data_code = flask.request.form["enter-code"]
-            return flask.redirect(f"student?room_code={data_code}")
+
+            room = Rooms.query.filter_by(room_code = data_code).first()
+            
+            if room:
+                return flask.redirect(f"student?room_code={data_code}")
+
+
         
     user = User.query.get(flask_login.current_user.id)
 
@@ -305,13 +312,17 @@ def render_login():
                 email = "shake"
                 message = 'Користувача із такою поштою не існує'
             else:
-                for user in list_users:
-                    if user.email == email_form:
-                        if user.password == password_form:
-                            flask_login.login_user(user)
-                        else:
-                            password = "shake"
-                            message = 'Введений пароль не підходить до пошти'
+                user = User.query.filter_by(email=email_form).first()
+                if user is None:
+                    email = "shake"
+                    message = 'Користувача із такою поштою не існує'
+                elif user.password != password_form:
+                    password = "shake"
+                    message = 'Введений пароль не підходить до пошти'
+                else:
+                    flask_login.login_user(user)
+                    return flask.redirect("/") 
+                
         elif check_form == "clear_form":
             password = ''
             email = ''

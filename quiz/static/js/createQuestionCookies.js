@@ -11,14 +11,6 @@ let timeC;
 let validAnswersFlag = false;
 
 
-// document.addEventListener("DOMContentLoaded", ()=>{
-//     answerScanning();
-// })
-
-// document.addEventListener("load", ()=>{
-//     window.click()
-// })
-
 document.addEventListener("input", answerScanning);
 document.addEventListener("click", answerScanning);
 document.addEventListener("change", answerScanning);

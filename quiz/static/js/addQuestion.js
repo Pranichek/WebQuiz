@@ -1,3 +1,5 @@
+import { ShowMessage } from '/static/js/showMessage.js';
+
 const buttonPlus = document.getElementById("addQuestion");
 let allAnswerBlocks = document.querySelectorAll(".answer-block");
 let hiddenAnswerBlocks;
@@ -17,6 +19,7 @@ function settingsAddButton(){
             count++
         }
     }
+
     if (buttonPlus){
         if (count == 0){
             buttonPlus.style.display = "none"
@@ -83,6 +86,7 @@ for (let deleteButton of deleteButtonList) {
                             
                             if (input.classList.contains("correct")) {
                                 correctAnswerList = document.querySelectorAll(".correct");
+                                
                                 if (correctAnswerList.length > 1) {
                                     input.classList.remove("correct");
                                     answerBlock.classList.add("hidden");
@@ -100,23 +104,22 @@ for (let deleteButton of deleteButtonList) {
                                 localStorage.removeItem(`answer-${i}`);
                                 input.value = ""; 
                                 if (answerBlock.querySelector(".inside-data").querySelector(".for-image")){
+                                    let icons = answerBlock.querySelectorAll(".load_img")
+                                    for (let icon of icons){
+                                        if (icon.classList.contains("invisible")){
+                                            icon.classList.remove("invisible")
+                                            icon.dataset.state = "load"
+                                        }else{
+                                            icon.classList.add("invisible")
+                                            icon.dataset.state = "load"
+                                        }
+                                    }
                                     answerBlock.querySelector(".inside-data").querySelector(".for-image").remove()
                                     answerBlock.querySelector("textarea").style.fontSize = "3vh"
                                 }
                                 
 
-                                let icons = answerBlock.querySelectorAll(".load_img")
-                                for (let icon of icons){
-                                    if (icon.classList.contains("invisible")){
-                                        icon.classList.remove("invisible")
-                                        icon.dataset.state = "load"
-                                    }else{
-                                        icon.classList.add("invisible")
-                                        icon.dataset.state = "load"
-                                    }
-                                }
-
-
+                            
                                 for (let tick of tickCircleListtwo) {
                                     if (tick.id === input.id) {
                                         tick.style.display = "none";
@@ -124,10 +127,33 @@ for (let deleteButton of deleteButtonList) {
                                 }
 
                             }
+                            let count = 0;
+                            for (let tick of tickCircleListtwo) {
+                                if (tick.style.display != "none"){
+                                    count++
+                                }
+                            }
+
+                            if (count == 0){
+                                let id = "1"
+                                for (let block of document.querySelectorAll(".answer-block")){
+                                    if (block.checkVisibility()){
+                                        id = block.id
+                                        break
+                                    }
+                                }
+                                let input = document.getElementById(id) 
+                                let tick = document.querySelector(`.tick-circle[id="${id}"]`)
+
+                                tick.style.display = "flex"
+                                input.classList.add("correct")
+                            }
 
                             settingsAddButton()
                         }
                     }
+                }else{
+                    ShowMessage("Упс... Це питання потребує щонайменше двох відповідей")
                 }
             }
         }

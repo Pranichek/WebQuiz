@@ -15,7 +15,7 @@ from .models import Test, TestData
 from Project.db import DATABASE
 from os.path import abspath, join, exists
 from flask_login import current_user
-from .del_files import delete_files_in_folder
+from online_passing.del_files import delete_files_in_folder
 from .generate_image import return_img
 from Project.login_check import login_decorate
 from home.models import User
@@ -272,6 +272,7 @@ def render_change_question(pk: int):
         current_type = questions_types.split("?$?")[pk]
 
         if (current_type != "one-answer" or current_type != "many-answers"):
+
             dir_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
             if exists(dir_path):
                 for dir in os.listdir(dir_path):
@@ -309,10 +310,8 @@ def render_change_question(pk: int):
         check_del.sort()
 
         for del_id in check_del:
-            print(del_id, "lol")
             if str(del_id) in os.listdir(dir_path):
                 for i in range(del_id - 1, len(check_del)):
-                    print(index_change[i], "hru")
                     del index_change[i]
                 cur_dir = join(dir_path, str(del_id))
                 shutil.rmtree(path=cur_dir)
@@ -438,8 +437,6 @@ def render_change_question(pk: int):
                     exists_image = True
                     image_url = join("userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1), image)
 
-    
-    
 
     list_checks = []
     list_checks.extend(["load", "load", "load", "load"])
