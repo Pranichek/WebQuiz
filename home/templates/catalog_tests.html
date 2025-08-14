@@ -37,8 +37,9 @@
                 </div>
                 <div class="find-by-text">
                     <form action="" method="post">
+                        <button class="lupa" type="button"></button>
                         <input type="text" class="findByname" placeholder="Знайти створені тести..." maxlength="60">
-                        <button class="lupa" type="button"><img class="img-lupa" src="{{ url_for('profile.static', filename= 'images/user_tests/lupa.svg') }}" alt=""></button>
+                        <img class="img-lupa" onclick="document.querySelector('.lupa').click()" src="{{ url_for('profile.static', filename= 'images/user_tests/lupa.svg') }}" alt="">
                     </form>
                 </div>
             </div>

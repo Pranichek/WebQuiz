@@ -1,5 +1,6 @@
 let validatorUsername = [
     { regex: /^.{2,20}$/ },     
+    { regex: /^[a-zA-Zа-яА-ЯіїєґІЇЄҐ]+$/ }
 ]
 
 let usernameRules = document.querySelectorAll(".username-item")
