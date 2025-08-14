@@ -17,6 +17,7 @@ socket_wait.emit(
         lastanswers: lastAnswers,
         id_test: localStorage.getItem("test_id"), 
         index_question: localStorage.getItem("index_question"),
+        users_answers: localStorage.getItem("users_answers")
 
     }
 )
@@ -35,8 +36,9 @@ socket_wait.on("show_data",
         if (data["image"] != "not"){
             const img = document.createElement("img")
             img.src = data["image"]
-            img.style.width = "40vw"
-            img.style.height = "40vw"
+            img.style.width = "50%"
+            img.style.height = "100%"
+            
             cont.appendChild(img)
         }
         
@@ -52,7 +54,10 @@ socket_wait.on("show_data",
         
         container.innerHTML = ""
         if (typeQuestion != "input-gap"){
+            let count = 0
+            let maxheight = 100
             for (let answer of answers){
+                count++
                 const outline = document.createElement("div")
                 outline.className = "answer2"
 
@@ -67,6 +72,15 @@ socket_wait.on("show_data",
 
                 container.appendChild(outline)
             }
+
+            if (count > 2){
+                maxheight = 40
+            }
+
+            const blocks = document.querySelectorAll(".answer2")
+            blocks.forEach((block) => {
+                block.style.height = `${height}%`;
+            })
         }
         
         else{

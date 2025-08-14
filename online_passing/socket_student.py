@@ -211,6 +211,9 @@ def return_data(data):
         else:
             ready_answers = "пропустив"
 
+
+    
+
     emit(
         "show_data",
         {

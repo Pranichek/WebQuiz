@@ -70,7 +70,6 @@ def handle_finish_test(data: dict):
         # types_quest.append(a)
     
     
-    print(types_quest)
 
     count = 0
     answers = test.answers.split("?@?")
@@ -183,7 +182,7 @@ def handle_finish_test(data: dict):
     old_data = flask_login.current_user.user_profile.last_passed #" 2"
     indexes = old_data.split(" ") # [" ", "2"]
     if indexes[0] == "" or indexes[0] == " ":
-        indexes.pop(0)# ["2/0,1", "2/0,1", "2"]
+        indexes.pop(0)# 
 
     for el in indexes:
 
