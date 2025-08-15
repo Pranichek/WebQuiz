@@ -28,6 +28,14 @@ socket.on("test_result", (data) => {
     document.querySelector(".correct-answers").textContent = data.right_answers;
     document.querySelector(".mark").textContent = data.mark;
 
+    if (parseInt(data.mark) == 1){
+        document.querySelector(".text-mark").textContent = "бал"
+    }else if(parseInt(data.mark) > 1 && parseInt(data.mark) < 5){
+        document.querySelector(".text-mark").textContent = "бали"
+    }else if(parseInt(data.mark) > 4){
+        document.querySelector(".text-mark").textContent = "балів"
+    }
+
     if (data.count_answered == 0) {
         document.querySelector(".midle-time").textContent = "0";
     } else {

@@ -1,234 +1,256 @@
-let createRooms = document.querySelectorAll(".loadroom")
+document.addEventListener('DOMContentLoaded', function () {
+    const filterHeader = document.querySelector('.filter');
+    const filterContent = document.querySelector('.filter-part');
+    const sortHeader = document.querySelector('.sort');
+    const sortContent = document.querySelector('.sort-part');
+    const allHeaders = [filterHeader, sortHeader];
+    const allContents = [filterContent, sortContent];
 
-// створення localstorage для відсліджування у якій вкладці зараз користувач
-// recently-passed - недавнопройдені тести
-// saved - збережені
-// created - створені тести
+    function toggleDropdown(header, content) {
+        header.classList.toggle('open');
+        content.classList.toggle('open');
+    }
 
-let pageInfo = localStorage.getItem("pageindex")
-if (!pageInfo){
-    localStorage.setItem("pageindex", "created")
+    allHeaders.forEach((header, index) => {
+        header.addEventListener('click', function () {
+            const currentContent = allContents[index];
+            const isCurrentlyOpen = currentContent.classList.contains('open');
+            
+            allHeaders.forEach(h => h.classList.remove('open'));
+            allContents.forEach(c => c.classList.remove('open'));
+            
+            if (!isCurrentlyOpen) {
+                toggleDropdown(header, currentContent);
+            }
+        });
+    });
+
+    document.addEventListener('click', function (event) {
+        if (!filterHeader.contains(event.target) && !filterContent.contains(event.target) &&
+            !sortHeader.contains(event.target) && !sortContent.contains(event.target)) {
+            allHeaders.forEach(h => h.classList.remove('open'));
+            allContents.forEach(c => c.classList.remove('open'));
+        }
+    });
+});
+
+let createRooms = document.querySelectorAll(".loadroom");
+
+let pageInfo = localStorage.getItem("pageindex");
+if (!pageInfo) {
+    localStorage.setItem("pageindex", "created");
 }
 
 window.addEventListener(
     'DOMContentLoaded',
     () => {
         document.querySelectorAll('.text-filter a').forEach(link => {
-        
-        if (link.classList.contains(localStorage.getItem("pageindex"))){
-                document.querySelector(".page-type").value = link.className
-                link.classList.add("active")
+            if (link.classList.contains(localStorage.getItem("pageindex"))) {
+                document.querySelector(".page-type").value = link.className;
+                link.classList.add("active");
             }
-        })
+        });
     }
-)
+);
 
-for (let button of createRooms){
+for (let button of createRooms) {
     button.addEventListener(
         'click',
         () => {
-            location.replace(`/mentor?id_test=${button.value}&room_code=${button.dataset.test}`)
+            location.replace(`/mentor?id_test=${button.value}&room_code=${button.dataset.test}`);
         }
-    )
+    );
 }
 
-let sortInputs = document.querySelectorAll(".sort-input")
+let sortInputs = document.querySelectorAll(".sort-input");
 
-for (let input of sortInputs){
+for (let input of sortInputs) {
     input.addEventListener(
         'click',
         () => {
-            if (input.checked){
+            if (input.checked) {
                 sortInputs.forEach(inputCheck => {
-                    if (inputCheck !== input){
-                        inputCheck.checked = false
+                    if (inputCheck !== input) {
+                        inputCheck.checked = false;
                     }
-                })
+                });
             }
         }
-    )
+    );
 }
 
-let allInputs = document.querySelectorAll(".input-check")
-let postInputCategory = document.querySelector(".by_filter_category")
-let postInputSort = document.querySelector(".by_filter_sort")
-    
-for (let elem of allInputs){
+let allInputs = document.querySelectorAll(".input-check");
+let postInputCategory = document.querySelector(".by_filter_category");
+let postInputSort = document.querySelector(".by_filter_sort");
+
+for (let elem of allInputs) {
     elem.addEventListener(
         'click',
         () => {
-            document.querySelector(".sad-robot").classList.add("hidden")
-            document.querySelector(".error-text").classList.add("hidden")
-            if (elem.checked){
-                if (elem.classList.contains("category-input")){
-                    postInputCategory.value += "/" + elem.value
-                }else{
-                    postInputSort.value = elem.value
+            document.querySelector(".sad-robot").classList.add("hidden");
+            document.querySelector(".error-text").classList.add("hidden");
+            if (elem.checked) {
+                if (elem.classList.contains("category-input")) {
+                    postInputCategory.value += "/" + elem.value;
+                } else {
+                    postInputSort.value = elem.value;
                 }
-            }else{
-                if (elem.classList.contains("category-input")){
-                    let listInput = postInputCategory.value.split("/")
-                    if(listInput.includes(elem.value)){
-                        let index = listInput.indexOf(elem.value)
-                        listInput.splice(index, 1)
+            } else {
+                if (elem.classList.contains("category-input")) {
+                    let listInput = postInputCategory.value.split("/");
+                    if (listInput.includes(elem.value)) {
+                        let index = listInput.indexOf(elem.value);
+                        listInput.splice(index, 1);
                         listInput.forEach(el => {
-                            let idx = listInput.indexOf(el)
-                            if (listInput[idx] == "/"){
-                                listInput.splice(idx, 1)
+                            let idx = listInput.indexOf(el);
+                            if (listInput[idx] == "/") {
+                                listInput.splice(idx, 1);
                             }
-                        })
-                        postInputCategory.value = listInput.join("/")
+                        });
+                        postInputCategory.value = listInput.join("/");
                     }
-                }else{
-                    postInputSort.value = ''
+                } else {
+                    postInputSort.value = '';
                 }
             }
             localStorage.setItem('selectedCategoriesauth', postInputCategory.value);
             localStorage.setItem('selectedSortauth', postInputSort.value);
 
-            let category = postInputCategory.value.split("/")
+            let category = postInputCategory.value.split("/");
             category.forEach(el => {
-                let idx = category.indexOf(el)
-                if (category[idx] == "/"){
-                    category.splice(idx, 1)
+                let idx = category.indexOf(el);
+                if (category[idx] == "/") {
+                    category.splice(idx, 1);
                 }
-            })
+            });
 
             let allCards = document.querySelectorAll(".card");
-            let countValue = 0
-            for (let card of allCards){
-                if (category.includes(card.dataset.category)){       
+            let countValue = 0;
+            for (let card of allCards) {
+                if (category.includes(card.dataset.category)) {
                     card.style.display = "flex";
-                    countValue += 1
-                    
-                }else{
+                    countValue += 1;
+                } else {
                     card.style.display = "none";
                 }
             }
 
-            if (countValue == 0){
-                document.querySelector(".sad-robot").classList.remove("hidden")
-                document.querySelector(".error-text").classList.remove("hidden")
+            if (countValue == 0) {
+                document.querySelector(".sad-robot").classList.remove("hidden");
+                document.querySelector(".error-text").classList.remove("hidden");
             }
 
-
-            console.log(category.length)
-            console.log(postInputSort.value, "soska")
+            console.log(category.length);
+            console.log(postInputSort.value, "soska");
             allCards = document.querySelectorAll(".card");
-            if (category.length == 1){
+            if (category.length == 1) {
                 allCards.forEach(card => {
                     card.style.display = "flex";
-                    document.querySelector(".sad-robot").classList.add("hidden")
-                    document.querySelector(".error-text").classList.add("hidden")
-                })
+                    document.querySelector(".sad-robot").classList.add("hidden");
+                    document.querySelector(".error-text").classList.add("hidden");
+                });
             }
 
-            let sortBy = postInputSort.value
+            let sortBy = postInputSort.value;
             allCards = document.querySelectorAll(".card");
-            if (sortBy === "newest" || sortBy == ''){
-                let cardsArray = Array.from(allCards)
+            if (sortBy === "newest" || sortBy == '') {
+                let cardsArray = Array.from(allCards);
                 cardsArray.sort((a, b) => {
-                    return Number(b.dataset.timecreated) - Number(a.dataset.timecreated)
-                })
-                let container = document.querySelector(".cards-outline")
+                    return Number(b.dataset.timecreated) - Number(a.dataset.timecreated);
+                });
+                let container = document.querySelector(".cards-outline");
                 if (container) {
-                    cardsArray.forEach(card => container.appendChild(card))
+                    cardsArray.forEach(card => container.appendChild(card));
                 }
-            }else if(sortBy == "oldest"){
-                let cardsArray = Array.from(allCards)
+            } else if (sortBy == "oldest") {
+                let cardsArray = Array.from(allCards);
                 cardsArray.sort((a, b) => {
-                    return Number(a.dataset.timecreated) - Number(b.dataset.timecreated)
-                })
-                let container = document.querySelector(".cards-outline")
+                    return Number(a.dataset.timecreated) - Number(b.dataset.timecreated);
+                });
+                let container = document.querySelector(".cards-outline");
                 if (container) {
-                    cardsArray.forEach(card => container.appendChild(card))
+                    cardsArray.forEach(card => container.appendChild(card));
                 }
-            }else if(sortBy == "questions"){
-                let cardsArray = Array.from(allCards)
+            } else if (sortBy == "questions") {
+                let cardsArray = Array.from(allCards);
                 cardsArray.sort((a, b) => {
-                    return Number(b.dataset.questions) - Number(a.dataset.questions)
-                })
-                let container = document.querySelector(".cards-outline")
+                    return Number(b.dataset.questions) - Number(a.dataset.questions);
+                });
+                let container = document.querySelector(".cards-outline");
                 if (container) {
-                    cardsArray.forEach(card => container.appendChild(card))
+                    cardsArray.forEach(card => container.appendChild(card));
                 }
-            }else if(sortBy == "popular"){
-               let cardsArray = Array.from(allCards)
+            } else if (sortBy == "popular") {
+                let cardsArray = Array.from(allCards);
                 cardsArray.sort((a, b) => {
-                    return Number(b.dataset.popular) - Number(a.dataset.popular)
-                })
-                let container = document.querySelector(".cards-outline")
+                    return Number(b.dataset.popular) - Number(a.dataset.popular);
+                });
+                let container = document.querySelector(".cards-outline");
                 if (container) {
-                    cardsArray.forEach(card => container.appendChild(card))
-                } 
+                    cardsArray.forEach(card => container.appendChild(card));
+                }
             }
         }
-    )
+    );
 }
 
 window.addEventListener(
     'DOMContentLoaded',
     () => {
-        let inputText = localStorage.getItem("filter_data")
-        if (inputText){
-            console.log("piraty")
-            document.querySelector(".findByname").textContent = inputText
-            document.querySelector(".findByname").value = inputText
-            document.querySelector(".lupa").click()
-            localStorage.clear("filter_data")
+        let inputText = localStorage.getItem("filter_data");
+        if (inputText) {
+            console.log("piraty");
+            document.querySelector(".findByname").textContent = inputText;
+            document.querySelector(".findByname").value = inputText;
+            document.querySelector(".lupa").click();
+            localStorage.clear("filter_data");
         }
 
-        let categoryFilter = localStorage.getItem("selectedCategoriesauth")
-        if (categoryFilter){
-            categoryFilter = categoryFilter.split("/")
+        let categoryFilter = localStorage.getItem("selectedCategoriesauth");
+        if (categoryFilter) {
+            categoryFilter = categoryFilter.split("/");
 
             categoryFilter.forEach(el => {
-                let idx = categoryFilter.indexOf(el)
-                if (categoryFilter[idx] == "/"){
-                    categoryFilter.splice(idx, 1)
+                let idx = categoryFilter.indexOf(el);
+                if (categoryFilter[idx] == "/") {
+                    categoryFilter.splice(idx, 1);
                 }
-            })
-        }else{
-            categoryFilter = []
+            });
+        } else {
+            categoryFilter = [];
         }
-        console.log(categoryFilter, 'sdcds')
-        let sortData = localStorage.getItem("selectedSortauth")
-        if (sortData){
-            sortData = sortData.split("/")
+        console.log(categoryFilter, 'sdcds');
+        let sortData = localStorage.getItem("selectedSortauth");
+        if (sortData) {
+            sortData = sortData.split("/");
 
             sortData.forEach(el => {
-            let idx = sortData.indexOf(el)
-            if (sortData[idx] == "/"){
-                sortData.splice(idx, 1)
-            }
-        })
-        }else{
-            sortData = []
+                let idx = sortData.indexOf(el);
+                if (sortData[idx] == "/") {
+                    sortData.splice(idx, 1);
+                }
+            });
+        } else {
+            sortData = [];
         }
 
-        
-
-        
-
-        let allINput = Array.from(document.querySelectorAll(".input-check"))
+        let allINput = Array.from(document.querySelectorAll(".input-check"));
 
         allINput.forEach(input => {
-            console.log(input.value, 12)
-            if (categoryFilter.includes(input.value) || sortData.includes(input.value)){
-                input.click()
+            console.log(input.value, 12);
+            if (categoryFilter.includes(input.value) || sortData.includes(input.value)) {
+                input.click();
             }
-        })
+        });
     }
-)
+);
 
-// --------------------------------------------------
-// Знаходження тесту за ім'ям
-function findResult(){
+function findResult() {
     let searchValue = document.querySelector(".findByname").value.toLowerCase();
     let allCards = document.querySelectorAll(".card");
-    let count = 0
-    document.querySelector(".sad-robot").classList.add("hidden")
-    document.querySelector(".error-text").classList.add("hidden")
+    let count = 0;
+    document.querySelector(".sad-robot").classList.add("hidden");
+    document.querySelector(".error-text").classList.add("hidden");
     allCards.forEach(card => {
         let nameData = card.dataset.name;
 
@@ -239,46 +261,40 @@ function findResult(){
         }
         if (testName.includes(searchValue)) {
             card.style.display = "flex";
-            count += 1
-            
+            count += 1;
+
         } else {
             card.style.display = "none";
         }
     });
 
-    if (count == 0){
-        document.querySelector(".sad-robot").classList.remove("hidden")
-        document.querySelector(".error-text").classList.remove("hidden")
+    if (count == 0) {
+        document.querySelector(".sad-robot").classList.remove("hidden");
+        document.querySelector(".error-text").classList.remove("hidden");
     }
 }
 
 document.querySelector(".lupa").addEventListener(
     'click',
     () => {
-        findResult()
+        findResult();
     }
-)
+);
 
 document.addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-    event.preventDefault()
-    findResult()
-  }
+    if (event.key === 'Enter') {
+        event.preventDefault();
+        findResult();
+    }
 });
-
-
-
-
 
 document.querySelectorAll('.text-filter a').forEach(link => {
     link.addEventListener('click', function(e) {
-        // e.preventDefault();
-
         document.querySelectorAll('.text-filter a').forEach(el => {
-            el.classList.remove('active')
-            this.classList.add('active')
-            localStorage.setItem("pageindex", this.classList[0])
-        })
+            el.classList.remove('active');
+            this.classList.add('active');
+            localStorage.setItem("pageindex", this.classList[0]);
+        });
     });
 });
 
@@ -292,8 +308,6 @@ inputField.addEventListener('input', () => {
     }
 });
 
-
-
 document.addEventListener('DOMContentLoaded', function () {
     const toggleBtn = document.querySelector('.sidebar-toggle');
     const sidebar = document.querySelector('.sidebar');
@@ -302,4 +316,3 @@ document.addEventListener('DOMContentLoaded', function () {
         sidebar.classList.toggle('open');
     });
 });
-

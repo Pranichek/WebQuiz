@@ -69,6 +69,10 @@ for (let elem of allInputs){
         () => {
             document.querySelector(".sad-robot").classList.add("hidden")
             document.querySelector(".error-text").classList.add("hidden")
+            document.querySelector(".cards-outline").style.flexDirection = "row";
+            document.querySelector(".cards-outline").style.gap = "1.25vw"
+
+
             if (elem.checked){
                 if (elem.classList.contains("category-input")){
                     postInputCategory.value += "/" + elem.value
@@ -120,6 +124,9 @@ for (let elem of allInputs){
             if (countValue == 0){
                 document.querySelector(".sad-robot").classList.remove("hidden")
                 document.querySelector(".error-text").classList.remove("hidden")
+                document.querySelector(".cards-outline").style.flexDirection = "column";
+                document.querySelector(".cards-outline").style.gap = "0"
+
             }
 
 
@@ -131,6 +138,9 @@ for (let elem of allInputs){
                     card.style.display = "flex";
                     document.querySelector(".sad-robot").classList.add("hidden")
                     document.querySelector(".error-text").classList.add("hidden")
+                    document.querySelector(".cards-outline").style.flexDirection = "row";
+                    document.querySelector(".cards-outline").style.gap = "1.25vw"
+
                 })
             }
 
@@ -216,7 +226,10 @@ function findResult(){
     let allCards = document.querySelectorAll(".card");
     let count = 0
     document.querySelector(".sad-robot").classList.add("hidden")
+    document.querySelector(".cards-outline").style.flexDirection = "row"
+    document.querySelector(".cards-outline").style.gap = "1.25vw"
     document.querySelector(".error-text").classList.add("hidden")
+
     allCards.forEach(card => {
         let nameData = card.dataset.name;
 
@@ -237,6 +250,8 @@ function findResult(){
     if (count == 0){
         document.querySelector(".sad-robot").classList.remove("hidden")
         document.querySelector(".error-text").classList.remove("hidden")
+        document.querySelector(".cards-outline").style.flexDirection = "column";
+        document.querySelector(".cards-outline").style.gap = "0"
     }
 }
 
@@ -281,15 +296,6 @@ inputField.addEventListener('input', () => {
 });
 
 
-
-document.addEventListener('DOMContentLoaded', function () {
-    const toggleBtn = document.querySelector('.sidebar-toggle');
-    const sidebar = document.querySelector('.sidebar');
-
-    toggleBtn.addEventListener('click', function () {
-        sidebar.classList.toggle('open');
-    });
-});
 
 
 // убирать выбранные тесты из профиля
