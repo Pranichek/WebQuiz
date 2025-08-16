@@ -73,7 +73,7 @@
 
 .answer2 {
     width: 30vh;
-    height: 30vh;
+    height: 100%;
     background-color: #BBE3B3;
     border-radius: 2vh;
     display: flex;
@@ -134,7 +134,9 @@
 }
 
 .waiting img {
-    padding-left: 2vw;
+    margin-left: 2vw; 
+    display: inline-block; 
+    vertical-align: middle;
 }
 
 .block-accuracy {
@@ -152,22 +154,16 @@
     justify-content: center;
 }
 
+
+
 .rate {
     width: 95%;
-    height: 20%;
+    height: 30%;
     background-color: #ffff;
     border-radius: 1vh;
     position: relative;
 }
 
-.blue-rate {
-    height: 100%;
-    width: 70%;
-    background-color: #8AF7D4;
-    overflow: hidden;
-    border-top-left-radius: 1vh;
-    border-bottom-left-radius: 1vh;
-}
 
 .rightwrong {
     height: 30%;
@@ -202,4 +198,55 @@
     border-radius: 1vh;
     align-items: center;
     justify-content: center;
+}
+
+.fill{
+    background: #94C4FF;
+    height: 100%;
+    width: 0%;
+    transition: width 1s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    border-radius: 2.4vh;
+}
+.text-perc{
+    display: flex;
+    height: 2.5vh;
+    width: 6vw;
+    font-size: 1vh;
+    color:#ffff;
+    background-color: #29292A;
+    border: 0.1vh solid #8AF7D4;
+    border-radius: 0.5vh;
+    align-items: center;
+    justify-content: center;
+    top:-20%;
+    left: 80%;
+    position: absolute;
+}
+.quard{
+    position: absolute;
+    height: 4vh;
+    width: auto;
+    top: -60%;
+    left: -1%;
+    display: flex;
+}
+
+.quard img {
+    width: 8vh;
+}
+
+.loading img {
+    width: 5vh;
+    height: 5vh;
+    animation: spin 5s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
 }

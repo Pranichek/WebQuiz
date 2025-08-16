@@ -92,7 +92,8 @@ socket_student.on("page_result",
         localStorage.setItem("wasted_time", midletime);
 
         localStorage.setItem("timeData", "0")
-        window.location.replace("/result_student")
+        window.location.replace("/waiting_student")
+        // window.location.replace("/result_student")
     }
 )
 

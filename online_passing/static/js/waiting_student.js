@@ -58,12 +58,13 @@ socket_wait.on("show_data",
             let maxheight = 100
             for (let answer of answers){
                 count++
-                const outline = document.createElement("div")
-                outline.className = "answer2"
 
                 const checkmark = document.createElement("div")
                 checkmark.className = "checkmark-answer"
 
+                const outline = document.createElement("div")
+                outline.className = "answer2"
+                
                 const chosenAnswer = document.createElement("span")
                 chosenAnswer.textContent = answer
 
