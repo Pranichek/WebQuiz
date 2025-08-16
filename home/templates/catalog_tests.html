@@ -63,6 +63,7 @@
                 <img class="sad-robot hidden" src="{{ url_for('profile.static', filename = 'images/user_tests/sad_robot.svg') }}" alt="sad-robot">
                 <p class="error-text hidden">Тести не знайдено</p>
                 
+                
                 {% for test in tests %}
                     <div class="card" onclick="this.querySelector('.topic-test').click();" data-name="{{ test.title_test }}" data-popular="{{ test.test_profile.amount_passes }}" data-category="{{ test.category }}" data-timecreated="{{ test.id }}" data-questions="{{ test.questions.count('?%?') + 1 }}">
                         <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
@@ -89,6 +90,7 @@
             </div>
         </div>
     </div>
+    
     
 {% endblock %}
 

@@ -1,13 +1,57 @@
 {% extends 'base.html' %}
 
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('student.static', filename='css/waiting_student.css') }}">
+{% endblock links %}
+
 {% block content %}
-    <div class="question">   
-        <h1>Вопрос=</h1>
+    <div class="code">
+        приєднатися по коду <span class="code-text"></span>
     </div>
 
-    <div class="answer">   
-        <h1>Твои ответы=</h1>
-        
+    <div class="block-main">
+        <div class="block-answer">
+            <div class="line-answer">
+                <div class="answer1">
+                    
+                </div>
+
+                <div class="answers">
+                     
+                </div>
+            </div>
+
+            <div class="info-answer">
+                <div class="statistics-answer">
+                    <div>Iм`я: <span class="nickname-answer">@{{ user.username }}</span></div>
+                    <div class="time-spend">
+                        Витрачений час: <span class="nickname-answer">12</span> секунд
+                    </div>
+                </div>
+
+                <div class="waiting">
+                    <div>
+                        Очікування інших учасників...
+                        <img src="loading.svg" alt="loading">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block-accuracy">
+            <div class="accuracy-rate">
+                <div class="rate">
+                    <div class="blue-rate"></div>
+                </div>
+            </div>
+
+            <div class="rightwrong">
+                <div class="right">9 вірно!</div>
+                <div class="wrong">3 невірно</div>
+            </div>
+
+        </div>
+
     </div>
 {% endblock content %}
 

@@ -35,7 +35,7 @@ def render_result_student():
     return flask.render_template(
         'result_student.html',
         user = flask_login.current_user,
-        test_page = True
+        test_page = True,
     )
 
 # страница результатов ментора

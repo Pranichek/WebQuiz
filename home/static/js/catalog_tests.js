@@ -1,4 +1,3 @@
-// --- Код для выпадающих меню (новый) ---
 document.addEventListener('DOMContentLoaded', function () {
     const filterHeader = document.querySelector('.filter');
     const filterContent = document.querySelector('.filter-part');
@@ -17,18 +16,15 @@ document.addEventListener('DOMContentLoaded', function () {
             const currentContent = allContents[index];
             const isCurrentlyOpen = currentContent.classList.contains('open');
             
-            // Закрываем все другие меню
             allHeaders.forEach(h => h.classList.remove('open'));
             allContents.forEach(c => c.classList.remove('open'));
             
-            // Открываем или закрываем текущее меню
             if (!isCurrentlyOpen) {
                 toggleDropdown(header, currentContent);
             }
         });
     });
 
-    // Закрытие меню, если кликнуть вне их
     document.addEventListener('click', function (event) {
         if (!filterHeader.contains(event.target) && !filterContent.contains(event.target) &&
             !sortHeader.contains(event.target) && !sortContent.contains(event.target)) {
@@ -38,7 +34,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-// --- Существующий код (без изменений) ---
 let createRooms = document.querySelectorAll(".loadroom");
 
 let pageInfo = localStorage.getItem("pageindex");
