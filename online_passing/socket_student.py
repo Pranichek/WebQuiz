@@ -117,8 +117,6 @@ def connect_to_room(data):
 @socket.on("answered")
 def answer_the_question(data):
     if (data["right_answered"] != "not"):
-        print(int(data["total_time"]), "totalka")
-        print(int(data["wasted_time"]), "potracheno")
         remaining_time = max(int(data["total_time"]) - int(data["wasted_time"]), 0)
         score = 1000 * (0.2 + (1 - 0.2) * (remaining_time / int(data["total_time"])))
 
@@ -179,21 +177,81 @@ def return_data(data):
         name_img = None
 
     index_img = index_question + 1
-    email= test.user.email
-    title= test.title_test
+    email = test.user.email
+    title = test.title_test
     img_url = "not"
     if name_img:
         img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{index_question}/{name_img}")
     else:
         img_url = "not"
 
-    user_answers = ["uncorrect", "uncorrect", "uncorrect", "uncorrect"]
+    last_answers = data["lastanswers"]    
+    current_type = test.type_questions.split("?$?")[index_question - 1]
+    answers = test.answers.split("?@?")
+    ready_answers = ""
+
+    if current_type != "input-gap":
+        current_answers = []
+        current_answers_list = answers[int(data["index_question"]) - 1].split("?@?")
+
+        for ans in current_answers_list:
+            ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
+            current_answers.append(ans_clean.split("*|*|*"))
+
+        user_answers = data["lastanswers"]
+
+        if user_answers != "skip":
+            for answer in user_answers:
+                ready_answers += current_answers[0][int(answer)] + " "
+        else:
+            ready_answers = "пропустив"
+    else:
+        if data["lastanswers"] != "skip":
+            ready_answers = data["lastanswers"]
+        else:
+            ready_answers = "пропустив"
+
+
     
+
     emit(
         "show_data",
         {
             "image":img_url,
             "question": current_question,
-            
+            "type_question": current_type,
+            "answers":ready_answers
         }
     )
+
+@socket.on("student_answers")
+def upload_answers(data):
+    test : Test = Test.query.get(int(data["id_test"]))
+    answers = test.answers.split("?@?")
+    type = test.type_questions.split("?$?")[int(data["index"]) - 1]
+    ready_answers = ""
+
+    if type != "input-gap":
+        current_answers = []
+        current_answers_list = answers[int(data["index"]) - 1].split("?@?")
+
+        for ans in current_answers_list:
+            ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
+            current_answers.append(ans_clean.split("*|*|*"))
+
+        ready_answers = ""
+        user_answers = data["lastanswers"]
+
+        if user_answers != "skip":
+            for answer in user_answers:
+                ready_answers += current_answers[0][int(answer)] + " "
+        else:
+            ready_answers = "пропустив"
+    else:
+        if data["lastanswers"] != "skip":
+            ready_answers = data["lastanswers"]
+        else:
+            ready_answers = "пропустив"
+
+    
+    emit("student_answers", {"answers":ready_answers, "email":flask_login.current_user.email}, room = data["code"],broadcast=True, include_self=False)

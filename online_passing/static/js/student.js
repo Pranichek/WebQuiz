@@ -4,6 +4,7 @@ const room_code = urlParamsStudent.get('room_code');
 localStorage.setItem("room_code_user", room_code)
 localStorage.setItem("index_question", "0")
 localStorage.setItem("flag_time", "true")
+localStorage.setItem("users_answers", "")
 
 const chat = document.querySelector(".messages");
 chat.innerHTML = ""; 

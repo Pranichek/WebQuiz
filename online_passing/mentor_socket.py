@@ -5,7 +5,35 @@ from .models import Rooms
 from home.models import User
 from flask_socketio import emit, join_room
 from Project.db import DATABASE
+from operator import itemgetter
 # from .socket_manager import users_rooms
+
+@socket.on("users_results")
+def users_results(data):
+    user_list = []
+    room = Rooms.query.filter_by(room_code= data["room"]).first()
+    user_ids = room.users.split() if room and room.users else []
+
+    for user_id in user_ids:
+        user : User  = User.query.get(int(user_id))
+        user.user_profile.answering_answer = "відповідає"
+        DATABASE.session.commit()
+        if user and user.id != flask_login.current_user.id:
+            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.email}/{user.name_avatar}')
+            user_list.append({
+                "username": user.username,
+                "email": user.email,
+                "ready": user.user_profile.answering_answer,
+                "count_points": user.user_profile.count_points,
+                "user_avatar": avatar_url,
+                "avatar_size": user.size_avatar
+            })
+
+    # черещ встроенній модуль делаем филтрацию словаря за "count_points" и делаем реверс чтобі біло от большего к меньшему
+    user_list = sorted(user_list, key=itemgetter("count_points"), reverse=True)
+
+    emit("list_results", user_list)
+    emit("last_answers", room= data["room"], broadcast=True, include_self=False)
 
 @socket.on("load_question")
 def load_question_mentor(data):

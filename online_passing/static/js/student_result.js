@@ -19,3 +19,19 @@ socket.on("end_test",
         window.location.replace("/finish_student")
     }
 )
+
+socket.on("last_answers", data => {
+    let stored = localStorage.getItem("users_answers");
+    if (!stored) return; 
+
+    let answers = stored.split(",");
+    let lastAnswers = answers[answers.length - 1];
+
+    socket.emit("student_answers", {
+        lastanswers: lastAnswers,
+        code: localStorage.getItem("room_code_user"),
+        id_test: localStorage.getItem("test_id"),
+        index: localStorage.getItem("index_question"),
+        answers: answers
+    });
+});
