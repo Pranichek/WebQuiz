@@ -319,9 +319,6 @@ socket.on('student_question', (data) => {
                             } else {
                                 localStorage.setItem("users_answers", block.dataset.value);
                             }
-                            let index = localStorage.getItem("index_question")
-                            
-                            localStorage.setItem("index_question", index)
                             // circle.style.background = `conic-gradient(#8ABBF7 0deg, #8ABBF7 360deg)`;
 
 
@@ -402,7 +399,8 @@ socket.on('student_question', (data) => {
                                 localStorage.setItem("wasted_time", midletime);
                                 
                                 localStorage.setItem("timeData", "0")
-                                index = parseInt(index) + 1;
+
+                                index = parseInt(localStorage.getItem("index_question")) + 1;
                                 localStorage.setItem("index_question", index)
                                 checkOportunity = "able";
                                 circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
@@ -725,6 +723,13 @@ socket.on('student_question', (data) => {
                 if (amountAnswers == 1){
                     const divparent = document.querySelector(".answers")
 
+                    const text = document.createElement("p")
+                    text.textContent = "введіть свою відповідь у поле"
+                    text.className = "input-text"
+                    text.style.color = "#ffffff"
+                    
+                    divparent.appendChild(text)
+
 
                     const inputDiv = document.createElement("div")
                     inputDiv.className = "confirm-answer"
@@ -767,6 +772,7 @@ socket.on('student_question', (data) => {
                     divparent.style.flexDirection = "column"
                     divparent.style.gap = "10vh"
                     divparent.style.backgroundColor = "#353535"
+                    divparent.style.display = "flex";
 
                     let inputs = document.querySelectorAll(".small-input-answer")
                     
@@ -957,6 +963,7 @@ socket.on('student_question', (data) => {
                     divparent.style.flexDirection = "column"
                     divparent.style.gap = "10vh"
                     divparent.style.backgroundColor = "#353535"
+                    divparent.style.display = "flex";
 
                     divparent.appendChild(text)
                     divparent.appendChild(inputDiv)
@@ -1218,10 +1225,6 @@ socket.on("end_this_question",
             localStorage.setItem("users_answers", "skip")
         }
 
-        let index = localStorage.getItem("index_question")
-        index = parseInt(index) + 1;
-        localStorage.setItem("index_question", index)
-
         circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
 
         let midletime = localStorage.getItem("wasted_time")
@@ -1243,6 +1246,11 @@ socket.on("end_this_question",
                 users_answers: localStorage.getItem("users_answers")
             }
         )
+
+        let index = localStorage.getItem("index_question")
+        index = parseInt(index) + 1;
+        localStorage.setItem("index_question", index)
+        
         midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
         localStorage.setItem("wasted_time", midletime);
 

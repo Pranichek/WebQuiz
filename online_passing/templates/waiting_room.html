@@ -30,9 +30,9 @@
                 </div>
 
                 <div class="waiting">
-                    <div>
+                    <div class="loading">
                         Очікування інших учасників...
-                        <img src="loading.svg" alt="loading">
+                        <img class="loading-spin" src="{{ url_for('mentor.static', filename = 'images/loading.svg') }}" alt="">
                     </div>
                 </div>
             </div>
@@ -41,13 +41,20 @@
         <div class="block-accuracy">
             <div class="accuracy-rate">
                 <div class="rate">
-                    <div class="blue-rate"></div>
-                </div>
+                    <div class="fill" data-accuracy="{{ accuracy }}"></div>
+                    <div class="quard">
+                        <img src="{{ url_for('mentor.static', filename = 'images/robot-acc.svg') }}" alt="">
+                        <div class="text-perc">
+                            <p></p>
+                        </div>
+                    </div>
+                </div>  
             </div>
+        </div>
 
             <div class="rightwrong">
-                <div class="right">9 вірно!</div>
-                <div class="wrong">3 невірно</div>
+                <div class="right"></div>
+                <div class="wrong"></div>
             </div>
 
         </div>

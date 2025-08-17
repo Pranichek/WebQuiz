@@ -74,7 +74,6 @@ def end_question(data):
 
 @socket.on("next_one")
 def next_question(data):
-    print("kakaska")
     index_question = int(data["index"])
     test_id = int(data["test_id"])
     room_code = data["room"]

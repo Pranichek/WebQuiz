@@ -3,6 +3,7 @@ const socket = io()
 localStorage.setItem("flag_time", "true")
 
 socket.emit(
+
     'users_results',
     {room: localStorage.getItem("room_code")}
 )
@@ -83,6 +84,9 @@ socket.on("end_test",
 document.querySelector(".next-question").addEventListener(
     'click',
     () => {
+        const oldData = parseInt(localStorage.getItem("index_question"))
+        localStorage.setItem("index_question", oldData + 1)
+        
         socket.emit('next_one', {
             index: localStorage.getItem("index_question"),
             test_id: localStorage.getItem("test_id"),
