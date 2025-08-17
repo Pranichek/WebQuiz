@@ -200,9 +200,16 @@ def return_data(data):
 
         user_answers = data["lastanswers"]
 
+        print(user_answers)
+
         if user_answers != "skip":
-            for answer in user_answers:
-                ready_answers += current_answers[0][int(answer)] + " "
+            if len(user_answers.split("@")) > 1:
+                user_answers = user_answers.split("@")
+                for answer in user_answers:
+                    ready_answers += current_answers[0][int(answer)] + " "
+            else:
+                for answer in user_answers:
+                    ready_answers += current_answers[0][int(answer)] + " "
         else:
             ready_answers = "пропустив"
     else:
