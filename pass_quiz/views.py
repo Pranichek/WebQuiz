@@ -47,21 +47,21 @@ def render_finish_test():
 @socket.on("finish_test")
 def handle_finish_test(data: dict):
     user_answers_raw = data.get("users_answers")
+    test_id = data.get("test_id")
+
     if user_answers_raw == '':
         user_answers_raw = 'skip'
 
-    test_id = data.get("test_id")
-
-    user_answers = user_answers_raw.split(",")
+    
+    user_answers = user_answers_raw.split(",") 
     test = Test.query.get(int(test_id))
     
     questions = test.questions.split("?%?")
     answers = test.answers.split("?@?")
+
+    # список где хранятся праивльные индексы либо строчные ответы на вопрос
     correct_indexes = []
 
-    user_answers = user_answers_raw.split(",")
-
-    questions = test.questions.split("?%?")
 
     raw_type = DATABASE.session.query(Test.type_questions).filter_by(id=test_id).first()
     # types_quest = []
@@ -70,7 +70,7 @@ def handle_finish_test(data: dict):
         # types_quest.append(a)
     
     
-
+    # 
     count = 0
     answers = test.answers.split("?@?")
     correct_indexes = []
@@ -93,6 +93,7 @@ def handle_finish_test(data: dict):
         one_question["answers"] = list_answers[count]
         list_final.append(one_question)
         count += 1
+
 
     #логика получение индекса правильного ответа даже если правильных несколько
     # например, если правильные ответы на вопрос 1 это да и нет, то в массиве будет [[0, 1], [тут индексі уже следующего вопроса и тд]]
@@ -122,7 +123,7 @@ def handle_finish_test(data: dict):
     if len(user_answers) > 0:
         for answers in user_answers:
             small_list = []
-            list_users_answers.append(answers.split("@"))
+            list_users_answers.append(answers.split("@"))  
 
     count_uncorrect_answers = 0
     count_answered = 0
@@ -137,7 +138,8 @@ def handle_finish_test(data: dict):
                     index_corect.append(i)
                 else:
                     count_uncorrect_answers += 1
-            elif list_users_answers[i][0].isdigit():
+            elif list_users_answers[i][0].isdigit(): 
+                # сколько баллов он набраол на вопросе с несколькоми ответами
                 correct = 0
                 uncorrect = 0
                 for ans in list_users_answers[i]:
@@ -152,6 +154,7 @@ def handle_finish_test(data: dict):
                 if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
                     index_corect.append(i)
             else:
+                # сколько баллов он набрал на input-gap вопросе 
                 user_answer_value = list_users_answers[i][0]
                 correct_answer_values = [answers[idx].replace("(?%+", "").replace("+%?)", "").replace("(?%-", "").replace("-%?)", "") for idx in correct_indexes[i] if idx < len(answers)]
                 if user_answer_value in correct_answer_values:
@@ -165,6 +168,7 @@ def handle_finish_test(data: dict):
     amount_points = 0
     for index in correct_indexes:
         amount_points += len(index)
+        
     accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
 
     mark = (12 * accuracy) // 100

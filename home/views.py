@@ -43,7 +43,12 @@ def get_random_tests(category=None, max_tests=4):
 
 #головна сторінка коли користувач увійшов у акаунт
 @login_decorate
-def render_home_auth():    
+def render_home_auth():   
+    room = flask_login.current_user.room
+    if room and room.room_code != "":
+        room.room_code = ""
+        DATABASE.session.commit()
+
     if flask.request.method == "POST":
         check_value = flask.request.form.get("check_form")
 

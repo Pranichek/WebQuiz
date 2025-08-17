@@ -2,12 +2,6 @@ const socket = io()
 
 localStorage.setItem("flag_time", "true")
 
-// чтобі не терять связ с комнатой
-socket.emit(
-    "connect_again",
-    {code: localStorage.getItem("room_code")}
-)
-
 socket.emit(
     'users_results',
     {room: localStorage.getItem("room_code")}
@@ -36,46 +30,48 @@ socket.on("list_results",
             img.src = element.user_avatar
             div.appendChild(img)
 
+            const lastAnswering = document.createElement("p")
+            lastAnswering.textContent = `Відповідь: ${element.last_answer}`
+
+            const accuracy = document.createElement("p")
+            accuracy.textContent = `Точність: ${parseInt(element.accuracy)}`
+
             cont.appendChild(number)
             cont.appendChild(username)
             cont.appendChild(div)
+            cont.appendChild(lastAnswering)
+            cont.appendChild(accuracy)
             usersCOnts.append(cont)
         });
     }
 )
 
 socket.on("student_answers", data => {
-    const userBlocks = document.querySelector(".cont-users").childNodes
+    // находим все блоки пользователей
+    const userBlocks = document.querySelectorAll(".cont-users .userCont");
 
     userBlocks.forEach(block => {
-        const inner =  document.getElementsByClassName(`${data.email}`)
-        if (inner) {
+        // ищем блок по data-email
+        if (block.classList.contains(data.email)) {
+            const newblock = document.createElement("div");
 
-            const newblock = document.createElement("div")
+            const text = document.createElement("p");
+            text.textContent = "обрана відповідь";
 
-            const text = document.createElement("p")
-            text.textContent = "обрана відповідь"
+            const answers = document.createElement("p");
+            answers.textContent = data.answers;
 
-            const answers = document.createElement("p")
-            answers.textContent = data.answers
+            newblock.appendChild(text);
+            newblock.appendChild(answers);
 
-            newblock.appendChild(text)
-            newblock.appendChild(answers)
-
-            block.appendChild(newblock)
+            block.appendChild(newblock);
         }
     });
 });
 
-
-socket.on("next_question",
-    data => {
-        let index = localStorage.getItem("index_question");
-        index = index + 1;
-        localStorage.setItem("index_question", index);
-        window.location.replace("/passing_mentor")
-    }
-)
+socket.on("next_question", data => {
+    window.location.replace("/passing_mentor");
+});
 
 socket.on("end_test",
     data => {

@@ -9,7 +9,6 @@ if (localStorage.getItem("index_question")){
 }
 
 
-
 socket.on("update_users", (users) => {
     const blockUsers = document.querySelector(".users")
 
@@ -91,6 +90,8 @@ socket.on("update_users", (users) => {
 
 socket.on("page_result",
     data => {
+        const oldData = parseInt(localStorage.getItem("index_question"))
+        localStorage.setItem("index_question", oldData + 1)
         window.location.replace("/result_mentor")
     }
 )
@@ -108,6 +109,8 @@ document.querySelector('.add-time').addEventListener(
 document.querySelector('.end_question').addEventListener(
     'click',
     () => {
+        const oldData = parseInt(localStorage.getItem("index_question"))
+        localStorage.setItem("index_question", oldData + 1)
         socket.emit(
             'end_question',
             {code: localStorage.getItem("room_code")}

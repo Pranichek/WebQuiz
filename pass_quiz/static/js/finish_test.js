@@ -13,13 +13,15 @@ localStorage.setItem("need_rolad", "True");
 const usersAnswers = localStorage.getItem("users_answers");
 const testId = localStorage.getItem("test_id");
 
+
 const playAgain = document.querySelector(".play_again");
 
 socket.emit("finish_test", {
-    users_answers: usersAnswers,
+    users_answers: usersAnswers, 
     test_id: testId,
     wasted_time: localStorage.getItem("wasted_time")
 });
+
 
 socket.on("test_result", (data) => {
     playAgain.value = data.test_id;

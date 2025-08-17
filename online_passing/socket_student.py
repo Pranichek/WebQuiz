@@ -14,6 +14,8 @@ def connect_to_room(data):
     room_code = data["code"]
     index_question = int(data["index"]) 
 
+    join_room(room=data["code"])
+
     test : Test = Test.query.get(int(id_test))
 
     questions = test.questions.split("?%?")
@@ -84,7 +86,7 @@ def connect_to_room(data):
         "value_bonus": "0" 
     })
 
-    join_room(room=data["code"])
+
 
     code = data["code"]
     room = Rooms.query.filter_by(room_code=code).first()
@@ -126,7 +128,168 @@ def answer_the_question(data):
         DATABASE.session.commit()
 
     flask_login.current_user.user_profile.answering_answer = "відповів"
+    
+
+    # -------------------- последний ответ пользователя
+    test : Test = Test.query.get(int(data["id_test"]))
+    answers = test.answers.split("?@?")
+    type = test.type_questions.split("?$?")[int(data["index"])]
+    ready_answers = ""
+
+    if type != "input-gap":
+        current_answers = []
+        current_answers_list = answers[int(data["index"]) - 1].split("?@?")
+
+        for ans in current_answers_list:
+            ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
+            current_answers.append(ans_clean.split("*|*|*"))
+
+        ready_answers = ""
+        user_answers = data["lastanswers"]
+
+        if user_answers != "skip":
+            for answer in user_answers:
+                ready_answers += current_answers[0][int(answer)] + " "
+        else:
+            ready_answers = "пропустив"
+    else:
+        if data["lastanswers"] != "skip":
+            ready_answers = data["lastanswers"]
+        else:
+            ready_answers = "пропустив"
+
+    
+    # часть где мы считам точность
+    user_answers_raw = data["users_answers"]
+
+    if user_answers_raw == '':
+        user_answers_raw = 'skip'
+
+    
+    user_answers = user_answers_raw.split(",") 
+    
+    questions = test.questions.split("?%?")
+    answers = test.answers.split("?@?")
+
+    # список где хранятся праивльные индексы либо строчные ответы на вопрос
+    correct_indexes = []
+
+
+    raw_type = DATABASE.session.query(Test.type_questions).filter_by(id=int(data["id_test"])).first()
+    # types_quest = []
+    for el in raw_type:
+        types_quest = el.split("?$?")
+        # types_quest.append(a)
+    
+    
+    # 
+    count = 0
+    answers = test.answers.split("?@?")
+    correct_indexes = []
+    list_final = []
+    for question in questions:
+        one_question = {}
+        one_question["question"] = question
+        list_answers = []
+        for ans in answers:
+            current_answers = []
+            ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
+            current_answers.append(ans_clean)
+
+            clear_answer = current_answers[0].split('*|*|*')
+            if (clear_answer[-1] == ''):
+                del clear_answer[-1]
+            list_answers.append(clear_answer)
+            
+
+        one_question["answers"] = list_answers[count]
+        list_final.append(one_question)
+        count += 1
+
+
+    #логика получение индекса правильного ответа даже если правильных несколько
+    # например, если правильные ответы на вопрос 1 это да и нет, то в массиве будет [[0, 1], [тут индексі уже следующего вопроса и тд]]
+    for index in range(len(questions)):
+        current_answer_list = answers[index]
+        data_str = ''
+        for symbol in current_answer_list:
+            if symbol == '+' or symbol == '-':
+                data_str += symbol
+        data_symbol = ['']
+        
+        symbol_list = []
+        for i in range(0 ,len(data_str), 2):
+            symbol_list.append(data_str[i:i+2]) 
+
+        question_right_answers = []
+        for i in range(len(symbol_list)):
+            if symbol_list[i] == '++':
+                question_right_answers.append(i)
+        
+        correct_indexes.append(question_right_answers)
+
+    count_right_answers = 0
+
+
+    list_users_answers = []
+    if len(user_answers) > 0:
+        for answers in user_answers:
+            small_list = []
+            list_users_answers.append(answers.split("@"))  
+
+    count_uncorrect_answers = 0
+    count_answered = 0
+
+    index_corect = []
+    for i in range(len(user_answers)):
+        if list_users_answers[i][0] != "skip":
+            count_answered += 1
+            if len(correct_indexes[i]) == 1 and list_users_answers[i][0].isdigit():
+                if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
+                    count_right_answers += 1
+                    index_corect.append(i)
+                else:
+                    count_uncorrect_answers += 1
+            elif list_users_answers[i][0].isdigit(): 
+                # сколько баллов он набраол на вопросе с несколькоми ответами
+                correct = 0
+                uncorrect = 0
+                for ans in list_users_answers[i]:
+                    if int(ans) in correct_indexes[i]:
+                        count_right_answers += 1
+                        correct += 1
+                    else:
+                        # count_right_answers -= 1
+                        count_uncorrect_answers += 1
+                        uncorrect += 1
+            
+                if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
+                    index_corect.append(i)
+            else:
+                # сколько баллов он набрал на input-gap вопросе 
+                user_answer_value = list_users_answers[i][0]
+                correct_answer_values = [answers[idx].replace("(?%+", "").replace("+%?)", "").replace("(?%-", "").replace("-%?)", "") for idx in correct_indexes[i] if idx < len(answers)]
+                if user_answer_value in correct_answer_values:
+                    count_right_answers += 1
+                    index_corect.append(i)
+                else:
+                    count_uncorrect_answers += 1
+
+
+    # максимальное количество баллов
+    amount_points = 0
+    for index in correct_indexes[0:int(data["id_test"])]:
+        amount_points += len(index)
+        
+    accuracy = (count_right_answers / len(correct_indexes[0:int(data["id_test"])])) * 100 if amount_points > 0 else 0
+
+    if len(ready_answers.split()) == 1:
+        flask_login.current_user.user_profile.last_answered = f"{ready_answers.split()[0]}/{accuracy}"
+    else:
+        flask_login.current_user.user_profile.last_answered = f"{ready_answers}/{accuracy}"
+    
     DATABASE.session.commit()
+    # --------------------
 
     user_list = []
     room = Rooms.query.filter_by(room_code= data["code"]).first()
@@ -212,7 +375,8 @@ def return_data(data):
             ready_answers = "пропустив"
 
 
-    
+    # считаем текущую точность и текущие кол-во праивльных непраильных ответов
+
 
     emit(
         "show_data",
@@ -223,35 +387,3 @@ def return_data(data):
             "answers":ready_answers
         }
     )
-
-@socket.on("student_answers")
-def upload_answers(data):
-    test : Test = Test.query.get(int(data["id_test"]))
-    answers = test.answers.split("?@?")
-    type = test.type_questions.split("?$?")[int(data["index"]) - 1]
-    ready_answers = ""
-
-    if type != "input-gap":
-        current_answers = []
-        current_answers_list = answers[int(data["index"]) - 1].split("?@?")
-
-        for ans in current_answers_list:
-            ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
-            current_answers.append(ans_clean.split("*|*|*"))
-
-        ready_answers = ""
-        user_answers = data["lastanswers"]
-
-        if user_answers != "skip":
-            for answer in user_answers:
-                ready_answers += current_answers[0][int(answer)] + " "
-        else:
-            ready_answers = "пропустив"
-    else:
-        if data["lastanswers"] != "skip":
-            ready_answers = data["lastanswers"]
-        else:
-            ready_answers = "пропустив"
-
-    
-    emit("student_answers", {"answers":ready_answers, "email":flask_login.current_user.email}, room = data["code"],broadcast=True, include_self=False)

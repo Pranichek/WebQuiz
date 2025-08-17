@@ -1,17 +1,13 @@
-const socket_wait = io() 
+const socket = io() 
 
 const textCode = document.querySelector(".code-text")
-textCode.textContent = localStorage.getItem("room_code_user")
-
-socket_wait.emit(
-    "connect_again",
-    {code: localStorage.getItem("room_code_user")}
-)
+textCode.textContent = localStorage.getItem("room_code")
 
 let stored = localStorage.getItem("users_answers"); [0, "kjndfkjn"]
 let answers = stored.split(",")
 let lastAnswers = answers[answers.length - 1]
-socket_wait.emit(
+
+socket.emit(
     "get_data",
     {   
         lastanswers: lastAnswers,
@@ -23,13 +19,13 @@ socket_wait.emit(
 )
 
 
-socket_wait.on("page_result",
+socket.on("page_result",
     data => {
         window.location.replace("/result_student")
     }
 )
 
-socket_wait.on("show_data",
+socket.on("show_data",
     data => {
         const cont = document.querySelector(".answer1")
 
@@ -56,6 +52,8 @@ socket_wait.on("show_data",
         if (typeQuestion != "input-gap"){
             let count = 0
             let maxheight = 100
+
+            
             for (let answer of answers){
                 count++
                 const outline = document.createElement("div")
@@ -77,10 +75,7 @@ socket_wait.on("show_data",
                 maxheight = 40
             }
 
-            const blocks = document.querySelectorAll(".answer2")
-            blocks.forEach((block) => {
-                block.style.height = `${height}%`;
-            })
+        
         }
         
         else{
@@ -93,7 +88,7 @@ socket_wait.on("show_data",
             answerOutline.appendChild(chosenAnswer)
             container.appendChild(answerOutline)
         }
-        
+
     }
 )
 
