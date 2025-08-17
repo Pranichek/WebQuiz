@@ -22,29 +22,9 @@
                 <div class="sel">
                     <p>Оберіть клас:</p>
                     <div class="sels">
-                        <select name="№" id="" class="sel1">
-                            <option value="" selected disabled>№</option>
-                            <option value="">1</option>
-                            <option value="">2</option>
-                            <option value="">3</option>
-                            <option value="">4</option>
-                            <option value="">5</option>
-                            <option value="">6</option>
-                            <option value="">7</option>
-                            <option value="">8</option>
-                            <option value="">9</option>
-                            <option value="">10</option>
-                            <option value="">11</option>
-                        </select>
+                        <button class="sel1">№</button>
                         <p>-</p>
-                        <select name="№" id="" class="sel1">
-                            <option value="" selected disabled>А...</option>
-                            <option value="">А</option>
-                            <option value="">Б</option>
-                            <option value="">В</option>
-                            <option value="">Г</option>
-                            <option value="">Д</option>
-                        </select>
+                        <button class="sel2">А...</button>
                     </div>
                 </div>
             </div>
@@ -52,22 +32,14 @@
                 <input type="text" class="inp2" placeholder="Опис класу (не обов'язково)">
             </div>
             <div class="lstin">
-                <select name="№" id="" class="obj">
-                    <option value="" selected disabled>Оберіть предмет класу</option>
-                    <option value="">математика</option>
-                    <option value="">англійська</option>
-                    <option value="">програмування</option>
-                    <option value="">історія</option>
-                    <option value="">фізика</option>
-                    <option value="">хімія</option>
-                    <option value="">інше</option>
-                </select>
-                <select name="№" id="" class="choo">
+                <button class="obj">Оберіть предмет класу</button>
+                <button class="choo">тип приєднання до класу</button>
+                <!-- <select name="№" id="" class="choo">
                     <option selected disabled>тип приєднання до класу</option>
                     <option value="">Лише за кодом</option>
                     <option value="">Лише за запрошенням</option>
                     <option value="">Відкритий для всіх</option>
-                </select>
+                </select> -->
             </div>
         </div>
         <div class="bottom-div">
@@ -78,5 +50,5 @@
 {% endblock %}
 
 {% block scripts %}
-    
+    <script src="{{ url_for('class_create.static', filename='js/create_class.js') }}"></script>
 {% endblock scripts %}

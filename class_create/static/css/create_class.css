@@ -32,6 +32,7 @@
     margin-left: 26px;
     font-size: 24px;
     color: #FFFFFF;
+    font-weight: 600;
 }
 .inp1{
     width: 100%;
@@ -85,12 +86,14 @@
     padding-left: 5px;
     border: 1px #000000 solid;
 }
-.sel1{
+.sel1, .sel2{
     width: 100px;
     height: 41px;
     border-radius: 9px;
     background-color: #ffffffc7;
     color: #000000;
+    border: transparent;
+    cursor: pointer;
 }
 .obj{
     width: 487px;
@@ -98,6 +101,7 @@
     background-color: #ffffffc8;
     border: #000000 1px solid;
     border-radius: 9px;
+    cursor: pointer;
 }
 .choo{
     width: 287px;
@@ -105,6 +109,7 @@
     background-color: #A675D0;
     border-radius: 9px;
     border: #000000 1px solid;
+    cursor: pointer;
 }
 .bottom-div{
     width: 1000px;
@@ -112,4 +117,77 @@
     border: #C99208 3px solid;
     border-radius: 33px;
     margin-top: 97px;
+}
+.list{
+    position: relative;
+    display: flex;
+    width: 100px;
+    height: 230px;
+    background-color: #ffffffc5;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    border: #000000 1px solid;
+    border-radius: 9px;
+    flex-direction: column;
+}
+.list2{
+    position: relative;
+    display: flex;
+    width: 100px;
+    /* height: 163px; */
+    background-color: #ffffffc5;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    border: #000000 1px solid;
+    border-radius: 9px;
+    flex-direction: column;
+}
+.list3{
+    position: relative;
+    display: flex;
+    width: 220px;
+    background-color: #ffffffc5;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin-left: 40px;
+    border-radius: 9px;
+    flex-direction: column;
+}
+.list4{
+    position: relative;
+    display: flex;
+    width: 220px;
+    background-color: #76489E;
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin-left: 40px;
+    border-radius: 9px;
+    flex-direction: column;
+}
+.box{
+    width: 100px;
+    height: 26px;
+    border: #000000 1px solid;
+}
+.box2{
+    width: 100%;
+    height: 26px;
+}
+.box3{
+    width: 100%;
+    height: 26px;
+    color: #FFFFFF;
+}
+.box3:hover{
+    background-color: #652999;
+}
+.box2:hover{
+    background-color: #9a5bd0;
+}
+.box:hover{
+    background-color: #9a5bd0;
 }
