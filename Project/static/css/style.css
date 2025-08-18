@@ -7,6 +7,10 @@
     font-family: 'Inter';
 }
 
+*::-webkit-scrollbar {
+    display: none; 
+}
+
 body{
     background-color: #3C3C3C;
 }

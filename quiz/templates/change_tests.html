@@ -13,16 +13,16 @@
                 <p>Інформація про тест</p>
             </div>
             <div class="category-test">
-                <p>категорія:<p>програмування</p></p>
+                <p>категорія: <span>програмування</span></p>
             </div>
             <div class="theme-test">
-                <p>тема:<p>пайтон</p></p>
+                <p>тема: <span>пайтон</span></p>
             </div>
             <div class="creator-test">
-                <p>творець:<p>@vova</p></p>
+                <p>творець: <span>@vova</span></p>
             </div>
             <div class="count-questions">
-                <p>кількість питаннь:<p>12</p></p>
+                <p>кількість питаннь: <span>12</span></p>
             </div>
             <div class="settings-buttons">
                 <button class="save-changed">Зберегти зміни</button>
@@ -33,7 +33,10 @@
             <div class="outline-image">
 
             </div>
-            <button>Змінити фоток</button>
+            <button>
+                <img class="add-image" src="{{ url_for('test_pass.static', filename='images/image.png') }}" alt="">
+                Змінити фото
+            </button>
         </div>
     </div>
     <div class="outline">
@@ -42,21 +45,30 @@
     <div class="list-questions">
         <div class="space-div">
             <div class="head">
-                <img  src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
+                <img class="head-bg" src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
                 <button class="del"><img src="{{ url_for('test_pass.static', filename='images/del.svg') }}" alt=""></button>
                 <p> Для чого потрібен Auto Layout?</p>
                 <button class="btn">Редагувати</button>
             </div>
-            <div class="g">
-                
-                <p>kkkkkk</p>
-                <p>mnnnnnn</p>
-                <p>kkkkkkkknnnnn</p>
-            </div>
+                <span class="answers">
+                    <div class="variant">
+                        <div class="circle"></div>
+                        <p class="answer">kkkkkk</p>
+                    </div>
+                    <div class="variant">
+                        <div class="circle"></div>
+                        <p class="answer">kkkkkk</p>
+                    </div>
+                    <div class="variant">
+                        <div class="circle"></div>
+                        <p class="answer">kkkkkk</p>
+                    </div>
+                </span>
+
         </div>
         <div class="space-div">
             <div class="head">
-                <img src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
+                <img class="head-bg" src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
                 <button class="del"><img src="{{ url_for('test_pass.static', filename='images/del.svg') }}" alt=""></button>
                 <p> Для чого потрібен Auto Layout?</p>
                 <button class="btn">Редагувати</button>
@@ -65,7 +77,7 @@
         </div>
         <div class="space-div">
             <div class="head">
-                <img src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
+                <img class="head-bg" src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
                 <button class="del"><img src="{{ url_for('test_pass.static', filename='images/del.svg') }}" alt=""></button>
                 <p> Для чого потрібен Auto Layout?</p>
                 <button class="btn">Редагувати</button>
@@ -74,7 +86,7 @@
         </div>
         <div class="space-div">
             <div class="head">
-                <img src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
+                <img class="head-bg" src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
                 <button class="del"><img src="{{ url_for('test_pass.static', filename='images/del.svg') }}" alt=""></button>
                 <p> Для чого потрібен Auto Layout?</p>
                 <button class="btn">Редагувати</button>

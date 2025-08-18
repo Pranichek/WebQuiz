@@ -183,6 +183,7 @@ input::-webkit-inner-spin-button {
     width: 20%;
     height: 100%;
     text-align: center;
+    overflow: hidden;
 }
 
 .main-input button:hover {

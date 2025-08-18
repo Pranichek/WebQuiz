@@ -1,9 +1,14 @@
+*{
+    font-size: 2vh;
+}
+
 .main{
     width: 100vw;
     /* height: 90vh; */
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 5vh;
 }
 
 .information-test{
@@ -32,7 +37,7 @@
     display: flex;
     align-items: center;
     justify-content: start;
-    padding-left: 1vw;
+    padding-left: 2vw;
 }
 
 .text-information p{
@@ -49,7 +54,11 @@
     flex-direction: row;
     align-items: center;
     justify-content: start;
-    padding-left: 1vw;
+    padding-left: 2vw;
+}
+
+.change-information div p span{
+    color: #fff;
 }
 
 .settings-buttons{
@@ -60,12 +69,12 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding-left: 1vw;
-    padding-right: 1vw;
+    padding-left: 2vw;
+    padding-right: 2vw;
 }
 
 .save-changed, .delete-test{
-    border-radius: 5px;
+    border-radius: 0.5vh;
     background-color: #827B88;
     padding: 0.5vw 0.8vw 0.5vw 0.8vw;
     color: #ffffff;
@@ -84,25 +93,32 @@
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    
 }
 
 .outline-image{
     border: 0.17vw #ffffff solid;
     width: 98%;
     height: 80%;
-    border-radius: 10px;
+    border-radius: 1vh;
 }
 
 .change-image button{
+    display: flex;
+    justify-content: center;
+    gap: 1vw;
     background-color: #C48AF7;
     width: 100%;
     height: 15%;
-    border-radius: 5px;
+    border-radius: 0.5vh;
     border: none;
     color: #ffffff;
-    font-size: 1.3vw;
+    font-size: 3vh;
     font-weight: 500;
+}
+
+.add-image{
+    width: 5vh;
+    height: 5vh;
 }
 
 .outline{
@@ -122,28 +138,25 @@
     font-weight: 500;
 }
 
-
 .list-questions{
     overflow-y: scroll;
-    max-height: 70vh;
     width: 80vw;
     background-color: #8abbf752;
-    /* height: 76vh; */
-    margin-top: 5vh;
-    border-radius: 34px;
+    border-radius: 3.5vh;
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 48px;
+    gap: 5vh;
     flex-direction: column;
-    padding: 2vw;
+    padding: 5vw 0;
 }
+
 .back1{
     position: fixed;
     top: 0;
     left: 0;
     z-index: -1;
 }
+
 .back2{
     position: fixed;
     bottom: 0;
@@ -153,18 +166,22 @@
 
 .space-div{
     background-color: #343434;
-    width: 809px;
-    height: 250px;
-    border-radius: 15px;
-    border: 1px solid #94C4FF;
+    width: 70vw;
+    height: 27vh;
+    border-radius: 2.5vh;
+    border: 0.1vh solid #94C4FF;
     
 }
 .head{
     width: 100%;
     height: 10vh;
     position: relative;
-
 }
+
+.head-bg{
+    width: 70vw;
+}
+
 .del{
     position: absolute;
     top: 1vh;
@@ -174,7 +191,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 30px;
+    border-radius: 3vh;
     cursor: pointer;
 }
 .head p{
@@ -187,19 +204,58 @@
     top: 50%;
     left: 36%;
 }
+
 .btn{
     position: absolute;
     width: 10vw;
     height: 3.1vh;
     color: #ffffff;
     background-color: #94C4FF;
-    border-radius: 7px;
-    border: none;
-    top: 85%;
-    left: 3%;
+    border-radius: 0.7vh;
+    border: solid 0.1vh #343434;
+    top: 120%;
+    left: 2%;
 }
-.g{
-    margin-top: 40px;
+
+
+.answers{
+    display: flex;
+    justify-content: start;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 1vh;
+    margin-top: 6vh;
+    padding: 1vw;
+    height: fit-content;
+}
+
+.variant{
+    display: flex;
+    justify-content: start;
+    gap: 0.8vw;
+    width: 45%;
+    height: 50%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.circle{
+    width: 1.7vw;
+    height: 1.7vw;
+    border: 0.1vh solid #94C4FF;
+    border-radius: 50%;
+    flex-shrink: 0; /* не дозволяти зжиматись у flex-контейнері */
+    flex-grow: 0;
+}
+
+.answer{
+    white-space: normal;        
+    word-break: break-word;     
+    overflow-wrap: break-word;  
+    overflow: hidden; 
+    font-size: 1.7vh;
+    color: #ffffff;
 }
 
 @media (max-width: 600px) {

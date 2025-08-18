@@ -462,7 +462,6 @@ li:hover{
 .answer{
     word-wrap: break-word;
     overflow-wrap: break-word;
-    /* white-space: normal;   */
 }
 
 p.answer {

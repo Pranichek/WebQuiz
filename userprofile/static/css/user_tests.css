@@ -535,10 +535,6 @@ a {
     border-bottom: none;
 }
 
-.filter-part::-webkit-scrollbar, .sort-part::-webkit-scrollbar {
-    display: none;
-}
-
 label{
     color: #ffffff;
     font-weight: 400;

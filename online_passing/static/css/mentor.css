@@ -271,10 +271,6 @@ main{
     overflow-x: auto;
 }
 
-.participants-list::-webkit-scrollbar {
-    display: none;
-}
-
 .card {
     position: relative;
     background-color: rgba(0, 0, 0, 0.28);

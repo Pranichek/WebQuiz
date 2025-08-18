@@ -29,17 +29,17 @@ def get_random_tests(category=None, max_tests=4):
     Отримує випадкові `max_tests` тестів з категорії.
     Якщо category не вказано, вибирає з усіх.
     """
-    # if category:
-    #     all_tests = Test.query.filter(Test.category == category, Test.check_del != "deleted").all()
-    # else:
-    #     all_tests = Test.query.filter(Test.check_del != "deleted").all()
+    if category:
+        all_tests = Test.query.filter(Test.category == category, Test.check_del != "deleted").all()
+    else:
+        all_tests = Test.query.filter(Test.check_del != "deleted").all()
 
-    # if not all_tests:
-    #     return []
+    if not all_tests:
+        return []
 
     # перемешиваем список чтобы выдавало рандомные тесты
-    # random.shuffle(all_tests)
-    # return all_tests[0:4]
+    random.shuffle(all_tests)
+    return all_tests[0:4]
 
 #головна сторінка коли користувач увійшов у акаунт
 @login_decorate
@@ -62,54 +62,54 @@ def render_home_auth():
     user = User.query.get(flask_login.current_user.id)
 
     # отримати баланс
-    # money_user = user.user_profile.count_money
+    money_user = user.user_profile.count_money
 
     category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
     first_topic = random.choice(category)
     category.remove(first_topic)
 
     first_four_test = get_random_tests(category=first_topic)
-    # random_numbers = []
+    random_numbers = []
 
 
     second_topic = random.choice(category)
     category.remove(second_topic)
     second_four_test = get_random_tests(category=second_topic)
-    # second_random_numbers = []
+    second_random_numbers = []
 
 
     user : User = User.query.get(int(current_user.id))
-    # third_random_numbers = user.user_profile.last_passed.split(" ")
-    # for el in third_random_numbers:
-    #     indx = third_random_numbers.index(el)
-    #     normal = el.split("/")[0]
-    #     third_random_numbers[indx] = normal
+    third_random_numbers = user.user_profile.last_passed.split(" ")
+    for el in third_random_numbers:
+        indx = third_random_numbers.index(el)
+        normal = el.split("/")[0]
+        third_random_numbers[indx] = normal
 
     # list(set(third_random_numbers))
-    # for element in third_random_numbers:
-    #     if third_random_numbers.count(element) >= 2:
-    #         count = third_random_numbers.count(element)
-    #         for i in range(count - 1):
-    #             third_random_numbers.remove(element)
+    for element in third_random_numbers:
+        if third_random_numbers.count(element) >= 2:
+            count = third_random_numbers.count(element)
+            for i in range(count - 1):
+                third_random_numbers.remove(element)
 
-    # random.shuffle(third_random_numbers)
-    # all_tests = Test.query.all()
+    random.shuffle(third_random_numbers)
+    all_tests = Test.query.all()
 
     third_ready_tests = []
 
-    # if '' in third_random_numbers:
-    #     third_random_numbers.remove('')
+    if '' in third_random_numbers:
+        third_random_numbers.remove('')
     
-    # if len(third_random_numbers) >= 5:
-    #     range_count = 5
-    # else:
-    #     range_count = len(third_random_numbers)
+    if len(third_random_numbers) >= 5:
+        range_count = 5
+    else:
+        range_count = len(third_random_numbers)
 
     
-    # for test in range(0, range_count - 1):
+    for test in range(0, range_count - 1):
         
-    #     if Test.query.get(int(third_random_numbers[test])).check_del != "deleted" and Test.query.get(int(third_random_numbers[test])) not in third_ready_tests:
-    #         third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
+        if Test.query.get(int(third_random_numbers[test])).check_del != "deleted" and Test.query.get(int(third_random_numbers[test])) not in third_ready_tests:
+            third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
 
 
     fourth_topic = random.choice(category)
@@ -122,16 +122,13 @@ def render_home_auth():
         home_auth = True,
         count_tests = 0,
         user = user,
-        # first_tests = first_four_test,
-        first_tests = [],
+        first_tests = first_four_test,
         first_topic = first_topic,
         second_topic = second_topic,
-        # second_tests = second_four_test,
-        second_tests = [],
-        # third_tests = third_ready_tests if len(third_ready_tests) >= 4 else fourth_four_test,
-        third_tests = [],
+        second_tests = second_four_test,
+        third_tests = third_ready_tests if len(third_ready_tests) >= 4 else fourth_four_test,
         fourt_topic = "Недавно пройдені тести" if len(third_ready_tests) >= 4 else f"Тести із теми {fourth_topic}"
-    )
+        )
 
     
 

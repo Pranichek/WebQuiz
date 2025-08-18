@@ -342,10 +342,6 @@ h3{
     overflow: scroll
 }
 
-.list::-webkit-scrollbar{
-    display: none;
-}
-
 .for-image{
     position: relative;
     width: 100%;
