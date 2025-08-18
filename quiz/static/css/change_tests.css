@@ -57,6 +57,15 @@
     padding-left: 2vw;
 }
 
+.change_title_btn{
+    width: 8vw;
+    height: 3vh;
+    border: 0.1vh solid #343434;
+    border-radius: 0.5vh;
+    background-color: #94C4FF;
+    color: #fff;
+}
+
 .change-information div p span{
     color: #fff;
 }

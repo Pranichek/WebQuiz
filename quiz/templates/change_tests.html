@@ -8,7 +8,7 @@
     <img class="back1" src="{{ url_for('test_pass.static', filename='images/back1.png') }}" alt="">
     <img class="back2" src="{{ url_for('test_pass.static', filename='images/back2.png') }}" alt="">
     <div class="information-test">
-        <div class="change-information">
+        <form action="" method="post" class="change-information">
             <div class="text-information">
                 <p>Інформація про тест</p>
             </div>
@@ -16,7 +16,9 @@
                 <p>категорія: <span>програмування</span></p>
             </div>
             <div class="theme-test">
-                <p>тема: <span>пайтон</span></p>
+                <p>тема: <span>{{ test.title_test }}</span></p>
+                <input type="text" name="new_name" placeholder="Нова назва">
+                <button class="change_title_btn" type="submit">Редагувати</button>
             </div>
             <div class="creator-test">
                 <p>творець: <span>@vova</span></p>
@@ -26,9 +28,9 @@
             </div>
             <div class="settings-buttons">
                 <button class="save-changed">Зберегти зміни</button>
-                <button class="delete-test">Видалити тест повністтю</button>
+                <button class="delete-test" value="{{ test.id }}" name="delete-id">Видалити тест повністтю</button>
             </div>
-        </div>
+        </form>
         <div class="change-image">
             <div class="outline-image">
 
@@ -96,14 +98,11 @@
     </div>
     <!-- {% if message %}
         <p>{{ message }}</p>
-    {% endif %}
+    {% endif %} -->
+    
+{% endblock %}
 
-    <form action="" method="POST">
-        <input type="hidden" name="test_id" value="{{ test.id }}">
-        <input type="text" name="new_name" placeholder="Нова назва">
-        <button type="submit">Змiнити назву</button>
-    </form>
-    <form action="" method="post">
-        <button value="{{ test.id }}" name="delete-id">Видалити тест</button>
-    </form> -->
+{% block scripts %}
+    <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/ajaxDeleteTest.js') }}"></script>
 {% endblock %}

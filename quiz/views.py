@@ -555,14 +555,15 @@ def render_change_tests():
     if not test:
         return 
     if flask.request.method == "POST":
+        message = ""
         new_name = flask.request.form.get("new_name")
         if new_name:
             existing_test = Test.query.filter_by(user_id=user.id, title_test=new_name).first()
             if existing_test:
                 message = "Тест із такою назвою вже є"
             else:
-                old_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(test.title_test)))
-                new_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(new_name)))
+                old_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(user.email), "user_tests", str(test.title_test)))
+                new_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(user.email), "user_tests", str(new_name)))
                 os.rename(old_path, new_path)
                 test.title_test = new_name
                 DATABASE.session.commit()
@@ -570,10 +571,13 @@ def render_change_tests():
 
         delete_id = flask.request.form.get("delete-id")
         if delete_id:
+            print("delete_id =", delete_id)
             test.check_del = "deleted"
             DATABASE.session.commit()
             message = "Тест видалено"
             return flask.redirect("/user_test")
+        
+        print(message)
 
         create_room = flask.request.form.get("create-room")
 
@@ -584,3 +588,12 @@ def render_change_tests():
         test=test,
         message=message,
     )
+
+# def render_delete_test(pk: int):
+#     try:
+#         test = Test.query.get(pk)
+#         test.
+#         DATABASE.session.commit()
+#     except:
+#         pass
+#     return 
