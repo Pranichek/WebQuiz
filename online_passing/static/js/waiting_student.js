@@ -58,10 +58,12 @@ socket_wait.on("show_data",
             : Array.isArray(data.answers) ? data.answers : [];
         const container = document.querySelector(".answers");
         container.innerHTML = "";
+        container.style.justifyContent = "center";
 
         if (typeQuestion !== "input-gap") {
             let count = 0;
             let maxheight = 100;
+            let maxwidth = 45;
             for (let answer of answers) {
                 count++;
                 const checkmark = document.createElement("div");
@@ -81,11 +83,17 @@ socket_wait.on("show_data",
 
             if (count > 2) {
                 maxheight = 40;
+                container.style.justifyContent = "space-between";
+            }  
+            else if (count = 2) {
+                maxheight = 100;
             }
+        
 
             const blocks = document.querySelectorAll(".answer2");
             blocks.forEach((block) => {
                 block.style.height = `${maxheight}%`;
+                block.style.width = `${maxwidth}%`;
             });
         } else {
             const answerOutline = document.createElement("div");
