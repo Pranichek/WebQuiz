@@ -39,7 +39,7 @@ def get_random_tests(category=None, max_tests=4):
 
     # перемешиваем список чтобы выдавало рандомные тесты
     random.shuffle(all_tests)
-    return all_tests[0:4]
+    return all_tests[0:5]
 
 #головна сторінка коли користувач увійшов у акаунт
 @login_decorate

@@ -26,8 +26,6 @@ socket.on("page_result",
 
 socket.on("show_data",
     data => {
-        console.log(data);
-
         // Очищаем контейнеры перед добавлением новых данных
         const cont = document.querySelector(".answer1");
         cont.innerHTML = "";
@@ -52,19 +50,47 @@ socket.on("show_data",
         const answers = typeof data.answers === "string"
             ? data.answers.trim().split(" ").filter(a => a)
             : Array.isArray(data.answers) ? data.answers : [];
+
         const container = document.querySelector(".answers");
         container.innerHTML = "";
+        container.style.justifyContent = "center";
 
         if (typeQuestion !== "input-gap") {
             let count = 0;
             let maxheight = 100;
-            for (let answer of answers) {
-                count++;
+            let maxwidth = 45;
+
+            // "user_indexes": data["lastanswers"],
+            // "correct_indexes": correct_indexes[int(data["index_question"]) - 1]
+            let userIndexes = data.user_indexes.split("@")
+            let correctIndexes = data.correct_indexes
+            let imagesUrls = data.answers_images
+            // console.log(userIndexes)
+            // console.log(correctIndexes)
+
+
+            for (let answer of answers){
                 const checkmark = document.createElement("div");
                 checkmark.className = "checkmark-answer";
 
                 const outline = document.createElement("div");
                 outline.className = "answer2";
+
+                let currentIndex = userIndexes[count]
+                if (correctIndexes.includes(parseInt(currentIndex))){
+                    outline.style.backgroundColor = "#BBE3B3"
+                }
+                else {
+                    outline.style.backgroundColor = "rgba(246, 101, 103, 0.71)"
+                }
+
+                if (imagesUrls[count] != "NOT"){
+                    const image = document.createElement("img")
+                    image.src = imagesUrls[0]
+                    image.style.width = "100%"
+                    image.style.height = "30%"
+                    outline.appendChild(image)
+                }
 
                 const chosenAnswer = document.createElement("span");
                 chosenAnswer.textContent = answer;
@@ -73,15 +99,23 @@ socket.on("show_data",
                 outline.appendChild(chosenAnswer);
 
                 container.appendChild(outline);
+
+                count++; 
             }
 
             if (count > 2) {
                 maxheight = 40;
+                container.style.justifyContent = "space-between";
+            }  
+            else if (count = 2) {
+                maxheight = 100;
             }
+        
 
             const blocks = document.querySelectorAll(".answer2");
             blocks.forEach((block) => {
                 block.style.height = `${maxheight}%`;
+                block.style.width = `${maxwidth}%`;
             });
         } else {
             const answerOutline = document.createElement("div");

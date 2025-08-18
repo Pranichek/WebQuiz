@@ -36,14 +36,13 @@
 }
 
 .answer1 {
-    width: 70%;
+    width: 60%;
     height: 100%;
     border: 0.4vh solid #FFB700;
     border-radius: 0.5vh;
     background-color: rgba(255, 255, 255, 0.16);
     display: flex;
-    justify-content: center;
-    gap: 3vw;
+    justify-content: space-between;
     align-items: center;
     font-size: 4vh;
     color: #ffff;
@@ -55,16 +54,16 @@
 }
 
 .answers{
-    width: 30%;
+    width: 40%;
     height: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
     font-size: 5vh;
-    flex-wrap: wrap;
     position: relative;
-    gap:1vh
+    gap:2vh;
+    flex-wrap: wrap;
 }
 
 .outline{
@@ -80,9 +79,8 @@
 }
 
 .answer2 {
-    width: 23vh;
+    width: 30vh;
     height: 100%;
-    background-color: #BBE3B3;
     border-radius: 2vh;
     display: flex;
     flex-direction: column;

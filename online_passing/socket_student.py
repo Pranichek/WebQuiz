@@ -377,6 +377,8 @@ def return_data(data):
     answers = test.answers.split("?@?")
     ready_answers = ""
 
+    print(data["lastanswers"], "kiki")
+
     if current_type != "input-gap":
         current_answers = []
         current_answers_list = answers[int(data["index_question"]) - 1].split("?@?")
@@ -387,6 +389,7 @@ def return_data(data):
 
         user_answers = data["lastanswers"]
 
+        
 
         if user_answers != "skip":
             if len(user_answers.split("@")) > 1:
@@ -547,17 +550,41 @@ def return_data(data):
     answered_questions = int(data["index_question"])   # сколько вопросов уже пройдено
     count_right = count_right_answers - count_uncorrect_answers if count_right_answers - count_uncorrect_answers > 0 else 0
     accuracy = (right_answers / answered_questions) * 100 if answered_questions > 0 else 0
-    
+    # ------------------------------------------------------------------------------------
+    # ссылки на картинки, если они были подргуженны к ответам
+    path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(int(data["index_question"]))))
 
+  
+    answers = data["lastanswers"].split("@")
+    images_urls = []
+    for answer in answers:
+        current_answer = str(int(answer) + 1)
+
+        answer_path = join(path, current_answer)
+        
+        if exists(answer_path):
+            if len(os.listdir(answer_path)) > 0:
+                images_answer = flask.url_for("profile.static", filename=f"images/edit_avatar/{email}/user_tests/{title}/{int(data["index_question"])}/{current_answer}/{os.listdir(answer_path)[0]}")
+                images_urls.append(images_answer)
+
+            else:
+                images_urls.append("NOT")
+        else:
+            images_urls.append("NOT")
+
+    
     emit(
         "show_data",
         {
             "image":img_url,
             "question": current_question,
             "type_question": current_type,
-            "answers":ready_answers,
+            "answers": ready_answers,
             "accuracy": accuracy,
             "right_answers": right_answers,
             "uncorrect_answers": uncorrect_answers,
+            "user_indexes": data["lastanswers"], # 
+            "correct_indexes": correct_indexes[int(data["index_question"]) - 1],
+            "answers_images": images_urls
         }
     )

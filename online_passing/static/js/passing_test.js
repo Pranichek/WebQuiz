@@ -1250,7 +1250,7 @@ socket.on("end_this_question",
         let index = localStorage.getItem("index_question")
         index = parseInt(index) + 1;
         localStorage.setItem("index_question", index)
-        
+
         midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
         localStorage.setItem("wasted_time", midletime);
 
@@ -1271,86 +1271,86 @@ socket.on("stop_time",
     }
 )
 
-setInterval(() => {
-    let checkTime = localStorage.getItem('time_question')
+// setInterval(() => {
+//     let checkTime = localStorage.getItem('time_question')
 
-    flag_time = localStorage.getItem("flag_time")
+//     flag_time = localStorage.getItem("flag_time")
 
-    if (checkTime != "not" && flag_time != "false"){
-        timeQuestion = parseInt(localStorage.getItem('time_question'));
+//     if (checkTime != "not" && flag_time != "false"){
+//         timeQuestion = parseInt(localStorage.getItem('time_question'));
 
-        if (isNaN(timeQuestion)) {
-            // Якщо немає часу або він некоректний 
-            // timer.textContent = "-";
-            return; 
-        }
-        let wasted_time = parseInt(localStorage.getItem("timeData"))
-        wasted_time += 1;
-        localStorage.setItem("timeData", wasted_time)
-        timeQuestion -= 1; 
-        updateCircle(parseInt(timeQuestion))
-        if (timeQuestion < 61){
-            timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-        }else{
-            const minutes = Math.floor(timeQuestion / 60);
-            let remainingSeconds = timeQuestion % 60;
+//         if (isNaN(timeQuestion)) {
+//             // Якщо немає часу або він некоректний 
+//             // timer.textContent = "-";
+//             return; 
+//         }
+//         let wasted_time = parseInt(localStorage.getItem("timeData"))
+//         wasted_time += 1;
+//         localStorage.setItem("timeData", wasted_time)
+//         timeQuestion -= 1; 
+//         updateCircle(parseInt(timeQuestion))
+//         if (timeQuestion < 61){
+//             timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+//         }else{
+//             const minutes = Math.floor(timeQuestion / 60);
+//             let remainingSeconds = timeQuestion % 60;
 
-            if (remainingSeconds < 10) {
-                remainingSeconds = '0' + remainingSeconds;
-            }
+//             if (remainingSeconds < 10) {
+//                 remainingSeconds = '0' + remainingSeconds;
+//             }
 
-            timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-        }
-        localStorage.setItem('time_question', timeQuestion)
-        if (timeQuestion <= 0){
-            localStorage.setItem('time_question', "set")
-            let chekcookies = localStorage.getItem("users_answers")
-            if (chekcookies){
-                // отримуємо старі відповіді якщо вони були
-                let oldCookie = localStorage.getItem("users_answers")
-                let cookieList = oldCookie.split(",")   
-                cookieList.push("skip")
+//             timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+//         }
+//         localStorage.setItem('time_question', timeQuestion)
+//         if (timeQuestion <= 0){
+//             localStorage.setItem('time_question', "set")
+//             let chekcookies = localStorage.getItem("users_answers")
+//             if (chekcookies){
+//                 // отримуємо старі відповіді якщо вони були
+//                 let oldCookie = localStorage.getItem("users_answers")
+//                 let cookieList = oldCookie.split(",")   
+//                 cookieList.push("skip")
 
-                localStorage.setItem("users_answers", cookieList)
-            }else{
-                localStorage.setItem("users_answers", "skip")
-            }
+//                 localStorage.setItem("users_answers", cookieList)
+//             }else{
+//                 localStorage.setItem("users_answers", "skip")
+//             }
 
-            let index = localStorage.getItem("index_question")
-            index = parseInt(index) + 1;
-            localStorage.setItem("index_question", index)
+//             let index = localStorage.getItem("index_question")
+//             index = parseInt(index) + 1;
+//             localStorage.setItem("index_question", index)
 
-            circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+//             circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
 
-            let midletime = localStorage.getItem("wasted_time")
-            midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
-            localStorage.setItem("wasted_time", midletime);
+//             let midletime = localStorage.getItem("wasted_time")
+//             midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+//             localStorage.setItem("wasted_time", midletime);
 
-            localStorage.setItem("timeData", "0")
+//             localStorage.setItem("timeData", "0")
 
-            let stored = localStorage.getItem("users_answers");
+//             let stored = localStorage.getItem("users_answers");
             
-            let answers = stored.split(",");
-            let lastAnswers = answers[answers.length - 1];
-            socket.emit(
-                'answered',
-                {
-                    code: localStorage.getItem("room_code"), 
-                    total_time: localStorage.getItem("default_time"), 
-                    wasted_time: 0,
-                    right_answered: "not",
-                    id_test: localStorage.getItem("test_id"),
-                    index:localStorage.getItem("index_question"),
-                    lastanswers: lastAnswers,
-                    users_answers: localStorage.getItem("users_answers")
-                }
-            )
-            // console.log("Питання відправлено на сервер, чекаємо відповіді");
-        }
-    }else{
-        timer.textContent = "-"
-    }
-}, 1000);
+//             let answers = stored.split(",");
+//             let lastAnswers = answers[answers.length - 1];
+//             socket.emit(
+//                 'answered',
+//                 {
+//                     code: localStorage.getItem("room_code"), 
+//                     total_time: localStorage.getItem("default_time"), 
+//                     wasted_time: 0,
+//                     right_answered: "not",
+//                     id_test: localStorage.getItem("test_id"),
+//                     index:localStorage.getItem("index_question"),
+//                     lastanswers: lastAnswers,
+//                     users_answers: localStorage.getItem("users_answers")
+//                 }
+//             )
+//             // console.log("Питання відправлено на сервер, чекаємо відповіді");
+//         }
+//     }else{
+//         timer.textContent = "-"
+//     }
+// }, 1000);
 
 
 

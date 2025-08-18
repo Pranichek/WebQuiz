@@ -86,7 +86,6 @@ document.querySelector(".next-question").addEventListener(
     () => {
         const oldData = parseInt(localStorage.getItem("index_question"))
         localStorage.setItem("index_question", oldData + 1)
-        
         socket.emit('next_one', {
             index: localStorage.getItem("index_question"),
             test_id: localStorage.getItem("test_id"),
