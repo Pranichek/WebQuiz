@@ -174,6 +174,11 @@
     height: 50%;
 }
 
+.variant-center{
+    width: 100%;
+    justify-content: center;
+}
+
 .answers{
     display: flex;
     justify-content: start;
@@ -182,6 +187,10 @@
     padding: 20px 0 30px 30px;
     width: 100%;
     height: fit-content;
+}
+
+.input-gap{
+    padding-left: 0;
 }
 
 .circle{

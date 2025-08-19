@@ -26,14 +26,15 @@ def users_results(data):
                 "ready": user.user_profile.answering_answer,
                 "count_points": user.user_profile.count_points,
                 "user_avatar": avatar_url,
-                "avatar_size": user.size_avatar
+                "avatar_size": user.size_avatar,
+                "last_answer": user.user_profile.last_answered.split("/")[0],
+                "accuracy": user.user_profile.last_answered.split("/")[1]
             })
 
     # черещ встроенній модуль делаем филтрацию словаря за "count_points" и делаем реверс чтобі біло от большего к меньшему
     user_list = sorted(user_list, key=itemgetter("count_points"), reverse=True)
 
     emit("list_results", user_list)
-    emit("last_answers", room= data["room"], broadcast=True, include_self=False)
 
 @socket.on("load_question")
 def load_question_mentor(data):
@@ -75,23 +76,15 @@ def end_question(data):
 def next_question(data):
     index_question = int(data["index"])
     test_id = int(data["test_id"])
-    room = data["room"]
+    room_code = data["room"]
 
     test : Test = Test.query.get(test_id)
 
-    
-    if index_question + 1 < test.questions.count("?%?") + 1:
-        emit(
-            "next_question",
-            room=room,
-            broadcast= True
-        )
+    if index_question < test.questions.count("?%?") + 1:
+        emit("next_question", {"status": "ok"}, room=room_code, broadcast=True)
     else:
-        emit(
-            "end_test",
-            room=room,
-            broadcast= True
-        )
+        emit("end_test", {"status": "ok"}, room=room_code, broadcast=True)
+
 
 @socket.on("add_time")
 def add_time(data):

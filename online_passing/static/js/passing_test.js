@@ -5,14 +5,13 @@ if (!chcklocal.includes("student")){
     window.location.replace('/');
 }
 
-
 // Створюємо об'єкт сокету 
-const socket_student = io(); 
+const socket = io(); 
 
 
-socket_student.emit("connect_room",
+socket.emit("connect_room",
     {
-        code: localStorage.getItem("room_code_user"),
+        code: localStorage.getItem("room_code"),
         index: localStorage.getItem("index_question"),
         test_id: localStorage.getItem("test_id")
     }
@@ -59,13 +58,13 @@ function countMoney(value) {
     }
 }
 
-socket_student.on("page_waiting", 
+socket.on("page_waiting", 
     data => {
         window.location.replace("/waiting_student")
     }
 )
 
-socket_student.on("page_result",
+socket.on("page_result",
     data => {
 
         localStorage.setItem('time_question', "set")
@@ -96,7 +95,7 @@ socket_student.on("page_result",
     }
 )
 
-// socket_student.on("leave_user",
+// socket.on("leave_user",
 //     data => {
 //         if (data["email"] == document.querySelector(".email").textContent){
 //             window.location.replace("/")
@@ -104,7 +103,7 @@ socket_student.on("page_result",
 //     }
 // )
 
-socket_student.on('student_question', (data) => {
+socket.on('student_question', (data) => {
     const bigImg = document.querySelector(".bigimg");
     if (bigImg) {
         bigImg.remove();
@@ -320,9 +319,6 @@ socket_student.on('student_question', (data) => {
                             } else {
                                 localStorage.setItem("users_answers", block.dataset.value);
                             }
-                            let index = localStorage.getItem("index_question")
-                            
-                            localStorage.setItem("index_question", index)
                             // circle.style.background = `conic-gradient(#8ABBF7 0deg, #8ABBF7 360deg)`;
 
 
@@ -364,24 +360,37 @@ socket_student.on('student_question', (data) => {
                                 let midletime = localStorage.getItem("wasted_time")
 
                                 midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                let stored = localStorage.getItem("users_answers");
+                                
+
+                                let answers = stored.split(",");
+                                let lastAnswers = answers[answers.length - 1];
                                 if (checkCorrect == true){
-                                    socket_student.emit(
+                                    socket.emit(
                                         'answered',
                                         {
-                                            code: localStorage.getItem("room_code_user"), 
+                                            code: localStorage.getItem("room_code"), 
                                             total_time: localStorage.getItem("default_time"), 
                                             wasted_time: parseInt(localStorage.getItem("timeData")),
-                                            right_answered: "yes"
+                                            right_answered: "yes",
+                                            id_test: localStorage.getItem("test_id"),
+                                            index:localStorage.getItem("index_question"),
+                                            lastanswers: lastAnswers,
+                                            users_answers: localStorage.getItem("users_answers")
                                         }
                                     )
                                 }else{
-                                    socket_student.emit(
+                                    socket.emit(
                                         'answered',
                                         {
-                                            code: localStorage.getItem("room_code_user"), 
+                                            code: localStorage.getItem("room_code"), 
                                             total_time: localStorage.getItem("default_time"), 
                                             wasted_time: parseInt(localStorage.getItem("timeData")),
-                                            right_answered: "not"
+                                            right_answered: "not",
+                                            id_test: localStorage.getItem("test_id"),
+                                            index:localStorage.getItem("index_question"),
+                                            lastanswers: lastAnswers,
+                                            users_answers: localStorage.getItem("users_answers")
                                         }
                                     )
                                 }
@@ -390,7 +399,8 @@ socket_student.on('student_question', (data) => {
                                 localStorage.setItem("wasted_time", midletime);
                                 
                                 localStorage.setItem("timeData", "0")
-                                index = parseInt(index) + 1;
+
+                                index = parseInt(localStorage.getItem("index_question")) + 1;
                                 localStorage.setItem("index_question", index)
                                 checkOportunity = "able";
                                 circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
@@ -621,24 +631,38 @@ socket_student.on('student_question', (data) => {
                             setTimeout(() => {
                                 let midletime = localStorage.getItem("wasted_time")
                                 midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+
+                                let stored = localStorage.getItem("users_answers");
+                                
+
+                                let answers = stored.split(",");
+                                let lastAnswers = answers[answers.length - 1];
                                 if (checkCorrect == true){
-                                    socket_student.emit(
+                                    socket.emit(
                                         'answered',
                                         {
-                                            code: localStorage.getItem("room_code_user"), 
+                                            code: localStorage.getItem("room_code"), 
                                             total_time: localStorage.getItem("default_time"), 
                                             wasted_time: parseInt(localStorage.getItem("timeData")),
-                                            right_answered: "yes"
+                                            right_answered: "yes",
+                                            id_test: localStorage.getItem("test_id"),
+                                            index:localStorage.getItem("index_question"),
+                                            lastanswers: lastAnswers,
+                                            users_answers: localStorage.getItem("users_answers")
                                         }
                                     )
                                 }else{
-                                    socket_student.emit(
+                                    socket.emit(
                                         'answered',
                                         {
-                                            code: localStorage.getItem("room_code_user"), 
+                                            code: localStorage.getItem("room_code"), 
                                             total_time: localStorage.getItem("default_time"), 
                                             wasted_time: parseInt(localStorage.getItem("timeData")),
-                                            right_answered: "not"
+                                            right_answered: "not",
+                                            id_test: localStorage.getItem("test_id"),
+                                            index:localStorage.getItem("index_question"),
+                                            lastanswers: lastAnswers,
+                                            users_answers: localStorage.getItem("users_answers")
                                         }
                                     )
                                 }
@@ -699,6 +723,13 @@ socket_student.on('student_question', (data) => {
                 if (amountAnswers == 1){
                     const divparent = document.querySelector(".answers")
 
+                    const text = document.createElement("p")
+                    text.textContent = "введіть свою відповідь у поле"
+                    text.className = "input-text"
+                    text.style.color = "#ffffff"
+                    
+                    divparent.appendChild(text)
+
 
                     const inputDiv = document.createElement("div")
                     inputDiv.className = "confirm-answer"
@@ -741,6 +772,7 @@ socket_student.on('student_question', (data) => {
                     divparent.style.flexDirection = "column"
                     divparent.style.gap = "10vh"
                     divparent.style.backgroundColor = "#353535"
+                    divparent.style.display = "flex";
 
                     let inputs = document.querySelectorAll(".small-input-answer")
                     
@@ -858,24 +890,40 @@ socket_student.on('student_question', (data) => {
                                 setTimeout(() => {
                                     let midletime = localStorage.getItem("wasted_time")
                                     midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+
+                                    let stored = localStorage.getItem("users_answers");
+                                
+
+                                    let answers = stored.split(",");
+                                    let lastAnswers = answers[answers.length - 1];
+
                                     if (checkCorrect == true){
-                                        socket_student.emit(
+                                        socket.emit(
                                             'answered',
                                             {
-                                                code: localStorage.getItem("room_code_user"), 
+                                                code: localStorage.getItem("room_code"), 
                                                 total_time: localStorage.getItem("default_time"), 
                                                 wasted_time: parseInt(localStorage.getItem("timeData")),
-                                                right_answered: "yes"
+                                                right_answered: "yes",
+                                                id_test: localStorage.getItem("test_id"),
+                                                index:localStorage.getItem("index_question"),
+                                                lastanswers: lastAnswers,
+                                                users_answers: localStorage.getItem("users_answers"),
+                                                
                                             }
                                         )
                                     }else{
-                                        socket_student.emit(
+                                        socket.emit(
                                             'answered',
                                             {
-                                                code: localStorage.getItem("room_code_user"), 
+                                                code: localStorage.getItem("room_code"), 
                                                 total_time: localStorage.getItem("default_time"), 
                                                 wasted_time: parseInt(localStorage.getItem("timeData")),
-                                                right_answered: "not"
+                                                right_answered: "not",
+                                                id_test: localStorage.getItem("test_id"),
+                                                index:localStorage.getItem("index_question"),
+                                                lastanswers: lastAnswers,
+                                                users_answers: localStorage.getItem("users_answers")
                                             }
                                         )
                                     }
@@ -915,6 +963,7 @@ socket_student.on('student_question', (data) => {
                     divparent.style.flexDirection = "column"
                     divparent.style.gap = "10vh"
                     divparent.style.backgroundColor = "#353535"
+                    divparent.style.display = "flex";
 
                     divparent.appendChild(text)
                     divparent.appendChild(inputDiv)
@@ -1007,35 +1056,45 @@ socket_student.on('student_question', (data) => {
 
                                         const audioNegative = document.querySelector("#incorrect-sound");
                                         if (audioNegative) audioNegative.play();
-                                        for (let checkMark of checkMarks){
-                                            if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
-                                                checkMark.style.backgroundColor = '#8AF7D4';
-                                            }
-                                        }
                                     }, timeout = 699);
                                 }
 
                                 setTimeout(() => {
                                     let midletime = localStorage.getItem("wasted_time")
                                     midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+
+                                    let stored = localStorage.getItem("users_answers");
+                                
+
+                                    let answers = stored.split(",");
+                                    let lastAnswers = answers[answers.length - 1];
+
                                     if (checkCorrect == true){
-                                        socket_student.emit(
+                                        socket.emit(
                                             'answered',
                                             {
-                                                code: localStorage.getItem("room_code_user"), 
+                                                code: localStorage.getItem("room_code"), 
                                                 total_time: localStorage.getItem("default_time"), 
                                                 wasted_time: parseInt(localStorage.getItem("timeData")),
-                                                right_answered: "yes"
+                                                right_answered: "yes",
+                                                id_test: localStorage.getItem("test_id"),
+                                                index:localStorage.getItem("index_question"),
+                                                lastanswers: lastAnswers,
+                                                users_answers: localStorage.getItem("users_answers")
                                             }
                                         )
                                     }else{
-                                        socket_student.emit(
+                                        socket.emit(
                                             'answered',
                                             {
-                                                code: localStorage.getItem("room_code_user"), 
+                                                code: localStorage.getItem("room_code"), 
                                                 total_time: localStorage.getItem("default_time"), 
                                                 wasted_time: parseInt(localStorage.getItem("timeData")),
-                                                right_answered: "not"
+                                                right_answered: "not",
+                                                id_test: localStorage.getItem("test_id"),
+                                                index:localStorage.getItem("index_question"),
+                                                lastanswers: lastAnswers,
+                                                users_answers: localStorage.getItem("users_answers")
                                             }
                                         )
                                     }
@@ -1141,7 +1200,7 @@ window.addEventListener(
  
 
 // SetInterval - запускает функцию через определенный промежуток времени(в милисекундах)
-socket_student.on("add_some_time",
+socket.on("add_some_time",
     data => {
         timeQuestion = parseInt(localStorage.getItem('time_question'));
         wasted_time = parseInt(timeQuestion)
@@ -1150,7 +1209,7 @@ socket_student.on("add_some_time",
 
 )
 
-socket_student.on("end_this_question",
+socket.on("end_this_question",
     data => {
         
         localStorage.setItem('time_question', "set")
@@ -1166,22 +1225,32 @@ socket_student.on("end_this_question",
             localStorage.setItem("users_answers", "skip")
         }
 
+        circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+
+        let midletime = localStorage.getItem("wasted_time")
+        
+        let stored = localStorage.getItem("users_answers");
+        
+        let answers = stored.split(",");
+        let lastAnswers = answers[answers.length - 1];
+        socket.emit(
+            'answered',
+            {
+                code: localStorage.getItem("room_code"), 
+                total_time: localStorage.getItem("default_time"), 
+                wasted_time: 0,
+                right_answered: "not",
+                id_test: localStorage.getItem("test_id"),
+                index:localStorage.getItem("index_question"),
+                lastanswers: lastAnswers,
+                users_answers: localStorage.getItem("users_answers")
+            }
+        )
+
         let index = localStorage.getItem("index_question")
         index = parseInt(index) + 1;
         localStorage.setItem("index_question", index)
 
-        circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
-
-        let midletime = localStorage.getItem("wasted_time")
-        socket_student.emit(
-            'answered',
-            {
-                code: localStorage.getItem("room_code_user"), 
-                total_time: localStorage.getItem("default_time"), 
-                wasted_time: 0,
-                right_answered: "not"
-            }
-        )
         midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
         localStorage.setItem("wasted_time", midletime);
 
@@ -1191,7 +1260,7 @@ socket_student.on("end_this_question",
 )
 
 
-socket_student.on("stop_time",
+socket.on("stop_time",
     data => {
         let checkdata = localStorage.getItem("flag_time")
         if (checkdata == "false"){
@@ -1259,13 +1328,21 @@ socket_student.on("stop_time",
 
 //             localStorage.setItem("timeData", "0")
 
-//             socket_student.emit(
+//             let stored = localStorage.getItem("users_answers");
+            
+//             let answers = stored.split(",");
+//             let lastAnswers = answers[answers.length - 1];
+//             socket.emit(
 //                 'answered',
 //                 {
-//                     code: localStorage.getItem("room_code_user"), 
+//                     code: localStorage.getItem("room_code"), 
 //                     total_time: localStorage.getItem("default_time"), 
 //                     wasted_time: 0,
-//                     right_answered: "not"
+//                     right_answered: "not",
+//                     id_test: localStorage.getItem("test_id"),
+//                     index:localStorage.getItem("index_question"),
+//                     lastanswers: lastAnswers,
+//                     users_answers: localStorage.getItem("users_answers")
 //                 }
 //             )
 //             // console.log("Питання відправлено на сервер, чекаємо відповіді");
@@ -1288,7 +1365,7 @@ leaveButton.addEventListener(
         
 
         // щоб гарантувати завершення – передай індекс явно великий
-        socket_student.emit('next_question', {
+        socket.emit('next_question', {
             index: 9999,
             test_id: localStorage.getItem("test_id")
         })

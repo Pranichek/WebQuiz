@@ -1145,9 +1145,16 @@ socket.on('question', (data) => {
                 footer.innerHTML = `
                     <button type="button" class="confirm-button">надіслати відповідь</button>
                 `;
+
                 if (amountAnswers == 1){
                     const divparent = document.querySelector(".answers")
 
+                    const text = document.createElement("p")
+                    text.textContent = "введіть свою відповідь у поле"
+                    text.className = "input-text"
+                    text.style.color = "#ffffff"
+                    
+                    divparent.appendChild(text)
 
                     const inputDiv = document.createElement("div")
                     inputDiv.className = "confirm-answer"
@@ -1190,6 +1197,7 @@ socket.on('question', (data) => {
                     divparent.style.flexDirection = "column"
                     divparent.style.gap = "10vh"
                     divparent.style.backgroundColor = "#353535"
+                    divparent.style.display = "flex";
 
                     let inputs = document.querySelectorAll(".small-input-answer")
                     
@@ -1585,11 +1593,11 @@ setInterval(() => {
                 // отримуємо старі відповіді якщо вони були
                 let oldCookie = localStorage.getItem("users_answers")
                 let cookieList = oldCookie.split(",")   
-                cookieList.push("skip")
+                cookieList.push("∅")
 
                 localStorage.setItem("users_answers", cookieList)
             }else{
-                localStorage.setItem("users_answers", "skip")
+                localStorage.setItem("users_answers", "∅")
             }
 
             let index = localStorage.getItem("index_question")
