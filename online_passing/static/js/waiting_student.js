@@ -1,17 +1,13 @@
-const socket_wait = io() 
+const socket = io() 
 
 const textCode = document.querySelector(".code-text")
-textCode.textContent = localStorage.getItem("room_code_user")
-
-socket_wait.emit(
-    "connect_again",
-    {code: localStorage.getItem("room_code_user")}
-)
+textCode.textContent = localStorage.getItem("room_code")
 
 let stored = localStorage.getItem("users_answers"); [0, "kjndfkjn"]
 let answers = stored.split(",")
 let lastAnswers = answers[answers.length - 1]
-socket_wait.emit(
+
+socket.emit(
     "get_data",
     {   
         lastanswers: lastAnswers,
@@ -22,16 +18,14 @@ socket_wait.emit(
 )
 
 
-socket_wait.on("page_result",
+socket.on("page_result",
     data => {
         window.location.replace("/result_student")
     }
 )
 
-socket_wait.on("show_data",
+socket.on("show_data",
     data => {
-        console.log(data);
-
         // Очищаем контейнеры перед добавлением новых данных
         const cont = document.querySelector(".answer1");
         cont.innerHTML = "";
@@ -56,6 +50,7 @@ socket_wait.on("show_data",
         const answers = typeof data.answers === "string"
             ? data.answers.trim().split(" ").filter(a => a)
             : Array.isArray(data.answers) ? data.answers : [];
+
         const container = document.querySelector(".answers");
         container.innerHTML = "";
         container.style.justifyContent = "center";
@@ -64,13 +59,38 @@ socket_wait.on("show_data",
             let count = 0;
             let maxheight = 100;
             let maxwidth = 45;
-            for (let answer of answers) {
-                count++;
+
+            // "user_indexes": data["lastanswers"],
+            // "correct_indexes": correct_indexes[int(data["index_question"]) - 1]
+            let userIndexes = data.user_indexes.split("@")
+            let correctIndexes = data.correct_indexes
+            let imagesUrls = data.answers_images
+            // console.log(userIndexes)
+            // console.log(correctIndexes)
+
+
+            for (let answer of answers){
                 const checkmark = document.createElement("div");
                 checkmark.className = "checkmark-answer";
 
                 const outline = document.createElement("div");
                 outline.className = "answer2";
+
+                let currentIndex = userIndexes[count]
+                if (correctIndexes.includes(parseInt(currentIndex))){
+                    outline.style.backgroundColor = "#BBE3B3"
+                }
+                else {
+                    outline.style.backgroundColor = "rgba(246, 101, 103, 0.71)"
+                }
+
+                if (imagesUrls[count] != "NOT"){
+                    const image = document.createElement("img")
+                    image.src = imagesUrls[0]
+                    image.style.width = "100%"
+                    image.style.height = "30%"
+                    outline.appendChild(image)
+                }
 
                 const chosenAnswer = document.createElement("span");
                 chosenAnswer.textContent = answer;
@@ -79,6 +99,8 @@ socket_wait.on("show_data",
                 outline.appendChild(chosenAnswer);
 
                 container.appendChild(outline);
+
+                count++; 
             }
 
             if (count > 2) {
@@ -150,6 +172,3 @@ socket_wait.on("show_data",
         }
     }
 )
-
-
-

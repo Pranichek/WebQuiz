@@ -23,12 +23,14 @@ def render_data_test():
 
     count = 0
     answers = test.answers.split("?@?")
+    types = test.type_questions.split("?$?")
     correct_indexes = []
     list_final = []
     questions = test.questions.split("?%?")
     for question in questions:
         one_question = {}
         one_question["question"] = question
+        one_question["type_question"] = types[count]
         list_answers = []
         for ans in answers:
             current_answers = []

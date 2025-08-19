@@ -20,6 +20,8 @@ class DataUser(DATABASE.Model):
     pet_id = DATABASE.Column(DATABASE.String, default = '1')
     # чи відповів користувач на питання при онлайн проходженні
     answering_answer = DATABASE.Column(DATABASE.String, default = "відповідає", nullable = False)
+    # остання відповідь користувача та можливо точність при проходженні тесту
+    last_answered = DATABASE.Column(DATABASE.String, default = "")
 
     # зв'язок із моделлю користувача one-to-one
     user = DATABASE.relationship("User", back_populates="user_profile")

@@ -189,8 +189,9 @@ span {
 .answers {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 0.5vw;
     align-items: center;
+    /* justify-content: start; */
     width: 100vw;
     height: 50vh;
     padding: 10px;
@@ -297,6 +298,7 @@ span {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    justify-content: center;
     width: 100%;
     padding: 0px 60px;
     height: 40%;
@@ -321,7 +323,6 @@ span {
 }
 
 .many-variant{
-    background-color: #D9D9D9;
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -334,7 +335,6 @@ span {
     flex-wrap: wrap;
     word-break: break-word;
     padding: 5px;
-    position: relative;
     transition: all 0.1s ease;
     border: #ffffff solid;
     border-width: 0px;

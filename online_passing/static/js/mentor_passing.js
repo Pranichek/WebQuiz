@@ -9,7 +9,6 @@ if (localStorage.getItem("index_question")){
 }
 
 
-
 socket.on("update_users", (users) => {
     const blockUsers = document.querySelector(".users")
 

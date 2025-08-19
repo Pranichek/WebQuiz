@@ -2,6 +2,7 @@ import flask, os, flask_login, random, shutil, qrcode
 from threading import Thread
 import PIL.Image
 from home.models import User
+from online_passing.models import Rooms
 from quiz.models import Test, TestData
 from online_passing.del_files import delete_files_in_folder
 from quiz.generate_image import return_img
@@ -11,7 +12,6 @@ from home.send_email import send_code, generate_code
 from Project.login_check import login_decorate
 from os.path import abspath, join, exists
 from flask_login import current_user
-from Project.socket_config import socket
 
 
 @login_decorate
@@ -186,6 +186,9 @@ def render_edit_avatar():
     
 @login_decorate
 def render_user_tests():
+    
+
+
     response = None
     if flask.request.method == "POST":
         delete_test_id = flask.request.form.get("test_id")
@@ -204,6 +207,15 @@ def render_user_tests():
         tests = user.tests.filter(Test.check_del != "deleted").all()
         message = ''
 
+        all_rooms = Rooms.query.all()
+        code = ""
+        
+        while True:
+            code = generate_code()
+            check_room = Rooms.query.filter_by(room_code = code).first()
+            if check_room is None:
+                break
+
         response = flask.make_response(
             flask.render_template(
                 template_name_or_list="user_tests.html",
@@ -211,7 +223,7 @@ def render_user_tests():
                 user=flask_login.current_user,
                 message = message,
                 page_name = "Колекція тестів",
-                code = generate_code()
+                code = code
             )
         )
 

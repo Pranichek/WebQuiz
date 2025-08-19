@@ -45,10 +45,7 @@ def handle_join(data):
     room = Rooms.query.filter_by(room_code=room_code).first()
     # тернарній опертор
     user_ids = room.users.split() if room and room.users else []
-    # if room:
-    #     user_ids = room.users.split()
-    # else:
-    #     user_ids = []
+
 
     for user_id in user_ids:
         user = User.query.get(int(user_id))
