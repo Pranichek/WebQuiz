@@ -85,6 +85,48 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    overflow: visible;
+    transition: height 0.3s ease; 
+}
+
+.arrow-btn {
+    position: absolute;
+    bottom: 1vh;
+    right: 2vh;
+    cursor: pointer;
+    font-size: 3vh;
+    color: #ffff;
+    z-index: 2;
+}
+
+.answer2with-image {
+    position: absolute;
+    top: 105%; 
+    left: 0;
+    width: 100%;
+    height: 30vh;
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+    pointer-events: none; 
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1vh;
+    padding: 1vh;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.answer2with-image.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.answer2with-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .checkmark-answer {
@@ -100,10 +142,10 @@
 }
 
 .answer2 span {
-    position: relative; 
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    flex-grow: 1; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
     height: 70%;
     width: 100%;
     font-size: 3vh;
@@ -161,11 +203,9 @@
     justify-content: center;
 }
 
-
-
 .rate {
-    width: 95%;
-    height: 30%;
+    width: 90%;
+    height: 20%;
     background-color: #ffff;
     border-radius: 1vh;
     position: relative;
@@ -179,6 +219,14 @@
     gap: 3vw;
     justify-content: center;
     align-items: center;
+    opacity: 0;
+    transform: translateY(10vh); 
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.rightwrong.show {
+    opacity: 1;
+    transform: translateY(0); 
 }
 
 .right {
@@ -218,6 +266,7 @@
     z-index: 1;
     border-radius: 1vh;
 }
+
 .text-perc{
     display: flex;
     height: 2.5vh;
@@ -237,7 +286,7 @@
     position: absolute;
     height: 4vh;
     width: auto;
-    top: -60%;
+    top: -30%;   
     left: -1%;
     display: flex;
     transition: left 1s ease-in-out
