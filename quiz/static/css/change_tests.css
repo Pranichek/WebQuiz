@@ -11,6 +11,168 @@
     gap: 5vh;
 }
 
+.modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5); /* напівпрозорий чорний */
+    opacity: 0;
+    pointer-events: none;
+    transition: 0.3s ease;
+    z-index: 1000; /* Менше ніж у .modal-image */
+}
+
+.modal-backdrop.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-image {
+    position: fixed;
+    left: 50%;
+    bottom: 0; /* Замість top */
+    transform: translateX(-50%) translateY(100%); /* Початково сховане знизу */
+    width: 40vw;
+    height: 60vh;
+    border-radius: 2vh;
+    background-color: #343434;
+    display: flex;
+    flex-direction: column;
+    border: 0.1vh #94C4FF solid;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 1001;
+}
+
+.modal-image.active {
+    transform: translateX(-50%) translateY(-25%); /* Підіймається вгору */
+    opacity: 1;
+    pointer-events: auto;
+}
+
+button, a, img{
+    cursor: pointer;
+}
+
+.input_file{
+    display: none;
+}
+
+.delete-answer, .load_image{
+    display: flex;
+    width: 3vh;     
+    height: 3vh;
+    background-color: #94C4FF; 
+    position: absolute;
+    top: 1vh;
+    right: 1vh;
+    border: 0.1vh solid #ffff;
+    border-radius: 0.4vh; 
+    cursor: pointer;  
+}
+
+.load_image{
+    right: 5vh;
+}
+
+.load_button{
+    background: none;
+    border: none;
+}
+
+.show_image{
+    width: 100%;
+    height: 55%;
+    /* background-color: gold; */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.buttom-floor{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: start;
+    /* background-color: #C48AF7; */
+    padding-right: 1vw;
+    gap: 1.5vw;
+    padding-top: 2vh;
+}
+
+.back-button{
+    background: none;
+    border: none;
+    background-color: none;
+    font-size: 2.5vh;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.apply-image{
+    border: none;
+    color: #ffffff;
+    font-size: 2.5vh;
+    padding: 1vh;
+    border-radius: 0.5vh;
+    background-color: #C48AF7;
+    transform: translateY(-0.8vh);
+    font-weight: 500;
+}
+
+.delete-photo{
+    margin-right: 20%;
+}
+
+/* .top-floor{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    padding-left: 3vw;
+} */
+
+.example_image{
+    width: 6vh;
+    height: 6vh;
+    transform: translateY(0.5vh);
+    z-index: 1;
+}
+
+#show_image_test{
+    object-fit: contain; 
+    width: 100%;
+    height: 100%; 
+}
+
+#show_image_test{
+    font-size: 0;
+}
+
+label[for="image"] {
+    /* display: inline-flex; */
+    align-items: center;
+    cursor: pointer;
+    padding: 1vh 2vw;
+    background-color: none;
+    color: #C48AF7;
+    border: none;
+    background: none;
+    border-radius: 0.8vh;
+    font-weight: bold;
+    font-size: 2.5vh;
+    font-weight: 550;
+    transition: 0.3s;
+}
+
 .information-test{
     width: 100vw;
     height: 40vh;
@@ -54,10 +216,28 @@
     flex-direction: row;
     align-items: center;
     justify-content: start;
-    padding-left: 2vw;
+    padding: 0 2vw;
 }
 
-.change_title_btn{
+.theme-test{
+    position: relative;
+    justify-content: space-between;
+}
+
+#newTitle{
+    position: absolute;
+    margin-left: 3vw;
+    border: 0.1vh solid #C48AF7;
+    border-radius: 0.5vh;
+    background-color: #343434;
+    color: #fff;
+}
+
+.invisible{
+    display: none;
+}
+
+#changeTitleBtn{
     width: 8vw;
     height: 3vh;
     border: 0.1vh solid #343434;
@@ -109,6 +289,12 @@
     width: 98%;
     height: 80%;
     border-radius: 1vh;
+}
+
+.image{
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
 }
 
 .change-image button{

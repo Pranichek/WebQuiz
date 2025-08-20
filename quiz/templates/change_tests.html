@@ -5,8 +5,43 @@
 {% endblock links %}
 
 {% block content %}
+
     <img class="back1" src="{{ url_for('test_pass.static', filename='images/back1.png') }}" alt="">
     <img class="back2" src="{{ url_for('test_pass.static', filename='images/back2.png') }}" alt="">
+    
+    <div class="modal-backdrop">
+        <div class="modal-image">
+            <!-- <div class="top-floor">
+                <img src="{{ url_for('test_pass.static', filename='images/add.svg') }}" alt="icon" class="example_image">
+                <p class="add_text" onclick="openModal()">Додати зображення</p>
+            </div> -->
+            <div class="load_text">
+                <button class="load_button" type="button">
+                    
+                    <form action="" method="post" id = "image_form" enctype="multipart/form-data">
+                        <input class="input_file" id="image" name="image" type="file" accept="image/*" onchange="previewImage(event);">
+                        <input type="hidden" name="check_post" value="image">
+                        <label for="image" style="display: flex; flex-direction:row; margin-left:1vw;">
+                            <img src="{{ url_for('test_pass.static', filename='images/upload.png') }}" alt="icon" class="load_image">
+                            Завантажити 
+                        </label>
+                    </form>
+                </button>
+            </div>
+            <div class="show_image">
+                <div class="outline-image">
+                    <img src="{{ url_for('test_pass.static', filename='images/add.svg') }}" alt="icon" class="example_image">
+                    <img id="show_image_test" src="{{ url_for('test_pass.static', filename = 'images/invisible.png') }}" alt="">
+                </div>
+            </div>
+            <div class="buttom-floor">
+                <button class="apply-image delete-photo" type="button" onclick="DeleteImage();">видалити фото</button>
+                <button class="back-button" type="button" onclick="closeModal();">назад</button>
+                <button class="apply-image" type="button" onclick="sumbmitIMage()">застосувати зображення </button>
+            </div>
+        </div>
+    </div>
+    
     <div class="information-test">
         <form action="" method="post" class="change-information">
             <div class="text-information">
@@ -16,9 +51,9 @@
                 <p>категорія: <span>програмування</span></p>
             </div>
             <div class="theme-test">
-                <p>тема: <span>{{ test.title_test }}</span></p>
-                <input type="text" name="new_name" placeholder="Нова назва">
-                <button class="change_title_btn" type="submit">Редагувати</button>
+                <p>тема: <span id="testTitle">{{ test.title_test }}</span></p>
+                <input id="newTitle" type="text" name="new_name" placeholder="Нова назва"  class="invisible">
+                <button type="button" id="changeTitleBtn">Редагувати</button>
             </div>
             <div class="creator-test">
                 <p>творець: <span>@vova</span></p>
@@ -33,9 +68,13 @@
         </form>
         <div class="change-image">
             <div class="outline-image">
-
+                {% if 'default' in test.image.split("/") %}
+                    <img class="image" src="{{ url_for('test_pass.static', filename='images/' + test.image.split('/')[-1]) }}" alt="">
+                {% else %}
+                    <img class="image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + test.user.email + '/user_tests/' + test.title_test + '/' + test.image ) }}" alt="">
+                {% endif %}
             </div>
-            <button>
+            <button onclick="openModal()">
                 <img class="add-image" src="{{ url_for('test_pass.static', filename='images/image.png') }}" alt="">
                 Змінити фото
             </button>
@@ -105,4 +144,5 @@
 {% block scripts %}
     <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/ajaxDeleteTest.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/modalimage.js') }}"></script>
 {% endblock %}
