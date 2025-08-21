@@ -110,6 +110,7 @@
     border-radius: 9px;
     border: #000000 1px solid;
     cursor: pointer;
+    color: #FFFFFF;
 }
 .bottom-div{
     width: 1000px;
@@ -160,13 +161,14 @@
     position: relative;
     display: flex;
     width: 220px;
-    background-color: #76489E;
+    background-color: #A675D0;
     align-items: center;
     justify-content: center;
     margin-top: 30px;
     margin-left: 40px;
     border-radius: 9px;
     flex-direction: column;
+    border: 1px solid #343434;
 }
 .box{
     width: 100px;
@@ -181,6 +183,8 @@
     width: 100%;
     height: 26px;
     color: #FFFFFF;
+    padding: 20px;
+
 }
 .box3:hover{
     background-color: #652999;
@@ -190,4 +194,13 @@
 }
 .box:hover{
     background-color: #9a5bd0;
+}
+.circle{
+    width: 20px;
+    height: 20px;
+    background-color: #76489E;
+    margin-top: -20px;
+    margin-left: -10px;
+    border-radius: 100px;
+    border: 3px #343434 solid;
 }

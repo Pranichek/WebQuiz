@@ -103,17 +103,20 @@ btn4.addEventListener(
             newList4.className = "list4";
             btn4.appendChild(newList4);
 
-            const alph = ["математика", "англійська", "програмування", "історія", "фізика", "хімія", "інше"]
-            for (let i = 0; i <= alph.length - 1; i++) {
+            const type = ["Лише за кодом", "Лише за запрошенням", "Відкритий для всіх"]
+            for (let i = 0; i <= type.length - 1; i++) {
                 let newBox4 = document.createElement("div");
+                let circle = document.createElement("div");
+                circle.className = "circle"
                 newBox4.className = "box3";
-                newBox4.textContent = alph[i];
+                newBox4.textContent = type[i];
 
                 newBox4.addEventListener("click", () => {
-                    btn4.textContent = alph[i];
+                    btn4.textContent = type[i];
                     newList4.remove();
                 });
                 newList4.appendChild(newBox4);
+                newBox4.appendChild(circle)
             }
     }
 )
