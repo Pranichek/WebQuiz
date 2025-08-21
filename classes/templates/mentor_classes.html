@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title%}
+
+{% endblock%}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('mentor_class.static', filename = 'css/mentor_classes.css') }}">
+{% endblock %}
+
+{% block content %}
+    <button><a href="/create_class">Створити клас</a></button>
+{% endblock%}

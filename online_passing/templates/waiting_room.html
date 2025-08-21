@@ -8,7 +8,6 @@
     <div class="code">
         приєднатися по коду <span class="code-text"></span>
     </div>
-
     <div class="block-main">
         <div class="block-answer">
             <div class="line-answer">
@@ -25,7 +24,7 @@
                 <div class="statistics-answer">
                     <div>Iм`я: <span class="nickname-answer">@{{ user.username }}</span></div>
                     <div class="time-spend">
-                        Витрачений час: <span class="nickname-answer">12</span> секунд
+                        Витрачений час: <span class="nickname-time"></span> секунд
                     </div>
                 </div>
 
@@ -50,16 +49,19 @@
                     </div>
                 </div>  
             </div>
-        </div>
-
             <div class="rightwrong">
                 <div class="right"></div>
                 <div class="wrong"></div>
             </div>
+        </div>
+
+            
 
         </div>
 
     </div>
+
+    <span id="arrow-img-path" data-src="{{ url_for('student.static', filename='images/show_more.svg') }}"></span>
 {% endblock content %}
 
 {% block scripts %}

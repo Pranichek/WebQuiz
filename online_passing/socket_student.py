@@ -256,7 +256,8 @@ def answer_the_question(data):
     uncorrect_answers = 0
 
     for i in range(len(user_answers)):
-        if list_users_answers[i][0] != "skip":
+        if list_users_answers[i][0] != "∅":
+            count_answered += 1
             if types[i] == "one-answer":
                 if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
                     count_right_answers += 1
@@ -274,20 +275,21 @@ def answer_the_question(data):
                         count_right_answers += 1
                         correct += 1
                     else:
-                        # count_right_answers -= 1
                         count_uncorrect_answers += 1
                         uncorrect += 1
                 
-                if correct >= len(correct_indexes) - 1:
+                # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
+                count_min = len(correct_indexes[i]) / 2 if len(correct_indexes[i]) % 2 == 0 else (len(correct_indexes[i])+1) / 2 
+
+                if correct >= int(count_min) and uncorrect == 0:
                     right_answers += 1
                 else:
                     uncorrect_answers += 1
-            
                 if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
                     index_corect.append(i)
             elif types[i] == "input-gap":
                 user_answer_value = list_users_answers[i][0]
-                answers_gaps = test.answers.split("?@?")[int(data["index"])].split("+%?)")
+                answers_gaps = test.answers.split("?@?")[i].split("+%?)")
                 if "" in answers_gaps:
                     answers_gaps.remove("")
                 new_answers = []
@@ -498,7 +500,8 @@ def return_data(data):
     uncorrect_answers = 0
 
     for i in range(len(user_answers)):
-        if list_users_answers[i][0] != "skip":
+        if list_users_answers[i][0] != "∅":
+            count_answered += 1
             if types[i] == "one-answer":
                 if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
                     count_right_answers += 1
@@ -516,21 +519,21 @@ def return_data(data):
                         count_right_answers += 1
                         correct += 1
                     else:
-                        # count_right_answers -= 1
                         count_uncorrect_answers += 1
                         uncorrect += 1
                 
-                if correct >= len(correct_indexes) - 1:
+                # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
+                count_min = len(correct_indexes[i]) / 2 if len(correct_indexes[i]) % 2 == 0 else (len(correct_indexes[i])+1) / 2 
+
+                if correct >= int(count_min) and uncorrect == 0:
                     right_answers += 1
                 else:
                     uncorrect_answers += 1
-            
-            
                 if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
                     index_corect.append(i)
             elif types[i] == "input-gap":
                 user_answer_value = list_users_answers[i][0]
-                answers_gaps = test.answers.split("?@?")[int(data["index_question"]) - 1].split("+%?)")
+                answers_gaps = test.answers.split("?@?")[i].split("+%?)")
                 if "" in answers_gaps:
                     answers_gaps.remove("")
                 new_answers = []
@@ -548,7 +551,6 @@ def return_data(data):
 
 
     answered_questions = int(data["index_question"])   # сколько вопросов уже пройдено
-    count_right = count_right_answers - count_uncorrect_answers if count_right_answers - count_uncorrect_answers > 0 else 0
     accuracy = (right_answers / answered_questions) * 100 if answered_questions > 0 else 0
     # ------------------------------------------------------------------------------------
     # ссылки на картинки, если они были подргуженны к ответам
