@@ -53,9 +53,6 @@ def render_test():
         cookie_questions = flask.request.cookies.get("questions")
         answers_cookies = flask.request.cookies.get("answers")
 
-        
-
-
         if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
             test_title = flask.request.form["test_title"]
             question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
@@ -556,7 +553,12 @@ def render_change_tests():
         return 
     if flask.request.method == "POST":
         message = ""
+
+        new_catregory = flask.request.form.get("new_category")
         new_name = flask.request.form.get("new_name")
+        delete_id = flask.request.form.get("delete-id")
+        
+
         if new_name:
             existing_test = Test.query.filter_by(user_id=user.id, title_test=new_name).first()
             if existing_test:
@@ -567,26 +569,37 @@ def render_change_tests():
                 os.rename(old_path, new_path)
                 test.title_test = new_name
                 DATABASE.session.commit()
-                message = "Назву змінено успішно"
-
-        delete_id = flask.request.form.get("delete-id")
-        if delete_id:
+  
+        elif delete_id:
             print("delete_id =", delete_id)
             test.check_del = "deleted"
             DATABASE.session.commit()
-            message = "Тест видалено"
             return flask.redirect("/user_test")
         
-        print(message)
+        elif new_catregory:
+            test.category = new_catregory
+            DATABASE.session.commit()
+    
+        try:
+            image = flask.request.files["image"]
+            # if image:
+            if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test"))):
+                os.mkdir(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test")))
 
-        create_room = flask.request.form.get("create-room")
+            flask.session["test_image"] = str(image.filename)
+            delete_files_in_folder(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test")))
 
+            image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
+        except:
+            pass
 
+    print("cash_image =", flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else "default")
     
     return flask.render_template(
         "change_tests.html",
         test=test,
         message=message,
+        cash_image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else "default"
     )
 
 # def render_delete_test(pk: int):

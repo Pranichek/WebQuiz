@@ -138,37 +138,6 @@ form{
     height: 4vw;
 }
 
-
-#timeList {
-    position: absolute;
-    top: 120%;
-    border-radius: 0.5vh;
-    background: #7291B8;
-    list-style-type: none;
-    border: 0.2vh black solid;
-    width: auto;
-    text-align: start;
-    color: #ffffff;
-    transform-origin: top;
-    transform: scaleY(0);
-    opacity: 0;
-    visibility: hidden;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-    z-index: 999;
-}
-
-#timeList.visible {
-    transform: scaleY(1);
-    opacity: 1;
-    visibility: visible;
-}
-
-#timeList.hidden-list{
-    transform: scaleY(0);
-    opacity: 0;
-    visibility: none;
-}
-
 .flex-box{
     display: flex;
     flex-direction: row;
@@ -607,7 +576,6 @@ button, a, img{
 }
 
 .top-floor{
-    /* background-color: green; */
     width: 100%;
     height: 15%;
     display: flex;
@@ -630,12 +598,14 @@ button, a, img{
 
 #show_image_test{
     object-fit: contain; 
-    width: 100%;
-    height: 100%; 
-}
-
-#show_image_test{
     font-size: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-height: 90%;
+    z-index: 2;
 }
 
 label[for="image"] {
@@ -673,7 +643,6 @@ label[for="image"] {
 .load_text{
     width: 100%;
     height: 10%;
-    /* background-color: green; */
     display: flex;
     flex-direction: row;
     justify-content: start;
@@ -714,17 +683,6 @@ label[for="image"] {
     height: 6vh;
     position: relative;
     /* background-color: green; */
-}
-
-
-#show_image_test {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    max-width: 90%;
-    max-height: 90%;
-    z-index: 2;
 }
 
 .buttom-floor{

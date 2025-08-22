@@ -69,10 +69,6 @@ body .main{
     display: none;
 }
 
-.back-button .back-button{
-    background-color: green;
-}
-
 .timer{
     position: relative;
     z-index: 2;

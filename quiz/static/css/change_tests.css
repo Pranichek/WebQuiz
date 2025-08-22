@@ -54,6 +54,33 @@
     pointer-events: auto;
 }
 
+.test-cover-wrapper {
+    position: relative; 
+}
+
+.test-cover{
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+.top-floor{
+    width: 100%;
+    height: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    padding-left: 3vw;
+}
+
+.add_text{
+    font-size: 2vw;
+    font-weight: 600;
+    color: #ffffff;
+    margin-left: 0.6vw;
+}
+
 button, a, img{
     cursor: pointer;
 }
@@ -130,15 +157,14 @@ button, a, img{
     margin-right: 20%;
 }
 
-/* .top-floor{
+.load_text{
     width: 100%;
-    height: 15%;
+    height: 10%;
     display: flex;
     flex-direction: row;
     justify-content: start;
     align-items: center;
-    padding-left: 3vw;
-} */
+}
 
 .example_image{
     width: 6vh;
@@ -149,12 +175,14 @@ button, a, img{
 
 #show_image_test{
     object-fit: contain; 
-    width: 100%;
-    height: 100%; 
-}
-
-#show_image_test{
     font-size: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    max-height: 90%;
+    z-index: 2;
 }
 
 label[for="image"] {
@@ -219,9 +247,93 @@ label[for="image"] {
     padding: 0 2vw;
 }
 
-.theme-test{
+.theme-test, .category-test{
     position: relative;
     justify-content: space-between;
+}
+
+.type {
+    position: relative;
+    z-index: 9;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: fit-content;
+}
+
+.type-p{
+    align-items: center;
+    cursor: pointer;
+    background: #7291B8;
+    color: #ffffff;
+    font-weight: 400;
+    border: 0.1vh black solid;
+    border-radius: 0.5vh;
+    position: relative;
+    text-align: center;
+    padding: 0.3vh 0.5vw;
+}
+
+.show_more_velocity{
+    height: 2vh;
+    transition: 0.3s ease;
+    transform: rotate(180deg);
+}
+
+#timeList {
+    position: absolute;
+    top: 120%;
+    border-radius: 0.5vh;
+    background: #7291B8;
+    list-style-type: none;
+    border: 0.2vh black solid;
+    width: auto;
+    text-align: start;
+    color: #ffffff;
+    transform-origin: top;
+    transform: scaleY(0);
+    opacity: 0;
+    visibility: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 999;
+
+}
+
+#timeList.visible {
+    transform: scaleY(1);
+    opacity: 1;
+    visibility: visible;
+}
+
+#timeList.hidden-list{
+    transform: scaleY(0);
+    opacity: 0;
+    visibility: none;
+}
+
+.flex-box{
+    display: flex;
+    flex-direction: row;
+}
+
+span{
+    cursor: pointer;
+}
+
+#timeList li{
+    padding: 0.8vh 1.4vh;
+    font-size: 1.3vw;
+    font-weight: 400;
+    cursor: pointer;
+}
+
+#timeList {
+    animation: appear 0.5s;
+}
+
+.last-li{
+    border-bottom: none;
 }
 
 #newTitle{

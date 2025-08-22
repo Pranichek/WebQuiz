@@ -6,6 +6,7 @@ function openModal() {
 }
 
 function closeModal() {
+    console.log("1")
     document.querySelector(".modal-backdrop").classList.remove("active");
     modal.classList.remove('active');
 }
