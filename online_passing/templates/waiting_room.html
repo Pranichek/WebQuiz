@@ -10,6 +10,7 @@
     </div>
     <div class="block-main">
         <div class="block-answer">
+            <div class="gradient"></div>
             <div class="line-answer">
                 <div class="answer1">
                     
@@ -38,8 +39,12 @@
         </div>
 
         <div class="block-accuracy">
+            <div class="outline-accuracy">
+                <div class="accuracy-gradient"></div>
+            </div>
             <div class="accuracy-rate">
                 <div class="rate">
+                    
                     <div class="fill" data-accuracy="{{ accuracy }}"></div>
                     <div class="quard">
                         <img src="{{ url_for('mentor.static', filename = 'images/robot-acc.svg') }}" alt="">
