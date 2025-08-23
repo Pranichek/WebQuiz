@@ -1,17 +1,71 @@
 {% extends 'base.html' %}
 
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('student.static', filename='css/waiting_student.css') }}">
+{% endblock links %}
+
 {% block content %}
-    <div class="question">   
-        <h1>Вопрос=</h1>
+    <div class="code">
+        приєднатися по коду <span class="code-text"></span>
+    </div>
+    <div class="block-main">
+        <div class="block-answer">
+            <div class="line-answer">
+                <div class="answer1">
+                    
+                </div>
+
+                <div class="answers">
+                     
+                </div>
+            </div>
+
+            <div class="info-answer">
+                <div class="statistics-answer">
+                    <div>Iм`я: <span class="nickname-answer">@{{ user.username }}</span></div>
+                    <div class="time-spend">
+                        Витрачений час: <span class="nickname-time"></span> секунд
+                    </div>
+                </div>
+
+                <div class="waiting">
+                    <div class="loading">
+                        Очікування інших учасників...
+                        <img class="loading-spin" src="{{ url_for('mentor.static', filename = 'images/loading.svg') }}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block-accuracy">
+            <div class="accuracy-rate">
+                <div class="rate">
+                    <div class="fill" data-accuracy="{{ accuracy }}"></div>
+                    <div class="quard">
+                        <img src="{{ url_for('mentor.static', filename = 'images/robot-acc.svg') }}" alt="">
+                        <div class="text-perc">
+                            <p></p>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+            <div class="rightwrong">
+                <div class="right"></div>
+                <div class="wrong"></div>
+            </div>
+        </div>
+
+            
+
+        </div>
+
     </div>
 
-    <div class="answer">   
-        <h1>Твои ответы=</h1>
-        
-    </div>
+    <span id="arrow-img-path" data-src="{{ url_for('student.static', filename='images/show_more.svg') }}"></span>
 {% endblock content %}
 
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('student.static', filename='js/waiting_student.js') }}"></script>
+    <script src="{{ url_for('student.static', filename='js/recconect.js') }}"></script>
 {% endblock %}

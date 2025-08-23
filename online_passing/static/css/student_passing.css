@@ -337,7 +337,6 @@ span {
     flex-wrap: wrap;
     word-break: break-word;
     padding: 5px;
-    position: relative;
     transition: all 0.1s ease;
     border: #ffffff solid;
     border-width: 0px;
@@ -795,6 +794,7 @@ header {
     transition: all 0.2s ease;
     outline: none;
     box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.1);
+    text-align: center;
 }
 
 .input-answer:focus {

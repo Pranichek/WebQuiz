@@ -42,7 +42,7 @@
                             <a href="/registration" class="auth-button">Реєстрація</a>
                             <a href="/login" class="login-button">Увійти</a>
                         </div>
-                    {% elif registration_page%}
+                    {% elif registration_page %}
                         <div class="nav-links">
                             <a href="/" class="enter-code">Приєднатися</a>
                             <a href="/login" class="login-button">Увійти</a>
@@ -54,7 +54,14 @@
                         </div>
                     {% elif home_auth %}
                         <div class="nav-links">
+                            {% if user.is_mentor %}
+                                <a href="/mentor_class" class="test-button">Інформація по класам</a>
+                            {% else %}
+                                <a href="/student_class" class="test-button">Інформація по класам</a>
+                            {% endif %}
+
                             <a href="/select_way" class="test-button">+ Створити вікторину</a>
+
                         </div>
                     {% elif mentor %}
                         <div class="header_buttons">
@@ -84,7 +91,7 @@
                         <div class="panel closed">
                             <span class="link-container">
                                 <span class="links">
-                                    <a class="created-test" href="/user_test">Історія тестів</a>
+                                    <a class="created-test" href="/user_test">Бібліотека тестів</a>
                                     <hr>
                                     <a href="/graphics_user">Діаграми</a>
                                     <hr>

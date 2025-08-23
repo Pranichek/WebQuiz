@@ -4,7 +4,7 @@ import quiz
 import pass_quiz
 import searches
 import online_passing
-import class_create
+import classes
 
 home.home_app.add_url_rule(
     rule = "/",
@@ -113,13 +113,6 @@ quiz.test_pass.add_url_rule(
     methods = ["GET", "POST"]
 )
 
-class_create.class_create.add_url_rule(
-    rule="/class_create",
-    view_func= class_create.render_class,
-    methods = ["GET", "POST"]
-)
-
-
 quiz.test_pass.add_url_rule(
     rule = "/test/change_question/<int:pk>",
     view_func= quiz.render_change_question,
@@ -208,4 +201,21 @@ online_passing.mentor.add_url_rule(
 online_passing.mentor.add_url_rule(
     rule="/finish_mentor",
     view_func = online_passing.render_finish_mentor
+)
+
+classes.mentor_class.add_url_rule(
+    rule = "/mentor_class",
+    view_func = classes.render_mentor_classes,
+    methods = ["GET", "POST"]
+)
+classes.mentor_class.add_url_rule(
+    rule = "/create_class",
+    view_func = classes.render_create_class,
+    methods = ["GET", "POST"]
+)
+
+classes.student_class.add_url_rule(
+    rule = "/student_class",
+    view_func = classes.render_student_classes,
+    methods = ["GET", "POST"]
 )

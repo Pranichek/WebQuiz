@@ -1,11 +1,19 @@
 {% extends 'base.html' %}
 
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('mentor.static', filename='css/mentor_result.css') }}">
+{% endblock links %}
+
 {% block content %}
     <h1>result for metor</h1>
     <button type="button" class="next-question">Next_Question</button>
+    <div class="cont-users">
+
+    </div>
 {% endblock content %}
 
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('mentor.static', filename='js/mentor_result.js') }}"></script>
+    <script src="{{ url_for('mentor.static', filename='js/recconect.js') }}"></script>
 {% endblock %}

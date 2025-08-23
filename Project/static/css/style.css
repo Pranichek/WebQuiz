@@ -250,3 +250,11 @@ nav {
     font-weight: 600;
 }
 
+
+
+/* @media (min-width:1600px){
+    header{
+        justify-content: center;
+        gap: 50vw;
+    }
+} */

@@ -1,9 +1,11 @@
 const urlParamsStudent = new URLSearchParams(window.location.search);
 const room_code = urlParamsStudent.get('room_code');
 
-localStorage.setItem("room_code_user", room_code)
+localStorage.setItem("room_code", room_code)
 localStorage.setItem("index_question", "0")
 localStorage.setItem("flag_time", "true")
+localStorage.setItem("users_answers", "")
+localStorage.setItem('time_question', "set")
 
 const chat = document.querySelector(".messages");
 chat.innerHTML = ""; 
@@ -12,7 +14,7 @@ chat.innerHTML = "";
 const socket = io(); 
 
 const username = document.querySelector(".save-nickname").textContent;  
-let room_code_user = localStorage.getItem("room_code_user")
+let room_code_user = localStorage.getItem("room_code")
 
 socket.on('connect', () => {
    socket.emit('join_room', { username: username, room: room_code_user, email: document.querySelector(".email").textContent, flag: "student"});
