@@ -12,15 +12,40 @@
     <body>
         <div class="all">
             <div class="prt1">
-                <input type="text" class="inp">
+                <div class="allinp">
+                    <input type="text" class="inp" placeholder="Пошук класів...">
+                    <button><img src="{{ url_for('mentor_class.static', filename='images/loopa.png') }}" alt=""></button>
+                </div>
+
                 <div class="classes">
-                    
+
+                    {% for class in all_classes %}
                         <div class="classs">
                             <div class="left">
 
                             </div>
+                            <div class="information">
+                                <div class="top-info">
+                                    <p class="name-class">{{ class.name_class }}</p>
+                                    <p class="number-class">{{ class.form }}-{{ class.letter }}</p>
+                                </div>
+                                <div class="info-description">
+                                    <p>{{ class.description }}</p>
+                                </div>
+                                <div class="bottom-buttons">
+                                    <div class="left-part">
+                                        <p class="lesson">{{ class.lesson }}</p>
+                                        <button class="change">Редагувати</button>
+                                    </div>
+                                    <div class="right-part">
+                                        <p class="count-people">12</p>
+                                        <button class="leave">Видалити</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                    
+                    {% endfor %}
+                
                 </div>
             </div>
             <div class="prt2">
@@ -28,10 +53,12 @@
                     <div class="first">
                         <div class="big">
                             <div class="top">
-                                <img src="" alt="avatar">
-                                <p>kemilli</p>
+                                <img data-size="{{ size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + email +'/'+ name_avatar ) }}" alt="avatar">
+                                <a href="/profile" class="nem"><p class="name-us">{{ name }}</p></a>
                             </div>
-                            <p class="em">hsdhsd@gmail.com</p>
+                            
+                            <p class="em">{{ email }}</p>
+                            
                         </div>
                         <button class="btn"><a href="/create_class" class="lin">Створити клас</a></button>
                     </div>
@@ -42,3 +69,7 @@
         
     </body>
 {% endblock%}
+
+{% block scripts %}
+    <script src="{{ url_for('mentor_class.static', filename='js/search_class.js') }}"></script>
+{% endblock %}

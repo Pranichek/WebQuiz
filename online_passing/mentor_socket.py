@@ -14,12 +14,40 @@ def users_results(data):
     room = Rooms.query.filter_by(room_code= data["room"]).first()
     user_ids = room.users.split() if room and room.users else []
 
+    test : Test = Test.query.get(int(data["test_id"]))
+    index_question = int(data["index_question"])
+    type_question = test.type_questions.split('?$?')[index_question]
+
+    answers = test.answers.split("?@?")[index_question]
+    clear_answers = None
+    ans_clean = answers.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
+    clear_answers = ans_clean.split('*|*|*')
+    clear_answers.remove("")
+
+    count_people_answes = []
+    for answer in clear_answers:
+        count_people_answes.append(0)
+
     for user_id in user_ids:
         user : User  = User.query.get(int(user_id))
         user.user_profile.answering_answer = "відповідає"
         DATABASE.session.commit()
         if user and user.id != flask_login.current_user.id:
             avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.email}/{user.name_avatar}')
+            
+            count = 0
+            count_image = 1
+            users_answers = user.user_profile.last_answered.split("/")[0].split()
+            for user_answer in users_answers:
+                if type_question != "input-gap":
+                    if user_answer == "image?#$?image":
+                        users_answers[count] = f"зображення{count_image}"
+                        count_image+=1
+
+                users_answers[count] = f"{count+1}){users_answers[count]}"
+                count+=1
+
+            print(users_answers, "lol")
             user_list.append({
                 "username": user.username,
                 "email": user.email,
@@ -27,14 +55,37 @@ def users_results(data):
                 "count_points": user.user_profile.count_points,
                 "user_avatar": avatar_url,
                 "avatar_size": user.size_avatar,
-                "last_answer": user.user_profile.last_answered.split("/")[0],
-                "accuracy": user.user_profile.last_answered.split("/")[1]
+                "last_answer": users_answers,
+                "accuracy": user.user_profile.last_answered.split("/")[1],
+                "right_wrong": user.user_profile.last_answered.split("/")[2]
             })
+
+            if type_question != "input-gap":
+                answers = user.user_profile.last_answered.split("/")[3].split("@")
+                for answer in answers:
+                    if answer != '∅':
+                        if int(answer) == 0:
+                            count_people_answes[0] = count_people_answes[0]+1
+                        elif int(answer) == 1:
+                            count_people_answes[1] = count_people_answes[1]+1
+                        elif int(answer) == 2:
+                            count_people_answes[2] = count_people_answes[2]+1
+                        else:
+                            count_people_answes[3] = count_people_answes[3]+1
+
+    if type_question != "input-gap":
+        count = 0
+        count_image = 1
+        for answer in clear_answers:
+            if answer == "image?#$?image":
+                clear_answers[count] = f"зображення   {count_image}"
+                count_image += 1
+            count+=1
 
     # черещ встроенній модуль делаем филтрацию словаря за "count_points" и делаем реверс чтобі біло от большего к меньшему
     user_list = sorted(user_list, key=itemgetter("count_points"), reverse=True)
 
-    emit("list_results", user_list)
+    emit("list_results", {"users": user_list, "answers": clear_answers, "count_answers":count_people_answes, "type_question": type_question})
 
 @socket.on("load_question")
 def load_question_mentor(data):

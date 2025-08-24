@@ -443,8 +443,13 @@ span{
 .question{
     z-index: 2;
     font-size: 2vh;
+    width: 80%;
     font-weight: bolder;
     color: #ffffff;
+    white-space: normal;     
+    word-wrap: break-word;  
+    overflow-wrap: break-word; 
+    text-align: center;
 }
 
 .variant{

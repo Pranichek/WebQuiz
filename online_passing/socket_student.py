@@ -146,22 +146,34 @@ def answer_the_question(data):
         for ans in current_answers_list:
             ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
             current_answers.append(ans_clean.split("*|*|*"))
+            try:
+                current_answers.remove("")
+            except:
+                pass
 
         ready_answers = ""
         user_answers = data["lastanswers"]
 
-        if user_answers != "skip":
+        if user_answers != "∅":
             if len(user_answers.split("@")) > 1:
                 user_answers = user_answers.split("@")
                 for answer in user_answers:
-                    ready_answers += current_answers[0][int(answer)] + " "
+                    print(current_answers[0][int(answer)], "koki")
+                    if current_answers[0][int(answer)] != "image?#$?image":
+                        ready_answers += current_answers[0][int(answer)] + " "
+                    else:
+                        ready_answers += f"зображення{int(answer) + 1}" + " "
             else:
                 for answer in user_answers:
-                    ready_answers += current_answers[0][int(answer)] + " "
+                    print(current_answers[0][int(answer)], "koki")
+                    if current_answers[0][int(answer)] != "image?#$?image":
+                        ready_answers += current_answers[0][int(answer)] + " "
+                    else:
+                        ready_answers += f"зображення{int(answer)+1}" + " "
         else:
             ready_answers = "пропустив"
     else:
-        if data["lastanswers"] != "skip":
+        if data["lastanswers"] != "∅":
             ready_answers = data["lastanswers"]
         else:
             ready_answers = "пропустив"
@@ -171,7 +183,7 @@ def answer_the_question(data):
     user_answers_raw = data["users_answers"]
 
     if user_answers_raw == '':
-        user_answers_raw = 'skip'
+        user_answers_raw = "∅"
 
     
     user_answers = user_answers_raw.split(",") 
@@ -254,7 +266,8 @@ def answer_the_question(data):
     # счеткички сколько именно правильных а сколько нет
     right_answers = 0
     uncorrect_answers = 0
-
+    # список для того чтобы понимать правильно он ответил последний вопрос или нет
+    check_answers = []
     for i in range(len(user_answers)):
         if list_users_answers[i][0] != "∅":
             count_answered += 1
@@ -263,9 +276,11 @@ def answer_the_question(data):
                     count_right_answers += 1
                     index_corect.append(i)
                     right_answers += 1
+                    check_answers.append(1)
                 else:
                     count_uncorrect_answers += 1
                     uncorrect_answers += 1
+                    check_answers.append(0)
 
             elif types[i] == "many-answers":
                 correct = 0
@@ -281,10 +296,12 @@ def answer_the_question(data):
                 # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
                 count_min = len(correct_indexes[i]) / 2 if len(correct_indexes[i]) % 2 == 0 else (len(correct_indexes[i])+1) / 2 
 
-                if correct >= int(count_min) and uncorrect == 0:
+                if correct > int(count_min) and uncorrect == 0:
                     right_answers += 1
+                    check_answers.append(1)
                 else:
                     uncorrect_answers += 1
+                    check_answers.append(0)
                 if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
                     index_corect.append(i)
             elif types[i] == "input-gap":
@@ -301,19 +318,24 @@ def answer_the_question(data):
                     count_right_answers += 1
                     index_corect.append(i)
                     right_answers += 1
+                    check_answers.append(1)
                 else:
                     count_uncorrect_answers += 1
                     uncorrect_answers += 1
-
+                    check_answers.append(0)
+        else:
+            # не ответил
+            check_answers.append(2)
 
     answered_questions = int(data["index"]) + 1   # сколько вопросов уже пройдено
     accuracy = (right_answers  / answered_questions) * 100 if answered_questions > 0 else 0
 
 
     if len(ready_answers.split()) == 1:
-        flask_login.current_user.user_profile.last_answered = f"{ready_answers.split()[0]}/{accuracy}"
+        print(ready_answers, "huho")
+        flask_login.current_user.user_profile.last_answered = f"{ready_answers.split()[0]}/{accuracy}/{check_answers[int(data["index"])]}/{data["lastanswers"]}"
     else:
-        flask_login.current_user.user_profile.last_answered = f"{ready_answers}/{accuracy}"
+        flask_login.current_user.user_profile.last_answered = f"{ready_answers}/{accuracy}/{check_answers[int(data["index"])]}/{data["lastanswers"]}"
     
     DATABASE.session.commit()
     # --------------------
@@ -393,18 +415,26 @@ def return_data(data):
 
         
 
-        if user_answers != "skip":
+        if user_answers != "∅":
             if len(user_answers.split("@")) > 1:
                 user_answers = user_answers.split("@")
                 for answer in user_answers:
-                    ready_answers += current_answers[0][int(answer)] + " "
+                    print(current_answers[0][int(answer)], "koki")
+                    if current_answers[0][int(answer)] != "image?#$?image":
+                        ready_answers += current_answers[0][int(answer)] + " "
+                    else:
+                        ready_answers += f"зображення{int(answer) + 1}" + " "
             else:
                 for answer in user_answers:
-                    ready_answers += current_answers[0][int(answer)] + " "
+                    print(current_answers[0][int(answer)], "koki")
+                    if current_answers[0][int(answer)] != "image?#$?image":
+                        ready_answers += current_answers[0][int(answer)] + " "
+                    else:
+                        ready_answers += f"зображення{int(answer)+1}" + " "
         else:
             ready_answers = "пропустив"
     else:
-        if data["lastanswers"] != "skip":
+        if data["lastanswers"] != "∅":
             ready_answers = data["lastanswers"]
         else:
             ready_answers = "пропустив"
@@ -413,7 +443,7 @@ def return_data(data):
 
     user_answers_raw = data.get("users_answers")
     if user_answers_raw == '':
-        user_answers_raw = 'skip'
+        user_answers_raw = "∅"
 
     test_id = data.get("id_test")
 
@@ -423,8 +453,6 @@ def return_data(data):
     questions = test.questions.split("?%?")
     answers = test.answers.split("?@?")
     correct_indexes = []
-
-    user_answers = user_answers_raw.split(",")
 
     questions = test.questions.split("?%?")
 

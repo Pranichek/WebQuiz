@@ -75,11 +75,11 @@ socket.on("page_result",
                 // отримуємо старі відповіді якщо вони були
                 let oldCookie = localStorage.getItem("users_answers")
                 let cookieList = oldCookie.split(",")   
-                cookieList.push("skip")
+                cookieList.push("∅")
 
                 localStorage.setItem("users_answers", cookieList)
             }else{
-                localStorage.setItem("users_answers", "skip")
+                localStorage.setItem("users_answers", "∅")
             }
 
         }
@@ -91,7 +91,7 @@ socket.on("page_result",
         localStorage.setItem("wasted_time", midletime);
 
         localStorage.setItem("timeData", "0")
-        window.location.replace("/waiting_student")
+        window.location.replace("/result_student")
     }
 )
 
@@ -432,7 +432,9 @@ socket.on('student_question', (data) => {
 
                 for (let index = 0; index < amountAnswers; index++) {
                     if (blockanswers[index].style.display == "flex"){
-                        blockanswers[index].querySelector(".variant-text").textContent = answers[index]
+                        if (answers[index] != "image?#$?image"){
+                            blockanswers[index].querySelector(".variant-text").textContent = answers[index]
+                        }
                     }
                 }
 
@@ -709,9 +711,9 @@ socket.on('student_question', (data) => {
                 
                 for (let index = 0; index < amountAnswers; index++) {
                     if (manyBlockAnswers[index].style.display == "flex"){
-                        variantText[index].textContent = answers[index]
-                        // blockanswers[index].querySelector(".variant-text").textContent = answers[index]
-
+                        if (answers[index] != "image?#$?image"){
+                            variantText[index].textContent = answers[index]
+                        }
                     }
                 }
             }
@@ -1222,11 +1224,11 @@ socket.on("end_this_question",
             // отримуємо старі відповіді якщо вони були
             let oldCookie = localStorage.getItem("users_answers")
             let cookieList = oldCookie.split(",")   
-            cookieList.push("skip")
+            cookieList.push("∅")
 
             localStorage.setItem("users_answers", cookieList)
         }else{
-            localStorage.setItem("users_answers", "skip")
+            localStorage.setItem("users_answers", "∅")
         }
 
         circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
@@ -1314,27 +1316,14 @@ setInterval(() => {
                 // отримуємо старі відповіді якщо вони були
                 let oldCookie = localStorage.getItem("users_answers")
                 let cookieList = oldCookie.split(",")   
-                cookieList.push("skip")
+                cookieList.push("∅")
 
                 localStorage.setItem("users_answers", cookieList)
             }else{
-                localStorage.setItem("users_answers", "skip")
+                localStorage.setItem("users_answers", "∅")
             }
 
-            let index = localStorage.getItem("index_question")
-            index = parseInt(index) + 1;
-            localStorage.setItem("index_question", index)
-
-            circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
-
-            let midletime = localStorage.getItem("wasted_time")
-            midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
-            localStorage.setItem("wasted_time", midletime);
-
-            localStorage.setItem("timeData", "0")
-
             let stored = localStorage.getItem("users_answers");
-            
             let answers = stored.split(",");
             let lastAnswers = answers[answers.length - 1];
             localStorage.setItem("question_time", parseInt(localStorage.getItem("timeData")))
@@ -1351,6 +1340,19 @@ setInterval(() => {
                     users_answers: localStorage.getItem("users_answers")
                 }
             )
+
+            let index = localStorage.getItem("index_question")
+            index = parseInt(index) + 1;
+            localStorage.setItem("index_question", index)
+
+            circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+
+            let midletime = localStorage.getItem("wasted_time")
+            midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+            localStorage.setItem("wasted_time", midletime);
+
+            localStorage.setItem("timeData", "0")
+
             // console.log("Питання відправлено на сервер, чекаємо відповіді");
         }
     }else{
