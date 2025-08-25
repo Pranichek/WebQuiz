@@ -112,56 +112,31 @@
         <p>Перелік питаннь: </p>
     </div>
     <div class="list-questions">
-        <div class="space-div">
-            <div class="head">
-                <img class="head-bg" src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
-                <button class="del"><img src="{{ url_for('test_pass.static', filename='images/del.svg') }}" alt=""></button>
-                <p> Для чого потрібен Auto Layout?</p>
-                <button class="btn">Редагувати</button>
-            </div>
-                <span class="answers">
-                    <div class="variant">
-                        <div class="circle"></div>
-                        <p class="answer">kkkkkk</p>
-                    </div>
-                    <div class="variant">
-                        <div class="circle"></div>
-                        <p class="answer">kkkkkk</p>
-                    </div>
-                    <div class="variant">
-                        <div class="circle"></div>
-                        <p class="answer">kkkkkk</p>
-                    </div>
-                </span>
 
-        </div>
-        <div class="space-div">
-            <div class="head">
-                <img class="head-bg" src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
-                <button class="del"><img src="{{ url_for('test_pass.static', filename='images/del.svg') }}" alt=""></button>
-                <p> Для чого потрібен Auto Layout?</p>
-                <button class="btn">Редагувати</button>
-            </div>
-            
-        </div>
-        <div class="space-div">
-            <div class="head">
-                <img class="head-bg" src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
-                <button class="del"><img src="{{ url_for('test_pass.static', filename='images/del.svg') }}" alt=""></button>
-                <p> Для чого потрібен Auto Layout?</p>
-                <button class="btn">Редагувати</button>
-            </div>
-            
-        </div>
-        <div class="space-div">
-            <div class="head">
-                <img class="head-bg" src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
-                <button class="del"><img src="{{ url_for('test_pass.static', filename='images/del.svg') }}" alt=""></button>
-                <p> Для чого потрібен Auto Layout?</p>
-                <button class="btn">Редагувати</button>
-            </div>
-            
-        </div>
+        {% for this_question in question_list %}
+
+            {% if this_question.question|length >= 1 %}
+    
+                <div class="space-div">
+                    <div class="head">
+                        <img class="head-bg" src="{{ url_for('test_pass.static', filename='images/header.svg') }}" alt="">
+                        <button class="del"><img src="{{ url_for('test_pass.static', filename='images/del.svg') }}" alt=""></button>
+                        <p>{{ this_question.question }}</p>
+                        <a class="btn" href="/test/change_question/{{ this_question.pk }}?test_pk={{test.id}}">Редагувати</a>
+                    </div>
+                    <span class="answers">
+                        {% for answer in this_question.answers %}
+                            <div class="variant">
+                                <div class="circle"></div>
+                                <p class="answer">{% if answer != "image?#$?image" %}{{ answer }}{% else %}Зображення{% endif %}</p>
+                            </div>
+                        {% endfor %}
+                    </span>
+                </div>
+
+            {% endif %}
+
+        {% endfor %}
     </div>
     <!-- {% if message %}
         <p>{{ message }}</p>

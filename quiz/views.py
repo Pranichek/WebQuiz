@@ -257,9 +257,12 @@ def render_change_question(pk: int):
         questions_types = flask.request.cookies.get("typeQuestions").encode('raw_unicode_escape').decode('utf-8')
         current_type = questions_types.split("?$?")[pk]
 
-        if (current_type != "one-answer" or current_type != "many-answers"):
-
+        if flask.request.args.get("test_pk"):
+            dir_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", str(Test.query.get(flask.request.args.get("test_pk")).title_test), str(pk + 1)))
+        else:
             dir_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+
+        if (current_type != "one-answer" or current_type != "many-answers"):
             if exists(dir_path):
                 for dir in os.listdir(dir_path):
                     if dir in ["1", "2", "3", "4"]:
@@ -286,8 +289,7 @@ def render_change_question(pk: int):
         check_lists.extend([check1, check2, check3, check4])
 
         check_del = flask.request.form["check5"].split()
-        dir_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
-        files = os.listdir(dir_path)
+        # files = os.listdir(dir_path)
         index_change = [1, 2, 3, 4]
 
         for i in range(len(check_del)):
@@ -350,7 +352,6 @@ def render_change_question(pk: int):
 
         image = flask.request.files["image"]
         if image:
-            dir_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
             for filename in os.listdir(dir_path):
                 file_path = join(dir_path, filename)
                 try:
@@ -358,7 +359,7 @@ def render_change_question(pk: int):
                 except Exception as e:
                     print(f"Failed to delete {file_path}. Reason: {e}")
             try:
-                image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1), str(image.filename))))
+                image.save(abspath(join(dir_path, str(image.filename))))
             except Exception as e:
                 print("saving image error:", e)
 
@@ -368,12 +369,27 @@ def render_change_question(pk: int):
         return flask.redirect("/test")
     
     else:
-        questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
-        answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
-        question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
-        questions_types = flask.request.cookies.get("typeQuestions").encode('raw_unicode_escape').decode('utf-8')
 
-        # current_image = images.split("?&?")[pk]
+        test_pk = flask.request.args.get("test_pk")
+        print("test_pk in change question =", test_pk)
+        questions = ""
+        answers = ""
+        question_time = ""
+        questions_types = ""
+        if test_pk:
+            test = Test.query.get(test_pk)
+
+            questions = test.questions
+            answers = test.answers
+            question_time = test.question_time
+            questions_types = test.type_questions
+
+        else:
+            questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
+            answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
+            question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
+            questions_types = flask.request.cookies.get("typeQuestions").encode('raw_unicode_escape').decode('utf-8')
+
         current_question = questions.split("?%?")[pk]
         current_time = question_time.split("?#?")[pk]
         current_answers = answers.split("?@?")[pk]
@@ -593,12 +609,42 @@ def render_change_tests():
         except:
             pass
 
-    print("cash_image =", flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else "default")
-    
+    else:
+        list_to_template = []
+        new_questions = test.questions
+        new_answers = test.answers
+
+        if new_questions:
+            new_answers_list = new_answers.split("?@?")
+            new_questions_list = new_questions.split("?%?")
+
+            number = 0
+            for question in new_questions_list:
+                try:
+                    item = {}
+                    item["question"] = question
+                    answers_list = new_answers_list[number].split("%?)(?%")
+                    temporary_answers_list = []
+                    for answer in answers_list:
+                        answer = answer.replace("(?%", "")
+                        answer = answer.replace("%?)", "")
+                        answer = answer[1:-1]
+                        temporary_answers_list.append(answer)
+                    item["answers"] = temporary_answers_list
+                    item["pk"] = number
+                    list_to_template.append(item)
+                    number += 1
+                except:
+                    pass
+
+    print(list_to_template, "kkllk")
+
+
     return flask.render_template(
         "change_tests.html",
         test=test,
         message=message,
+        question_list = list_to_template,
         cash_image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else "default"
     )
 

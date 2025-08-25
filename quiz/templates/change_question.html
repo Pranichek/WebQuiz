@@ -13,13 +13,9 @@
         <input type="text" class="confirm-question" name="check_form" value="confirm-question">
         <div class="pseudo-header">
             <div class="left-part">
-                <a {% if test_pk or test_pk == 0 %}
-                    href="/test_preview/{{ test_pk }}"
-                {% else %}
-                    href="/test"
-                {% endif %} class="back-button">
+                <button class="back-button" onclick="window.history.back()">
                     <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
-                </a>
+                </button>
 
                  <div class="type-question">
                     <p class="button-open change_type" data-value="{{ current_type }}"></p>

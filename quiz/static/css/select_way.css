@@ -30,7 +30,7 @@ body {
 }
 
 .back-button {
-    background: none;
+    background-color: none;
     border: none;
     cursor: pointer;
     padding: 0;

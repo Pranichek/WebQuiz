@@ -6,8 +6,6 @@
 
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/create_question.css') }}">
-    <!-- <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/changeQuestion.css') }}"> -->
-
 {% endblock %}
 
 {% block content %}
@@ -15,9 +13,9 @@
         <input type="text" class="confirm-question" name="check_form" value="confirm-question">
         <div class="pseudo-header">
             <div class="left-part">
-                <a href="/test" class="back-button">
+                <button class="back-button" onclick="window.history.back()">
                     <img src="{{ url_for('test_pass.static', filename='images/back.png') }}" alt="">
-                </a>
+                </button>
                 <div class="type-question">
                     <p class="button-open" data-value=""></p>
                     <div class="category-questions">

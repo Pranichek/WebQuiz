@@ -37,6 +37,11 @@ li img, .timer-p img, .back-button img{
     height: 10vh;
 }
 
+.back-button{
+    background: none;
+    border: none;
+}
+
 .question-name{
     display: flex;
     flex-direction: column;
