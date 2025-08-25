@@ -154,22 +154,24 @@ def answer_the_question(data):
         ready_answers = ""
         user_answers = data["lastanswers"]
 
+        count_img = 1
         if user_answers != "∅":
             if len(user_answers.split("@")) > 1:
                 user_answers = user_answers.split("@")
                 for answer in user_answers:
-                    print(current_answers[0][int(answer)], "koki")
+                    
                     if current_answers[0][int(answer)] != "image?#$?image":
                         ready_answers += current_answers[0][int(answer)] + " "
                     else:
-                        ready_answers += f"зображення{int(answer) + 1}" + " "
+                        ready_answers += f"зображення{count_img}" + " "
+                        count_img+=1
             else:
                 for answer in user_answers:
-                    print(current_answers[0][int(answer)], "koki")
                     if current_answers[0][int(answer)] != "image?#$?image":
                         ready_answers += current_answers[0][int(answer)] + " "
                     else:
-                        ready_answers += f"зображення{int(answer)+1}" + " "
+                        ready_answers += f"зображення{count_img}" + " "
+                        count_img += 1
         else:
             ready_answers = "пропустив"
     else:
@@ -294,7 +296,7 @@ def answer_the_question(data):
                         uncorrect += 1
                 
                 # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
-                count_min = len(correct_indexes[i]) / 2 if len(correct_indexes[i]) % 2 == 0 else (len(correct_indexes[i])+1) / 2 
+                count_min = len(correct_indexes[i]) / 2 
 
                 if correct > int(count_min) and uncorrect == 0:
                     right_answers += 1
@@ -304,6 +306,7 @@ def answer_the_question(data):
                     check_answers.append(0)
                 if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
                     index_corect.append(i)
+
             elif types[i] == "input-gap":
                 user_answer_value = list_users_answers[i][0]
                 answers_gaps = test.answers.split("?@?")[i].split("+%?)")
@@ -332,7 +335,6 @@ def answer_the_question(data):
 
 
     if len(ready_answers.split()) == 1:
-        print(ready_answers, "huho")
         flask_login.current_user.user_profile.last_answered = f"{ready_answers.split()[0]}/{accuracy}/{check_answers[int(data["index"])]}/{data["lastanswers"]}"
     else:
         flask_login.current_user.user_profile.last_answered = f"{ready_answers}/{accuracy}/{check_answers[int(data["index"])]}/{data["lastanswers"]}"
@@ -370,6 +372,8 @@ def answer_the_question(data):
 # сокет чтобы получить данные ответа пользователя когда он ждет
 @socket.on("get_data")
 def return_data(data):
+
+    # ----------------
     index_question = int(data["index_question"]) - 1
     id_test = int(data["id_test"])
 
@@ -419,14 +423,14 @@ def return_data(data):
             if len(user_answers.split("@")) > 1:
                 user_answers = user_answers.split("@")
                 for answer in user_answers:
-                    print(current_answers[0][int(answer)], "koki")
+                    
                     if current_answers[0][int(answer)] != "image?#$?image":
                         ready_answers += current_answers[0][int(answer)] + " "
                     else:
                         ready_answers += f"зображення{int(answer) + 1}" + " "
             else:
                 for answer in user_answers:
-                    print(current_answers[0][int(answer)], "koki")
+                    
                     if current_answers[0][int(answer)] != "image?#$?image":
                         ready_answers += current_answers[0][int(answer)] + " "
                     else:
@@ -551,14 +555,16 @@ def return_data(data):
                         uncorrect += 1
                 
                 # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
-                count_min = len(correct_indexes[i]) / 2 if len(correct_indexes[i]) % 2 == 0 else (len(correct_indexes[i])+1) / 2 
+                count_min = len(correct_indexes[i]) / 2 
 
-                if correct >= int(count_min) and uncorrect == 0:
+                if correct > int(count_min) and uncorrect == 0:
                     right_answers += 1
                 else:
                     uncorrect_answers += 1
+
                 if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
                     index_corect.append(i)
+
             elif types[i] == "input-gap":
                 user_answer_value = list_users_answers[i][0]
                 answers_gaps = test.answers.split("?@?")[i].split("+%?)")
@@ -587,20 +593,106 @@ def return_data(data):
   
     answers = data["lastanswers"].split("@")
     images_urls = []
-    for answer in answers:
-        current_answer = str(int(answer) + 1)
+    if test.type_questions.split('?$?')[int(data["index_question"]) - 1] != "input-gap":
+        for answer in answers:
+            if answer != "∅":
+                current_answer = str(int(answer) + 1)
 
-        answer_path = join(path, current_answer)
-        
-        if exists(answer_path):
-            if len(os.listdir(answer_path)) > 0:
-                images_answer = flask.url_for("profile.static", filename=f"images/edit_avatar/{email}/user_tests/{title}/{int(data["index_question"])}/{current_answer}/{os.listdir(answer_path)[0]}")
-                images_urls.append(images_answer)
+                answer_path = join(path, current_answer)
+                
+                if exists(answer_path):
+                    if len(os.listdir(answer_path)) > 0:
+                        images_answer = flask.url_for("profile.static", filename=f"images/edit_avatar/{email}/user_tests/{title}/{int(data["index_question"])}/{current_answer}/{os.listdir(answer_path)[0]}")
+                        images_urls.append(images_answer)
 
-            else:
-                images_urls.append("NOT")
-        else:
-            images_urls.append("NOT")
+                    else:
+                        images_urls.append("NOT")
+                else:
+                    images_urls.append("NOT")
+
+
+    # --------------- для старницы текущих резьультатов студента
+    test : Test = Test.query.get(int(data["id_test"]))
+    index_question = int(data["index_question"]) - 1
+    text_question = test.questions.split("?%?")[index_question]
+    type_question = test.type_questions.split('?$?')[index_question]
+
+    answers = test.answers.split("?@?")[index_question]
+    clear_answers = None
+    ans_clean = answers.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
+    clear_answers = ans_clean.split('*|*|*')
+    clear_answers.remove("")
+
+
+    user_list = []
+    room = Rooms.query.filter_by(room_code= data["room"]).first()
+    user_ids = room.users.split() 
+
+    print(clear_answers, "nya")
+
+    count_people_answes = []
+    for answer in clear_answers:
+        count_people_answes.append(0)
+
+    for user_id in user_ids:
+        user : User  = User.query.get(int(user_id))
+        if user and int(room.user_id) != int(user.id):            
+            count = 0
+            count_image = 1
+            users_answers = user.user_profile.last_answered.split("/")[0].split()
+            for user_answer in users_answers:
+                if type_question != "input-gap":
+                    if user_answer == "image?#$?image":
+                        users_answers[count] = f"зображення{count_image}"
+                        count_image+=1
+
+                    users_answers[count] = f"{count+1}){users_answers[count]}"
+                    count+=1
+
+            user_list.append({
+                "username": user.username
+            })
+
+            if type_question != "input-gap":
+               
+                answers = user.user_profile.last_answered.split("/")[3].split("@")
+                for answer in answers:
+                    if answer != '∅':
+                        if int(answer) == 0:
+                            count_people_answes[0] = count_people_answes[0]+1
+                        elif int(answer) == 1:
+                            count_people_answes[1] = count_people_answes[1]+1
+                        elif int(answer) == 2:
+                            count_people_answes[2] = count_people_answes[2]+1
+                        else:
+                            count_people_answes[3] = count_people_answes[3]+1
+
+    if type_question != "input-gap":
+        count = 0
+        count_image = 1
+        for answer in clear_answers:
+            if answer == "image?#$?image":
+                clear_answers[count] = f"зображення   {count_image}"
+                count_image += 1
+            count+=1
+
+    # была ли картинка к вопросу
+    path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(index_question + 1)))
+    if exists(path):
+        name_img = None
+        for small_path in os.listdir(path):
+            if small_path not in ["1", "2", "3", "4"]:
+                name_img = small_path
+                break            
+    else:
+        name_img = None
+
+    email= test.user.email
+    title= test.title_test
+    img_url = "not"
+
+    if name_img:
+        img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{index_question + 1}/{name_img}")
 
     
     emit(
@@ -615,6 +707,12 @@ def return_data(data):
             "uncorrect_answers": uncorrect_answers,
             "user_indexes": data["lastanswers"], # 
             "correct_indexes": correct_indexes[int(data["index_question"]) - 1],
-            "answers_images": images_urls
+            "answers_images": images_urls,
+            "answers": clear_answers, 
+            "type_question": type_question, 
+            "text_question":text_question,
+            "image_url":img_url,
+            "users": user_list,
+            "count_answers":count_people_answes
         }
     )

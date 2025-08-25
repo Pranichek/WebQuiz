@@ -10,6 +10,10 @@ class Classes(DATABASE.Model):
     description = DATABASE.Column(DATABASE.String(255))
     lesson = DATABASE.Column(DATABASE.String(25))
     type = DATABASE.Column(DATABASE.Boolean, default = None)
+    code = DATABASE.Column(DATABASE.String(8))
+
+    # користувачі, що знаходяться у класі
+    students = DATABASE.Column(DATABASE.String, default = '')
 
     # Зв'язок one to one із користувачем
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey("user.id"), nullable=False)

@@ -1,5 +1,9 @@
-.hide{
+.hide, .open-eye, .close-eye, .arrow-img-path{
     display: none;
+}
+
+*{
+    transition: 0.1s;
 }
 
 .cont-users{
@@ -182,11 +186,9 @@ main{
 .quard img {
     width: 10vh;
     z-index: 100;
+    filter: drop-shadow(0 0 20px rgba(115, 238, 115, 0.492));
 }
 
-img {
-  filter: drop-shadow(0 0 20px rgba(115, 238, 115, 0.492));
-}
 
 .outline-accuracy{
     position: absolute; 
@@ -228,10 +230,94 @@ img {
 }
 
 .top-data{
-    width: 95%;
-    height: 40%;
+    width: 100%;
+    height: 32%;
     display: flex;
     flex-direction: column;
+}
+
+.outline-input-gap{
+    width: 100%;
+    height: 100%;
+    border-radius: 2vw;
+    border: 0.2vw solid #FFB700;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    color: #ffffff;
+    font-size: 1.6vw;
+    gap: 3%;
+    
+}
+
+.question .arrow{
+    height: 1.8vw;
+    width: auto;
+    transition: 0.3s ease-in;
+    cursor: pointer;
+}
+
+.questionImage{
+    height: 90%;
+    width: auto;
+    object-fit: contain;
+    
+}
+
+.imageCont {
+    height: 0;               /* изначально скрыт */
+    overflow: hidden;        /* чтобы контент не торчал */
+    transition: height 0.5s ease;
+    display: flex;
+    height: 0%;
+}
+
+.imageCont.show {
+    height: 60%;             /* нужная высота при открытии */
+    transition: height 0.5s ease;
+}
+
+
+.outline-input-gap .question{
+    width: 100%;
+    height: 40%;
+    display: flex;
+    text-align: center;
+    word-break: break-word;
+    white-space: normal;
+    overflow-y: auto;
+}
+
+.question-text{
+    height: 100%;
+    width: 100%;
+    display: flex;
+    text-align: center;
+    word-break: break-word;
+    white-space: normal;
+    overflow-y: auto;
+}
+
+.right-answers{
+    width: 80%;
+    height: 50%;
+    background-color: rgba(255, 255, 255, 0.39);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    border-radius: 1vw;
+    color: #ffffff;
+    font-size: 1.3vw;
+}
+
+.right-text{
+    width: 100%;
+    height: 20%;
+    display: flex;
+    text-align: center;
+    word-break: break-word;
+    white-space: normal;
+    overflow-y: auto;
 }
 
 .diagram{
@@ -335,15 +421,29 @@ img {
 
 .users-ratings{
     width: 100%;
-    height: 58%;
-    border-radius: 2vw;
-    border: 0.17vh solid #C48AF7;
+    height: 66%;
+    
     display: flex;
     flex-direction: column;
     position: relative;
+    justify-content: start;
+    align-items: start;
+    flex-wrap: wrap;
+    overflow-y: auto;
     overflow: hidden;
-    margin-right: 2vw;
-    
+    margin-right: 2vw;    
+}
+
+.accuracy-students{
+    width: 100%;
+    height: 14%;
+    font-size: 2vw;
+    color: #ffffff;
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    padding-left: 1%;
+    padding-top: 2%;
 }
 
 .ratings-header{
@@ -429,7 +529,7 @@ img {
 
 .user-card{
     width: 46%;
-    height: 18%;
+    height: 17%;
     background-color: #343434;
     border-radius: 1vw;
     border: 0.29vh solid #94C4FF;
@@ -509,27 +609,42 @@ img {
     background-color: rgba(245, 243, 109, 0.31);
     position: relative;
     display: flex;
-    align-items: start;
+    align-items: end;
     justify-content: start;
+    
     color: #ffffff;
     font-size: 1.2vw;
     padding-left: 0.3vw;
     padding-bottom: 0.2vw;
-    overflow-x: auto;
+    overflow-y: auto;    
+    padding-top: au;
 }
 
-.choicen .choicen-text{
-    margin-top: 10%;
+.choicen {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; 
+    overflow-y: auto;   
+}
+
+.choicen-text {
+    max-height: 60%;
     width: 100%;
     white-space: normal;
     word-wrap: break-word;
-    overflow-wrap: break-word;
 }
 
+.choicen .choicen-text .type-eye {
+    float: right;        
+}
+
+
 .text-achiv{
-    position: absolute;
+    /* position: absolute;
     left: 0;
-    top: 0;
+    top: 0; */
+    width: 100%;
+    height: 30%;
     padding-left: 3%;
     padding-top: 2%;
     color: #ffffff;
@@ -537,13 +652,11 @@ img {
     font-size: 1.2vw;
 }
 
-.type-eye{
-    position: absolute;
-    right: 0;
-    bottom: 0;
-    padding-bottom: 2%;
-    padding-right: 3%;
-    cursor: pointer;
-    width: 14%;
-    object-fit: contain;
+.type-eye {
+  /* position: absolute; */
+  right: 0;
+  bottom: 0; /* завжди внизу контейнера */
+  cursor: pointer;
+  width: 14%;
+  object-fit: contain;
 }

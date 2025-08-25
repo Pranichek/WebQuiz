@@ -20,6 +20,7 @@ def render_create_class():
             letter = letter,
             lesson = lesson,
             user_id = flask_login.current_user.id,
+            code = flask.request.form.get("code")
         )
         DATABASE.session.add(class_mentor)
         DATABASE.session.commit()
@@ -38,7 +39,42 @@ def render_mentor_classes():
         all_classes = all_classes
     )
 
+def render_data_class():
+    class_id = flask.request.args.get("class_id")
+    class_item = Classes.query.get(class_id)
+    users = class_item.students.split("/")
+    users.remove("")
+
+    users_list = []
+    for user in users:
+        users_list.append(User.query.get(int(user)))
+
+    return flask.render_template(
+        'class_data.html',
+        users_list = users_list
+    )
+
 def render_student_classes():
+    if flask.request.method == "POST":
+        code = flask.request.form.get("code")
+
+        check_class = Classes.query.filter_by(code = code).first()
+        
+        if check_class:
+            user_id = str(flask_login.current_user.id)
+            users_classes = check_class.students.split("/") 
+            print(users_classes, 'lol')
+            if user_id not in users_classes:
+                users_classes.append(user_id)
+                new_user = "/".join(users_classes)
+                
+                check_class.students = new_user
+                DATABASE.session.commit()
+                
+
+            
+
+
     return flask.render_template("student_classes.html")
 
 
