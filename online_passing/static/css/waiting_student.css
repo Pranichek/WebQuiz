@@ -16,7 +16,9 @@
     display: flex;
     flex-direction: column;
     gap: 3vh;
+    /* overflow: hidden; */
 }
+
 
 .block-answer {
     height: 55vh;
@@ -24,7 +26,22 @@
     border: 0.1vh solid #94C4FF;
     border-radius: 2vh;
     width: 95vw;
+    position: relative;
+    overflow: hidden;
 }
+
+.gradient{
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    background: linear-gradient(99deg, #3C3C3C 10%, #C48AF7 20%, #b679ec 77%, #3C3C3C 5%);
+    filter: blur(6.25vw);
+    opacity: 0.2;
+    z-index: -1;
+}
+
 
 .line-answer {
     margin: 3vh 5vw 3vh 5vw;
@@ -42,7 +59,7 @@
     border-radius: 0.5vh;
     background-color: rgba(255, 255, 255, 0.16);
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     font-size: 4vh;
     color: #ffff;
@@ -85,6 +102,52 @@
     display: flex;
     flex-direction: column;
     position: relative;
+    overflow: visible;
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.answer2:hover{
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
+}
+
+.arrow-btn {
+    position: absolute;
+    bottom: 1vh;
+    right: 2vh;
+    cursor: pointer;
+    font-size: 3vh;
+    color: #ffff;
+    z-index: 2;
+}
+
+.answer2with-image {
+    position: absolute;
+    top: 105%; 
+    left: 0;
+    width: 100%;
+    height: 30vh;
+    opacity: 0;
+    transform: translateY(-20px) scale(0.95);
+    pointer-events: none; 
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    z-index: 10;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 1vh;
+    padding: 1vh;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+.answer2with-image.open {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.answer2with-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .checkmark-answer {
@@ -100,10 +163,10 @@
 }
 
 .answer2 span {
-    position: relative; 
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    flex-grow: 1; 
+    display: flex;
+    align-items: center; 
+    justify-content: center; 
     height: 70%;
     width: 100%;
     font-size: 3vh;
@@ -152,6 +215,36 @@
     border: 0.1vh solid #94C4FF;
     border-radius: 2vh;
     width: 95vw;
+    position: relative;
+}
+
+.outline-accuracy{
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: hidden;
+    border-radius: 2vh;
+    z-index: -1;
+}
+
+.accuracy-gradient{
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    background: linear-gradient(
+            90deg, 
+            #C49BE9 0%,    
+            #3C3C3C 20%,    
+            #70E6C1 50%,    
+            #3C3C3C 80%,   
+            #C49BE9 100%   
+        );    filter: blur(6.25vw);
+    z-index: -1;
+    opacity: 0.5;
 }
 
 .accuracy-rate {
@@ -161,11 +254,9 @@
     justify-content: center;
 }
 
-
-
 .rate {
-    width: 95%;
-    height: 30%;
+    width: 90%;
+    height: 20%;
     background-color: #ffff;
     border-radius: 1vh;
     position: relative;
@@ -179,6 +270,12 @@
     gap: 3vw;
     justify-content: center;
     align-items: center;
+    transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.rightwrong.show {
+    opacity: 1;
+    transform: translateY(0); 
 }
 
 .right {
@@ -192,6 +289,11 @@
     border-radius: 1vh;
     align-items: center;
     justify-content: center;
+    transition: 0.01s ease-in;
+}
+
+.right:hover{
+    border: 0.15vh solid #7ff6d0;
 }
 
 .wrong {
@@ -205,6 +307,11 @@
     border-radius: 1vh;
     align-items: center;
     justify-content: center;
+    transition: 0.01s ease-in;
+}
+
+.wrong:hover{
+    border: 0.15vh solid #e9424b;
 }
 
 .fill{
@@ -218,6 +325,7 @@
     z-index: 1;
     border-radius: 1vh;
 }
+
 .text-perc{
     display: flex;
     height: 2.5vh;
@@ -233,11 +341,12 @@
     left: 80%;
     position: absolute;
 }
+
 .quard{
     position: absolute;
     height: 4vh;
     width: auto;
-    top: -60%;
+    top: -30%;   
     left: -1%;
     display: flex;
     transition: left 1s ease-in-out
@@ -246,6 +355,10 @@
 .quard img {
     width: 8vh;
     z-index: 100;
+}
+
+img {
+  filter: drop-shadow(0 0 20px rgba(115, 238, 115, 0.492));
 }
 
 .loading img {

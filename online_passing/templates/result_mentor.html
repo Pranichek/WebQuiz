@@ -5,10 +5,60 @@
 {% endblock links %}
 
 {% block content %}
-    <h1>result for metor</h1>
-    <button type="button" class="next-question">Next_Question</button>
-    <div class="cont-users">
+    <img data-src="{{ url_for('mentor.static', filename='images/people.svg') }}" class="hide">
+    <div class="pseudo-header">
+        <p class="join-text">приєднатися по коду<span class="code-room"></span></p>
 
+        <button type="button" class="next-question">наступне питання</button>
+    </div>
+
+    <div class="main-block">
+        <div class="accuracy-block">
+            <div class="outline-accruracy">
+                <div class="outline-accuracy">
+                    <div class="accuracy-gradient"></div>
+                </div>
+
+                <div class="rightwrong">
+                    <div class="right">
+
+                    </div>
+                    <div class="wrong">
+
+                    </div>
+                </div>
+
+                <div class="accuracy-form">
+                    <div class="rate">
+                        <div class="fill"></div>
+                        <div class="quard">
+                            <img src="{{ url_for('mentor.static', filename = 'images/robot-acc.svg') }}" alt="">
+                            <div class="text-perc">
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+        <div class="users-data">
+            <div class="top-data">
+                
+            </div>
+            <div class="users-ratings">
+
+                <div class="ratings-header">
+                    
+                    <p class="num-people"></p>
+                    <p class="count-people"></p>
+                </div>
+
+                <div class="body-ratings">
+                    
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock content %}
 

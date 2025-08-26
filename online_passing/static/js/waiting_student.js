@@ -29,24 +29,23 @@ socket.on("show_data",
         // Очищаем контейнеры перед добавлением новых данных
         const cont = document.querySelector(".answer1");
         cont.innerHTML = "";
+        document.querySelector(".answer1").style.justifyContent = "center"
 
-        // Картинка вопроса
         if (data["image"] !== "not") {
             const img = document.createElement("img");
             img.src = data["image"];
             img.style.width = "50%";
             img.style.height = "100%";
+            document.querySelector(".answer1").style.justifyContent = "space-between"
             cont.appendChild(img);
         }
 
-        // Вопрос
         const question = document.createElement("p");
         question.textContent = data.question;
         cont.appendChild(question);
 
-        // Ответы
         const typeQuestion = data.type_question;
-        // Исправляем split
+
         const answers = typeof data.answers === "string"
             ? data.answers.trim().split(" ").filter(a => a)
             : Array.isArray(data.answers) ? data.answers : [];
@@ -57,39 +56,28 @@ socket.on("show_data",
 
         if (typeQuestion !== "input-gap") {
             let count = 0;
+            let imgcount = 0;
             let maxheight = 100;
             let maxwidth = 45;
-
-            // "user_indexes": data["lastanswers"],
-            // "correct_indexes": correct_indexes[int(data["index_question"]) - 1]
             let userIndexes = data.user_indexes.split("@")
             let correctIndexes = data.correct_indexes
             let imagesUrls = data.answers_images
-            // console.log(userIndexes)
-            // console.log(correctIndexes)
 
 
             for (let answer of answers){
+                
+
                 const checkmark = document.createElement("div");
                 checkmark.className = "checkmark-answer";
 
                 const outline = document.createElement("div");
                 outline.className = "answer2";
 
-                let currentIndex = userIndexes[count]
+                let currentIndex = userIndexes[count];
                 if (correctIndexes.includes(parseInt(currentIndex))){
-                    outline.style.backgroundColor = "#BBE3B3"
-                }
-                else {
-                    outline.style.backgroundColor = "rgba(246, 101, 103, 0.71)"
-                }
-
-                if (imagesUrls[count] != "NOT"){
-                    const image = document.createElement("img")
-                    image.src = imagesUrls[0]
-                    image.style.width = "100%"
-                    image.style.height = "30%"
-                    outline.appendChild(image)
+                    outline.style.backgroundColor = "#BBE3B3";
+                } else {
+                    outline.style.backgroundColor = "rgba(246, 101, 103, 0.71)";
                 }
 
                 const chosenAnswer = document.createElement("span");
@@ -98,8 +86,44 @@ socket.on("show_data",
                 outline.appendChild(checkmark);
                 outline.appendChild(chosenAnswer);
 
-                container.appendChild(outline);
+                
+                if (imagesUrls[count] != "NOT") {
+                    
+                    const arrowBtn = document.createElement("div");
+                    arrowBtn.className = "arrow-btn";
 
+                    const arrowImg = document.createElement("img");
+                    const arrowImgPath = document.getElementById("arrow-img-path").dataset.src;
+                    arrowImg.src = arrowImgPath;
+                    arrowImg.alt = "show";
+                    arrowImg.style.transition = "transform 0.2s";
+                    arrowImg.style.width = "2vh";
+                    arrowImg.style.height = "2vh";
+                    arrowBtn.appendChild(arrowImg);
+
+                    outline.onclick = () => {
+                        let imgBlock = outline.querySelector(".answer2with-image");
+                        if (!imgBlock) {
+                            imgBlock = document.createElement("div");
+                            imgBlock.className = "answer2with-image";
+                            imgBlock.style.backgroundColor = outline.style.backgroundColor;
+                            const image = document.createElement("img");
+                            image.src = imagesUrls[imgcount];
+                            imgcount++;
+                           
+                            imgBlock.appendChild(image);
+                            outline.appendChild(imgBlock);
+                        }
+                        const isOpen = imgBlock.classList.toggle("open");
+                        arrowImg.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
+
+                    };
+
+
+                    outline.appendChild(arrowBtn);
+                }
+
+                container.appendChild(outline);
                 count++; 
             }
 
@@ -109,6 +133,7 @@ socket.on("show_data",
             }  
             else if (count = 2) {
                 maxheight = 100;
+
             }
         
 
@@ -128,10 +153,19 @@ socket.on("show_data",
             container.appendChild(answerOutline);
         }
 
+
+
         // Точность
         const accuracyRateText = document.querySelector(".text-perc p");
         if (accuracyRateText) {
             accuracyRateText.textContent = `Точність: ${Math.round(data.accuracy)}%`;
+        }
+
+        // потраченное время на вопрос
+        try {
+            document.querySelector(".nickname-time").textContent = localStorage.getItem("question_time")
+        } catch (error) {
+            console.log(error)
         }
 
         // Правильные/неправильные ответы

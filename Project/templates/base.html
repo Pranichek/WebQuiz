@@ -54,7 +54,14 @@
                         </div>
                     {% elif home_auth %}
                         <div class="nav-links">
+                            {% if user.is_mentor %}
+                                <a href="/mentor_class" class="test-button">Інформація по класам</a>
+                            {% else %}
+                                <a href="/student_class" class="test-button">Інформація по класам</a>
+                            {% endif %}
+
                             <a href="/select_way" class="test-button">+ Створити вікторину</a>
+
                         </div>
                     {% elif mentor %}
                         <div class="header_buttons">

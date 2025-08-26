@@ -16,6 +16,7 @@ main{
     /* max-width: 490px; */
 }
 
+/* Overall layout for the mentor card and quiz info */
 .mentor-layout {
     display: flex;
     flex-direction: column;
@@ -32,8 +33,10 @@ main{
     display: flex;
     flex-direction: column;
     gap: 2vh;
+    box-sizing: border-box;
 }
 
+/* Mentor Profile Header */
 .mentor-header {
     display: flex;
     justify-content: space-between;
@@ -73,6 +76,7 @@ main{
     color: #ffffff;
 }
 
+/* Topic Card */
 .topic {
     width: 25vw;
     height: 7vh;
@@ -117,7 +121,9 @@ main{
     width: 25vw;
 }
 
-.url {
+.url,
+.code,
+.copy-code {
     display: flex;
     align-items: center;
     gap: 0.5vw;
@@ -156,42 +162,6 @@ main{
 #amount_users {
     font-size: 2vh;
     color: #FFB700;
-}
-
-.avatar{
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
-}
-
-.avatar-circle{
-    object-fit: contain;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80px;
-    height: 80px;
-    border: 1px black solid;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.avatar-circle-chat{
-    object-fit: contain;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border: 1px black solid;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .qr-code {
@@ -614,14 +584,6 @@ main{
     right: 0;
 }
 
-main, .main{
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    width: 100vw;
-    height: 90vh;
-    position: relative;
-}
 
 
 

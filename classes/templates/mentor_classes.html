@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block title%}
+
+{% endblock%}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('mentor_class.static', filename = 'css/mentor_classes.css') }}">
+{% endblock %}
+
+{% block content %}
+    <body>
+        <div class="all">
+            <div class="prt1">
+                <input type="text" class="inp">
+
+                <div class="classes">
+
+                    {% for class in all_classes %}
+                        <div class="classs">
+                            <div class="left">
+
+                            </div>
+                            <div class="information">
+                                <div class="top-info">
+                                    <p class="name-class">{{ class.name_class }}</p>
+                                    <p class="number-class">{{ class.form }}-{{ class.letter }}</p>
+                                </div>
+                                <div class="info-description">
+                                    <p>{{ class.description }}</p>
+                                </div>
+                                <div class="bottom-buttons">
+                                    <div class="left-part">
+                                        <p class="lesson">{{ class.lesson }}</p>
+                                        <button class="change">Редагувати</button>
+                                    </div>
+                                    <div class="right-part">
+                                        <p class="count-people">12</p>
+                                        <button class="leave">Видалити</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                
+                </div>
+            </div>
+            <div class="prt2">
+                <div class="head">
+                    <div class="first">
+                        <div class="big">
+                            <div class="top">
+                                <img src="" alt="avatar">
+                                <p>kemilli</p>
+                            </div>
+                            <p class="em">hsdhsd@gmail.com</p>
+                        </div>
+                        <button class="btn"><a href="/create_class" class="lin">Створити клас</a></button>
+                    </div>
+                    <p class="cls">Кількість створених класів:      2</p>
+                </div>
+            </div>
+        </div>
+        
+    </body>
+{% endblock%}
+
+{% block scripts %}
+    <script src="{{ url_for('mentor_class.static', filename='js/search_class.js') }}"></script>
+{% endblock %}
