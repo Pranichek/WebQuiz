@@ -103,7 +103,7 @@ btn4.addEventListener(
             newList4.className = "list4";
             btn4.appendChild(newList4);
 
-            const type = ["Лише за кодом", "Лише за запрошенням", "Відкритий для всіх"]
+            const type = ["Лише за кодом", "Лише за запрошенням"]
             for (let i = 0; i <= type.length - 1; i++) {
                 let newBox4 = document.createElement("div");
                 let circle = document.createElement("div");

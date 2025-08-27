@@ -123,12 +123,6 @@
     cursor: pointer;
     color: #FFFFFF;
 }
-.bottom-div{
-    width: 90vw;
-    height: 16vh;
-    border: #C99208 0.3vh solid;
-    border-radius: 3vh;
-}
 .list{
     position: relative;
     display: flex;
@@ -219,7 +213,38 @@
     border-radius: 10vh;
     border: 0.3vh #343434 solid;
 }
-
+.bottom-div{
+    display: flex;
+    justify-content: space-between;
+    gap: 5vw;
+    width: fit-content;
+    height: 16vh;
+    padding: 2vh 5vw;
+    border: #C99208 0.3vh solid;
+    border-radius: 3vh;
+}
+.generate-btn{
+    padding: 1vh 3vw;
+    background-color: #B9BDF5;
+    border: none;
+    border-radius: 1.5vh;
+    font-size: 4vh;
+}
+.generate-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.generate-container p{
+    font-size: 4vh;
+    color: #FFFFFF;
+}
+.generate-container .generated-code{
+    font-size: 3vh;
+}
+.generate-container hr{
+    width: 100%;
+}
 #createClassBtn{
     display: flex;
     width: 10vw;
