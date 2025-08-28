@@ -25,7 +25,10 @@ socket.on("list_results",
 
         if (user_list.type_question == "one-answer" || user_list.type_question == "many-answers"){
             topData.style.height = "40%"
+            topData.style.width = "95%"
             usersRatings.style.height = "58%"
+            usersRatings.style.border = "0.17vh solid #C48AF7"
+            usersRatings.style.borderRadius = "2vw";
             // <div class="diagram">
             //     <div class="text-diagram">Прогресс учнів: </div>
             //     <div class="diagram-informations">
@@ -102,14 +105,120 @@ socket.on("list_results",
 
             usersRatings.appendChild(ratingsHeader)
             usersRatings.appendChild(bodyRatings)
+        }else if(user_list.type_question == "input-gap"){
+            topData.style.width = "100%"
+            topData.style.height = '32%'
+
+            usersRatings.style.height = "66%"
+            
+            // <div class="outline-input-gap">
+            //     <p class="question">How many oenis do you have?</p>
+            //     <div class="right-answers">
+            //         <p class="right-text">Правильні відповіді:</p>
+            //     </div>
+            // </div>
+
+            const outlineInput = document.createElement("div")
+            outlineInput.className = "outline-input-gap"
+
+            const questionDiv = document.createElement("div")
+            questionDiv.className = "question"
+
+            const paragraph = document.createElement("p")
+            paragraph.className = "question-text"
+            paragraph.textContent = user_list.text_question
+
+            questionDiv.appendChild(paragraph)
+            
+            if (user_list.image_url != "not"){
+                const img = document.createElement("img")
+                img.src = document.getElementById("arrow-img-path").dataset.src
+                img.className = "arrow"
+                paragraph.appendChild(img)
+
+                const imageDiv = document.createElement("div");
+                imageDiv.className = "imageCont"; 
+                const imgq = document.createElement("img")
+                imgq.src = user_list.image_url
+                imgq.className = "questionImage"
+                imageDiv.appendChild(imgq)
+
+                questionDiv.style.flexDirection = "column"
+                questionDiv.appendChild(imageDiv)
+
+                let rotated = false
+                img.addEventListener(
+                    'click',
+                    () => {
+                        rotated = !rotated
+                        img.style.transform = rotated ? "rotate(180deg)" : "rotate(0deg)"
+
+                        if (rotated){
+                            document.querySelector(".imageCont").classList.add("show")
+
+                            paragraph.style.height = "40%"
+
+                            
+
+                            
+
+                            topData.style.height = "40%"
+                            usersRatings.style.height = "58%"   
+
+                            document.querySelector(".question").style.height = "55%"
+                            document.querySelector(".right-answers").style.height = "35%"
+
+
+                        }else{
+                            document.querySelector(".imageCont").classList.remove("show")
+                            paragraph.style.height = "100%"
+
+                            topData.style.height = "32%"
+                            usersRatings.style.height = "66%"
+                            document.querySelector(".question").style.height = "40%"
+                            document.querySelector(".right-answers").style.height = "50%"
+                        }
+                    }
+                )
+            }
+
+            
+
+            const answers = document.createElement("div")
+            answers.className = "right-answers"
+            
+
+            const rightText = document.createElement("p")
+            rightText.textContent = "Правильні відповіді:"
+            rightText.className = "right-text"
+
+            const rightAnswers = document.createElement("p")
+            rightAnswers.textContent = user_list.answers.join("\n")
+            rightAnswers.style.whiteSpace = "pre-line"
+
+            answers.appendChild(rightText)
+            answers.appendChild(rightAnswers)
+
+            outlineInput.appendChild(questionDiv)
+            outlineInput.appendChild(answers)
+
+            topData.appendChild(outlineInput)
+
+            // <p class="accuracy-students">Прогресс учнів: </p>
+
+            const textProgress = document.createElement("p")
+            textProgress.className = "accuracy-students"
+            textProgress.textContent = "Прогресс учнів:"
+
+            usersRatings.appendChild(textProgress)
         }
 
 
         // ------------- создание диаграм
         let answers = user_list.answers
         const cont = document.querySelector(".variants")
-        cont.innerHTML = ""
         if (user_list.type_question != "input-gap"){
+            cont.innerHTML = ""
             let count = 0
             for (let answer of answers){
                 const variantDiv = document.createElement("div")
@@ -184,7 +293,6 @@ socket.on("list_results",
             usersConts.innerHTML = ""  
         }else{
             usersConts = document.querySelector(".users-ratings")
-            usersConts.innerHTML = ""  
         }
         // <div class="user-card">
 
@@ -243,6 +351,7 @@ socket.on("list_results",
             
             const choicen = document.createElement("div")
             choicen.className = "choicen"
+            choicen.id = index
             
             const textAchiv = document.createElement("p")
             textAchiv.classList = "text-achiv"
@@ -250,9 +359,22 @@ socket.on("list_results",
             choicen.appendChild(textAchiv)
 
             const lastAnswering = document.createElement("p")
-            lastAnswering.textContent = `${element.last_answer.join(" ")}`
+            lastAnswering.dataset.text = `${element.last_answer.join(" ")}`
+            lastAnswering.textContent = "......"
             lastAnswering.className = "choicen-text"
+            lastAnswering.id = index
+            lastAnswering.style.width = "99%"
             choicen.appendChild(lastAnswering)
+
+
+            // if (user_list.type_question == "input-gap"){
+            const eye = document.createElement("img")
+            eye.src = document.querySelector(".close-eye").dataset.close
+            eye.className = "type-eye"
+            eye.id = index
+            eye.dataset.type = "close"
+            lastAnswering.appendChild(eye)
+            // }
 
             rightpart.appendChild(nickname)
             rightpart.appendChild(choicen)
@@ -261,6 +383,7 @@ socket.on("list_results",
 
             countAccuracy += parseInt(element.accuracy)
 
+            // choicen.style.alignItems = "end"
             if (parseInt(element.right_wrong) == 1){
                 choicen.style.backgroundColor = `rgba(169, 255, 182, 0.25)`;
                 countRight++
@@ -271,6 +394,61 @@ socket.on("list_results",
                 choicen.style.backgroundColor = `rgba(163, 159, 159, 0.25)`;
             }
         })
+
+        // открытие закрытие текста
+        let eyes = document.querySelectorAll(".type-eye")
+
+        for (let eye of eyes){
+            eye.addEventListener(
+                'click',
+                () => {
+                    console.log(12)
+                    const texts = document.querySelectorAll(".choicen-text")
+                    for (let text of texts){
+                        if (text.id == eye.id){
+                            if (eye.dataset.type == "close"){
+                                // const choicen = document.getElementById(eye.id);
+                                // if (choicen.classList.contains("choicen")) {
+                                //     choicen.style.alignItems = "start"
+                                // }
+
+                                // text.replaceChildren()
+                                
+                                // const neweye = document.createElement("img")
+                                // neweye.className = "type-eye"
+                                // neweye.id = text.id
+                                // neweye.dataset.type = "open"
+
+                                // neweye.src = document.querySelector(".open-eye").dataset.open
+                                eye.src = document.querySelector(".open-eye").dataset.open
+                                eye.dataset.type = "open"
+                                text.textContent = text.dataset.text
+                                
+                                text.appendChild(eye)
+                            }else{
+                                const choicen = document.getElementById(eye.id);
+                                if (choicen.classList.contains("choicen")) {
+                                    choicen.style.alignItems = "end"
+                                }
+
+                                text.replaceChildren()
+                                // const neweye = document.createElement("img")
+                                // neweye.className = "type-eye"
+                                // neweye.id = text.id
+                                // neweye.dataset.type = "close"
+                                // neweye.src = document.querySelector(".close-eye").dataset.close
+
+                                text.textContent = "......"
+                                eye.src = document.querySelector(".close-eye").dataset.close
+                                eye.dataset.type = "close"
+                                // text.replaceChildren()
+                                text.appendChild(eye)
+                            }
+                        }
+                    }
+                }
+            )
+        }
 
         // Прогресс-бар точности
         let accuracy = countAccuracy / user_list.users.length
@@ -285,7 +463,12 @@ socket.on("list_results",
                 document.querySelector(".count-people").textContent = "учасників";
             }
         } catch (error) {
-            document.querySelector(".num-people").textContent = 0
+            try {
+                document.querySelector(".num-people").textContent = 0
+            } catch (error) {
+                
+            }
+
         }
 
         const fill = document.querySelector(".fill")

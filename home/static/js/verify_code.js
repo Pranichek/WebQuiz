@@ -6,42 +6,39 @@ function limitCharacters(event) {
     }
   }
 
+const inputs = document.querySelectorAll(".input-tag");
 
-var pinContainer = document.querySelector(".input-code");
-
-pinContainer.addEventListener('keyup', function (event) {
-    var target = event.srcElement;
+inputs.forEach((input, index) => {
+    input.addEventListener("focus", () => {
+        for (let i = 0; i < inputs.length; i++) {
+            if (inputs[i].value === "" || i == 5) {
+                inputs[i].focus();
+                break;
+            }
+        }
+    });
     
-    var maxLength = parseInt(target.attributes["maxlength"].value, 10);
-    var myLength = target.value.length;
+    input.addEventListener("input", (e) => {
+        const target = e.target;
+        if (target.value.length > 1) {
+            target.value = target.value.charAt(0);
+        }
+        if (target.value !== "" && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+        }
+    });
 
-    if (myLength >= maxLength) {
-        var next = target;
-        while (next = next.nextElementSibling) {
-            if (next == null) break;
-            if (next.tagName.toLowerCase() == "input") {
-                next.focus();
-                break;
+    input.addEventListener("keydown", (e) => {
+        const target = e.target;
+        if (e.key === "Backspace") {
+            if (target.value === "" && index > 0) {
+                inputs[index - 1].value = "";
+                inputs[index - 1].focus();
+                e.preventDefault(); 
             }
         }
-    }
-
-    if (myLength === 0) {
-        var next = target;
-        while (next = next.previousElementSibling) {
-            if (next == null) break;
-            if (next.tagName.toLowerCase() == "input") {
-                next.focus();
-                break;
-            }
-        }
-    }
-}, false);
-
-pinContainer.addEventListener('keydown', function (event) {
-    var target = event.srcElement;
-    target.value = "";
-}, false);
+    });
+});
 
 let timer = 60
 let timerp = document.querySelector(".time")

@@ -6,6 +6,7 @@ from home.models import User
 from flask_socketio import emit, join_room
 from Project.db import DATABASE
 from operator import itemgetter
+from os.path import exists, join, abspath
 # from .socket_manager import users_rooms
 
 @socket.on("users_results")
@@ -16,6 +17,7 @@ def users_results(data):
 
     test : Test = Test.query.get(int(data["test_id"]))
     index_question = int(data["index_question"])
+    text_question = test.questions.split("?%?")[index_question]
     type_question = test.type_questions.split('?$?')[index_question]
 
     answers = test.answers.split("?@?")[index_question]
@@ -41,11 +43,11 @@ def users_results(data):
             for user_answer in users_answers:
                 if type_question != "input-gap":
                     if user_answer == "image?#$?image":
-                        users_answers[count] = f"зображення{count_image}"
+                        users_answers[count] = f"зображення"
                         count_image+=1
 
-                users_answers[count] = f"{count+1}){users_answers[count]}"
-                count+=1
+                    users_answers[count] = f"{count+1}){users_answers[count]}"
+                    count+=1
 
             print(users_answers, "lol")
             user_list.append({
@@ -85,7 +87,33 @@ def users_results(data):
     # черещ встроенній модуль делаем филтрацию словаря за "count_points" и делаем реверс чтобі біло от большего к меньшему
     user_list = sorted(user_list, key=itemgetter("count_points"), reverse=True)
 
-    emit("list_results", {"users": user_list, "answers": clear_answers, "count_answers":count_people_answes, "type_question": type_question})
+    # была ли картинка к вопросу
+    path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(index_question + 1)))
+    if exists(path):
+        name_img = None
+        for small_path in os.listdir(path):
+            if small_path not in ["1", "2", "3", "4"]:
+                name_img = small_path
+                break            
+    else:
+        name_img = None
+
+    email= test.user.email
+    title= test.title_test
+    img_url = "not"
+
+    if name_img:
+        img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{index_question + 1}/{name_img}")
+
+    
+    emit("list_results", {
+        "users": user_list, 
+        "answers": clear_answers, 
+        "count_answers":count_people_answes, 
+        "type_question": type_question, 
+        "text_question":text_question,
+        "image_url":img_url
+    })
 
 @socket.on("load_question")
 def load_question_mentor(data):
@@ -100,11 +128,19 @@ def load_question_mentor(data):
         user.user_profile.answering_answer = "відповідає"
         DATABASE.session.commit()
         if user and user.id != flask_login.current_user.id:
+            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.email}/{user.name_avatar}')
+            pet_url = flask.url_for(
+                'profile.static',
+                filename=f'images/pets_id/{user.user_profile.pet_id}.png'
+            )
+
             user_list.append({
                 "username": user.username,
                 "email": user.email,
                 "ready": user.user_profile.answering_answer,
-                "count_points": user.user_profile.count_points
+                "count_points": user.user_profile.count_points,
+                "avatar_url": avatar_url,
+                "pet_img": pet_url
             })
 
     emit("update_users", user_list, room=data["room"], broadcast=True)

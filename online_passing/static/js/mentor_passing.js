@@ -10,9 +10,12 @@ if (localStorage.getItem("index_question")){
 
 
 socket.on("update_users", (users) => {
-    const blockUsers = document.querySelector(".users")
+    const blockUsers = document.querySelector(".outline-users")
 
     blockUsers.innerHTML = ""
+    // <p class="count-answered">відповіли  5 / <span class="count-people">12</span></p>
+    
+
     count_answered = 0
     count_users = users.length
     users.forEach(user => {
@@ -24,12 +27,11 @@ socket.on("update_users", (users) => {
 
         const avatarImg = document.createElement("img")
         avatarImg.classList.add("ava")
+        avatarImg.src = user.avatar_url
 
-        const usernameP = document.createElement("p")
-        usernameP.textContent = user.username
+
 
         infDiv.appendChild(avatarImg)
-        infDiv.appendChild(usernameP)
 
         const blockTextDiv = document.createElement("div")
         blockTextDiv.classList.add("block-text")
@@ -43,6 +45,13 @@ socket.on("update_users", (users) => {
 
         const petImg = document.createElement("img")
         petImg.classList.add("pet")
+        petImg.src = user.pet_img
+
+        const cross = document.createElement("img")
+        cross.className = "cross_student"
+        cross.src = document.querySelector(".hide-ava").dataset.cross
+
+        blockDiv.appendChild(cross)
 
         const dataAnswer = document.createElement("p")
         dataAnswer.textContent = user.ready
@@ -63,7 +72,8 @@ socket.on("update_users", (users) => {
         blockUsers.appendChild(blockDiv)
         }
     )
-
+    document.querySelector(".count-answered-people").textContent = `відповіли  ${count_answered} / `
+    document.querySelector(".count-people").textContent = users.length
     if (count_answered == count_users){
         socket.emit(
             "end_question",

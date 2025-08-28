@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
 
 {% block links %}
-    <link rel="stylesheet" href="{{ url_for('mentor.static', filename='css/mentor_result.css') }}">
+    <link rel="stylesheet" href="{{ url_for('student.static', filename='css/mentor_result.css') }}">
 {% endblock links %}
 
 {% block content %}
+    <img data-open="{{ url_for('mentor.static', filename='images/open_eye.svg') }}" class="open-eye">
+    <img data-close="{{ url_for('mentor.static', filename='images/close_eye.svg') }}" class="close-eye">
+    <span id="arrow-img-path" data-src="{{ url_for('student.static', filename='images/show_more.svg') }}"></span>
+
     <img data-src="{{ url_for('mentor.static', filename='images/people.svg') }}" class="hide">
     <div class="pseudo-header">
         <p class="join-text">приєднатися по коду<span class="code-room"></span></p>
@@ -44,19 +48,10 @@
 
         <div class="users-data">
             <div class="top-data">
-                
+
             </div>
             <div class="users-ratings">
 
-                <div class="ratings-header">
-                    
-                    <p class="num-people"></p>
-                    <p class="count-people"></p>
-                </div>
-
-                <div class="body-ratings">
-                    
-                </div>
             </div>
         </div>
     </div>
