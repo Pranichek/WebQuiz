@@ -68,24 +68,35 @@ form{
     padding-top: 2.5vh;
 }
 
-.test-title-input{
-    width: 150%;
+.input-wrapper {
+    display: inline-block;
+    max-width: 100%; /* родительская ширина */
+    position: relative;
+}
+
+.test-title-input {
+    width: 100%;
     min-width: 5vw;
     font-size: 1.7vw;
     border: none;
     color: #343434;
     background: none;
-    background-color: none;
-    border: none;
     outline: none;
     transform: translateY(5px);
     font-weight: 600;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
+
 
 .under-line {
     height: 0.17vh;
     background-color: #343434;
-  }
+    max-width: 150%; 
+    transition: width 0.2s ease; 
+}
+
 
 
 #mirror {
@@ -94,6 +105,7 @@ form{
     white-space: pre;
     font-size: 1.7vw;
     font-weight: 600;
+    max-width: 250%;
 }
 
 
@@ -426,8 +438,13 @@ span{
 .question{
     z-index: 2;
     font-size: 2vh;
+    width: 80%;
     font-weight: bolder;
     color: #ffffff;
+    white-space: normal;     
+    word-wrap: break-word;  
+    overflow-wrap: break-word; 
+    text-align: center;
 }
 
 .variant{
@@ -785,6 +802,5 @@ label[for="image"] {
         opacity: 1;
     }
 }
-
 
 

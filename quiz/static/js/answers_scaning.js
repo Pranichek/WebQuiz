@@ -1,3 +1,5 @@
+import { ShowMessage } from '/static/js/showMessage.js';
+
 export function answerScanning(){
     let validAnswersFlag = true;
 
@@ -46,4 +48,15 @@ export function answerScanning(){
         button.style.color = "#ffff"
     }
 }
+
+const saveButton = document.getElementById("save")
+
+saveButton.addEventListener(
+    'click',
+    () => {
+        if (saveButton.type == "button"){
+            ShowMessage("Упс... Виникла помилка! Перевірте, будь ласка, чи все ви заповнили")
+        }
+    }
+)
 

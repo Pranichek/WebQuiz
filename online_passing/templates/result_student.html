@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('student.static', filename='css/student_result.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <div class="code">
+        приєднатися по коду <span class="code-text"></span>
+    </div>
+    <div class="block-main">
+        <div class="block-answer">
+            <div class="gradient"></div>
+            <div class="line-answer top-data">
+
+            </div>
+
+            <div class="info-answer">
+                <div class="statistics-answer">
+                    <div>Iм`я: <span class="nickname-answer">@{{ user.username }}</span></div>
+                    <div class="time-spend">
+                        Витрачений час: <span class="nickname-time"></span> секунд
+                    </div>
+                </div>
+
+                <div class="waiting">
+                    <div class="loading">
+                        Очікування продовження тесту...
+                        <img class="loading-spin" src="{{ url_for('mentor.static', filename = 'images/loading.svg') }}" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="block-accuracy">
+            <div class="outline-accuracy">
+                <div class="accuracy-gradient"></div>
+            </div>
+            <div class="accuracy-rate">
+                <div class="rate">
+                    
+                    <div class="fill" data-accuracy="{{ accuracy }}"></div>
+                    <div class="quard">
+                        <img src="{{ url_for('mentor.static', filename = 'images/robot-acc.svg') }}" alt="">
+                        <div class="text-perc">
+                            <p></p>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+            <div class="rightwrong">
+                <div class="right"></div>
+                <div class="wrong"></div>
+            </div>
+        </div>
+
+            
+
+        </div>
+
+    </div>
+
+    <span id="arrow-img-path" data-src="{{ url_for('student.static', filename='images/show_more.svg') }}"></span>
+{% endblock content %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('student.static', filename='js/result_student.js') }}"></script>
+    <script src="{{ url_for('student.static', filename='js/recconect.js') }}"></script>
+{% endblock %}

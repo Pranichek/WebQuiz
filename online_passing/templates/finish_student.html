@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>finish</h1> for student</h1>
+{% endblock content %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('student.static', filename='js/recconect.js') }}" defer></script>
+    <script src="{{ url_for('student.static', filename='js/student_result.js') }}"></script>
+{% endblock %}

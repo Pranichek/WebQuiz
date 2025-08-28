@@ -5,6 +5,7 @@ from .send_email import send_code, generate_code
 from threading import Thread
 import PIL
 from quiz.models import Test
+from online_passing.models import Rooms
 from userprofile.models import DataUser
 from Project.login_check import login_decorate
 from flask_login import current_user
@@ -38,11 +39,16 @@ def get_random_tests(category=None, max_tests=4):
 
     # перемешиваем список чтобы выдавало рандомные тесты
     random.shuffle(all_tests)
-    return all_tests[0:4]
+    return all_tests[0:5]
 
 #головна сторінка коли користувач увійшов у акаунт
 @login_decorate
-def render_home_auth():    
+def render_home_auth():   
+    room = flask_login.current_user.room
+    if room and room.room_code != "":
+        room.room_code = ""
+        DATABASE.session.commit()
+
     if flask.request.method == "POST":
         check_value = flask.request.form.get("check_form")
 
@@ -50,7 +56,13 @@ def render_home_auth():
             return flask.redirect("/filter_page")
         elif check_value == "enter-room":
             data_code = flask.request.form["enter-code"]
-            return flask.redirect(f"student?room_code={data_code}")
+
+            room = Rooms.query.filter_by(room_code = data_code).first()
+            
+            if room:
+                return flask.redirect(f"student?room_code={data_code}")
+
+
         
     user = User.query.get(flask_login.current_user.id)
 
@@ -305,13 +317,17 @@ def render_login():
                 email = "shake"
                 message = 'Користувача із такою поштою не існує'
             else:
-                for user in list_users:
-                    if user.email == email_form:
-                        if user.password == password_form:
-                            flask_login.login_user(user)
-                        else:
-                            password = "shake"
-                            message = 'Введений пароль не підходить до пошти'
+                user = User.query.filter_by(email=email_form).first()
+                if user is None:
+                    email = "shake"
+                    message = 'Користувача із такою поштою не існує'
+                elif user.password != password_form:
+                    password = "shake"
+                    message = 'Введений пароль не підходить до пошти'
+                else:
+                    flask_login.login_user(user)
+                    return flask.redirect("/") 
+                
         elif check_form == "clear_form":
             password = ''
             email = ''

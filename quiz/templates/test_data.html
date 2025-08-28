@@ -52,17 +52,24 @@
                          <img class="gradient question-bg" src="{{ url_for('test_pass.static', filename='images/test_data/title_question.svg' ) }}" alt="gradient">
                         <p class="question">{{ this_question.question }}</p>
                     </div> 
-                    <div class="answers">
-                        {% for answer in this_question.answers %}
-                        <div class="variant">
-                            <div class="circle"></div>
-                            {% if answer != "image?#$?image" %}
-                                <p class="answer">{{ answer }}</p>
-                            {% else %}
-                                <p class="answer">Зображення</p>
-                            {% endif %}
-                        </div>
-                        {% endfor %}
+                    <div class="answers {{ this_question.type_question  }}">
+                        {% if this_question.type_question != "input-gap" %}
+                            {% for answer in this_question.answers %}
+                                <div class="variant">
+                                    <div class="circle"></div>
+                                    {% if answer != "image?#$?image" and answer != "∅" %}
+                                        <p class="answer">{{ answer }}</p>
+                                    {% else %}
+                                        <p class="answer">Зображення</p>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                                <div class="variant variant-center">
+                                    <p>Відповідь потрібно ввести самостійно</p>
+                                </div>
+                        {% endif %}
+                        
                     </div>
                 </div>
     

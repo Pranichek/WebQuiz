@@ -188,7 +188,7 @@
 {% block scripts %}
     <script type="module" src="{{ url_for('test_pass.static', filename='js/answers_scaning.js') }}" ></script>
     <script type="module" src="{{ url_for('test_pass.static', filename='js/createQuestionCookies.js') }}" ></script>
-    <script src="{{ url_for('test_pass.static', filename='js/addQuestion.js') }}" ></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/addQuestion.js') }}" ></script>
     <script type="module" src="{{ url_for('test_pass.static', filename='js/correctQuestion.js') }}" ></script>
     <script src="{{ url_for('test_pass.static', filename='js/timer.js') }}" ></script>
     <script src="{{ url_for('test_pass.static', filename='js/addQuestionImage.js') }}" ></script>
@@ -198,5 +198,5 @@
     
 
     <!-- файли де знаходять функції для кожного типу питання -->
-     <script src="{{ url_for('test_pass.static', filename='js/one_answer.js') }}" type="module" ></script>
+    <script src="{{ url_for('test_pass.static', filename='js/one_answer.js') }}" type="module" ></script>
 {% endblock %}

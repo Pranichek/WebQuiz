@@ -4,6 +4,7 @@ from os.path import exists, abspath, join
 from Project.socket_config import socket
 from flask_login import current_user
 from .del_files import delete_files_in_folder
+from Project.db import DATABASE
 
 @login_decorate
 def render_mentor():
@@ -60,6 +61,9 @@ def render_mentor():
 
 @login_decorate
 def render_student():
+    current_user.user_profile.count_points = 0
+    DATABASE.session.commit()
+
     return flask.render_template(
         "student.html",
         user = flask_login.current_user

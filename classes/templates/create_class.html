@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Class
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('mentor_class.static', filename='css/create_class.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <form class="main" method="post">
+        <div class="create">
+            <p>Створення класу: </p>
+        </div>
+
+        <input type="text" placeholder="name" name="name">
+        <input type="text" placeholder="descrtiption" name="description">
+        <input type="text" placeholder="number" name="form">
+        <input type="text" placeholder="letter" name="letter">
+        <input type="text" placeholder="lesson" name="lesson">
+        <input type="text" placeholder="type" name="type">
+        <input type="text" placeholder="code" name="code">
+        <!-- <div class="create-class">
+            <div class="text">
+                <p>Заповніть інформацію про клас:</p>
+            </div>
+            <div class="inp1">
+                <input type="text" placeholder="Назва класу" class="name" name="class_name">
+                <div class="sel">
+                    <p>Оберіть клас:</p>
+                    
+                    <div class="sels">
+                        <button class="sel1">№</button>
+                        <p>-</p>
+                        <button class="sel2">А...</button>
+                    </div>
+                </div>
+            </div>
+            <div class="inp">
+                <input type="text" class="inp2" placeholder="Опис класу (не обов'язково)" name="description">
+            </div>
+            <div class="lstin">
+                <button class="obj">Оберіть предмет класу</button>
+                <button class="choo">тип приєднання до класу</button>
+            </div>
+        </div> -->
+        <div class="bottom-div">
+
+        </div>
+        <!-- <form action="" method="post"> -->
+            <button>Створити клас</button>
+        <!-- </form> -->
+    </form>
+    
+{% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('mentor_class.static', filename='js/create_class.js') }}"></script>
+{% endblock scripts %}

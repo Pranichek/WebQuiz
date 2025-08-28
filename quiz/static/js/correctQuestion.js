@@ -40,7 +40,6 @@ for (let detector of detectorList){
             if (count > 1 && input.classList.contains("correct")){
                 tick.style.display = "none"
                 input.classList.remove("correct")
-                console.log("kak")
             } else  {
                 tick.style.display = "flex"
                 input.classList.add("correct")

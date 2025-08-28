@@ -2,7 +2,6 @@
 
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('profile.static', filename = 'css/user_tests.css') }}">
-    <link rel="stylesheet" href="{{ url_for('profile.static', filename = 'css/media_user_tests.css') }}">
 {% endblock links %}
 
 {% block content %}
@@ -47,7 +46,7 @@
                 </div>
 
                 <div class="saved-tests">
-                    <p class="text-filter"><a class="saved" href="">вибрані тести</a></p>
+                    <p class="text-filter"><a class="saved" href="">обрані тести</a></p>
                 </div>
 
                 <div class="created-tests">
@@ -58,7 +57,8 @@
             <div class="find-by-text">
                 <form action="" method="post">
                     <input type="text" class="findByname" placeholder="Знайти створені тести..." maxlength="60">
-                    <button class="lupa" type="button"><img class="img-lupa" src="{{ url_for('profile.static', filename= 'images/user_tests/lupa.svg') }}" alt=""></button>
+                    <img onclick="document.querySelector('.lupa').click()" class="img-lupa" src="{{ url_for('profile.static', filename= 'images/user_tests/lupa.svg') }}" alt="">
+                    <button class="lupa" type="button"></button>
                 </form>
             </div>
         </div>
@@ -69,10 +69,10 @@
 
         <div class="cards">
             
-            <p class="title"><button class="sidebar-toggle">☰ Меню</button> {{ page_name }}</p>
+            <p class="title">{{ page_name }}</p>
 
             <div class="cards-outline">
-                <img class="sad-robot hidden" src="{{ url_for('profile.static', filename = 'images/user_tests/sad_robor.png') }}" alt="sad-robot">
+                <img class="sad-robot hidden" src="{{ url_for('profile.static', filename = 'images/user_tests/sad_robot.png') }}" alt="sad-robot">
                 <p class="error-text hidden">Тести не знайдено</p>
 
                 {% if tests %}

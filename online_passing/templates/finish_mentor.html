@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>finish for mentor</h1>
+{% endblock content %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('mentor.static', filename='js/recconect.js') }}" defer></script>
+{% endblock %}

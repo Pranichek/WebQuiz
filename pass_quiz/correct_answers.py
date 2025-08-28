@@ -11,10 +11,7 @@ def return_answers(index: int, test_id: int) -> list:
     test = Test.query.get(int(test_id))
 
     answers = test.answers.split("?@?")
-    print(index, "lol")
-    print(answers, "answers")
     if index >= len(answers):
-        print("Index out of range for answers list.")
         return []
     else:
         current_answer_list = answers[index]

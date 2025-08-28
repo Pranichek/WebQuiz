@@ -1,25 +1,38 @@
+main{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 90vh;
+    padding-left: 1.5vw;
+}
+
+/* General container, as specified */
 .general_container_rect {
-    margin-top: 5vh;
-    margin-left: 5vh;
     display: flex;
     flex-direction: column;
     background-color: rgba(138, 187, 247, 0.1);
-    width: 38vw;
+    width: 38vw; /* Proportional width */
     height: auto;
     border: 1px solid #C48AF7;
     border-radius: 24px;
-    padding: 2vh 2vw;
+    padding: 2vh 2vw; /* Proportional padding */
     max-width: 490px;
+    box-sizing: border-box;
+    color: #fff; /* Ensure text is white */
 }
 
+/* Overall layout for the mentor card and quiz info */
 .mentor-layout {
     display: flex;
     flex-direction: column;
     gap: 2vh;
-    width: 110%;
+    width: 100%;
 }
 
-.mentor-info-card {
+.mentor-info-card,
+.mentor-card {
     width: 100%;
     background-color: #343434;
     border-radius: 34px;
@@ -27,8 +40,10 @@
     display: flex;
     flex-direction: column;
     gap: 2vh;
+    box-sizing: border-box;
 }
 
+/* Mentor Profile Header */
 .mentor-header {
     display: flex;
     justify-content: space-between;
@@ -38,8 +53,8 @@
 
 .mentor-avatar {
     position: relative;
-    width: 80px;
-    height: 80px;
+    width: 8vh;
+    height: 8vh;
 }
 
 .mentor-avatar img {
@@ -57,7 +72,7 @@
     right: 0;
     color: white;
     font-weight: 500;
-    font-size: 0.9rem;
+    font-size: 0.9em;
     border-radius: 0 6px 0 6px;
     transform: translate(30%, 30%);
 }
@@ -65,23 +80,24 @@
 .mentor-info {
     display: flex;
     flex-direction: column;
-    gap: 0.3rem;
+    gap: 0.3em;
 }
 
 .mentor_name {
-    font-size: 1.5rem;
+    font-size: 1.5em;
     color: #ffffff;
 }
 
 .email {
-    font-size: 1rem;
+    font-size: 1em;
     color: #ffffff;
 }
 
+/* Topic Card */
 .topic {
     margin-top: 2vh;
     width: 100%;
-    min-height: 80px;
+    min-height: 8vh;
     background-color: #BCDAFF;
     border-radius: 10px;
     display: flex;
@@ -89,69 +105,51 @@
     align-items: center;
     color: #000;
     font-weight: 500;
-    font-size: 1.2rem;
+    font-size: 1.2em;
     text-align: center;
+    box-sizing: border-box;
 }
 
-.mentor-card {  
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    background-color: #343434;
-    border-radius: 34px;
-    padding: 20px 20px;
-    gap: 2vh;
-}
-
+/* Join Info Card */
 .mentor-join-info {
     display: flex;
     flex-direction: column;
     gap: 2vh;
     color: white;
     font-weight: 600;
-    font-size: 0.85rem;
-    /* background-color: #FFB700; */
+    font-size: 0.85em;
     width: 100%;
 }
 
-.join {
+.join,
+.join-code,
+.user-count {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     gap: 1vh;
-    /* background-color: #BCDAFF; */
     width: 100%;
 }
 
-.url {
+.url,
+.code,
+.copy-code {
     display: flex;
     align-items: center;
-    gap: 8px;
+    gap: 0.8vw;
+    color: white;
+    font-size: 1em;
 }
 
 .copy {
-    width: 20px;
-    height: 20px;
+    width: 2.5vh;
+    height: 2.5vh;
     cursor: pointer;
 }
 
-.join-code {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
-.code, .copy-code {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    color: white;
-    font-size: 1rem;
-}
-
 #code {
-    min-width: 100px;
-    height: 27px;
+    min-width: 10vh;
+    height: 3vh;
     text-align: center;
     color: #ffffff;
     border-radius: 10px;
@@ -160,85 +158,47 @@
     flex-shrink: 0;
 }
 
-.user-count {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-}
-
 #amount_users {
-    font-size: 1.5rem;
+    font-size: 1.5em;
     color: #FFB700;
-}
-
-.avatar{
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
-}
-
-.avatar-circle{
-    object-fit: contain;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80px;
-    height: 80px;
-    border: 1px black solid;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.avatar-circle-chat{
-    object-fit: contain;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 40px;
-    height: 40px;
-    border: 1px black solid;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
 }
 
 .qr-code {
     display: flex;
-    font-family: 'Inter', sans-serif;
     justify-content: space-between;
     font-weight: 600;
-    font-size: 13px;
-    margin-bottom: 60px;
+    font-size: 1em;
+    margin-bottom: 6vh;
     width: 100%;
-    /* background-color: #C48AF7; */
+    line-height: 1.2;
 }
 
+.qr-code img {
+    width: 12vh;
+    height: 12vh;
+}
+
+/* Action Buttons */
 .mentor-buttons {
     display: flex;
     justify-content: space-between;
     margin-top: auto;
-    gap: 10px;
+    gap: 1vw;
     flex-wrap: wrap;
+    background-color: green;
+    width: 100%;
+
 }
 
 .start,
 .end {
-    flex: 1;
-    min-width: 140px;
-    height: 42px;
-    padding: 8px 16px;
-    border: none;
+    width: 48%;
+    height: 6vh;
     border-radius: 10px;
     color: white;
     background-color: #C48AF7;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1em;
 }
 
 .participants-section {
@@ -579,14 +539,6 @@
     right: 0;
 }
 
-main, .main{
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-    width: 100vw;
-    height: 90vh;
-    position: relative;
-}
 
 
 
@@ -825,3 +777,6 @@ main, .main{
     position: absolute;
     right: 0;
 }
+
+
+
