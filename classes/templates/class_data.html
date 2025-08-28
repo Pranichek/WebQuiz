@@ -4,9 +4,78 @@
     mentor class
 {% endblock %}
 
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('mentor_class.static', filename='css/class_data.css') }}">
+{% endblock links %}
+
 {% block content %}
-    {% for user in users_list %}
-        <p>Ім'я: {{user.username}}</p>
-        <p>Пошта: {{user.email}}</p>
-    {% endfor %}
+    <div class="main">
+        <div class="left">
+            <div class="minis">
+                <div class="class">
+                    <img src="{{ url_for('mentor_class.static', filename='images/head.svg') }}" alt="" class="head">
+                    <div class="texts">
+                        <div class="big-txt">
+                            <p>Назва класу: додаткові заняття</p>
+                            <p>Клас: 8-А</p>
+                        </div>
+                        <p class="mini-txt">(опис, якщо є), якщо нема → “без опису”</p>
+                    </div>
+                    <img src="{{ url_for('mentor_class.static', filename='images/robo.svg') }}" alt="" class="robo">
+
+                </div>
+                <div class="students">
+                    <p>Предмет: математика</p>
+                    <p>Кількість учнів: 10</p>
+                    <button>Перейти до списку учнів</button>
+                </div>
+                <button class="btn">Переглянути успішність класу</button>
+            </div>
+        </div>
+        <div class="right">
+            <div class="head-btns">
+                <h2>Події класу</h2>
+                <button class="drop">Сортування</button>
+            </div>
+            <div class="tasks">
+                {% for anoun in ready_anoun %}
+                    <div class="task">
+                        <div class="info_div">
+                            <img src="{{ url_for('mentor_class.static', filename='images/book.svg') }}" alt="" class="book">
+                            <div>
+                                <p class="name">{{ anoun[0] }}, {{ anoun[1] }}</p>
+                                <p class="term">термін події..</p>
+                            </div>
+                        </div>
+                        <div class="right-head"></div>
+                    </div>
+                {% endfor %}
+                
+                <img class="add_task" src="{{ url_for('mentor_class.static', filename='images/add_task.svg') }}" alt="">
+            </div>
+        </div>
+
+        <div class="choice">
+            <p>Створити...</p>
+            <button class="announcement-btn">Оголошення</button>
+            <button>Завдання з тестом</button>
+        </div>
+
+        <div class="announcement">
+            <form action="" method="post">
+                <input type="text" class="topic" name="topic" id="" placeholder="Введіть тему завдання..." required>
+                <input type="text" class="task_info" name="task_info" id="" placeholder="Введіть інформацію про завдання..." required>
+                <button class="create_task" type="button">create</button>
+            </form>
+        </div>
+        <!-- {% for user in users_list %}
+            <p>Ім'я: {{user.username}}</p>
+            <p>Пошта: {{user.email}}</p>
+        {% endfor %} -->
+    </div>
 {% endblock content %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('mentor_class.static', filename='js/create_task.js') }}"></script>
+{% endblock scripts %}

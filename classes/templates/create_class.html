@@ -14,43 +14,37 @@
             <p>Створення класу: </p>
         </div>
 
-        <input type="text" placeholder="name" name="name">
-        <input type="text" placeholder="descrtiption" name="description">
-        <input type="text" placeholder="number" name="form">
-        <input type="text" placeholder="letter" name="letter">
-        <input type="text" placeholder="lesson" name="lesson">
-        <input type="text" placeholder="type" name="type">
-        <input type="text" placeholder="code" name="code">
-        <!-- <div class="create-class">
-            <div class="text">
-                <p>Заповніть інформацію про клас:</p>
-            </div>
+        <div class="create-class">
+            <p class="text">Заповніть інформацію про клас:</p>
             <div class="inp1">
                 <input type="text" placeholder="Назва класу" class="name" name="class_name">
                 <div class="sel">
                     <p>Оберіть клас:</p>
                     
                     <div class="sels">
-                        <button class="sel1">№</button>
+                        <button type="button" class="sel1">№</button>
                         <p>-</p>
-                        <button class="sel2">А...</button>
+                        <button type="button" class="sel2">А...</button>
                     </div>
                 </div>
             </div>
             <div class="inp">
-                <input type="text" class="inp2" placeholder="Опис класу (не обов'язково)" name="description">
+                <textarea type="text" class="inp2" placeholder="Опис класу (не обов'язково)" name="description" style="resize: none;"></textarea>
             </div>
             <div class="lstin">
-                <button class="obj">Оберіть предмет класу</button>
-                <button class="choo">тип приєднання до класу</button>
+                <button type="button" class="obj">Оберіть предмет класу</button>
+                <button type="button" class="choo">тип приєднання до класу</button>
             </div>
-        </div> -->
-        <div class="bottom-div">
-
         </div>
-        <!-- <form action="" method="post"> -->
-            <button>Створити клас</button>
-        <!-- </form> -->
+        <div class="bottom-div">
+            <button type="button" class="generate-btn">Згенерувати код</button>
+            <span class="generate-container">
+                <p>Ваш код з’явиться тут</p>
+                <p class="generated-code">якийсь згенерований код</p>
+                <hr>
+            </span>
+        </div>
+        <button id="createClassBtn">Створити клас</button>
     </form>
     
 {% endblock %}

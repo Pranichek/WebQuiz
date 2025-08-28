@@ -183,6 +183,7 @@ def render_test():
     
     return flask.render_template(
         template_name_or_list= "test.html", 
+        create_test = True,
         question_list = list_to_template,
         user = flask_login.current_user,
         cash_image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else "default"
@@ -234,12 +235,13 @@ def render_create_question():
         
         return flask.redirect("/test")
 
-    return flask.render_template(template_name_or_list= "create_question.html")
+    return flask.render_template(template_name_or_list= "create_question.html", create_test = True)
 
 @login_decorate
 def render_select_way():
     return flask.render_template(
-        template_name_or_list = "select_way.html"
+        template_name_or_list = "select_way.html",
+        create_test = True
     )
 
 @login_decorate
@@ -451,7 +453,8 @@ def render_change_question(pk: int):
         image_url = image_url,
         current_type = current_type,
         list_checks = list_checks,
-        list_urls = list_urls
+        list_urls = list_urls,
+        create_test = True
     )
 
 @socket.on("delImage")
@@ -525,7 +528,8 @@ def render_delete_only_image(pk: int):
 @login_decorate
 def render_import_test():
     return flask.render_template(
-        template_name_or_list = "import_test.html"
+        template_name_or_list = "import_test.html",
+        create_test = True
     )
 
 
@@ -570,4 +574,5 @@ def render_change_tests():
         "change_tests.html",
         test=test,
         message=message,
+        create_test = True
     )
