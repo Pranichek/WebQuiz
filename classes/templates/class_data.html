@@ -28,7 +28,7 @@
             <p> </p>
         </div>
         {% for user in users_list %}
-            <div class="user-block">
+            <div class="user-block" id="{{ user.id }}">
                 <p class="number yellow">№ {{ loop.index0 + 1 }}</p>
                 <p class="username-p">
                     <img class="image avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email + '/' + user.name_avatar ) }}" alt="avatar">
@@ -36,8 +36,13 @@
                 </p>
                 <p class="email">{{user.email}}</p>
                 <p class="yellow">13</p>
-                <img class="image" src="{{ url_for('mentor_class.static', filename='images/leave.png') }}" alt="avatar">
+                <img pk="{{ user.id }}" class="image kick" src="{{ url_for('mentor_class.static', filename='images/leave.png') }}" alt="avatar">
             </div>
         {% endfor %}
     </div>
 {% endblock content %}
+
+{% block scripts %}
+    <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('mentor_class.static', filename='js/kickFromClass.js') }}"></script>
+{% endblock %}

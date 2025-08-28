@@ -73,12 +73,13 @@ def render_student_classes():
                 
                 check_class.students = new_user
                 DATABASE.session.commit()
-                
-
-            
-
-
     return flask.render_template("student_classes.html")
 
-
-
+def render_delete_member(pk):
+    class_id = flask.request.args.get("class_id")
+    class_item = Classes.query.get(class_id)
+    users = class_item.students.split("/")
+    users.remove(str(pk))
+    new_users = "/".join(users)
+    class_item.students = new_users
+    DATABASE.session.commit()
