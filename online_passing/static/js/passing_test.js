@@ -1211,6 +1211,11 @@ socket.on("add_some_time",
         timeQuestion = parseInt(localStorage.getItem('time_question'));
         wasted_time = parseInt(timeQuestion)
         localStorage.setItem('time_question', wasted_time+15)
+
+        if (wasted_time+15 >= parseInt(localStorage.getItem('max_time'))){
+            localStorage.setItem('max_time',wasted_time+15)
+            updateCircle(wasted_time+15)
+        }
     }
 
 )
@@ -1390,7 +1395,7 @@ let progress = 0;
 
 function updateCircle(timeLeft) {
     let maxTime = parseInt(localStorage.getItem('max_time'))
-    console.log(maxTime)
+
     let progress = 360 * (maxTime - timeLeft) / maxTime;
     if (progress > 360) progress = 360;
     if (progress < 0) progress = 0;

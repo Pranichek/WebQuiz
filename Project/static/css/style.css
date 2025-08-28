@@ -5,6 +5,7 @@
     justify-content: center;
     align-items: center;
     font-family: 'Inter';
+    
 }
 
 *::-webkit-scrollbar {
@@ -13,6 +14,14 @@
 
 body{
     background-color: #3C3C3C;
+    transition: all 0.1s ease;
+    animation: fadeIn 0.5s ease forwards;
+}
+
+
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(10px);}
+    100% { opacity: 1; transform: translateY(0);}
 }
 
 

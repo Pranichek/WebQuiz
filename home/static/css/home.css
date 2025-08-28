@@ -78,6 +78,7 @@ form{
     border: solid 0.15vh black;
     border-radius: 0.8vh;
     transition: 0.3s all;
+    text-align: center;
     overflow: hidden;
 }
 
@@ -264,3 +265,54 @@ img{
     z-index: 0;
     pointer-events: none;
 }
+
+
+.input-code {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    padding: 0.5vh;
+    gap: 1vw;
+    width: 34vw;
+    border: solid 0.2vh black;
+    border-radius: 1vh;
+    box-sizing: border-box;
+}
+
+.input-code input {
+    flex: 1 1 auto;             
+    padding: 0;                
+    height: 100%;
+    border: solid 0.15vh black;
+    border-radius: 0.8vh;
+    text-align: center;
+    font-size: 2vh;              
+    overflow: hidden;            
+    text-overflow: ellipsis;     
+    white-space: nowrap;         
+    box-sizing: border-box;
+}
+
+.input-code button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 23%;
+    height: 100%;
+    font-size: 2vh;               
+    border-radius: 0.8vh;
+    border: solid 0.15vh black;
+    background-color: #8AF7D4;
+    color: black;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+    transition: 0.3s all;
+}
+
+.input-code button:hover {
+    background-color: #6ddab7;
+}
+
+

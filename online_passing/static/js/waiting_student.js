@@ -3,7 +3,7 @@ const socket = io()
 const textCode = document.querySelector(".code-text")
 textCode.textContent = localStorage.getItem("room_code")
 
-let stored = localStorage.getItem("users_answers"); [0, "kjndfkjn"]
+let stored = localStorage.getItem("users_answers"); 
 let answers = stored.split(",")
 let lastAnswers = answers[answers.length - 1]
 
