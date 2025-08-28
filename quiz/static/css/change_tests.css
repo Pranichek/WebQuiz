@@ -73,6 +73,11 @@
     color: #ffffff;
     font-weight: 400;
 }
+#text-for-info:disabled {
+    color: #ffffff;
+    cursor: not-allowed;
+}
+
 
 .buttons{
     height: 100%;
@@ -114,6 +119,7 @@
     width: max-content; /* или 100%, если хочешь растянуть */
     font-size: 1vw;
     color: white;
+    padding-right: 2%;
 }
 
 .text{
@@ -156,12 +162,23 @@
     font-weight: 400;
     cursor: pointer;
 }
+.hidden-list {
+    display: none;
+}
+.visible {
+    display: block;
+}
+
 
 
 .show_more_velocity{
     transition: 0.3s ease;
     transform: rotate(180deg);
 }
+.show_more_velocity img{
+    margin-right: 2%;
+}
+
 li{
     border-bottom: 0.1vw #5c6b7d solid;
     text-align: center;

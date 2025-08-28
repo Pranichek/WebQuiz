@@ -5,6 +5,11 @@
 {% endblock links %}
 
 {% block content %}
+    <form action="" method="post">
+        <input type="text" class="name" name="name" style="display: none;" class="input_theme" disabled>
+        <input type="text" class="name-category" name="name" style="display: none;" class="input_theme" disabled>
+    </form>
+
     <img class="back1" src="{{ url_for('test_pass.static', filename='images/back1.png') }}" alt="">
     <img class="back2" src="{{ url_for('test_pass.static', filename='images/back2.png') }}" alt="">
     <div class="information-test">
@@ -15,14 +20,14 @@
             <div class="first-part">
                 <div class="category-test">
                     <p id="info-text">категорія: 
-                        <span id="text-for-info">{{ test.category }}</span>
+                        <span class="text11" id="text-for-info">{{ test.category }}</span>
                     </p>
                 </div>
                 <div class="buttons">
                     <div class="type">
                         <div class="type-p timer-p" id="time">
                             <div class="time-select">
-                                <span class="text"></span>
+                                <span class="text">Оберіть категорію тесту</span>
                                 <img sty class="show_more_velocity" src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt="">
 
                             </div>
@@ -43,11 +48,11 @@
             <div class="second-part">
                 <div class="theme-test">
                     <p id="info-text">тема: 
-                        <span id="text-for-info">{{ test.title_test }}</span>
+                        <input type="text" id="text-for-info" data-name="{{ test.title_test }}" value="{{ test.title_test }}" class="input_theme" disabled>
                     </p>
                 </div>
                 <div class="btn-for-edit">
-                    <button class="edit-btn">Редагувати</button>
+                    <button type="button" class="edit-btn">Редагувати</button>
                 </div>
             </div>
             <div class="creator-test">
@@ -172,8 +177,9 @@
 {% endblock %}
 
 {% block scripts %}
-    <script src="{{ url_for('test_pass.static', filename = 'js/test_cookie.js') }}"></script>
-    <script src="{{ url_for('test_pass.static', filename = 'js/test.js') }}"></script>
-    <script src="{{ url_for('test_pass.static', filename='js/test_category.js') }}"></script>
-    <script src="{{ url_for('test_pass.static', filename='js/createTest.js') }}" defer></script>
+    <!-- <script src="{{ url_for('test_pass.static', filename = 'js/test_cookie.js') }}"></script> -->
+    <!-- <script src="{{ url_for('test_pass.static', filename = 'js/test.js') }}"></script> -->
+    <!-- <script src="{{ url_for('test_pass.static', filename='js/test_category.js') }}"></script> -->
+    <!-- <script src="{{ url_for('test_pass.static', filename='js/createTest.js') }}" defer></script> -->
+    <script src="{{ url_for('test_pass.static', filename='js/change_test.js') }}"></script>
 {% endblock scripts %}

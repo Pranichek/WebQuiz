@@ -20,6 +20,7 @@ from .generate_image import return_img
 from Project.login_check import login_decorate
 from home.models import User
 from Project.socket_config import socket
+from .apps import change_tests
 
 @login_decorate
 def render_test():
@@ -532,6 +533,7 @@ def render_import_test():
     )
 
 
+@change_tests.route('/change_test', methods=['GET', 'POST'])
 @login_decorate
 def render_change_tests():
     user = User.query.get(flask_login.current_user.id)
@@ -544,19 +546,32 @@ def render_change_tests():
     test = Test.query.filter_by(id=test_id, user_id=user.id).first()
     if not test:
         return 
+    
     if flask.request.method == "POST":
-        new_name = flask.request.form.get("new_name")
-        if new_name:
-            existing_test = Test.query.filter_by(user_id=user.id, title_test=new_name).first()
-            if existing_test:
-                message = "Тест із такою назвою вже є"
-            else:
-                old_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(test.title_test)))
-                new_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(new_name)))
-                os.rename(old_path, new_path)
-                test.title_test = new_name
-                DATABASE.session.commit()
-                message = "Назву змінено успішно"
+        name = flask.request.form.get("name")
+        category_test = flask.request.form.get("name-category")
+
+        if name and test.title_test != name:
+            test.title_test = name
+
+        if category_test and test.category != category_test:
+            test.category = category_test
+            
+        DATABASE.session.commit()
+
+
+        # new_name = flask.request.form.get("new_name")
+        # if new_name:
+        #     existing_test = Test.query.filter_by(user_id=user.id, title_test=new_name).first()
+        #     if existing_test:
+        #         message = "Тест із такою назвою вже є"
+        #     else:
+        #         old_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(test.title_test)))
+        #         new_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(new_name)))
+        #         os.rename(old_path, new_path)
+        #         test.title_test = new_name
+        #         DATABASE.session.commit()
+        #         message = "Назву змінено успішно"
 
         delete_id = flask.request.form.get("delete-id")
         if delete_id:
