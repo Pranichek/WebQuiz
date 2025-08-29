@@ -46,7 +46,7 @@ btn2.addEventListener(
             newList2.className = "list2";
             btn2.appendChild(newList2);
 
-            const alph = ["А", "Б", "В", "Г", "Д"]
+            const alph = ["А", "Б", "В", "Г", "Д", "І"]
             for (let i = 0; i <= alph.length - 1; i++) {
                 let newBox2 = document.createElement("div");
                 newBox2.className = "box";
@@ -103,7 +103,7 @@ btn4.addEventListener(
             newList4.className = "list4";
             btn4.appendChild(newList4);
 
-            const type = ["Лише за кодом", "Лише за запрошенням", "Відкритий для всіх"]
+            const type = ["Лише за кодом", "Лише за запрошенням"]
             for (let i = 0; i <= type.length - 1; i++) {
                 let newBox4 = document.createElement("div");
                 let circle = document.createElement("div");
@@ -120,5 +120,4 @@ btn4.addEventListener(
             }
     }
 )
-
 
