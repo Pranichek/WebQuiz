@@ -79,6 +79,24 @@ def render_data_class():
         ready_anoun = ready_anoun
     )
 
+def render_list_student():
+    class_id = flask.request.args.get("class_id")
+    class_item = Classes.query.get(class_id)
+    users = class_item.students.split("/")
+    try:
+        users.remove("")
+    except:
+        pass
+
+    users_list = []
+    for user in users:
+        users_list.append(User.query.get(int(user)))
+
+    return flask.render_template(
+        'list_student.html',
+        users_list = users_list
+    )
+
 @socket.on("create_task")
 def create_task(data):
     class_id = int(data["class_id"])

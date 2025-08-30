@@ -14,11 +14,14 @@
 }
 .class{
     width: 25vw;
-    height: 45vh;
-    background-color: #b9bdf57e;
-    border-radius: 25px;
-    border: 2px solid #000000;
+    height: 35vh;
+    margin-top: 3vh;
+    background-color: rgb(185, 189, 245, 0.54);
+    border-radius: 2.5vh;
+    border: 0.2vh solid #000000;
     color: #ffff;
+    display: flex;
+    justify-content: flex-start;
 }
 .head{
     width: 24.9vw;
@@ -30,27 +33,28 @@
     flex-direction: column;
 }
 .texts{
-    padding-left: 13px;
-    margin-top: 51px;
+    padding-left: 1.3vw;
+    margin-top: 2vh;
 }
 .big-txt{
-    font-size: 16px;
+    font-size: 1.6vh;
     display: flex;
-    gap: 8px;
+    gap: 0.8vh;
     flex-direction: column;
     align-items: start;
+    white-space: nowrap;
 }
 .mini-txt{
-    font-size: 10px;
+    font-size: 1vh;
     margin-top: 5vh;
 }
 .robo{
     margin-left: 18vw;
-    margin-top: -6vh;
+    margin-top: 6vh;
 }
 .students{
     width: 25vw;
-    height: 15vh;
+    height: 20vh;
     display: flex;
     flex-direction: column;
     color: #ffff;
@@ -58,13 +62,15 @@
     align-items: start;
     padding-left: 2vw;
     border: 2px solid #000000;
-    background-color: #c48af749;
-    border-radius: 25px;
+    background-color: rgb(185, 189, 245, 0.54);
+    border-radius: 2.5vh;
     margin-top: 5vh;
 }
 .btn{
-    width: 15vw;
+    width: 25vw;
     height: 5vh;
+    font-size: 2vh;
+    font-weight: 600;
     background-color: #C48AF7;
     border-radius: 5px;
     color: #ffff;
@@ -73,6 +79,25 @@
 }
 button{
     cursor: pointer;
+}
+
+.link-student{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.list_student{
+    width: 14vw;
+    height: 3.5vh;
+    background-color: rgb(148, 196, 255, 0.75);
+    border: 0;
+    border-radius: 1vh;
+    color: #ffff;
+    font-size: 1.6vh;
+    font-weight: 700;
+    margin-right: 3vw;
 }
 .head-btns{
     width: 65vw;
@@ -175,12 +200,13 @@ button{
 
 .choice{
     display: flex;
+    width: 16vw;
+    height: 30vh;
     flex-direction: column;
-    padding: 2vw 2vw; 
     background-color: #3C3C3C;
-    border-radius: 54px;
-    border: 2px solid #94C4FF;
-    gap: 1vh;
+    border-radius: 5.4vh;
+    border: 0.2vh solid #94C4FF;
+    gap: 4vh;
     position: absolute;
     display: none;
 }
@@ -193,24 +219,144 @@ button{
 
 .choice button{
     color: #ffffff;
-    font-size: 1vw;
+    width: 10vw;
+    font-size: 1.9vh;
     font-weight: 500;
     padding: 0.5vw 0.8vw;
     background-color: #C48AF7;
-    border-radius: 5px;
+    border-radius: 0.5vh;
     border: none;
+    white-space: nowrap;
 }
 
 .announcement{
+    display: flex;
+    width: 25vw;
+    height: 37vh;
+    flex-direction: column;
+    padding: 2vw 2vw; 
+    background-color: #3C3C3C;
+    border-radius: 5.4vh;
+    border: 0.2vh solid #94C4FF;
+    gap: 1vh;
     position: absolute;
-    padding: 3vw;
-    background-color: red;
     display: none;
 }
 
 .announcement form{
     display: flex;
-    flex-direction: column;
-    gap: 2vw;
+    flex-direction: column; 
+    gap: 2vh;
 }
 
+.announcement p{
+    color: #ffffff;
+    font-size: 2.5vh;
+    font-weight: 500;
+    white-space: nowrap;
+}
+
+.topic_div {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1vh;
+}
+
+.topic{
+    width: 15vw;
+    height: 5vh;
+    background-color: #D9D9D9;
+    border: none;
+    border-radius: 2vh;
+    padding-left: 1vh;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 700;
+    font-size: 1.8vh;
+}
+
+.circle_img{
+    width: 5vh;
+    height: 5vh;
+    border: 0.1vh solid #ffff;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add_img_task{
+    width: 2.5vh;
+    height: 2.5vh;
+    cursor: pointer;
+}
+
+.task_info {
+    width: 21vw;
+    height: 5vh;
+    background-color: #D9D9D9;
+    border: none;
+    border-radius: 2vh;
+    padding-left: 1vh;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 700;
+    font-size: 1.8vh;
+    margin-bottom: 1vh;
+}
+
+.termin_div {
+    width: 21vw;
+    height: 5vh;
+    padding-left: 1vh;
+    color: rgba(0, 0, 0, 0.5);
+    white-space: nowrap;
+    display: flex;
+    flex-direction: row;
+    color: #fff;
+}
+
+.termin_div p{
+    margin-right: 1vh; 
+    font-size: 1.4vh; 
+}
+
+.date { 
+    display: flex;
+    flex-direction: row;
+    background-color: #D9D9D9;
+    padding-left: 1vh;
+    border-radius: 1vh;
+}
+
+.date p {
+    font-size: 0.9vh;
+    padding-top: 10%;
+    color: rgba(0, 0, 0, 0.5); 
+}
+
+.date_input {
+    width: 3vh;
+    height: 3vh;
+    border: none;
+    border-radius: 0.5vh;
+    font-size: 1.5vh;
+    text-align: center;
+    color: #EFAE0A;
+    font-weight: 700;
+}
+
+.create_task {
+    position: relative;
+    width: 8vw;
+    height: 4vh;
+    background-color: #C48AF7;
+    border-radius: 1vh;
+    color: #ffff;
+    border: transparent;
+    margin-top: 1vh;
+    font-size: 1.5vh;
+    font-weight: 700;
+    cursor: pointer;
+}

@@ -13,7 +13,7 @@
         <div class="left">
             <div class="minis">
                 <div class="class">
-                    <img src="{{ url_for('mentor_class.static', filename='images/head.svg') }}" alt="" class="head">
+                    
                     <div class="texts">
                         <div class="big-txt">
                             <p>Назва класу: додаткові заняття</p>
@@ -26,8 +26,10 @@
                 </div>
                 <div class="students">
                     <p>Предмет: математика</p>
-                    <p>Кількість учнів: 10</p>
-                    <button>Перейти до списку учнів</button>
+                    <p>Кількість учнів: <span style="color:#FFB700; font-weight: 700;">10</span></p>
+                    <a href="/list_student" class="link-student">
+                        <button class="list_student">Перейти до списку учнів</button>
+                    </a>
                 </div>
                 <button class="btn">Переглянути успішність класу</button>
             </div>
@@ -63,9 +65,33 @@
 
         <div class="announcement">
             <form action="" method="post">
-                <input type="text" class="topic" name="topic" id="" placeholder="Введіть тему завдання..." required>
-                <input type="text" class="task_info" name="task_info" id="" placeholder="Введіть інформацію про завдання..." required>
-                <button class="create_task" type="button">create</button>
+                <p>Створення завдання для учнів</p>
+                
+                    <div class="topic_div">
+                        <input type="text" class="topic" name="topic" id="" placeholder="Введіть тему завдання..." required>
+                        <div class="circle_img">
+                            <img class="add_img_task" src="{{ url_for('mentor_class.static', filename='images/add_img_task.svg') }}" alt="">
+                        </div>
+                    </div>
+                    <input type="text" class="task_info" name="task_info" id="" placeholder="Введіть інформацію про завдання..." required>
+
+                    <div class="termin_div">
+                        <p>Задати термін:</p>
+                        <div class="date">
+                            <input type="text" class="date_input" name="weeks" id="">
+                            <p>тижнів</p>
+                            <input type="text" class="date_input" name="days" id="">
+                            <p>днів</p>
+                            <input type="text" class="date_input" name="hours" id="">
+                            <p>годин</p>
+                            <input type="text" class="date_input" name="seconds" id="">
+                            <p>хвилин</p>
+                        </div>
+                    </div>
+
+                    <div style="display: flex;width: 100%; justify-content: flex-end; ">
+                        <button class="create_task" type="button">Створити задвання</button>
+                    </div>
             </form>
         </div>
         <!-- {% for user in users_list %}
