@@ -154,12 +154,15 @@ socket.on("test_result", (data) => {
                     // Для одиночных правильных ответов
                     if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
                         circle.className = "correct-circle";
-
+                        console.log(1)
                     } else if (correctForThisQuestion.includes(index) && !userAnswersForThisQuestion.includes(index)) {
+                        console.log(2)
                         circle.className = "right-circle"; // Правильный вариант, но не выбран
                     }else if (userAnswersForThisQuestion.includes(index) && !correctForThisQuestion.includes(index)) {
+                        console.log(3)
                         circle.className = "uncorrect-circle"; // Неправильный ответ
                     } else {
+                        console.log(4)
                         circle.className = "simple-circle"; // Ответ не выбран
                     }
                     // }

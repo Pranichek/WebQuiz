@@ -5,6 +5,8 @@ from flask_socketio import emit
 from home.models import User
 from Project.login_check import login_decorate
 from Project.socket_config import socket
+import datetime, pytz
+from datetime import timedelta
 
 def render_create_class():
     if flask.request.method == "POST":
@@ -96,6 +98,47 @@ def create_task(data):
     
     class_item.theme_task = "/".join(old_topics)
     class_item.information_task = "/".join(old_information)
+    # ------------- get time
+
+    weeks = float(data["weeks"]) if data["weeks"].isdigit() else 0 
+    days = float(data["days"]) if data["days"].isdigit() else 0
+    hours = float(data["hours"]) if data["hours"].isdigit() else 0
+    minutes = float(data["minutes"]) if data["minutes"].isdigit() else 0
+
+    time_zone = pytz.timezone("Europe/Kiev")
+    ukraine_time = datetime.datetime.now(time_zone)
+    ukraine_time = ukraine_time.strftime("%Y-%m-%d %H:%M:%S").split()
+
+    data_year = ukraine_time[0].split("-")
+    data_time = ukraine_time[1].split(":")
+
+    data_year = "/".join(data_year)
+    data_time = "/".join(data_time)
+
+
+    final_time_data = data_year + "/" + data_time
+
+    term_time = datetime.datetime.now(time_zone) + timedelta(weeks=weeks, days=days, hours=hours, minutes=minutes)
+    term_time = str(term_time).split() # "2025-09-01 14:08:19.530785+03:00"
+
+    data_year = term_time[0].split("-")
+    data_time = term_time[1].split(".")[0].split(":")
+
+    data_year = "/".join(data_year)
+    data_time = "/".join(data_time)
+
+    final_term = data_year + "/" + data_time # 2025/09/01/14/10/37
+
+
+    old_time = class_item.start_time.split("@")
+    old_terms = class_item.term_task.split("@")
+
+    old_time.append(final_time_data)
+    old_terms.append(final_term)  
+    
+    class_item.start_time = "@".join(old_time)
+    class_item.term_task = "@".join(old_terms)
+    
     DATABASE.session.commit()
 
 
