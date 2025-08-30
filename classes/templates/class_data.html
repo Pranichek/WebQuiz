@@ -58,16 +58,96 @@
         <div class="choice">
             <p>Створити...</p>
             <button class="announcement-btn">Оголошення</button>
-            <button>Завдання з тестом</button>
+            <button class="test_task-btn">Завдання з тестом</button>
         </div>
 
         <div class="announcement">
             <form action="" method="post">
-                <input type="text" class="topic" name="topic" id="" placeholder="Введіть тему завдання..." required>
+                <p>Створення завдання для учнів</p>
+                <div class="fix-form">
+                    <input type="text" class="topic" name="topic" id="" placeholder="Введіть тему завдання..." required>
+                    <img class="img-class" src="{{ url_for('mentor_class.static', filename='images/add-img-class.svg') }}" alt="">
+                </div>
                 <input type="text" class="task_info" name="task_info" id="" placeholder="Введіть інформацію про завдання..." required>
-                <button class="create_task" type="button">create</button>
+                <div class="term-form">
+                    <p>Задати термін: </p>
+                    <div class="input-term">
+                        <input type="text" class="term-num" name="term-num">
+                        <p class="text-term">тижнів</p>
+                        <input type="text" class="term-num" name="term-num">
+                        <p class="text-term">днів</p>
+                        <input type="text" class="term-num" name="term-num">
+                        <p class="text-term">годин</p>
+                        <input type="text" class="term-num" name="term-num">
+                        <p class="text-term">хвилин</p>
+                    </div>
+                </div>
+                <button class="create_task" type="button">Створити завдання</button>
             </form>
         </div>
+
+        <div class="test_task">
+            <form action="" method="post">
+                <p>Створення завдання для учнів</p>
+                <input type="text" class="test_task_info" name="test_task_info" id="" placeholder="Введіть інформацію про завдання..." required>
+                <button class="choose-test" type="button">Обрати тест з колекції</button>
+            </form>
+        </div>
+
+        <div class="next_test_task">
+            <form action="" method="post">
+                <p>Створення завдання для учнів</p>
+                <input type="text" class="next_test_task_info" name="next_test_task_info" id="" placeholder="Введіть інформацію про завдання..." required>
+                <div class="choosen-test">
+                    <p>Обраний тест: </p>
+                    <!-- обраний тест -->
+                </div>
+                <div class="setting-test">
+                    <div class="upper-div">
+                        <div class="first-column">
+                            <p class="set-text">Налаштування для тесту: </p>
+                            <p class="set-text">Перемішувати питання тесту?</p>
+                            <p class="set-text">Перемішувати відповіді тесту?</p>
+                            <p class="set-text">Вимкнути обмеження часу у тесті</p>
+                        </div>
+                            
+                        <div class="select-section">
+                            <div class="second-column">
+                                <p class="set-text">Так</p>
+                                
+                            </div>
+                            <div class="third-column">
+                                <p class="set-text">Ні</p>
+                                
+                            </div>
+                        </div>
+                    </div>
+                
+                    <div class="div-for-term">
+                        <div class="select-term">
+                            <p class="set-text">Термін: </p>
+                            <div class="else-input-term">
+                                <input type="text" class="term-num" name="term-num">
+                                <p class="text-term">тижнів</p>
+                                <input type="text" class="term-num" name="term-num">
+                                <p class="text-term">днів</p>
+                                <input type="text" class="term-num" name="term-num">
+                                <p class="text-term">годин</p>
+                                <input type="text" class="term-num" name="term-num">
+                                <p class="text-term">хвилин</p>
+                            </div> 
+                        </div>
+                        <div class="without-term">
+                            <p class="set-text">Без терміну </p>
+                            <!-- <button></button> -->
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="create_test_task" type="button">Створити завдання</button>
+            </form>
+        </div>
+
         <!-- {% for user in users_list %}
             <p>Ім'я: {{user.username}}</p>
             <p>Пошта: {{user.email}}</p>
