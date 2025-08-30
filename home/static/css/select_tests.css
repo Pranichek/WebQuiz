@@ -299,10 +299,8 @@ input[type="checkbox"].category-input:checked {
 }
 
 .card:hover{
-    transition: 0.5s ease;
-    width: 375px;
-    height: 220px;
-    transform: translateY(-20px);
+    transition: 0.3s ease;
+    transform: translateY(-0.3vh);
     box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
 }
 

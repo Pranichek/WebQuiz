@@ -6,7 +6,6 @@ const StartButton = document.getElementById("apple")
 StartButton.addEventListener(
     'click',
     () => {
-        // ShowMessage("Упс.. Виникла помилка!Перевірте будь-ласка, чи все ви відмітили")
         if (StartButton.type == "button"){
             ShowMessage("Упс.. Виникла помилка!Перевірте будь-ласка, чи все ви відмітили")
         }

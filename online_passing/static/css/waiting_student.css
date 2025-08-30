@@ -16,7 +16,9 @@
     display: flex;
     flex-direction: column;
     gap: 3vh;
+    /* overflow: hidden; */
 }
+
 
 .block-answer {
     height: 55vh;
@@ -24,7 +26,22 @@
     border: 0.1vh solid #94C4FF;
     border-radius: 2vh;
     width: 95vw;
+    position: relative;
+    overflow: hidden;
 }
+
+.gradient{
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    background: linear-gradient(99deg, #3C3C3C 10%, #C48AF7 20%, #b679ec 77%, #3C3C3C 5%);
+    filter: blur(6.25vw);
+    opacity: 0.2;
+    z-index: -1;
+}
+
 
 .line-answer {
     margin: 3vh 5vw 3vh 5vw;
@@ -42,7 +59,7 @@
     border-radius: 0.5vh;
     background-color: rgba(255, 255, 255, 0.16);
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     font-size: 4vh;
     color: #ffff;
@@ -86,7 +103,11 @@
     flex-direction: column;
     position: relative;
     overflow: visible;
-    transition: height 0.3s ease; 
+    transition: transform 0.3s ease, box-shadow 0.3s ease; 
+}
+
+.answer2:hover{
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4);
 }
 
 .arrow-btn {
@@ -194,6 +215,36 @@
     border: 0.1vh solid #94C4FF;
     border-radius: 2vh;
     width: 95vw;
+    position: relative;
+}
+
+.outline-accuracy{
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    overflow: hidden;
+    border-radius: 2vh;
+    z-index: -1;
+}
+
+.accuracy-gradient{
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    background: linear-gradient(
+            90deg, 
+            #C49BE9 0%,    
+            #3C3C3C 20%,    
+            #70E6C1 50%,    
+            #3C3C3C 80%,   
+            #C49BE9 100%   
+        );    filter: blur(6.25vw);
+    z-index: -1;
+    opacity: 0.5;
 }
 
 .accuracy-rate {
@@ -219,8 +270,6 @@
     gap: 3vw;
     justify-content: center;
     align-items: center;
-    opacity: 0;
-    transform: translateY(10vh); 
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
@@ -240,6 +289,11 @@
     border-radius: 1vh;
     align-items: center;
     justify-content: center;
+    transition: 0.01s ease-in;
+}
+
+.right:hover{
+    border: 0.15vh solid #7ff6d0;
 }
 
 .wrong {
@@ -253,6 +307,11 @@
     border-radius: 1vh;
     align-items: center;
     justify-content: center;
+    transition: 0.01s ease-in;
+}
+
+.wrong:hover{
+    border: 0.15vh solid #e9424b;
 }
 
 .fill{
@@ -282,6 +341,7 @@
     left: 80%;
     position: absolute;
 }
+
 .quard{
     position: absolute;
     height: 4vh;
@@ -295,6 +355,10 @@
 .quard img {
     width: 8vh;
     z-index: 100;
+}
+
+img {
+  filter: drop-shadow(0 0 20px rgba(115, 238, 115, 0.492));
 }
 
 .loading img {

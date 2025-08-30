@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title%}
+
+{% endblock%}
+
+{% block links %}
+     <link rel="stylesheet" href="{{ url_for('student_class.static', filename = 'css/student_classes.css') }}">
+{% endblock %}
+
+{% block content %}
+    <form action="" method="post">
+        <input type="text" name="code">
+        <button>приєднатися до класу<button>
+    </form>
+{% endblock%}

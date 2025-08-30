@@ -25,8 +25,6 @@ body {
     display: flex;
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 10px;
-    margin-bottom: 10vh;
-    margin-bottom: 30px;
     background-color: green;
 }
 
@@ -178,7 +176,12 @@ span {
 .question-bg {
     background-color: #2D2D2D;
     border-radius: 5px;
+    max-width: 90%;
     padding: 10px;
+    white-space: normal;     
+    word-wrap: break-word;  
+    overflow-wrap: break-word; 
+    text-align: center;
 }
 
 #end-test {

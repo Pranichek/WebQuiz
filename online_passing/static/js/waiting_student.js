@@ -3,7 +3,7 @@ const socket = io()
 const textCode = document.querySelector(".code-text")
 textCode.textContent = localStorage.getItem("room_code")
 
-let stored = localStorage.getItem("users_answers"); [0, "kjndfkjn"]
+let stored = localStorage.getItem("users_answers"); 
 let answers = stored.split(",")
 let lastAnswers = answers[answers.length - 1]
 
@@ -29,13 +29,14 @@ socket.on("show_data",
 
         const cont = document.querySelector(".answer1");
         cont.innerHTML = "";
-
+        document.querySelector(".answer1").style.justifyContent = "center"
 
         if (data["image"] !== "not") {
             const img = document.createElement("img");
             img.src = data["image"];
             img.style.width = "50%";
             img.style.height = "100%";
+            document.querySelector(".answer1").style.justifyContent = "space-between"
             cont.appendChild(img);
         }
 
@@ -100,7 +101,7 @@ socket.on("show_data",
                     arrowImg.style.height = "2vh";
                     arrowBtn.appendChild(arrowImg);
 
-                    arrowBtn.onclick = () => {
+                    outline.onclick = () => {
                         let imgBlock = outline.querySelector(".answer2with-image");
                         if (!imgBlock) {
                             imgBlock = document.createElement("div");
@@ -116,8 +117,8 @@ socket.on("show_data",
                         const isOpen = imgBlock.classList.toggle("open");
                         arrowImg.style.transform = isOpen ? "rotate(180deg)" : "rotate(0deg)";
 
-                       
                     };
+
 
                     outline.appendChild(arrowBtn);
                 }
@@ -152,13 +153,22 @@ socket.on("show_data",
             container.appendChild(answerOutline);
         }
 
-       
+
+
+        // Точность
         const accuracyRateText = document.querySelector(".text-perc p");
         if (accuracyRateText) {
             accuracyRateText.textContent = `Точність: ${Math.round(data.accuracy)}%`;
         }
 
+        // потраченное время на вопрос
+        try {
+            document.querySelector(".nickname-time").textContent = localStorage.getItem("question_time")
+        } catch (error) {
+            console.log(error)
+        }
 
+        // Правильные/неправильные ответы
         const rightBlock = document.querySelector(".right");
         const wrongBlock = document.querySelector(".wrong");
         if (rightBlock) rightBlock.textContent = `${data.right_answers} вірно!`;

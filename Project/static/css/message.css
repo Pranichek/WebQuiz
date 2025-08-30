@@ -1,23 +1,24 @@
-.message{
+.message {
     background-color: #343434;
     border: 2px #C48AF7 solid;
     width: 20vw;
     align-items: stretch; 
     padding: 1vh 0;
     border-radius: 12px;
-    position: relative;
+    position: fixed;   
     display: flex;
     flex-direction: row;
     justify-content: center;
-    position: absolute;
     left: -50%;
     bottom: 1.5%;
     transition: 0.5s ease;
+    z-index: 1000;     
 }
 
-.show{
+.show {
     left: 1%;
 }
+
 
 .box-message{
     width: 79%;

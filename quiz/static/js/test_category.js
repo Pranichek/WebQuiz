@@ -8,10 +8,10 @@ time.addEventListener("click", ()=>{
     if (timeList.classList.contains("hidden-list")){
         timeList.classList.remove("hidden-list");
         timeList.classList.add("visible");
-        document.querySelector(".show_more_velocity").style.transform = "rotate(0deg)";
+        document.querySelector(".show_more_velocity").style.transform = "rotate(180deg)";
     } else{
         timeList.classList.add("hidden-list");
-        document.querySelector(".show_more_velocity").style.transform = "rotate(180deg)";
+        document.querySelector(".show_more_velocity").style.transform = "rotate(0deg)";
     }
     
 })

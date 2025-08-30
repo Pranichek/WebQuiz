@@ -157,8 +157,8 @@ def render_data_test():
             question_list = list_final,
             img_test = img_test,
             user = current_user,
-            img_part = test.image.split('/')[1] if img_test == 'default' else test.image
-
+            img_part = test.image.split('/')[1] if img_test == 'default' else test.image,
+            test_data = True
         )
     )
     return response

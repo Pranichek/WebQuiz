@@ -5,6 +5,7 @@
 {% endblock links %}
 
 {% block content %}
+    <span data-cross="{{ url_for('mentor.static', filename='images/cross_student.svg') }}" class="hide-ava"></span>
     <div class="test-part">
         <div class="question-test">
             <div class="num-question">
@@ -72,7 +73,14 @@
     </div>
 
     <div class="users">
-        <p class="count-answered">відповіли  5 / <span class="count-people">12</span></p>
+        <div class="count-answered">
+            <p class="count-answered-people"></p>
+            <span class="count-people"></span>
+        </div>
+        
+        <div class="outline-users">
+
+        </div>
     </div>
 {% endblock content %}
 

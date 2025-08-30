@@ -231,7 +231,6 @@ for (let img of images){
     img.addEventListener(
         'click',
         () => {
-            console.log(12)
             if (img.classList.contains("click-sort") || img.classList.contains("click-filter")){
                 if (img.classList.contains("click-sort")){
                     if (document.querySelector(".filter-part").classList.contains("hide")){
