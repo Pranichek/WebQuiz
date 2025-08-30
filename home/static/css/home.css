@@ -1,49 +1,58 @@
-body {
+main {
     display: flex;
     flex-direction: column;
+    height: 90vh;
+    width: 100vw;
     align-items: center;
+    justify-content: start;
     margin: 0;
     padding: 0;
     background-color: #3C3C3C;
     color: white;
+    overflow: hidden;
 }
 
-.background-blur {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(170deg, #3C3C3C 10%, #7c9abd 20%, #74919E 42%, #3C3C3C 5%);
-    filter: blur(100px);
-    z-index: -1;
-    pointer-events: none;
-}
 
 form{
     z-index: 1;
 }
 
 .join-game {
+    margin-top: 4vh;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 10px;
-    /* border: 2px green solid; */
     width: 100vw;
     height: 35vh;
     padding-top: 2vh;
+    z-index: 10;
+}
+
+.background-blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(190deg, #3C3C3C 10%, #db67ba 20%, #6aa0b9 42%, #3C3C3C 5%);
+    filter: blur(100px);
+    z-index: 0;
+    pointer-events: none;
 }
 
 
 .join-game h1 {
     font-size: 2.8vw;
+    z-index: 10;
 }
 
 .join-game p {
     font-size: 1.7vw;;
+    z-index: 10;
 }
 
 .input-code {
@@ -54,8 +63,9 @@ form{
     padding: 0.6vh;
     gap: 1vw;
     width: 34vw; 
-    border: solid 0.15vh black;
-    border-radius: 1vh;
+    border: solid 0.2vh black;
+    border-radius: 3.4vh;
+    background-color: pink;
 }
 
 .input-code input {
@@ -63,8 +73,8 @@ form{
     border: none;
     width: 77%;
     font-size: 1rem; 
-    border: solid 0.15vh black;
-    border-radius: 0.8vh;
+    border: solid 0.17vh black;
+    border-radius: 100vh;
 }
 
 .input-code button {
@@ -88,15 +98,15 @@ form{
 
 .cointeiner {
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
     display: flex;
     position: fixed;
-    top: 0;
+    bottom: 0;
     justify-content: center;
     flex-direction: row;
     align-items: end;
-    overflow: hidden;   
-    padding-bottom: 40px; 
+    overflow: hidden;  
+    z-index: 0; 
 }
 
 .card {
@@ -225,26 +235,33 @@ img{
   box-shadow: 0 20px 35px rgba(169, 172, 172, 0.4); 
   filter: brightness(1.05);
   z-index: 11;
+  transform: rotate(0deg);
+  margin-bottom: 1vw;
 }
 
 .transition2:hover {
   transform: translateY(0px) translateX(100px) rotate(-11deg) scale(1.08);
+  transform: rotate(0deg);
 }
 
 .transition3:hover {
   transform: translateY(0px) translateX(50px) rotate(-11deg) scale(1.08);
+  transform: rotate(0deg);
 }
 
 .transition4:hover {
   transform: translateY(-20px) translateX(0) rotate(0deg) scale(1.08);
+  transform: rotate(0deg);
 }
 
 .transition5:hover {
   transform: translateY(0px) translateX(-50px) rotate(11deg) scale(1.08);
+  transform: rotate(0deg);
 }
 
 .transition6:hover {
   transform: translateY(0px) translateX(-100px) rotate(11deg) scale(1.08);
+  transform: rotate(0deg);
 }
 
 
@@ -254,7 +271,7 @@ img{
 .blur-background {
     position: absolute;
     bottom: 5vh;
-    width: 70vw;
+    width: 80vw;
     height: 35vh;
     background: radial-gradient(
         ellipse at center,
@@ -272,20 +289,21 @@ img{
     flex-direction: row;
     align-items: center;
     background-color: white;
-    padding: 0.5vh;
-    gap: 1vw;
+    padding: 0.7vh;
+    gap: 5px;
     width: 34vw;
     border: solid 0.2vh black;
-    border-radius: 1vh;
+    border-radius: 2.1vh;
     box-sizing: border-box;
 }
 
 .input-code input {
     flex: 1 1 auto;             
     padding: 0;                
-    height: 100%;
-    border: solid 0.15vh black;
-    border-radius: 0.8vh;
+    height: 110%;
+    font-weight: 500;
+    border: solid 0.2vh black;
+    border-radius: 1.5vh;
     text-align: center;
     font-size: 2vh;              
     overflow: hidden;            
@@ -298,11 +316,14 @@ img{
     display: flex;
     justify-content: center;
     align-items: center;
+    padding-top: 1.2vh;
+    padding-bottom: 1.2vh;
     width: 23%;
-    height: 100%;
-    font-size: 2vh;               
-    border-radius: 0.8vh;
-    border: solid 0.15vh black;
+    height: 110%;
+    font-size: 1.7vh;  
+    font-weight: 500;             
+    border-radius: 1.5vh;
+    border: solid 0.2vh black;
     background-color: #8AF7D4;
     color: black;
     cursor: pointer;

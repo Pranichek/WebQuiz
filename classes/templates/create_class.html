@@ -14,12 +14,6 @@
             <p>Створення класу: </p>
         </div>
 
-        <!-- <input type="text" placeholder="name" name="name">
-        <input type="text" placeholder="descrtiption" name="description">
-        <input type="text" placeholder="number" name="form">
-        <input type="text" placeholder="letter" name="letter">
-        <input type="text" placeholder="lesson" name="lesson">
-        <input type="text" placeholder="type" name="type"> -->
         <div class="create-class">
             <p class="text">Заповніть інформацію про клас:</p>
             <div class="inp1">
@@ -35,7 +29,7 @@
                 </div>
             </div>
             <div class="inp">
-                <textarea type="text" class="inp2" placeholder="Опис класу (не обов'язково)" name="description"></textarea>
+                <textarea type="text" class="inp2" placeholder="Опис класу (не обов'язково)" name="description" style="resize: none;"></textarea>
             </div>
             <div class="lstin">
                 <button type="button" class="obj">Оберіть предмет класу</button>
@@ -50,9 +44,7 @@
                 <hr>
             </span>
         </div>
-        <form action="" method="post">
-            <button type="button" id="createClassBtn">Створити клас</button>
-        </form>
+        <button id="createClassBtn">Створити клас</button>
     </form>
     
 {% endblock %}

@@ -35,8 +35,8 @@
                     <form action="" method="post" id = "image_form" enctype="multipart/form-data">
                         <input class="input_file" id="image" name="image" type="file" accept="image/*" onchange="previewImage(event);">
                         <input type="hidden" name="check_post" value="image">
-                        <label for="image" style="display: flex; flex-direction:row; margin-left:1vw;">
-                            <img src="{{ url_for('test_pass.static', filename='images/upload.png') }}" alt="icon" class="load_image">
+                        <label class="open-wind" for="image" style="display: flex; flex-direction:row; margin-left:1vw;">
+                            <img src="{{ url_for('test_pass.static', filename='images/upload.svg') }}" alt="icon" class="load_image">
                             Завантажити 
                         </label>
                     </form>
@@ -49,9 +49,13 @@
                 </div>
             </div>
             <div class="buttom-floor">
-                <button class="apply-image delete-photo" type="button" onclick="DeleteImage();">видалити фото</button>
-                <button class="back-button close-modal" type="button" onclick="closeModal();">назад</button>
-                <button class="apply-image" type="button" onclick="sumbmitIMage()">застосувати зображення </button>
+                <div>
+                    <button class="apply-image delete-photo" type="button" onclick="DeleteImage();">видалити фото</button>
+                </div>
+                <div>
+                    <button class="back-button" type="button" class="close-modal" onclick="closeModal();">назад</button>
+                    <button class="apply-image" type="button" onclick="sumbmitIMage()">застосувати зображення </button>
+                </div>
             </div>
         </div>
     </div>
@@ -108,7 +112,7 @@
                 
                 <div class="right-buttons">
                     <div class="type">
-                        <p class="type-p timer-p" id="time"><span class="text choose-category-test"></span><img sty class="show_more_velocity" src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></p>
+                        <p class="type-p timer-p" id="time"><span class="text"></span><img  class="show_more_velocity" src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></p>
                         <ul id="timeList" class="hidden-list">
                             <li data-category="математика">математика</li>
                             <li data-category="англійська">англійська</li>

@@ -6,6 +6,11 @@
     cursor: pointer;
 }
 
+.main {
+    height: 90vh;
+    display: flex;
+    flex-direction: column;
+}
 .content-login{
     display: flex;
     flex-direction: row;

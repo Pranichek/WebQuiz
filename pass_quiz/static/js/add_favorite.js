@@ -1,3 +1,5 @@
+import { ShowMessage } from '/static/js/showMessage.js';
+
 let addButton = document.querySelector(".add-favorite")
 const queryString2 = window.location.search; 
 const urlParams2 = new URLSearchParams(queryString2);
@@ -15,5 +17,17 @@ addButton.addEventListener(
                 test_id: test_id
             })
         }
+    }
+)
+
+socket.on("didn't add",
+    () => {
+        ShowMessage("❌ Не вдалося додати у вибрані тести.🔑 Будь ласка, зареєструйтесь або увійдіть, щоб скористатися цією функцією.")
+    }
+)
+
+socket.on("add",
+    () => {
+        ShowMessage("Тест успішно додано до вибраних!")
     }
 )

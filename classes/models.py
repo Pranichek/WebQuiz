@@ -15,6 +15,10 @@ class Classes(DATABASE.Model):
     # користувачі, що знаходяться у класі
     students = DATABASE.Column(DATABASE.String, default = '')
 
+    # збереження інформації текстового оголошення
+    theme_task = DATABASE.Column(DATABASE.String, default = "")
+    information_task = DATABASE.Column(DATABASE.String, default = "")
+
     # Зв'язок one to one із користувачем
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey("user.id"), nullable=False)
     user = DATABASE.relationship("User", back_populates="mentor_class")

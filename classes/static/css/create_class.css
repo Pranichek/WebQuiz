@@ -67,7 +67,7 @@
 }
 .inp2{
     width: 60vw;
-    height: 10vh;
+    height: 12vh;
     border-radius: 1vh;
     border: #000000 0.1vh solid;
     background-color: #ffffffbc;
@@ -249,9 +249,10 @@
     display: flex;
     width: 10vw;
     height: 5vh;
-    padding: 1vh;
+    padding: 1vh 2vh;
     background-color: #94C4FFBF;
     border: none;
     border-radius: 0.5vh;
     color: #FFFFFF;
+    white-space: nowrap;
 }

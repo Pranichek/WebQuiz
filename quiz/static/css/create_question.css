@@ -59,8 +59,9 @@ li img, .timer-p img, .back-button img{
 } 
 
 .timer-p img{
-    width: 1vw;
-    height: 1vw;
+    height: 90%;
+    width: auto;
+    object-fit: contain;
 }
 
 body .main{
