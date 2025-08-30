@@ -66,7 +66,10 @@
                 <p>Створення завдання для учнів</p>
                 <div class="fix-form">
                     <input type="text" class="topic" name="topic" id="" placeholder="Введіть тему завдання..." required>
-                    <img class="img-class" src="{{ url_for('mentor_class.static', filename='images/add-img-class.svg') }}" alt="">
+                    <form action=""  method="post" id="add-picture" enctype='multipart/form-data'>
+                        <label for="task-image"><img class="img-class" src="{{ url_for('mentor_class.static', filename='images/add-img-class.svg') }}" alt=""></label>
+                        <input type="file" id="task-image" name="file" style="display:none" class="add-img-test">
+                    </form>
                 </div>
                 <input type="text" class="task_info" name="task_info" id="" placeholder="Введіть інформацію про завдання..." required>
                 <div class="term-form">
@@ -105,20 +108,24 @@
                 <div class="setting-test">
                     <div class="upper-div">
                         <div class="first-column">
-                            <p class="set-text">Налаштування для тесту: </p>
-                            <p class="set-text">Перемішувати питання тесту?</p>
-                            <p class="set-text">Перемішувати відповіді тесту?</p>
-                            <p class="set-text">Вимкнути обмеження часу у тесті</p>
+                            <p id="set-text1">Налаштування для тесту: </p>
+                            <p id="set-text1">Перемішувати питання тесту?</p>
+                            <p id="set-text1">Перемішувати відповіді тесту?</p>
+                            <p id="set-text1">Вимкнути обмеження часу у тесті</p>
                         </div>
                             
                         <div class="select-section">
                             <div class="second-column">
                                 <p class="set-text">Так</p>
-                                
+                                <input type="radio" class="radio-btn">
+                                <input type="radio" class="radio-btn">
+                                <input type="radio" class="radio-btn">
                             </div>
                             <div class="third-column">
                                 <p class="set-text">Ні</p>
-                                
+                                <input type="radio" class="radio-btn">
+                                <input type="radio" id="radio-btn-no">
+                                <input type="radio" class="radio-btn">
                             </div>
                         </div>
                     </div>
@@ -139,7 +146,7 @@
                         </div>
                         <div class="without-term">
                             <p class="set-text">Без терміну </p>
-                            <!-- <button></button> -->
+                            <input type="radio" class="radio-btn">
                         </div>
                     </div>
                 </div>

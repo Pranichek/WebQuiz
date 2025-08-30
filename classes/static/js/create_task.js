@@ -99,3 +99,19 @@ buttonCreateTask.addEventListener(
 //         )
 //     }
 // )
+
+
+
+
+const modals = document.querySelectorAll('.choice, .announcement, .test_task, .next_test_task');
+
+document.addEventListener('click', (e) => {
+  for (const m of modals) { if (m.contains(e.target)) return; }
+
+  if (e.target.closest('.add_task, .announcement-btn, .test_task-btn')) return;
+
+  modals.forEach(m => {
+    m.classList?.remove('is-open');
+    m.style.display = 'none';
+  });
+});
