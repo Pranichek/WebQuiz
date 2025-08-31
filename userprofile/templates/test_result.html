@@ -8,68 +8,67 @@
 {% block content %}
     <div class="background-blur"></div>
 
-    <div class="copy-coint">
-        <p>Ваші результати скопiйованi, ви можете їми поділитися</p>
-    </div>
-
     <div class="big-div">
         <div class="small-div">
             <div class="info">
-                <div>
+                <div class="name-div">
                     {% if user.user_profile %}
                         <p class="name">{{ user.username }}</p>
-                        <p>{{ email }}</p>
+                        <p class="email-user"><a href="/profile" class="email-user" style="text-decoration: none;">{{ user.email }}</a></p>
                     {% else %}
                         <p>Guest</p>
                         <p>guest@gmail.com</p>
                     {% endif %}
                 </div>
                 <div class="note">
-                    <p>Ваші бали</p>
+                    <p>ваші бали</p>
                     <div class="note-div">
                         {% if user.user_profile %}
-                            {{ user.user_profile.count_money }}
+                            <p>{{ user.user_profile.count_money }}</p>
                         {% else %}
-                            0
+                            <p>0</p>
                         {% endif %}
-                        <img class="money" src="{{ url_for('finish_test.static', filename='images/money.png'  ) }}" alt="avatar">
+                        <img class="money" src="{{ url_for('finish_test.static', filename='images/coin.svg'  ) }}" alt="avatar">
                     </div>
                 </div>
             </div>
             
-            <div class="avatar-circle da">
-                {% if current_user.is_authenticated %}
-                    <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
-                {% else %}
-                    <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.svg') }}" alt="avatar">
-                {% endif %}
+            <div class="midle-info">
+                <div class="avatar-circle da">
+                    {% if current_user.is_authenticated %}
+                        <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                    {% else %}
+                        <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.svg') }}" alt="avatar">
+                    {% endif %}
+                </div>
             </div>
+            
 
             <div class="prt-2">
                 <div class="r">
                     <div class="anim">
                         <p>Улюбленець</p>
-                    </div>
-                    <div class="animal">
-                        {% if user.user_profile %}
-                            <!-- <div class="pet1"> -->
-                            <img id="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/' ~ user.user_profile.pet_id ~ '.png') }}" alt="pet">
-                            <!-- </div> -->
-                        {% else %}
-                            <div class="pet1">
-                                <p class="text">немає</p>
-                            </div>
-                        {% endif %}
+                        <div class="animal">
+                            {% if user.user_profile %}
+                                <!-- <div class="pet1"> -->
+                                <img id="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/' ~ user.user_profile.pet_id ~ '.png') }}" alt="pet">
+                                <!-- </div> -->
+                            {% else %}
+                                <div class="pet1">
+                                    <p class="text">немає</p>
+                                </div>
+                            {% endif %}
+                        </div>
                     </div>
                     
                     
                     <div class="tests">
-                        <p class="text">Пройдені тести:</p>
-                    {% if user.user_profile %}
-                        <p class="num">{{ user.user_profile.count_tests }}</p>
-                    {% else %}
-                        <p class="num">не зареєстрован</p>
-                    {% endif %}
+                        <p class="passed-tests">пройдені тести:</p>
+                        {% if user.user_profile %}
+                            <p class="num">{{ user.user_profile.count_tests }}</p>
+                        {% else %}
+                            <p class="num">не зареєстрован</p>
+                        {% endif %}
                     </div>
                 </div>
                 
@@ -85,7 +84,7 @@
     <div class="result">
         <p>Точність</p>
         <div class="line">
-            <div class="fill" data-accuracy="{{ accuracy }}"></div>
+            <div class="fill"></div>
             <div class="quard">
                 <div class="text-perc">
                     <p>0%</p>
@@ -117,7 +116,6 @@
                 <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/time.svg'  ) }}" alt="img">
                 <div class="seckond">
                     <p class="midle-time"></p>
-                    <p>s</p>
                 </div>
                 <p>Час/питання</p>
             </div>
@@ -126,7 +124,7 @@
             <img class="img" src="{{ url_for('finish_test.static', filename='images/salut1.png'  ) }}" alt="img">
             <div class="block-4">
 
-                <div class="avatar-circle img-achiv">
+                <div class="correct-avatar">
                     {% if user.user_profile %}
                         <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
                     {% else %}
@@ -134,7 +132,7 @@
                     {% endif %}
                 </div>
                 <p class="mark"></p>
-                <p>Балів</p>
+                <p class="text-mark"></p>
             </div>
             <img class="img" src="{{ url_for('finish_test.static', filename='images/salut2.png'  ) }}" alt="img">
         </div>
@@ -156,11 +154,13 @@
         
     </div>
 
+    <!-- <h1>Ви набрали <p class="user_pimpa"></p> із <p class="user-pampa"></p>{{amount_questions}} питання</h1> -->
+    <!-- <p class="accuracy">accuracy = </p> -->
 {% endblock content %}
 
 {% block scripts %}
     {{ super() }}
-    <script src="{{ url_for('finish_test.static', filename='js/copy_modal.js') }}"></script>
-    <script src="{{ url_for('test_result.static', filename='js/test_result.js') }}"></script> 
-    <script src="{{ url_for('finish_test.static', filename='js/add_favorite.js') }}"></script>
+    <script type="module" src="{{ url_for('finish_test.static', filename='js/copy_modal.js') }}"></script>
+    <script  src="{{ url_for('test_result.static', filename='js/test_result.js') }}"></script> 
+    <script type="module" src="{{ url_for('finish_test.static', filename='js/add_favorite.js') }}"></script>
 {% endblock scripts %}

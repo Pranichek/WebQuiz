@@ -6,7 +6,6 @@
 
 {% block content %}
 
-
     <div class="test-header"> 
         <div class="test-info">
           <div class="python">
@@ -40,10 +39,10 @@
 
     <div class="actions">
         <button class="start-btn play_test" type="button" value="{{ test.id }}">Пройти тест<img class="play" src="{{ url_for('test_pass.static', filename='images/test_data/button_play.png' ) }}" alt=""></button>
-        <form action="" method="post" class="copy-form" id="copy-test">
+        <form action=""  class="copy-form" id="copy-test">
           <input type="hidden" name="check_form" value="copy-form">
           <input type="hidden" name="test_id" class="test_id" value="{{ test.id }}">
-          <button type="submit" class="copy-test-button profile-btn" value="{{ test.id }}">Скопіювати до профілю</button>
+          <button type="button" class="copy-test-button profile-btn" value="{{ test.id }}">Скопіювати до профілю</button>
      </form>
     </div>  
 
@@ -59,7 +58,7 @@
                     <div class="question_title"> 
                         <img class="question-bg" src="{{ url_for('test_pass.static', filename='images/test_data/title_question.svg' ) }}" alt="gradient">
                         {% if img_lists[loop.index0][0] != "not" %}
-                                <img class="question_img" src="{{ img_lists[loop.index0][0] }}" alt="">
+                            <img class="question_img" src="{{ img_lists[loop.index0][0] }}" alt="">
                         {% endif %}
                         <p class="question">{{ this_question.question }}</p>
                     </div> 
@@ -67,10 +66,19 @@
                         {% if this_question.type_question != "input-gap" %}
                             {% for answer in this_question.answers %}
                                 <div class="variant">
-                                    <div class="circle"></div>
+                                    {% if this_question.type_question == "one-answer" %}
+                                        <div class="circle"></div>
+                                    {% elif this_question.type_question == "many-answers" %}
+                                        <div class="quard"></div>
+                                    {% endif %}
+                                    
                                     {% if img_lists[ns.counter][loop.index] == "not" %}
                                         <p class="answer">{{ answer }}</p>
                                     {% elif img_lists[ns.counter][loop.index] != "not" %}
+                                        {% if answer != "image?#$?image" %}
+                                            <p class="answer">{{ answer }}</p>
+                                        {% endif %}
+            
                                         <img class="question_img" src="{{ img_lists[ns.counter][loop.index] }}" alt="">
                                     {% endif %}
                                 </div>
@@ -87,8 +95,12 @@
         {% endif %}
     {% endfor %}
     </div>
+
+    <div class="blur"></div>
 {% endblock content %}
 
 {% block scripts %}
+    {{ super() }}
     <script src="{{ url_for('test_pass.static', filename = 'js/test_cookie.js') }}"></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename = 'js/messages_data.js') }}"></script>
 {% endblock scripts %}

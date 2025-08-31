@@ -3,6 +3,19 @@
     flex-direction: column;
 }
 
+.blur {
+    position: fixed;
+    bottom: 0;          /* прив’язка до низу */
+    left: 0;
+    width: 100vw;       /* повна ширина сторінки */
+    height: 30vh;       /* висота блюру тільки внизу */
+    background: linear-gradient(71deg, #3C3C3C 10%, #7c9abd 20%, #74919E 72%, #3C3C3C 5%);
+    filter: blur(6.25vw);
+    z-index: -1;
+    pointer-events: none;
+}
+
+
 .test-header {
     display: flex;
     position: relative;
@@ -33,12 +46,12 @@
     height: 100%;
     width: auto;
     object-fit: contain;
-    filter: drop-shadow(0 0 40px rgb(120, 183, 235));
+    filter: drop-shadow(0 0 60px rgb(120, 183, 235));
 }
 
 .python{
     height: 100%;
-    width: 50%;
+    aspect-ratio: 1 / 1; 
     border-radius: 10px;
     overflow: hidden;
     display: flex;
@@ -70,7 +83,7 @@
 
 .top_info p span{
     font-size: 2.7vh;
-    color: #FFB700;
+    color: #ffcc00;
 }
 
 .top_info p .at{
@@ -152,17 +165,18 @@
     border-radius: 16px;
     border: 1px solid #000;
     padding: 4vh;
-    max-height: 80vh;
+    max-height: 100vh;
     display: flex;
     flex-direction: column;
     gap: 2vw;
     position: relative;
     overflow-y: auto;
+    margin-bottom: 8vh;
 }
 
 .question-block {
     width: 60vw;
-    height: 35vh;
+    height: 50vw;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -198,7 +212,7 @@
     height: 50%;
     color: #ffffff;
     font-size: 1vw;
-    padding-left: 0.5vw;
+    padding-left: 1vw;
     word-wrap: break-word;   
     overflow-wrap: break-word;
 }
@@ -218,7 +232,16 @@
     width: 1.5vw;
     height: 1.5vw;
     border: 1px solid #94C4FF;
-    border-radius: 1234px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
+.quard{
+    width: 1.5vw;
+    height: 1.5vw;
+    border: 1px solid #94C4FF;
+    border-radius: 2px;
     flex-shrink: 0;
     flex-grow: 0;
 }
@@ -248,4 +271,25 @@
     height: 90%;
     object-fit: contain;
     z-index: 1;
+}
+
+
+/* Затемнення фона кнопок при наведенні */
+.start-btn:hover,
+.profile-btn:hover {
+    background-color: rgba(196, 138, 247, 0.8); /* трохи темніший фіолетовий для start-btn */
+    transform: scale(1.01);                      /* легке збільшення */
+    transition:  0.2s;
+}
+
+.profile-btn:hover {
+    background-color: rgba(114, 145, 184, 0.8); /* трохи темніший синій для profile-btn */
+}
+
+
+.robot img:hover,
+.python img:hover,
+.question_img:hover {
+    transform: scale(1.03);                     
+    transition: all 0.5s ease-in-out;
 }

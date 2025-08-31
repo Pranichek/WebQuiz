@@ -338,6 +338,11 @@ main{
     color: #FFFFFF;
 }
 
+.question img{
+    height: 30vh;
+    width: auto;
+    object-fit: contain;
+}
 
 .correct-head{
     width: 100%;
@@ -490,6 +495,7 @@ main{
     /* margin-bottom: 300px; */
 }
 
+
 .answ .right-answers-gaps{
     display: none;
 }
@@ -525,6 +531,11 @@ main{
     min-height: 40px;
     cursor: pointer;
     display: flex;
+}
+
+.gap-block{
+    width: 0.5vw;
+    background-color: none;
 }
 .input-block:hover{
     border: 2px solid #979595;

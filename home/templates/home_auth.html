@@ -52,8 +52,12 @@
 
     <div class="cards-floor">
         <div class="show-more">
-            <a href="/" class="tests-topic">{{ fourt_topic }}</a>
-            <a data-value="last_passed" class="show-more-link">Побачити більше</a>
+            {% if fourt_topic[1] != "інше" and fourt_topic[1] != "Інше" %}
+                <a href="/" class="tests-topic">{{ fourt_topic[0] }}</a>
+            {% else %}
+                <a href="/" class="tests-topic">Різноманітні тести</a>
+            {% endif %}
+            <a data-value="{{ fourt_topic[1] }}" class="show-more-link">Побачити більше</a>
         </div>
         <div class="cards">
             {% if third_tests|length > 0 %}
