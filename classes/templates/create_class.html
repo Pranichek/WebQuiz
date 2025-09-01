@@ -37,10 +37,10 @@
             </div>
         </div>
         <div class="bottom-div">
-            <button type="button" class="generate-btn">Згенерувати код</button>
+            <button type="button" class="generate-btn" type="button">Згенерувати код</button>
             <span class="generate-container">
-                <p>Ваш код з’явиться тут</p>
-                <p class="generated-code">якийсь згенерований код</p>
+                <p class="here-text">Ваш код з’явиться тут</p>
+                <input name="code" class="generated-code" readonly>
                 <hr>
             </span>
         </div>
@@ -50,5 +50,6 @@
 {% endblock %}
 
 {% block scripts %}
+    <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url_for('mentor_class.static', filename='js/create_class.js') }}"></script>
 {% endblock scripts %}

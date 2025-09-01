@@ -1,10 +1,12 @@
-import flask, flask_login
+import flask, flask_login, secrets
 from .models import Classes
 from Project.db import DATABASE
 from flask_socketio import emit
 from home.models import User
 from Project.login_check import login_decorate
 from Project.socket_config import socket
+import datetime, pytz
+from datetime import timedelta
 
 def render_create_class():
     if flask.request.method == "POST":
@@ -15,6 +17,7 @@ def render_create_class():
         letter = flask.request.form.get("letter")
         lesson = flask.request.form.get("lesson")
         type = flask.request.form.get("type")
+        print("flask.request.form.get(code)", flask.request.form.get("code"))
 
         class_mentor = Classes(
             name_class = class_name,
@@ -54,10 +57,7 @@ def render_data_class():
 
     if class_item.students is not None:
         users = class_item.students.split("/")
-        try:
-            users.remove("")
-        except:
-            pass
+        users.remove("")
 
         
         for user in users:
@@ -99,6 +99,47 @@ def create_task(data):
     
     class_item.theme_task = "/".join(old_topics)
     class_item.information_task = "/".join(old_information)
+    # ------------- get time
+
+    weeks = float(data["weeks"]) if data["weeks"].isdigit() else 0 
+    days = float(data["days"]) if data["days"].isdigit() else 0
+    hours = float(data["hours"]) if data["hours"].isdigit() else 0
+    minutes = float(data["minutes"]) if data["minutes"].isdigit() else 0
+
+    time_zone = pytz.timezone("Europe/Kiev")
+    ukraine_time = datetime.datetime.now(time_zone)
+    ukraine_time = ukraine_time.strftime("%Y-%m-%d %H:%M:%S").split()
+
+    data_year = ukraine_time[0].split("-")
+    data_time = ukraine_time[1].split(":")
+
+    data_year = "/".join(data_year)
+    data_time = "/".join(data_time)
+
+
+    final_time_data = data_year + "/" + data_time
+
+    term_time = datetime.datetime.now(time_zone) + timedelta(weeks=weeks, days=days, hours=hours, minutes=minutes)
+    term_time = str(term_time).split() # "2025-09-01 14:08:19.530785+03:00"
+
+    data_year = term_time[0].split("-")
+    data_time = term_time[1].split(".")[0].split(":")
+
+    data_year = "/".join(data_year)
+    data_time = "/".join(data_time)
+
+    final_term = data_year + "/" + data_time # 2025/09/01/14/10/37
+
+
+    old_time = class_item.start_time.split("@")
+    old_terms = class_item.term_task.split("@")
+
+    old_time.append(final_time_data)
+    old_terms.append(final_term)  
+    
+    class_item.start_time = "@".join(old_time)
+    class_item.term_task = "@".join(old_terms)
+    
     DATABASE.session.commit()
 
 
@@ -118,13 +159,8 @@ def render_student_classes():
                 
                 check_class.students = new_user
                 DATABASE.session.commit()
-                
-
-            
-
-
     return flask.render_template("student_classes.html", test_data = True)
-    return flask.render_template("student_classes.html")
+
 
 def render_delete_member(pk):
     class_id = flask.request.args.get("class_id")
@@ -134,3 +170,11 @@ def render_delete_member(pk):
     new_users = "/".join(users)
     class_item.students = new_users
     DATABASE.session.commit()
+
+def render_create_code():
+    chosen_type = flask.request.get_json().get("type")
+    print("type =", chosen_type)
+    random_code = str(secrets.randbelow(1000000)).zfill(6)
+    if chosen_type == "invitation":
+        random_code = f"{flask_login.current_user.email}/{random_code}"
+    return flask.jsonify(code = random_code)

@@ -8,10 +8,6 @@
     
 }
 
-*::-webkit-scrollbar {
-    display: none; 
-}
-
 body{
     background-color: #3C3C3C;
 
@@ -37,7 +33,22 @@ header{
     top: 0; 
     width: 100%;
     overflow: hidden;
-    padding: 0 2vw;
+    /* padding: 0 2vw; */
+    padding-left: 1vw;
+}
+
+.logo {
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.2vw;
+    /* background-color: green; */
+}
+
+.img-logo{
+    height: 7vh;
 }
 
 header p{
@@ -57,23 +68,26 @@ nav {
 
 .nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
     height: 5vh;
-    height: 5vh;
     background-color: #C48AF7;
     color: #ffffff;
     border-radius: 0.5vh;
-    border-radius: 0.5vh;
     text-decoration: none;
-    margin: 1vh;
+    /* margin: 1vh; */
     padding: 1.2vh;
     display: inline-block;
     text-align: center;
     font-weight: bold;
     font-size: 2vh;
+    transition: 0.3s ease;
+}
+
+.nav-links .auth-button:hover, .nav-links .login-button:hover, .nav-links .test-button:hover, .nav-links .enter-code:hover{
+    background-color: #b06aed;
+
 }
 
 .header_buttons {
     display: flex;
-    margin-right: 5vw;
     gap: 1vh;
 }
 
@@ -89,15 +103,8 @@ nav {
     height: 5vh;
 }
 
-
-.mentor-buttons img{
-    width: 5vh;
-    height: 5vh;
-}
-
 .listener{
     height: 10vh;
-    width: 5vw;
     display: flex;
 }
 
@@ -124,10 +131,10 @@ nav {
     flex-direction: column;
     justify-content: space-between;
     transition: width 0.5s;
-    width: 0;
+    width: 0px;
     height: 85vh;
-    border-radius: 1vh;
-    padding-top: 2vh;
+    border-radius: 10px;
+    padding-top: 20px;
     background-color: #343434;
     z-index: 100;
 }
@@ -135,7 +142,7 @@ nav {
 .link-container{
     display: flex;
     flex-direction: column;
-    gap: 5vh;
+    gap: 90px;
     z-index: 100;
 }
 
@@ -143,11 +150,11 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 1vh;
+    gap: 15px;
 }
 
 .links a{
-    font-size: 2vh;
+    font-size: 2.3vh;
     color: #ffffff;
     text-decoration: none;
 }
@@ -155,26 +162,27 @@ nav {
 
 
 .links hr{
-    width: 12vw;
-    height: 0.1vh;
+    width: 230px;
 }
+
 
 .sidebar-robot{
     position: absolute;
-    right: 5vw;
+    right: 50px;
     bottom: 0;
-    width: 8vw;
-    height: 20vh;
+    width: 130px;
+    height: 190px;
 }
 
 .closed{
-    width: 0;
+    width: 0px;
     overflow: hidden;
 }
 
 .opened{
-    width: 16vw;
+    width: 300px;
 }
+
 
 .footer{
     background-color: #343434;
@@ -257,77 +265,11 @@ nav {
     font-weight: 600;
 }
 
-.wrapper {
-    position: fixed;
-    bottom: 50px;
-    right: -570px;
-    width: 476px;
-    height: 283px;
-    border: 1px solid #B9BDF5;
-    background: #353535;
-    border-radius: 8px;
-    padding: 15px 25px 22px;
-    transition: right 0.3s ease;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
-    z-index: 98349838939989438934893434893849;
-}
-.wrapper.show {
-    right: 20px;
-}
-.wrapper header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #353535;
-}
-header img {
-    height: 8vh;
-    width: 8vh;
-}
-header i {
-    color: #fff;
-    font-size: 32px;
-}
-.last{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    gap: 1vh;
-}
 
-.ab {
-    margin-top: -5vh;
-}
 
-.about{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.buttons .button {
-    font-size: 16px;
-    width: 151px;
-    height: 36px;
-    border: none;
-    color: #353535;
-    border-radius: 10px;
-    background: #B9BDF5;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    font-weight: 700;
-    margin-right: 15px;
-}
-
-.buttons #acceptBtn:hover {
-    background-color: #fff;
-}
-#declineBtn {
-    border: 2px solid #B9BDF5;
-    background-color: #353535;
-    color: #B9BDF5;
-}
-#declineBtn:hover {
-    background-color: #B9BDF5;
-    color: #fff;
-}
+/* @media (min-width:1600px){
+    header{
+        justify-content: center;
+        gap: 50vw;
+    }
+} */

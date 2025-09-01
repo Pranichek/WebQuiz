@@ -1,8 +1,10 @@
-
 let btn1 = document.querySelector(".sel1")
 let btn2 = document.querySelector(".sel2")
 let btn3 = document.querySelector(".obj")
 let btn4 = document.querySelector(".choo")
+const generateBtn = document.querySelector(".generate-btn")
+const hereText = document.querySelector(".here-text")
+
 
 btn1.addEventListener(
     "click", 
@@ -117,7 +119,57 @@ btn4.addEventListener(
                 });
                 newList4.appendChild(newBox4);
                 newBox4.appendChild(circle)
+                newBox4.addEventListener('click', ()=>{
+                    if (newBox4.textContent == "Лише за кодом"){
+                        generateBtn.textContent = "Згенерувати код"
+                        hereText.textContent = "Ваш код з’явиться тут"
+                    }else {
+                        generateBtn.textContent = "Згенерувати запрошення"
+                        hereText.textContent = "Ваше запрошення з’явиться тут"
+                    }
+                })
             }
     }
 )
 
+generateBtn.addEventListener("click", function(){
+    let type
+    if (hereText.textContent == "Ваш код з’явиться тут"){
+        type = "code"
+    }else {
+        type = "invitation"
+    } 
+    $.ajax({
+        url: '/generated_code',
+        type: "post",
+        data: JSON.stringify({ 'type': type }),
+        contentType: 'application/json',
+        processData: false,
+        headers: {'X-CSRFToken': document.cookie.split("csrftoken=")[1].split(";")[0]},
+        success: function(response){document.querySelector(".generated-code").value = response.code}
+    })
+})
+
+
+document.addEventListener("click", (event)=>{
+    
+    if (event.target != btn1 && event.target != btn2 && event.target != btn3 && event.target != btn4){
+        let oldList = btn1.querySelector(".list");
+        if (oldList) {
+            oldList.remove();
+            return;
+        } oldList = btn2.querySelector(".list2");
+        if (oldList) {
+            oldList.remove();
+            return;
+        } oldList = btn3.querySelector(".list3");
+        if (oldList) {
+            oldList.remove();
+            return;
+        } oldList = btn4.querySelector(".list4");
+        if (oldList) {
+            oldList.remove();
+            return;
+        }
+    }
+})
