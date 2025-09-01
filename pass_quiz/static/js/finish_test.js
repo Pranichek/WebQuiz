@@ -96,11 +96,12 @@ socket.on("test_result", (data) => {
         questText.innerHTML = `${index + 1}. ${element.question}`;
         questText.className = "quest-text";
 
-        // if (data.images[index][0] != "not"){
-        //     const imgQuestion = document.createElement("img")
-        //     imgQuestion.src = data.images[index][0]
-        //     questionDiv.appendChild(imgQuestion)
-        // }
+        if (data.images[index][0] != "not"){
+            const imgQuestion = document.createElement("img")
+            imgQuestion.src = data.images[index][0]
+            questionDiv.appendChild(imgQuestion)
+        }
+
         questionDiv.appendChild(questText);
 
         questionDiv.insertBefore(mainHead, questionDiv.firstChild);
@@ -182,12 +183,12 @@ socket.on("test_result", (data) => {
             if (answ!= "image?#$?image"){
                 if (type_quest == "many-answers" || type_quest == "one-answer"){
                     answerDiv.innerHTML = `${answ}`;
-                    // if (data.images[indexel][index + 1] != "not"){
-                    //     const img = document.createElement("img")
-                    //     img.src = data.images[indexel][index + 1]
-                    //     img.className = "answer-img"
-                    //     answerDiv.appendChild(img)
-                    // }
+                    if (data.images[indexel][index + 1] != "not"){
+                        const img = document.createElement("img")
+                        img.src = data.images[indexel][index + 1]
+                        img.className = "answer-img"
+                        answerDiv.appendChild(img)
+                    }
                 }else{
                     // берем ответ что ввел пользователь
                     if (!questionDiv.querySelector(".input-block")){

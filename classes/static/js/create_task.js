@@ -15,6 +15,7 @@ const minutesInput = document.querySelector(".minutes_data")
 const socket = io()
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
+const inputFile = document.querySelector("#file-upload")
 
 
 function showWithFade(el) {
@@ -76,41 +77,24 @@ buttonChooseTest.addEventListener(
 )
 
 
-// {/* <input type="text" class="term-num week_data" name="term-num"> */}
-{/* <p class="text-term">тижнів</p>
-<input type="text" class="term-num days_data" name="term-num">
-<p class="text-term">днів</p>
-<input type="text" class="term-num hours_data" name="term-num">
-<p class="text-term">годин</p>
-<input type="text" class="term-num minutes_data" name="term-num"></input> */}
-buttonCreateTask.addEventListener(
-    'click',
-    () => {
-        socket.emit(
-            'create_task',
-            {
-                theme: document.querySelector(".topic").value,
-                information: document.querySelector(".task_info").value,
-                class_id: urlParams.get('class_id'),
-                weeks: weeksInput.value,
-                days: daysInput.value,
-                hours: hoursInput.value,
-                minutes: minutesInput.value
-            }
-        )
-  
-        location.reload()    
-    }
-)
-// buttonCreateTestTask.addEventListener(
+// buttonCreateTask.addEventListener(
 //     'click',
 //     () => {
 //         socket.emit(
-//             'create_test_task',
+//             'create_task',
 //             {
-//                 information: document.querySelector(".next_test_task_info").value,
-//                 class_id: urlParams.get('class_id')
+//                 theme: document.querySelector(".topic").value,
+//                 information: document.querySelector(".task_info").value,
+//                 class_id: urlParams.get('class_id'),
+//                 weeks: weeksInput.value,
+//                 days: daysInput.value,
+//                 hours: hoursInput.value,
+//                 minutes: minutesInput.value,
+//                 file: inputFile.files[0]
 //             }
 //         )
+  
+//         location.reload()    
 //     }
 // )
+// fileInput.files[0];

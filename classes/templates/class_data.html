@@ -62,27 +62,28 @@
         </div>
 
         <div class="announcement">
-            <form action="" method="post">
+            <form action="" method="post" enctype='multipart/form-data'>
                 <p>Створення завдання для учнів</p>
                 <div class="fix-form">
                     <input type="text" class="topic" name="topic" id="" placeholder="Введіть тему завдання..." required>
-                    <img class="img-class" src="{{ url_for('mentor_class.static', filename='images/add-img-class.svg') }}" alt="">
+                        <!-- <input type="text" name="check_form" class = "check_name" value = "load_image"> -->
+                    <input id="file-upload" name="input-file" type="file">
                 </div>
                 <input type="text" class="task_info" name="task_info" id="" placeholder="Введіть інформацію про завдання..." required>
                 <div class="term-form">
                     <p>Задати термін: </p>
                     <div class="input-term">
-                        <input type="text" class="term-num week_data" name="term-num">
+                        <input type="text" class="term-num week_data" name="term-week">
                         <p class="text-term">тижнів</p>
-                        <input type="text" class="term-num days_data" name="term-num">
+                        <input type="text" class="term-num days_data" name="term-days">
                         <p class="text-term">днів</p>
-                        <input type="text" class="term-num hours_data" name="term-num">
+                        <input type="text" class="term-num hours_data" name="term-hours">
                         <p class="text-term">годин</p>
-                        <input type="text" class="term-num minutes_data" name="term-num">
+                        <input type="text" class="term-num minutes_data" name="term-minutes">
                         <p class="text-term">хвилин</p>
                     </div>
                 </div>
-                <button class="create_task" type="button">Створити завдання</button>
+                <button type="submit" class="create_task" type="button">Створити завдання</button>
             </form>
         </div>
 
