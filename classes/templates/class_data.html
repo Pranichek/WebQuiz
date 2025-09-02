@@ -27,7 +27,7 @@
                 <div class="students">
                     <p>Предмет: математика</p>
                     <p>Кількість учнів: 10</p>
-                    <button>Перейти до списку учнів</button>
+                    <button class="list-btn">Перейти до списку учнів</button>
                 </div>
                 <button class="btn">Переглянути успішність класу</button>
             </div>
@@ -50,6 +50,16 @@
                         <div class="right-head"></div>
                     </div>
                 {% endfor %}
+                <div class="task">
+                    <div class="info_div">
+                        <img src="{{ url_for('mentor_class.static', filename='images/list.svg') }}" alt="" class="book">
+                        <div>
+                            <p class="name">Osdlsndlvsdfcmlks</p>
+                            <p class="term">термін події..</p>
+                        </div>
+                    </div>
+                    <div class="right-head2"></div>
+                </div>
                 
                 <img class="add_task" src="{{ url_for('mentor_class.static', filename='images/add_task.svg') }}" alt="">
             </div>
