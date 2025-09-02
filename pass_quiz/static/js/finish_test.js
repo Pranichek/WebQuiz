@@ -99,7 +99,7 @@ socket.on("test_result", (data) => {
         if (data.images[index][0] != "not"){
             const imgQuestion = document.createElement("img")
             imgQuestion.src = data.images[index][0]
-            questionDiv.appendChild(imgQuestion)
+            questText.insertBefore(imgQuestion, questText.firstChild)
         }
 
         questionDiv.appendChild(questText);
