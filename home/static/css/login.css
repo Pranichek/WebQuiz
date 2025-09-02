@@ -9,7 +9,8 @@
 .main {
     height: 90vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
 }
 .content-login{
     display: flex;

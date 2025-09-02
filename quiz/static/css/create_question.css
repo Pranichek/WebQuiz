@@ -1,16 +1,15 @@
-*{
+* {
     color: white;
 }
 
-body header{
+body header {
     display: none;
 }
 
-li, .timer{
+li, .timer {
     display: flex;
     justify-content: end;
     align-items: center;
-    /* background-color: green; */
 }
 
 li img, .timer-p img, .back-button img{
@@ -18,7 +17,7 @@ li img, .timer-p img, .back-button img{
     height: 3vh;
 }
 
-.head-part{
+.head-part {
     height: 55vh;
     width: 100vw;
     display: flex;
@@ -28,7 +27,7 @@ li img, .timer-p img, .back-button img{
     position: relative;
 }
 
-.pseudo-header{
+.pseudo-header {
     position: relative;
     display: flex;
     justify-content: space-between;
@@ -42,7 +41,7 @@ li img, .timer-p img, .back-button img{
     border: none;
 }
 
-.question-name{
+.question-name {
     display: flex;
     flex-direction: column;
     gap: 3vh;
@@ -53,29 +52,27 @@ li img, .timer-p img, .back-button img{
     background: linear-gradient(210deg, #c48af76e, #ac90f325, #92bede2f, #96c4da65, #92bede1e, #ac90f33b, #c48af76b);
 }
 
-.pseudo-header div{
+.pseudo-header div {
     display: flex;
     gap: 3vh;
 } 
 
-.timer-p img{
+.timer-p img {
     height: 90%;
     width: auto;
     object-fit: contain;
 }
 
-body .main{
+body .main {
     display: flex;
     flex-direction: column;
 }
 
-
-
-.pseudo-header .category-questions{
+.pseudo-header .category-questions {
     display: none;
 }
 
-.timer{
+.timer {
     position: relative;
     z-index: 2;
     display: flex;
@@ -92,6 +89,8 @@ body .main{
 .timer-arrow {
     margin-left: 0.8vw;
     transition: transform 0.3s ease-in-out;
+    height: 3.3vh;
+    object-fit: contain;
 }
 
 .timer-p.active .timer-arrow {
@@ -128,7 +127,8 @@ body .main{
     position: relative;
 }
 
-.list-time{
+
+.list-time {
     justify-content: center;
 }
 
@@ -181,17 +181,35 @@ body .main{
     text-align: center;
 }
 
-.confirm-question{
+.button-answer {
+    height: 100%;
+    width: 8%;
+    position: relative;
+    display: flex;
+    background: none;
+    border: none;
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    transform: translateX(110%);
+}
+
+.button-answer {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+.confirm-question {
     display: none;
 }
 
-.image-container{
+.image-container {
     height: fit-content;
     padding: 1vh;
 }
 
-
-.add-image{
+.add-image {
     cursor: pointer;
     display: flex;
     width: 16vw;
@@ -209,7 +227,7 @@ body .main{
     padding-bottom: 1vh;
 }
 
-.is-image{
+.is-image {
     position: relative;
     display: flex;
     flex-direction: column;
@@ -217,7 +235,7 @@ body .main{
     animation: appear-top 0.5s;
 }
 
-.img-success{
+.img-success {
     width: fit-content;
     padding: 0.5vh;
     border-radius: 0.5vh;
@@ -246,7 +264,7 @@ h3{
     font-weight: 400;
 }
 
-.answers-container{
+.answers-container {
     display: flex;
     flex-direction: column;
     gap: 0.9vw;
@@ -256,7 +274,7 @@ h3{
     justify-content: end;
 }
 
-.blocks{
+.blocks {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
@@ -264,10 +282,17 @@ h3{
     padding: 1vh;
     width: 100vw;
     height: 90%;
-    /* background-color: pink; */
 }
 
-.input-type{
+.input-gap-div {
+    width: 50%;
+    height: 20%;
+    display: flex;
+    gap: 0.5vw;
+    position: relative;
+}
+
+.input-type {
     background-color: #353535;
     position: relative;
     display: flex;
@@ -341,10 +366,12 @@ h3{
     flex-direction: column;
     gap: 2vh;
     align-items: center;
-    overflow: scroll
+    position: relative;
+    overflow-y: scroll;
+    padding: 0.1vw;
 }
 
-.for-image{
+.for-image {
     position: relative;
     width: 100%;
     min-height: 70%;
@@ -360,18 +387,18 @@ h3{
     padding: 0;
 }
 
-.check, .check_del{
+.check, .check_del {
     display: none;
 }
 
-.for-image img{
+.for-image img {
     position: relative;
     width: 100%;
     height: 100%;
     object-fit: contain;
 }
 
-.answer-block{
+.answer-block {
     position: relative;
     width: 20vw;
     height: 35vh;
@@ -387,7 +414,7 @@ h3{
     padding-top: 4vh;
 }
 
-.inside-data{
+.inside-data {
     width: 100%;
     height: 100%;
     padding: 1vh;
@@ -401,8 +428,6 @@ h3{
     justify-content: center;
 }
 
-
-
 textarea.answer {
     position: relative;
     width: 90%;
@@ -412,34 +437,31 @@ textarea.answer {
     box-sizing: border-box;
 }
 
-.invisible{
+.invisible {
     display: none;
 }
-
-
 
 textarea.answer::placeholder {
     text-align: center;
 }
 
-.image1, .image2, .image3, .image4{
+.image1, .image2, .image3, .image4 {
     display: none;
 }
 
-
-.hidden{
+.hidden {
     display: none;
 }
 
-.hidden-button{
+.hidden-button {
     display: none;
 }
 
-.tick-circle{
+.tick-circle {
     display: none;
 }
 
-.answer{
+.answer {
     position: absolute;
     border: none;
     background-color: #6D94C4;
@@ -448,14 +470,15 @@ textarea.answer::placeholder {
     font-size: 3vh;
 }
 
-ul{
+ul {
     cursor: pointer;
 }
 
-.answer::placeholder{
+.answer::placeholder {
     color: white;
 }
-.answer:focus{
+
+.answer:focus {
     outline: none;
 }
 
@@ -498,7 +521,7 @@ ul{
     height: 2.5vh;
 }
 
-.type-question{
+.type-question {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -516,7 +539,7 @@ ul{
     font-weight: 500;
 }
 
-.category-questions{
+.category-questions {
     position: absolute;
     top: 0;
     width: 18vw;
@@ -554,7 +577,6 @@ ul{
 
 }
 
-
 .category-questions input[type="radio"]:checked::before {
     content: "";
     position: absolute;
@@ -572,42 +594,46 @@ ul{
     cursor: pointer;
 }
 
+.input-variant {
+    width: 100%;
+    flex-wrap: wrap;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: center;
+}
 
-.input-variant:hover{
+.input-variant:hover {
     text-decoration: line-through;
     cursor: pointer;
 }
 
-@keyframes appear{
-    from{
+@keyframes appear {
+    from {
         opacity: 0;
     }
-    to{
+    to {
         opacity: 1;
     }
 }
 
-@keyframes appear-card{
-    from{
+@keyframes appear-card {
+    from {
         opacity: 0;
         left: -4vw;
     }
-    to{
+    to {
         opacity: 1;
         left: 0;
     }
 }
 
-@keyframes appear-top{
-    from{
+@keyframes appear-top {
+    from {
         opacity: 0;
         top: -4vw;
     }
-    to{
+    to {
         opacity: 1;
         top: 0;
     }
 }
-
-
-

@@ -211,7 +211,8 @@ input::-webkit-inner-spin-button {
 .show-more .show-more-link {
     background-color: #C48AF7;
     color: #ffffff;
-    border-radius: 0.5vh;
+    cursor: pointer;
+    border-radius: 0.3125vw;
     text-decoration: none;
     margin: 1vh;
     padding: 1vh;
@@ -219,6 +220,11 @@ input::-webkit-inner-spin-button {
     font-size: 2vh;
     font-weight: bold;
     font-weight: 1.2vw;
+    transition: 0.2s;
+}
+
+.show-more-link:hover{
+    background-color: #b270eb;
 }
 
 .tests-topic {

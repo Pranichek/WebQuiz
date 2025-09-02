@@ -76,9 +76,10 @@
                     <label class="add-image">Видалити зображення<input type="button" onclick="deleteImage(event);" style="display:none;"></label>
                 </div>
             {% endif %}
-            <div class="new-answer-form">
-                <input type="text" class="new-answer" placeholder="Введіть свою відповідь у поле" maxlength="20" style="user-select: none;">
-                <img class="button-answer" src="{{ url_for('test_pass.static', filename='images/plus_answer.png') }}" alt="">
+            
+            <div class="input-gap-div">
+                <input type="text" class="new-answer">
+                <button type="button" class="button-answer"><img src="{{ url_for('test_pass.static', filename='images/add_variant.svg') }}"></button>
             </div>
         </div>
 
@@ -265,10 +266,14 @@
         </div>
 
         <div class="input-type" style="display: none;">
+            <div class="input-answer">
+                
+                <p class="views-text">Відображення у студента</p>
 
-            <div class="titles">
-                <p>Відображення у студента</p>
-                <p class="list-text">Можливі варіанти відповіді:</p>
+                <div class="views-answs">
+
+                </div>
+                
             </div>
 
             <div class="input-answer">
@@ -298,8 +303,8 @@
     <script type="module" src="{{ url_for('test_pass.static', filename='js/load_images.js') }}" ></script>
     <script src="{{ url_for('test_pass.static', filename='js/change_check.js') }}" ></script>
     <script src="{{ url_for('test_pass.static', filename='js/inputType.js') }}" ></script>
-    <script src="{{ url_for('test_pass.static', filename='js/addAnswerOption.js') }}" ></script>
-
+    <script src="{{ url_for('test_pass.static', filename='js/animation_input.js') }}" ></script>
+    
 
     <script src="{{ url_for('test_pass.static', filename='js/one_answer.js') }}" type="module"></script>
 {% endblock %}

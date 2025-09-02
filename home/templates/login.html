@@ -14,7 +14,7 @@
             <form action="" method="post" id="form">
                 <input type="hidden" name="check_form" value="login">
                 <div class="img-avatar">
-                    <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.svg') }}" alt="avatar">
+                    <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar' ~ random_num ~ '.svg') }}" alt="avatar">
                 </div>
                 <input inputmode="email"  class="text-input input_email {% if email == 'shake' %}email_input{% endif %}" type= "email" name= "email" placeholder= "Введіть email" required>
 
@@ -27,8 +27,8 @@
 
                 <p class="problem">{{ message }}</p>
             </form>
-                
         </div>
+    </div>
 
         <div class="promotion">
             <div class="bonuses">

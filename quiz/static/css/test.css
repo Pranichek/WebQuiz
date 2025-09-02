@@ -44,6 +44,7 @@ form {
     justify-content: space-between;
     height: 25%;
     padding-right: 2vw;
+    color: green;
 }
 
 .info-block {
@@ -114,6 +115,7 @@ form {
     border-radius: 0.5vh;
     position: relative;
     text-align: center;
+    font-size: 1vw;
 }
 
 .test-cover-wrapper {
@@ -187,6 +189,8 @@ span {
 .show_more_velocity {
     transition: 0.3s ease;
     transform: rotate(0deg);
+    width: 1.3vw;
+    height: 1.3vw;
 }
 
 .test-title-input:disabled {
@@ -300,6 +304,7 @@ span {
     margin-left: 2vw;
     color: #343434;
     font-weight: 600;
+    font-size: 1vw;
 }
 
 .watch_test {
@@ -314,6 +319,7 @@ span {
     font-weight: 600;
     text-align: center;
     white-space: nowrap;
+    font-size: 1vw;
 }
 
 .buttons {
@@ -374,16 +380,34 @@ span {
 
 .question-conainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
-    height: 13vh;
+    height: 15vh;
     overflow: hidden;
+    position: relative;
+    overflow: hidden;
+    /* background-color: green; */
+}
+
+.data-question{
+    height: 100%;
+    width: 69%;
+    z-index: 2;
+    display: flex;
+    gap: 0.5vw;
+}
+
+.question_img{
+    height: 90%;
+    width:auto;
+    object-fit: contain;
+    z-index: 2;
 }
 
 .question {
     z-index: 2;
     font-size: 2vh;
-    width: 80%;
+    width: 50%;
     font-weight: bolder;
     color: #ffffff;
     white-space: normal;
@@ -392,14 +416,29 @@ span {
     text-align: center;
 }
 
+
+
 .variant {
     display: flex;
     justify-content: start;
     gap: 0.8vw;
-    width: 45%;
-    height: 50%;
+    width: 49%;
+    height: 8vh;
     word-wrap: break-word;
     overflow-wrap: break-word;
+    
+}
+
+.input-gap{
+    display: flex;
+    padding: 0.1vw;
+    gap: 0.3vw;
+}
+
+.input-correct{
+    height: 1vw;
+    width: 1vw;
+    object-fit: contain;
 }
 
 li {
@@ -416,9 +455,13 @@ li:hover {
     background-color: #9AA8E2;
 }
 
+
 .answer {
     word-wrap: break-word;
     overflow-wrap: break-word;
+    height: 100%;
+    display: flex;
+    
 }
 
 p.answer {
@@ -432,7 +475,7 @@ p.answer {
     position: absolute;
     right: 0;
     width: 100%;
-    height: 13vh;
+    height: 100%;
     border-radius: 1vh 1vh 0 0;
 }
 
@@ -458,8 +501,8 @@ p.answer {
     display: flex;
     background-color: #343434;
     position: absolute;
-    top: 8vh;
-    right: 0.4vw;
+    bottom: 0;
+    right: 0;
     border: 0.1vh solid #343434;
     border-radius: 0.3vh;
     cursor: pointer;
@@ -467,6 +510,9 @@ p.answer {
     justify-items: center;
     padding-left: 0.5vw;
     padding-right: 0.5vw;
+    font-size: 1vw;
+    margin-bottom: 0.5vw;
+    margin-right: 0.5vw;
 }
 
 .pen-img {
@@ -492,6 +538,7 @@ p.answer {
     height: fit-content;
 }
 
+
 .circle {
     width: 1.7vw;
     height: 1.7vw;
@@ -501,9 +548,19 @@ p.answer {
     flex-grow: 0;
 }
 
+.quard{
+    width: 1.5vw;
+    height: 1.5vw;
+    border: 1px solid #94C4FF;
+    border-radius: 2px;
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
 .answers p {
-    font-size: 1.7vh;
+    font-size: 1.2vw;
     color: #ffffff;
+    font-weight: 450;
 }
 
 .test-title-input:disabled {
