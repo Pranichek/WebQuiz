@@ -76,10 +76,8 @@
                         <div class="nav-links">
                             {% if check_auth or create_test %}
                                 <a href="/" class="enter-code">Додому</a>
-                            {% elif test_data %}
-                                <a href="/" class="enter-code">Додому</a>
-                                <a href="/select_way" class="test-button">+ Створити вікторину</a>
                             {% else %}
+                                <a href="/" class="enter-code">Додому</a>
                                 <a href="/select_way" class="test-button">+ Створити вікторину</a>
                             {% endif %}
                         </div>

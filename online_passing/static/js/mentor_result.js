@@ -29,19 +29,6 @@ socket.on("list_results",
             usersRatings.style.height = "58%"
             usersRatings.style.border = "0.17vh solid #C48AF7"
             usersRatings.style.borderRadius = "2vw";
-            // <div class="diagram">
-            //     <div class="text-diagram">Прогресс учнів: </div>
-            //     <div class="diagram-informations">
-            //         <!-- <div class="line"></div> -->
-
-            //         <div class="blocks">
-
-            //         </div>
-            //     </div>
-            // </div>
-            // <div class="variants">
-
-            // </div>
 
             const divDiagram = document.createElement("div")
             divDiagram.className = "diagram"

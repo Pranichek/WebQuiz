@@ -61,15 +61,21 @@
                 </div>
             </div>
         </div>
+
         
         <div class="question-name">
             <input type="text" class="question" name="question" id="question" placeholder="Введіть питання" required>
-                <label class="add-image">Додати зображення<input type="file" id="imgInput" name="image" accept="image/*" onchange="imageLoaded(event);" style="display:none;"></label>
-                <div class="is-image" style="display: none;" id="deleteImgButton">
-                    <p class="img-success">Зображення успішно додано</p>
-                    <label class="add-image">Видалити зображення<input type="button" onclick="deleteImage(event);" style="display:none;"></label>
-                </div>
+            <label class="add-image">Додати зображення<input type="file" id="imgInput" name="image" accept="image/*" onchange="imageLoaded(event);" style="display:none;"></label>
+            <div class="is-image" style="display: none;" id="deleteImgButton">
+                <p class="img-success">Зображення успішно додано</p>
+                <label class="add-image">Видалити зображення<input type="button" onclick="deleteImage(event);" style="display:none;"></label>
+            </div>
+            <div class="input-gap-div">
+                <input type="text" class="new-answer" placeholder="Введіть відповідь">
+                <button type="button" class="button-answer"><img src="{{ url_for('test_pass.static', filename='images/add_variant.svg') }}"></button>
+            </div>
         </div>
+        
 
         <input type="file" name="image1" class="image1 input_load" id="1" value="" accept="image/*">
         <input type="file" name="image2" class="image2 input_load" id="2" value="" accept="image/*">
@@ -162,12 +168,11 @@
         <div class="input-type" style="display: none;">
             <div class="input-answer">
                 
-                <p>Відображення у студента</p>
+                <p class="views-text">Відображення у студента</p>
 
-                <form action="">
-                    <input type="text" class="new-answer">
-                    <button type="button" class="button-answer">Додати</button>
-                </form>
+                <div class="views-answs">
+
+                </div>
                 
             </div>
 
@@ -196,7 +201,7 @@
     <script type="module" src="{{ url_for('test_pass.static', filename='js/question_type.js') }}" ></script>
     <script type="module" src="{{ url_for('test_pass.static', filename='js/load_images.js') }}" ></script>
     <script src="{{ url_for('test_pass.static', filename='js/inputType.js') }}" ></script>
-    
+    <script src="{{ url_for('test_pass.static', filename='js/animation_input.js') }}" ></script>
 
     <!-- файли де знаходять функції для кожного типу питання -->
     <script src="{{ url_for('test_pass.static', filename='js/one_answer.js') }}" type="module" ></script>

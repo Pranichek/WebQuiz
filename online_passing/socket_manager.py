@@ -50,11 +50,18 @@ def handle_join(data):
     for user_id in user_ids:
         user = User.query.get(int(user_id))
         if user:
+            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.email}/{user.name_avatar}')
+            pet_url = flask.url_for(
+                'profile.static',
+                filename=f'images/pets_id/{user.user_profile.pet_id}.png'
+            )
             user_list.append({
                 "username": user.username,
                 "email": user.email,
                 "ready": user.user_profile.answering_answer,
-                "count_points": user.user_profile.count_points
+                "count_points": user.user_profile.count_points,
+                "user_avatar": avatar_url,
+                "pet_img": pet_url
             })
 
     emit("update_users", user_list, room=room_code, broadcast=True)
@@ -93,10 +100,12 @@ def handle_start_test(data):
 
 @socket.on("copy_code")
 def handle_copy_code(data):
+    print("kuku")
     pyperclip.copy(data["code_room"])
 
 @socket.on("copy_link")
 def handle_copy_link(data):
+    print("kuku")
     pyperclip.copy(data["link_room"])
 
 @socket.on("mentor_email")
@@ -160,12 +169,20 @@ def handler_delete(data):
                 user_list = []
                 for uid in user_ids:
                     u = User.query.get(int(uid))
+                    avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{u.email}/{u.name_avatar}')
+
+                    pet_url = flask.url_for(
+                        'profile.static',
+                        filename=f'images/pets_id/{user.user_profile.pet_id}.png'
+                    )
                     if u:
                         user_list.append({
                             "username": u.username,
                             "email": u.email,
                             "ready": user.user_profile.answering_answer,
-                            "count_points": user.user_profile.count_points
+                            "count_points": user.user_profile.count_points,
+                            "user_avatar": avatar_url,
+                            "pet_img": pet_url
                         })
 
                 emit("update_users", user_list, room=room.room_code)

@@ -663,7 +663,12 @@ socket.on('question', (data) => {
             img.src = `${data.question_img}`;
             img.alt = data.question_img;
 
-            document.querySelector(".bottom-image").appendChild(img);
+            try {
+                document.querySelector(".bottom-image").appendChild(img);
+            } catch (error) {
+                console.log(error)
+            }
+            
 
         }else if (checkOportunity != "not"){
             let justAnswerDiv = document.querySelector(".answers")

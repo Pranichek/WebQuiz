@@ -209,6 +209,25 @@ button{
     gap: 4vh;
     position: absolute;
     display: none;
+
+    opacity: 0;
+    transform: translateY(2vh) scale(.98);
+    visibility: hidden;
+    pointer-events: none;
+    transition:
+        opacity .28s ease,
+        transform .28s ease,
+        visibility 0s linear .28s;
+}
+.choice.is-open{
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    visibility: visible;
+    pointer-events: auto;
+    transition:
+        opacity .28s ease,
+        transform .28s ease,
+        visibility 0s;
 }
 
 .choice p{

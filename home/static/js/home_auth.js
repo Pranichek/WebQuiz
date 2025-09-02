@@ -4,6 +4,9 @@ function Profile(){
     document.querySelector(".nick").click();
 }
 
+localStorage.removeItem("selectedSortauth")
+localStorage.removeItem("selectedCategoriesauth")
+
 window.addEventListener(
     'DOMContentLoaded',
     () => {

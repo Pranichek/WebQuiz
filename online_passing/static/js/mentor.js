@@ -5,7 +5,6 @@ localStorage.setItem("room_code", room_code)
 localStorage.setItem("flag_time", "true")
 
 const chat = document.querySelector(".messages");
-chat.innerHTML = ""; 
 
 function loadRoom() {
     const socket = io();
@@ -39,11 +38,11 @@ function loadRoom() {
 
     // список подключенных
     socket.on("update_users", (users) => {
-        console.log("Користувачі в кімнаті:", users);
         const blockUsers = document.querySelector(".users")
 
         blockUsers.innerHTML = "";
 
+        document.querySelector("#amount_users").textContent =  users.length - 1 
         users.forEach(user => {
             if (user.email != document.querySelector(".email").textContent){
                 const blockDiv = document.createElement("div")
@@ -54,6 +53,7 @@ function loadRoom() {
 
                 const avatarImg = document.createElement("img")
                 avatarImg.classList.add("ava")
+                avatarImg.src = user.user_avatar
 
                 const usernameP = document.createElement("p")
                 usernameP.textContent = user.username
@@ -73,6 +73,7 @@ function loadRoom() {
 
                 const petImg = document.createElement("img")
                 petImg.classList.add("pet")
+                petImg.src = user.pet_img
 
 
                 blockPetDiv.appendChild(petImg)

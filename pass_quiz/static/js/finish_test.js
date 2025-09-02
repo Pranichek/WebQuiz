@@ -95,6 +95,13 @@ socket.on("test_result", (data) => {
 
         questText.innerHTML = `${index + 1}. ${element.question}`;
         questText.className = "quest-text";
+
+        if (data.images[index][0] != "not"){
+            const imgQuestion = document.createElement("img")
+            imgQuestion.src = data.images[index][0]
+            questionDiv.appendChild(imgQuestion)
+        }
+
         questionDiv.appendChild(questText);
 
         questionDiv.insertBefore(mainHead, questionDiv.firstChild);
@@ -154,12 +161,15 @@ socket.on("test_result", (data) => {
                     // Для одиночных правильных ответов
                     if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
                         circle.className = "correct-circle";
-
+                        console.log(1)
                     } else if (correctForThisQuestion.includes(index) && !userAnswersForThisQuestion.includes(index)) {
+                        console.log(2)
                         circle.className = "right-circle"; // Правильный вариант, но не выбран
                     }else if (userAnswersForThisQuestion.includes(index) && !correctForThisQuestion.includes(index)) {
+                        console.log(3)
                         circle.className = "uncorrect-circle"; // Неправильный ответ
                     } else {
+                        console.log(4)
                         circle.className = "simple-circle"; // Ответ не выбран
                     }
                     // }
@@ -173,6 +183,12 @@ socket.on("test_result", (data) => {
             if (answ!= "image?#$?image"){
                 if (type_quest == "many-answers" || type_quest == "one-answer"){
                     answerDiv.innerHTML = `${answ}`;
+                    if (data.images[indexel][index + 1] != "not"){
+                        const img = document.createElement("img")
+                        img.src = data.images[indexel][index + 1]
+                        img.className = "answer-img"
+                        answerDiv.appendChild(img)
+                    }
                 }else{
                     // берем ответ что ввел пользователь
                     if (!questionDiv.querySelector(".input-block")){
@@ -193,15 +209,21 @@ socket.on("test_result", (data) => {
                             }
                         }else{
                             for (let symbol of user_answer){
-                                const block = document.createElement("div")
-                                block.className = "input-block"
-                                block.textContent = symbol
-                                blocksDiv.appendChild(block)
-                                
-                                if (correct_answers.includes(user_answer)){
-                                    block.classList.add("correct-block")
+                                if (symbol != "¤"){
+                                    const block = document.createElement("div")
+                                    block.className = "input-block"
+                                    block.textContent = symbol
+                                    blocksDiv.appendChild(block)
+                                    
+                                    if (correct_answers.includes(user_answer)){
+                                        block.classList.add("correct-block")
+                                    }else{
+                                        block.classList.add("uncorrect-block")
+                                    }
                                 }else{
-                                    block.classList.add("uncorrect-block")
+                                    const block = document.createElement("div")
+                                    block.className = "gap-block"
+                                    blocksDiv.appendChild(block)
                                 }
                             }
 

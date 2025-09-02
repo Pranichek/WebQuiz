@@ -1,4 +1,4 @@
-import flask, flask_login, os, random, shutil, traceback
+import flask, flask_login, os, random, shutil, traceback, random
 from .models import User
 from Project.db import DATABASE
 from .send_email import send_code, generate_code
@@ -132,7 +132,7 @@ def render_home_auth():
         second_topic = second_topic,
         second_tests = second_four_test,
         third_tests = third_ready_tests if len(third_ready_tests) >= 4 else fourth_four_test,
-        fourt_topic = "Недавно пройдені тести" if len(third_ready_tests) >= 4 else f"Тести із теми {fourth_topic}"
+        fourt_topic = ["Недавно пройдені тести", fourth_topic] if len(third_ready_tests) >= 4 else [f"Тести із теми {fourth_topic}", fourth_topic]
         )
 
     
@@ -205,7 +205,8 @@ def render_registration():
         registration_page = True,
         password_shake = password_shake,
         phone_shake = phone_shake,
-        message = message
+        message = message,
+        random_num = random.randint(1, 5)
     )
 
 
@@ -258,11 +259,13 @@ def render_code():
         else:
             if form_code != '':
                 if str(flask.session["code"]) == form_code:
+                    avatar = f"default_avatar{random.randint(1,5)}.svg"
                     user = User(
                             username = flask.session["username"],
                             password = flask.session["password"],
                             email = flask.session["email"],
-                            is_mentor = flask.session["check_mentor"]
+                            is_mentor = flask.session["check_mentor"],
+                            name_avatar = avatar
                         )
                     
                     profile = DataUser()
@@ -273,9 +276,9 @@ def render_code():
                     if not os.path.exists(path):
                         os.mkdir(path)
 
-                        default_avatar_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", "default_avatar.svg"))
+                        default_avatar_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", avatar))
 
-                        destination_path = os.path.join(path, "default_avatar.svg")
+                        destination_path = os.path.join(path, avatar)
 
                         shutil.copyfile(default_avatar_path, destination_path)
 
@@ -339,7 +342,8 @@ def render_login():
             login_page = True,
             password = password,
             email = email,
-            message = message
+            message = message,
+            random_num = random.randint(1, 5)
             )
     else:
         return flask.redirect("/")

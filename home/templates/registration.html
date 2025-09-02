@@ -17,7 +17,7 @@
         <div class="registration">
             <form action="" method="post">
                 <div class="img-avatar">
-                    <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.svg') }}" alt="avatar">
+                    <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar' ~ random_num ~ '.svg') }}" alt="avatar">
                 </div>
                 <!-- инпут для проверки post запроса -->
                 <input type="hidden" name="check_form" value="registration">
