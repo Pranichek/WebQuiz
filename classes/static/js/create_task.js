@@ -7,15 +7,18 @@ let buttonAnnouncement = document.querySelector(".announcement-btn")
 let buttonTestTask = document.querySelector(".test_task-btn")
 let buttonChooseTest = document.querySelector(".choose-test")
 let buttonCreateTask = document.querySelector(".create_task")
-const weeksInput = document.querySelector(".week_data")
-const daysInput = document.querySelector(".days_data")
-const hoursInput = document.querySelector(".hours_data")
-const minutesInput = document.querySelector(".minutes_data")
-// let buttonCreateTestTask = document.querySelector(".create_test_task")
-const socket = io()
-const queryString = window.location.search
-const urlParams = new URLSearchParams(queryString)
-const inputFile = document.querySelector("#file-upload")
+// const weeksInput = document.querySelector(".week_data")
+// const daysInput = document.querySelector(".days_data")
+// const hoursInput = document.querySelector(".hours_data")
+// const minutesInput = document.querySelector(".minutes_data")
+// // let buttonCreateTestTask = document.querySelector(".create_test_task")
+// const socket = io()
+// const queryString = window.location.search
+// const urlParams = new URLSearchParams(queryString)
+// const inputFile = document.querySelector("#file-upload")
+// const inputTopic = document.querySelector(".topic")
+// const inputTask = document.querySelector(".task-info")
+const taskForm = document.getElementById("newTaskForm")
 
 
 function showWithFade(el) {
@@ -76,25 +79,20 @@ buttonChooseTest.addEventListener(
     }
 )
 
-
-// buttonCreateTask.addEventListener(
-//     'click',
-//     () => {
-//         socket.emit(
-//             'create_task',
-//             {
-//                 theme: document.querySelector(".topic").value,
-//                 information: document.querySelector(".task_info").value,
-//                 class_id: urlParams.get('class_id'),
-//                 weeks: weeksInput.value,
-//                 days: daysInput.value,
-//                 hours: hoursInput.value,
-//                 minutes: minutesInput.value,
-//                 file: inputFile.files[0]
-//             }
-//         )
-  
-//         location.reload()    
-//     }
-// )
-// fileInput.files[0];
+buttonCreateTask.addEventListener(
+    'click',
+    () => {
+        const formData = new FormData(taskForm)
+        $.ajax({
+            url: window.location.href,
+            type: 'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            headers: {'X-CSRFToken': document.cookie.split("csrftoken=")[1].split(";")[0]},
+        })
+        console.log("inputs deleted")
+        taskForm.reset()
+        location.reload()
+    }
+)

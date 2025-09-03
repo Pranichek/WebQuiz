@@ -127,8 +127,12 @@ def render_data_class():
         final_term = data_year + "/" + data_time # 2025/09/01/14/10/37
 
 
-        old_time = class_item.start_time.split("@")
-        old_terms = class_item.term_task.split("@")
+        try:
+            old_time = class_item.start_time.split("@")
+            old_terms = class_item.term_task.split("@")
+        except:
+            old_time = []
+            old_terms = []
 
         old_time.append(final_time_data)
         old_terms.append(final_term)  
@@ -136,22 +140,11 @@ def render_data_class():
         class_item.start_time = "@".join(old_time)
         class_item.term_task = "@".join(old_terms)
 
-
-                
-        
         DATABASE.session.commit()
-
-    class_id = flask.request.args.get("class_id")
-    class_item = Classes.query.get(class_id)
-    users_list = []
+        
 
     if class_item.students is not None:
-        users = class_item.students.split("/")
-        users.remove("")
-
-        
-        for user in users:
-            users_list.append(User.query.get(int(user)))
+        users_count = len(class_item.students.split("/"))
 
     data_topic = class_item.theme_task.split("/")
     data_info = class_item.information_task.split("/")
@@ -169,9 +162,28 @@ def render_data_class():
 
     return flask.render_template(
         'class_data.html',
-        users_list = users_list,
+        users_count = users_count,
         test_data = True,
-        ready_anoun = ready_anoun
+        ready_anoun = ready_anoun,
+        class_id = class_id
+    )
+
+def render_class_members():
+    class_id = flask.request.args.get("class_id")
+    class_item = Classes.query.get(class_id)
+    users = class_item.students.split("/")
+    try:
+        users.remove("")
+    except:
+        pass
+
+    users_list = []
+    for user in users:
+        users_list.append(User.query.get(int(user)))
+
+    return flask.render_template(
+        'class_members.html',
+        users_list = users_list,
     )
 
 # @socket.on("create_task")

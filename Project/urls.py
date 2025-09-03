@@ -249,7 +249,13 @@ classes.mentor_class.add_url_rule(
 )
 
 classes.mentor_class.add_url_rule(
-    rule="/data_class/delete_member/<int:pk>",
+    rule="/class_members",
+    view_func= classes.render_class_members,
+    methods = ["GET", "POST"]
+)
+
+classes.mentor_class.add_url_rule(
+    rule="/class_members/delete_member/<int:pk>",
     view_func= classes.render_delete_member,
     methods = ["GET", "POST"]
 )
