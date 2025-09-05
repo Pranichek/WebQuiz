@@ -1,6 +1,7 @@
 const socket = io()
 
 if (localStorage.getItem("index_question")){
+    console.log("emit load_question")
     socket.emit('load_question', {
         index: localStorage.getItem("index_question"),
         test_id: localStorage.getItem("test_id"),
@@ -9,12 +10,28 @@ if (localStorage.getItem("index_question")){
 }
 
 
-socket.on("update_users", (users) => {
-    const blockUsers = document.querySelector(".outline-users")
+socket.on("update_users", (users, questionText, questionType, questionTime, answerOptions) => {
 
+    document.querySelector(".question-text").textContent = questionText
+    answerOptions = answerOptions.split("%?)(?%")
+
+    for (let option of answerOptions){
+        option = option.replace(/%|\?|\(|\)/g, "")
+        document.querySelector(".answers-test").insertAdjacentHTML(
+            "beforeend",
+            `<div class='answer'><div class='checkMark'></div><p>${option}</p></div>`
+        )
+    }
+
+    if (questionTime < 60){
+        document.querySelector(".right-part").textContent = questionTime
+    } else{
+        document.querySelector(".left-part").textContent = questionTime / 60
+    }
+
+    const blockUsers = document.querySelector(".outline-users")
     blockUsers.innerHTML = ""
     // <p class="count-answered">відповіли  5 / <span class="count-people">12</span></p>
-    
 
     count_answered = 0
     count_users = users.length

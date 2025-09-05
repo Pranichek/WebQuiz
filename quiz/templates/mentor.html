@@ -106,17 +106,13 @@
         </div>
         
         <span class="flex-block">
-<<<<<<< HEAD:userprofile/templates/mentor.html
             <h2 class="participants">Учасники</h2>
             <img src="{{ url_for('mentor.static', filename='images/mentor/participants.png') }}" alt="">
             <p class="participants-number" id="amount_users">{{ all_participants | length }}</p>
             <div class="chat-box"></div>
             <input type="text" class="message-input" placeholder="Введи повідомлення">
             <button class="send-message">Надіслати</button>
-=======
-            <img src="{{ url_for('mentor.static', filename='images/mentor/participants.png') }}" alt="">
-            <p class="participants-number" id="amount_users">{{ all_participants | length }}</p>
->>>>>>> 6dd749120f8bf1657a62b14083f03693c105658d:quiz/templates/mentor.html
+
         </span>
 
         <div class="chat-icon">
@@ -148,10 +144,8 @@
             <div class="check-click">
                     <img class="open-chat" src="{{ url_for('mentor.static', filename='images/mentor/chat_icon.png') }}" alt="">
             </div>
->>>>>>> 6dd749120f8bf1657a62b14083f03693c105658d:quiz/templates/mentor.html
         </div>
 
-        
     </section>
 
 {%  endblock %}
@@ -163,12 +157,7 @@
         const staticBase = "{{ url_for('mentor.static', filename='images/mentor/student_avatar.png') }}";
     </script>
     <script src="{{ url_for('mentor.static', filename='js/mentor.js') }}"></script>
-<<<<<<< HEAD:userprofile/templates/mentor.html
     <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url_for('mentor.static', filename='js/getNewUser.js') }}"></script>
-{% endblock scripts %}
-=======
     <script src="{{ url_for('mentor.static', filename='js/chat.js') }}"></script>
-    <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ url_for('mentor.static', filename='js/getNewUser.js') }}"></script>
 {% endblock scripts %}

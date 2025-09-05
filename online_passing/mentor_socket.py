@@ -143,7 +143,14 @@ def load_question_mentor(data):
                 "pet_img": pet_url
             })
 
-    emit("update_users", user_list, room=data["room"], broadcast=True)
+    test : Test = Test.query.get(int(data["test_id"]))
+    index_question = int(data["index"])
+    text_question = test.questions.split("?%?")[index_question]
+    type_question = test.type_questions.split('?$?')[index_question]
+    time_question = test.question_time.split("?#?")[index_question]
+    answer_options = test.answers.split("?@?")[index_question]
+
+    emit("update_users", (user_list, text_question, type_question, time_question, answer_options), room=data["room"], broadcast=True)
 
 
 @socket.on("end_question")
