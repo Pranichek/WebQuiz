@@ -21,13 +21,15 @@
                         <span class="email">{{ user.email }}</span>
                     </div>
                     <div class="mentor-avatar">
-                        <img src="{{ url_for('mentor.static', filename='images/mentor/mentor_avatar.png') }}" alt="Аватар ментора">
-                        <p class="you">Ви</p>
+                        <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                        <p class="you">ВИ</p>
                     </div>
                 </div>
                 <div class="topic">
-                    тема тесту
+                    <img class="image-test" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                    <p class="topic-text">{{ title_test }}</p>
                 </div>
+
             </div>
 
             <div>
@@ -39,7 +41,7 @@
             <div class="mentor-card">
                 <div class="mentor-join-info">
                     <div class="join">
-                        <span>Приєднуйтесь з будь-якого пристрою:</span>
+                        <span>Приєднуйтесь з будь-якого пристрою</span>
                         <div class="url copy-url">
                             <span class="link-text">joinquiz.com</span>
                             <img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/copy.svg') }}" alt="copy icon">
@@ -60,35 +62,31 @@
                     </div>
 
                     <div class="qr-code">
-                        Скануй QR-Code <br>
-                        та приєднуприєднуйся до тесту 
-                        <a href="" onclick="event.preventDefault(); showQR() "                                           >
-                            <img style="width: 100px; height: 100px;" src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                        <p>Скануй QR-Code <br>та приєднуприєднуйся до тесту </p>
+                        <a class="qr-code-outline" href="" onclick="event.preventDefault(); showQR() "                                           >
+                            <img class="img-qrcode" src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
                         </a>
                     </div>
 
                     <div class="modal-window" id="qrModal">
                         <div class="modal-content">
-                            <div class="top-part">
-                                <div class="close-btn" onclick="hideQR()">
-                                    <img src="{{ url_for('mentor.static', filename='images/mentor/exit.svg') }}" alt="">
+        
+                            <div class="qrcode">
+                                <div class="nameofcode">
+                                    <h2>QR-код</h2>
+                                    <div class="close-btn" onclick="hideQR()">
+                                        <img src="{{ url_for('mentor.static', filename='images/mentor/exit.svg') }}" alt="">
+                                    </div>
                                 </div>
-                                <div class="qrcode">
-                                    <div class="nameofcode">
-                                        <h2>QR-код</h2>
-                                    </div>
-                                    <div>
-                                        <img style="width: 300px; height: 300px;" src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
-                                    </div>
+                                
+                                <div class="qr-code-div">
+                                    <img src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
                                 </div>
                             </div>
+
                             <div class="bottom-part">
-                                <div class="nameofcode">
-                                    <h3 id="for-text">Або приєднуйся по коду!</h3>
-                                </div>
-                                <div class="nameofcode2">
-                                    <h2>{{ code }}</h2>
-                                </div>
+                                <h3 id="for-text">Або приєднуйся по коду!</h3>
+                                <h2>{{ code }}</h2>
                             </div>
                         </div>
                     </div>
@@ -112,7 +110,6 @@
         
         <span class="flex-block">
             <img src="{{ url_for('mentor.static', filename='images/mentor/participants.png') }}" alt="">
-            <p class="participants-number" id="amount_users">{{ all_participants | length }}</p>
         </span>
 
         <div class="chat-icon">

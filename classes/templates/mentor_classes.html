@@ -20,7 +20,7 @@
                 <div class="classes">
 
                     {% for class in all_classes %}
-                        <div class="classs" onclick="window.location.replace('/data_class?class_id={{class.id}}')">
+                        <div class="classs" data-id="{{class.id}}" onclick="window.location.replace('/data_class?class_id={{class.id}}')">
                             <div class="left">
 
                             </div>
@@ -39,7 +39,7 @@
                                     </div>
                                     <div class="right-part">
                                         <p class="count-people">12</p>
-                                        <button class="leave">Видалити</button>
+                                        <button data-id="{{class.id}}" class="leave">Видалити</button>
                                     </div>
                                 </div>
                             </div>
@@ -60,7 +60,7 @@
                             <p class="em">{{ email }}</p>
                             
                         </div>
-                        <button class="btn"><a href="/create_class" class="lin">Створити клас</a></button>
+                        <button class="btn" onclick="documnet.queryselector('.lin').click()"><a href="/create_class" class="lin">Створити клас</a></button>
                     </div>
                     <p class="cls">Кількість створених класів:      2</p>
                 </div>

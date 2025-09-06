@@ -10,15 +10,14 @@
 
 body{
     background-color: #3C3C3C;
-    transition: all 0.1s ease;
-    animation: fadeIn 0.5s ease forwards;
+
 }
 
 
-@keyframes fadeIn {
+/* @keyframes fadeIn {
     0% { opacity: 0; transform: translateY(10px);}
     100% { opacity: 1; transform: translateY(0);}
-}
+} */
 
 
 
@@ -112,7 +111,14 @@ nav {
 .open-panel{
     width: 6vh;
     height: 6vh;
-    z-index: 100;
+    z-index: 0;
+    transition: 0.1s;
+    cursor: pointer;
+}
+
+.open-panel:hover{
+    opacity: 0.9;
+
 }
 
 .panel{
@@ -130,7 +136,7 @@ nav {
     border-radius: 10px;
     padding-top: 20px;
     background-color: #343434;
-    z-index: 100;
+    z-index: 200;
 }
 
 .link-container{

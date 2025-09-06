@@ -37,17 +37,19 @@ window.addEventListener(
 
         const textType = document.querySelector(".text-type");
         const blocks = document.querySelector(".blocks");
+        const inputGap = document.querySelector(".input-gap-div")
         
         const inputType = document.querySelector(".input-type");
         if (type != "input-gap") {
             textType.style.display = "flex";
             blocks.style.display = "flex";
             inputType.style.display = "none";
-            
+            inputGap.style.display = "none";
         }else if (type === "input-gap"){
             textType.style.display = "none";
             blocks.style.display = "none";
             inputType.style.display = "flex";
+            inputGap.style.display = "flex";
         }
     
         for (let buttonType of buttonsTypes){
@@ -88,9 +90,12 @@ for (let inputul of ulTypes){
             const blocks = document.querySelector(".blocks");
            
             const inputType = document.querySelector(".input-type");
+            const inputGap = document.querySelector(".input-gap-div")
+        
 
             if (type === "one-answer") {
                 clear_answer();
+                inputGap.style.display = "none"
                 textType.style.display = "flex";
                 blocks.style.display = "flex";
                 inputType.style.display = "none";
@@ -99,8 +104,10 @@ for (let inputul of ulTypes){
                 textType.style.display = "none";
                 blocks.style.display = "none";
                 inputType.style.display = "flex";
+                inputGap.style.display = "flex"
 
             }else if(type == "many-answers"){
+                inputGap.style.display = "none"
                 textType.style.display = "flex";
                 blocks.style.display = "flex";
                 inputType.style.display = "none";

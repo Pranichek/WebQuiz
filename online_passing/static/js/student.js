@@ -44,6 +44,7 @@ socket.on("update_users", (users) => {
 
             const avatarImg = document.createElement("img");
             avatarImg.classList.add("ava");
+            avatarImg.src = user.user_avatar
 
             const usernameP = document.createElement("p");
             usernameP.textContent = user.username;
@@ -62,7 +63,7 @@ socket.on("update_users", (users) => {
 
             const petImg = document.createElement("img");
             petImg.classList.add("pet");
-
+            petImg.src = user.pet_img
 
             blockPetDiv.appendChild(petImg);
 

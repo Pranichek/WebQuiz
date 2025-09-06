@@ -5,9 +5,13 @@ from Project.socket_config import socket
 from flask_login import current_user
 from .del_files import delete_files_in_folder
 from Project.db import DATABASE
+from quiz.models import Test
 
 @login_decorate
 def render_mentor():
+    id_test = flask.request.args.get("id_test")
+    test : Test = Test.query.get(id_test)
+
     # отримуємо код кімнати з параметрів запиту
     code = flask.request.args.get("room_code")
     # зберігаємо об'єкт користувача в змінну
@@ -55,7 +59,8 @@ def render_mentor():
         "mentor.html",
         mentor = True,
         code = code,
-        user = user
+        user = user,
+        title_test = test.title_test
     )
 
 
