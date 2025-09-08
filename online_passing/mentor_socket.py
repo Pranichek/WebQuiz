@@ -150,7 +150,35 @@ def load_question_mentor(data):
     time_question = test.question_time.split("?#?")[index_question]
     answer_options = test.answers.split("?@?")[index_question]
 
-    emit("update_users", (user_list, text_question, type_question, time_question, answer_options), room=data["room"], broadcast=True)
+    path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(index_question + 1)))
+    if exists(path):
+        name_img = None
+        for small_path in os.listdir(path):
+            if small_path not in ["1", "2", "3", "4"]:
+                name_img = small_path
+                break            
+    else:
+        name_img = None
+
+    email= test.user.email
+    title= test.title_test
+
+    if name_img:
+        img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{index_question + 1}/{name_img}")
+    else:
+        img_url = "not"
+
+    # проверка на то что есть ли в ответах картинки или нет
+    image_urls = ["none", "none", "none", "none"]
+    if exists(path):
+        for index in range(1, 5):
+            current_path = join(path, str(index))
+            if exists(current_path) and len(os.listdir(current_path)) > 0:
+                url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{index_question + 1}/{str(index)}/{os.listdir(current_path)[0]}")
+                image_urls[index - 1] = url
+    print("image_urls =", image_urls, "type =", type_question)
+
+    emit("update_users", (user_list, text_question, type_question, time_question, answer_options, img_url, image_urls), room=data["room"], broadcast=True)
 
 
 @socket.on("end_question")

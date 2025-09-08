@@ -10,17 +10,32 @@ if (localStorage.getItem("index_question")){
 }
 
 
-socket.on("update_users", (users, questionText, questionType, questionTime, answerOptions) => {
+socket.on("update_users", (users, questionText, questionType, questionTime, answerOptions, questionImgUrl, answersImgUrls) => {
 
+    document.querySelector(".question-test").insertAdjacentHTML(
+        "afterbegin",
+        `<img src="${questionImgUrl}" onerror="this.style.display = 'none';">`
+    )
     document.querySelector(".question-text").textContent = questionText
     answerOptions = answerOptions.split("%?)(?%")
 
-    for (let option of answerOptions){
-        option = option.replace(/%|\?|\(|\)/g, "")
+    if (questionType == "input-gap"){
+        console.log("type =", questionType)
         document.querySelector(".answers-test").insertAdjacentHTML(
             "beforeend",
-            `<div class='answer'><div class='checkMark'></div><p>${option}</p></div>`
+            `<input class="answer-input" type="text">`
         )
+    }else{
+        for (let option of answerOptions){
+            option = option.replace(/%|\?|\(|\)/g, "")
+            document.querySelector(".answers-test").insertAdjacentHTML(
+                "beforeend",
+                `<div class='answer'><div class='checkMark'></div>
+                    <img src="${answersImgUrls[answerOptions.indexOf(option)]}" onerror="this.style.display = 'none';">
+                    <p>${option}</p>
+                </div>`
+            )
+        }
     }
 
     if (questionTime < 60){
