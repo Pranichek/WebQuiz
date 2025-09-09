@@ -145,6 +145,8 @@ def load_question_mentor(data):
 
     emit("update_users", user_list, room=data["room"], broadcast=True)
 
+    
+
 
 @socket.on("end_question")
 def end_question(data):

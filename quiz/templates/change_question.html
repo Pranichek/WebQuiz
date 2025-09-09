@@ -115,13 +115,13 @@
 
                 <div class="inside-data" id="1">
                     {% if list_checks[0] == "delete" %}
-                        <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {{ correct1 if current_type == 'one-answer' or current_type == 'many-answers' else '' }} first_input" name="answer" id="1"  value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer1 }}{% endif %}"placeholder="Відповідь">{% if answer1 != "image?#$?image" and current_type == "one-answer" or current_type == "many-answers" %}{{ answer1 }}{% endif %}</textarea>
+                        <textarea style="font-size: 2vh;" maxlength="171" type="text" class="answer {{ correct1 if current_type == 'one-answer' or current_type == 'many-answers' else '' }} first_input" name="answer" id="1"  value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer1 }}{% endif %}"placeholder="Відповідь">{% if answer1 != "image?#$?image" and current_type == "one-answer" or current_type == "many-answers" %}{{ answer1 }}{% endif %}</textarea>
 
                         <div class="for-image">
                             <img src="{{ list_urls[0]  }}" alt="">
                         </div>
                     {% else %}
-                        <textarea maxlength="85" type="text" class="answer {{ correct1 if current_type == 'one-answer' or current_type == 'many-answers' else '' }} first_input" name="answer" id="1" value="{{ answer1 if current_type == 'one-answer' or current_type == 'many-answers' else '' }}" placeholder="Відповідь">{% if answer1 != "image?#$?image" and current_type == "one-answer" or current_type == "many-answers" %}{{ answer1 }}{% endif %}</textarea>
+                        <textarea maxlength="171" type="text" class="answer {{ correct1 if current_type == 'one-answer' or current_type == 'many-answers' else '' }} first_input" name="answer" id="1" value="{{ answer1 if current_type == 'one-answer' or current_type == 'many-answers' else '' }}" placeholder="Відповідь">{% if answer1 != "image?#$?image" and current_type == "one-answer" or current_type == "many-answers" %}{{ answer1 }}{% endif %}</textarea>
 
                     {% endif %}
                 </div>
@@ -149,13 +149,13 @@
                 <div class="inside-data" id="2">
                 
                     {% if list_checks[1] == "delete" %}
-                        <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct2 }}{% endif %} first_input" name="answer" id="2" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer2 }}{% endif %}" placeholder="Відповідь">{% if answer2 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer2 }}{% endif %}</textarea>
+                        <textarea style="font-size: 2vh;" maxlength="171" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct2 }}{% endif %} first_input" name="answer" id="2" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer2 }}{% endif %}" placeholder="Відповідь">{% if answer2 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer2 }}{% endif %}</textarea>
 
                         <div class="for-image">
                             <img src="{{ list_urls[1] }}" alt="">
                         </div>
                     {% else %}
-                        <textarea maxlength="85" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct2 }}{% endif %} first_input" name="answer" id="2" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer2 }}{% endif %}" placeholder="Відповідь">{% if answer2 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer2 }}{% endif %}</textarea>
+                        <textarea maxlength="171" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct2 }}{% endif %} first_input" name="answer" id="2" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer2 }}{% endif %}" placeholder="Відповідь">{% if answer2 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer2 }}{% endif %}</textarea>
 
                     {% endif %}
 
@@ -182,12 +182,12 @@
                     </div>
                     <div class="inside-data" id="3">
                         {% if list_checks[2] == "delete" %}
-                            <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct3 }}{% endif %} first_input" name="answer" id="3" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer3 }}{% endif %}" placeholder="Відповідь">{% if answer3 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer3 }}{% endif %}</textarea>
+                            <textarea style="font-size: 2vh;" maxlength="171" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct3 }}{% endif %} first_input" name="answer" id="3" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer3 }}{% endif %}" placeholder="Відповідь">{% if answer3 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer3 }}{% endif %}</textarea>
                             <div class="for-image">
                                 <img src="{{ list_urls[2] }}" alt="">
                             </div>
                         {% else %}
-                            <textarea maxlength="85" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct3 }}{% endif %} first_input" name="answer" id="3" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer3 }}{% endif %}" placeholder="Відповідь">{% if answer3 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer3 }}{% endif %}</textarea>
+                            <textarea maxlength="171" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct3 }}{% endif %} first_input" name="answer" id="3" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer3 }}{% endif %}" placeholder="Відповідь">{% if answer3 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer3 }}{% endif %}</textarea>
                         {% endif %}
                     </div>
                     <div class="delete-answer" id="3">
@@ -209,7 +209,7 @@
                         <img style="display: none;" id="3" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
                     </div>
                     <div class="inside-data" id="3">
-                        <textarea maxlength="85" type="text" class="answer" name="answer" id="3" placeholder="Відповідь"></textarea>
+                        <textarea maxlength="171" type="text" class="answer" name="answer" id="3" placeholder="Відповідь"></textarea>
                     </div>
                     <div class="delete-answer" id="3">
                         <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.svg') }}" alt="">
@@ -228,12 +228,12 @@
                     </div>
                     <div class="inside-data" id="4">
                         {% if list_checks[3] == "delete" %}
-                            <textarea style="font-size: 2vh;" maxlength="85" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct4 }}{% endif %} first_input" name="answer" id="4" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer4 }}{% endif %}" placeholder="Відповідь">{% if answer4 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer4 }}{% endif %}</textarea>
+                            <textarea style="font-size: 2vh;" maxlength="171" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct4 }}{% endif %} first_input" name="answer" id="4" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer4 }}{% endif %}" placeholder="Відповідь">{% if answer4 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer4 }}{% endif %}</textarea>
                             <div class="for-image">
                                 <img src="{{ list_urls[3] }}" alt="">
                             </div>
                         {% else %}
-                            <textarea maxlength="85" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct4 }}{% endif %} first_input" name="answer" id="4" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer4 }}{% endif %}" placeholder="Відповідь">{% if answer4 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer4 }}{% endif %}</textarea>
+                            <textarea maxlength="171" type="text" class="answer {% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ correct4 }}{% endif %} first_input" name="answer" id="4" value="{% if current_type == 'one-answer' or current_type == 'many-answers' %}{{ answer4 }}{% endif %}" placeholder="Відповідь">{% if answer4 != "image?#$?image" and (current_type == 'one-answer' or current_type == 'many-answers') %}{{ answer4 }}{% endif %}</textarea>
                         {% endif %}
                     </div>
                     <div class="delete-answer" id="4">
@@ -255,7 +255,7 @@
                         <img style="display: none;" id="4" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
                     </div>
                     <div class="inside-data" id="4">
-                        <textarea maxlength="85" type="text" class="answer" name="answer" id="4" placeholder="Відповідь"></textarea>
+                        <textarea maxlength="171" type="text" class="answer" name="answer" id="4" placeholder="Відповідь"></textarea>
                     </div>
                     <div class="delete-answer" id="4">
                         <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.svg') }}" alt="">

@@ -115,7 +115,7 @@ for (let deleteButton of deleteButtonList) {
                                         }
                                     }
                                     answerBlock.querySelector(".inside-data").querySelector(".for-image").remove()
-                                    answerBlock.querySelector("textarea").style.fontSize = "3vh"
+                                    answerBlock.querySelector("textarea").style.fontSize = "1.45vw"
                                 }
                                 
 

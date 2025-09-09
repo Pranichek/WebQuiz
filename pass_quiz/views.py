@@ -46,6 +46,8 @@ def render_finish_test():
         )
 
 
+
+
 @socket.on("finish_test")
 def handle_finish_test(data: dict):
     user_answers_raw = data.get("users_answers")

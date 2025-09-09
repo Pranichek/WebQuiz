@@ -344,6 +344,11 @@ span {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: 0.2s;
+}
+
+.add:hover, .add-test:hover{
+    background-color: #965dc8;
 }
 
 .grey {

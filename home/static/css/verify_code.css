@@ -13,7 +13,6 @@
     flex-direction: column;
     justify-content: end;
     align-items: center;
-    gap: 1.5vh;
     color: #ffffff;
     text-align: center;
     width: 100vw;
@@ -21,7 +20,7 @@
 }
 
 .text-ferify p {
-    font-size: 2vw;
+    font-size: 1.68vw;
 }
 
 .time{
@@ -36,18 +35,21 @@
     color: #ffffff;
     border: none;
     cursor: pointer;
+    width: auto;
 }
+
+
 .again:hover{
-    color: rgb(100, 103, 218);
+    color: rgb(113, 117, 223);
 }
 
 .butt-again{
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 0.5vw;
-    margin-top: -2.5vh;
-    width: 100vw;
+    text-align: center;
+    width: 34vw;
+    gap: 1vw;
 }
 
 .butt-again p{
@@ -83,19 +85,18 @@ p {
 .input-code {
     display: flex;
     flex-direction: row;
-    gap: 0.6vw;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
-    height: 11vh;
-    width: 40vw;
+    height: 12vh;
+    width: 34vw;
 }
 
-input {
+.input-tag {
     border-radius: 1.2vh;
     position: relative;
     min-width: 3vw;
-    width: 12%;
-    height: 100%;
+    width: 15%;
+    height: 95%;
     min-height: 4vh;
     border: none;
     color: #414141;
@@ -109,25 +110,28 @@ input {
 .buttons-verify {
     display: flex;
     flex-direction: row;
-    padding: 0.8vh 0.8vw 1.5vh 0.8vw;
-    gap: 1vw;
-    width: 71vw;
+    /* padding: 0.8vh 0.8vw 1.5vh 0.8vw; */
+    width: 34vw;
     height: 10vh;
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
+    /* background-color: green; */
+    position: relative;
 }
 
 .home-button, button{
     text-decoration: none;
     background-color: #B9BDF5;
     border: solid 0.15vh black; 
-    font-size: 2.5vh;
+    font-size: 1.1vw;
     font-weight: bold;
     border-radius: 1.5vh; 
     color: #414141;
-    padding: 1.5vh 2vw; 
-    min-width: 8vw; 
-    min-height: 5vh; 
+    /* padding: 1.5vh 2vw;  */
+    width: 49%;
+    height: 60%;
+    text-align: center;
+    display: flex;
 }
 
 input::-webkit-outer-spin-button,
@@ -153,7 +157,6 @@ form{
     display: flex;
     padding-top: 4vh;
     flex-direction: column;
-    gap: 2vh;
     width: 100vw;
     height: 60vh;
     justify-content: start;
@@ -177,24 +180,8 @@ form{
 }
 
 /* Кнопки */
-.home-button, .submit {
-    text-decoration: none;
-    background-color: #B9BDF5;
-    border: solid 0.15vh black; 
-    font-size: 2vh;
-    font-weight: bold;
-    border-radius: 1.5vh; 
-    color: #414141;
-    padding: 1.5vh 2vw; 
-    min-width: 8vw; 
-    min-height: 5vh;
-    transition: color 0.4s ease, background-color 0.1s ease;
-    transform: none;
-    box-shadow: none;
-}
-
 .home-button:hover, .submit:hover {
-    color: rgb(100, 103, 218);
+    color: rgb(93, 98, 230);
 }
 
 /* Инпуты */

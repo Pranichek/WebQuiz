@@ -48,6 +48,12 @@ function loadRoom() {
                 const blockDiv = document.createElement("div")
                 blockDiv.classList.add("block")
 
+                const userCross = document.createElement("img")
+                userCross.src = document.querySelector("#imageLink").dataset.link
+                userCross.classList = "cross-user"
+                userCross.dataset.email = user.email
+                blockDiv.appendChild(userCross)
+                
                 const infDiv = document.createElement("div")
                 infDiv.classList.add("inf")
 
@@ -87,24 +93,32 @@ function loadRoom() {
                 blockUsers.appendChild(blockDiv)
             }
         });
+        let lastemail;
 
         // видалення юзера із кімнати block
-
-        allBlocks = document.getElementsByClassName("block");
-        for (let block of allBlocks){
-            
-            block.addEventListener('click', ()=>{
-                socket.emit(
-                    "delete_user",
-                    {
-                        room: code,
-                        email: block.querySelector(".email-paragraph").textContent
-                    }
-                )
+        crossUser = document.getElementsByClassName("cross-user")
+        for (let cross of crossUser){
+            cross.addEventListener("click", ()=>{
+                document.querySelector(".window-choice").style.display = "flex"
+                lastemail = cross.dataset.email
             })
         }
 
+        let buttonRemove = document.querySelector(".remove_user")
+        buttonRemove.addEventListener("click", ()=>{
+            socket.emit(
+                "delete_user",
+                {
+                    room: code,
+                    email: lastemail
+                }
+            )
+            document.querySelector(".window-choice").style.display = "none"
+        })
 
+        document.querySelector(".decline").addEventListener("click", () => {
+            document.querySelector(".window-choice").style.display = "none"
+        })
     });
 
     socket.on(

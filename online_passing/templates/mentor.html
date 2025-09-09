@@ -9,6 +9,13 @@
 {% endblock links %}
     
 {% block content %}   
+    <img src="" alt="" data-link="{{ url_for('mentor.static', filename='images/mentor/cross_user.svg') }}" style="display: none;" id="imageLink">
+
+    <div class="window-choice">
+        <button class="decline">Скасувати</button>
+        <button class="remove_user">Видалити</button>
+    </div>
+
     <div class="general_container_rect">
     
         <div class="mentor-layout">

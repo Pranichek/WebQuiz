@@ -18,7 +18,7 @@ let validAnswersFlag = false;
 document.addEventListener("input", answerScanning);
 document.addEventListener("click", answerScanning);
 document.addEventListener("change", answerScanning);
-document.addEventListener("keyup", answerScanning);
+document.addEventListener("keydown", answerScanning);
 document.addEventListener("DOMContentLoaded", answerScanning);
 
 button.addEventListener("click", () => {
