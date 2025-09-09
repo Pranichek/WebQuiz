@@ -8,12 +8,13 @@ function CHnageName(){
 
 let DeleteButtons = document.querySelectorAll(".button-delete");
 
+
+
 for (let delbutton of DeleteButtons) {
     delbutton.addEventListener("click", function (event) {
         // отримуємо навзу питання та його відповіді
         // отримуємо індекс кнопки на яку натиснули
         let index_question = parseInt(delbutton.value);
-        console.log(index_question, "index")
 
         // console.log(index_question);
         // отримуємо дату з cookie

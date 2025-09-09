@@ -5,7 +5,7 @@
     justify-content: center;
     align-items: center;
     font-family: 'Inter';
-    
+    color: #ffffff;
 }
 
 body{
@@ -14,10 +14,6 @@ body{
 }
 
 
-/* @keyframes fadeIn {
-    0% { opacity: 0; transform: translateY(10px);}
-    100% { opacity: 1; transform: translateY(0);}
-} */
 
 
 
@@ -48,11 +44,11 @@ header{
 }
 
 .img-logo{
-    height: 7vh;
+    height: 6vh;
 }
 
 header p{
-    font-size: 3vh;
+    font-size: 2.5vh;
 }
 
 nav {
@@ -78,7 +74,7 @@ nav {
     text-align: center;
     font-weight: bold;
     font-size: 2vh;
-    transition: 0.3s ease;
+    /* transition: 0.3s ease; */
 }
 
 .nav-links .auth-button:hover, .nav-links .login-button:hover, .nav-links .test-button:hover, .nav-links .enter-code:hover{
@@ -112,7 +108,7 @@ nav {
     width: 6vh;
     height: 6vh;
     z-index: 0;
-    transition: 0.1s;
+    /* transition: 0.1s; */
     cursor: pointer;
 }
 

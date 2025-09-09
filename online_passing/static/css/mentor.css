@@ -417,7 +417,34 @@ main{
     border-radius: 15px;
     display: flex;
     gap: 10px;
+    position: relative;
 }
+.cross-user{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 5px;
+    margin-right: 5px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.window-choice{
+    position: absolute;
+    width: 20vw;
+    height: 20vh;
+    display: flex;
+    background-color: rgb(22, 69, 22);
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 1vw;
+    display: none;
+}
+
+.cross-user:hover{
+    opacity: 0.8;
+}
+
 .ava{
     width: 46px;
     height: 46px;
