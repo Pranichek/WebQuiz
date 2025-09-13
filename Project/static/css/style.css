@@ -14,9 +14,6 @@ body{
 }
 
 
-
-
-
 header{
     z-index: 1000;
     background-color: #343434;
@@ -81,6 +78,7 @@ nav {
     background-color: #b06aed;
 
 }
+
 
 .header_buttons {
     display: flex;
@@ -180,29 +178,8 @@ nav {
 }
 
 
-.footer{
-    background-color: #343434;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    width: 100vw;
-    height: 24vh;
-    position: relative;
-    bottom: 0;
-}
-.social-network{
-    width: 3vw;
-    height: 5vh;
-    background-color: transparent;
-    border: none;
-}
-.img-soc{
-    width: 5vh;
-    height: 5vh;
-    margin-right: 1vw;
-    
-}
+
+
 .last{
     display: flex;
     justify-content: center;

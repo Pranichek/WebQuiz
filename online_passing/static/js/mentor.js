@@ -3,6 +3,7 @@ const room_code = urlParams.get('room_code');
 
 localStorage.setItem("room_code", room_code)
 localStorage.setItem("flag_time", "true")
+localStorage.setItem("time_flag", "false")
 
 const chat = document.querySelector(".messages");
 

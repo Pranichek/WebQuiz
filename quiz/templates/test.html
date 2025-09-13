@@ -6,12 +6,23 @@
 
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/test.css') }}">
+    <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/window_delete.css') }}">
 {% endblock %}
 
 {% block content %}
     <form action="" method="post" id="del_form">
         <input type="hidden" name="check_post" value="del_image">
     </form>
+
+    <div class="window-choice">
+        <h1>Видалити питання</h1>
+        <p>Ви впевнені, що хочете видалити це питання?</p>
+        <div>
+            <p class="decline">Скасувати</p>
+            <p class="remove_question">Видалити</p>
+        </div>
+    </div>
+
     <!-- койнтейнер где храним путь ко всем базаым фоткам тестов -->
     <div class="save-photos">
         <div class="programin-photo" data-programing="{{ url_for('test_pass.static', filename = 'images/programmer_image.png') }}"></div>
