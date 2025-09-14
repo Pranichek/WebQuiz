@@ -1,5 +1,6 @@
 import flask, os
 
+
 project = flask.Flask(
     import_name = "Project",
     static_folder = "static",

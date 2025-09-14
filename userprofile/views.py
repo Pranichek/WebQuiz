@@ -11,6 +11,7 @@ from .render_data import create_email, render_phone_number
 from home.send_email import send_code, generate_code 
 from Project.login_check import login_decorate
 from os.path import abspath, join, exists
+from Project.check_room import check_room
 from flask_login import current_user
 
 
@@ -182,12 +183,11 @@ def render_edit_avatar():
             cash_image = str(flask.session["cash_image"] if 'cash_image' in flask.session else "Nothing")
         )
 
-    
+
+@check_room
 @login_decorate
 def render_user_tests():
     
-
-
     response = None
     if flask.request.method == "POST":
         delete_test_id = flask.request.form.get("test_id")
@@ -204,25 +204,14 @@ def render_user_tests():
     if cookie == "created":
         user = User.query.get(flask_login.current_user.id)
         tests = user.tests.filter(Test.check_del != "deleted").all()
-        message = ''
 
-        all_rooms = Rooms.query.all()
-        code = ""
-        
-        while True:
-            code = generate_code()
-            check_room = Rooms.query.filter_by(room_code = code).first()
-            if check_room is None:
-                break
 
         response = flask.make_response(
             flask.render_template(
                 template_name_or_list="user_tests.html",
                 tests = tests,
                 user=flask_login.current_user,
-                message = message,
                 page_name = "Колекція тестів",
-                code = code
             )
         )
 
@@ -272,7 +261,6 @@ def render_user_tests():
     elif cookie == "saved":
         user : User = User.query.get(flask_login.current_user.id)
         
-        # tests = user.tests.filter(Test.check_del != "deleted").all()
         tests = []
         favorite_id = user.user_profile.favorite_tests.split()
         all_test = Test.query.filter(Test.check_del != "deleted").all()
@@ -289,7 +277,6 @@ def render_user_tests():
                 user=flask_login.current_user,
                 message = message,
                 page_name = "Мої обрані тести",
-                code = generate_code()
             )
         )
 

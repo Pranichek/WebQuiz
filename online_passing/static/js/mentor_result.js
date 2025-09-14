@@ -1,6 +1,7 @@
 const socket = io()
 
 localStorage.setItem("flag_time", "true")
+localStorage.setItem("time_flag", "false")
 
 document.querySelector(".code-room").textContent = localStorage.getItem("room_code")
 

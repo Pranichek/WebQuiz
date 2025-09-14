@@ -11,7 +11,8 @@ if (localStorage.getItem("index_question")){
 
 
 socket.on("update_users", (users, questionText, questionType, questionTime, answerOptions, questionImgUrl, answersImgUrls) => {
-
+    const check_answers = []
+    
     document.querySelector(".question-test").insertAdjacentHTML(
         "afterbegin",
         `<img src="${questionImgUrl}" onerror="this.style.display = 'none';">`
@@ -20,7 +21,6 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
     answerOptions = answerOptions.split("%?)(?%")
 
     if (questionType == "input-gap"){
-        console.log("type =", questionType)
         document.querySelector(".answers-test").insertAdjacentHTML(
             "beforeend",
             `<input class="answer-input" type="text">`
@@ -28,6 +28,16 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
     }else{
         for (let option of answerOptions){
             option = option.replace(/%|\?|\(|\)/g, "")
+            
+            
+            if(option[0] == "+"){
+                check_answers.push(true)
+            }else{
+                check_answers.push(false)
+            }
+
+            option = option.slice(1, -1) 
+
             document.querySelector(".answers-test").insertAdjacentHTML(
                 "beforeend",
                 `<div class='answer'><div class='checkMark'></div>
@@ -38,11 +48,35 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
         }
     }
 
-    if (questionTime < 60){
-        document.querySelector(".right-part").textContent = questionTime
-    } else{
-        document.querySelector(".left-part").textContent = questionTime / 60
+
+    // if (questionTime < 60){
+    //     document.querySelector(".right-part").textContent = questionTime
+    // } else{
+    //     document.querySelector(".left-part").textContent = questionTime / 60
+    // }
+
+    const minutesP = document.querySelector(".left-part")
+    const secondsP = document.querySelector(".right-part")
+    
+    let timeFlag = localStorage.getItem("time_flag")
+
+    if (timeFlag == "false"){
+        if (questionTime < 61){
+            minutesP.textContent = questionTime
+            secondsP.textContent = "00"
+        }else{
+            const minutes = Math.floor(questionTime / 60);
+            let remainingSeconds = questionTime % 60;
+
+            if (remainingSeconds < 10) {
+                remainingSeconds = '0' + remainingSeconds;
+            }
+            minutesP.textContent = minutes
+            secondsP.textContent = remainingSeconds        
+        }
+        localStorage.setItem("time_flag", questionTime)
     }
+
 
     const blockUsers = document.querySelector(".outline-users")
     blockUsers.innerHTML = ""
@@ -128,7 +162,63 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
         })
     }
 
+    const showAnswersBtn = document.querySelector(".check-answers")
+    const answers = document.querySelectorAll(".answer")
+    
+    
+    showAnswersBtn.addEventListener("click", ()=>{
+        const checkstate = showAnswersBtn.dataset.state
+        if(checkstate == "hide"){
+            showAnswersBtn.dataset.state = "show"
+            showAnswersBtn.textContent = "сховати відповіді"
+            for (let i = 0; i < answers.length; i++){
+                if (check_answers[i] == true){
+                    answers[i].style.backgroundColor = "green"
+                } else{
+                    answers[i].style.backgroundColor = "red"
+                }
+            }
+        }else{
+            for (let i = 0; i < answers.length; i++){
+                answers[i].style.backgroundColor = "#94C4FF"
+                showAnswersBtn.dataset.state = "hide"
+                showAnswersBtn.textContent = "подивитися відповіді"
+            }
+        }
+    })
+
+    setInterval(() => {
+        let time = +localStorage.getItem("time_flag") - 1
+
+        if (time < 61){
+            minutesP.textContent = "00"
+            secondsP.textContent = time
+        }else{
+            const minutes = Math.floor(time / 60);
+            let remainingSeconds = time % 60;
+
+            if (remainingSeconds < 10) {
+                remainingSeconds = '0' + remainingSeconds;
+            }
+            minutesP.textContent = minutes
+            secondsP.textContent = remainingSeconds        
+        }
+        localStorage.setItem("time_flag", time)
+    }, 1000)
+    
 })
+
+socket.on("stop_time",
+    data => {
+        console.log("privet")
+        let checkdata = localStorage.getItem("flag_time")
+        if (checkdata == "false"){
+            localStorage.setItem("flag_time", "true")
+        }else{
+            localStorage.setItem("flag_time", "false")
+        }
+    }
+)
 
 socket.on("page_result",
     data => {

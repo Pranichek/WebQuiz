@@ -1,0 +1,61 @@
+.window-choice {
+    position: fixed;
+    justify-content: center;
+    width: 27vw;
+    height: 19vh;
+    display: none;
+    flex-direction: column;
+    background-color: #343434;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    gap: 1vw;
+    border: 0.5vh solid #94C4FF;
+    border-radius: 1.5vh;
+    z-index: 1000;
+    padding: 2vh;
+}
+
+.window-choice h1 {
+    color: white;
+    font-size: 2vh;
+}
+
+.window-choice p {
+    color: white;
+    font-size: 1.5vh;
+    font-weight: 500;
+}
+
+.window-choice div {
+    margin-top: 1vh;
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+}
+
+.decline {
+    text-align: center;
+    border: none;
+    width: 4.5vw;
+    height: 2.5vh;
+    font-size: 1.2vh;
+    cursor: pointer;
+    justify-content: center;
+    display: flex;
+    font-weight: 600;
+}
+
+.remove_question {
+    text-align: center;
+    border: none;
+    display: flex;
+    justify-content: center;
+    width: 4.5vw;
+    height: 2.5vh;
+    background-color: #FD6363;
+    font-size: 1.2vh;
+    border-radius: 0.5vh;
+    font-weight: 600;
+    cursor: pointer;
+}

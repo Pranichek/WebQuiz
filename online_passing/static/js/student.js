@@ -29,7 +29,8 @@ socket.on('receive_message', (data) => {
 });
 
 // список подключенных
-socket.on("update_users", (users) => {
+socket.on("update_users", data => {
+    users = data.user_list
     const blockUsers = document.querySelector(".icons-users")
 
     blockUsers.innerHTML = "";

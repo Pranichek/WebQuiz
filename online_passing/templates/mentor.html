@@ -12,8 +12,12 @@
     <img src="" alt="" data-link="{{ url_for('mentor.static', filename='images/mentor/cross_user.svg') }}" style="display: none;" id="imageLink">
 
     <div class="window-choice">
-        <button class="decline">Скасувати</button>
-        <button class="remove_user">Видалити</button>
+        <h1>Видалити учасника з кімнати</h1>
+        <p>Ви впевнені, що хочете видалити цього учасника з кімнати?</p>
+        <div>
+            <p class="decline">Скасувати</p>
+            <p class="remove_user">Видалити</p>
+        </div>
     </div>
 
     <div class="general_container_rect">
@@ -58,7 +62,7 @@
                     <div class="join-code">
                         <span>Код приєднання</span>
                         <div class="code copy-code">
-                            <span id="code">{{ code }}</span>
+                            <span id="code"></span>
                             <img class="copy " src="{{ url_for('mentor.static', filename='images/mentor/copy.svg') }}" alt="copy icon">
                         </div>
                     </div>

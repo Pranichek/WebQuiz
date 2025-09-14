@@ -10,10 +10,11 @@ from quiz.models import Test
 @login_decorate
 def render_mentor():
     id_test = flask.request.args.get("id_test")
-    test : Test = Test.query.get(id_test)
-
     # отримуємо код кімнати з параметрів запиту
     code = flask.request.args.get("room_code")
+    test : Test = Test.query.get(id_test)
+
+    
     # зберігаємо об'єкт користувача в змінну
     user = flask_login.current_user
 

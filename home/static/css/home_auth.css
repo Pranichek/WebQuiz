@@ -20,8 +20,8 @@
 body{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
-
 
 header {
     margin-bottom: 2.5vw;
@@ -36,32 +36,35 @@ header {
     align-items: center;
     width: 100vw;
     cursor: pointer;
-    /* background-color: gold; */
-    gap: 3vw;
-    height: fit-content;
-    margin: 10vh 1vw;
+    gap: 2.81vw;
+    height: 30vh;
+    padding: 0.63vw 0.63vw 1.13vw 0.63vw;
+    min-height: 15.63vw;
+    flex-wrap: wrap;
 }
 
 .enter-code {
     display: flex;
     flex-direction: column;
     background-color: #D6E8FE;
-    border-radius: 2vh;
-    padding: 2vh;
-    border: 1px black solid;
+    border-radius: 0.94vw;
+    padding: 0.63vw;
+    gap: 0.63vw;
+    border: 0.06vw black solid;
     width: 60%;
-    height: 25vh;
+    min-width: 25vw;
+    height: 11.88vw;
     overflow: hidden;
 }
 
 .data-user {
     display: flex;
     flex-direction: column;
-    background-color: none;
-    border: 1px black solid;
-    width: 22%;
-    height: 25vh;
-    border-radius: 2vh;
+    background-color: transparent;
+    border: 0.06vw black solid;
+    width: 18.5vw;
+    height: 12.5vw;
+    border-radius: 1.5vw;
     overflow: hidden;
 }
 
@@ -69,8 +72,8 @@ header {
     display: flex;
     flex-direction: row;
     background-color: #343434;
-    gap: 1vw;
-    padding: 1.5vh;
+    gap: 0.63vw;
+    padding: 0.63vw;
     overflow: hidden;
     align-items: center;
     justify-content: start;
@@ -89,16 +92,16 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 7vh;
-    height: 7vh;
-    border: 0.1vh black solid;
+    width: 3.44vw;
+    height: 3.44vw;
+    border: 0.06vw black solid;
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
 }
 
-.username{
-    font-size: 3vh;
+.username {
+    font-size: 1.06vw;
     color: #ffffff;
 }
 
@@ -112,7 +115,7 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    padding: 1vh 1vw;
+    padding: 0.63vw 0vw 0.63vw 1.25vw;
     gap: 30%;
     width: 100%;
     height: 60%;
@@ -146,7 +149,7 @@ input::-webkit-inner-spin-button {
 }
 
 .text-tests {
-    margin-right: 0.5vw;
+    margin-right: 0.44vw;
 }
 
 .main-input {
@@ -155,36 +158,38 @@ input::-webkit-inner-spin-button {
     gap: 2%;
     gap: 2%;
     background-color: #ffffff;
-    border: 0.3vh black solid;
-    padding: 0.5vh;
-    border-radius: 2vh;
+    border: 0.13vw black solid;
+    padding: 0.25vw;
+    border-radius: 0.94vw;
     width: 60%;
     height: 8vh;
 }
 
-.main-input input{
-    border: 0.3vh black solid;
-    border-radius: 1vh;
+.main-input input {
+    border: 0.13vw black solid;
+    border-radius: 0.63vw;
     width: 90%;
     height: 100%;
     color: #636262;
     font-weight: bold;
-    font-size: 2vh;
-    padding-left: 2vw;
+    font-size: larger;
+    padding-left: 1.88vw;
 }
 
 .main-input button {
     background-color: #8AF7D4;
     color: #000000;
-    border: 0.3vh black solid;
+    border: 0.13vw solid black;
     font-weight: bold;
-    border-radius: 1vh;
-    padding: 1vh;
-    font-size: 2vh;
-    width: 20%;
-    height: 100%;
-    text-align: center;
-    overflow: hidden;
+    border-radius: 0.94vw;
+    padding: 0.94vw 1.56vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    width: auto;
+    min-width: 6.25vw;
 }
 
 .main-input button:hover {
@@ -195,7 +200,17 @@ input::-webkit-inner-spin-button {
 .cards-floor {
     width: 100vw;
     height: 45vh;
-    margin-bottom: 1vh;
+    margin-bottom: 3.13vw;
+    min-height: 15.63vw;
+    max-height: 1.88vw;
+    max-width: 106.25vw;
+    margin: 0 auto 3.13vw auto;
+    padding-left: 1.25vw;
+    padding-right: 1.25vw;
+}
+
+.card-1 {
+    background-color: green;
 }
 
 .show-more {
@@ -212,10 +227,10 @@ input::-webkit-inner-spin-button {
     background-color: #C48AF7;
     color: #ffffff;
     cursor: pointer;
-    border-radius: 0.3125vw;
+    border-radius: 0.31vw;
     text-decoration: none;
-    margin: 1vh;
-    padding: 1vh;
+    margin: 0.63vw;
+    padding: 0.63vw;
     text-align: center;
     font-size: 2vh;
     font-weight: bold;
@@ -230,10 +245,10 @@ input::-webkit-inner-spin-button {
 .tests-topic {
     background-color: #7291B8;
     color: #ffffff;
-    border-radius: 0.5vh;
+    border-radius: 0.31vw;
     text-decoration: none;
-    margin: 1vh;
-    padding: 1vh;
+    margin: 0.63vw;
+    padding: 0.63vw;
     text-align: center;
     font-size: 2vh;
     font-weight: bold;
@@ -243,23 +258,36 @@ input::-webkit-inner-spin-button {
 .cards {
     width: 100%;
     height: 85%;
-    padding: 1vh;
-    gap: 2vw;
+    padding: 0.63vw;
+    padding-top: 3.13vw;
+    gap: 2.5vw;
     display: flex;
     flex-direction: row;
 }
 
 .card {
     position: relative;
-    width: 21%;
-    height: 85%;
+    width: 23.19vw;
+    height: 13.13vw;
     overflow: hidden;
     flex-direction: column;
     background-color: #D6E8FE;
-    border-radius: 3vh;
+    border-radius: 1.06vw;
     justify-content: end;
-    border: 0.0625vw black solid;
+    border: 0.06vw black solid;
     cursor: pointer;
+    min-width: 15vw;
+    min-height: 11.25vw;
+    padding-bottom: 0.63vw;
+    max-width: 17.5vw;
+    transition: 0.5s ease;
+    box-shadow: 0 0 0.63vw rgba(170, 114, 161, 0.454);
+}
+
+.card:hover {
+    transition: 0.5s ease;
+    transform: translateY(-1.25vw);
+    box-shadow: 0 0 1.25vw rgba(255, 255, 255, 0.5);
 }
 
 .card_image {
@@ -283,7 +311,7 @@ a {
     height: 100%;
     object-fit: cover;
     z-index: 1;
-    border-radius: 0 0 5vw 5vw;
+    border-radius: 0vw 0vw 1.88vw 1.88vw;
 }
 
 .discription {
@@ -303,8 +331,8 @@ a {
     justify-content: start;
     width: 100%;
     height: 20%;
-    padding: 2vh 2vw;
-    color:#343434;
+    padding: 1.88vw 1.25vw 0.63vw 1.25vw;
+    color: #343434;
     font-size: larger;
 }
 
@@ -315,14 +343,19 @@ a {
     align-items: center;
     width: 100%;
     height: 80%;
-    padding-left: 1vw;
-    gap: 1vw;
+    padding-left: 1.25vw;
+    gap: 0.31vw;
+}
+
+#own-pet {
+    height: 2.19vw;
+    width: auto;
 }
 
 .image-robot {
     bottom: 0;
     right: 0;
-    margin-right: 1vw;
+    margin-right: 0.63vw;
     position: absolute;
     width: 5vh;         
     height: auto;
@@ -345,7 +378,8 @@ a {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 1vh;
+    padding: 0.63vw;
+    min-height: 4.44vw;
 }
 
 .filter-input {
@@ -355,10 +389,14 @@ a {
     color: 636262;
     font-weight: bolder;
     padding: 3%;
-    border-radius: 2vh;
-    border: 1vh solid #343434; /* чёрная внешняя обводка внутри интпуута */
-    box-shadow: 0 0 0 1px #8AF7D4; 
-    font-size: 3vh;
+    border-radius: 1.56vw;
+    border: 0.5vw solid #343434;
+    box-shadow: 0 0 0 0.06vw #8AF7D4;
+    font-size: 1.25vw;
+    min-height: 3.75vw;
+    min-width: 25vw;
+    max-width: 37.5vw;
+    max-height: 4.44vw;
 }
 
 .submit-filter {
@@ -389,4 +427,26 @@ a {
 .filter-test form {
     position: relative;
     width: fit-content;
+}
+
+@media(max-width: 64vw) {
+    .avatar-circle {
+        width: 3.13vw;
+        height: 3.13vw;
+    }
+
+    .antoher-data .text-tests {
+        color: #D6E8FE;
+        font-weight: 400;
+        text-decoration: none;
+        font-size: 0.69vw;
+    }
+    .number-tests {
+        font-size: 0.75vw;
+    }
+
+    .card_image img {
+        width: 100%;
+        height: 100%;
+    }
 }

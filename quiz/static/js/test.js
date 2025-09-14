@@ -7,14 +7,24 @@ function CHnageName(){
 }
 
 let DeleteButtons = document.querySelectorAll(".button-delete");
-
+let index_question;
 
 
 for (let delbutton of DeleteButtons) {
     delbutton.addEventListener("click", function (event) {
+        document.querySelector(".window-choice").style.display = "flex";
         // отримуємо навзу питання та його відповіді
         // отримуємо індекс кнопки на яку натиснули
-        let index_question = parseInt(delbutton.value);
+        index_question = parseInt(delbutton.value);
+    });
+}
+
+document.querySelector(".decline").addEventListener("click", () => {
+    document.querySelector(".window-choice").style.display = "none";
+});
+
+document.querySelector(".remove_question").addEventListener("click", () => {
+    if (index_question !== undefined) {
 
         // console.log(index_question);
         // отримуємо дату з cookie
@@ -63,9 +73,9 @@ for (let delbutton of DeleteButtons) {
         document.cookie = `typeQuestions=${cleartypesQuestions.join("?$?")}; path=/;`;
 
         // перезавантажуємо сторінку
-        // location.reload();
-    });
-}
+        location.reload();
+    }
+});
 
 
 

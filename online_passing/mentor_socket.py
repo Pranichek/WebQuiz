@@ -115,6 +115,7 @@ def users_results(data):
         "image_url":img_url
     })
 
+
 @socket.on("load_question")
 def load_question_mentor(data):
     join_room(data["room"])
@@ -176,11 +177,10 @@ def load_question_mentor(data):
             if exists(current_path) and len(os.listdir(current_path)) > 0:
                 url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{index_question + 1}/{str(index)}/{os.listdir(current_path)[0]}")
                 image_urls[index - 1] = url
-    print("image_urls =", image_urls, "type =", type_question)
-
+                
     emit("update_users", (user_list, text_question, type_question, time_question, answer_options, img_url, image_urls), room=data["room"], broadcast=True)
 
-    
+
 
 
 @socket.on("end_question")
@@ -221,4 +221,4 @@ def end_question(data):
 @socket.on("stopTime")
 def stop_time(data):
     room_code = data["code"]
-    emit("stop_time", room = room_code, broadcast = True)
+    emit("stop_time", room = room_code, include_self=True)
