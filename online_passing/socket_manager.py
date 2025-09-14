@@ -14,12 +14,13 @@ from .generate_code import generate_code
 def handle_join(data):
     if "room" in data.keys():
         room_code = data["room"]
+        join_room(room_code)
     else:
         room_code = None
 
     flag = data["flag"]
 
-    join_room(room_code)
+    
 
     room = Rooms.query.filter_by(room_code=room_code).first()
 
@@ -30,6 +31,7 @@ def handle_join(data):
                 code = generate_code()
                 room = Rooms(room_code=code, user_id=str(current_user.id), users=f'{current_user.id}')
                 DATABASE.session.add(room)
+                join_room(code)
 
             DATABASE.session.commit()
 
@@ -68,7 +70,7 @@ def handle_join(data):
                 "pet_img": pet_url
             })
 
-    emit("update_users", user_list, room=room_code, broadcast=True)
+    emit("update_users", {"user_list":user_list, "code":current_user.room.room_code if flag != "student" else room_code}, room=room_code, broadcast=True)
 
 
 @socket.on("send_message")

@@ -1,7 +1,3 @@
-const urlParams = new URLSearchParams(window.location.search);
-const room_code = urlParams.get('room_code');
-
-localStorage.setItem("room_code", room_code)
 localStorage.setItem("flag_time", "true")
 localStorage.setItem("time_flag", "false")
 
@@ -22,7 +18,8 @@ function loadRoom() {
         username: username,
         email: document.querySelector(".email").textContent,
         id_test: id_test,
-        flag: "mentor"
+        flag: "mentor",
+        room: localStorage.getItem("room_code") ? localStorage.getItem("room_code") : none
     });
 
     socket.on('user_joined', (data) => {
@@ -37,12 +34,15 @@ function loadRoom() {
     });
 
     // список подключенных
-    socket.on("update_users", (users) => {
+    socket.on("update_users", data => {
         const blockUsers = document.querySelector(".users")
 
-        blockUsers.innerHTML = "";
-
-        document.querySelector("#amount_users").textContent =  users.length - 1 
+        blockUsers.innerHTML = ""
+        users = data.user_list
+        code = data.code
+        document.querySelector("#amount_users").textContent =  users.length - 1
+        localStorage.setItem("room_code", code)
+        document.querySelector("#code").textContent = code
         users.forEach(user => {
             if (user.email != document.querySelector(".email").textContent){
                 const blockDiv = document.createElement("div")
