@@ -7,10 +7,16 @@ from os.path import abspath, join
 from home.models import User
 from .models import Rooms
 from Project.db import DATABASE
+from .generate_code import generate_code
+
 
 @socket.on("join_room")
 def handle_join(data):
-    room_code = data["room"]
+    if "room" in data.keys():
+        room_code = data["room"]
+    else:
+        room_code = None
+
     flag = data["flag"]
 
     join_room(room_code)
@@ -21,14 +27,12 @@ def handle_join(data):
         if flag != "student":
             existing_room = Rooms.query.filter_by(user_id=current_user.id).first()
             if not existing_room:
-                room = Rooms(room_code=room_code, user_id=str(current_user.id), users=f'{current_user.id}')
+                code = generate_code()
+                room = Rooms(room_code=code, user_id=str(current_user.id), users=f'{current_user.id}')
                 DATABASE.session.add(room)
-            else:
-                existing_room.room_code = room_code 
-                existing_room.users = f'{current_user.id}' 
-                room = existing_room
 
             DATABASE.session.commit()
+
         else:
             emit("fake_room", {"email": current_user.email})
             return

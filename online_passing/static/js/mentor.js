@@ -21,7 +21,6 @@ function loadRoom() {
     socket.emit('join_room', {
         username: username,
         email: document.querySelector(".email").textContent,
-        room: code,
         id_test: id_test,
         flag: "mentor"
     });
