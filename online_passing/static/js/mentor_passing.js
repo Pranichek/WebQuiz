@@ -75,8 +75,21 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
             secondsP.textContent = remainingSeconds        
         }
         localStorage.setItem("time_flag", questionTime)
-    }
+    }else{
+        if (timeFlag < 61){
+            minutesP.textContent = timeFlag
+            secondsP.textContent = "00"
+        }else{
+            const minutes = Math.floor(timeFlag / 60);
+            let remainingSeconds = timeFlag % 60;
 
+            if (remainingSeconds < 10) {
+                remainingSeconds = '0' + remainingSeconds;
+            }
+            minutesP.textContent = minutes
+            secondsP.textContent = remainingSeconds        
+        }
+    }
 
     const blockUsers = document.querySelector(".outline-users")
     blockUsers.innerHTML = ""
@@ -188,37 +201,41 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
     })
 
     setInterval(() => {
-        let time = +localStorage.getItem("time_flag") - 1
-
-        if (time < 61){
-            minutesP.textContent = "00"
-            secondsP.textContent = time
-        }else{
-            const minutes = Math.floor(time / 60);
-            let remainingSeconds = time % 60;
-
-            if (remainingSeconds < 10) {
-                remainingSeconds = '0' + remainingSeconds;
+        if (localStorage.getItem("flag_time") == "true"){
+            let time = +localStorage.getItem("time_flag") - 1
+            
+            if (time < 61){
+                minutesP.textContent = "00"
+                secondsP.textContent = time
+            }else{
+                const minutes = Math.floor(time / 60);
+                let remainingSeconds = time % 60;
+                
+                if (remainingSeconds < 10) {
+                    remainingSeconds = '0' + remainingSeconds;
+                }
+                minutesP.textContent = minutes
+                secondsP.textContent = remainingSeconds        
             }
-            minutesP.textContent = minutes
-            secondsP.textContent = remainingSeconds        
+            localStorage.setItem("time_flag", time)
         }
-        localStorage.setItem("time_flag", time)
     }, 1000)
-    
 })
 
-socket.on("stop_time",
-    data => {
-        console.log("privet")
-        let checkdata = localStorage.getItem("flag_time")
-        if (checkdata == "false"){
-            localStorage.setItem("flag_time", "true")
-        }else{
-            localStorage.setItem("flag_time", "false")
-        }
-    }
-)
+// socket.on("stop_time",
+//     data => {
+//         console.log("privet")
+//         console.log("3", localStorage.getItem("flag_time"))
+//         let checkdata = localStorage.getItem("flag_time")
+//         if (checkdata != "false"){
+//             localStorage.setItem("flag_time", "false")
+//             console.log("5", localStorage.getItem("flag_time"))
+//         }else{
+//             localStorage.setItem("flag_time", "true")
+//         }
+//         console.log("4", localStorage.getItem("flag_time"))
+//     }
+// )
 
 socket.on("page_result",
     data => {

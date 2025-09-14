@@ -4,6 +4,7 @@ let stopButton = document.querySelector(".stop-button")
 window.addEventListener(
     'DOMContentLoaded',
     () => {
+        console.log("1", localStorage.getItem("flag_time"))
         if (localStorage.getItem("flag_time") == "false"){
             stopButton.textContent = "Запустити час"
         }else{
@@ -22,12 +23,14 @@ socket.on("stop_time",
             localStorage.setItem("flag_time", "false")
             stopButton.textContent = "Запустити час"
         }
+        console.log("2", localStorage.getItem("flag_time"))
     }
 )
 
 stopButton.addEventListener(
     'click',
     () => {
+        console.log("stopButton =", stopButton)
         socket.emit("stopTime", {"code":localStorage.getItem("room_code")});
     }
 )
