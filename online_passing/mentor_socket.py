@@ -180,6 +180,8 @@ def load_question_mentor(data):
 
     emit("update_users", (user_list, text_question, type_question, time_question, answer_options, img_url, image_urls), room=data["room"], broadcast=True)
 
+    
+
 
 @socket.on("end_question")
 def end_question(data):

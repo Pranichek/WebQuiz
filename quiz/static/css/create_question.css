@@ -85,6 +85,54 @@ body .main {
     width: 70%;
 }
 
+.add-button {
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer-p {
+    width: 35%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: pink;
+    border-radius: 5px;
+    font-size: 1.3vw;
+    font-weight: 400;
+    background-color: #7291B8;
+    height: 70%;
+    margin-left: 2.3vw;
+    gap: 5%;
+}
+
+.add-question {
+    display: flex;
+    width: 100%;
+    height: 70%;
+    border-radius: 5px;
+    border: 0px;
+    cursor: pointer;
+    font-weight: 500;
+    font-size: 1.3vw;
+    text-decoration: none;
+}
+
+.purple{
+    background-color: #c591f6;
+    /* transition: 0.2s; */
+}
+
+.purple:hover{
+    background-color: #a564e1;
+}
+
+.gray{
+    background-color: #636262;
+}
 
 .timer-arrow {
     margin-left: 0.8vw;
@@ -118,8 +166,8 @@ body .main {
     justify-content: center;
     cursor: pointer;
     background: pink;
-    border-radius: 0.5vh;
-    font-size: 2vh;
+    border-radius: 5px;
+    font-size: 1.3vw;
     font-weight: 400;
     background-color: #7291B8;
     height: 5vh;
@@ -132,9 +180,9 @@ body .main {
     justify-content: center;
 }
 
-#timeList li{
-    padding: 0.6vh 1vw;
-    font-size: 2.5vh;
+#timeList li {
+    padding: 0.45vw 1.1vw;
+    font-size: 1.3vw;
     font-family: 'Inter', sans-serif;
     color: white;
     border-top: 0.1vh solid rgba(255, 255, 255, 0.1);
@@ -155,20 +203,20 @@ body .main {
     background-color: #c591f6;
     border-radius: 0.5vh;
     border: none;
-    color: #ffff;
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    font-weight: 500;
-    font-size: 2.5vh;
-    text-decoration: none;
+    background-color: #3C3C3C;
+    border: 0.1vw solid #C48AF7;
+    font-size: 1.4vw;
+    text-align: center;
 }
 
-.grey{
-    background-color: #636262;
-    color: #343434;
+.question:focus {
+    outline: none; /* прибирає стандартну синю рамку */
+    border-color: #A855F7; /* трохи яскравіший бордер */
+    transition: 0.2s ease-in-out; /* плавний перехід */
 }
 
-.question, .new-answer{
+
+.new-answer {
     display: flex;
     flex-direction: column;
     width: 45vw;
@@ -217,10 +265,15 @@ body .main {
     border-radius: 0.5vh;   
     border: none;
     background-color: #C48AF7;
-    font-size: 2.5vh;
-    text-align:center;
+    font-size: 1.3vw;
+    text-align: center;
     justify-content: center;
     font-weight: 600;
+    transition: 0.2s;
+}
+
+.add-image:hover{
+    background-color: #9c61cf;
 }
 
 .is-image button{
@@ -244,23 +297,8 @@ body .main {
     margin-bottom: 1vh;
 }
 
-.new-answer-form{
-    position: relative;
-    top: 4vh;
-    left: 3vw; 
-    display: flex;
-    flex-direction: row;
-    gap: 2vw;   
-}
-
-.button-answer{
-    width: 8vh;
-    height: 8vh;
-}
-
-h3{
-    font-size: 3vh;
-    font-size: 1.5vw;
+h3 {
+    font-size: 1.3vw;
     font-weight: 400;
 }
 
@@ -461,13 +499,28 @@ textarea.answer::placeholder {
     display: none;
 }
 
+.text-type{
+    height: 10%;
+    width: 100%;
+    display: flex;
+}
+
+#addQuestion{
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+#addQuestion:hover{
+    opacity: 0.8;
+}
+
 .answer {
     position: absolute;
     border: none;
     background-color: #6D94C4;
     width: 80%;
     height: 50%;
-    font-size: 3vh;
+    font-size: 1.45vw;
 }
 
 ul {
@@ -505,15 +558,34 @@ ul {
     height: 3vh;
     background-color: #94C4FF; 
     position: absolute;
-    top: 1vh;
-    right: 1vh;
-    border: 0.1vh solid #ffff;
-    border-radius: 0.4vh; 
-    cursor: pointer;  
+    top: 0.7vw;
+    right: 0.7vw;
+    border: 0.1vw solid #ffff;
+    border-radius: 0.3vw;
+    cursor: pointer;
+    transition: 0.1s;
 }
 
-.load_image{
-    right: 5vh;
+.delete-answer:hover{
+    background-color: #709dd4;
+}
+
+.load_image {
+    display: flex;
+    width: 2.3vw;
+    height: 2.3vw;
+    background-color: #94C4FF;
+    position: absolute;
+    top: 0.7vw;
+    right: 3.7vw;
+    border: 0.1vw solid #ffff;
+    border-radius: 0.3vw;
+    cursor: pointer;
+    transition: 0.1s;
+}
+
+.load_image:hover{
+    background-color: #709dd4;;
 }
 
 .small-img{
@@ -533,9 +605,8 @@ ul {
     position: relative;
 }
 
-.type-question p{
-    font-size: 2vh;
-    font-size: 1.2vw;
+.type-question p {
+    font-size: 1.3vw;
     font-weight: 500;
 }
 

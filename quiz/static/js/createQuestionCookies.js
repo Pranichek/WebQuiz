@@ -15,7 +15,9 @@ document.addEventListener("input", answerScanning);
 document.addEventListener("click", answerScanning);
 document.addEventListener("change", answerScanning);
 document.addEventListener("keyup", answerScanning);
-document.addEventListener("DOMContentLoaded", answerScanning);
+document.addEventListener("keydown", answerScanning)
+window.addEventListener("load", answerScanning);
+
 
 
 button.addEventListener("click", ()=>{

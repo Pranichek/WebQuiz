@@ -12,8 +12,8 @@ export function answerScanning(){
         for (let input of answerInputList){
             if (input.checkVisibility()){
                 button.type = "submit";
-                button.classList.remove("grey");
-                button.classList.add("purple");
+                // button.classList.remove("grey");
+                // button.classList.add("purple");
                 let parentNode = input.parentNode
                 const checkImage = parentNode.querySelector(".for-image")
                 
@@ -40,12 +40,24 @@ export function answerScanning(){
 
     if (validAnswersFlag == false | document.querySelector(".question").value == ""){
         button.type = "button";
-        button.style.backgroundColor = "#636262"
+        // button.style.backgroundColor = "#636262"
+        try {
+            button.classList.remove("purple")
+        } catch (error) {
+            console.log(error)
+        }
         button.style.color = "#343434"
+        button.classList.add("gray")
     } else{
         button.type = "submit";
-        button.style.backgroundColor = "#c591f6"
+        // button.style.backgroundColor = "#c591f6"
         button.style.color = "#ffff"
+        try {
+            button.classList.remove("gray")
+        } catch (error) {
+            console.log(Error)
+        }
+        button.classList.add("purple")
     }
 }
 
