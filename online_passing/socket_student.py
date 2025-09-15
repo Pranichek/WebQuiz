@@ -335,9 +335,9 @@ def answer_the_question(data):
 
 
     if len(ready_answers.split()) == 1:
-        flask_login.current_user.user_profile.last_answered = f"{ready_answers.split()[0]}/{accuracy}/{check_answers[int(data["index"])]}/{data["lastanswers"]}"
+        flask_login.current_user.user_profile.last_answered = f"{ready_answers.split()[0]}/{accuracy}/{check_answers[int(data['index'])]}/{data['lastanswers']}"
     else:
-        flask_login.current_user.user_profile.last_answered = f"{ready_answers}/{accuracy}/{check_answers[int(data["index"])]}/{data["lastanswers"]}"
+        flask_login.current_user.user_profile.last_answered = f"{ready_answers}/{accuracy}/{check_answers[int(data['index'])]}/{data['lastanswers']}"
     
     DATABASE.session.commit()
     # --------------------
@@ -396,7 +396,7 @@ def return_data(data):
     title = test.title_test
     img_url = "not"
     if name_img:
-        img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{int(data["index_question"])}/{name_img}")
+        img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{int(data['index_question'])}/{name_img}")
     else:
         img_url = "not"
 
@@ -602,7 +602,7 @@ def return_data(data):
                 
                 if exists(answer_path):
                     if len(os.listdir(answer_path)) > 0:
-                        images_answer = flask.url_for("profile.static", filename=f"images/edit_avatar/{email}/user_tests/{title}/{int(data["index_question"])}/{current_answer}/{os.listdir(answer_path)[0]}")
+                        images_answer = flask.url_for("profile.static", filename=f"images/edit_avatar/{email}/user_tests/{title}/{int(data['index_question'])}/{current_answer}/{os.listdir(answer_path)[0]}")
                         images_urls.append(images_answer)
 
                     else:

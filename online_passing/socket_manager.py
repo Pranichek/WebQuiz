@@ -194,3 +194,7 @@ def handler_delete(data):
                 emit("update_users", user_list, room=room.room_code)
                 emit("leave_user", {"email": email_kicked}, room=room.room_code, broadcast=True)
                 break
+
+@socket.on("update_student_time_MS")
+def update_student_time(data):
+    emit("update_student_time_SS", {"time": data["time"]}, room = data["room"])

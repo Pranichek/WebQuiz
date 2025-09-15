@@ -218,6 +218,15 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
                 secondsP.textContent = remainingSeconds        
             }
             localStorage.setItem("time_flag", time)
+            socket.emit(
+                "update_student_time_MS",
+                {room: localStorage.getItem("room_code"), time: time}
+            )
+        } else{
+            socket.emit(
+                "update_student_time_MS",
+                {room: localStorage.getItem("room_code"), time: "stop"}
+            )
         }
     }, 1000)
 })
