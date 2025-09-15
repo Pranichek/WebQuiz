@@ -43,8 +43,8 @@ def get_random_tests(category=None, max_tests=4):
     return all_tests[0:5]
 
 #головна сторінка коли користувач увійшов у акаунт
-@check_room
 @login_decorate
+@check_room
 def render_home_auth():   
     room = flask_login.current_user.room
     if room and room.room_code != "":

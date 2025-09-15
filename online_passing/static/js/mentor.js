@@ -19,7 +19,7 @@ function loadRoom() {
         email: document.querySelector(".email").textContent,
         id_test: id_test,
         flag: "mentor",
-        room: localStorage.getItem("room_code") ? localStorage.getItem("room_code") : none
+        room: localStorage.getItem("room_code") ? localStorage.getItem("room_code") : NaN
     });
 
     socket.on('user_joined', (data) => {
