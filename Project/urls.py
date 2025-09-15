@@ -135,6 +135,11 @@ pass_quiz.solo_pass.add_url_rule(
     view_func = pass_quiz.render_passing_test,
     methods = ["GET", "POST"]
 )
+pass_quiz.questions.add_url_rule(
+    rule = "/questions",
+    view_func = pass_quiz.render_questions,
+    methods = ["GET", "POST"]
+)
 
 searches.search.add_url_rule(
     rule="/filter_page",

@@ -30,7 +30,14 @@ main{
     padding: 0.5vw 4vw;
     border: none;
 }
-
+.button{
+    font-size: 1.15vw;
+    border-radius: 5px;
+    background-color: #7291B8;
+    padding: 0.5vw 4vw;
+    border: none;
+    text-decoration: transparent;
+}
 .bottom-info{
     width: 100vw;
     height: 77vh;

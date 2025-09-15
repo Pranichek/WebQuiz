@@ -45,6 +45,11 @@ def render_finish_test():
         check_auth = True if not flask_login.current_user.is_authenticated else False
         )
 
+def render_questions():
+
+    return render_template(
+        "questions.html"
+        )
 
 
 

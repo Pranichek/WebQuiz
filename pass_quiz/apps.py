@@ -15,3 +15,10 @@ solo_pass = flask.Blueprint(
     static_folder = "static",
     static_url_path = "/solo_passing/static"
 )
+questions = flask.Blueprint(
+    name = "questions",
+    import_name = "questions",
+    template_folder = "template",
+    static_folder = "static",
+    static_url_path = "/questions/static"
+)
