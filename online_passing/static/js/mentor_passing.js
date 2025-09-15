@@ -1,6 +1,7 @@
 const socket = io()
 
 if (localStorage.getItem("index_question")){
+    console.log("emit load_question")
     socket.emit('load_question', {
         index: localStorage.getItem("index_question"),
         test_id: localStorage.getItem("test_id"),
@@ -9,12 +10,77 @@ if (localStorage.getItem("index_question")){
 }
 
 
-socket.on("update_users", (users) => {
-    const blockUsers = document.querySelector(".outline-users")
+socket.on("update_users", (users, questionText, questionType, questionTime, answerOptions, questionImgUrl, answersImgUrls) => {
+    const check_answers = []
+    
+    document.querySelector(".question-test").insertAdjacentHTML(
+        "afterbegin",
+        `<img src="${questionImgUrl}" onerror="this.style.display = 'none';">`
+    )
+    document.querySelector(".question-text").textContent = questionText
+    answerOptions = answerOptions.split("%?)(?%")
 
+    if (questionType == "input-gap"){
+        document.querySelector(".answers-test").insertAdjacentHTML(
+            "beforeend",
+            `<input class="answer-input" type="text">`
+        )
+    }else{
+        for (let option of answerOptions){
+            option = option.replace(/%|\?|\(|\)/g, "")
+            
+            
+            if(option[0] == "+"){
+                check_answers.push(true)
+            }else{
+                check_answers.push(false)
+            }
+
+            option = option.slice(1, -1) 
+
+            document.querySelector(".answers-test").insertAdjacentHTML(
+                "beforeend",
+                `<div class='answer'><div class='checkMark'></div>
+                    <img src="${answersImgUrls[answerOptions.indexOf(option)]}" onerror="this.style.display = 'none';">
+                    <p>${option}</p>
+                </div>`
+            )
+        }
+    }
+
+
+    // if (questionTime < 60){
+    //     document.querySelector(".right-part").textContent = questionTime
+    // } else{
+    //     document.querySelector(".left-part").textContent = questionTime / 60
+    // }
+
+    const minutesP = document.querySelector(".left-part")
+    const secondsP = document.querySelector(".right-part")
+    
+    let timeFlag = localStorage.getItem("time_flag")
+
+    if (timeFlag == "false"){
+        if (questionTime < 61){
+            minutesP.textContent = questionTime
+            secondsP.textContent = "00"
+        }else{
+            const minutes = Math.floor(questionTime / 60);
+            let remainingSeconds = questionTime % 60;
+
+            if (remainingSeconds < 10) {
+                remainingSeconds = '0' + remainingSeconds;
+            }
+            minutesP.textContent = minutes
+            secondsP.textContent = remainingSeconds        
+        }
+        localStorage.setItem("time_flag", questionTime)
+    }
+
+
+    const blockUsers = document.querySelector(".outline-users")
     blockUsers.innerHTML = ""
     // <p class="count-answered">відповіли  5 / <span class="count-people">12</span></p>
-    
 
     count_answered = 0
     count_users = users.length
@@ -96,7 +162,63 @@ socket.on("update_users", (users) => {
         })
     }
 
+    const showAnswersBtn = document.querySelector(".check-answers")
+    const answers = document.querySelectorAll(".answer")
+    
+    
+    showAnswersBtn.addEventListener("click", ()=>{
+        const checkstate = showAnswersBtn.dataset.state
+        if(checkstate == "hide"){
+            showAnswersBtn.dataset.state = "show"
+            showAnswersBtn.textContent = "сховати відповіді"
+            for (let i = 0; i < answers.length; i++){
+                if (check_answers[i] == true){
+                    answers[i].style.backgroundColor = "green"
+                } else{
+                    answers[i].style.backgroundColor = "red"
+                }
+            }
+        }else{
+            for (let i = 0; i < answers.length; i++){
+                answers[i].style.backgroundColor = "#94C4FF"
+                showAnswersBtn.dataset.state = "hide"
+                showAnswersBtn.textContent = "подивитися відповіді"
+            }
+        }
+    })
+
+    setInterval(() => {
+        let time = +localStorage.getItem("time_flag") - 1
+
+        if (time < 61){
+            minutesP.textContent = "00"
+            secondsP.textContent = time
+        }else{
+            const minutes = Math.floor(time / 60);
+            let remainingSeconds = time % 60;
+
+            if (remainingSeconds < 10) {
+                remainingSeconds = '0' + remainingSeconds;
+            }
+            minutesP.textContent = minutes
+            secondsP.textContent = remainingSeconds        
+        }
+        localStorage.setItem("time_flag", time)
+    }, 1000)
+    
 })
+
+socket.on("stop_time",
+    data => {
+        console.log("privet")
+        let checkdata = localStorage.getItem("flag_time")
+        if (checkdata == "false"){
+            localStorage.setItem("flag_time", "true")
+        }else{
+            localStorage.setItem("flag_time", "false")
+        }
+    }
+)
 
 socket.on("page_result",
     data => {

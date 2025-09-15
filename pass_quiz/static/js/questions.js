@@ -1,10 +1,6 @@
 const socket = io();
 
-let chcklocal = document.referrer;
 
-if (!chcklocal.includes("finish_test")) {
-    window.location.replace('/');
-}
 const usersAnswers = localStorage.getItem("users_answers");
 const testId = localStorage.getItem("test_id");
 

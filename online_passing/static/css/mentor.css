@@ -431,14 +431,65 @@ main{
 
 .window-choice{
     position: absolute;
-    width: 20vw;
-    height: 20vh;
-    display: flex;
-    background-color: rgb(22, 69, 22);
+    justify-content: center;
+    width: 27vw;
+    height: 19vh;
+    display: none;
+    flex-direction: column;
+    background-color: #343434;
     left: 50%;
     transform: translateX(-50%);
     gap: 1vw;
-    display: none;
+    border: 0.5vh solid #94C4FF;
+    border-radius: 1.5vh;
+}
+
+.window-choice h1{
+    color: white;
+    font-size: 2vh;
+}
+
+.window-choice p{
+    color: white;
+    font-size: 1.5vh;
+    font-weight: 500;
+}
+
+.window-choice div{
+    margin-top: 1vh;
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+}
+
+.decline{
+    text-align: center;
+    border: none;
+    padding: 0.5vh 1vh;
+    font-size: 1.4vh;
+    cursor: pointer;
+    justify-content: center;
+    display: flex;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.remove_user{
+    text-align: center;
+    border: none;
+    display: flex;
+    justify-content: center;
+    padding: 0.5vh 1vh;
+    background-color: #FD6363;
+    font-size: 1.4vh;
+    border-radius: 0.5vh;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.remove_user:hover{
+    background-color: #eb4848;
 }
 
 .cross-user:hover{

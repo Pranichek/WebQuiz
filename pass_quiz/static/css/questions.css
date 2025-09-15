@@ -64,11 +64,20 @@
     gap: 3vw;
 }
 
-.switch-buttons button,
+.switch-buttons button{
+    font-size: 1.15vw;
+    border-radius: 8px; 
+    background-color: #607c9e99;
+    padding: 0.6vw 4vw;
+    border: none;
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s ease;
+}
 .button {
     font-size: 1.15vw;
     border-radius: 8px;
-    background-color: #7291B8;
+    background-color: #7292b8;
     padding: 0.6vw 4vw;
     border: none;
     cursor: pointer;
@@ -78,13 +87,12 @@
 
 /* Для второй кнопки */
 .button {
-    background-color: #7292b8a7;
+    background-color: #7292b8;
     text-decoration: none;
 }
 
 /* Подсветка при наведении */
-.switch-buttons button:hover,
-.button:hover {
+.button:hover{
     background-color: #4f6d97; 
     box-shadow: 0 0 15px #90b4e6, 0 0 25px #7291B8;
     transform: scale(1.05);

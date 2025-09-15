@@ -1301,6 +1301,7 @@ setInterval(() => {
         localStorage.setItem("timeData", wasted_time)
         timeQuestion -= 1; 
         updateCircle(parseInt(timeQuestion))
+        
         if (timeQuestion < 61){
             timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
         }else{

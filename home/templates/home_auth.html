@@ -50,18 +50,58 @@
         </div>
     </div>
 
-    <div class="cards-floor">
-        <div class="show-more">
-            {% if fourt_topic[1] != "інше" and fourt_topic[1] != "Інше" %}
-                <a href="/" class="tests-topic">{{ fourt_topic[0] }}</a>
-            {% else %}
-                <a href="/" class="tests-topic">Різноманітні тести</a>
-            {% endif %}
-            <a data-value="{{ fourt_topic[1] }}" class="show-more-link">Побачити більше</a>
+    {% if third_tests|length > 0 %}
+        <div class="cards-floor">
+            <div class="show-more">
+                {% if fourt_topic[1] != "інше" and fourt_topic[1] != "Інше" %}
+                    <a href="/" class="tests-topic">{{ fourt_topic[0] }}</a>
+                {% else %}
+                    <a href="/" class="tests-topic">Різноманітні тести</a>
+                {% endif %}
+                <a data-value="{{ fourt_topic[1] }}" class="show-more-link">Побачити більше</a>
+            </div>
+            <div class="cards">
+                {% if third_tests|length > 0 %}
+                    {% for test in third_tests %}
+                        <div class="card" onclick="this.querySelector('.topic-test').click();">
+                            <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                            {% if 'default' in test.image.split("/") %}
+                                <div class="card_image">
+                                    <img class="image" src="{{ url_for('test_pass.static', filename='images/' + test.image.split('/')[-1]) }}" alt="">
+                                </div>
+                            {% else %}
+                                <div class="card_image">
+                                    <img class="image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' ~ test.user.email ~ '/user_tests/' ~ test.title_test ~ '/' ~ test.image ) }}" alt="">
+                                </div>
+                            {% endif %}
+                            <div class="discription">
+                                <div class="test-name">
+                                    <a href="/test_data?id_test={{test.id}}" class="topic-test">{{ test.category }}</a>
+                                </div>
+                                <div class="discription-test">
+                                    <p class="static-theme">тема:</p>
+                                    <p class="theme-test">{{ test.title_test }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
         </div>
-        <div class="cards">
-            {% if third_tests|length > 0 %}
-                {% for test in third_tests %}
+    {% endif %}
+
+    {% if first_tests|length > 0 %}
+        <div class="cards-floor">
+            <div class="show-more">
+                {% if first_topic != "інше" and first_topic != "Інше" %}
+                    <a href="/" class="tests-topic">Тести із теми {{ first_topic }}</a>
+                {% else %}
+                    <a href="/" class="tests-topic">Різноманітні тести</a>
+                {% endif %}
+                <a data-value="{{ first_topic }}" class="show-more-link">Побачити більше</a>
+            </div>
+            <div class="cards">
+                {% for test in first_tests %}
                     <div class="card" onclick="this.querySelector('.topic-test').click();">
                         <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
                         {% if 'default' in test.image.split("/") %}
@@ -70,7 +110,7 @@
                             </div>
                         {% else %}
                             <div class="card_image">
-                                <img class="image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' ~ test.user.email ~ '/user_tests/' ~ test.title_test ~ '/' ~ test.image ) }}" alt="">
+                                <img class="image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/user_tests/' + test.title_test + '/' + test.image ) }}" alt="">
                             </div>
                         {% endif %}
                         <div class="discription">
@@ -84,81 +124,49 @@
                         </div>
                     </div>
                 {% endfor %}
-            {% endif %}
+            </div>
         </div>
-    </div>
+    {% endif %}
+    
 
-    <div class="cards-floor">
-        <div class="show-more">
-            {% if first_topic != "інше" and first_topic != "Інше" %}
-                <a href="/" class="tests-topic">Тести із теми {{ first_topic }}</a>
-            {% else %}
-                <a href="/" class="tests-topic">Різноманітні тести</a>
-            {% endif %}
-            <a data-value="{{ first_topic }}" class="show-more-link">Побачити більше</a>
-        </div>
-        <div class="cards">
-            {% for test in first_tests %}
-                <div class="card" onclick="this.querySelector('.topic-test').click();">
-                    <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
-                    {% if 'default' in test.image.split("/") %}
-                        <div class="card_image">
-                            <img class="image" src="{{ url_for('test_pass.static', filename='images/' + test.image.split('/')[-1]) }}" alt="">
-                        </div>
-                    {% else %}
-                        <div class="card_image">
-                            <img class="image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/user_tests/' + test.title_test + '/' + test.image ) }}" alt="">
-                        </div>
-                    {% endif %}
-                    <div class="discription">
-                        <div class="test-name">
-                            <a href="/test_data?id_test={{test.id}}" class="topic-test">{{ test.category }}</a>
-                        </div>
-                        <div class="discription-test">
-                            <p class="static-theme">тема:</p>
-                            <p class="theme-test">{{ test.title_test }}</p>
+    {% if second_tests|length > 0 %}
+        <div class="cards-floor">
+            <div class="show-more">
+                {% if second_topic != "інше" and second_topic != "Інше" %}
+                    <a href="/" class="tests-topic">Тести із теми {{ second_topic }}</a>
+                {% else %}
+                    <a href="/" class="tests-topic">Різноманітні тести</a>
+                {% endif %}
+                <a data-value="{{ second_topic }}" class="show-more-link">Побачити більше</a>
+            </div>
+            <div class="cards">
+                {% for test in second_tests %}
+                    <div class="card" onclick="this.querySelector('.topic-test').click();">
+                        <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+                        {% if 'default' in test.image.split("/") %}
+                            <div class="card_image">
+                                <img class="image" src="{{ url_for('test_pass.static', filename='images/' + test.image.split('/')[-1]) }}" alt="">
+                            </div>
+                        {% else %}
+                            <div class="card_image">
+                                <img class="image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/user_tests/' + test.title_test + '/' + test.image ) }}" alt="">
+                            </div>
+                        {% endif %}
+                        <div class="discription">
+                            <div class="test-name">
+                                <a href="/test_data?id_test={{test.id}}" class="topic-test">{{ test.category }}</a>
+                            </div>
+                            <div class="discription-test">
+                                <p class="static-theme">тема:</p>
+                                <p class="theme-test">{{ test.title_test }}</p>
+                            </div>
                         </div>
                     </div>
-                </div>
-            {% endfor %}
+                {% endfor %}
+            </div>
         </div>
-    </div>
-
-    <div class="cards-floor">
-        <div class="show-more">
-            {% if second_topic != "інше" and second_topic != "Інше" %}
-                <a href="/" class="tests-topic">Тести із теми {{ second_topic }}</a>
-            {% else %}
-                <a href="/" class="tests-topic">Різноманітні тести</a>
-            {% endif %}
-            <a data-value="{{ second_topic }}" class="show-more-link">Побачити більше</a>
-        </div>
-        <div class="cards">
-            {% for test in second_tests %}
-                <div class="card" onclick="this.querySelector('.topic-test').click();">
-                    <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
-                    {% if 'default' in test.image.split("/") %}
-                        <div class="card_image">
-                            <img class="image" src="{{ url_for('test_pass.static', filename='images/' + test.image.split('/')[-1]) }}" alt="">
-                        </div>
-                    {% else %}
-                        <div class="card_image">
-                            <img class="image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/user_tests/' + test.title_test + '/' + test.image ) }}" alt="">
-                        </div>
-                    {% endif %}
-                    <div class="discription">
-                        <div class="test-name">
-                            <a href="/test_data?id_test={{test.id}}" class="topic-test">{{ test.category }}</a>
-                        </div>
-                        <div class="discription-test">
-                            <p class="static-theme">тема:</p>
-                            <p class="theme-test">{{ test.title_test }}</p>
-                        </div>
-                    </div>
-                </div>
-            {% endfor %}
-        </div>
-    </div>
+    {% endif %}
+    
 
 
     <div class="filter-test">

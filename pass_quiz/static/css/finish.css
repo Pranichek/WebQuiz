@@ -16,27 +16,46 @@ main{
     justify-content: space-between;
 }
 
-.switch-buttons{
+.switch-buttons {
     width: 100vw;
     height: 13vh;
     display: flex;
+    justify-content: center;  /* по центру по горизонтали */
     gap: 3vw;
 }
 
 .switch-buttons button{
     font-size: 1.15vw;
-    border-radius: 5px;
-    background-color: #7291B8;
-    padding: 0.5vw 4vw;
+    border-radius: 8px; 
+    background-color: #607c9e99;
+    padding: 0.6vw 4vw;
     border: none;
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s ease;
 }
-.button{
+.button {
     font-size: 1.15vw;
-    border-radius: 5px;
-    background-color: #7291B8;
-    padding: 0.5vw 4vw;
+    border-radius: 8px;
+    background-color: #7292b8;
+    padding: 0.6vw 4vw;
     border: none;
-    text-decoration: transparent;
+    cursor: pointer;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+/* Для второй кнопки */
+.button {
+    background-color: #7292b8;
+    text-decoration: none;
+}
+
+/* Подсветка при наведении */
+.button:hover{
+    background-color: #4f6d97; 
+    box-shadow: 0 0 15px #90b4e6, 0 0 25px #7291B8;
+    transform: scale(1.05);
 }
 .bottom-info{
     width: 100vw;

@@ -3,13 +3,14 @@ from .models import User
 from Project.db import DATABASE
 from .send_email import send_code, generate_code
 from threading import Thread
-import PIL
 from quiz.models import Test
 from online_passing.models import Rooms
 from userprofile.models import DataUser
 from Project.login_check import login_decorate
 from flask_login import current_user
 from Project.socket_config import socket
+from Project.check_room import check_room
+
 
 #Просто головна сторінка
 def render_home():
@@ -42,6 +43,7 @@ def get_random_tests(category=None, max_tests=4):
     return all_tests[0:5]
 
 #головна сторінка коли користувач увійшов у акаунт
+@check_room
 @login_decorate
 def render_home_auth():   
     room = flask_login.current_user.room
