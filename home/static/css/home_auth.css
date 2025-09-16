@@ -197,6 +197,8 @@ input::-webkit-inner-spin-button {
 }
 
 .cards-floor{
+    display: flex;
+    flex-direction: column;
     width: 100vw;
     height: 45vh;
     margin-bottom: 30px;
@@ -382,35 +384,29 @@ a{
 }
 
 .filter-test{
-    width: 100vw;
-    height: 14vh;
+    width: 35vw;
+    height: 10vh;
     /* background-color: gray; */
     overflow: hidden;
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: flex-start;
     align-items: center;
-    padding: 10px;
-    min-height: 71px;
+    padding: 1vh;
     /* background-color: #7291B8; */
 }
 
 .filter-input {
-    width: 35vw;
-    height: 9vh;
+    width: 30vw;
+    height: 6vh;
     background-color: #C7D7EB;
     color: 636262;
     font-weight: bolder;
     padding: 3%;
-    border-radius: 25px;
-    border: 8px solid #343434; /* чёрная внешняя обводка внутри интпуута */
-    box-shadow: 0 0 0 1px #8AF7D4; 
-    font-size: 20px;
+    border-radius: 2.5vh;
+    border: 0.8vh solid #343434; /* чёрная внешняя обводка внутри интпуута */
+    font-size: 2vh;
     min-height: 100%;
-    min-width: 400px;
-    min-height: 60px;
-    max-width: 600px;
-    max-height: 71px;
 }
 
 
@@ -422,11 +418,9 @@ a{
     bottom: 0;
     right: 0;
     height: 0;
-    width: 12%;
-    height: 90%;
-    margin-right: 2%;
-    border-radius: 20px;
-
+    margin-right: 2vw;
+    height: 90%;;
+    border-radius: 2vh;
 }
 
 .submit-filter {
@@ -436,9 +430,10 @@ a{
 
 
 .submit-filter img {
-    width: 60%;
-    height: 60%;
+    width: 2vh;
+    height: 2vh;
     background-color: transparent;
+    object-fit: cover;
 }
 
 .filter-test form {
@@ -474,10 +469,21 @@ a{
         height: 50px;
     }
 
-    /* .static-theme{
-        width: 10px;
-        height: 10px;
-    } */
+    .filter-input{
+       font-size: 1.1vh;
+    }
+
+    main{
+        margin-bottom: 35vh;
+    }
+
+    .cards-floor{
+        padding-top: 35vh;
+    }
+
+    .card{
+        margin-top: 25vh;
+    }
 
     .image-robot{
         background-color: #77d8b9;

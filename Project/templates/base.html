@@ -51,9 +51,18 @@
                             <a href="/registration" class="auth-button">Реєстрація</a>
                         </div>
                     {% elif home_auth %}
-                        <div class="nav-links">
-                            <a href="/select_way" class="test-button">+ Створити вікторину</a>
+                        <div class="filter-test">
+                            <form action="" method="post" id="filter-form">
+                                <input type="hidden" name="check_form" vlaue="filter">
+                                <input type="text" class="filter-input" placeholder="Знайти вікторину" onkeydown="checkEnterPress(event)">
+                                <button type="button" class="submit-filter"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt=""></button>
+                            </form>
                         </div>
+                        <a href="" class="search-filter-link"></a>
+                        <div class="right-nav-section">
+                            <div class="nav-links">
+                                <a href="/select_way" class="test-button">+ Створити вікторину</a>
+                            </div>
                     {% elif mentor %}
                         <div class="header_buttons">
                             <button type="submit" class="mentor-buttons">
