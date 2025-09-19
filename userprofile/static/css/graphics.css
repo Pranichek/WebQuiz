@@ -1,0 +1,39 @@
+.chart-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.chart-grid {
+    width: 100%;
+    display: block;
+}
+
+.bars {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 90%;
+    display: flex;
+    /* justify-content: center;  вместо space-between */
+    align-items: flex-end;
+    padding-left: 60px;
+    gap: 37px;  /* расстояние между столбиками */
+}
+
+
+
+.bar {
+    width: 40px;                     /* уже столбик */
+    background: skyblue;
+    border-radius: 5px 5px 0 0;
+    opacity: 0.8;
+    transition: 0.3s;
+}
+
+.bar:hover {
+    background: deepskyblue;         /* подсветка при наведении */
+    opacity: 1;
+}

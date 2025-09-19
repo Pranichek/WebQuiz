@@ -12,6 +12,27 @@
 {% block content %}
     <h1>HELLO WORLD!</h1>
     <img src="{{ url_for('user_graphics.static', filename = 'images/edit_avatar/' ~ user.email ~ '/graphics_user/test_graphic.png') }}" alt="Error graphic">
+
+
+    <div class="chart-wrapper">
+        <img src="{{ url_for('profile.static', filename = 'images/graphic.png') }}" alt="grid" class="chart-grid">
+
+        <div class="bars">
+            <div class="bar" style="height:85%;"></div>
+            <div class="bar" style="height:78%;"></div>
+            <div class="bar" style="height:32%;"></div>
+            <div class="bar" style="height:80%;"></div>
+            <div class="bar" style="height:66%;"></div>
+            <div class="bar" style="height:95%;"></div>
+            <div class="bar" style="height:80%;"></div>
+            <div class="bar" style="height:32%;"></div>
+            <div class="bar" style="height:80%;"></div>
+            <div class="bar" style="height:70%;"></div>
+            <div class="bar" style="height:95%;"></div>
+            <div class="bar" style="height:82%;"></div>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block scripts %}
