@@ -104,7 +104,7 @@ header {
 }
 
 .username {
-    font-size: 1.06vw;
+    font-size: 1.06vh;
     color: #ffffff;
 }
 
@@ -123,12 +123,12 @@ header {
     opacity: 0.8;
     color: #D6E8FE;
     font-weight: 500;
-    font-size: 2vh;
+    font-size: 2vw;
     text-decoration: none;
 }
 
 .nick {
-    font-size: 1.25vw;
+    font-size: 1.25vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -184,7 +184,7 @@ input::-webkit-inner-spin-button {
     height: 100%;
     color: #636262;
     font-weight: bold;
-    font-size: larger;
+    font-size: 1.5vw;
     padding-left: 1.88vw;
 }
 
@@ -202,6 +202,7 @@ input::-webkit-inner-spin-button {
     transition: background-color 0.3s ease, transform 0.2s ease;
     width: auto;
     min-width: 6.25vw;
+    font-size: 1.5vw;
 }
 
 .main-input button:hover {
@@ -263,7 +264,7 @@ input::-webkit-inner-spin-button {
     padding: 0.63vw;
     text-align: center;
     font-weight: bold;
-    font-size: 1.2vw;
+    font-size: 1.2vh;
 }
 
 .cards {
@@ -377,17 +378,18 @@ a {
 
 .static-theme {
     color: #C48AF7;
-    font-size: 1.3vw;
+    font-size: 1.3vh;
 }
 
 .theme-test {
     color: #343434;
-    font-weight: 1.2vw;
+    font-size: 1.5vw;
+    font-weight: 1.2vh;
 }
 
 .filter-test {
-    width: 100vw;
-    height: 14vh;
+    width: 40vw;
+    height: 10vh;
     overflow: hidden;
     display: flex;
     flex-direction: row;
@@ -398,20 +400,20 @@ a {
 }
 
 .filter-input {
-    width: 35vw;
-    height: 9vh;
+    width: 50vw;
+    height: 4vh;
     background-color: #C7D7EB;
-    color: 636262;
+    color: #636262;
     font-weight: bolder;
     padding: 3%;
     border-radius: 1.56vw;
     border: 0.5vw solid #343434;
-    box-shadow: 0 0 0 0.06vw #8AF7D4;
-    font-size: 1.25vw;
+    font-size: 1.25vh;
     min-height: 3.75vw;
     min-width: 25vw;
     max-width: 37.5vw;
     max-height: 4.44vw;
+
 }
 
 .submit-filter {
@@ -420,10 +422,8 @@ a {
     z-index: 10;
     bottom: 0;
     right: 0;
-    height: 0;
-    width: 12%;
-    height: 90%;
-    margin-right: 2%;
+    width: 4vw;
+    height: 95%;
     border-radius: 1.25vw;
 }
 
@@ -433,8 +433,9 @@ a {
 }
 
 .submit-filter img {
-    width: 60%;
-    height: 60%;
+    width: 3vh;
+    height: 3vh;
+    object-fit: contain;
     background-color: transparent;
 }
 
