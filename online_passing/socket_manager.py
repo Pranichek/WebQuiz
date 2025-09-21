@@ -70,7 +70,8 @@ def handle_join(data):
                 "pet_img": pet_url
             })
 
-    emit("update_users", {"user_list":user_list, "code":current_user.room.room_code if flag != "student" else room_code}, room=room_code, broadcast=True)
+
+    emit("update_users", {"user_list":user_list, "code":current_user.room.room_code if flag != "student" and current_user.is_authenticated  else room_code}, room=room_code, broadcast=True)
 
 
 @socket.on("send_message")

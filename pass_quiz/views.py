@@ -46,6 +46,11 @@ def render_finish_test():
         )
 
 
+def render_questions():
+
+    return render_template(
+        "questions.html"
+        )
 
 
 @socket.on("finish_test")

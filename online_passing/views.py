@@ -65,12 +65,13 @@ def render_mentor():
     )
 
 
-@login_decorate
+# @login_decorate
 def render_student():
-    current_user.user_profile.count_points = 0
-    DATABASE.session.commit()
+    if flask_login.current_user.is_authenticated:
+        current_user.user_profile.count_points = 0
+        DATABASE.session.commit()
 
     return flask.render_template(
         "student.html",
-        user = flask_login.current_user
+        user = flask_login.current_user if flask_login.current_user.is_authenticated else None
     )

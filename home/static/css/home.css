@@ -12,7 +12,6 @@ main {
     overflow: hidden;
 }
 
-
 form{
     z-index: 1;
 }
@@ -75,6 +74,7 @@ form{
     font-size: 1rem; 
     border: solid 0.17vh black;
     border-radius: 100vh;
+    color: #343434;
 }
 
 .input-code button {

@@ -1,6 +1,5 @@
 import flask_login, sqlalchemy
 from Project.db import DATABASE
-import random
 
 class User(DATABASE.Model, flask_login.UserMixin):
     __tablename__ = "user"

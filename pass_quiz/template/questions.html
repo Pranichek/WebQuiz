@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('finish_test.static', filename = 'css/questions.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <div class="switch-buttons">
+        
+        <a href="/finish_test" class="button">Результати тесту</a>
+        <button>Огляд питань</button>
+    </div>
+    <div class="background-blur"></div>
+    <div class="space">
+        
+    <div class="questions">
+
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('finish_test.static', filename='js/questions.js') }}" defer></script>
+{% endblock scripts %}

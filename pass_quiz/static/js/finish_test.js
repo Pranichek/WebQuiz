@@ -1,10 +1,6 @@
 const socket = io();
 
-let chcklocal = document.referrer;
 
-if (!chcklocal.includes("passig_test")) {
-    window.location.replace('/');
-}
 
 localStorage.setItem('index_question', '0');
 localStorage.setItem('time_question', 'set');
@@ -346,5 +342,4 @@ socket.on("test_result", (data) => {
 playAgain.addEventListener("click", () => {
     window.location.replace(`/test_data?id_test=${playAgain.value}`);
 });
-
 

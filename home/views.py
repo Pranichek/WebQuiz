@@ -8,13 +8,21 @@ from online_passing.models import Rooms
 from userprofile.models import DataUser
 from Project.login_check import login_decorate
 from flask_login import current_user
-from Project.socket_config import socket
 from Project.check_room import check_room
 
 
 #Просто головна сторінка
 def render_home():
     flask.session["code"] = ''
+    if flask.request.method == "POST":
+        input_code = flask.request.form.get("input_room")
+
+        room = Rooms.query.filter_by(room_code = input_code).first()
+            
+        if room:
+            flask.session["room_code"] = input_code
+            return flask.redirect("/input_username")
+
     if not current_user.is_authenticated:
         return flask.render_template(
             template_name_or_list = "home.html", 
