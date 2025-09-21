@@ -24,10 +24,15 @@ home.home_app.add_url_rule(
     methods = ["GET", "POST"]
 )
 
-
 home.home_app.add_url_rule(
     rule="/home_auth",
     view_func = home.render_home_auth,
+    methods = ["GET", "POST"]
+)
+
+home.home_app.add_url_rule(
+    rule="/input_username",
+    view_func= home.render_input_username,
     methods = ["GET", "POST"]
 )
 
