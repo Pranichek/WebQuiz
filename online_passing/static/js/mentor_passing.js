@@ -203,10 +203,17 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
     setInterval(() => {
         if (localStorage.getItem("flag_time") == "true"){
             let time = +localStorage.getItem("time_flag") - 1
+            console.log("time =", time)
             
-            if (time < 61){
+            if (time < 61 && time > 0){
                 minutesP.textContent = "00"
                 secondsP.textContent = time
+            } else if(time <= 0){
+                console.log("time <= 0")
+                socket.emit(
+                    'end_question',
+                    {code: localStorage.getItem("room_code")}
+                )
             }else{
                 const minutes = Math.floor(time / 60);
                 let remainingSeconds = time % 60;
@@ -230,21 +237,6 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
         }
     }, 1000)
 })
-
-// socket.on("stop_time",
-//     data => {
-//         console.log("privet")
-//         console.log("3", localStorage.getItem("flag_time"))
-//         let checkdata = localStorage.getItem("flag_time")
-//         if (checkdata != "false"){
-//             localStorage.setItem("flag_time", "false")
-//             console.log("5", localStorage.getItem("flag_time"))
-//         }else{
-//             localStorage.setItem("flag_time", "true")
-//         }
-//         console.log("4", localStorage.getItem("flag_time"))
-//     }
-// )
 
 socket.on("page_result",
     data => {

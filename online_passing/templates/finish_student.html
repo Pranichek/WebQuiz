@@ -1,7 +1,29 @@
 {% extends 'base.html' %}
 
+{% block title %}
+    Finish page
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('student.static', filename='css/finish_student.css') }}">
+{% endblock %}
+
 {% block content %}
-    <h1>finish</h1> for student</h1>
+    <h1>finish for student {{ progress }}</h1>
+    <div id="circle-wrapper">
+        <div id="diagram" style="background: conic-gradient(
+            #3B4451 {{ progress[0][0] }}% {{ progress[0][1] }}%,
+            #58616C {{ progress[1][0] }}% {{ progress[1][1] }}%,
+            #7F868F {{ progress[2][0] }}% {{ progress[2][1] }}%,
+            #ACB4BF {{ progress[3][0] }}% {{ progress[3][1] }}%,
+            #E0EAF5 {{ progress[4][0] }}% {{ progress[4][1] }}%,
+            #C3DEFF {{ progress[5][0] }}% {{ progress[5][1] }}%,
+            #94C4FF {{ progress[6][0] }}% {{ progress[6][1] }}%,
+            #6EAFFF {{ progress[7][0] }}% {{ progress[7][1] }}%,
+            #52A0FF {{ progress[8][0] }}% {{ progress[8][1] }}%,
+            #0D7AFF {{ progress[9][0] }}% {{ progress[9][1] }}%);">
+        </div>
+    </div>
 {% endblock content %}
 
 {% block scripts %}

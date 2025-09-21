@@ -1,0 +1,12 @@
+#circle-wrapper{
+    /* max-width: 100%; */
+    display: inline-block;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+#diagram{
+    width: 20vh;
+    height: 20vh;
+    border-radius: 50%;
+}
