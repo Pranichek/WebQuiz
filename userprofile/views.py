@@ -101,7 +101,7 @@ def render_edit_avatar():
                             os.remove(path = os.path.abspath(os.path.join(__file__, "..", "static", "images", 'edit_avatar', str(user.email), "cash", file_dir)))
 
                 path_to_avatar = os.path.abspath(os.path.join(__file__, "..", "static", "images", 'edit_avatar', str(user.email), "cash", str(file.filename)))
-                if not os.path.exists(path = path_to_avatar):
+                if not os.path.exists(path_to_avatar):
                     file.save(path_to_avatar)
 
                 flask.session["cash_image"] =  str(file.filename)

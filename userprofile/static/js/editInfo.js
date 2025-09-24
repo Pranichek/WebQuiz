@@ -12,6 +12,32 @@ function DeletePhoto(){
     document.querySelector("#delete_form").submit();
 }
 
+function MakePhoto() {
+    const video = document.getElementById("camera-stream");
+    const takeBtn = document.getElementById("take-photo-btn");
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            video.srcObject = stream;
+            video.style.display = "block";
+            takeBtn.style.display = "inline-block"; // показать кнопку "сфоткать"
+        })
+        .catch(err => {
+            console.error("Помилка доступу до камери:", err);
+        });
+}
+
+function TakePhoto() {
+    const video = document.getElementById("camera-stream");
+    const canvas = document.getElementById("photo-canvas");
+    const ctx = canvas.getContext("2d");
+
+    ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+    canvas.style.display = "block"; // показать фото
+}
+
+
+
 // функция которая смотрит если польователь выбрал дефолтную картинку то показывается галочка
 let defalutAvatars = document.querySelectorAll(".img")
 let agreeds = document.querySelectorAll(".agree")

@@ -52,9 +52,20 @@
             </div>
             
             <div class="button">
-                <p class="button-text">Зробити фото</p>
+                <!-- Запуск камеры -->
+                <button onclick="MakePhoto()" class="button-text">Включити камеру</button>
                 <img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/photo.png') }}" alt="">
             </div>
+
+            <!-- Видео с камеры -->
+            <video id="camera-stream" autoplay playsinline style="width:300px; display:none;"></video>
+
+            <!-- Кнопка для фото -->
+            <button onclick="TakePhoto()" style="display:none;" id="take-photo-btn">📸 Зробити фото</button>
+
+            <!-- Снимок -->
+            <canvas id="photo-canvas" width="300" height="200" style="display:none;"></canvas>
+
 
             <div class="button" onclick="DeletePhoto();">
                 <p class="button-text">Видалити поточне фото</p>
