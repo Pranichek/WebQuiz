@@ -3,8 +3,11 @@
 }
 
 .generated-code{
-    background: transparent;
     border: none;
+    outline: none;
+    background-color: #3C3C3C;
+    color: #FFFFFF;
+    text-align: center;
 }
 
 
