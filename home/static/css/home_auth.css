@@ -66,7 +66,7 @@ header {
     background-color: transparent;
     border: 0.06vw black solid;
     width: 18.5vw;
-    height: 12.5vw;
+    height: 18vh;
     border-radius: 1.5vw;
     overflow: hidden;
 }
@@ -81,7 +81,7 @@ header {
     align-items: center;
     justify-content: start;
     width: 100%;
-    height: 40%;
+    height: 8vh;
 }
 
 .avatar {
@@ -114,21 +114,21 @@ header {
     justify-content: center;
     align-items: start;
     padding: 0.63vw 0vw 0.63vw 1.25vw;
-    gap: 30%;
+    gap: 2vh;
     width: 100%;
-    height: 60%;
+    height: 10vh;
 }
 
 .antoher-data .text-tests, .antoher-data .gmail, .nick {
     opacity: 0.8;
     color: #D6E8FE;
     font-weight: 500;
-    font-size: 2vw;
+    font-size: 1.5vw;
     text-decoration: none;
 }
 
 .nick {
-    font-size: 1.25vh;
+    font-size: 1.5vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -158,6 +158,7 @@ input::-webkit-inner-spin-button {
 .number-tests {
     color: #FFE177;
     font-weight: bold;
+    font-size: 1.5vw;
 }
 
 .text-tests {
@@ -237,7 +238,7 @@ input::-webkit-inner-spin-button {
     margin-top: 1.25vw;
 }
 
-.show-more .show-more-link {
+.show-more-link {
     background-color: #C48AF7;
     color: #ffffff;
     cursor: pointer;
@@ -247,7 +248,7 @@ input::-webkit-inner-spin-button {
     padding: 0.63vw;
     text-align: center;
     font-weight: bold;
-    font-weight: 1.2vw;
+    font-size: 1.2vh;
     transition: 0.2s;
 }
 
@@ -444,17 +445,21 @@ a {
     width: fit-content;
 }
 
-@media(max-width: 64vw) {
+@media(max-width: 800px) {
     .avatar-circle {
         width: 3.13vw;
         height: 3.13vw;
     }
 
-    .antoher-data .text-tests {
+    .antoher-data .text-tests .gmail {
         color: #D6E8FE;
         font-weight: 400;
         text-decoration: none;
         font-size: 0.69vw;
+    }
+
+    .data-user {
+        height: 8vh;
     }
     .number-tests {
         font-size: 0.75vw;

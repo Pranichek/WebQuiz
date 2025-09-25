@@ -6,14 +6,10 @@ footer{
     flex-direction: column;
     width: 100vw;
     height: 24vh;
-    min-height: 150px;
     bottom: 0;
-    max-height: 300px;
-    /* background-color: #FFB700; */
 }
 
 .about-us{
-    /* background-color: aquamarine; */
     position: relative;
     width: 100vw;
     height: 30%;
@@ -21,25 +17,22 @@ footer{
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 30px;
-    padding: 36px 10px 10px 10px;
-    max-width: 2000px;
+    gap: 3vh;
+    padding: 3.6vh 1vh 1vh 1vh;
 }
 
 .footer-line{
     position: absolute;
     width: 50%;
-    height: 1px;
+    height: 0.1vh;
     background-color: #ffffff;
     bottom: 0;
-    transform: translateY(10px);
-    min-width: 500px;
-    max-width: 800px;
+    transform: translateY(1vh);
 }
 
 .link-data{
     text-decoration: none;
-    font-size: 20px;
+    font-size: 2vh;
     color: #ffffff;
     font-weight: 400;
 }
@@ -52,10 +45,9 @@ footer{
     flex-direction: row;
     align-items: center;
     justify-content: start;
-    padding: 10px 10px;
-    gap: 30px;
+    padding: 1vh 1vh;
+    gap: 3vh;
     position: relative;
-    max-width: 1800px;
 }
 
 .follow-us-text{
@@ -63,29 +55,29 @@ footer{
     top: 50%;
     left: 50%;
     transform: translateX(-50%) ;
-    font-size: 20px;
+    font-size: 2vh;
     color: #ffffff;
     font-weight: 400;
 }
 
 .follow-us-text1{
-    font-size: 20px;
+    font-size: 2vh;
     color: #ffffff;
     font-weight: 400;
 }
 
 .data-donate{
-    margin-left: 100px;
+    margin-left: 10vw;
     position: absolute;
     bottom: 0;
-    font-size: 15px;
+    font-size: 1.5vh;
     font-weight: bold;
     color: #ffffff;
     left: 0;
 }
 
 .data-donate1{
-    font-size: 15px;
+    font-size: 1.5vh;
     font-weight: bold;
     color: #ffffff;
 }
@@ -98,25 +90,24 @@ footer{
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 10px 10px;
-    gap: 30px;
+    padding: 1vh 1vh;
+    gap: 3vh;
     position: relative;
-    max-width: 1800px;
 }
 
 .data-card{
     position: absolute;
     left: 0;
     top: 25%;
-    margin-left: 50px;
+    margin-left: 5vw;
     color: #FFB700;
-    font-size: 20px;
+    font-size: 2vh;
     font-weight: 600;
 }
 
 .data-card1{
     color: #FFB700;
-    font-size: 20px;
+    font-size: 2vh;
     font-weight: 600;
 }
 
@@ -124,29 +115,35 @@ footer{
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 25px;
+    gap: 2.5vh;
+}
+
+.img-soc{
+    width: 4vh;
+    height: 4vh;
+    cursor: pointer;
+    transition: 0.2s;
 }
 
 .for-media{
-    margin-top: 10px;
+    margin-top: 1vh;
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 70%;
-    gap: 5px;
+    gap: 0.5vh;
 }
 
-@media(max-width: 920px){
+@media(max-width: 1000px){
     footer{
         height: 34vh;
-        min-height: 250px;
+        
     }
 
     .footer-line{
-        width: 440px;
-        min-width: 400px;
+        width: 44vw;
     }
 
     .for-media{
