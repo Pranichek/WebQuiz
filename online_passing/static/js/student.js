@@ -31,6 +31,10 @@ socket.on('receive_message', (data) => {
 // список подключенных
 socket.on("update_users", data => {
     users = data.user_list
+
+    
+    document.querySelector(".num-students").textContent = (users.length - 1 >= 0) ? (users.length - 1) : 0
+    document.querySelector(".code_room").textContent = data.code
     const blockUsers = document.querySelector(".icons-users")
 
     blockUsers.innerHTML = "";
@@ -108,6 +112,7 @@ msgInput.value = '';
 socket.on(
     'start_passing',
     data => {
+        console.log("zahodit")
         window.location.replace("/passing_student")
     }
 )

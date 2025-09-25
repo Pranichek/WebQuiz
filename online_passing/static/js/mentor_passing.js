@@ -1,7 +1,6 @@
 const socket = io()
 
 if (localStorage.getItem("index_question")){
-    console.log("emit load_question")
     socket.emit('load_question', {
         index: localStorage.getItem("index_question"),
         test_id: localStorage.getItem("test_id"),

@@ -49,7 +49,6 @@ def users_results(data):
                     users_answers[count] = f"{count+1}){users_answers[count]}"
                     count+=1
 
-            print(users_answers, "lol")
             user_list.append({
                 "username": user.username,
                 "email": user.email,
@@ -222,3 +221,35 @@ def end_question(data):
 def stop_time(data):
     room_code = data["code"]
     emit("stop_time", room = room_code, include_self=True)
+
+
+@socket.on("finish_mentor")
+def finish_test(data):
+    user_list = []
+    room = Rooms.query.filter_by(room_code= data["room"]).first()
+    user_ids = room.users.split() if room and room.users else []
+
+    test : Test = Test.query.get(int(data["test_id"]))
+
+    for user_id in user_ids:
+        user : User  = User.query.get(int(user_id))
+        user.user_profile.answering_answer = "відповідає"
+        DATABASE.session.commit()
+        if user and user.id != flask_login.current_user.id:
+            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.email}/{user.name_avatar}')
+
+            user_list.append({
+                "username": user.username,
+                "email": user.email,
+                "count_points": user.user_profile.count_points,
+                "user_avatar": avatar_url,
+                "avatar_size": user.size_avatar,
+                "accuracy": user.user_profile.last_answered.split("/")[1],
+            })
+
+    
+    user_list = sorted(user_list, key=itemgetter("count_points"), reverse=True)
+    
+    emit("list_results", {
+        "users": user_list
+    })
