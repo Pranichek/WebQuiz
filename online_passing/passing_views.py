@@ -66,5 +66,21 @@ def render_finish_student():
     return flask.render_template(
         'finish_student.html',
         user = flask_login.current_user,
-        test_page = True
+        test_page = True,
+        progress = find_percentage([10, 10, 10, 10, 18, 2, 20, 0, 10, 10])
     )
+
+def find_percentage(data: list) -> list:
+    percentage = []
+    for i in range(data.__len__()):
+        one = []
+        prev_sum = 0
+        for prev_i in range(data.__len__()):
+            if (prev_i < i):
+                prev_sum += data[prev_i]
+            else:
+                break
+        one.append(prev_sum)
+        one.append(prev_sum + data[i])
+        percentage.append(one)
+    return percentage

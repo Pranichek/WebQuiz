@@ -2,6 +2,13 @@
     font-size: 2.5vh;
 }
 
+.generated-code{
+    background: transparent;
+    border: none;
+}
+
+
+
 .main{
     flex-direction: column;
     display: flex;

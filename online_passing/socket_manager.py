@@ -2,7 +2,7 @@ from flask_socketio import join_room, emit, disconnect
 from Project.socket_config import socket
 from flask_login import current_user
 import pyperclip, flask
-from .json_functions import read_json, save_json
+# from .json_functions import read_json, save_json
 from os.path import abspath, join
 from home.models import User
 from .models import Rooms
@@ -30,6 +30,7 @@ def handle_join(data):
             if not existing_room:
                 code = generate_code()
                 room = Rooms(room_code=code, user_id=str(current_user.id), users=f'{current_user.id}')
+                room_code = code
                 DATABASE.session.add(room)
                 join_room(code)
 
@@ -70,8 +71,7 @@ def handle_join(data):
                 "pet_img": pet_url
             })
 
-
-    emit("update_users", {"user_list":user_list, "code":current_user.room.room_code if flag != "student" and current_user.is_authenticated  else room_code}, room=room_code, broadcast=True)
+    emit("update_users", {"user_list":user_list, "code":room_code}, room=room_code, broadcast=True)
 
 
 @socket.on("send_message")
@@ -85,10 +85,10 @@ def handle_send_message(data):
         "message": message,
         "email": data["email"]
     }
-    path_file = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", data["email_mentor"], "qrcodes", "chat.json"))
-    data_chat = read_json(path_json=path_file)
-    data_chat.append(dict_data)
-    save_json(data=data_chat, path_json=path_file)
+    # path_file = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", data["email_mentor"], "qrcodes", "chat.json"))
+    # data_chat = read_json(path_json=path_file)
+    # data_chat.append(dict_data)
+    # save_json(data=data_chat, path_json=path_file)
 
     email_user = data["email"]
     user_by_email = User.query.filter_by(email=email_user).first()
@@ -107,12 +107,10 @@ def handle_start_test(data):
 
 @socket.on("copy_code")
 def handle_copy_code(data):
-    print("kuku")
     pyperclip.copy(data["code_room"])
 
 @socket.on("copy_link")
 def handle_copy_link(data):
-    print("kuku")
     pyperclip.copy(data["link_room"])
 
 @socket.on("mentor_email")
@@ -120,40 +118,15 @@ def save_mentor_email(data):
     email = data["email"]
 
     path_file = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", email, "qrcodes", "chat.json"))
-    chat_data = read_json(path_json=path_file)
+    # chat_data = read_json(path_json=path_file)
 
-    emit("load_chat", {"chat_data": chat_data, "user_email": current_user.email, "mentor_email": email, "id_test": data["id_test"]}, room=data["room"])
+    # emit("load_chat", {"chat_data": chat_data, "user_email": current_user.email, "mentor_email": email, "id_test": data["id_test"]}, room=data["room"])
 
 @socket.on("connect_again")
 def connect_to_room(data):
     join_room(data["code"])
 
-# @socket.on('disconnect')
-# def handle_disconnect():
-#     email = current_user.email
-#     user_id = str(current_user.id)
 
-#     rooms = Rooms.query.all()
-#     for room in rooms:
-#         if room.users:
-#             user_ids = room.users.split()
-#             if user_id in user_ids:
-#                 user_ids.remove(user_id)
-#                 room.users = " ".join(user_ids)
-#                 DATABASE.session.commit()
-
-#                 user_list = []
-#                 for uid in user_ids:
-#                     user = User.query.get(int(uid))
-#                     if user and user.id != room.user_id:
-#                         user_list.append({
-#                             "username": user.username,
-#                             "email": user.email,
-#                             "ready": user.user_profile.answering_answer
-#                         })
-                
-#                 emit("update_users", user_list, room=room.room_code)
-#                 break
 
 @socket.on("delete_user")
 def handler_delete(data):
@@ -192,6 +165,6 @@ def handler_delete(data):
                             "pet_img": pet_url
                         })
 
-                emit("update_users", user_list, room=room.room_code)
+                emit("update_users", {"user_list": user_list, "code": room.room_code} , room=room.room_code)
                 emit("leave_user", {"email": email_kicked}, room=room.room_code, broadcast=True)
                 break
