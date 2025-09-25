@@ -71,6 +71,7 @@ nav {
     text-align: center;
     font-weight: bold;
     font-size: 2vh;
+    white-space: nowrap;
     /* transition: 0.3s ease; */
 }
 
@@ -125,10 +126,10 @@ nav {
     flex-direction: column;
     justify-content: space-between;
     transition: width 0.6s;
-    width: 0px;
+    width: 0;
     height: 85vh;
-    border-radius: 10px;
-    padding-top: 20px;
+    border-radius: 1vh;
+    padding-top: 2vh;
     background-color: #343434;
     z-index: 200;
     overflow: hidden;
@@ -137,7 +138,7 @@ nav {
 .link-container{
     display: flex;
     flex-direction: column;
-    gap: 90px;
+    gap: 9vw;
     z-index: 100;
 }
 
@@ -145,7 +146,7 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 15px;
+    gap: 1.5vh;
 }
 
 .links a{
@@ -157,25 +158,25 @@ nav {
 
 
 .links hr{
-    width: 230px;
+    width: 23vw;
 }
 
 
 .sidebar-robot{
     position: absolute;
-    right: 50px;
+    right: 5vw;
     bottom: 0;
-    width: 130px;
-    height: 190px;
+    width: 13vw;
+    height: 19vh;
 }
 
 .closed{
-    width: 0px;
+    width: 0;
     overflow: hidden;
 }
 
 .opened{
-    width: 300px;
+    width: 30vw;
 }
 
 
@@ -209,7 +210,7 @@ nav {
 
 .footer-line {
     width: 60vw;
-    border-top: 0.6px solid #b6b6b6;
+    border-top: 0.06vh solid #b6b6b6;
     transform: translateY(1vh);
 }
 
@@ -238,12 +239,3 @@ nav {
     font-size: inherit;
     font-weight: 600;
 }
-
-
-
-/* @media (min-width:1600px){
-    header{
-        justify-content: center;
-        gap: 50vw;
-    }
-} */

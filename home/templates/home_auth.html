@@ -10,6 +10,8 @@
 
 {% block content %}
     <div class="background-blur"></div>
+    {% set ns = namespace(countrows=0) %}
+
 
     <div class="top-part">
         <div class="enter-code">
@@ -19,7 +21,6 @@
                 <button type="submit" class="butn1">Приєднатися</button>
             </form>
         </div>
-        
         <div class="data-user" onclick="Profile()">
             <div class="main-data">
                 <div class="avatar-circle">
@@ -51,7 +52,10 @@
         </div>
     </div>
 
+
+
     {% if third_tests|length > 0 %}
+        {% set ns.countrows = 1 %}
         <div class="cards-floor">
             <div class="show-more">
                 {% if fourt_topic[1] != "інше" and fourt_topic[1] != "Інше" %}
@@ -92,6 +96,7 @@
     {% endif %}
 
     {% if first_tests|length > 0 %}
+        {% set ns.countrows = 1%}
         <div class="cards-floor">
             <div class="show-more">
                 {% if first_topic != "інше" and first_topic != "Інше" %}
@@ -128,9 +133,10 @@
             </div>
         </div>
     {% endif %}
-    
+     
 
     {% if second_tests|length > 0 %}
+        {% set ns.countrows = 1 %}
         <div class="cards-floor">
             <div class="show-more">
                 {% if second_topic != "інше" and second_topic != "Інше" %}
@@ -169,15 +175,20 @@
     {% endif %}
     
 
-
-    <div class="filter-test">
+    {% if ns.countrows == 0 %} 
+        <div class="nothing">
+            <p class="top-text">Тут з’являться ваші створені та нещодавно створені тести</p>
+            <p class="bottom-text">Почни зараз! Створи свій перший тест</p>
+        </div>
+    {% endif %} 
+    <!-- <div class="filter-test">
         <form action="" method="post" id="filter-form">
             <input type="hidden" name="check_form" vlaue="filter">
             <input type="text" class="filter-input" placeholder="Знайти вікторину" onkeydown="checkEnterPress(event)">
             <button type="button" class="submit-filter"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt=""></button>
         </form>
     </div>
-    <a href="" class="search-filter-link"></a>
+    <a href="" class="search-filter-link"></a> -->
 
 {% endblock %}
 
