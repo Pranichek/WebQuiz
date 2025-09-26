@@ -91,7 +91,7 @@ def connect_to_room(data):
     code = data["code"]
     room = Rooms.query.filter_by(room_code=code).first()
 
-    user_ids = room.users.split() if room.users else []
+    user_ids = room.users.split() if room.users is not None else []
     if str(flask_login.current_user.id) not in user_ids:
         user_ids.append(str(flask_login.current_user.id))
         room.users = " ".join(user_ids)
@@ -111,7 +111,7 @@ def connect_to_room(data):
                 "count_points": user.user_profile.count_points
             })
 
-    emit("update_users", user_list, room=data["code"], broadcast=True)
+    emit("update_users", {"user_list":user_list}, room=data["code"], broadcast=True)
 
 # remaining_time = max(total_time - time_taken, 0)
 # score = max_score * (0.5 + (1 - 0.5) * (remaining_time / total_time))
@@ -362,10 +362,10 @@ def answer_the_question(data):
             })
     if count_answered >= count_people:
         DATABASE.session.commit()
-        emit("update_users", user_list, room=data["code"], broadcast=True)
+        emit("update_users", {"user_list": user_list}, room=data["code"], broadcast=True)
         emit("page_result", room=data["code"], broadcast=True)
     else:
-        emit("update_users", user_list, room=data["code"], broadcast=True)
+        emit("update_users", {"user_list":user_list}, room=data["code"], broadcast=True)
         emit("page_waiting")
 
    

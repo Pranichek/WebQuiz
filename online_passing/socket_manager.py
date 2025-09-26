@@ -2,18 +2,25 @@ from flask_socketio import join_room, emit, disconnect
 from Project.socket_config import socket
 from flask_login import current_user
 import pyperclip, flask
-from .json_functions import read_json, save_json
+# from .json_functions import read_json, save_json
 from os.path import abspath, join
 from home.models import User
 from .models import Rooms
 from Project.db import DATABASE
+from .generate_code import generate_code
+
 
 @socket.on("join_room")
 def handle_join(data):
-    room_code = data["room"]
+    if "room" in data.keys():
+        room_code = data["room"]
+        join_room(room_code)
+    else:
+        room_code = None
+
     flag = data["flag"]
 
-    join_room(room_code)
+    
 
     room = Rooms.query.filter_by(room_code=room_code).first()
 
@@ -21,14 +28,14 @@ def handle_join(data):
         if flag != "student":
             existing_room = Rooms.query.filter_by(user_id=current_user.id).first()
             if not existing_room:
-                room = Rooms(room_code=room_code, user_id=str(current_user.id), users=f'{current_user.id}')
+                code = generate_code()
+                room = Rooms(room_code=code, user_id=str(current_user.id), users=f'{current_user.id}')
+                room_code = code
                 DATABASE.session.add(room)
-            else:
-                existing_room.room_code = room_code 
-                existing_room.users = f'{current_user.id}' 
-                room = existing_room
+                join_room(code)
 
             DATABASE.session.commit()
+
         else:
             emit("fake_room", {"email": current_user.email})
             return
@@ -50,14 +57,21 @@ def handle_join(data):
     for user_id in user_ids:
         user = User.query.get(int(user_id))
         if user:
+            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.email}/{user.name_avatar}')
+            pet_url = flask.url_for(
+                'profile.static',
+                filename=f'images/pets_id/{user.user_profile.pet_id}.png'
+            )
             user_list.append({
                 "username": user.username,
                 "email": user.email,
                 "ready": user.user_profile.answering_answer,
-                "count_points": user.user_profile.count_points
+                "count_points": user.user_profile.count_points,
+                "user_avatar": avatar_url,
+                "pet_img": pet_url
             })
 
-    emit("update_users", user_list, room=room_code, broadcast=True)
+    emit("update_users", {"user_list":user_list, "code":room_code}, room=room_code, broadcast=True)
 
 
 @socket.on("send_message")
@@ -71,10 +85,10 @@ def handle_send_message(data):
         "message": message,
         "email": data["email"]
     }
-    path_file = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", data["email_mentor"], "qrcodes", "chat.json"))
-    data_chat = read_json(path_json=path_file)
-    data_chat.append(dict_data)
-    save_json(data=data_chat, path_json=path_file)
+    # path_file = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", data["email_mentor"], "qrcodes", "chat.json"))
+    # data_chat = read_json(path_json=path_file)
+    # data_chat.append(dict_data)
+    # save_json(data=data_chat, path_json=path_file)
 
     email_user = data["email"]
     user_by_email = User.query.filter_by(email=email_user).first()
@@ -104,40 +118,15 @@ def save_mentor_email(data):
     email = data["email"]
 
     path_file = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", email, "qrcodes", "chat.json"))
-    chat_data = read_json(path_json=path_file)
+    # chat_data = read_json(path_json=path_file)
 
-    emit("load_chat", {"chat_data": chat_data, "user_email": current_user.email, "mentor_email": email, "id_test": data["id_test"]}, room=data["room"])
+    # emit("load_chat", {"chat_data": chat_data, "user_email": current_user.email, "mentor_email": email, "id_test": data["id_test"]}, room=data["room"])
 
 @socket.on("connect_again")
 def connect_to_room(data):
     join_room(data["code"])
 
-# @socket.on('disconnect')
-# def handle_disconnect():
-#     email = current_user.email
-#     user_id = str(current_user.id)
 
-#     rooms = Rooms.query.all()
-#     for room in rooms:
-#         if room.users:
-#             user_ids = room.users.split()
-#             if user_id in user_ids:
-#                 user_ids.remove(user_id)
-#                 room.users = " ".join(user_ids)
-#                 DATABASE.session.commit()
-
-#                 user_list = []
-#                 for uid in user_ids:
-#                     user = User.query.get(int(uid))
-#                     if user and user.id != room.user_id:
-#                         user_list.append({
-#                             "username": user.username,
-#                             "email": user.email,
-#                             "ready": user.user_profile.answering_answer
-#                         })
-                
-#                 emit("update_users", user_list, room=room.room_code)
-#                 break
 
 @socket.on("delete_user")
 def handler_delete(data):
@@ -160,14 +149,22 @@ def handler_delete(data):
                 user_list = []
                 for uid in user_ids:
                     u = User.query.get(int(uid))
+                    avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{u.email}/{u.name_avatar}')
+
+                    pet_url = flask.url_for(
+                        'profile.static',
+                        filename=f'images/pets_id/{user.user_profile.pet_id}.png'
+                    )
                     if u:
                         user_list.append({
                             "username": u.username,
                             "email": u.email,
                             "ready": user.user_profile.answering_answer,
-                            "count_points": user.user_profile.count_points
+                            "count_points": user.user_profile.count_points,
+                            "user_avatar": avatar_url,
+                            "pet_img": pet_url
                         })
 
-                emit("update_users", user_list, room=room.room_code)
+                emit("update_users", {"user_list": user_list, "code": room.room_code} , room=room.room_code)
                 emit("leave_user", {"email": email_kicked}, room=room.room_code, broadcast=True)
                 break

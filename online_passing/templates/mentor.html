@@ -9,6 +9,17 @@
 {% endblock links %}
     
 {% block content %}   
+    <img src="" alt="" data-link="{{ url_for('mentor.static', filename='images/mentor/cross_user.svg') }}" style="display: none;" id="imageLink">
+
+    <div class="window-choice">
+        <h1>Видалити учасника з кімнати</h1>
+        <p>Ви впевнені, що хочете видалити цього учасника з кімнати?</p>
+        <div>
+            <p class="decline">Скасувати</p>
+            <p class="remove_user">Видалити</p>
+        </div>
+    </div>
+
     <div class="general_container_rect">
     
         <div class="mentor-layout">
@@ -27,7 +38,7 @@
                 </div>
                 <div class="topic">
                     <img class="image-test" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
-                    <p class="topic-text">Logarifm and teorem pifagor</p>
+                    <p class="topic-text">{{ title_test }}</p>
                 </div>
 
             </div>
@@ -51,7 +62,7 @@
                     <div class="join-code">
                         <span>Код приєднання</span>
                         <div class="code copy-code">
-                            <span id="code">{{ code }}</span>
+                            <span id="code"></span>
                             <img class="copy " src="{{ url_for('mentor.static', filename='images/mentor/copy.svg') }}" alt="copy icon">
                         </div>
                     </div>
@@ -70,20 +81,20 @@
 
                     <div class="modal-window" id="qrModal">
                         <div class="modal-content">
-                            <div class="top-part">
         
-                                <div class="qrcode">
-                                    <div class="nameofcode">
-                                        <h2>QR-код</h2>
-                                        <div class="close-btn" onclick="hideQR()">
-                                            <img src="{{ url_for('mentor.static', filename='images/mentor/exit.svg') }}" alt="">
-                                        </div>
-                                    </div>
-                                    <div class="qr-code-div">
-                                        <img src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                            <div class="qrcode">
+                                <div class="nameofcode">
+                                    <h2>QR-код</h2>
+                                    <div class="close-btn" onclick="hideQR()">
+                                        <img src="{{ url_for('mentor.static', filename='images/mentor/exit.svg') }}" alt="">
                                     </div>
                                 </div>
+                                
+                                <div class="qr-code-div">
+                                    <img src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                                </div>
                             </div>
+
                             <div class="bottom-part">
                                 <h3 id="for-text">Або приєднуйся по коду!</h3>
                                 <h2>{{ code }}</h2>
@@ -104,13 +115,12 @@
     </div>
 
     <div class="participants-section">
-        <!-- <div class="users">
+        <div class="users">
 
         </div>
         
         <span class="flex-block">
             <img src="{{ url_for('mentor.static', filename='images/mentor/participants.png') }}" alt="">
-            <p class="participants-number" id="amount_users">{{ all_participants | length }}</p>
         </span>
 
         <div class="chat-icon">
@@ -142,7 +152,7 @@
             <div class="check-click">
                     <img class="open-chat" src="{{ url_for('mentor.static', filename='images/mentor/chat_icon.png') }}" alt="">
             </div>
-        </div> -->
+        </div>
 
         
     </div>

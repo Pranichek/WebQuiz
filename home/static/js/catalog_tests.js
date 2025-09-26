@@ -206,7 +206,7 @@ window.addEventListener(
             localStorage.clear("filter_data");
         }
 
-        let categoryFilter = localStorage.getItem("selectedCategoriesauth");
+        let categoryFilter = localStorage.getItem("selectedCategoriesauth")
         if (categoryFilter) {
             categoryFilter = categoryFilter.split("/");
 
@@ -215,11 +215,11 @@ window.addEventListener(
                 if (categoryFilter[idx] == "/") {
                     categoryFilter.splice(idx, 1);
                 }
-            });
+            })
         } else {
             categoryFilter = [];
         }
-        console.log(categoryFilter, 'sdcds');
+
         let sortData = localStorage.getItem("selectedSortauth");
         if (sortData) {
             sortData = sortData.split("/");
@@ -234,7 +234,10 @@ window.addEventListener(
             sortData = [];
         }
 
+
         let allINput = Array.from(document.querySelectorAll(".input-check"));
+
+        console.log(localStorage.getItem("selectedCategoriesauth"), "pisya")
 
         allINput.forEach(input => {
             console.log(input.value, 12);
@@ -242,6 +245,8 @@ window.addEventListener(
                 input.click();
             }
         });
+
+        
     }
 );
 
@@ -308,11 +313,3 @@ inputField.addEventListener('input', () => {
     }
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    const toggleBtn = document.querySelector('.sidebar-toggle');
-    const sidebar = document.querySelector('.sidebar');
-
-    toggleBtn.addEventListener('click', function () {
-        sidebar.classList.toggle('open');
-    });
-});

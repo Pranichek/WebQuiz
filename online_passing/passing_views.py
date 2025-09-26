@@ -1,5 +1,6 @@
 import flask, flask_login
 from Project.login_check import login_decorate
+from Project.check_room import check_room
 from flask_socketio import join_room
 
 
@@ -59,10 +60,27 @@ def render_finish_mentor():
     )
 
 # страница финиша студента
+@check_room
 @login_decorate
 def render_finish_student():
     return flask.render_template(
         'finish_student.html',
         user = flask_login.current_user,
-        test_page = True
+        test_page = True,
+        progress = find_percentage([10, 10, 10, 10, 18, 2, 20, 0, 10, 10])
     )
+
+def find_percentage(data: list) -> list:
+    percentage = []
+    for i in range(data.__len__()):
+        one = []
+        prev_sum = 0
+        for prev_i in range(data.__len__()):
+            if (prev_i < i):
+                prev_sum += data[prev_i]
+            else:
+                break
+        one.append(prev_sum)
+        one.append(prev_sum + data[i])
+        percentage.append(one)
+    return percentage

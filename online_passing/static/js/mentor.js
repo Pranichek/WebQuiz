@@ -1,11 +1,7 @@
-const urlParams = new URLSearchParams(window.location.search);
-const room_code = urlParams.get('room_code');
-
-localStorage.setItem("room_code", room_code)
 localStorage.setItem("flag_time", "true")
+localStorage.setItem("time_flag", "false")
 
 const chat = document.querySelector(".messages");
-chat.innerHTML = ""; 
 
 function loadRoom() {
     const socket = io();
@@ -21,9 +17,9 @@ function loadRoom() {
     socket.emit('join_room', {
         username: username,
         email: document.querySelector(".email").textContent,
-        room: code,
         id_test: id_test,
-        flag: "mentor"
+        flag: "mentor",
+        room: localStorage.getItem("room_code") || NaN
     });
 
     socket.on('user_joined', (data) => {
@@ -38,22 +34,32 @@ function loadRoom() {
     });
 
     // список подключенных
-    socket.on("update_users", (users) => {
-        console.log("Користувачі в кімнаті:", users);
+    socket.on("update_users", data => {
         const blockUsers = document.querySelector(".users")
 
-        blockUsers.innerHTML = "";
+        blockUsers.innerHTML = ""
+        users = data.user_list
+        document.querySelector("#amount_users").textContent = (users.length - 1 >= 0) ? (users.length - 1) : 0;
+        localStorage.setItem("room_code", data.code)
+        document.querySelector("#code").textContent = data.code
 
         users.forEach(user => {
             if (user.email != document.querySelector(".email").textContent){
                 const blockDiv = document.createElement("div")
                 blockDiv.classList.add("block")
 
+                const userCross = document.createElement("img")
+                userCross.src = document.querySelector("#imageLink").dataset.link
+                userCross.classList = "cross-user"
+                userCross.dataset.email = user.email
+                blockDiv.appendChild(userCross)
+                
                 const infDiv = document.createElement("div")
                 infDiv.classList.add("inf")
 
                 const avatarImg = document.createElement("img")
                 avatarImg.classList.add("ava")
+                avatarImg.src = user.user_avatar
 
                 const usernameP = document.createElement("p")
                 usernameP.textContent = user.username
@@ -73,6 +79,7 @@ function loadRoom() {
 
                 const petImg = document.createElement("img")
                 petImg.classList.add("pet")
+                petImg.src = user.pet_img
 
 
                 blockPetDiv.appendChild(petImg)
@@ -86,24 +93,32 @@ function loadRoom() {
                 blockUsers.appendChild(blockDiv)
             }
         });
+        let lastemail;
 
         // видалення юзера із кімнати block
-
-        allBlocks = document.getElementsByClassName("block");
-        for (let block of allBlocks){
-            
-            block.addEventListener('click', ()=>{
-                socket.emit(
-                    "delete_user",
-                    {
-                        room: code,
-                        email: block.querySelector(".email-paragraph").textContent
-                    }
-                )
+        crossUser = document.getElementsByClassName("cross-user")
+        for (let cross of crossUser){
+            cross.addEventListener("click", ()=>{
+                document.querySelector(".window-choice").style.display = "flex"
+                lastemail = cross.dataset.email
             })
         }
 
+        let buttonRemove = document.querySelector(".remove_user")
+        buttonRemove.addEventListener("click", ()=>{
+            socket.emit(
+                "delete_user",
+                {
+                    room: code,
+                    email: lastemail
+                }
+            )
+            document.querySelector(".window-choice").style.display = "none"
+        })
 
+        document.querySelector(".decline").addEventListener("click", () => {
+            document.querySelector(".window-choice").style.display = "none"
+        })
     });
 
     socket.on(

@@ -5,11 +5,16 @@ from Project.socket_config import socket
 from flask_login import current_user
 from .del_files import delete_files_in_folder
 from Project.db import DATABASE
+from quiz.models import Test
 
 @login_decorate
 def render_mentor():
+    id_test = flask.request.args.get("id_test")
     # отримуємо код кімнати з параметрів запиту
     code = flask.request.args.get("room_code")
+    test : Test = Test.query.get(id_test)
+
+    
     # зберігаємо об'єкт користувача в змінну
     user = flask_login.current_user
 
@@ -55,16 +60,18 @@ def render_mentor():
         "mentor.html",
         mentor = True,
         code = code,
-        user = user
+        user = user,
+        title_test = test.title_test
     )
 
 
-@login_decorate
+# @login_decorate
 def render_student():
-    current_user.user_profile.count_points = 0
-    DATABASE.session.commit()
+    if flask_login.current_user.is_authenticated:
+        current_user.user_profile.count_points = 0
+        DATABASE.session.commit()
 
     return flask.render_template(
         "student.html",
-        user = flask_login.current_user
+        user = flask_login.current_user if flask_login.current_user.is_authenticated else None
     )

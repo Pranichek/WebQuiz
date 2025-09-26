@@ -17,7 +17,7 @@
         <div class="registration">
             <form action="" method="post">
                 <div class="img-avatar">
-                    <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.svg') }}" alt="avatar">
+                    <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar' ~ random_num ~ '.svg') }}" alt="avatar">
                 </div>
                 <!-- инпут для проверки post запроса -->
                 <input type="hidden" name="check_form" value="registration">
@@ -57,7 +57,7 @@
                     (?=.*\d) - Хоча б одна цифра
                     [A-Za-z\d]+ - Лише латинські літери
                      -->
-                    <input onpaste="return false;" autocomplete="new-password" class="text-input password-input" type="password" name="password"  pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+" maxlength="8" minlength="8" placeholder="Введіть Ваш пароль" class="input_password" id="password1" required>
+                    <input onpaste="return false;" autocomplete="new-password" class="text-input password-input" type="password" name="password"  pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+"  placeholder="Введіть Ваш пароль" class="input_password" id="password1" required>
                     <img id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
                     <img class="hidden1" id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
 

@@ -72,30 +72,28 @@
         </div>
 
         <div class="announcement">
-            <form action="" method="post">
+            <form action="" method="post" enctype='multipart/form-data'>
                 <p>Створення завдання для учнів</p>
                 <div class="fix-form">
                     <input type="text" class="topic" name="topic" id="" placeholder="Введіть тему завдання..." required>
-                    <form action=""  method="post" id="add-picture" enctype='multipart/form-data'>
-                        <label for="task-image"><img class="img-class" src="{{ url_for('mentor_class.static', filename='images/add-img-class.svg') }}" alt=""></label>
-                        <input type="file" id="task-image" name="file" style="display:none" class="add-img-test">
-                    </form>
+                        <!-- <input type="text" name="check_form" class = "check_name" value = "load_image"> -->
+                    <input id="file-upload" name="input-file" type="file">
                 </div>
                 <input type="text" class="task_info" name="task_info" id="" placeholder="Введіть інформацію про завдання..." required>
                 <div class="term-form">
                     <p>Задати термін: </p>
                     <div class="input-term">
-                        <input type="text" class="term-num" name="term-num">
+                        <input type="text" class="term-num week_data" name="term-week">
                         <p class="text-term">тижнів</p>
-                        <input type="text" class="term-num" name="term-num">
+                        <input type="text" class="term-num days_data" name="term-days">
                         <p class="text-term">днів</p>
-                        <input type="text" class="term-num" name="term-num">
+                        <input type="text" class="term-num hours_data" name="term-hours">
                         <p class="text-term">годин</p>
-                        <input type="text" class="term-num" name="term-num">
+                        <input type="text" class="term-num minutes_data" name="term-minutes">
                         <p class="text-term">хвилин</p>
                     </div>
                 </div>
-                <button class="create_task" type="button">Створити завдання</button>
+                <button type="submit" class="create_task" type="button">Створити завдання</button>
             </form>
         </div>
 
@@ -118,24 +116,20 @@
                 <div class="setting-test">
                     <div class="upper-div">
                         <div class="first-column">
-                            <p id="set-text1">Налаштування для тесту: </p>
-                            <p id="set-text1">Перемішувати питання тесту?</p>
-                            <p id="set-text1">Перемішувати відповіді тесту?</p>
-                            <p id="set-text1">Вимкнути обмеження часу у тесті</p>
+                            <p class="set-text">Налаштування для тесту: </p>
+                            <p class="set-text">Перемішувати питання тесту?</p>
+                            <p class="set-text">Перемішувати відповіді тесту?</p>
+                            <p class="set-text">Вимкнути обмеження часу у тесті</p>
                         </div>
                             
                         <div class="select-section">
                             <div class="second-column">
                                 <p class="set-text">Так</p>
-                                <input type="radio" class="radio-btn">
-                                <input type="radio" class="radio-btn">
-                                <input type="radio" class="radio-btn">
+                                
                             </div>
                             <div class="third-column">
                                 <p class="set-text">Ні</p>
-                                <input type="radio" class="radio-btn">
-                                <input type="radio" id="radio-btn-no">
-                                <input type="radio" class="radio-btn">
+                                
                             </div>
                         </div>
                     </div>
@@ -156,7 +150,7 @@
                         </div>
                         <div class="without-term">
                             <p class="set-text">Без терміну </p>
-                            <input type="radio" class="radio-btn">
+                            <!-- <button></button> -->
                         </div>
                     </div>
                 </div>

@@ -24,11 +24,11 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
 }
 
-
 header {
-    margin-bottom: 2.5vw;
+    margin-bottom: 2.5vh;
 }
 
 .top-part {
@@ -38,10 +38,10 @@ header {
     align-items: center;
     width: 100vw;
     cursor: pointer;
-    gap: 2.8125vw;
+    gap: 2.81vw;
     height: 30vh;
-    padding: 0.625vw 0.625vw 1.125vw 0.625vw;
-    min-height: 15.625vw;
+    padding: 0.63vw 0.63vw 1.13vw 0.63vw;
+    min-height: 15.63vw;
     flex-wrap: wrap;
 }
 
@@ -49,13 +49,13 @@ header {
     display: flex;
     flex-direction: column;
     background-color: #D6E8FE;
-    border-radius: 0.9375vw;
-    padding: 0.625vw;
-    gap: 0.625vw;
-    border: 0.0625vw black solid;
+    border-radius: 0.94vw;
+    padding: 0.63vw;
+    gap: 0.63vw;
+    border: 0.06vw black solid;
     width: 60%;
     min-width: 25vw;
-    height: 11.875vw;
+    height: 11.88vw;
     overflow: hidden;
     max-width: 56.25vw;
 }
@@ -64,7 +64,7 @@ header {
     display: flex;
     flex-direction: column;
     background-color: transparent;
-    border: 0.0625vw black solid;
+    border: 0.06vw black solid;
     width: 18.5vw;
     height: 12.5vw;
     border-radius: 1.5vw;
@@ -75,8 +75,8 @@ header {
     display: flex;
     flex-direction: row;
     background-color: #343434;
-    gap: 0.625vw;
-    padding: 0.625vw;
+    gap: 0.63vw;
+    padding: 0.63vw;
     overflow: hidden;
     align-items: center;
     justify-content: start;
@@ -95,16 +95,16 @@ header {
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 3.4375vw;
-    height: 3.4375vw;
-    border: 0.0625vw black solid;
+    width: 3.44vw;
+    height: 3.44vw;
+    border: 0.06vw black solid;
     border-radius: 50%;
     overflow: hidden;
     flex-shrink: 0;
 }
 
 .username {
-    font-size: 1.0625vw;
+    font-size: 1.06vw;
     color: #ffffff;
 }
 
@@ -113,7 +113,7 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: start;
-    padding: 0.625vw 0vw 0.625vw 1.25vw;
+    padding: 0.63vw 0vw 0.63vw 1.25vw;
     gap: 30%;
     width: 100%;
     height: 60%;
@@ -161,7 +161,7 @@ input::-webkit-inner-spin-button {
 }
 
 .text-tests {
-    margin-right: 0.4375vw;
+    margin-right: 0.44vw;
 }
 
 .main-input {
@@ -169,32 +169,32 @@ input::-webkit-inner-spin-button {
     flex-direction: row;
     gap: 2%;
     background-color: #ffffff;
-    border: 0.125vw black solid;
+    border: 0.13vw black solid;
     padding: 0.25vw;
-    border-radius: 0.9375vw;
+    border-radius: 0.94vw;
     width: 60%;
     min-width: 18.75vw;
     max-width: 37.5vw;
 }
 
 .main-input input {
-    border: 0.125vw black solid;
-    border-radius: 0.625vw;
+    border: 0.13vw black solid;
+    border-radius: 0.63vw;
     width: 90%;
     height: 100%;
     color: #636262;
     font-weight: bold;
     font-size: larger;
-    padding-left: 1.875vw;
+    padding-left: 1.88vw;
 }
 
 .main-input button {
     background-color: #8AF7D4;
     color: #000000;
-    border: 0.125vw solid black;
+    border: 0.13vw solid black;
     font-weight: bold;
-    border-radius: 0.9375vw;
-    padding: 0.9375vw 1.5625vw;
+    border-radius: 0.94vw;
+    padding: 0.94vw 1.56vw;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -212,11 +212,11 @@ input::-webkit-inner-spin-button {
 .cards-floor {
     width: 100vw;
     height: 45vh;
-    margin-bottom: 3.125vw;
-    min-height: 15.625vw;
-    max-height: 1.875vw;
+    margin-bottom: 3.13vw;
+    min-height: 15.63vw;
+    max-height: 1.88vw;
     max-width: 106.25vw;
-    margin: 0 auto 3.125vw auto;
+    margin: 0 auto 3.13vw auto;
     padding-left: 1.25vw;
     padding-right: 1.25vw;
 }
@@ -239,22 +239,28 @@ input::-webkit-inner-spin-button {
 .show-more .show-more-link {
     background-color: #C48AF7;
     color: #ffffff;
-    border-radius: 0.3125vw;
+    cursor: pointer;
+    border-radius: 0.31vw;
     text-decoration: none;
-    margin: 0.625vw;
-    padding: 0.625vw;
+    margin: 0.63vw;
+    padding: 0.63vw;
     text-align: center;
     font-weight: bold;
     font-weight: 1.2vw;
+    transition: 0.2s;
+}
+
+.show-more-link:hover{
+    background-color: #b270eb;
 }
 
 .tests-topic {
     background-color: #7291B8;
     color: #ffffff;
-    border-radius: 0.3125vw;
+    border-radius: 0.31vw;
     text-decoration: none;
-    margin: 0.625vw;
-    padding: 0.625vw;
+    margin: 0.63vw;
+    padding: 0.63vw;
     text-align: center;
     font-weight: bold;
     font-size: 1.2vw;
@@ -263,8 +269,8 @@ input::-webkit-inner-spin-button {
 .cards {
     width: 100%;
     height: 85%;
-    padding: 0.625vw;
-    padding-top: 3.125vw;
+    padding: 0.63vw;
+    padding-top: 3.13vw;
     gap: 2.5vw;
     display: flex;
     flex-direction: row;
@@ -273,21 +279,21 @@ input::-webkit-inner-spin-button {
 
 .card {
     position: relative;
-    width: 23.1875vw;
-    height: 13.125vw;
+    width: 23.19vw;
+    height: 13.13vw;
     overflow: hidden;
     flex-direction: column;
     background-color: #D6E8FE;
-    border-radius: 1.0625vw;
+    border-radius: 1.06vw;
     justify-content: end;
-    border: 0.0625vw black solid;
+    border: 0.06vw black solid;
     cursor: pointer;
     min-width: 15vw;
     min-height: 11.25vw;
-    padding-bottom: 0.625vw;
+    padding-bottom: 0.63vw;
     max-width: 17.5vw;
     transition: 0.5s ease;
-    box-shadow: 0 0 0.625vw rgba(170, 114, 161, 0.454);
+    box-shadow: 0 0 0.63vw rgba(170, 114, 161, 0.454);
 }
 
 .card:hover {
@@ -318,7 +324,7 @@ a {
     height: 100%;
     object-fit: cover;
     z-index: 1;
-    border-radius: 0vw 0vw 1.875vw 1.875vw;
+    border-radius: 0vw 0vw 1.88vw 1.88vw;
 }
 
 .discription {
@@ -337,7 +343,7 @@ a {
     justify-content: start;
     width: 100%;
     height: 20%;
-    padding: 1.875vw 1.25vw 0.625vw 1.25vw;
+    padding: 1.88vw 1.25vw 0.63vw 1.25vw;
     color: #343434;
     font-size: larger;
 }
@@ -350,18 +356,18 @@ a {
     width: 100%;
     height: 80%;
     padding-left: 1.25vw;
-    gap: 0.3125vw;
+    gap: 0.31vw;
 }
 
 #own-pet {
-    height: 2.1875vw;
+    height: 2.19vw;
     width: auto;
 }
 
 .image-robot {
     bottom: 0;
     right: 0;
-    margin-right: 0.625vw;
+    margin-right: 0.63vw;
     position: absolute;
     width: 3.5vw;
     height: auto;
@@ -387,8 +393,8 @@ a {
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    padding: 0.625vw;
-    min-height: 4.4375vw;
+    padding: 0.63vw;
+    min-height: 4.44vw;
 }
 
 .filter-input {
@@ -398,14 +404,14 @@ a {
     color: 636262;
     font-weight: bolder;
     padding: 3%;
-    border-radius: 1.5625vw;
+    border-radius: 1.56vw;
     border: 0.5vw solid #343434;
-    box-shadow: 0 0 0 0.0625vw #8AF7D4;
+    box-shadow: 0 0 0 0.06vw #8AF7D4;
     font-size: 1.25vw;
     min-height: 3.75vw;
     min-width: 25vw;
     max-width: 37.5vw;
-    max-height: 4.4375vw;
+    max-height: 4.44vw;
 }
 
 .submit-filter {
@@ -439,15 +445,15 @@ a {
 
 @media(max-width: 64vw) {
     .avatar-circle {
-        width: 3.125vw;
-        height: 3.125vw;
+        width: 3.13vw;
+        height: 3.13vw;
     }
 
     .antoher-data .text-tests {
         color: #D6E8FE;
         font-weight: 400;
         text-decoration: none;
-        font-size: 0.6875vw;
+        font-size: 0.69vw;
     }
     .number-tests {
         font-size: 0.75vw;
@@ -457,4 +463,19 @@ a {
         width: 100%;
         height: 100%;
     }
+}
+
+.nothing{
+    width: 100vw;
+    height: 33.5vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.top-text{
+    font-size: 1.2vw;
+}
+
+.bottom-text{
+    font-size: 1.1vw;
 }

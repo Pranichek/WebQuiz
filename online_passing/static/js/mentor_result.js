@@ -1,6 +1,7 @@
 const socket = io()
 
 localStorage.setItem("flag_time", "true")
+localStorage.setItem("time_flag", "false")
 
 document.querySelector(".code-room").textContent = localStorage.getItem("room_code")
 
@@ -29,19 +30,6 @@ socket.on("list_results",
             usersRatings.style.height = "58%"
             usersRatings.style.border = "0.17vh solid #C48AF7"
             usersRatings.style.borderRadius = "2vw";
-            // <div class="diagram">
-            //     <div class="text-diagram">Прогресс учнів: </div>
-            //     <div class="diagram-informations">
-            //         <!-- <div class="line"></div> -->
-
-            //         <div class="blocks">
-
-            //         </div>
-            //     </div>
-            // </div>
-            // <div class="variants">
-
-            // </div>
 
             const divDiagram = document.createElement("div")
             divDiagram.className = "diagram"

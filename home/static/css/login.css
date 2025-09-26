@@ -5,18 +5,13 @@
 .main {
     height: 90vh;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-between;
 }
 .content-login{
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    width: 100vw;
-    height: 60vh;
-    align-items: center;
-    gap: 100px;
-    margin-top: 100px;
-    background-color: #3C3C3C;
+    width: 50vw;
+    height: 90vh;
 }
 
 
@@ -29,7 +24,7 @@
     background-color: #343434;
     border: 2px solid #B9BDF5;
     border-radius: 30px;
-    height: 90%;
+    height: 50vh;
     width: 40vw;
     align-items: center;
     padding: 30px 0px
@@ -201,20 +196,10 @@
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-@media (max-height: 700px){
-    .login{
-        overflow-y: scroll;
-        gap: 10px;
-    }
-}
-
 @media (max-width: 900px){
     .content-login{
         padding: 50px 10px;
         height: auto;
-    }
-    .login{
-        width: 80%;
     }
 }
 

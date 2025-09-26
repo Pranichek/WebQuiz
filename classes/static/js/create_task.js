@@ -7,10 +7,15 @@ let buttonAnnouncement = document.querySelector(".announcement-btn")
 let buttonTestTask = document.querySelector(".test_task-btn")
 let buttonChooseTest = document.querySelector(".choose-test")
 let buttonCreateTask = document.querySelector(".create_task")
+const weeksInput = document.querySelector(".week_data")
+const daysInput = document.querySelector(".days_data")
+const hoursInput = document.querySelector(".hours_data")
+const minutesInput = document.querySelector(".minutes_data")
 // let buttonCreateTestTask = document.querySelector(".create_test_task")
 const socket = io()
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
+const inputFile = document.querySelector("#file-upload")
 
 
 function showWithFade(el) {
@@ -72,46 +77,24 @@ buttonChooseTest.addEventListener(
 )
 
 
-buttonCreateTask.addEventListener(
-    'click',
-    () => {
-        socket.emit(
-            'create_task',
-            {
-                theme: document.querySelector(".topic").value,
-                information: document.querySelector(".task_info").value,
-                class_id: urlParams.get('class_id')
-            }
-        )
-  
-        location.reload()    
-    }
-)
-// buttonCreateTestTask.addEventListener(
+// buttonCreateTask.addEventListener(
 //     'click',
 //     () => {
 //         socket.emit(
-//             'create_test_task',
+//             'create_task',
 //             {
-//                 information: document.querySelector(".next_test_task_info").value,
-//                 class_id: urlParams.get('class_id')
+//                 theme: document.querySelector(".topic").value,
+//                 information: document.querySelector(".task_info").value,
+//                 class_id: urlParams.get('class_id'),
+//                 weeks: weeksInput.value,
+//                 days: daysInput.value,
+//                 hours: hoursInput.value,
+//                 minutes: minutesInput.value,
+//                 file: inputFile.files[0]
 //             }
 //         )
+  
+//         location.reload()    
 //     }
 // )
-
-
-
-
-const modals = document.querySelectorAll('.choice, .announcement, .test_task, .next_test_task');
-
-document.addEventListener('click', (e) => {
-  for (const m of modals) { if (m.contains(e.target)) return; }
-
-  if (e.target.closest('.add_task, .announcement-btn, .test_task-btn')) return;
-
-  modals.forEach(m => {
-    m.classList?.remove('is-open');
-    m.style.display = 'none';
-  });
-});
+// fileInput.files[0];

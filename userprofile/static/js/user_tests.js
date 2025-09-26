@@ -1,4 +1,7 @@
 let createRooms = document.querySelectorAll(".loadroom")
+if (localStorage.getItem("room_code")){
+    localStorage.removeItem("room_code")
+}
 
 // створення localstorage для відсліджування у якій вкладці зараз користувач
 // recently-passed - недавнопройдені тести
@@ -37,7 +40,7 @@ for (let button of createRooms){
     button.addEventListener(
         'click',
         () => {
-            location.replace(`/mentor?id_test=${button.value}&room_code=${button.dataset.test}`)
+            location.replace(`/mentor?id_test=${button.value}`)
         }
     )
 }
