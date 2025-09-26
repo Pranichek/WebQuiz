@@ -23,9 +23,6 @@ def generate_code():
     emit("generate_code", {"generated_code": random_choice})
 
 def render_create_class():
-
-    
-
     if flask.request.method == "POST":
         class_name = flask.request.form.get("class_name")
         description = flask.request.form.get("description")
@@ -34,7 +31,12 @@ def render_create_class():
         lesson = flask.request.form.get("lesson")
         type = flask.request.form.get("type")
         generated_code = flask.request.form.get("generated-code")
+
         
+        
+        if not class_name or not form or not letter or not lesson or not type:
+            return flask.redirect("/create_class")
+
         class_mentor = Classes(
             name_class = class_name,
             description = description,

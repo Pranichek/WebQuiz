@@ -627,6 +627,69 @@ label {
     justify-content: start;
 }
 
+.switch-title{
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+    justify-content: center;
+}
+.switch {
+    position: absolute;
+    width: 3.125vw;
+    height: 1.875vw;
+    /* top: 6.5vw; */
+    right: 7.1vw; 
+    transform: translate(-50%, -50%);
+}
+.switch input[type="checkbox"] {
+    position: relative;
+    width: 12vw;
+    height: 3.3vw;
+    -webkit-appearance: none;
+    background: #A1ADBD;
+    outline: none;
+    border-radius: 1.875vw;
+    border: 3px solid #2D2D2D;
+    /* place-content: center;
+    content: "мої тести";
+    color: #ffffff; */
+}
+.switch input:checked[type="checkbox"] {
+    background: #2D2D2D;
+    border: 3px solid #A1ADBD;
+}
+.switch input[type="checkbox"]::before {
+    content: '';
+    position: absolute;
+    width: 2.5vw;
+    height: 2.5vw;
+    border-radius: 50%;
+    top: 50%;
+    left: 0.22vw;
+    transform: translateY(-50%);
+    background: #2D2D2D;
+    transition: 0.3s;
+}
+.switch input[type="checkbox"]::after{
+    content: "мої тести";
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    left: 15%;
+    font-weight: 700;
+    font-size: 2vh;
+    color: #ffffff;
+}
+.switch input:checked[type="checkbox"]::before {
+    left: 8.9vw;
+    background: #A1ADBD;
+}
+.switch input:checked[type="checkbox"]::after{
+    content: "групові тести";
+    left: -20%;
+}
+
 .hidden {
     display: none;
     width: 62.5vw;

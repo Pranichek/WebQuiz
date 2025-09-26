@@ -69,7 +69,24 @@
 
         <div class="cards">
             
-            <p class="title">{{ page_name }}</p>
+            <div class="title">
+                {% if page_name == "Недавно пройдені тести" %}
+                    <div class="switch-title">
+                        <div><p>{{ page_name }}</p></div>
+                        <div class="switch">
+                            <input type="checkbox">
+                        </div>
+                    </div>
+                {% else %}
+                    {{ page_name }}
+                {% endif %}
+            </div>
+            <!-- {% if page_name == "Недавно пройдені тести" %}
+                <div class="switch">
+                    <input type="checkbox">
+                </div>
+            {% endif %} -->
+
 
             <div class="cards-outline">
                 <img class="sad-robot hidden" src="{{ url_for('profile.static', filename = 'images/user_tests/sad_robot.png') }}" alt="sad-robot">
