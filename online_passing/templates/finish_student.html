@@ -1,7 +1,21 @@
 {% extends 'base.html' %}
 
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('mentor.static', filename ='css/finish_student.css') }}">
+{% endblock links %}
+
 {% block content %}
-    <h1>finish</h1> for student</h1>
+    <div class="info-card">
+        <div class="results">
+            <img src="{{ url_for('student.static', filename='images/student/result.svg' ) }}" alt="">
+            <p>Результати тесту: </p>
+        </div>
+    </div>
+    <div class="stud-info-card">
+
+    </div>
+    
+    
 {% endblock content %}
 
 {% block scripts %}

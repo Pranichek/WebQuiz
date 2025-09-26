@@ -1,0 +1,30 @@
+/* * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #ffffff;
+}
+
+
+body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100vw;
+    height: 100vh;
+    background-color: #3C3C3C;
+} */
+
+.results {
+    display: flex;
+    flex-direction: row;
+    gap: 0.5vw;
+    /* justify-content: center;
+    align-items: center; */
+}
+.results p {
+    color: #ffffff;
+    font-size: 1.5vw;
+
+}
