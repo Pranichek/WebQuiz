@@ -323,6 +323,8 @@ button{
     font-weight: 500;
     position: relative;
     top: 1vh;
+    padding-left: 0.2vw;
+    padding-right: 0.2vw;
 }
 .input-term input{
     background-color: #ffffff;
@@ -461,27 +463,86 @@ button{
 
 
 .setting-test{
+    /* position: relative;
+    text-align: left; */
     display: flex;
     flex-direction: column;
     background-color: #ffffff75;
     border-radius: 25px;
-    padding: 1vw 2vh;
+    padding: 1vw 4vh;
+    gap: 2vh;
 }
 .setting-test p{
     color: #ffffff;
     font-size: 1vw;
     font-weight: 500;
+    width: 100%;
 }
 
 .upper-div{
     display: flex;
     flex-direction: row;
+    gap: 5.6vw;
+    width: 100%;
+    justify-content: start;
+    text-align: left;
 }
 
+.select-section{
+    display: flex;
+    flex-direction: row;
+    gap: 3vw;
+    height: 100%;
+}
+
+.first-column{
+    display: flex;
+    gap: 2vh;
+    flex-direction: column;
+}
+.second-column{
+    display: flex;
+    gap: 2.8vh;
+    flex-direction: column;
+}
+.third-column{
+    display: flex;
+    gap: 2.8vh;
+    flex-direction: column;
+}
+
+.radio-btn{
+    width: 17px;
+    height: 17px;
+    color: #A8AAAC;
+    border-color: #E0EEFF;
+    border-width: 2px;
+}
+/* #radio-btn-no{
+    width: 17px;
+    height: 17px;
+    color: #7291B8;
+    border-color: #94C4FF;
+    border-width: 2px;
+} */
+.third-column input{
+    width: 17px;
+    height: 17px;
+    color: #A8AAAC;
+    border-color: #E0EEFF;
+    border-width: 2px;
+}
+
+#set-text1{
+    position: relative;
+    text-align: left;
+    /* gap: 2vh; */
+}
 
 .div-for-term{
     display: flex;
     flex-direction: row;
+    gap: 3vh;
 }
 
 .else-input-term{
@@ -499,6 +560,9 @@ button{
     font-weight: 500;
     position: relative;
     top: 1vh;
+    padding-left: 0.2vw;
+    padding-right: 0.2vw;
+    width: fit-content;
 }
 .else-input-term input{
     background-color: #ffffff;

@@ -97,4 +97,23 @@ buttonChooseTest.addEventListener(
 //         location.reload()    
 //     }
 // )
-// fileInput.files[0];
+
+
+
+
+// ДОБАВИТЬ: простое закрытие любых окон по клику мимо и по Esc
+const modals = document.querySelectorAll('.choice, .announcement, .test_task, .next_test_task');
+
+document.addEventListener('click', (e) => {
+  // если кликнули внутри любого окна — ничего не делаем
+  for (const m of modals) { if (m.contains(e.target)) return; }
+
+  // если клик по кнопкам-открывателям — тоже выходим
+  if (e.target.closest('.add_task, .announcement-btn, .test_task-btn')) return;
+
+  // иначе — закрываем все
+  modals.forEach(m => {
+    m.classList?.remove('is-open'); // если используешь анимацию
+    m.style.display = 'none';
+  });
+});
