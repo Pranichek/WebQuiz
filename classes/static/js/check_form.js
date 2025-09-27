@@ -1,8 +1,7 @@
 import { ShowMessage } from "/static/js/showMessage.js";
 
 const createButton = document.getElementById("createClassBtn");
-// отримуємо усі інпути(я взяв лише один для прикладу)
-
+// отримуємо усі інпути
 let checkName = document.querySelector(".class_name")
 let checkNumber = document.querySelector(".sel1")
 let checkLetter = document.querySelector(".sel2")
