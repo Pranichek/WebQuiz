@@ -25,22 +25,27 @@ def render_home():
     
 
 
-def get_random_tests(category=None, max_tests=4):
+def get_random_tests(category=None, max_tests=4, user_id=None):
     """
     Отримує випадкові `max_tests` тестів з категорії.
     Якщо category не вказано, вибирає з усіх.
+    Якщо user_id вказано, бере тільки тести цього користувача.
     """
+    query = Test.query.filter(Test.check_del != "deleted")
+
     if category:
-        all_tests = Test.query.filter(Test.category == category, Test.check_del != "deleted").all()
-    else:
-        all_tests = Test.query.filter(Test.check_del != "deleted").all()
+        query = query.filter(Test.category == category)
+    if user_id:
+        query = query.filter(Test.user_id == user_id)
+
+    all_tests = query.all()
 
     if not all_tests:
         return []
 
-    # перемешиваем список чтобы выдавало рандомные тесты
     random.shuffle(all_tests)
-    return all_tests[0:5]
+    return all_tests[:max_tests]
+
 
 #головна сторінка коли користувач увійшов у акаунт
 @login_decorate
@@ -72,16 +77,26 @@ def render_home_auth():
     money_user = user.user_profile.count_money
 
     category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
-    first_topic = random.choice(category)
-    category.remove(first_topic)
+    blit_category = []
+    for categ in category:
+        if Test.query.filter_by(category= categ, user_id= current_user.id).first():
+            blit_category.append(categ)
+        print(blit_category)
+    if blit_category:
+        first_topic = random.choice(blit_category)
+        # category.remove(first_topic)
+        first_four_test = get_random_tests(category=first_topic, user_id = current_user.id)
+    else:
+        print("Нет доступных категорий в БД")
 
-    first_four_test = get_random_tests(category=first_topic)
+
+    # first_four_test = get_random_tests(category=first_topic)
     random_numbers = []
 
-
-    second_topic = random.choice(category)
-    category.remove(second_topic)
-    second_four_test = get_random_tests(category=second_topic)
+    if blit_category:
+        second_topic = random.choice(blit_category)
+        # category.remove(second_topic)
+        second_four_test = get_random_tests(category=second_topic, user_id = current_user.id)
     second_random_numbers = []
 
 
@@ -119,8 +134,8 @@ def render_home_auth():
             third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
 
 
-    fourth_topic = random.choice(category)
-    fourth_four_test = get_random_tests(category= fourth_topic)
+    fourth_topic = random.choice(blit_category)
+    fourth_four_test = get_random_tests(category= fourth_topic, user_id = current_user.id)
 
 
 
