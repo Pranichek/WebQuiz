@@ -19,7 +19,7 @@ function loadRoom() {
         email: document.querySelector(".email").textContent,
         id_test: id_test,
         flag: "mentor",
-        room: localStorage.getItem("room_code") ? localStorage.getItem("room_code") : NaN
+        room: localStorage.getItem("room_code") || NaN
     });
 
     socket.on('user_joined', (data) => {
@@ -39,10 +39,10 @@ function loadRoom() {
 
         blockUsers.innerHTML = ""
         users = data.user_list
-        code = data.code
-        document.querySelector("#amount_users").textContent =  users.length - 1
-        localStorage.setItem("room_code", code)
-        document.querySelector("#code").textContent = code
+        document.querySelector("#amount_users").textContent = (users.length - 1 >= 0) ? (users.length - 1) : 0;
+        localStorage.setItem("room_code", data.code)
+        document.querySelector("#code").textContent = data.code
+
         users.forEach(user => {
             if (user.email != document.querySelector(".email").textContent){
                 const blockDiv = document.createElement("div")

@@ -70,7 +70,7 @@ def render_finish_student():
         progress = find_percentage([10, 10, 10, 10, 18, 2, 20, 0, 10, 10])
     )
 
-def find_percentage(data: list):
+def find_percentage(data: list) -> list:
     percentage = []
     for i in range(data.__len__()):
         one = []

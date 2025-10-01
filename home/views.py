@@ -35,8 +35,8 @@ def render_home():
 
 def get_random_tests(category=None, max_tests=4):
     """
-    Отримує випадкові `max_tests` тестів з категорії.
-    Якщо category не вказано, вибирає з усіх.
+    Отримує випадкові `max_tests` тестів з категорі
+    Якщо category не вказано, вибирає з усіх
     """
     if category:
         all_tests = Test.query.filter(Test.category == category, Test.check_del != "deleted").all()
@@ -80,17 +80,16 @@ def render_home_auth():
     money_user = user.user_profile.count_money
 
     category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
+    
+
     first_topic = random.choice(category)
     category.remove(first_topic)
-
     first_four_test = get_random_tests(category=first_topic)
-    random_numbers = []
 
 
     second_topic = random.choice(category)
     category.remove(second_topic)
     second_four_test = get_random_tests(category=second_topic)
-    second_random_numbers = []
 
 
     user : User = User.query.get(int(current_user.id))

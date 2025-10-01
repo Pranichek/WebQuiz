@@ -9,17 +9,32 @@ import datetime, pytz
 from datetime import timedelta
 from os.path import abspath, join, exists
 import os
+import secrets
+
+
+@socket.on("generate_code")
+def generate_code():
+    while True:
+        random_choice = secrets.token_hex(8)
+        check_class = Classes.query.filter_by(code = random_choice).first()
+        if not check_class:
+            break
+        
+    emit("generate_code", {"generated_code": random_choice})
 
 def render_create_class():
-    if flask.request.method == "POST":
 
+    
+
+    if flask.request.method == "POST":
         class_name = flask.request.form.get("class_name")
         description = flask.request.form.get("description")
         form = flask.request.form.get("form")
         letter = flask.request.form.get("letter")
         lesson = flask.request.form.get("lesson")
         type = flask.request.form.get("type")
-
+        generated_code = flask.request.form.get("generated-code")
+        
         class_mentor = Classes(
             name_class = class_name,
             description = description,
@@ -27,7 +42,7 @@ def render_create_class():
             letter = letter,
             lesson = lesson,
             user_id = flask_login.current_user.id,
-            code = flask.request.form.get("code")
+            code = generated_code
         )
         DATABASE.session.add(class_mentor)
         DATABASE.session.commit()

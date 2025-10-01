@@ -9,7 +9,8 @@
 {% endblock links %}
 
 {% block content %}
-    <form class="main" method="post">
+    <h1>{{random_choice}}</h1>
+    <form class="main" method="post" action="create_class">
         <div class="create">
             <p>Створення класу: </p>
         </div>
@@ -35,12 +36,14 @@
                 <button type="button" class="obj">Оберіть предмет класу</button>
                 <button type="button" class="choo">тип приєднання до класу</button>
             </div>
+            
         </div>
         <div class="bottom-div">
             <button type="button" class="generate-btn">Згенерувати код</button>
             <span class="generate-container">
                 <p>Ваш код з’явиться тут</p>
-                <p class="generated-code">якийсь згенерований код</p>
+                <input type="text" class="generated-code" name="generated-code"  readonly>
+                <!-- <p >якийсь згенерований код</p> -->
                 <hr>
             </span>
         </div>
@@ -49,6 +52,8 @@
     
 {% endblock %}
 
-{% block scripts %}
+{% block scripts %} 
+    {{ super() }}
     <script src="{{ url_for('mentor_class.static', filename='js/create_class.js') }}"></script>
+    <script src="{{ url_for('mentor_class.static', filename='js/generate_code.js') }}"></script>
 {% endblock scripts %}

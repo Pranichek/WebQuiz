@@ -6,6 +6,7 @@ class Rooms(DATABASE.Model):
     id = DATABASE.Column(DATABASE.Integer, primary_key = True)
     
     room_code = DATABASE.Column(DATABASE.String)
+    id_test =  DATABASE.Column(DATABASE.Integer)
     # айді тіпочков которіе находятся в кімнаті (1 2 3)
     users = DATABASE.Column(DATABASE.String)
 

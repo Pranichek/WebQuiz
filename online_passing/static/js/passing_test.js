@@ -9,6 +9,8 @@ if (!chcklocal.includes("student")){
 const socket = io(); 
 
 
+console.log(localStorage.getItem("test_id"), "abradakadabra")
+
 socket.emit("connect_room",
     {
         code: localStorage.getItem("room_code"),
