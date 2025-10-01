@@ -72,7 +72,7 @@ function loadRoom() {
 
                 const emailP = document.createElement("p")
                 emailP.className = "email-paragraph"
-                emailP.textContent = user.email
+                emailP.textContent = "улюбленець"
 
                 const blockPetDiv = document.createElement("div")
                 blockPetDiv.classList.add("block-pet")
@@ -173,13 +173,10 @@ function loadRoom() {
 
 
     const copyCode = document.querySelector(".copy-code")
-
     copyCode.addEventListener(
         'click',
         () => {
             let code = localStorage.getItem("room_code")
-            console.log("hii")
-
             socket.emit('copy_code', {
                 code_room: code
             });
@@ -193,10 +190,14 @@ function loadRoom() {
         () => {
             let code = localStorage.getItem("room_code")
             let link = window.location.origin + `/student?room_code=${code}`
-
+    
             socket.emit('copy_link', {
                 link_room: link
             });
+            document.getElementById("link-text").style.borderColor = "#8AF7D4"
+            setTimeout(() => {
+                document.getElementById("link-text").style.borderColor = "#b779ee"
+            }, "1000")
         }
     )
 
