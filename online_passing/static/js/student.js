@@ -30,6 +30,8 @@ socket.on('receive_message', (data) => {
 
 // список подключенных
 socket.on("update_users", data => {
+    localStorage.setItem("test_id", data["id_test"])
+    console.log(localStorage.getItem("test_id"), "privet")
     users = data.user_list
 
     
@@ -124,7 +126,6 @@ socket.on(
         chat.innerHTML = ""; 
 
         localStorage.setItem("email_mentor", data["mentor_email"])
-        localStorage.setItem("test_id", data["id_test"])
 
         let dataList = data["chat_data"]
 

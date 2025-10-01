@@ -11,7 +11,6 @@ from .correct_answers import return_answers
 @socket.on("connect_room")
 def connect_to_room(data):
     id_test = int(data["test_id"])
-    room_code = data["code"]
     index_question = int(data["index"]) 
 
     join_room(room=data["code"])
@@ -405,7 +404,6 @@ def return_data(data):
     answers = test.answers.split("?@?")
     ready_answers = ""
 
-    print(data["lastanswers"], "kiki")
 
     if current_type != "input-gap":
         current_answers = []
@@ -625,10 +623,9 @@ def return_data(data):
 
 
     user_list = []
-    room = Rooms.query.filter_by(room_code= data["room"]).first()
+    room = Rooms.query.filter_by(room_code= data["room_code"]).first()
     user_ids = room.users.split() 
 
-    print(clear_answers, "nya")
 
     count_people_answes = []
     for answer in clear_answers:

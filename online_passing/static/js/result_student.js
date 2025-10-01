@@ -14,7 +14,7 @@ socket.emit(
         id_test: localStorage.getItem("test_id"), 
         index_question: localStorage.getItem("index_question"),
         users_answers: localStorage.getItem("users_answers"),
-        room: localStorage.getItem("room_code")
+        room_code: localStorage.getItem("room_code")
     }
 )
 

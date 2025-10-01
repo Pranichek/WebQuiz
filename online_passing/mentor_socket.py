@@ -176,8 +176,18 @@ def load_question_mentor(data):
             if exists(current_path) and len(os.listdir(current_path)) > 0:
                 url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{index_question + 1}/{str(index)}/{os.listdir(current_path)[0]}")
                 image_urls[index - 1] = url
-                
-    emit("update_users", (user_list, text_question, type_question, time_question, answer_options, img_url, image_urls), room=data["room"], broadcast=True)
+    
+    print("mentor_socket.jslol")
+    emit("update_users", {
+        "user_list": user_list,
+        "text_question": text_question,
+        "type_question": type_question,
+        "time_question": time_question,
+        "answer_options": answer_options,
+        "img_url": img_url,
+        "image_urls": image_urls
+    }, room=data["room"], broadcast=True)
+
 
 
 
