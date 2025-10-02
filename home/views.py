@@ -8,13 +8,21 @@ from online_passing.models import Rooms
 from userprofile.models import DataUser
 from Project.login_check import login_decorate
 from flask_login import current_user
-from Project.socket_config import socket
 from Project.check_room import check_room
 
 
 #Просто головна сторінка
 def render_home():
     flask.session["code"] = ''
+    if flask.request.method == "POST":
+        input_code = flask.request.form.get("input_room")
+
+        room = Rooms.query.filter_by(room_code = input_code).first()
+            
+        if room:
+            flask.session["room_code"] = input_code
+            return flask.redirect("/input_username")
+
     if not current_user.is_authenticated:
         return flask.render_template(
             template_name_or_list = "home.html", 
@@ -27,8 +35,8 @@ def render_home():
 
 def get_random_tests(category=None, max_tests=4):
     """
-    Отримує випадкові `max_tests` тестів з категорії.
-    Якщо category не вказано, вибирає з усіх.
+    Отримує випадкові `max_tests` тестів з категорі
+    Якщо category не вказано, вибирає з усіх
     """
     if category:
         all_tests = Test.query.filter(Test.category == category, Test.check_del != "deleted").all()
@@ -43,8 +51,8 @@ def get_random_tests(category=None, max_tests=4):
     return all_tests[0:5]
 
 #головна сторінка коли користувач увійшов у акаунт
-@check_room
 @login_decorate
+@check_room
 def render_home_auth():   
     room = flask_login.current_user.room
     if room and room.room_code != "":
@@ -72,17 +80,16 @@ def render_home_auth():
     money_user = user.user_profile.count_money
 
     category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
+    
+
     first_topic = random.choice(category)
     category.remove(first_topic)
-
     first_four_test = get_random_tests(category=first_topic)
-    random_numbers = []
 
 
     second_topic = random.choice(category)
     category.remove(second_topic)
     second_four_test = get_random_tests(category=second_topic)
-    second_random_numbers = []
 
 
     user : User = User.query.get(int(current_user.id))

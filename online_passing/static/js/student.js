@@ -30,51 +30,59 @@ socket.on('receive_message', (data) => {
 
 // список подключенных
 socket.on("update_users", data => {
+    localStorage.setItem("test_id", data["id_test"])
+    console.log(localStorage.getItem("test_id"), "privet")
     users = data.user_list
+
+    
+    document.querySelector(".num-students").textContent = (users.length - 1 >= 0) ? (users.length - 1) : 0
+    document.querySelector(".code_room").textContent = data.code
     const blockUsers = document.querySelector(".icons-users")
 
     blockUsers.innerHTML = "";
 
     users.forEach(user => {
         if (user.email != document.querySelector(".email").textContent){
-            const blockDiv = document.createElement("div");
-            blockDiv.classList.add("block");
+            const blockDiv = document.createElement("div")
+                blockDiv.classList.add("block")
+                
+                const infDiv = document.createElement("div")
+                infDiv.classList.add("inf")
 
-            const infDiv = document.createElement("div");
-            infDiv.classList.add("inf");
+                const avatarImg = document.createElement("img")
+                avatarImg.classList.add("ava")
+                avatarImg.src = user.user_avatar
 
-            const avatarImg = document.createElement("img");
-            avatarImg.classList.add("ava");
-            avatarImg.src = user.user_avatar
+                const usernameP = document.createElement("p")
+                usernameP.textContent = user.username
 
-            const usernameP = document.createElement("p");
-            usernameP.textContent = user.username;
+                infDiv.appendChild(avatarImg)
+                infDiv.appendChild(usernameP)
 
-            infDiv.appendChild(avatarImg);
-            infDiv.appendChild(usernameP);
+                const blockTextDiv = document.createElement("div")
+                blockTextDiv.classList.add("block-text")
 
-            const blockTextDiv = document.createElement("div");
-            blockTextDiv.classList.add("block-text");
+                const emailP = document.createElement("p")
+                emailP.className = "email-paragraph"
+                emailP.textContent = "улюбленець"
 
-            const emailP = document.createElement("p");
-            emailP.textContent = user.email;
+                const blockPetDiv = document.createElement("div")
+                blockPetDiv.classList.add("block-pet")
 
-            const blockPetDiv = document.createElement("div");
-            blockPetDiv.classList.add("block-pet");
+                const petImg = document.createElement("img")
+                petImg.classList.add("pet")
+                petImg.src = user.pet_img
 
-            const petImg = document.createElement("img");
-            petImg.classList.add("pet");
-            petImg.src = user.pet_img
 
-            blockPetDiv.appendChild(petImg);
+                blockPetDiv.appendChild(petImg)
 
-            blockTextDiv.appendChild(emailP);
-            blockTextDiv.appendChild(blockPetDiv);
+                blockTextDiv.appendChild(emailP)
+                blockTextDiv.appendChild(blockPetDiv)
 
-            blockDiv.appendChild(infDiv);
-            blockDiv.appendChild(blockTextDiv);
+                blockDiv.appendChild(infDiv)
+                blockDiv.appendChild(blockTextDiv)
 
-            blockUsers.appendChild(blockDiv);
+                blockUsers.appendChild(blockDiv)
         }
     });
 
@@ -108,6 +116,7 @@ msgInput.value = '';
 socket.on(
     'start_passing',
     data => {
+        console.log("zahodit")
         window.location.replace("/passing_student")
     }
 )
@@ -119,7 +128,6 @@ socket.on(
         chat.innerHTML = ""; 
 
         localStorage.setItem("email_mentor", data["mentor_email"])
-        localStorage.setItem("test_id", data["id_test"])
 
         let dataList = data["chat_data"]
 

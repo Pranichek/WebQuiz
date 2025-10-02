@@ -49,7 +49,6 @@ def users_results(data):
                     users_answers[count] = f"{count+1}){users_answers[count]}"
                     count+=1
 
-            print(users_answers, "lol")
             user_list.append({
                 "username": user.username,
                 "email": user.email,
@@ -177,8 +176,18 @@ def load_question_mentor(data):
             if exists(current_path) and len(os.listdir(current_path)) > 0:
                 url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{index_question + 1}/{str(index)}/{os.listdir(current_path)[0]}")
                 image_urls[index - 1] = url
-                
-    emit("update_users", (user_list, text_question, type_question, time_question, answer_options, img_url, image_urls), room=data["room"], broadcast=True)
+    
+    print("mentor_socket.jslol")
+    emit("update_users", {
+        "user_list": user_list,
+        "text_question": text_question,
+        "type_question": type_question,
+        "time_question": time_question,
+        "answer_options": answer_options,
+        "img_url": img_url,
+        "image_urls": image_urls
+    }, room=data["room"], broadcast=True)
+
 
 
 
@@ -222,3 +231,35 @@ def end_question(data):
 def stop_time(data):
     room_code = data["code"]
     emit("stop_time", room = room_code, include_self=True)
+
+
+@socket.on("finish_mentor")
+def finish_test(data):
+    user_list = []
+    room = Rooms.query.filter_by(room_code= data["room"]).first()
+    user_ids = room.users.split() if room and room.users else []
+
+    test : Test = Test.query.get(int(data["test_id"]))
+
+    for user_id in user_ids:
+        user : User  = User.query.get(int(user_id))
+        user.user_profile.answering_answer = "відповідає"
+        DATABASE.session.commit()
+        if user and user.id != flask_login.current_user.id:
+            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.email}/{user.name_avatar}')
+
+            user_list.append({
+                "username": user.username,
+                "email": user.email,
+                "count_points": user.user_profile.count_points,
+                "user_avatar": avatar_url,
+                "avatar_size": user.size_avatar,
+                "accuracy": user.user_profile.last_answered.split("/")[1],
+            })
+
+    
+    user_list = sorted(user_list, key=itemgetter("count_points"), reverse=True)
+    
+    emit("list_results", {
+        "users": user_list
+    })

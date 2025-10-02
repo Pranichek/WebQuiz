@@ -54,7 +54,7 @@
                     <div class="join">
                         <span>Приєднуйтесь з будь-якого пристрою</span>
                         <div class="url copy-url">
-                            <span class="link-text">joinquiz.com</span>
+                            <span id="link-text">joinquiz.com</span>
                             <img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/copy.svg') }}" alt="copy icon">
                         </div>
                     </div>
@@ -115,13 +115,15 @@
     </div>
 
     <div class="participants-section">
+        <span class="flex-block">
+            <h4>Учасники</h4>
+            <img src="{{ url_for('mentor.static', filename='images/people.svg') }}" alt="">
+            <p id="amount_users">{{ all_participants | length }}</p>
+        </span>
         <div class="users">
 
         </div>
         
-        <span class="flex-block">
-            <img src="{{ url_for('mentor.static', filename='images/mentor/participants.png') }}" alt="">
-        </span>
 
         <div class="chat-icon">
 
@@ -150,7 +152,8 @@
            
 
             <div class="check-click">
-                    <img class="open-chat" src="{{ url_for('mentor.static', filename='images/mentor/chat_icon.png') }}" alt="">
+                <img id="open-chat" src="{{ url_for('mentor.static', filename='images/chat_robot.png') }}" alt="">
+                Відкрити чат
             </div>
         </div>
 

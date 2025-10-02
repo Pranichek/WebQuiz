@@ -11,7 +11,6 @@ from .correct_answers import return_answers
 @socket.on("connect_room")
 def connect_to_room(data):
     id_test = int(data["test_id"])
-    room_code = data["code"]
     index_question = int(data["index"]) 
 
     join_room(room=data["code"])
@@ -91,7 +90,7 @@ def connect_to_room(data):
     code = data["code"]
     room = Rooms.query.filter_by(room_code=code).first()
 
-    user_ids = room.users.split() if room.users else []
+    user_ids = room.users.split() if room.users is not None else []
     if str(flask_login.current_user.id) not in user_ids:
         user_ids.append(str(flask_login.current_user.id))
         room.users = " ".join(user_ids)
@@ -111,7 +110,7 @@ def connect_to_room(data):
                 "count_points": user.user_profile.count_points
             })
 
-    emit("update_users", user_list, room=data["code"], broadcast=True)
+    emit("update_users", {"user_list":user_list}, room=data["code"], broadcast=True)
 
 # remaining_time = max(total_time - time_taken, 0)
 # score = max_score * (0.5 + (1 - 0.5) * (remaining_time / total_time))
@@ -362,10 +361,10 @@ def answer_the_question(data):
             })
     if count_answered >= count_people:
         DATABASE.session.commit()
-        emit("update_users", user_list, room=data["code"], broadcast=True)
+        emit("update_users", {"user_list": user_list}, room=data["code"], broadcast=True)
         emit("page_result", room=data["code"], broadcast=True)
     else:
-        emit("update_users", user_list, room=data["code"], broadcast=True)
+        emit("update_users", {"user_list":user_list}, room=data["code"], broadcast=True)
         emit("page_waiting")
 
    
@@ -405,7 +404,6 @@ def return_data(data):
     answers = test.answers.split("?@?")
     ready_answers = ""
 
-    print(data["lastanswers"], "kiki")
 
     if current_type != "input-gap":
         current_answers = []
@@ -625,10 +623,9 @@ def return_data(data):
 
 
     user_list = []
-    room = Rooms.query.filter_by(room_code= data["room"]).first()
+    room = Rooms.query.filter_by(room_code= data["room_code"]).first()
     user_ids = room.users.split() 
 
-    print(clear_answers, "nya")
 
     count_people_answes = []
     for answer in clear_answers:

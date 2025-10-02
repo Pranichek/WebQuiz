@@ -2,6 +2,14 @@
     font-size: 2.5vh;
 }
 
+.generated-code{
+    border: none;
+    outline: none;
+    background-color: #3C3C3C;
+    color: #FFFFFF;
+    text-align: center;
+}
+
 *::selection {
     background-color: #76489E;
     color: #FFFFFF;

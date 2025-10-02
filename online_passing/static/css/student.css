@@ -1,15 +1,18 @@
+main *{
+    font-size: 2vh;
+}
+
 main{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     width: 100vw;
     height: 90vh;
-    /* display: inline-block; */
+    padding: 3vh;
 }
 
 .data-users{
     width: 60%;
     height: 100%;
-
     padding: 55px 10px 10px 10px;
     display: flex;
     flex-direction: column;
@@ -17,32 +20,6 @@ main{
     position: relative;
 }
 
-.waiting-data{
-    width: 100%;
-    height: 20%;
-
-    display: flex;
-    gap: 132px;
-    justify-content: flex-start;
-    padding-left: 17.5px;
-}
-.prt1{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9.5px;
-    color: #FFB700;
-    font-size: 25px;
-}
-.prt2{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 9.5px;
-    color: #ffffff;
-    font-size: 20px;
-    margin-top: -15px;
-}
 .icons-users{
     width: 100%;
     height: 50%;
@@ -52,28 +29,128 @@ main{
     flex-wrap: wrap;
     /* background-color: pink; */
 }
+
+.users{
+    width: 100%;
+    height: 90%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: start;
+    align-items: start;
+    gap: 30px;
+}
+
+.coint-message{
+    background-color: #C48AF7;
+}
+
 .block{
-    background-color: #00000081;
-    width: 212px;
-    height: 77px;
+    background-color: #00000047;
+    width: 20vw;
+    height: 10vh;
     border-radius: 15px;
     display: flex;
+    align-items: end;
+    padding-bottom: 1vh;
     gap: 10px;
-    margin: 9.5px;
+    position: relative;
 }
+.cross-user{
+    position: absolute;
+    right: 0;
+    top: 0;
+    margin-top: 5px;
+    margin-right: 5px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.window-choice{
+    position: absolute;
+    justify-content: center;
+    width: 27vw;
+    height: 19vh;
+    display: none;
+    flex-direction: column;
+    background-color: #343434;
+    left: 50%;
+    transform: translateX(-50%);
+    gap: 1vw;
+    border: 0.5vh solid #94C4FF;
+    border-radius: 1.5vh;
+}
+
+.window-choice h1{
+    color: white;
+    font-size: 2vh;
+}
+
+.window-choice p{
+    color: white;
+    font-size: 1.5vh;
+    font-weight: 500;
+}
+
+.window-choice div{
+    margin-top: 1vh;
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+}
+
+.decline{
+    text-align: center;
+    border: none;
+    padding: 0.5vh 1vh;
+    font-size: 1.4vh;
+    cursor: pointer;
+    justify-content: center;
+    display: flex;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.remove_user{
+    text-align: center;
+    border: none;
+    display: flex;
+    justify-content: center;
+    padding: 0.5vh 1vh;
+    background-color: #FD6363;
+    font-size: 1.4vh;
+    border-radius: 0.5vh;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.remove_user:hover{
+    background-color: #eb4848;
+}
+
+.cross-user:hover{
+    opacity: 0.8;
+}
+
 .ava{
-    width: 46px;
-    height: 46px;
+    width: 7vh;
+    height: 7vh;
+    border-radius: 50%;
+
 }
 .inf{
     display: flex;
     color: #ffffff;
-    justify-content: start;
-    font-size: 12px;
+    justify-content: space-between;
+    align-items: start;
+    padding: 1.5vh 0;
+    height: 100%;
+    width: 40%;
+    font-size: 2vh;
 }
 .inf p{
     display: flex;
-    margin-top: -15px;
 }
 .avatark{
     width: 89px;
@@ -82,13 +159,11 @@ main{
 .bottom-data{
     width: 100%;
     height: 30%;
-
     display: flex;
     align-items: center;
     gap: 62px;
     color: #D6E8FE;
     justify-content: start;
-    padding-left: 10px;
 }
 .tetx{
     font-size: 11px;
@@ -112,30 +187,47 @@ main{
     justify-content: end;
     flex-direction: column;
     color: #ffffff;
-    font-size: 8px;
-    margin-bottom: -25px;
     gap: 2px;
 }
+.block-text p{
+    font-size: 1.5vh;
+}
+
+.user {
+    align-self: flex-end;
+    background-color: rgb(150, 196, 218, 0.9);
+    color: #000000;
+}
+
+.another-user {
+    align-self: flex-start;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
 .user-data{
     display: flex;
     gap: 10px;
-    width: 40%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
+    height: 60vh;
     padding: 7px 0px 7px 0px;
     position: relative;
 }
 
 .line-coint{
     background-color: #8abbf728;
-    width: 90%;
     height: 98%;
     position: relative;
     display: flex;
     justify-content: center;
     align-items: center;
-    border-radius: 24px;
     padding: 10px;
     border-radius: 24px;
     border: 2px solid #C48AF7;
@@ -143,13 +235,19 @@ main{
 .main-coint{
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
     background-color: #343434;
-    width: 96%;
+    width: 60vw;
     height: 98%;
     border-radius: 34px;
     gap: 10px;
-    padding: 10px;
+    padding: 1vw;
     overflow: hidden;
+}
+.info-box-horizontal{
+    display: flex;
+    justify-content: space-between;
+    width: 95%;
 }
 .name{
     display: flex;
@@ -159,36 +257,14 @@ main{
     color: #ffffff;
 }
 .user-info{
-    width: 100%;
+    width: 30vw;
     height: 18%;
     display: flex;
-    gap: 107px;
-}
-.test{
-    width: 353px;
-    height: 90px;
-    background-color: #B9BDF5;
-    font-size: 25px;
-    align-items: center;
-    display: flex;
-    justify-content: center;
-    border: 2px solid #E1E3BA;
-    border-radius: 8px;
-    font-weight: bold;
-}
-.test p{
-    margin-bottom: -40px;
-}
-.theme-test{
-    width: 100%;
-    height: 18%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    justify-content: start;
 }
 
 .data-test{
-    width: 100%;
+    width: 40vw;
     height: 40%;
     display: flex;
     align-items: center;
@@ -197,12 +273,11 @@ main{
     flex-direction: column;
 }
 .main-prt{
-    width: 450px;
-    height: 54px;
+    width: 35vw;
+    /* height: 50%; */
     display: flex;
     align-items: center;
-    justify-content: center;
-    gap: 18px;
+    justify-content: space-between;
     color: #ffffff;
     font-weight: 500;
 }
@@ -211,16 +286,13 @@ main{
     border: none;
     cursor: pointer;
 }
-.join{
-    font-size: 13px;  
-    padding-right: 25px;  
+#usersNum{
+    width: 15vw;
 }
 .numero{
     display: flex;
     align-items: center;
     justify-content: start;
-    margin-left: -240px;
-    font-size: 13px;
     font-weight: 500;
 }
 .num-students{
@@ -243,12 +315,11 @@ main{
     align-items: center;
     font-size: 16px;
     font-weight: 600;
-    margin-left: 130px;
 }
 .achievement{
-    width: 100%;
+    /* width: 100%; */
     height: 18%;
-    justify-content: space-between;
+    /* justify-content: space-between; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -289,22 +360,31 @@ main{
 
 .chat-icon{
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
+    bottom: 2vh;
+    right: 4vw;
+    width: 150px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 5px;
-    margin-left: 5px;
     cursor: pointer;
 }
 
-.chat-icon img{
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
+.check-click{
+    position: fixed;
+    display: flex;
+    justify-content: start;
+    width: 13vw;
+    height: 3vh;
+    background-color: #88B2E5;
+    border-radius: 1234px;
+    font-size: 2vh;
+    color: #fff;
+}
+
+#open-chat{
+    margin-top: -3vh;
+    height: 6vh;
 }
 
 .chat-box{

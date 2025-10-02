@@ -5,99 +5,97 @@
 {% endblock links %}
 
 {% block content %}
-    <div class="data-users">
-        <div class="waiting-data">
-            <div class="prt1">
-                <img class="people" src="{{ url_for('profile.static', filename='images/people.svg' ) }}" alt="">
-                <p>10</p>
-            </div>
-
-            <div class="prt2">
-                <p>очикування запуску тесту</p>
-                <img class="load" src="{{ url_for('profile.static', filename='images/load.png' ) }}" alt="">
-            </div>
-        </div>
-        <div class="icons-users">
-            
-        </div>
-        
-        <div class="bottom-data">
-            <div class="chat-icon">
-                <div class="chat-box">
-                    <div class="header-chat">
-
-                    </div>
-                    <div class="messages">
-                        
-                    </div>
-                    <div class="input-text">
-                        <div class="message-user">
-                            <input type="text" placeholder="повідомлення" class="message-input">
-                            <span class="send-message"><img src="{{ url_for('mentor.static', filename='images/mentor/send-icon.svg') }}" alt=""></span>
-                        </div>
-                    </div>
-                </div>
-                <div class="check-click">
-                    <img class="open-chat" src="{{ url_for('mentor.static', filename='images/mentor/chat_icon.png') }}" alt="">
-                </div>
-            </div>
-        </div>
-    </div>
-    
     <div class="user-data">
         <!-- обвдка для койнтейнера -->
         <div class="line-coint">
             <div class="main-coint">
-                <div class="user-info">
-                    <div class="name">
-                        <p class="save-nickname">{{ user.username }}</p>
-                        <p class="email">{{ user.email }}</p>
-                    </div>
-                    
-                    <div class="avatar-circle avatark">
-                        <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
-                    </div>
-                    <!-- <img class="avatark" src="{{ url_for('profile.static', filename='images/avatar.png' ) }}" alt=""> -->
-                </div>
-                <div class="theme-test">
-                    <div class="test">
-                        <p>Тема тесту</p>
-                    </div>
-                </div>
-                <div class="data-test">
-                    <div class="main-prt"> 
-                        <p class="join">Приєднуйтесь з будь-якого пристрою</p>
-                        <p class="likes">joinquiz.com</p>
-                        <button><img src="{{ url_for('profile.static', filename='images/copy.png' ) }}" alt=""></button>
-                    </div>
-                    <div class="main-prt"> 
-                        <p class="join"> Kод приєднання</p>
-                        <div class="num">
-                            <p>567657</p>
+                <div class="info-box-horizontal">
+                    <div class="user-info">
+                        {% if user.email %}
+                            <div class="avatar-circle avatark">
+                                <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                            </div>
+                        {% endif %}
+                        <!-- <img class="avatark" src="{{ url_for('profile.static', filename='images/avatar.png' ) }}" alt=""> -->
+                        <div class="name">
+                            {% if user.email %}
+                            <p class="save-nickname">{{ user.username }}</p>
+                            <p class="email">{{ user.email }}</p>
+                            {% endif %}
                         </div>
-                        <button><img src="{{ url_for('profile.static', filename='images/copy.png' ) }}" alt=""></button>
+                        
                     </div>
-                    <div class="main-prt"> 
+                    <div class="data-test">
+                        <div class="main-prt"> 
+                            <p class="join"> Kод приєднання</p>
+                            <div class="num">
+                                <p>567657</p>
+                            </div>
+                            <button><img src="{{ url_for('mentor.static', filename='images/mentor/copy.svg' ) }}" alt=""></button>
+                        </div>
+                        <div class="main-prt"> 
+                            <p class="join">Приєднуйтесь з будь-якого пристрою</p>
+                            
+                            <p class="likes">joinquiz.com</p>
+                            <button><img src="{{ url_for('mentor.static', filename='images/mentor/copy.svg' ) }}" alt=""></button>
+                        
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-box-horizontal">
+                    <div class="achievement">
+                        <div class="last">
+                            <p>ваші бали</p>
+                            <div class="block-num">
+                                <p>30</p>
+                                <img src="{{ url_for('profile.static', filename='images/robo-money.png' ) }}" alt="">
+                            </div>
+                        </div>
+                        <div class="last">
+                            <p>улюбленець</p>
+                            <div class="block-num2">
+                                <img class="pet" src="{{ url_for('profile.static', filename='images/pets_id/1.png' ) }}" alt="">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="main-prt" id="usersNum"> 
                         <p class="numero">Kількість учасників</p>
                         <p class="num-students">12</p>
                     </div>
+                    
                 </div>
-                <div class="achievement">
-                    <div class="last">
-                        <p>ваші бали</p>
-                        <div class="block-num">
-                            <p>30</p>
-                            <img src="{{ url_for('profile.static', filename='images/robo-money.png' ) }}" alt="">
-                        </div>
-                    </div>
-                    <div class="last">
-                        <p>улюбленець</p>
-                        <div class="block-num2">
-                            <img class="pet" src="{{ url_for('profile.static', filename='images/pets_id/1.png' ) }}" alt="">
-                        </div>
-                    </div>
+                
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="data-users">
+        <div class="icons-users">
+            
+        </div>
+        
+    </div>
+    <div class="chat-icon">
+        <div class="chat-box">
+            <div class="header-chat">
+
+            </div>
+            <div class="messages">
+                
+            </div>
+            <div class="input-text">
+                <div class="message-user">
+                    <input type="text" placeholder="повідомлення" class="message-input">
+                    <span class="send-message"><img src="{{ url_for('mentor.static', filename='images/mentor/send-icon.svg') }}" alt=""></span>
                 </div>
             </div>
+        </div>
+
+        <div class="check-click">
+            <img id="open-chat" src="{{ url_for('mentor.static', filename='images/chat_robot.png') }}" alt="">
+            Відкрити чат
         </div>
     </div>
 {% endblock content %} 

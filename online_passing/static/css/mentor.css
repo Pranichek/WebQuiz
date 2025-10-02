@@ -145,6 +145,10 @@ main{
     width: 25vw;
 }
 
+#link-text{
+    border-bottom: solid 0.1vh #b779ee;
+}
+
 .url,
 .code,
 .copy-code {
@@ -234,6 +238,17 @@ main{
     width: 62vw;
     height: 90vh;
     display: flex;
+    flex-direction: column;
+}
+
+.flex-block{
+    display: flex;
+    gap: 1vw;
+}
+
+.flex-block img{
+    width: 5vh;
+    height: 5vh;
 }
 
 .participants {
@@ -312,49 +327,10 @@ main{
 }
 
 .right-part{
+    position: relative;
     height: 90vh;
     width: auto;
     width: 62vw;
-    position: relative;
-}
-
-.check-click{
-    position: absolute;
-    width: 40px;
-    height: 40px;
-}
-
-.check-click img{
-    width: 100%;
-    height: 100%;
-}
-
-.chat-icon{
-    position: absolute; 
-    bottom: 0;
-    right: 0; 
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    cursor: pointer;
-}
-
-.chat-box{
-    height: 60vh;
-    width: 30vw;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    background-color: #343434;
-    border-radius: 15px;
-    border: 2px #A9D0FF solid;
-    display: flex;
-    flex-direction: column;
-    display: none;
 }
 
 .header-chat{
@@ -409,11 +385,13 @@ main{
 }
 
 .block{
-    background-color: #00000081;
-    width: 212px;
-    height: 77px;
+    background-color: #00000047;
+    width: 20vw;
+    height: 10vh;
     border-radius: 15px;
     display: flex;
+    align-items: end;
+    padding-bottom: 1vh;
     gap: 10px;
     position: relative;
 }
@@ -495,16 +473,20 @@ main{
 }
 
 .ava{
-    width: 46px;
-    height: 46px;
+    width: 7vh;
+    height: 7vh;
+    border-radius: 50%;
+
 }
 .inf{
     display: flex;
     color: #ffffff;
     justify-content: space-between;
-    font-size: 12px;
+    align-items: start;
+    padding: 1.5vh 0;
     height: 100%;
     width: 40%;
+    font-size: 2vh;
 }
 .inf p{
     display: flex;
@@ -544,7 +526,7 @@ main{
     justify-content: end;
     flex-direction: column;
     color: #ffffff;
-    font-size: 8px;
+    font-size: 1.5vh;
     gap: 2px;
 }
 
@@ -743,23 +725,31 @@ main{
 
 .chat-icon{
     position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 40px;
+    bottom: 2vh;
+    right: 4vw;
+    width: 150px;
     height: 40px;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 5px;
-    margin-left: 5px;
     cursor: pointer;
-    display: none;
 }
 
-.chat-icon img{
-    width: 40px;
-    height: 40px;
-    object-fit: contain;
+.check-click{
+    position: absolute;
+    display: flex;
+    justify-content: start;
+    width: 13vw;
+    height: 3vh;
+    background-color: #88B2E5;
+    border-radius: 1234px;
+    font-size: 2vh;
+    color: #fff;
+}
+
+#open-chat{
+    margin-top: -3vh;
+    height: 6vh;
 }
 
 .chat-box{

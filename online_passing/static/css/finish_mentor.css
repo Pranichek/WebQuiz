@@ -1,0 +1,33 @@
+#cards{
+    width: 60vw;
+    height: 71vh;
+    display: flex;
+    position: relative;
+    overflow-y: scroll;
+    flex-direction: column;
+    background-color: white;
+    gap: 0.3vw;
+}
+
+.user-card{
+    height: 15%;
+    width: 98%;
+    display: flex;
+    background-color: green;
+    position: relative;
+}
+
+.outline{
+    width: 40%;
+    height: 80%;
+    border-radius: 15px;
+    border: 2px black solid;
+    display: flex;
+    justify-content: start;
+    overflow: hidden;
+}
+
+.fill{
+    background-color: pink;
+    height: 100%;
+}
