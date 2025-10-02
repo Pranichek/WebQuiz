@@ -79,7 +79,7 @@
 .send-data{
     border: solid 1px black;
     border-radius: 10px;
-    width: 80%;
+    width: 40%;
     height: 50px;
     background-color: #C48AF7;
     color: white;
@@ -104,47 +104,41 @@
     transform: scale(2); 
 }
 
-.promotion{
+.background{
     display: flex;
-    flex-direction: column;
-    gap: 100px;
+    align-items: center;
+    justify-content: center;
 }
-
-.bonuses{
-    position: relative;
-    display: flex;
-    gap: 10px;
-}
-
-.bonus{
-    width: 100px;
-    height: 100px;
-    border: 1px solid #C48AF7;
-    border-radius: 20px;
-    background-color: #343434;
-}
-
 .glowing-area{
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #b9bdf5b0;
+    left: 15%;
+    width: 70%;
+    height: 30%;
+    background-color: #B9BDF5;
     filter: blur(100px);
-}
-
-.b1{
-    transform: rotate(-20deg);
-}
-.b2{
-    transform: rotate(15deg);
-}
-.b3{
-    transform: rotate(10deg);
 }
 
 .avatar{
     width: 100px;
     height: 100px;
+    border: 3px solid #000000;
+    border-radius: 50%;
+}
+.if-not{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5vw;
+}
+
+.robot{
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    margin-right: 2vw;
+    margin-bottom: 1.5vw;
+    width: 130px;
+    height: 190px;
 }
 
 .info-text p{
@@ -152,23 +146,6 @@
     font-size: 24px;
 }
 
-.robot{
-    position: absolute;
-    right: 50px;
-    bottom: 3vh;
-    width: 130px;
-    height: 190px;
-}
-
-.robot-glowing-area{
-    position: absolute;
-    right: 50px;
-    bottom: 100px;
-    width: 130px;
-    height: 190px;
-    background-color: #8af7d57a;
-    filter: blur(80px);
-}
 
 .email_input, .password{
     animation: shake 0.4s;

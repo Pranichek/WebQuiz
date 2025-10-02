@@ -13,6 +13,10 @@
 {% endblock nav %}
 
 {% block content %}
+    <div class="background">
+        <div class="glowing-area"></div>
+    </div>
+
     <div class = "content-registration">
         <div class="registration">
             <form action="" method="post">
@@ -110,28 +114,22 @@
                 </div>
 
                 <button class="send-data" onclick="Shake()" type="submit">Створити акаунт</button>
+                <div class="if-not">
+                    <div class="if-yes">
+                        <p>Вже маєте акаунт?</p>
+                    </div>
+                    <div class="change-page">
+                        <a href="{{ url_for('login.render_login') }}">Авторизуватися</a>
+                        <p>Увійти за допомогою:
+                            <img src="{{ url_for('home.static', filename='images/login_and_auth/google.svg') }}" alt="">
+                        </p>
+                    </div>
+                </div>
                 <p class="problem">{{ message }}</p>
             </form>
         </div>
 
-        <div class="promotion">
-            <div class="bonuses">
-                <div class="glowing-area"></div>
-                <div class="bonus b1">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_one.png') }}" alt="avatart">
-                </div>
-                <div class="bonus b2">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_two.png') }}" alt="avatart">
-                </div>
-                <div class="bonus b3">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_three.png') }}" alt="avatart">
-                </div>
-            </div>
-
-            <div class="info-text">
-                <p>Заробляй бонуси,відповідаючи на<br>запитання та змагайся з друзями !</p>
-            </div>
-            <div class="robot-glowing-area"></div>
+        <div class="robot">
             <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
         </div>
 
