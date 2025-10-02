@@ -17,6 +17,7 @@ def users_results(data):
 
     test : Test = Test.query.get(int(data["test_id"]))
     index_question = int(data["index_question"])
+    print(index_question, "indf")
     text_question = test.questions.split("?%?")[index_question]
     type_question = test.type_questions.split('?$?')[index_question]
 
