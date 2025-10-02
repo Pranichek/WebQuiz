@@ -20,7 +20,6 @@ def handle_join(data):
 
     flag = data["flag"]
 
-    
 
     room = Rooms.query.filter_by(room_code=room_code).first()
 
@@ -29,7 +28,7 @@ def handle_join(data):
             existing_room = Rooms.query.filter_by(user_id=current_user.id).first()
             if not existing_room:
                 code = generate_code()
-                room = Rooms(room_code=code, user_id=str(current_user.id), users=f'{current_user.id}')
+                room = Rooms(room_code=code, user_id=str(current_user.id), users=f'{current_user.id}',id_test = data["id_test"])
                 room_code = code
                 DATABASE.session.add(room)
                 join_room(code)
@@ -71,7 +70,7 @@ def handle_join(data):
                 "pet_img": pet_url
             })
 
-    emit("update_users", {"user_list":user_list, "code":room_code}, room=room_code, broadcast=True)
+    emit("update_users", {"user_list":user_list, "code":room_code, "id_test": room.id_test}, room=room_code, broadcast=True)
 
 
 @socket.on("send_message")
@@ -168,3 +167,7 @@ def handler_delete(data):
                 emit("update_users", {"user_list": user_list, "code": room.room_code} , room=room.room_code)
                 emit("leave_user", {"email": email_kicked}, room=room.room_code, broadcast=True)
                 break
+
+@socket.on("update_student_time_MS")
+def update_student_time(data):
+    emit("update_student_time_SS", {"time": data["time"]}, room = data["room"])

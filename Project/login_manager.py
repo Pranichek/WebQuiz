@@ -3,7 +3,6 @@ from home.models import User
 from .settings import project
 import dotenv, os
 from flask_mail import Mail
-import secrets 
 
 dotenv.load_dotenv(dotenv_path = os.path.abspath(os.path.join(__file__ , "..", "..", ".env")))
 

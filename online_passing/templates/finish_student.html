@@ -8,6 +8,14 @@
     <link rel="stylesheet" href="{{ url_for('student.static', filename='css/finish_student.css') }}">
 {% endblock %}
 
+{% block title %}
+    Finish page
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('student.static', filename='css/finish_student.css') }}">
+{% endblock %}
+
 {% block content %}
     <h1>finish for student {{ progress }}</h1>
     <div id="circle-wrapper">

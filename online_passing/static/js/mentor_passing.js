@@ -9,23 +9,23 @@ if (localStorage.getItem("index_question")){
 }
 
 
-socket.on("update_users", (users, questionText, questionType, questionTime, answerOptions, questionImgUrl, answersImgUrls) => {
+socket.on("update_users", data => {
     const check_answers = []
     
     document.querySelector(".question-test").insertAdjacentHTML(
         "afterbegin",
-        `<img src="${questionImgUrl}" onerror="this.style.display = 'none';">`
+        `<img src="${data.questionImgUrl}" onerror="this.style.display = 'none';">`
     )
-    document.querySelector(".question-text").textContent = questionText
-    answerOptions = answerOptions.split("%?)(?%")
+    document.querySelector(".question-text").textContent = data.text_question
 
-    if (questionType == "input-gap"){
+    console.log(data.answer_options)
+    if (data.questionType == "input-gap"){
         document.querySelector(".answers-test").insertAdjacentHTML(
             "beforeend",
             `<input class="answer-input" type="text">`
         )
     }else{
-        for (let option of answerOptions){
+        for (let option of data.answer_options){
             option = option.replace(/%|\?|\(|\)/g, "")
             
             
@@ -40,7 +40,7 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
             document.querySelector(".answers-test").insertAdjacentHTML(
                 "beforeend",
                 `<div class='answer'><div class='checkMark'></div>
-                    <img src="${answersImgUrls[answerOptions.indexOf(option)]}" onerror="this.style.display = 'none';">
+                    <img src="${data.img_url[data.answer_options.indexOf(option)]}" onerror="this.style.display = 'none';">
                     <p>${option}</p>
                 </div>`
             )
@@ -48,11 +48,6 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
     }
 
 
-    // if (questionTime < 60){
-    //     document.querySelector(".right-part").textContent = questionTime
-    // } else{
-    //     document.querySelector(".left-part").textContent = questionTime / 60
-    // }
 
     const minutesP = document.querySelector(".left-part")
     const secondsP = document.querySelector(".right-part")
@@ -60,12 +55,12 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
     let timeFlag = localStorage.getItem("time_flag")
 
     if (timeFlag == "false"){
-        if (questionTime < 61){
-            minutesP.textContent = questionTime
+        if (data.time_question < 61){
+            minutesP.textContent = data.time_question
             secondsP.textContent = "00"
         }else{
-            const minutes = Math.floor(questionTime / 60);
-            let remainingSeconds = questionTime % 60;
+            const minutes = Math.floor(data.time_question / 60);
+            let remainingSeconds = data.time_question % 60;
 
             if (remainingSeconds < 10) {
                 remainingSeconds = '0' + remainingSeconds;
@@ -73,7 +68,7 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
             minutesP.textContent = minutes
             secondsP.textContent = remainingSeconds        
         }
-        localStorage.setItem("time_flag", questionTime)
+        localStorage.setItem("time_flag", data.time_question)
     }else{
         if (timeFlag < 61){
             minutesP.textContent = timeFlag
@@ -95,8 +90,8 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
     // <p class="count-answered">відповіли  5 / <span class="count-people">12</span></p>
 
     count_answered = 0
-    count_users = users.length
-    users.forEach(user => {
+    count_users = data.user_list.length
+    data.user_list.forEach(user => {
         const blockDiv = document.createElement("div")
         blockDiv.classList.add("block")
 
@@ -106,8 +101,6 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
         const avatarImg = document.createElement("img")
         avatarImg.classList.add("ava")
         avatarImg.src = user.avatar_url
-
-
 
         infDiv.appendChild(avatarImg)
 
@@ -151,7 +144,7 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
         }
     )
     document.querySelector(".count-answered-people").textContent = `відповіли  ${count_answered} / `
-    document.querySelector(".count-people").textContent = users.length
+    document.querySelector(".count-people").textContent = data.user_list.length
     if (count_answered == count_users){
         socket.emit(
             "end_question",
@@ -202,10 +195,17 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
     setInterval(() => {
         if (localStorage.getItem("flag_time") == "true"){
             let time = +localStorage.getItem("time_flag") - 1
+            console.log("time =", time)
             
-            if (time < 61){
+            if (time < 61 && time > 0){
                 minutesP.textContent = "00"
                 secondsP.textContent = time
+            } else if(time <= 0){
+                console.log("time <= 0")
+                socket.emit(
+                    'end_question',
+                    {code: localStorage.getItem("room_code")}
+                )
             }else{
                 const minutes = Math.floor(time / 60);
                 let remainingSeconds = time % 60;
@@ -217,24 +217,18 @@ socket.on("update_users", (users, questionText, questionType, questionTime, answ
                 secondsP.textContent = remainingSeconds        
             }
             localStorage.setItem("time_flag", time)
+            socket.emit(
+                "update_student_time_MS",
+                {room: localStorage.getItem("room_code"), time: time}
+            )
+        } else{
+            socket.emit(
+                "update_student_time_MS",
+                {room: localStorage.getItem("room_code"), time: "stop"}
+            )
         }
     }, 1000)
 })
-
-// socket.on("stop_time",
-//     data => {
-//         console.log("privet")
-//         console.log("3", localStorage.getItem("flag_time"))
-//         let checkdata = localStorage.getItem("flag_time")
-//         if (checkdata != "false"){
-//             localStorage.setItem("flag_time", "false")
-//             console.log("5", localStorage.getItem("flag_time"))
-//         }else{
-//             localStorage.setItem("flag_time", "true")
-//         }
-//         console.log("4", localStorage.getItem("flag_time"))
-//     }
-// )
 
 socket.on("page_result",
     data => {

@@ -199,7 +199,6 @@ window.addEventListener(
     () => {
         let inputText = localStorage.getItem("filter_data");
         if (inputText) {
-            console.log("piraty");
             document.querySelector(".findByname").textContent = inputText;
             document.querySelector(".findByname").value = inputText;
             document.querySelector(".lupa").click();

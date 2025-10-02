@@ -11,7 +11,6 @@ from .correct_answers import return_answers
 @socket.on("connect_room")
 def connect_to_room(data):
     id_test = int(data["test_id"])
-    room_code = data["code"]
     index_question = int(data["index"]) 
 
     join_room(room=data["code"])
@@ -335,9 +334,9 @@ def answer_the_question(data):
 
 
     if len(ready_answers.split()) == 1:
-        flask_login.current_user.user_profile.last_answered = f"{ready_answers.split()[0]}/{accuracy}/{check_answers[int(data["index"])]}/{data["lastanswers"]}"
+        flask_login.current_user.user_profile.last_answered = f"{ready_answers.split()[0]}/{accuracy}/{check_answers[int(data['index'])]}/{data['lastanswers']}"
     else:
-        flask_login.current_user.user_profile.last_answered = f"{ready_answers}/{accuracy}/{check_answers[int(data["index"])]}/{data["lastanswers"]}"
+        flask_login.current_user.user_profile.last_answered = f"{ready_answers}/{accuracy}/{check_answers[int(data['index'])]}/{data['lastanswers']}"
     
     DATABASE.session.commit()
     # --------------------
@@ -396,7 +395,7 @@ def return_data(data):
     title = test.title_test
     img_url = "not"
     if name_img:
-        img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{int(data["index_question"])}/{name_img}")
+        img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{int(data['index_question'])}/{name_img}")
     else:
         img_url = "not"
 
@@ -405,7 +404,6 @@ def return_data(data):
     answers = test.answers.split("?@?")
     ready_answers = ""
 
-    print(data["lastanswers"], "kiki")
 
     if current_type != "input-gap":
         current_answers = []
@@ -602,7 +600,7 @@ def return_data(data):
                 
                 if exists(answer_path):
                     if len(os.listdir(answer_path)) > 0:
-                        images_answer = flask.url_for("profile.static", filename=f"images/edit_avatar/{email}/user_tests/{title}/{int(data["index_question"])}/{current_answer}/{os.listdir(answer_path)[0]}")
+                        images_answer = flask.url_for("profile.static", filename=f"images/edit_avatar/{email}/user_tests/{title}/{int(data['index_question'])}/{current_answer}/{os.listdir(answer_path)[0]}")
                         images_urls.append(images_answer)
 
                     else:
@@ -625,10 +623,9 @@ def return_data(data):
 
 
     user_list = []
-    room = Rooms.query.filter_by(room_code= data["room"]).first()
+    room = Rooms.query.filter_by(room_code= data["room_code"]).first()
     user_ids = room.users.split() 
 
-    print(clear_answers, "nya")
 
     count_people_answes = []
     for answer in clear_answers:
