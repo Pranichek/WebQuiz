@@ -18,33 +18,32 @@ socket.on("update_users", data => {
     )
     document.querySelector(".question-text").textContent = data.text_question
 
-    console.log(data.answer_options)
     if (data.questionType == "input-gap"){
         document.querySelector(".answers-test").insertAdjacentHTML(
             "beforeend",
             `<input class="answer-input" type="text">`
         )
-    }else{
-        for (let option of data.answer_options){
-            option = option.replace(/%|\?|\(|\)/g, "")
+    // }else{
+    //     for (let option of data.answer_options){
+    //         option = option.replace(/%|\?|\(|\)/g, "")
             
             
-            if(option[0] == "+"){
-                check_answers.push(true)
-            }else{
-                check_answers.push(false)
-            }
+    //         if(option[0] == "+"){
+    //             check_answers.push(true)
+    //         }else{
+    //             check_answers.push(false)
+    //         }
 
-            option = option.slice(1, -1) 
+    //         option = option.slice(1, -1) 
 
-            document.querySelector(".answers-test").insertAdjacentHTML(
-                "beforeend",
-                `<div class='answer'><div class='checkMark'></div>
-                    <img src="${data.img_url[data.answer_options.indexOf(option)]}" onerror="this.style.display = 'none';">
-                    <p>${option}</p>
-                </div>`
-            )
-        }
+    //         document.querySelector(".answers-test").insertAdjacentHTML(
+    //             "beforeend",
+    //             `<div class='answer'><div class='checkMark'></div>
+    //                 <img src="${data.img_url[data.answer_options.indexOf(option)]}" onerror="this.style.display = 'none';">
+    //                 <p>${option}</p>
+    //             </div>`
+    //         )
+    //     }
     }
 
 

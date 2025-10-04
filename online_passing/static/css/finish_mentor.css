@@ -1,20 +1,67 @@
-#cards{
-    width: 60vw;
-    height: 71vh;
+main{
+    width: 100vw;
+    height: 90vh;
     display: flex;
-    position: relative;
-    overflow-y: scroll;
+    flex-direction: row;
+}
+
+.users-results{
+    width: 65vw;
+    height: 90vh;
+    display: flex;
     flex-direction: column;
-    background-color: white;
-    gap: 0.3vw;
+    background-color: green;
+    position: relative;
+    justify-content: space-between;
+}
+
+.result{
+    height: 12%;
+    width: 100%;
+    background-color: orange;
+    display: flex;
+}
+
+.cards{
+    height: 86%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    background-color: orange;
+    border-radius: 34px;
+    position: relative;
+    overflow: hidden;
+}
+
+.cards-header{
+    height: 10%;
+    width: 100%;
+    background-color: aqua;
+}
+
+.user-list{
+    display: flex;
+    flex-direction: column;
+    height: 90%;
+    width: 100%;
+    background-color: rgba(138, 187, 247, 0.2);
+    
+}
+
+.graphics{
+    width: 35vw;
+    height: 90vh;
+    display: flex;
+    background-color: pink;
 }
 
 .user-card{
-    height: 15%;
+    height: 8%;
     width: 98%;
     display: flex;
     background-color: green;
     position: relative;
+    gap: 3vw;
 }
 
 .outline{
@@ -30,4 +77,5 @@
 .fill{
     background-color: pink;
     height: 100%;
+    transition: width 0.8s;
 }

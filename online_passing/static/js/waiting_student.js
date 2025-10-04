@@ -1,5 +1,12 @@
 const socket = io() 
 
+socket.emit(
+    "connect_again",
+    {code: localStorage.getItem("room_code")}
+)
+
+
+
 const textCode = document.querySelector(".code-text")
 textCode.textContent = localStorage.getItem("room_code")
 
