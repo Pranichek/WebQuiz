@@ -77,7 +77,7 @@ def render_home_auth():
     money_user = user.user_profile.count_money
 
     category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
-    blit_category = []
+    blit_category = ["хімія"]
     for categ in category:
         if Test.query.filter_by(category= categ, user_id= current_user.id).first():
             blit_category.append(categ)
