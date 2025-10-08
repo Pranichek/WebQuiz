@@ -1,35 +1,150 @@
-<!-- {% extends 'base.html' %}
-
-{% block title %}
-    Finish page
-{% endblock %}
+{% extends 'base.html' %}
 
 {% block links %}
-    <link rel="stylesheet" href="{{ url_for('student.static', filename='css/finish_student.css') }}">
-{% endblock %}
-
-{% block title %}
-    Finish page
-{% endblock %}
-
-{% block links %}
-    <link rel="stylesheet" href="{{ url_for('student.static', filename='css/finish_student.css') }}">
-{% endblock %}
+    <link rel="stylesheet" href="{{ url_for('mentor.static', filename ='css/finish_student.css') }}">
+{% endblock links %}
 
 {% block content %}
-    <h1>finish for student {{ progress }}</h1>
-    <div id="circle-wrapper">
-        <div id="diagram" style="background: conic-gradient(
-            #3B4451 {{ progress[0][0] }}% {{ progress[0][1] }}%,
-            #58616C {{ progress[1][0] }}% {{ progress[1][1] }}%,
-            #7F868F {{ progress[2][0] }}% {{ progress[2][1] }}%,
-            #ACB4BF {{ progress[3][0] }}% {{ progress[3][1] }}%,
-            #E0EAF5 {{ progress[4][0] }}% {{ progress[4][1] }}%,
-            #C3DEFF {{ progress[5][0] }}% {{ progress[5][1] }}%,
-            #94C4FF {{ progress[6][0] }}% {{ progress[6][1] }}%,
-            #6EAFFF {{ progress[7][0] }}% {{ progress[7][1] }}%,
-            #52A0FF {{ progress[8][0] }}% {{ progress[8][1] }}%,
-            #0D7AFF {{ progress[9][0] }}% {{ progress[9][1] }}%);">
+    <div class="background-blur"></div>
+
+    <div class="switch-buttons">
+        <button>Результати тесту</button>
+        <a href="/questions" class="button">Огляд питань</a>
+    </div>
+
+    <div class="bottom-info">
+        <div class="left-part">
+
+            <div class="big-div">
+                <div class="small-div">
+
+                    <div class="info">
+                        <div class="name-div">
+                            {% if user.user_profile %}
+                                <p class="name">{{ user.username }}</p>
+                                <p class="email-user"><a href="/profile" class="email-user" style="text-decoration: none;">{{ user.email }}</a></p>
+                            {% else %}
+                                <p>Guest</p>
+                                <p>guest@gmail.com</p>
+                            {% endif %}
+                        </div>
+                        <div class="note">
+                            <p>ваші бали</p>
+                            <div class="note-div">
+                                {% if user.user_profile %}
+                                    <p>{{ user.user_profile.count_money }}</p>
+                                {% else %}
+                                    <p>0</p>
+                                {% endif %}
+                                <img class="money" src="{{ url_for('finish_test.static', filename='images/coin.svg'  ) }}" alt="avatar">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="midle-info">
+                        <div class="avatar-circle da">
+                            {% if current_user.is_authenticated %}
+                                <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                            {% else %}
+                                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.svg') }}" alt="avatar">
+                            {% endif %}
+                        </div>
+                    </div>
+                    
+
+                    <div class="prt-2">
+                        <div class="r">
+                            <div class="anim">
+                                <p>Улюбленець</p>
+                                <div class="animal">
+                                    {% if user.user_profile %}
+                                        <!-- <div class="pet1"> -->
+                                        <img id="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/' ~ user.user_profile.pet_id ~ '.png') }}" alt="pet">
+                                        <!-- </div> -->
+                                    {% else %}
+                                        <div class="pet1">
+                                            <p class="text">немає</p>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="tests">
+                                <p class="passed-tests">пройдені тести:</p>
+                                {% if user.user_profile %}
+                                    <p class="num">{{ user.user_profile.count_tests }}</p>
+                                {% else %}
+                                    <p class="num">не зареєстрован</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                        
+                        <div class="buttons">
+                            <button type="button" class="btn-1 copy-result">поділитися результатом </button>
+                            <button class="btn-2 add-favorite">додати у вибране</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bottom-data">
+                <div class="result">
+                    <p>Точність</p>
+                    <div class="line">
+                        <div class="fill"></div>
+                        <div class="quard">
+                            <div class="text-perc">
+                                <p>0%</p>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+                <div class="justify-btn">
+                    <button class="btn play_again" value="">пройти знов</button>
+                    <button class="btn" onclick="window.location.replace('/')">знайти інший тест</button>
+                </div>
+            </div>
+
+    
+        </div>
+        <div class="right-part">
+            <div class="prt1">
+                <img class="big-confeti" src="{{ url_for('finish_test.static', filename='images/confeti.svg') }}">
+                <img class="small-confeti" src="{{ url_for('finish_test.static', filename='images/confeti.svg') }}">
+                <img class="second-robot" src="{{ url_for('finish_test.static', filename='images/robot.svg') }}">
+                <div class="block-4 block">
+
+                    <div class="correct-avatar">
+                        {% if user.user_profile %}
+                            <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                        {% else %}
+                            <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.svg') }}" alt="avatar">
+                        {% endif %}
+                    </div>
+                    <p class="mark"></p>
+                    <p class="text-mark"></p>
+                </div>
+
+                <div class="block-1 block">
+                    <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/del.svg'  ) }}" alt="img">
+                    <p class="uncorrect-answers"></p>
+                    <p>Невірних відповідей</p>
+                </div>
+                <div class="block-2 block">
+                    <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/done.svg'  ) }}" alt="img">
+                    <p class="correct-answers"></p>
+                    <p>Вірних відповідей</p>
+                </div>
+                <div class="block-3 block">
+                    <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/time.svg'  ) }}" alt="img">
+                    <div class="seckond">
+                        <p class="midle-time"></p>
+                    </div>
+                    <p>Час/питання</p>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock content %}
@@ -38,4 +153,4 @@
     {{ super() }}
     <script src="{{ url_for('student.static', filename='js/recconect.js') }}" defer></script>
     <script src="{{ url_for('student.static', filename='js/student_result.js') }}"></script>
-{% endblock %} -->
+{% endblock %}
