@@ -11,58 +11,13 @@
 {% block content %}
     <div class="back-blur"></div>
     <div class="main-block">
-        <div class="image" onclick="loadIMage()">
-            <img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/add_new.png') }}" alt="image">
-        </div>
-        <div class="text">
-            <p class="welcoming-text">Оберіть новий аватар</p>
-        </div>
-        <div class="default-avatars">
-            <div id = "1" class="img ">
-                <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_avatar1.svg') }}" alt="avatar">
-                <span id = "1" class="agree 1"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.svg') }}" alt="img"></span>
+        <div class="top-data">
+            <div class="image" onclick="loadIMage()">
+                <img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/add_new.png') }}" alt="image">
             </div>
-            <div id = "2" class="img ">
-                <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_avatar2.svg') }}" alt="avatar">
-                <span id = "2" class="agree 2"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.svg') }}" alt="img"></span>
+            <div class="text">
+                <p class="welcoming-text">Оберіть новий аватар</p>
             </div>
-            <div id = "3" class="img ">
-                <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_avatar3.svg') }}" alt="avatar">
-                <span id = "3" class="agree 3"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.svg') }}" alt="img"></span>
-            </div>
-            <div id = "4" class="img ">
-                <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_avatar4.svg') }}" alt="avatar">
-                <span id = "4" class="agree 4"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.svg') }}" alt="img"></span>
-            </div>
-            <div id = "5" class="img ">
-                <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_avatar5.svg') }}" alt="avatar">
-                <span id = "5" class="agree 5"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.svg') }}" alt="img"></span>
-            </div>
-        </div>
-
-        <div class="edit-buttons">
-            <div class="button" onclick="loadIMage()">
-                <p class="button-text">Обрати з  галереї</p>
-                <!-- форма завантаження файлу -->
-                <form action="" method="post" id="send-picture" enctype='multipart/form-data'>
-                    <label for="file"><img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/photo.png') }}" alt=""></label>
-                    <input type="text" name="check_form" class = "check_name" value = "load_image">
-                    <input id="file-upload" name="file" type="file" class="get_photo" onchange="submitForm()" accept="image/*">
-                </form>
-            </div>
-            
-            <div class="button">
-                <p class="button-text">Зробити фото</p>
-                <img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/photo.png') }}" alt="">
-            </div>
-
-            <div class="button" onclick="DeletePhoto();">
-                <p class="button-text">Видалити поточне фото</p>
-                <img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/can.png') }}" alt="">
-            </div>
-        </div>
-
-        <div class="bottom-data">
             <div class="data-user">
                 <div class="main-data">
                     <div class="avatar-circle">
@@ -78,10 +33,57 @@
                     </div>
                 </div>
             </div>
-            <div class="welcoming-robot">
+            <!-- <div class="welcoming-robot">
                 <p class="bottom-text">Дивись як зараз<br>виглядає твій профіль!</p>
                 <div class="flash-robot"></div>
                 <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+            </div> -->
+        </div>
+
+        <div class="side-data">
+            <div class="default-avatars">
+                <div id = "1" class="img ">
+                    <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_avatar1.svg') }}" alt="avatar">
+                    <span id = "1" class="agree 1"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.svg') }}" alt="img"></span>
+                </div>
+                <div id = "2" class="img ">
+                    <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_avatar2.svg') }}" alt="avatar">
+                    <span id = "2" class="agree 2"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.svg') }}" alt="img"></span>
+                </div>
+                <div id = "3" class="img ">
+                    <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_avatar3.svg') }}" alt="avatar">
+                    <span id = "3" class="agree 3"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.svg') }}" alt="img"></span>
+                </div>
+                <div id = "4" class="img ">
+                    <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_avatar4.svg') }}" alt="avatar">
+                    <span id = "4" class="agree 4"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.svg') }}" alt="img"></span>
+                </div>
+                <div id = "5" class="img ">
+                    <img class="options-avatar" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/default_avatar5.svg') }}" alt="avatar">
+                    <span id = "5" class="agree 5"><img class="agree-img" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/agree_avatar.svg') }}" alt="img"></span>
+                </div>
+            </div>
+
+            <div class="edit-buttons">
+                <div class="button" onclick="loadIMage()">
+                    <p class="button-text">Обрати з  галереї</p>
+                    <!-- форма завантаження файлу -->
+                    <form action="" method="post" id="send-picture" enctype='multipart/form-data'>
+                        <label for="file"><img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/photo.png') }}" alt=""></label>
+                        <input type="text" name="check_form" class = "check_name" value = "load_image">
+                        <input id="file-upload" name="file" type="file" class="get_photo" onchange="submitForm()" accept="image/*">
+                    </form>
+                </div>
+                
+                <div class="button">
+                    <p class="button-text">Зробити фото</p>
+                    <img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/photo.png') }}" alt="">
+                </div>
+
+                <div class="button" onclick="DeletePhoto();">
+                    <p class="button-text">Видалити поточне фото</p>
+                    <img class="button-image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/can.png') }}" alt="">
+                </div>
             </div>
         </div>
     </div>
