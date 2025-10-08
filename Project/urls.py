@@ -47,6 +47,17 @@ home.login.add_url_rule(
     methods = ["GET", "POST"]
 )
 
+home.login.add_url_rule(
+    rule = "/google_login",
+    view_func = home.render_google_login,
+    methods = ["GET", "POST"]
+)
+home.login.add_url_rule(
+    rule = "/callback",
+    view_func = home.render_google_callback,
+    methods = ["GET", "POST"]
+)
+
 home.registration.add_url_rule(
     rule = "/clear_code",
     view_func = home.clear_code
