@@ -33,6 +33,7 @@ project.config['MAIL_DEFAULT_SENDER'] = os.getenv("EMAIL_USERNAME")
 project.config['MAIL_USE_SSL'] = False
 project.config['MAIL_USE_TLS'] = True
 project.secret_key = os.getenv("SECRET_KEY")
+project.config['SESSION_COOKIE_SECURE'] = True
 
 mail = Mail(app = project)
 

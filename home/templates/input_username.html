@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('home.static', filename='css/input_username.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <form method="POST">
+        <input type="text" name="input_name" class="input_name">
+        <button type="submit">SEND</button>
+    </form>
+{% endblock %}

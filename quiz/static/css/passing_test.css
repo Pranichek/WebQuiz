@@ -17,6 +17,8 @@ body {
     background-color: #3C3C3C;
 }
 
+
+
 .variant-image-container {
     width: 100%;
     height: 70%;
@@ -24,6 +26,7 @@ body {
     background-color: rgba(255, 255, 255, 0.5);
     border-radius: 10px;
 }
+
 
 .variant-image-container img{
     object-fit: contain;
@@ -148,6 +151,7 @@ span {
 .question-image {
     height: 20%;
     transform: translateY(-40px);
+
     /* background-color: #8ABBF7; */
 }
 
@@ -172,7 +176,12 @@ span {
 .question-bg {
     background-color: #2D2D2D;
     border-radius: 5px;
+    max-width: 90%;
     padding: 10px;
+    white-space: normal;     
+    word-wrap: break-word;  
+    overflow-wrap: break-word; 
+    text-align: center;
 }
 
 #end-test {
@@ -184,11 +193,11 @@ span {
 .answers {
     display: flex;
     flex-direction: row;
-    gap: 10px;
+    gap: 0.5vw;
     align-items: center;
+    /* justify-content: start; */
     width: 100vw;
     height: 50vh;
-    /* background-color: #8ABBF7; */
     padding: 10px;
 }
 
@@ -203,6 +212,17 @@ span {
     display: flex;
     flex-direction: column;
     width: 100vw;
+}
+
+
+
+.input-text{
+    font-size: 1.4vw;
+    color: #fff;
+}
+
+.confirm-answer{
+    flex-direction: row;
 }
 
 .top-answers {
@@ -248,6 +268,8 @@ span {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
+    /* margin-bottom: 20vh;
+    background-color: green; */
 }
 
 .bottom-image img, .simple-image img{
@@ -280,6 +302,7 @@ span {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    justify-content: center;
     width: 100%;
     padding: 0px 60px;
     height: 40%;
@@ -304,7 +327,6 @@ span {
 }
 
 .many-variant{
-    background-color: #D9D9D9;
     display: none;
     flex-direction: column;
     justify-content: center;
@@ -317,7 +339,6 @@ span {
     flex-wrap: wrap;
     word-break: break-word;
     padding: 5px;
-    position: relative;
     transition: all 0.1s ease;
     border: #ffffff solid;
     border-width: 0px;
@@ -450,7 +471,7 @@ span {
 .timer {
     font-weight: bold;
     color: #3C3C3C;
-    font-size: 24px;
+    font-size: 20px;
 }
 
 .robot {
@@ -726,4 +747,75 @@ header {
     font-weight: 450;
     font-size: 26px;
     z-index: 402;
+}
+
+
+/* инпут поля при прохождениия вопроса типа input-gap */
+
+.small-input-answer {
+    height: 9vh;
+    background-color: #79658D;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    padding: 0 1vw;
+    color: #ffffff;
+    font-size: 1.1rem;
+    letter-spacing: 0.5px;
+    transition: border 0.2s ease, background-color 0.5s ease, color 0.2s ease;
+    outline: none;
+    text-align: center;      
+    min-width: 30px;     
+    min-height: 40px;
+}
+
+.small-input-answer:focus {
+    border: 2px solid #C48AF7;
+    background-color: #6e5a80;
+    color: #ffffff;
+}
+
+/* Стиль для плейсхолдера */
+.small-input-answer::placeholder {
+    color: #d3c5e3;
+    font-style: italic;
+    letter-spacing: 0.3px;
+}
+
+
+.input-answer {
+    background-color: #79658D;
+    border: 2px solid transparent;
+    border-radius: 25px;
+    width: 71vw;
+    height: 8vh;
+    min-height: 40px;
+    padding: 0 2vw;
+    color: #ffffff;
+    font-size: 1.7vw;
+    letter-spacing: 0.5px;
+    transition: all 0.2s ease;
+    outline: none;
+    box-shadow: inset 0 0 5px rgba(255, 255, 255, 0.1);
+    text-align: center;
+}
+
+.input-answer:focus {
+    background-color: #6d5c81;
+    border: 2px solid #C48AF7;
+    box-shadow: 0 0 8px rgba(196, 138, 247, 0.3);
+}
+
+.input-text {
+    font-size: 1.7vw;
+    color: #ffffff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+}
+
+.input-answer::placeholder {
+    color: #e0d3f0;
+    font-style: italic;
+    opacity: 0.85;
+    text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.2);
 }

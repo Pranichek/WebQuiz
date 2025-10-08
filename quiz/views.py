@@ -15,7 +15,7 @@ from .models import Test, TestData
 from Project.db import DATABASE
 from os.path import abspath, join, exists
 from flask_login import current_user
-from .del_files import delete_files_in_folder
+from online_passing.del_files import delete_files_in_folder
 from .generate_image import return_img
 from Project.login_check import login_decorate
 from home.models import User
@@ -34,7 +34,6 @@ def render_test():
         new_answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
         new_types_questions = flask.request.cookies.get("typeQuestions").encode('raw_unicode_escape').decode('utf-8')
         category = flask.request.cookies.get("category").encode('raw_unicode_escape').decode('utf-8')
-        name_image = flask.request.cookies.get("test_url").encode('raw_unicode_escape').decode('utf-8')
     except:
         pass
 
@@ -54,9 +53,6 @@ def render_test():
         cookie_questions = flask.request.cookies.get("questions")
         answers_cookies = flask.request.cookies.get("answers")
 
-        
-
-
         if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
             test_title = flask.request.form["test_title"]
             question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
@@ -65,11 +61,18 @@ def render_test():
 
             images_directory = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests"))
 
+            max = int(os.listdir(images_directory)[0])
+
+            for path in os.listdir(images_directory):
+                if int(path) > max:
+                    max = int(path)
+
             if exists(images_directory):
                 images = os.listdir(images_directory)
-                if len_questions < len(images):
-                    for i in range(len_questions, len_questions + (len(images) - len_questions)):
-                        shutil.rmtree(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(i + 1))))
+                if len_questions < max:
+                    for i in range(len_questions, len_questions + (max - len_questions)):
+                        if exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(i + 1)))):
+                            shutil.rmtree(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(i + 1))))
 
 
             test = Test(
@@ -136,16 +139,19 @@ def render_test():
             return response
         elif check_form == "image":
             image = flask.request.files["image"]
-    
-            if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test"))):
-                os.mkdir(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test")))
 
-            flask.session["test_image"] = str(image.filename)
-            delete_files_in_folder(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test")))
-            image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
+            if image:
+                if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test"))):
+                    os.mkdir(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test")))
+
+                flask.session["test_image"] = str(image.filename)
+                delete_files_in_folder(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test")))
+
+                image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
         elif check_form == "del_image":
             flask.session["test_image"] = "default"
     
+    types = new_types_questions.split("?$?")
     new_answers_list = ''
     if new_questions:
         new_answers_list = new_answers.split("?@?")
@@ -165,18 +171,63 @@ def render_test():
                     temporary_answers_list.append(answer)
                 item["answers"] = temporary_answers_list
                 item["pk"] = number
+                item["type_question"] = types[number]
                 list_to_template.append(item)
                 number += 1
             except:
                 pass
 
-    print(list_to_template, "kkllk")
+
+    # получение картинок к тесту(и к вопросу и к ответу)
+    img_lists = []
+    count_questions = new_questions.count("?%?") + 1
+    for index in range(count_questions):
+        if count_questions <= len(list_to_template):
+            small_list = ["not" for index in range(len(list_to_template[index]["answers"]) + 1)]
+
+
+            check_img = False
+
+            path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask_login.current_user.email), "images_tests", str(index + 1)))
+            if exists(path):
+                name_img = None
+                for small_path in os.listdir(path):
+                    if small_path not in ["1", "2", "3", "4"]:
+                        name_img = small_path
+                        break            
+            else:
+                name_img = None
+
+
+            if name_img:
+                img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{flask_login.current_user.email}/images_tests/{index + 1}/{name_img}")
+            else:
+                img_url = "not"
+
+            small_list[0] = img_url
+            # check the images for answers(tipo lol)
+
+            range_len = len(list_to_template[index]["answers"]) + 1
+            for index_answ in range(1, range_len):
+                path = abspath(join(__file__, "..", "..", 
+                        "userprofile", "static", "images", "edit_avatar", 
+                        str(flask_login.current_user.email), "images_tests",
+                        str(index + 1), str(index_answ)))
+                
+                if exists(path):                
+                    answer_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{flask_login.current_user.email}/images_tests/{index + 1}/{index_answ}/{os.listdir(path)[0]}")
+
+                    small_list[index_answ] = answer_url
+
+            img_lists.append(small_list)
     
     return flask.render_template(
         template_name_or_list= "test.html", 
+        create_test = True,
         question_list = list_to_template,
         user = flask_login.current_user,
-        cash_image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else "default"
+        cash_image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else "default",
+        img_lists = img_lists
     )
 
 @login_decorate
@@ -210,29 +261,63 @@ def render_create_question():
         if not exists(path):
             os.mkdir(path=path)
 
-        for image in image_answers:
-            if image:
-                path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number) , str(image_answers.index(image) + 1)))
+        questions_types = flask.request.cookies.get("typeQuestions").encode('raw_unicode_escape').decode('utf-8')
+        current_type = questions_types.split("?$?")[-1]
+        if (current_type == "one-answer" or current_type == "many-answers"):
+            for image in image_answers:
+                if image:
+                    path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number) , str(image_answers.index(image) + 1)))
 
-                if not exists(path):
-                    os.mkdir(path)
+                    if not exists(path):
+                        os.mkdir(path)
 
-                image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number) , str(image_answers.index(image) +1 ), str(image.filename))))
+                    image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(question_number) , str(image_answers.index(image) +1 ), str(image.filename))))
                                
         
         return flask.redirect("/test")
 
-    return flask.render_template(template_name_or_list= "create_question.html")
+    return flask.render_template(template_name_or_list= "create_question.html", create_test = True)
 
 @login_decorate
 def render_select_way():
-    return flask.render_template(
-        template_name_or_list = "select_way.html"
+    response = flask.make_response(
+        flask.render_template(
+            template_name_or_list = "select_way.html"
+        )
     )
+    try:
+        response.delete_cookie("questions")
+        response.delete_cookie("answers")
+        response.delete_cookie("time")
+        response.delete_cookie("category")
+        response.delete_cookie("inputname")
+        response.delete_cookie("test_url")
+        response.delete_cookie("images")
+    except:
+        pass
+    return response
 
 @login_decorate
 def render_change_question(pk: int):
     if flask.request.method == "POST":
+        questions_types = flask.request.cookies.get("typeQuestions").encode('raw_unicode_escape').decode('utf-8')
+        current_type = questions_types.split("?$?")[pk]
+
+        if flask.request.args.get("test_pk"):
+            dir_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "user_tests", str(Test.query.get(flask.request.args.get("test_pk")).title_test), str(pk + 1)))
+        else:
+            dir_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
+
+        if (current_type != "one-answer" or current_type != "many-answers"):
+            if exists(dir_path):
+                for dir in os.listdir(dir_path):
+                    if dir in ["1", "2", "3", "4"]:
+                        current_dir = join(dir_path, dir)
+                        shutil.rmtree(current_dir)
+            else:
+                os.mkdir(dir_path)
+
+
         # загруженные картинки
         image_answers = []
         img_answer1 = flask.request.files["image1"]
@@ -250,8 +335,7 @@ def render_change_question(pk: int):
         check_lists.extend([check1, check2, check3, check4])
 
         check_del = flask.request.form["check5"].split()
-        dir_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
-        files = os.listdir(dir_path)
+        # files = os.listdir(dir_path)
         index_change = [1, 2, 3, 4]
 
         for i in range(len(check_del)):
@@ -260,10 +344,8 @@ def render_change_question(pk: int):
         check_del.sort()
 
         for del_id in check_del:
-            print(del_id, "lol")
             if str(del_id) in os.listdir(dir_path):
                 for i in range(del_id - 1, len(check_del)):
-                    print(index_change[i], "hru")
                     del index_change[i]
                 cur_dir = join(dir_path, str(del_id))
                 shutil.rmtree(path=cur_dir)
@@ -312,11 +394,8 @@ def render_change_question(pk: int):
                 os.rename(cur_path, join(dir_path, str(i)))
         
 
-
-
         image = flask.request.files["image"]
         if image:
-            dir_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
             for filename in os.listdir(dir_path):
                 file_path = join(dir_path, filename)
                 try:
@@ -324,7 +403,7 @@ def render_change_question(pk: int):
                 except Exception as e:
                     print(f"Failed to delete {file_path}. Reason: {e}")
             try:
-                image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1), str(image.filename))))
+                image.save(abspath(join(dir_path, str(image.filename))))
             except Exception as e:
                 print("saving image error:", e)
 
@@ -334,12 +413,27 @@ def render_change_question(pk: int):
         return flask.redirect("/test")
     
     else:
-        questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
-        answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
-        question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
-        questions_types = flask.request.cookies.get("typeQuestions").encode('raw_unicode_escape').decode('utf-8')
 
-        # current_image = images.split("?&?")[pk]
+        test_pk = flask.request.args.get("test_pk")
+        print("test_pk in change question =", test_pk)
+        questions = ""
+        answers = ""
+        question_time = ""
+        questions_types = ""
+        if test_pk:
+            test = Test.query.get(test_pk)
+
+            questions = test.questions
+            answers = test.answers
+            question_time = test.question_time
+            questions_types = test.type_questions
+
+        else:
+            questions = flask.request.cookies.get("questions").encode('raw_unicode_escape').decode('utf-8')
+            answers = flask.request.cookies.get("answers").encode('raw_unicode_escape').decode('utf-8')
+            question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
+            questions_types = flask.request.cookies.get("typeQuestions").encode('raw_unicode_escape').decode('utf-8')
+
         current_question = questions.split("?%?")[pk]
         current_time = question_time.split("?#?")[pk]
         current_answers = answers.split("?@?")[pk]
@@ -349,25 +443,38 @@ def render_change_question(pk: int):
         answers = []
 
         correctAnswers = []
+        if current_type == "one-answer" or current_type == "many-answers":
+            for answer in answers_list:
+                answer = answer.replace("(?%", "")
+                answer = answer.replace("%?)", "")
+                if answer[0] == "+":
+                    correctAnswers.append("correct")
+                else:
+                    correctAnswers.append("not")
+                answer = answer[1:-1]
+                answers.append(answer)
+            while True:
+                if len(answers) < 4:
+                    answers.append("hidden")
+                else:
+                    break
+        elif current_type == "input-gap":
+            for answer in answers_list:
+                answer = answer.replace("(?%", "")
+                answer = answer.replace("%?)", "")
+                if (len(answer) > 0):
+                    if answer[0] == "+":
+                        correctAnswers.append("correct")
+                    else:
+                        correctAnswers.append("not")
+                    answer = answer[1:-1]
+                    answers.append(answer)
 
-        for answer in answers_list:
-            answer = answer.replace("(?%", "")
-            answer = answer.replace("%?)", "")
-            if answer[0] == "+":
-                correctAnswers.append("correct")
-            else:
-                correctAnswers.append("not")
-            answer = answer[1:-1]
-            answers.append(answer)
-        while True:
-            if len(answers) < 4:
-                answers.append("hidden")
-            else:
-                break
 
 
     image_question = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1)))
     exists_image = False
+
     image_url = None
     if exists(image_question):
         if len(os.listdir(image_question)) > 0:
@@ -375,8 +482,7 @@ def render_change_question(pk: int):
                 if image not in ["1", "2", "3", "4"]:
                     exists_image = True
                     image_url = join("userprofile", "static", "images", "edit_avatar", str(current_user.email), "images_tests", str(pk + 1), image)
-    
-    
+
 
     list_checks = []
     list_checks.extend(["load", "load", "load", "load"])
@@ -399,22 +505,24 @@ def render_change_question(pk: int):
     return flask.render_template(
         template_name_or_list = "change_question.html",
         question = current_question,
-        # image = current_image,
-        answer1 = answers[0],
-        answer2 = answers[1],
-        answer3 = answers[2],
-        answer4 = answers[3],
-        correct1 = correctAnswers[0],
-        correct2 = correctAnswers[1],
+        answer1 = answers[0] if len(answers) > 0 else "",
+        answer2 = answers[1] if len(answers) > 1 else "",
+        answer3 = answers[2] if len(answers) > 2 else "",
+        answer4 = answers[3] if len(answers) > 3 else "",
+        answers_gap = answers,
+        correct1 = correctAnswers[0] if len(correctAnswers) > 0 else "",
+        correct2 = correctAnswers[1] if len(correctAnswers) > 1 else "",
         correct3 = correctAnswers[2] if len(correctAnswers) > 2 else "not",
         correct4 = correctAnswers[3] if len(correctAnswers) > 3 else "not",
+        # image_exists = file_exists,
         time = current_time,
         pk = pk,
         exists_image = exists_image,
         image_url = image_url,
         current_type = current_type,
         list_checks = list_checks,
-        list_urls = list_urls
+        list_urls = list_urls,
+        create_test = True
     )
 
 @socket.on("delImage")
@@ -488,7 +596,8 @@ def render_delete_only_image(pk: int):
 @login_decorate
 def render_import_test():
     return flask.render_template(
-        template_name_or_list = "import_test.html"
+        template_name_or_list = "import_test.html",
+        create_test = True
     )
 
 
@@ -505,32 +614,91 @@ def render_change_tests():
     if not test:
         return 
     if flask.request.method == "POST":
+        message = ""
+
+        new_catregory = flask.request.form.get("new_category")
         new_name = flask.request.form.get("new_name")
+        delete_id = flask.request.form.get("delete-id")
+        
+
         if new_name:
             existing_test = Test.query.filter_by(user_id=user.id, title_test=new_name).first()
             if existing_test:
                 message = "Тест із такою назвою вже є"
             else:
-                old_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(test.title_test)))
-                new_path = abspath(join(__file__, "..", "static", "images", "edit_avatar", str(user.email), "user_tests", str(new_name)))
+                old_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(user.email), "user_tests", str(test.title_test)))
+                new_path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(user.email), "user_tests", str(new_name)))
                 os.rename(old_path, new_path)
                 test.title_test = new_name
                 DATABASE.session.commit()
-                message = "Назву змінено успішно"
-
-        delete_id = flask.request.form.get("delete-id")
-        if delete_id:
+  
+        elif delete_id:
+            print("delete_id =", delete_id)
             test.check_del = "deleted"
             DATABASE.session.commit()
-            message = "Тест видалено"
             return flask.redirect("/user_test")
-
-        create_room = flask.request.form.get("create-room")
-
-
+        
+        elif new_catregory:
+            test.category = new_catregory
+            DATABASE.session.commit()
     
+        try:
+            image = flask.request.files["image"]
+            # if image:
+            if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test"))):
+                os.mkdir(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "cash_test")))
+
+            flask.session["test_image"] = str(image.filename)
+            delete_files_in_folder(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test")))
+
+            image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "cash_test", str(image.filename))))
+        except:
+            pass
+
+    else:
+        list_to_template = []
+        new_questions = test.questions
+        new_answers = test.answers
+
+        if new_questions:
+            new_answers_list = new_answers.split("?@?")
+            new_questions_list = new_questions.split("?%?")
+
+            number = 0
+            for question in new_questions_list:
+                try:
+                    item = {}
+                    item["question"] = question
+                    answers_list = new_answers_list[number].split("%?)(?%")
+                    temporary_answers_list = []
+                    for answer in answers_list:
+                        answer = answer.replace("(?%", "")
+                        answer = answer.replace("%?)", "")
+                        answer = answer[1:-1]
+                        temporary_answers_list.append(answer)
+                    item["answers"] = temporary_answers_list
+                    item["pk"] = number
+                    list_to_template.append(item)
+                    number += 1
+                except:
+                    pass
+
+    print(list_to_template, "kkllk")
+
+
     return flask.render_template(
         "change_tests.html",
         test=test,
         message=message,
+        question_list = list_to_template,
+        cash_image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else "default"
     )
+
+# def render_delete_test(pk: int):
+#     try:
+#         test = Test.query.get(pk)
+#         test.
+#         DATABASE.session.commit()
+#     except:
+#         pass
+#     return 

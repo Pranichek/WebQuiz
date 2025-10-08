@@ -1,246 +1,295 @@
+.main{
+    display: flex;
+    flex-direction: column;
+}
+
+.blur {
+    position: fixed;
+    bottom: 0;          /* прив’язка до низу */
+    left: 0;
+    width: 100vw;       /* повна ширина сторінки */
+    height: 30vh;       /* висота блюру тільки внизу */
+    background: linear-gradient(71deg, #3C3C3C 10%, #7c9abd 20%, #74919E 72%, #3C3C3C 5%);
+    filter: blur(6.25vw);
+    z-index: -1;
+    pointer-events: none;
+}
+
+
 .test-header {
     display: flex;
     position: relative;
     justify-content: space-between;
-    padding: 20px 20% 0px 20%;
-    margin-bottom: 60px;
+    width: 90vw;
+    height: 35vh;
+    margin-top: 5vh;
+    margin-bottom: 8vh;
 }
 
-.python {
-    width: 220px;
-    height: 220px;
-    margin-right: 50px;
-    background-color: none;
-    border: 2px #455977 solid;
-    border-radius: 5px;
-    overflow: hidden;
-    padding: 0;
-}
 
-.bot {
-    width: 250px;
-    height: auto;
-    filter: drop-shadow(0 0 40px rgba(100, 149, 237, 0.4));
-    border-radius: 8px;
-}
-
-.test-info {
-    color: #fff;
+.test-info{
+    height: 100%;
+    width: 50%;
     display: flex;
-    font-size: 20px;
+    justify-content: space-between;
 }
 
-.topic {
-    color: #FFFAB0;
-    font-weight: bold;
+.robot{
+    height: 100%;
+    width: 50%;
+    display: flex;
+    justify-content: end;
+    position: relative;
 }
 
-.at {
-    color:#B9BDF5;
-}
-
-.author {
-    color: #FFFAB0;
-}
-
-.play{
-    /* position: absolute; */
-    width: 20px;
-    height: 20px;
+.robot img{
+    height: 100%;
+    width: auto;
     object-fit: contain;
-    margin-left: 6px;
+    filter: drop-shadow(0 0 60px rgb(120, 183, 235));
 }
 
-.stats {
+.python{
+    height: 100%;
+    aspect-ratio: 1 / 1; 
+    border-radius: 10px;
+    overflow: hidden;
     display: flex;
-    flex-direction: row;
+    background-color: rgba(148, 196, 255, 0.29);
+    border: 3px solid #37445A;
 }
-.stats span {
-    display: inline-block;
-    margin-right: 10px;
-    padding: 5px 15px;
-    background: #D6E8FE;
+
+.python img{
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+}
+
+.top_info{
+    position: relative;
+    height: 90%;
+    width: 48%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    justify-content: space-between;
+}
+
+
+.top_info p{
+    color: #ffffff;
+    font-size: 2.7vh;
+}
+
+.top_info p span{
+    font-size: 2.7vh;
+    color: #ffcc00;
+}
+
+.top_info p .at{
+    color: #C39FE4;
+}
+
+.stats{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.stats span{
+    width: 48%;
+    padding: 0.5vw;
+    background-color: #D0E5FD;
     border-radius: 5px;
-    color: #3C3C3C;
-    font-weight: 500;
-    font-size: 16px;
+    display: flex;
+    border: 1.5px solid #6E7A8B;
+    color: black;
+    font-weight: 450;
 }
+
+.stats span{
+    font-size: 1vw;
+}
+
 
 .actions {
-    margin-top: 10px;
+    margin-top: 1vw;
     display: flex;
     justify-content: center;
+    gap: 0.5vw;
+    margin-bottom: 8vh;
 }
 
 .start-btn{
+    min-height: 20px;
     position: relative;
     background: #C48AF7;
     color: #fff;
-    padding: 5px 15px;
+    padding: 0.5vw 0.8vw;
     border: none;
-    margin: 5px;
     border-radius: 5px;
     border:1px solid #fff;
     cursor: pointer;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+    position: relative;
+    height: 4vh;
+
 }
 
 
 .profile-btn {
+    min-height: 20px;
     background: #7291B8;
     color: #fff;
-    padding: 7px 15px;
+    padding: 0.5vw 0.8vw;
     border: none;
-    margin: 5px;
     border-radius: 5px;
     border:1px solid #fff;
     cursor: pointer;
+    height: 4vh;
+    display: flex;
 }
 
-.questions-container {
-    margin: 30px 20% 0px 20%;
+.play{
+    width: auto;
+    height: 110%;
+    min-width: 0.5vw;
+    object-fit: contain;
+    margin-left: 0.3vw;
+}
+
+
+.questions-container{
+    width: 80vw;
     background-color: rgba(138, 187, 247, 20%);
     border-radius: 16px;
     border: 1px solid #000;
-    padding: 40px 40px 0px 40px;
+    padding: 4vh;
+    max-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
+    position: relative;
+    overflow-y: auto;
+    margin-bottom: 8vh;
 }
 
 .question-block {
-    background: #343434;
-    min-height: 150px;
-    margin-bottom: 30px;
-    border-radius: 10px;
-    border: 1px solid #94C4FF;
-    margin-top: 0px;
+    width: 60vw;
+    height: 50vw;
+    overflow: hidden;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
     position: relative;
+    border-radius: 10px;
+    border: 2px solid #7B9CDA;
 }
 
-.question_title {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.question_title{
     width: 100%;
-    height: 80px;
-    /* background-color: #FFFAB0; */
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
+    height: 45%;
     position: relative;
-    overflow: hidden;
-}
-
-.question-bg {
-    width: 100%;
-    height: 100px;
-    object-fit: cover;
-    position: absolute;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    top: 0;
-    left: 0;
-    z-index: 0;
-}
-
-.question{
-    position: relative;
-    text-align: center;
     z-index: 1;
-    font-size: 16px;
-    font-weight: bolder;
-    color: #ffffff;
-    position: absolute;
-    top:50%;
-    left: 50%;
-    transform: translate(-50%, -50%); 
+    display: flex;
+    gap: 2vw;
+}
+
+.answers{
     width: 100%;
-    box-sizing: border-box;
-    white-space: normal;    
-    word-break: break-word;     
-    overflow-wrap: break-word;
-    padding: 0 20px 0 20px;
+    height: 55%;
+    background-color: #3c3c3c;
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+    position: relative;
 }
 
 .variant{
     display: flex;
     justify-content: start;
     gap: 10px;
-    width: 45%;
+    width: 50%;
     height: 50%;
+    color: #ffffff;
+    font-size: 1vw;
+    padding-left: 1vw;
+    word-wrap: break-word;   
+    overflow-wrap: break-word;
 }
 
-.answers{
-    display: flex;
-    justify-content: start;
-    flex-wrap: wrap;
-    gap: 30px;
-    padding: 20px 0 30px 30px;
+.variant img{
+    height: 90%;
+    width: auto;
+    object-fit: contain;
+}
+
+.variant-center{
     width: 100%;
-    height: fit-content;
+    justify-content: center;
 }
 
 .circle{
-    width: 25px;
-    height: 25px;
+    width: 1.5vw;
+    height: 1.5vw;
     border: 1px solid #94C4FF;
-    border-radius: 1234px;
+    border-radius: 50%;
     flex-shrink: 0;
     flex-grow: 0;
 }
 
-.answers p{
-    font-size: 16px;
-    color: #ffffff;
-    font-weight:  600;
-    white-space: normal;    
-    word-break: break-word;     
-    overflow-wrap: break-word;
-    padding: 0 20px 0 20px;
+.quard{
+    width: 1.5vw;
+    height: 1.5vw;
+    border: 1px solid #94C4FF;
+    border-radius: 2px;
+    flex-shrink: 0;
+    flex-grow: 0;
 }
 
-
-.gradient{
-    width: 100%;
-    /* max-height: 5%; */
-    height: 80px;
+.question-bg{
     position: absolute;
-}
-
-.python img{
     width: 100%;
     height: 100%;
     object-fit: cover;
-    /* object-fit: contain; */
+    z-index: 0;
 }
 
-@media (max-width: 1500px)  {
-    .test-header {
-        padding: 20px 10% 0px 10%;
-        margin-bottom: 30px;
-    }
-    .questions-container {
-        margin: 30px 10% 0px 10%;
-    }
+.question{
+    z-index: 1;
+    width: 50%;
+    height: 100%;
+    display: flex;
+    word-wrap: break-word;   
+    overflow-wrap: break-word;
+    color: #ffffff;
+    font-size: 1.2vw;
+    font-weight: 500;
 }
 
-@media (max-width: 700px)  {
-    .test-header {
-        padding: 20px 10px 0px 10px;
-        margin-bottom: 30px;
-    }
-    .questions-container {
-        margin: 30px 10px 0px 10px;
-    }
-    .stats {
-        flex-direction: column;
-    }
+.question_img{
+    width: auto;
+    height: 90%;
+    object-fit: contain;
+    z-index: 1;
+}
 
-    .stats span {
-        margin-bottom: 10px;
-    }
+
+/* Затемнення фона кнопок при наведенні */
+.start-btn:hover,
+.profile-btn:hover {
+    background-color: rgba(196, 138, 247, 0.8); /* трохи темніший фіолетовий для start-btn */
+    transform: scale(1.01);                      /* легке збільшення */
+    transition:  0.2s;
+}
+
+.profile-btn:hover {
+    background-color: rgba(114, 145, 184, 0.8); /* трохи темніший синій для profile-btn */
+}
+
+
+.robot img:hover,
+.python img:hover,
+.question_img:hover {
+    transform: scale(1.03);                     
+    transition: all 0.5s ease-in-out;
 }

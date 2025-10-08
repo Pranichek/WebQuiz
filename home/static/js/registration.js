@@ -14,12 +14,11 @@ for (let eye1Icon of eyeIcons1List){
                 password1Input.type = 'password';
             }
             hidden1Icon = document.querySelector(".hidden1");
-            console.log("15 hidden1 =", hidden1Icon)
+            
             eye1Icon.classList.add("hidden1");
-            console.log("eye1Icon.classList =", eye1Icon.classList)
-            console.log("querySelectorAll('.hidden1') =", document.querySelectorAll(".hidden1"))
+            
             hidden1Icon.classList.remove("hidden1");
-            console.log("eye1Icon =", eye1Icon, "hidden1 =", hidden1Icon);
+            
         }
     )
 }
@@ -39,12 +38,11 @@ for (let eye2Icon of eyeIcons2List){
                 password2Input.type = 'password';
             }
             hidden2Icon = document.querySelector(".hidden2");
-            console.log("15 hidden2 =", hidden2Icon)
+            
             eye2Icon.classList.add("hidden2");
-            console.log("eye2Icon.classList =", eye2Icon.classList)
-            console.log("querySelectorAll('.hidden2') =", document.querySelectorAll(".hidden2"))
+            
             hidden2Icon.classList.remove("hidden2");
-            console.log("eye2Icon =", eye2Icon, "hidden2 =", hidden2Icon);
+            
         }
     )
 }
@@ -68,9 +66,7 @@ window.addEventListener('load', () => {
             },  1000);
     }
 })
-// function Shake() {
-    
-// }
+
 
 let phone_number = document.querySelector("#input_phone")
 

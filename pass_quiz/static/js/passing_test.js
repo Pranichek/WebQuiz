@@ -67,6 +67,9 @@ socket.on('question', (data) => {
     }
     
     if (data.question != "Кінець"){
+        const divQuestion = document.querySelector(".question")
+        divQuestion.style.marginBottom = "0vh";
+
         let bonusInput = document.getElementById("bonus");
         bonusInput.style.width = `${data.value_bonus}%`;
 
@@ -77,6 +80,12 @@ socket.on('question', (data) => {
         document.querySelector(".happy_robot").classList.remove("fade-in-anim-robot");
         document.querySelector(".coin-anim").classList.remove("fade-in-coin")
 
+
+        const ansCont = document.querySelector(".answers")
+
+        ansCont.innerHTML = ""
+
+        ansCont.removeAttribute("style");
         
         if (data.check_reload){
             console.log((data.check_reload.split("/")))
@@ -88,6 +97,7 @@ socket.on('question', (data) => {
 
         const imgContainer = document.getElementById("image-container");
         imgContainer.innerHTML = "";
+
         let typeQuestion = data.type
         let answers = data.answers
         let amountAnswers = data.answers.length
@@ -653,7 +663,12 @@ socket.on('question', (data) => {
             img.src = `${data.question_img}`;
             img.alt = data.question_img;
 
-            document.querySelector(".bottom-image").appendChild(img);
+            try {
+                document.querySelector(".bottom-image").appendChild(img);
+            } catch (error) {
+                console.log(error)
+            }
+            
 
         }else if (checkOportunity != "not"){
             let justAnswerDiv = document.querySelector(".answers")
@@ -1031,7 +1046,6 @@ socket.on('question', (data) => {
                                 }
                             }
 
-                            // Clear selected variants for next question
                             manyVariants.length = 0;
                             const totalCorrect = correctIndexes.length; 
 
@@ -1112,7 +1126,6 @@ socket.on('question', (data) => {
                         imgElem.src = list_images[index]
                         variantText[index].style.fontSize  = "2.5vh"
 
-
                         manyBlockAnswers[index].appendChild(imgContainer);
                          
                     }
@@ -1128,25 +1141,360 @@ socket.on('question', (data) => {
                     }
                 }
             }
+            else if (typeQuestion == "input-gap"){
+                const divQuestion = document.querySelector(".question")
+                divQuestion.style.marginBottom = "5vh";
+
+                const footer = document.querySelector(".submit")
+
+                footer.innerHTML = `
+                    <button type="button" class="confirm-button">надіслати відповідь</button>
+                `;
+
+                if (amountAnswers == 1){
+                    const divparent = document.querySelector(".answers")
+
+                    const text = document.createElement("p")
+                    text.textContent = "введіть свою відповідь у поле"
+                    text.className = "input-text"
+                    text.style.color = "#ffffff"
+                    
+                    divparent.appendChild(text)
+
+                    const inputDiv = document.createElement("div")
+                    inputDiv.className = "confirm-answer"
+
+                    let answer = data.answers[0]
+                    for (let i = 0; i < answer.length; i++) {
+                        const input = document.createElement("input");
+                        input.className = "small-input-answer";
+                        input.style.color = "#ffffff"
+                        input.maxLength = 1;
+                        input.style.width = "4.4vw";
+                        input.style.margin = "0 0.4vw";
+                        input.autocomplete = "off";
+                        input.type = "text";
+                        input.inputMode = "text";
+                        input.setAttribute("data-index", i);
+
+                        // Автоматический переход к следующему инпуту
+                        input.addEventListener("input", function () {
+                            if (this.value.length === 1 && i < answer.length - 1) {
+                                const nextInput = inputDiv.querySelector(`input[data-index="${i + 1}"]`);
+                                if (nextInput) nextInput.focus();
+                            }
+                        });
+
+                        input.addEventListener("keydown", function (e) {
+                            if (e.key === "Backspace" && this.value === "" && i > 0) {
+                                const prevInput = inputDiv.querySelector(`input[data-index="${i - 1}"]`);
+                                if (prevInput) prevInput.focus();
+                            }
+                        });
+
+                        inputDiv.appendChild(input);
+                    }
+                    divparent.appendChild(inputDiv);
+
+                    
+
+                    divparent.style.height = "35vh"
+                    divparent.style.flexDirection = "column"
+                    divparent.style.gap = "10vh"
+                    divparent.style.backgroundColor = "#353535"
+                    divparent.style.display = "flex";
+
+                    let inputs = document.querySelectorAll(".small-input-answer")
+                    
+                    let avaible = false
+                    let confirmButton = document.querySelector(".confirm-button");
+
+                    for (let input of inputs){
+                        input.addEventListener(
+                            "input",
+                            () => {
+                                let count = 0
+                                for (let input of inputs){
+                                    if (input.value.trim() != ""){
+                                        count++
+                                    }
+                                }
+
+                                if (count == inputs.length){
+                                    confirmButton.style.background = `#C39FE4`;
+                                    avaible = true
+                                }else{
+                                    confirmButton.style.background = `#9688a3`;
+                                    avaible = false
+                                }
+                            }
+                        )
+                    }
+
+                    let confirm_button = confirmButton;
+
+                    confirm_button.addEventListener(
+                        'click',
+                        (e) => {
+
+                            e.preventDefault(); 
+
+                            if (avaible){
+
+                                checkOportunity = "not";
+
+                                localStorage.setItem('time_question', "set")
+                                let chekcookies = localStorage.getItem("users_answers")
+                                
+                                let inputs = document.querySelectorAll(".small-input-answer");
+                                let dataString = "";
+                                inputs.forEach(input => {
+                                    dataString += input.value.trim();
+                                });
+
+
+                                if (chekcookies != ''){
+                                    // отримуємо старі відповіді якщо вони були
+                                    let oldCookie = localStorage.getItem("users_answers")
+                                    let cookieList = oldCookie.split(",")   
+                                    cookieList.push(dataString)
+
+                                    localStorage.setItem("users_answers", cookieList)
+                                }else{
+                                    localStorage.setItem("users_answers", dataString)
+                                }
+
+                                let index = localStorage.getItem("index_question")
+                                index = parseInt(index) + 1;
+                                localStorage.setItem("index_question", index)
+
+    
+                                let answers = data.answers
+
+                                if (answers.includes(dataString)){
+                                    setTimeout(() => {
+                                        document.querySelector(".modal").style.display = "block";
+                                        document.querySelector(".right-answer").classList.add("fade-in-anim");
+                                        document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
+                                        valueBonus = "10";
+                                        const audio = document.querySelector("#correct-sound");
+                                        if (audio) audio.play();
+
+                                        let bonus = bonusInput.style.width 
+                                        let clearValue = parseInt(bonus.replace("%"))
+                                        bonusInput.style.width = `${clearValue + 10}%`;
+
+                                        if (clearValue + 10 >= 100){
+                                            document.querySelector(".coin-anim ").classList.add("fade-in-coin")
+                                        }
+                                        
+                                        let checkprocent = addBonus(10);
+                                        console.log(checkprocent, "checkprocent")
+
+
+                                        for (let checkMark of checkMarks){
+                                            if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
+                                                checkMark.style.backgroundColor = '#8AF7D4';
+                                            }
+                                        }
+                                    }, timeout = 699);
+                                }else{
+                                    setTimeout(() => {
+                                        document.querySelector(".modal").style.display = "block";
+                                        document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
+                                        document.querySelector(".sad_robot").classList.add("fade-in-anim-robot")
+                                        valueBonus = "0";
+
+                                        let answer = data.answers[0];
+                                        let inputs = document.querySelectorAll(".small-input-answer")
+                                        for (let i = 0; i < inputs.length; i++) {
+                                            if (inputs[i].value.trim() === answer[i]) {
+                                                inputs[i].style.backgroundColor = "#8AF7D4"
+                                            } else {
+                                                inputs[i].style.backgroundColor = "#E05359"
+                                            }
+                                        }
+                                        const audioNegative = document.querySelector("#incorrect-sound");
+                                        if (audioNegative) audioNegative.play();
+                                    }, timeout = 699);
+                                }
+
+                                setTimeout(() => {
+                                    let midletime = localStorage.getItem("wasted_time")
+                                    midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                    localStorage.setItem("wasted_time", midletime);
+                                    
+                                    localStorage.setItem("timeData", "0")
+                                    socket.emit('next_question', {
+                                        index: index,
+                                        answer: dataString,
+                                        test_id: localStorage.getItem("test_id"),
+                                        value_bonus:valueBonus
+                                    });
+                                    checkOportunity = "able";
+                                    circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+                                }, timeout = 2000);
+                            }
+                        }
+                    )
+
+                }else{
+                    // одно поле для ввода
+                    const divparent = document.querySelector(".answers")
+
+                    const text = document.createElement("p")
+                    text.textContent = "введіть свою відповідь у поле"
+                    text.className = "input-text"
+                    text.style.color = "#ffffff"
+
+                    const inputDiv = document.createElement("div")
+                    const input = document.createElement("input")
+                    input.className = "input-answer"
+                    inputDiv.className = "confirm-answer"
+
+                    inputDiv.appendChild(input)
+                    
+                    divparent.style.height = "35vh"
+                    divparent.style.flexDirection = "column"
+                    divparent.style.gap = "10vh"
+                    divparent.style.backgroundColor = "#353535"
+
+                    divparent.appendChild(text)
+                    divparent.appendChild(inputDiv)
+
+                    let avaible = false
+
+                    document.querySelector(".input-answer").addEventListener(
+                        'input',
+                        () => {
+                            const confirmButton = document.querySelector(".confirm-button")
+                            const inputValue = document.querySelector(".input-answer").value.trim()
+
+                            if (inputValue != ''){
+                                confirmButton.style.background = `#C39FE4`;
+                                avaible = true
+                            } else {
+                                confirmButton.style.background = `#9688a3`;
+                                avaible = false
+                            }
+                        }
+                    )
+
+                    let confirm_button = document.querySelector(".confirm-button")
+
+                    confirm_button.addEventListener(
+                        'click',
+                        (e) => {
+
+                            e.preventDefault(); 
+
+                            if (avaible){
+
+                                checkOportunity = "not";
+
+                                localStorage.setItem('time_question', "set")
+                                let chekcookies = localStorage.getItem("users_answers")
+
+                                let dataString = document.querySelector(".input-answer").value.trim();
+
+                                if (chekcookies != ''){
+                                    // отримуємо старі відповіді якщо вони були
+                                    let oldCookie = localStorage.getItem("users_answers")
+                                    let cookieList = oldCookie.split(",")   
+                                    cookieList.push(dataString)
+
+                                    localStorage.setItem("users_answers", cookieList)
+                                }else{
+                                    localStorage.setItem("users_answers", dataString)
+                                }
+
+                                let index = localStorage.getItem("index_question")
+                                index = parseInt(index) + 1;
+                                localStorage.setItem("index_question", index)
+
+    
+                                let answers = data.answers
+
+                                if (answers.includes(dataString)){
+                                    setTimeout(() => {
+                                        document.querySelector(".modal").style.display = "block";
+                                        document.querySelector(".right-answer").classList.add("fade-in-anim");
+                                        document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
+                                        valueBonus = "10";
+                                        const audio = document.querySelector("#correct-sound");
+                                        if (audio) audio.play();
+
+                                        let bonus = bonusInput.style.width 
+                                        let clearValue = parseInt(bonus.replace("%"))
+                                        bonusInput.style.width = `${clearValue + 10}%`;
+
+                                        if (clearValue + 10 >= 100){
+                                            document.querySelector(".coin-anim ").classList.add("fade-in-coin")
+                                        }
+                                        
+                                        let checkprocent = addBonus(10);
+                                        console.log(checkprocent, "checkprocent")
+
+
+                                        for (let checkMark of checkMarks){
+                                            if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
+                                                checkMark.style.backgroundColor = '#8AF7D4';
+                                            }
+                                        }
+                                    }, timeout = 699);
+                                }else{
+                                    setTimeout(() => {
+                                        document.querySelector(".modal").style.display = "block";
+                                        document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
+                                        document.querySelector(".sad_robot").classList.add("fade-in-anim-robot")
+                                        valueBonus = "0";
+
+                                        const audioNegative = document.querySelector("#incorrect-sound");
+                                        if (audioNegative) audioNegative.play();
+                                        for (let checkMark of checkMarks){
+                                            if (correctIndexes.includes(parseInt(checkMark.dataset.value))) {
+                                                checkMark.style.backgroundColor = '#8AF7D4';
+                                            }
+                                        }
+                                    }, timeout = 699);
+                                }
+
+                                setTimeout(() => {
+                                    let midletime = localStorage.getItem("wasted_time")
+                                    midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                    localStorage.setItem("wasted_time", midletime);
+                                    
+                                    localStorage.setItem("timeData", "0")
+                                    socket.emit('next_question', {
+                                        index: index,
+                                        answer: dataString,
+                                        test_id: localStorage.getItem("test_id"),
+                                        value_bonus:valueBonus
+                                    });
+                                    checkOportunity = "able";
+                                    circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+                                }, timeout = 2000);
+                            }
+                        }
+                    )
+                }
+            }
             
 
             let countVisible = 0
             const blockList = document.querySelectorAll(".many-variant")
+            if (blockList) {
+                const visibleBlocks = Array.from(blockList).filter(block => block.checkVisibility());
+                countVisible = visibleBlocks.length;
 
-            for (let block of blockList){
-                if (block.checkVisibility()){
-                    countVisible += 1;
-                }
+                let width = 100 / countVisible;
+                let colors = ["#ECEAA1", "#8AF7D4", "#94C4FF", "#C48AF7"];
+
+                visibleBlocks.forEach((block, index) => {
+                    block.style.width = `${width}%`;
+                    block.style.backgroundColor = colors[index % colors.length];
+                });
             }
-
-            let width = 100 / countVisible
-            let colors = ["#ECEAA1", "#8AF7D4", "#94C4FF", "#C48AF7"]
-
-            for (let index = 0; index < amountAnswers; index++) {
-                blockList[index].style.width = `${width}%`;
-                blockList[index].style.backgroundColor = colors[index]
-            }
-
         }   
     }else{
         setTimeout(() => {
@@ -1250,11 +1598,11 @@ setInterval(() => {
                 // отримуємо старі відповіді якщо вони були
                 let oldCookie = localStorage.getItem("users_answers")
                 let cookieList = oldCookie.split(",")   
-                cookieList.push("skip")
+                cookieList.push("∅")
 
                 localStorage.setItem("users_answers", cookieList)
             }else{
-                localStorage.setItem("users_answers", "skip")
+                localStorage.setItem("users_answers", "∅")
             }
 
             let index = localStorage.getItem("index_question")
@@ -1290,9 +1638,11 @@ leaveButton.addEventListener(
         localStorage.setItem('time_question', "0")
 
         localStorage.setItem("timeData", "0")
+        
+
         // щоб гарантувати завершення – передай індекс явно великий
         socket.emit('next_question', {
-            index: 100,
+            index: 9999,
             test_id: localStorage.getItem("test_id")
         })
     }

@@ -2,8 +2,13 @@ import { clear_answer } from "./one_answer.js"
 
 let categoruMenu = document.querySelector(".category-questions");
 let categoryButton = document.querySelector(".button-open");
-let buttonsTypes = document.querySelectorAll(".check-type-question")
-let ulTypes = document.querySelectorAll(".type-ul")
+let buttonsTypes = document.querySelectorAll(".check-type-question");
+let ulTypes = document.querySelectorAll(".type-ul");
+const textType = document.querySelector(".text-type");
+const blocks = document.querySelector(".blocks");
+const newAnswerInput = document.querySelector(".new-answer-form");
+
+const inputType = document.querySelector(".input-type");
 
 categoryButton.addEventListener(
     "click",
@@ -20,14 +25,36 @@ categoryButton.addEventListener(
 window.addEventListener(
     'DOMContentLoaded',
     () => {
-        let type = localStorage.getItem("type")
-        if (categoryButton.dataset.value == ""){
-            if (!type){
-                localStorage.setItem("type", "one-answer")
-                type = localStorage.getItem("type")
-            }
+        let type;
+        if (!categoryButton.classList.contains("change_type")){
+            type = localStorage.getItem("type")
+            if (categoryButton.dataset.value == ""){
+                if (!type){
+                    localStorage.setItem("type", "one-answer")
+                    type = localStorage.getItem("type")
+                }
 
-            categoryButton.dataset.value = type
+                categoryButton.dataset.value = type
+            }
+        }else{
+            type = categoryButton.dataset.value
+        }
+
+        const textType = document.querySelector(".text-type");
+        const blocks = document.querySelector(".blocks");
+        const inputGap = document.querySelector(".input-gap-div")
+        
+        const inputType = document.querySelector(".input-type");
+        if (type != "input-gap") {
+            textType.style.display = "flex";
+            blocks.style.display = "flex";
+            inputType.style.display = "none";
+            inputGap.style.display = "none";
+        }else if (type === "input-gap"){
+            textType.style.display = "none";
+            blocks.style.display = "none";
+            inputType.style.display = "flex";
+            inputGap.style.display = "flex";
         }
     
         for (let buttonType of buttonsTypes){
@@ -47,9 +74,11 @@ for (let inputul of ulTypes){
             let li = inputul.querySelector("li")
             let radio = inputul.querySelector("input")
             radio.click()
+
             if (!document.querySelector(".button-open").classList.contains("change_type")){
                 localStorage.setItem("type", li.dataset.value)
             }
+
             categoryButton.dataset.value = li.dataset.value
             categoryButton.textContent = li.textContent
 
@@ -61,8 +90,51 @@ for (let inputul of ulTypes){
                 type = categoryButton.dataset.value;
             }
 
+            
+            const textType = document.querySelector(".text-type");
+            const blocks = document.querySelector(".blocks");
+           
+            const inputType = document.querySelector(".input-type");
+            const inputGap = document.querySelector(".input-gap-div")
+        
+
             if (type === "one-answer") {
                 clear_answer();
+                inputGap.style.display = "none"
+                textType.style.display = "flex";
+                blocks.style.display = "flex";
+                inputType.style.display = "none";
+                newAnswerInput.style.display = "none";
+
+            }else if (type === "input-gap"){
+                textType.style.display = "none";
+                blocks.style.display = "none";
+                inputType.style.display = "flex";
+                inputGap.style.display = "flex"
+
+            }else if(type == "many-answers"){
+                inputGap.style.display = "none"
+                textType.style.display = "flex";
+                blocks.style.display = "flex";
+                inputType.style.display = "none";
+                newAnswerInput.style.display = "none";
+
+
+                let count = 0
+                let answers = document.querySelectorAll(".answer")
+                let tickCircleList = document.querySelectorAll(".tick-circle")
+                for (let tick of tickCircleList){
+                    if (tick.style.display == "flex"){
+                        count += 1
+                    }
+                }
+
+                if (count == 0){
+                    let input = document.getElementById("1") 
+                    let tick = document.querySelector(`.tick-circle[id="1"]`)
+                    tick.style.display = "flex"
+                    input.classList.add("correct")
+                }
             }
         }
     )

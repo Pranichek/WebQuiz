@@ -14,12 +14,12 @@
             <form action="" method="post" id="form">
                 <input type="hidden" name="check_form" value="login">
                 <div class="img-avatar">
-                    <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.svg') }}" alt="avatar">
+                    <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar' ~ random_num ~ '.svg') }}" alt="avatar">
                 </div>
                 <input inputmode="email"  class="text-input input_email {% if email == 'shake' %}email_input{% endif %}" type= "email" name= "email" placeholder= "Введіть email" required>
 
                 <div class="password-container">
-                    <input class="text-input input_password {% if password == 'shake' %}password{% endif %}" type="password" maxlength="8" minlength="8" name="password" placeholder="Введіть Ваш пароль" id="password" required>
+                    <input class="text-input input_password {% if password == 'shake' %}password{% endif %}" type="password" name="password" placeholder="Введіть Ваш пароль" id="password" required>
                     <img id="eye" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
                     <img class="hidden" id="eye" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
                 </div>
@@ -27,32 +27,31 @@
 
                 <p class="problem">{{ message }}</p>
             </form>
-
+        </div>
     </div>
 
-    <div class="promotion">
-        <div class="bonuses">
-            <div class="glowing-area"></div>
-            <div class="bonus b1">
-                <img class="avatar" src="{{ url_for('login.static', filename='images/login_and_auth/bonus_one.png') }}" alt="avatart">
+        <div class="promotion">
+            <div class="bonuses">
+                <div class="glowing-area"></div>
+                <div class="bonus b1">
+                    <img src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_one.png') }}">
+                </div>
+                <div class="bonus b2">
+                    <img src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_two.png') }}">
+                </div>
+                <div class="bonus b3">
+                    <img src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_three.png') }}">
+                </div>
             </div>
-            <div class="bonus b2">
-                <img class="avatar" src="{{ url_for('login.static', filename='images/login_and_auth/bonus_two.png') }}" alt="avatart">
+
+            <div class="info-text">
+                <p>Заробляй бонуси,відповідаючи на<br>запитання та змагайся з друзями !</p>
             </div>
-            <div class="bonus b3">
-                <img class="avatar" src="{{ url_for('login.static', filename='images/login_and_auth/bonus_three.png') }}" alt="avatart">
-            </div>
+            <div class="robot-glowing-area"></div>
+            <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
         </div>
 
-        <div class="info-text">
-            <p>Заробляй бонуси,відповідаючи на<br>запитання та змагайся з друзями !</p>
-        </div>
-        
     </div>
-
-    <div class="robot-glowing-area"></div>
-    <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
-
     <form action="" method="post" id="clear-form">
         <input type="hidden" name="check_form" value="clear_form">
     </form>

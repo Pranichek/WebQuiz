@@ -1,0 +1,104 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('profile.static', filename ='css/mentor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('profile.static', filename ='css/student.css') }}">
+{% endblock %}
+
+{% block content %}
+    <!-- <div class="main-content"> -->
+
+        <div class="general_container_rect">
+            <div class="mentor-info-card">
+                <div class="mentor-header">
+                    
+                    <div class="mentor-info">
+                        <span class="mentor_name">{{ user.username }}</span>
+                        <span class="email">{{ user.email }}</span>
+                    </div>
+                    <div class="mentor-avatar">
+                        <img src="{{ url_for('mentor.static', filename='images/mentor/mentor_avatar.png') }}" alt="Аватар ментора">
+                    </div>
+                </div>
+                <div class="topic">
+                    тема тесту
+                </div>
+
+                <div class="mentor-join-info">
+                    <div class="join">
+                        <span>Приєднуйтесь з будь-якого пристрою:</span>
+                        <div class="url">
+                            <span class="link-text">joinquiz.com</span>
+                            <img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/copy.png') }}" alt="copy icon">
+                        </div>
+                    </div>
+
+                    <div class="join-code">
+                        <span>Код приєднання</span>
+                        <div class="code">
+                            <span id="code">{{ code }}</span>
+                            <img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/copy.png') }}" alt="copy icon">
+                        </div>
+                    </div>
+
+                    <div class="user-count">
+                        <span>Kількість учасників</span>
+                        <span id="amount_users">{{ all_participants | length }}</span>
+                    </div>
+
+                    <div class="gifts-container">
+                        <span class="points">
+                            <p>Ваші бали</p>
+                            <span class="button-like-block yellow">
+                                30
+                                <img src="" alt="">
+                            </span>
+                        </span>
+                        <span class="points">
+                            <p>улюбленець</p>
+                            <span class="button-like-block">
+                                <img src="" alt="">
+                            </span>
+                        </span>
+                    </div>
+
+                </div>
+            </div>
+        
+        </div>
+
+        <section class="participants-section">
+            <span clas="hor-flex-box">
+                <span class="flex-block">
+                    <p class="waiting-par">очікування запуску тесту</p>
+                    <img class="loading-img" src="{{ url_for('mentor.static', filename='images/loading.png') }}" alt="">
+                </span>
+                <span class="flex-block">
+                    <h2 class="participants">Учасники</h2>
+                    <img src="{{ url_for('mentor.static', filename='images/mentor/participants.png') }}" alt="">
+                    <p class="participants-number" id="amount_users">{{ all_participants | length }}</p>
+                    <div class="chat-box"></div>
+                    <input type="text" class="message-input" placeholder="Введи повідомлення">
+                    <button class="send-message">Надіслати</button>
+                </span>
+            </span>
+    
+    
+            <div class="participants-list">
+    
+            </div>
+        </section>
+    <!-- </div> -->
+
+
+{% endblock content %} 
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        const staticBase = "{{ url_for('mentor.static', filename='images/mentor/student_avatar.png') }}";
+    </script>
+    <script src="{{ url_for('student.static', filename='js/student.js') }}"></script>
+    <script src="{{ url_for('mentor.static', filename='js/getNewUser.js') }}"></script>
+
+{% endblock scripts %}

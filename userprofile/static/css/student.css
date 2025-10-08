@@ -1,0 +1,56 @@
+.main-content{
+    display: flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap-reverse;
+    padding: 0 5vw;
+}
+
+.mentor-info-card{
+    gap: 7vh;
+    height: 70vh;
+}
+
+.mentor-join-info{
+    height: 30vh;
+    justify-content: space-between;
+}
+
+.gifts-container{
+    display: flex;
+    gap: 2vw;
+}
+
+.points{
+    display: flex;
+    flex-direction: column;
+}
+
+.button-like-block{
+    display: flex;
+    height: 5vh;
+    width: 10vw;
+    border: 1px solid #C48AF7;
+    border-radius: 1vh;
+    font-weight: bold;
+}
+
+.yellow{
+    border-color: #FFB700;
+}
+
+.hor-flex-box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.waiting-par{
+    text-align: center;
+    color: white;
+    font-size: 2vh;
+}
+
+.loading-img{
+    width: 4vh;
+    height: 4vh;
+}

@@ -16,18 +16,3 @@ change_tests = flask.Blueprint(
     template_folder="templates",
 )
 
-mentor = flask.Blueprint(
-    name="mentor",
-    import_name = "quiz",
-    static_url_path="/mentor/static",
-    static_folder="static",
-    template_folder="templates",
-)
-
-student = flask.Blueprint(
-    name="student",
-    import_name = "quiz",
-    static_url_path="/student/static",
-    static_folder="static",
-    template_folder="templates",
-)

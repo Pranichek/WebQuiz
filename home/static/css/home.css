@@ -1,23 +1,15 @@
-body {
+main {
     display: flex;
     flex-direction: column;
+    height: 90vh;
+    width: 100vw;
     align-items: center;
+    justify-content: start;
     margin: 0;
     padding: 0;
     background-color: #3C3C3C;
     color: white;
-}
-
-.background-blur {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(170deg, #3C3C3C 10%, #7c9abd 20%, #74919E 42%, #3C3C3C 5%);
-    filter: blur(100px);
-    z-index: -1;
-    pointer-events: none;
+    overflow: hidden;
 }
 
 form{
@@ -25,78 +17,105 @@ form{
 }
 
 .join-game {
+    margin-top: 4vh;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     text-align: center;
-    justify-content: center;
+    justify-content: space-between;
     gap: 10px;
-    /* border: 2px green solid; */
     width: 100vw;
     height: 35vh;
-    padding-top: 20px;
+    padding-top: 2vh;
+    z-index: 10;
+}
+
+.background-blur {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(190deg, #3C3C3C 10%, #db67ba 20%, #6aa0b9 42%, #3C3C3C 5%);
+    filter: blur(100px);
+    z-index: 0;
+    pointer-events: none;
 }
 
 
 .join-game h1 {
-    font-size: 2.5em;
+    font-size: 2.8vw;
+    z-index: 10;
 }
 
 .join-game p {
-    font-size: 1.2em;
+    font-size: 1.7vw;;
+    z-index: 10;
 }
 
 .input-code {
     display: flex;
     flex-direction: row;
     align-items: center;
-    max-width: 400px;
     background-color: white;
-    padding: 5px;
-    gap: 10px;
+    padding: 0.6vh;
+    gap: 1vw;
+    width: 34vw; 
+    border: solid 0.2vh black;
+    border-radius: 3.4vh;
+    background-color: pink;
 }
 
 .input-code input {
-    padding: 10px;
-    border-radius: 5px;
+    padding: 1vh;
     border: none;
+    width: 77%;
+    font-size: 1rem; 
+    border: solid 0.17vh black;
+    border-radius: 100vh;
+    color: #343434;
 }
 
 .input-code button {
-    padding: 10px 20px;
+    padding: 1vh 1.2vw;
     background-color: #8AF7D4;
     color: black;
     border: none;
-    border-radius: 5px;
     cursor: pointer;
+    width: 23%;
+    font-size: 1rem;
+    border: solid 0.15vh black;
+    border-radius: 0.8vh;
+    transition: 0.3s all;
+    text-align: center;
+    overflow: hidden;
 }
-.input-code, .input-code input, .input-code button{
-    border: solid 1px black;
-    border-radius: 10px;
+
+.input-code button:hover{
+    background-color: #6ddab7;
 }
 
 .cointeiner {
     width: 100vw;
-    height: 100vh;
+    height: 90vh;
     display: flex;
     position: fixed;
-    top: 0;
-    /* border: 2px orange solid; */
-    /* border:  2px solid orange; */
+    bottom: 0;
     justify-content: center;
     flex-direction: row;
     align-items: end;
-    overflow: hidden;   
-    padding-bottom: 40px; 
+    overflow: hidden;  
+    z-index: 0; 
 }
 
 .card {
     cursor: pointer;
     flex-grow: 0;
     flex-shrink: 0;
-    height: 280px;
-    width: 220px;
-    border: 0.5px solid black;
+    width: 19vw;        
+    height: 48vh;      
+    border: 0.15vh solid black;
     z-index: 1;
     transition: 1s;
     display: flex;
@@ -104,57 +123,59 @@ form{
     justify-content: center;
     align-items: center;
     text-align: center;
-    border-radius: 34px;
+    border-radius: 3vh;
     overflow: hidden;
+    position: relative;
 }
 
 p{
     cursor: pointer;
 }
 
-.card-img{
-    background-color: green;
+.card-img {
     width: 100%;
     height: 50%;
-    border-radius: 34px 34px 0px 0px;
+    border-radius: 3vh 3vh 0 0;
 }
 
-.card-img img{
+.card-img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 3vh 3vh 0 0;
 }
 
-
-.card-discription{
+.card-discription {
     width: 100%;
     height: 50%;
     background-color: #343434;
-    border-radius: 0px 0px 34px 34px;
+    border-radius: 0 0 3vh 3vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 0px;
-    margin: 0px;
-    padding: 0px;
+    padding: 0;
+    gap: 0;
 }
 
-.name-test{
-    padding-bottom: 10%;
-    font-size: 15px;
+
+
+.name-test {
+    padding-bottom: 6%;
+    font-size: 1.5vw;
 }
 
-.interisting-text{
+.interisting-text {
     color: #a19e9e;
-    font-size: 11px;
-
+    font-size: 1.1vw;
+    text-align: center;
 }
 
-.link-test{
-    padding-top: 10%;
-    font-size: 15px;
+.link-test {
+    padding-top: 6%;
+    font-size: 1.1vw;
 }
+
 
 img{
     position: relative;
@@ -163,636 +184,156 @@ img{
     border-radius: 34px 34px 0px 0px;
 }
 
-.transition {
-    transform: translateY(150px) translateX(175px) rotate(-11deg);
-    background-color: aquamarine;
-}
 
-.transition:hover {
-    transform: translateY(0px) translateX(175px);
-    z-index: 11;
-}
 
 .transition2 {
-    transform: translateY(100px) translateX(100px) rotate(-11deg);
-    background-color: blue;
-}
-
-.transition2:hover {
-    transform: translateY(0px) translateX(100px);
-    z-index: 11;
+    transform: translateY(25vh) translateX(10vw) rotate(-14deg);
+    z-index: 3;
+    transition: transform 0.6s ease, box-shadow 0.6s ease, background-color 0.6s ease;
 }
 
 .transition3 {
-    transform: translateY(50px) translateX(50px) rotate(-11deg);
-    background-color: blueviolet;
-}
-
-.transition3:hover {
-    transform: translateY(0px) translateX(50px);
-    z-index: 11;
+    transform: translateY(15vh) translateX(4vw) rotate(-10deg);
+    z-index: 4;
+    transition: transform 0.6s ease, box-shadow 0.6s ease, background-color 0.6s ease;
 }
 
 .transition4 {
-    transform: translateY(0px);
-    background-color: cadetblue;
+    transform: translateY(9vh) translateX(0vw) rotate(0deg);
     z-index: 5;
-}
-
-.transition4:hover {
-    transform: translateY(-20px);
-    z-index: 11;
+    transition: transform 0.6s ease, box-shadow 0.6s ease, background-color 0.6s ease;
 }
 
 .transition5 {
-    transform: translateY(50px) translateX(-50px) rotate(11deg);
-    background-color: chartreuse;
+    transform: translateY(15vh) translateX(-4vw) rotate(10deg);
     z-index: 4;
+    transition: transform 0.6s ease, box-shadow 0.6s ease, background-color 0.6s ease;
+}
+
+.transition6 {
+    transform: translateY(25vh) translateX(-10vw) rotate(14deg);
+    z-index: 3;
+    transition: transform 0.6s ease, box-shadow 0.6s ease, background-color 0.6s ease;
+}
+
+
+
+.transition2, .transition3, .transition4, .transition5, .transition6 {
+  transition: transform 0.6s ease, box-shadow 0.6s ease, background-color 0.6s ease;
+  cursor: pointer;
+}
+
+.card:hover{
+  transform: translateY(0) scale(1.08);
+  box-shadow: 0 15px 25px rgba(0,0,0,0.35);
+  filter: brightness(1.1);
+  z-index: 11;
+}
+
+.card:hover {
+  transform: translateY(0) scale(1.08);
+  box-shadow: 0 20px 35px rgba(169, 172, 172, 0.4); 
+  filter: brightness(1.05);
+  z-index: 11;
+  transform: rotate(0deg);
+  margin-bottom: 1vw;
+}
+
+.transition2:hover {
+  transform: translateY(0px) translateX(100px) rotate(-11deg) scale(1.08);
+  transform: rotate(0deg);
+}
+
+.transition3:hover {
+  transform: translateY(0px) translateX(50px) rotate(-11deg) scale(1.08);
+  transform: rotate(0deg);
+}
+
+.transition4:hover {
+  transform: translateY(-20px) translateX(0) rotate(0deg) scale(1.08);
+  transform: rotate(0deg);
 }
 
 .transition5:hover {
-    transform: translateY(0px) translateX(-50px);
-    z-index: 11;
-}
-
-
-.transition6 {
-    transform: translateY(100px) translateX(-100px) rotate(11deg);
-    background-color: black;
-    z-index: 3;
+  transform: translateY(0px) translateX(-50px) rotate(11deg) scale(1.08);
+  transform: rotate(0deg);
 }
 
 .transition6:hover {
-    transform: translateY(0px) translateX(-100px);
-    z-index: 11;
+  transform: translateY(0px) translateX(-100px) rotate(11deg) scale(1.08);
+  transform: rotate(0deg);
 }
 
-.transition7 {
-    transform: translateY(150px) translateX(-175px) rotate(11deg);
-    background-color: bisque;
-    z-index: 2;
+
+/* Псевдоелемент для glow */
+
+
+.blur-background {
+    position: absolute;
+    bottom: 5vh;
+    width: 80vw;
+    height: 35vh;
+    background: radial-gradient(
+        ellipse at center,
+        rgba(27, 177, 237, 0.6),
+        rgba(0, 0, 0, 0)
+    );
+    filter: blur(60px);
+    z-index: 0;
+    pointer-events: none;
 }
 
-.transition7:hover {
-    transform: translateY(0px) translateX(-175px);
-    z-index: 11;
+
+.input-code {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: white;
+    padding: 0.7vh;
+    gap: 5px;
+    width: 34vw;
+    border: solid 0.2vh black;
+    border-radius: 2.1vh;
+    box-sizing: border-box;
 }
 
-@media (max-width: 899px){
-    .card {
-        flex-grow: 0;
-        flex-shrink: 0;
-        height: 220px;
-        width: 180px;
-        border: 0.5px solid black;
-        z-index: 1;
-        transition: 1s;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        border-radius: 34px;
-        overflow: hidden;
-    }
-
-    .join-game h1 {
-        font-size: 1.4em;
-    }
-    
-    .join-game p {
-        font-size: 1em;
-    }
-    
-    .input-code {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        max-width: 400px;
-        background-color: white;
-        padding: 5px;
-        gap: 10px;
-    }
-    
-    .input-code input {
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-    }
-    
-    .input-code button {
-        padding: 10px 20px;
-        background-color: #8AF7D4;
-        color: black;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .input-code, .input-code input, .input-code button{
-        border: solid 1px black;
-        border-radius: 10px;
-    }
-
-    .join-game {
-        gap: 5px;
-    }
-
-    .name-test{
-        padding-bottom: 3%;
-        font-size: 13px;
-    }
-    
-    .interisting-text{
-        color: #a19e9e;
-        font-size: 9px;
-    
-    }
-    
-    .link-test{
-        padding-top: 3%;
-        font-size: 13px;
-    }
-
-    .transition4{
-        z-index: 6;
-    }
-
-    .transition5{
-        z-index: 5;
-    }
-
-    .transition6{
-        z-index: 4;
-    }
-
-    .transition2 {
-        transform: translateY(120px) translateX(100px) rotate(-11deg);
-        background-color: blue;
-    }
-    
-    .transition2:hover {
-        transform: translateY(0px) translateX(100px);
-        z-index: 11;
-    }
-    
-    .transition3 {
-        transform: translateY(65px) translateX(50px) rotate(-11deg);
-        background-color: blueviolet;
-    }
-    
-    .transition3:hover {
-        transform: translateY(20px) translateX(50px);
-        z-index: 11;
-    }
-    
-    .transition4 {
-        transform: translateY(35px);
-        background-color: cadetblue;
-        z-index: 5;
-    }
-    
-    .transition4:hover {
-        transform: translateY(-20px);
-        z-index: 11;
-    }
-    
-    .transition5 {
-        transform: translateY(65px) translateX(-50px) rotate(11deg);
-        background-color: chartreuse;
-        z-index: 4;
-    }
-    
-    .transition5:hover {
-        transform: translateY(0px) translateX(-50px);
-        z-index: 11;
-    }
-    
-    
-    .transition6 {
-        transform: translateY(120px) translateX(-100px) rotate(11deg);
-        background-color: black;
-        z-index: 3;
-    }
-    
-    .transition6:hover {
-        transform: translateY(0px) translateX(-100px);
-        z-index: 11;
-    }
+.input-code input {
+    flex: 1 1 auto;             
+    padding: 0;                
+    height: 110%;
+    font-weight: 500;
+    border: solid 0.2vh black;
+    border-radius: 1.5vh;
+    text-align: center;
+    font-size: 2vh;              
+    overflow: hidden;            
+    text-overflow: ellipsis;     
+    white-space: nowrap;         
+    box-sizing: border-box;
 }
 
-@media (min-width: 900px) and (max-width: 1440px){
-    .card {
-        flex-grow: 0;
-        flex-shrink: 0;
-        height: 340px;
-        width: 250px;
-        border: 0.5px solid black;
-        z-index: 1;
-        transition: 1s;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        border-radius: 34px;
-        overflow: hidden;
-    }
-
-
-    .join-game h1 {
-        font-size: 2.7em;
-    }
-    
-    .join-game p {
-        font-size: 1.7em;
-    }
-    
-    .input-code {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        min-width: none;
-        max-width: 600px;
-        background-color: white;
-        padding: 5px;
-        gap: 15px;
-    }
-    
-    .input-code input {
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-        min-width: 330px;
-        min-height: 37px;
-        font-size: large;
-    }
-    
-    .input-code button {
-        padding: 13px 20px;
-        background-color: #8AF7D4;
-        color: black;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .input-code, .input-code input, .input-code button{
-        border: solid 1px black;
-        border-radius: 10px;
-    }
-
-
-    .join-game{
-        gap: 15px;
-    }
-
-    .name-test{
-        padding-bottom: 4%;
-        font-size: 17px;
-    }
-    
-    .interisting-text{
-        color: #a19e9e;
-        font-size: 13px;
-    
-    }
-    
-    .link-test{
-        padding-top: 6%;
-        font-size: 17px;
-    }
-
-    .transition4{
-        z-index: 6;
-    }
-
-    .transition5{
-        z-index: 5;
-    }
-
-    .transition6{
-        z-index: 4;
-    }
-
-    .transition2 {
-        transform: translateY(180px) translateX(100px) rotate(-11deg);
-        background-color: blue;
-    }
-    
-    .transition2:hover {
-        transform: translateY(0px) translateX(100px);
-        z-index: 11;
-    }
-    
-    .transition3 {
-        transform: translateY(110px) translateX(50px) rotate(-11deg);
-        background-color: blueviolet;
-    }
-    
-    .transition3:hover {
-        transform: translateY(0px) translateX(50px);
-        z-index: 11;
-    }
-    
-    .transition4 {
-        transform: translateY(50px);
-        background-color: cadetblue;
-        z-index: 5;
-    }
-    
-    .transition4:hover {
-        transform: translateY(-20px);
-        z-index: 11;
-    }
-    
-    .transition5 {
-        transform: translateY(110px) translateX(-50px) rotate(11deg);
-        background-color: chartreuse;
-        z-index: 4;
-    }
-    
-    .transition5:hover {
-        transform: translateY(0px) translateX(-50px);
-        z-index: 11;
-    }
-    
-    
-    .transition6 {
-        transform: translateY(180px) translateX(-100px) rotate(11deg);
-        background-color: black;
-        z-index: 3;
-    }
-    
-    .transition6:hover {
-        transform: translateY(0px) translateX(-100px);
-        z-index: 11;
-    }
+.input-code button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 1.2vh;
+    padding-bottom: 1.2vh;
+    width: 23%;
+    height: 110%;
+    font-size: 1.7vh;  
+    font-weight: 500;             
+    border-radius: 1.5vh;
+    border: solid 0.2vh black;
+    background-color: #8AF7D4;
+    color: black;
+    cursor: pointer;
+    text-align: center;
+    box-sizing: border-box;
+    transition: 0.3s all;
 }
 
-@media (min-width: 1441px) and (max-width: 1920px){
-    .card {
-        flex-grow: 0;
-        flex-shrink: 0;
-        height: 360px;
-        width: 271px;
-        border: 0.5px solid black;
-        z-index: 1;
-        transition: 1s;
-        display: flex;
-        flex-direction:column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        border-radius: 34px;
-        overflow: hidden;
-    }
-
-    .join-game h1 {
-        font-size: 2.2em;
-    }
-    
-    .join-game p {
-        font-size: 1.7em;
-    }
-    
-    .input-code {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        min-width: none;
-        max-width: 600px;
-        background-color: white;
-        padding: 5px;
-        gap: 23px;
-    }
-    
-    .input-code input {
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-        min-width: 360px;
-        min-height: 45px;
-        font-size: larger;
-    }
-    
-    .input-code button {
-        padding: 14px 20px;
-        background-color: #8AF7D4;
-        color: black;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .input-code, .input-code input, .input-code button{
-        border: solid 1px black;
-        border-radius: 10px;
-    }
-
-    
-    .join-game{
-        gap: 20px;
-    }
-
-    .name-test{
-        padding-bottom: 7%;
-        font-size: 22px;
-    }
-    
-    .interisting-text{
-        color: #a19e9e;
-        font-size: 17px;
-    
-    }
-    
-    .link-test{
-        padding-top: 7%;
-        font-size: 22px;
-    }
-    .transition2 {
-        transform: translateY(180px) translateX(100px) rotate(-11deg);
-        background-color: blue;
-    }
-    
-    .transition2:hover {
-        transform: translateY(0px) translateX(100px);
-        z-index: 11;
-    }
-    
-    .transition3 {
-        transform: translateY(110px) translateX(50px) rotate(-11deg);
-        background-color: blueviolet;
-    }
-    
-    .transition3:hover {
-        transform: translateY(0px) translateX(50px);
-        z-index: 11;
-    }
-    
-    .transition4 {
-        transform: translateY(50px);
-        background-color: cadetblue;
-        z-index: 5;
-    }
-    
-    .transition4:hover {
-        transform: translateY(-20px);
-        z-index: 11;
-    }
-    
-    .transition5 {
-        transform: translateY(110px) translateX(-50px) rotate(11deg);
-        background-color: chartreuse;
-        z-index: 4;
-    }
-    
-    .transition5:hover {
-        transform: translateY(0px) translateX(-50px);
-        z-index: 11;
-    }
-    
-    
-    .transition6 {
-        transform: translateY(180px) translateX(-100px) rotate(11deg);
-        background-color: black;
-        z-index: 3;
-    }
-    
-    .transition6:hover {
-        transform: translateY(0px) translateX(-100px);
-        z-index: 11;
-    }
-}
-
-@media (min-width: 1921px){
-    .card {
-        flex-grow: 0;
-        flex-shrink: 0;
-        height: 500px;
-        width: 360px;
-        border: 0.5px solid black;
-        z-index: 1;
-        transition: 1s;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-        border-radius: 34px;
-        overflow: hidden;
-    }
-
-    .join-game h1 {
-        font-size: 3.8em;
-    }
-    
-    .join-game p {
-        font-size: 2.8em;
-    }
-    
-    .input-code {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        min-width: none;
-        max-width: 600px;
-        background-color: white;
-        padding: 5px;
-        gap: 15px;
-    }
-    
-    .input-code input {
-        padding: 10px;
-        border-radius: 5px;
-        border: none;
-        min-width: 460px;
-        min-height: 71px;
-        font-size: larger;
-    }
-    
-    .input-code button {
-        padding: 20px 20px;
-        background-color: #8AF7D4;
-        color: black;
-        border: none;
-        border-radius: 5px;
-        cursor: pointer;
-    }
-    .input-code, .input-code input, .input-code button{
-        border: solid 1px black;
-        border-radius: 10px;
-    }
-
-    .join-game{
-        gap: 25px;
-    }
-
-    .name-test{
-        padding-bottom: 7%;
-        font-size: 22px;
-    }
-    
-    .interisting-text{
-        color: #a19e9e;
-        font-size: 17px;
-    
-    }
-    
-    .link-test{
-        padding-top: 7%;
-        font-size: 22px;
-    }
-    .transition2 {
-        transform: translateY(250px) translateX(100px) rotate(-11deg);
-        background-color: blue;
-    }
-    
-    .transition2:hover {
-        transform: translateY(0px) translateX(100px);
-        z-index: 11;
-    }
-    
-    .transition3 {
-        transform: translateY(160px) translateX(50px) rotate(-11deg);
-        background-color: blueviolet;
-    }
-    
-    .transition3:hover {
-        transform: translateY(0px) translateX(50px);
-        z-index: 11;
-    }
-    
-    .transition4 {
-        transform: translateY(100px);
-        background-color: cadetblue;
-        z-index: 5;
-    }
-    
-    .transition4:hover {
-        transform: translateY(-20px);
-        z-index: 11;
-    }
-    
-    .transition5 {
-        transform: translateY(160px) translateX(-50px) rotate(11deg);
-        background-color: chartreuse;
-        z-index: 4;
-    }
-    
-    .transition5:hover {
-        transform: translateY(0px) translateX(-50px);
-        z-index: 11;
-    }
-    
-    
-    .transition6 {
-        transform: translateY(250px) translateX(-100px) rotate(11deg);
-        background-color: black;
-        z-index: 3;
-    }
-    
-    .transition6:hover {
-        transform: translateY(0px) translateX(-100px);
-        z-index: 11;
-    }
+.input-code button:hover {
+    background-color: #6ddab7;
 }
 
 

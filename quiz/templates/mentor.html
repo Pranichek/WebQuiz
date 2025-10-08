@@ -22,7 +22,6 @@
                     </div>
                     <div class="mentor-avatar">
                         <img src="{{ url_for('mentor.static', filename='images/mentor/mentor_avatar.png') }}" alt="Аватар ментора">
-                        <p class="you">Ви</p>
                     </div>
                 </div>
                 <div class="topic">
@@ -63,7 +62,7 @@
                         </a>
                     </div>
 
-                    <div class="modal-window" id="qrModal" style="display: none;">
+                    <div class="modal-window" id="qrModal">
                         <div class="modal-content">
                             <div class="top-part">
                                 <div class="close-btn" onclick="hideQR()">
@@ -102,12 +101,23 @@
     </div>
 
     <section class="participants-section">
+        <div class="users">
+
+        </div>
+        
         <span class="flex-block">
+            <h2 class="participants">Учасники</h2>
             <img src="{{ url_for('mentor.static', filename='images/mentor/participants.png') }}" alt="">
             <p class="participants-number" id="amount_users">{{ all_participants | length }}</p>
+            <div class="chat-box"></div>
+            <input type="text" class="message-input" placeholder="Введи повідомлення">
+            <button class="send-message">Надіслати</button>
+
         </span>
 
         <div class="chat-icon">
+
+            
             <div class="chat-box">
                 <div class="header-chat">
                     <div class="avatar-circle-chat">
@@ -129,12 +139,13 @@
                     </div>
                 </div>
             </div>
+           
+
             <div class="check-click">
-                <img class="open-chat" src="{{ url_for('mentor.static', filename='images/mentor/message-logo.svg') }}" alt="">
+                    <img class="open-chat" src="{{ url_for('mentor.static', filename='images/mentor/chat_icon.png') }}" alt="">
             </div>
         </div>
 
-        
     </section>
 
 {%  endblock %}
@@ -146,7 +157,7 @@
         const staticBase = "{{ url_for('mentor.static', filename='images/mentor/student_avatar.png') }}";
     </script>
     <script src="{{ url_for('mentor.static', filename='js/mentor.js') }}"></script>
-    <script src="{{ url_for('mentor.static', filename='js/chat.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url_for('mentor.static', filename='js/getNewUser.js') }}"></script>
+    <script src="{{ url_for('mentor.static', filename='js/chat.js') }}"></script>
 {% endblock scripts %}

@@ -1,3 +1,9 @@
+let detectorList = document.querySelectorAll(".detector")
+// Беремо усі відповідь на питання по класу answer"
+let inputList = document.querySelectorAll(".answer")
+// Створюємо список де збергаються усі картинки з галочками
+let tickCircleList = document.querySelectorAll(".tick-circle")
+
 // Робимо перебір по списку з кружечками
 for (let detector of detectorList){
     // Перевірямо чи натиснули на кружечок(додали подію)
@@ -14,10 +20,19 @@ for (let detector of detectorList){
         let tick = document.querySelector(`.tick-circle[id="${detector_id}"]`)
 
         if (type_question !== "one-answer") {
-            if (input.classList.contains("correct")) {
+            let count = 0
+            let answers = document.querySelectorAll(".answer")
+            for (let tick of tickCircleList){
+                if (tick.style.display == "flex"){
+                    count += 1
+                }
+            }
+
+            if (count > 1 && input.classList.contains("correct")){
                 tick.style.display = "none"
                 input.classList.remove("correct")
-            } else {
+                console.log("kak")
+            } else  {
                 tick.style.display = "flex"
                 input.classList.add("correct")
             }
@@ -33,7 +48,6 @@ for (let detector of detectorList){
             input.classList.add("correct")
         }
 
-        corretIndexes()
     })
 }
 

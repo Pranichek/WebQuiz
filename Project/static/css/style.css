@@ -5,34 +5,14 @@
     justify-content: center;
     align-items: center;
     font-family: 'Inter';
-}
-
-main{
-    width: 100vw;
+    color: #ffffff;
 }
 
 body{
     background-color: #3C3C3C;
-}
-
-.img-logo{
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-}
-
-.logo {
-    padding-left: 10px;
-    font-size: 1.5em;
-    font-weight: 500;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    gap:5px;
-    margin-left: 14px;
 
 }
+
 
 header{
     z-index: 1000;
@@ -40,38 +20,70 @@ header{
     display: flex;
     flex-direction: row;
     height: 10vh;
-    max-height: 125px;
-    /* background-color: #B9BDF5; */
     color: #ffffff;
     align-items: center;
     justify-content: space-between;
     top: 0; 
     width: 100%;
     overflow: hidden;
-    min-height: 50px;
+    /* padding: 0 2vw; */
+    padding-left: 1vw;
+}
+
+.logo {
+    font-weight: 500;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.2vw;
+    /* background-color: green; */
+}
+
+.img-logo{
+    height: 6vh;
+}
+
+header p{
+    font-size: 2.5vh;
 }
 
 nav {
     display: flex;
     align-items: center;
+    gap: 1vw;
+    margin-right: 1vw;
+}
+.nav-links{
+    display: flex;
+    gap: 0.8vw;
 }
 
 .nav-links .auth-button, .nav-links .login-button, .nav-links .test-button, .nav-links .enter-code{
+    height: 5vh;
     background-color: #C48AF7;
     color: #ffffff;
-    border-radius: 5px;
+    border-radius: 0.5vh;
     text-decoration: none;
-    margin: 10px;
-    padding: 10px;
+    /* margin: 1vh; */
+    padding: 1.2vh;
     display: inline-block;
     text-align: center;
     font-weight: bold;
+    font-size: 2vh;
+    white-space: nowrap;
+    /* transition: 0.3s ease; */
 }
+
+.nav-links .auth-button:hover, .nav-links .login-button:hover, .nav-links .test-button:hover, .nav-links .enter-code:hover{
+    background-color: #b06aed;
+
+}
+
 
 .header_buttons {
     display: flex;
-    margin-right: 25px;
-    gap: 19px;
+    gap: 1vh;
 }
 
 .mentor-buttons {
@@ -80,18 +92,28 @@ nav {
     padding: 0;
     cursor: pointer;
 }
+
+.mentor-buttons img{
+    width: 5vh;
+    height: 5vh;
+}
+
 .listener{
-    height: 100px;
-    width: 100px;
+    height: 10vh;
     display: flex;
-    cursor: pointer;
 }
 
 .open-panel{
-    width: 40px;
-    height: 40px;
-    margin-right: 20px;
-    z-index: 100;
+    width: 6vh;
+    height: 6vh;
+    z-index: 0;
+    /* transition: 0.1s; */
+    cursor: pointer;
+}
+
+.open-panel:hover{
+    opacity: 0.9;
+
 }
 
 .panel{
@@ -103,19 +125,20 @@ nav {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    transition: width 0.5s;
-    width: 0px;
+    transition: width 0.6s;
+    width: 0;
     height: 85vh;
-    border-radius: 10px;
-    padding-top: 20px;
+    border-radius: 1vh;
+    padding-top: 2vh;
     background-color: #343434;
-    z-index: 100;
+    z-index: 200;
+    overflow: hidden;
 }
 
 .link-container{
     display: flex;
     flex-direction: column;
-    gap: 90px;
+    gap: 9vw;
     z-index: 100;
 }
 
@@ -123,30 +146,32 @@ nav {
     display: flex;
     flex-direction: column;
     align-items: start;
-    gap: 15px;
+    gap: 1.5vh;
 }
 
 .links a{
-    size: 20px;
+    font-size: 2.3vh;
     color: #ffffff;
     text-decoration: none;
+    transition: 0.2s;
 }
 
+
 .links hr{
-    width: 230px;
+    width: 23vw;
 }
 
 
 .sidebar-robot{
     position: absolute;
-    right: 50px;
+    right: 5vw;
     bottom: 0;
-    width: 130px;
-    height: 190px;
+    width: 13vw;
+    height: 19vh;
 }
 
 .closed{
-    width: 0px;
+    width: 0;
     overflow: hidden;
 }
 
@@ -184,45 +209,17 @@ html, body {
 }
 .wrapper .header-cookie {
     display: flex;
-    flex-direction: column;
     justify-content: center;
-    background-color: #353535;
-    /* background-color: #C48AF7; */
-}
-.header-cookie img {
-    height: 88px;
-    width: 88px;
-}
-.header-cookie i {
-    color: #fff;
-    font-size: 32px;
-}
-.wrapper .data {
-    display: flex;
+    align-items: center;
     flex-direction: column;
-    justify-content: center;
+    gap: 1vh;
 }
 
-.wrapper .data h2 {
-    color:#fff;
-    font-weight: 500;
-    margin-bottom: 10px;
+.ab {
+    margin-top: -5vh;
 }
 
-.wrapper .data p {
-    text-align: center;
-    color:#fff;
-    font-size: 16px;
-    
-}
-.data p a {
-    text-decoration: none;
-}
-.data p a:hover {
-    text-decoration: underline;
-}
-.wrapper .buttons {
-    margin-top: 16px;
+.about{
     display: flex;
     align-items: center;
     justify-content: center;

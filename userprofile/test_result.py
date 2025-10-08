@@ -24,14 +24,31 @@ def get_data(data):
     correct_indexes = []
 
     user_answers = data["user_answers"].split(",")
-    print(user_answers, "dfv")
 
+    types_questions = test.type_questions.split("?$?")
     questions = test.questions.split("?%?")
+    answers = test.answers.split("?@?")
 
+    for index in range(len(user_answers)):
+        if types_questions[index] == "input-gap":
+            wait_res = user_answers[index].split()
+            user_answers[index] = "¤".join(wait_res)
     
+
+    # список где хранятся праивльные индексы либо строчные ответы на вопрос
+    correct_indexes = []
+
+
+    raw_type = DATABASE.session.query(Test.type_questions).filter_by(id=test_id).first()
+    # types_quest = []
+    for el in raw_type:
+        types_quest = el.split("?$?")
+        # types_quest.append(a)
+    
+    
+    # 
     count = 0
     answers = test.answers.split("?@?")
-    correct_indexes = []
     list_final = []
     for question in questions:
         one_question = {}
@@ -51,6 +68,7 @@ def get_data(data):
         one_question["answers"] = list_answers[count]
         list_final.append(one_question)
         count += 1
+
 
     #логика получение индекса правильного ответа даже если правильных несколько
     # например, если правильные ответы на вопрос 1 это да и нет, то в массиве будет [[0, 1], [тут индексі уже следующего вопроса и тд]]
@@ -73,46 +91,42 @@ def get_data(data):
         
         correct_indexes.append(question_right_answers)
 
+
     count_right_answers = 0
 
-
-    old_data = flask_login.current_user.user_profile.last_passed #" 2"
-    
-    indexes = old_data.split(" ") # [" ", "2"]
-    if indexes[0] == "" or indexes[0] == " ":
-        indexes.pop(0)# ["2/0,1", "2/0,1", "2"]
-
-    for el in indexes:
-
-        if int(el.split("/")[0]) == int(test_id) and len(el.split("/")) == 1:
-
-            current_index = indexes.index(el)
-            formatted_answers = ",".join(user_answers)
-            indexes[current_index] = f"{test_id}/{formatted_answers}"
-
-    flask_login.current_user.user_profile.last_passed = " ".join(indexes)
-    DATABASE.session.commit()
 
     list_users_answers = []
     if len(user_answers) > 0:
         for answers in user_answers:
             small_list = []
-            list_users_answers.append(answers.split("@"))
+            list_users_answers.append(answers.split("@"))  
+
+    print(list_users_answers, "lolka")
+
 
     count_uncorrect_answers = 0
     count_answered = 0
 
     index_corect = []
+    types = test.type_questions.split("?$?")
+
+    # счеткички сколько именно правильных а сколько нет
+    right_answers = 0
+    uncorrect_answers = 0
+
     for i in range(len(user_answers)):
-        if list_users_answers[i][0] != "skip":
+        if list_users_answers[i][0] != "∅":
             count_answered += 1
-            if len(correct_indexes[i]) == 1:
+            if types[i] == "one-answer":
                 if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
                     count_right_answers += 1
                     index_corect.append(i)
+                    right_answers += 1
                 else:
                     count_uncorrect_answers += 1
-            else:
+                    uncorrect_answers += 1
+
+            elif types[i] == "many-answers":
                 correct = 0
                 uncorrect = 0
                 for ans in list_users_answers[i]:
@@ -120,32 +134,72 @@ def get_data(data):
                         count_right_answers += 1
                         correct += 1
                     else:
-                        # count_right_answers -= 1
                         count_uncorrect_answers += 1
                         uncorrect += 1
-            
+                
+                # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
+                count_min = len(correct_indexes[i]) / 2 
+
+                if correct > int(count_min) and uncorrect == 0:
+                    right_answers += 1
+                else:
+                    uncorrect_answers += 1
                 if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
                     index_corect.append(i)
 
+            elif types[i] == "input-gap":
+                user_answer_value = list_users_answers[i][0]
+                answers_gaps = test.answers.split("?@?")[i].split("+%?)")
+                if "" in answers_gaps:
+                    answers_gaps.remove("")
+                new_answers = []
+                for answer in answers_gaps:
+                    answer = answer.replace("(?%+", "").replace("+%?)", "")
+                    new_answers.append(answer)
 
-    # максимальное количество баллов
-    amount_points = 0
-    for index in correct_indexes:
-        amount_points += len(index)
-    accuracy = (count_right_answers / amount_points) * 100 if amount_points > 0 else 0
+                if user_answer_value in new_answers:
+                    count_right_answers += 1
+                    index_corect.append(i)
+                    right_answers += 1
+                else:
+                    count_uncorrect_answers += 1
+                    uncorrect_answers += 1
+
+
+    answered_questions = test.answers.count("?@?") + 1   # сколько вопросов уже пройдено
+    accuracy = (right_answers  / answered_questions) * 100 if answered_questions > 0 else 0
 
     mark = (12 * accuracy) // 100
 
 
     for indexList in range(len(list_users_answers)):
         for i in range(len(list_users_answers[indexList])):
-            if list_users_answers[indexList][i] != "skip":
-                list_users_answers[indexList][i] = int(list_users_answers[indexList][i])
+            if list_users_answers[indexList][i] != "∅":
+                if types[indexList] == "many-answers" or types[indexList] == "one-answer":
+                    list_users_answers[indexList][i] = int(list_users_answers[indexList][i])
+                elif types[indexList] == "input-gap":
+                    list_users_answers[indexList][i] = user_answers[indexList]
 
-    socket.emit("test_result_profile", {
-        "amount_questions": amount_points,
-        "right_answers": count_right_answers,
-        "uncorrect_answers": count_uncorrect_answers,
+    if flask_login.current_user.is_authenticated:
+        old_data = flask_login.current_user.user_profile.last_passed #" 2"
+        indexes = old_data.split(" ") # [" ", "2"]
+        if indexes[0] == "" or indexes[0] == " ":
+            indexes.pop(0)# 
+
+        for el in indexes:
+            if int(el.split("/")[0]) == int(test_id) and len(el.split("/")) == 1:
+                current_index = indexes.index(el)
+                formatted_answers = ",".join(user_answers)
+                average_time = int(int(data["wasted_time"]) / count_answered) if count_answered != 0 else 0
+                indexes[current_index] = f"{test_id}/{formatted_answers}/{average_time}/{accuracy}"
+
+        flask_login.current_user.user_profile.last_passed = " ".join(indexes)
+        DATABASE.session.commit()
+
+    emit("test_result_profile", {
+        "amount_questions": test.answers.count("?@?") + 1,
+        "right_answers": right_answers,
+        "uncorrect_answers": uncorrect_answers,
         "accuracy": accuracy,
         "questions": list_final,
         "test_id": test_id,
@@ -153,8 +207,10 @@ def get_data(data):
         "count_answered": count_answered,
         "correct_index": index_corect,
         "users_answers": list_users_answers,
-        "correct_answers": correct_indexes
+        "correct_answers": correct_indexes,
+        "type_question": types_quest
     })
+
 
 @socket.on("add_favorite")
 def save_favorite(data: dict):

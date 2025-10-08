@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('student.static', filename='css/mentor_result.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <img data-open="{{ url_for('mentor.static', filename='images/open_eye.svg') }}" class="open-eye">
+    <img data-close="{{ url_for('mentor.static', filename='images/close_eye.svg') }}" class="close-eye">
+    <span id="arrow-img-path" data-src="{{ url_for('student.static', filename='images/show_more.svg') }}"></span>
+
+    <img data-src="{{ url_for('mentor.static', filename='images/people.svg') }}" class="hide">
+    <div class="pseudo-header">
+        <p class="join-text">приєднатися по коду<span class="code-room"></span></p>
+
+        <button type="button" class="next-question">наступне питання</button>
+    </div>
+
+    <div class="main-block">
+        <div class="accuracy-block">
+            <div class="outline-accruracy">
+                <div class="outline-accuracy">
+                    <div class="accuracy-gradient"></div>
+                </div>
+
+                <div class="rightwrong">
+                    <div class="right">
+
+                    </div>
+                    <div class="wrong">
+
+                    </div>
+                </div>
+
+                <div class="accuracy-form">
+                    <div class="rate">
+                        <div class="fill"></div>
+                        <div class="quard">
+                            <img src="{{ url_for('mentor.static', filename = 'images/robot-acc.svg') }}" alt="">
+                            <div class="text-perc">
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+        <div class="users-data">
+            <div class="top-data">
+
+            </div>
+            <div class="users-ratings">
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="{{ url_for('mentor.static', filename='js/mentor_result.js') }}"></script>
+    <script src="{{ url_for('mentor.static', filename='js/recconect.js') }}"></script>
+{% endblock %}

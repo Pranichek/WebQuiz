@@ -9,19 +9,20 @@
 {% endblock links %}
 
 {% block content %}
-    {% if message %}
-        <p>{{ message }}</p>
-    {% endif %}
-    <div class="background-blur"></div>
     <div class="join-game">
-        <h1>Привіт!</h1>
-        <p>Готовий кинути виклик своєму мозку?<br>Впиши код та приєднуйся до гри – тестуй свої знання, змагайся з<br>друзями та відкривай нове!</p>
+        <!-- <div class="background-blur"></div> -->
+        <div>
+           <h1>Привіт!</h1>
+            <p>Готовий кинути виклик своєму мозку?<br>Впиши код та приєднуйся до гри – тестуй свої знання, змагайся з<br>друзями та відкривай нове!</p> 
+        </div>
+        
         <form class="input-code" method="post">
-            <input type="text" placeholder="Enter a join code" class="as">
-            <button type="submit" class="submit-code">Join</button>
+            <input type="text" placeholder="Введіть код приєднання" name="input_room" class="as">
+            <button type="submit" class="submit-code">Приєднатися</button>
         </form>
     </div>
     <div class="cointeiner">
+        <div class="blur-background"></div>
 
         <div class="card transition2" data-value="хімія">
             <div class = "card-img">
@@ -73,9 +74,6 @@
                 <p  class="link-test">Тисни, щоб дізнатися більше!</p>
             </div>
         </div>
-        <!-- <div class="card transition7">
-
-        </div> -->
     </div>
 {% endblock %}
 

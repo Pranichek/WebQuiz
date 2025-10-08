@@ -12,7 +12,7 @@ class User(DATABASE.Model, flask_login.UserMixin):
     email = DATABASE.Column(DATABASE.String(150), nullable = False)
     is_mentor = DATABASE.Column(DATABASE.Boolean, default = False)
     
-    name_avatar = DATABASE.Column(DATABASE.String, default = "default_avatar.svg")
+    name_avatar = DATABASE.Column(DATABASE.String)
     size_avatar = DATABASE.Column(DATABASE.Integer, default = 100)
 
     # Зв'язок з таблицею Test
@@ -23,6 +23,16 @@ class User(DATABASE.Model, flask_login.UserMixin):
 
     # Зв'язок one to one із моделлю інфи користувача
     user_profile = DATABASE.relationship("DataUser", back_populates="user", uselist=False)
+
+    # Зв'язок one to one із моделлю кімнати
+    room = DATABASE.relationship("Rooms", back_populates="user", uselist=False)
+
+    # Зв'язок one to one із моделлю класу
+    mentor_class = DATABASE.relationship("Classes", back_populates="user", lazy="dynamic")
+
+
+
+
 
 
 

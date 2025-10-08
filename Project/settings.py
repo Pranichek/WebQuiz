@@ -1,5 +1,6 @@
 import flask, os
 
+
 project = flask.Flask(
     import_name = "Project",
     static_folder = "static",
@@ -7,6 +8,7 @@ project = flask.Flask(
     template_folder = "templates",
     instance_path = os.path.abspath(os.path.join(__file__, "..", "instance"))
 )
+
 
 
 

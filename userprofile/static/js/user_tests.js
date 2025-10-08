@@ -1,33 +1,46 @@
 let createRooms = document.querySelectorAll(".loadroom")
+if (localStorage.getItem("room_code")){
+    localStorage.removeItem("room_code")
+}
 
 // створення localstorage для відсліджування у якій вкладці зараз користувач
 // recently-passed - недавнопройдені тести
 // saved - збережені
 // created - створені тести
 
-let pageInfo = localStorage.getItem("pageindex")
-if (!pageInfo){
-    localStorage.setItem("pageindex", "created")
-}
 
-window.addEventListener(
-    'DOMContentLoaded',
-    () => {
-        document.querySelectorAll('.text-filter a').forEach(link => {
-        
-        if (link.classList.contains(localStorage.getItem("pageindex"))){
-                document.querySelector(".page-type").value = link.className
-                link.classList.add("active")
-            }
-        })
+
+window.addEventListener('DOMContentLoaded', () => {
+    let pageInfo = localStorage.getItem("pageindex");
+    let cookieCheck = document.cookie.split('; ').find(row => row.startsWith('pageindex='));
+
+    if (!pageInfo) {
+        pageInfo = "created";
+        localStorage.setItem("pageindex", pageInfo);
     }
-)
+
+    if (!cookieCheck) {
+        document.cookie = `pageindex=${pageInfo}; path=/`;
+        location.reload()
+    }
+
+    document.querySelectorAll('.text-filter a').forEach(link => {
+        console.log(cookieCheck.split("=")[1], "lololo")
+        if (link.classList.contains(cookieCheck.split("=")[1])) {
+            link.classList.add("active");
+            document.querySelector(".page-type").value = cookieCheck.split("=")[1];
+        } else {
+            link.classList.remove("active");
+        }
+    });
+});
+
 
 for (let button of createRooms){
     button.addEventListener(
         'click',
         () => {
-            location.replace(`/mentor?id_test=${button.value}&room_code=${button.dataset.test}`)
+            location.replace(`/mentor?id_test=${button.value}`)
         }
     )
 }
@@ -59,6 +72,10 @@ for (let elem of allInputs){
         () => {
             document.querySelector(".sad-robot").classList.add("hidden")
             document.querySelector(".error-text").classList.add("hidden")
+            document.querySelector(".cards-outline").style.flexDirection = "row";
+            document.querySelector(".cards-outline").style.gap = "1.25vw"
+
+
             if (elem.checked){
                 if (elem.classList.contains("category-input")){
                     postInputCategory.value += "/" + elem.value
@@ -110,6 +127,9 @@ for (let elem of allInputs){
             if (countValue == 0){
                 document.querySelector(".sad-robot").classList.remove("hidden")
                 document.querySelector(".error-text").classList.remove("hidden")
+                document.querySelector(".cards-outline").style.flexDirection = "column";
+                document.querySelector(".cards-outline").style.gap = "0"
+
             }
 
 
@@ -121,6 +141,9 @@ for (let elem of allInputs){
                     card.style.display = "flex";
                     document.querySelector(".sad-robot").classList.add("hidden")
                     document.querySelector(".error-text").classList.add("hidden")
+                    document.querySelector(".cards-outline").style.flexDirection = "row";
+                    document.querySelector(".cards-outline").style.gap = "1.25vw"
+
                 })
             }
 
@@ -170,8 +193,9 @@ for (let elem of allInputs){
 window.addEventListener(
     'DOMContentLoaded',
     () => {
-        let categoryFilter = localStorage.getItem("selectedCategories").split("/")
-        let sortData = localStorage.getItem("selectedSort").split("/")
+        let categoryFilter = (localStorage.getItem("selectedCategories") || "").split("/");
+        let sortData = (localStorage.getItem("selectedSort") || "").split("/");
+
 
         categoryFilter.forEach(el => {
             let idx = categoryFilter.indexOf(el)
@@ -205,7 +229,10 @@ function findResult(){
     let allCards = document.querySelectorAll(".card");
     let count = 0
     document.querySelector(".sad-robot").classList.add("hidden")
+    document.querySelector(".cards-outline").style.flexDirection = "row"
+    document.querySelector(".cards-outline").style.gap = "1.25vw"
     document.querySelector(".error-text").classList.add("hidden")
+
     allCards.forEach(card => {
         let nameData = card.dataset.name;
 
@@ -226,6 +253,8 @@ function findResult(){
     if (count == 0){
         document.querySelector(".sad-robot").classList.remove("hidden")
         document.querySelector(".error-text").classList.remove("hidden")
+        document.querySelector(".cards-outline").style.flexDirection = "column";
+        document.querySelector(".cards-outline").style.gap = "0"
     }
 }
 
@@ -271,15 +300,6 @@ inputField.addEventListener('input', () => {
 
 
 
-document.addEventListener('DOMContentLoaded', function () {
-    const toggleBtn = document.querySelector('.sidebar-toggle');
-    const sidebar = document.querySelector('.sidebar');
-
-    toggleBtn.addEventListener('click', function () {
-        sidebar.classList.toggle('open');
-    });
-});
-
 
 // убирать выбранные тесты из профиля
 let heartButtons = document.querySelectorAll(".heart")
@@ -290,8 +310,7 @@ for (let button of heartButtons){
         () => {
             let testId = button.dataset.value
             document.querySelector(".save-id").value = testId
-            console.log("testId =", testId)
-            console.log("document.querySelector('.save-id').value =", document.querySelector(".save-id").value)
+           
             document.querySelector(".invisible-button").submit()
         }
     )

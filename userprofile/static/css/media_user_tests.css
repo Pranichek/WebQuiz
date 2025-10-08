@@ -44,8 +44,6 @@
 
     .find-by-text form input{
         position: absolute;
-        width: 100%;
-        height: 100%;
         background-color: #7b7b7b;
         border: 1px #8ABBF7 solid;
         border-radius: 12px;
@@ -54,7 +52,6 @@
         /* padding: 0px 15px 0px 15px; */
         color: #ffffff;
         padding-left: 15px;
-        font-size: 26px;
     }
 }
 
@@ -86,13 +83,6 @@
     width: 100%;
   }
 
-  .cards-outline{
-    width: 90%;
-    max-width: 2000px;
-    /* background-color: brown; */
-    min-width: 0px;
-  }
-
   .card{
     width: 271px;
   }
@@ -119,7 +109,6 @@
   border: none;
   border-radius: 6px;
   padding: 8px 12px;
-  font-size: 18px;
   cursor: pointer;
 }
 

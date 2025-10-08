@@ -7,17 +7,22 @@ let answerInputList = document.querySelectorAll(".answer");
 time.addEventListener("click", ()=>{
     if (timeList.classList.contains("hidden-list")){
         timeList.classList.remove("hidden-list");
+        timeList.classList.add("visible");
+        document.querySelector(".show_more_velocity").style.transform = "rotate(180deg)";
     } else{
         timeList.classList.add("hidden-list");
+        document.querySelector(".show_more_velocity").style.transform = "rotate(0deg)";
     }
     
 })
 
 for (let li of liList){
+    
     li.addEventListener("click", ()=>{
-        time.textContent = li.textContent;
+        time.querySelector(".text").textContent = li.textContent;
         timeList.classList.add("hidden-list");
         document.cookie = `category=${li.dataset.category}; path=/;`;
+        document.querySelector(".show_more_velocity").style.transform = "rotate(180deg)";
         ChangePhoto(text_li = li.textContent);
     })
 }
@@ -76,9 +81,9 @@ window.addEventListener(
         let cookies = document.cookie.match("category")
         if (cookies){
             let cookiename = document.cookie.split("category=")[1].split(";")[0];
-            time.textContent = cookiename
+            time.querySelector(".text").textContent = cookiename
         }else{
-            time.textContent = "оберіть категорію тесту "
+            time.querySelector(".text").textContent = "оберіть категорію тесту"
         }
     }
 )

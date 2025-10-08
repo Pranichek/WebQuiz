@@ -2,9 +2,12 @@ const modal = document.querySelector('.modal-image');
 
 function openModal() {
     modal.classList.add('active');
+    document.querySelector(".modal-backdrop").classList.add("active");
 }
 
 function closeModal() {
+    console.log("1")
+    document.querySelector(".modal-backdrop").classList.remove("active");
     modal.classList.remove('active');
 }
 const previewImage = (event) => {
@@ -15,6 +18,14 @@ const previewImage = (event) => {
         imageelement.src = ImageUrl;
     }
 }
+
+document.querySelector(".outline-image").addEventListener(
+    'click',
+    () => {
+        console.log(89)
+        document.querySelector(".load_image").click()
+    }
+)
 
 window.addEventListener(
     'DOMContentLoaded',
@@ -40,4 +51,3 @@ window.addEventListener(
 function sumbmitIMage(){
     document.querySelector("#image_form").submit();
 }
-

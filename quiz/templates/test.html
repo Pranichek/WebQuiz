@@ -6,12 +6,23 @@
 
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/test.css') }}">
+    <link rel="stylesheet" href="{{ url_for('test_pass.static', filename='css/window_delete.css') }}">
 {% endblock %}
 
 {% block content %}
     <form action="" method="post" id="del_form">
         <input type="hidden" name="check_post" value="del_image">
     </form>
+
+    <div class="window-choice">
+        <h1>Видалити питання</h1>
+        <p>Ви впевнені, що хочете видалити це питання?</p>
+        <div>
+            <p class="decline">Скасувати</p>
+            <p class="remove_question">Видалити</p>
+        </div>
+    </div>
+
     <!-- койнтейнер где храним путь ко всем базаым фоткам тестов -->
     <div class="save-photos">
         <div class="programin-photo" data-programing="{{ url_for('test_pass.static', filename = 'images/programmer_image.png') }}"></div>
@@ -22,63 +33,67 @@
         <div class="physics-photo" data-physics="{{ url_for('test_pass.static', filename = 'images/physics.png') }}"></div>
         <div class="another-photo" data-another="{{ url_for('test_pass.static', filename = 'images/cover.png') }}"></div>
     </div>
-    <div class="modal-image">
-        <div class="top-floor">
-            <img src="{{ url_for('test_pass.static', filename='images/add.png') }}" alt="icon" class="example_image">
-            <p class="add_text">Додати зображення</p>
-        </div>
-        <div class="load_text">
-            <button class="load_button" type="button">
-                
-                <form action="" method="post" id = "image_form" enctype="multipart/form-data">
-                    <input class="input_file" id="image" name="image" type="file" accept="image/*" onchange="previewImage(event);">
-                    <input type="hidden" name="check_post" value="image">
-                    <label for="image">
-                        <img src="{{ url_for('test_pass.static', filename='images/upload.png') }}" alt="icon" class="load_image">
-                        Завантажити 
-                    </label>
-                </form>
-            </button>
-        </div>
-        <div class="show_image">
-            <div class="outline-image">
-                <img src="{{ url_for('test_pass.static', filename='images/add.png') }}" alt="icon" class="example_image">
-                <img id="show_image_test" src="{{ url_for('test_pass.static', filename = 'images/invisible.png') }}" alt="">
+    
+    <div class="modal-backdrop">
+        <div class="modal-image">
+            <div class="top-floor">
+                <img src="{{ url_for('test_pass.static', filename='images/add.svg') }}" alt="icon" class="example_image">
+                <p class="add_text">Додати зображення</p>
+            </div>
+            <div class="load_text">
+                <button class="load_button" type="button">
+                    
+                    <form action="" method="post" id = "image_form" enctype="multipart/form-data">
+                        <input class="input_file" id="image" name="image" type="file" accept="image/*" onchange="previewImage(event);">
+                        <input type="hidden" name="check_post" value="image">
+                        <label class="open-wind" for="image" style="display: flex; flex-direction:row; margin-left:1vw;">
+                            <img src="{{ url_for('test_pass.static', filename='images/upload.svg') }}" alt="icon" class="load_image">
+                            Завантажити 
+                        </label>
+                    </form>
+                </button>
+            </div>
+            <div class="show_image">
+                <div class="outline-image">
+                    <img src="{{ url_for('test_pass.static', filename='images/add.svg') }}" alt="icon" class="example_image">
+                    <img id="show_image_test" src="{{ url_for('test_pass.static', filename = 'images/invisible.png') }}" alt="">
+                </div>
+            </div>
+            <div class="buttom-floor">
+                <div>
+                    <button class="apply-image delete-photo" type="button" onclick="DeleteImage();">видалити фото</button>
+                </div>
+                <div>
+                    <button class="back-button" type="button" class="close-modal" onclick="closeModal();">назад</button>
+                    <button class="apply-image" type="button" onclick="sumbmitIMage()">застосувати зображення </button>
+                </div>
             </div>
         </div>
-        <div class="buttom-floor">
-            <button class="apply-image delete-photo" type="button" onclick="DeleteImage();">видалити фото</button>
-            <button class="back-button" type="button" class="close-modal" onclick="closeModal();">назад</button>
-            <button class="apply-image" type="button" onclick="sumbmitIMage()">застосувати зображення </button>
-        </div>
     </div>
+    
+
     <form action="" method="post" id="main-form" enctype="multipart/form-data">
         <input type="hidden" name="check_post" value="create_test">
         <div class="top-block">
             <div class="main-info">
                 <div class="info-block">
-                    <div class="test-cover-wrapper">
-                        <div class="outline-test">
-                            {% if cash_image != 'default' %}
-                                <img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/cash_test/' + cash_image) }}" alt="cash_image" class="test-cover">
-                            {% elif cash_image == 'default' %}
-                                <img src="" alt="" class="test-cover">
-                            {% endif %}
-                        </div>
-                        <img src="{{ url_for('test_pass.static', filename='images/add.png') }}" alt="icon" onclick="openModal()"; class="center-icon">
+                    <!-- <div class="test-cover-wrapper"> -->
+                    <div class="outline-test">
+                        {% if cash_image != 'default' %}
+                            <img src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/cash_test/' + cash_image) }}" alt="cash_image" class="test-cover">
+                        {% elif cash_image == 'default' %}
+                            <img src="" alt="" class="test-cover">
+                        {% endif %}
+                        <img src="{{ url_for('test_pass.static', filename='images/add.svg') }}" alt="icon" onclick="openModal()" class="center-icon">
+
                     </div>
+                    <!-- </div> -->
                 
                     <div class="info">
-                        <input maxlength="30" id="testInput" class="test-title-input title_test" name="test_title" onchange="saveName()" type="text" placeholder="назва тесту" />
+                        <input id="testInput" class="test-title-input title_test" name="test_title" onchange="saveName()" type="text" placeholder="назва тесту" disabled />
                         <div class="under-line"></div>
                         <div id="mirror"></div>
 
-                        <div class="checklist">
-                            <div class="first-rule">
-                                <img class="icon-item username-like" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
-                                <p class="checklist-item">Назва має складатися не менше, ніж з 5 літер</p>
-                            </div>
-                        </div>
                         <div class="creator-info">
                             <div class="avatar-circle">
                                 <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
@@ -94,22 +109,21 @@
                 <div class="gray-block">
                     <img class="mini-robot" src="{{ url_for('test_pass.static', filename='images/mini-robot.png') }}" alt="">
                     <span>
-                        <p>Створюй</p>
-                        <p class="smaller-text" >Створюй свої тести та проходь з друзями</p>
+                        <p class="big-text">Створюй</p>
+                        <p class="smaller-text">Створюй свої тести та проходь з друзями</p>
                     </span>
                 </div>
             </div>
             
             <div class="additional-buttons">
-                <div>
-                    <button class="set-name" type="button" onclick="ChangeName();">
-                        <img class="sign" src="{{ url_for('test_pass.static', filename = 'images/pen.png') }}" alt="">
-                        редагувати назву теста
-                    </button>
-                </div>
+                <button class="set-name" type="button" onclick="ChangeName();">
+                    <img class="sign" src="{{ url_for('test_pass.static', filename = 'images/pen.png') }}" alt="">
+                    редагувати назву теста
+                </button>
+                
                 <div class="right-buttons">
                     <div class="type">
-                        <p class="type-p timer-p" id="time">оберіть категорію тесту</p>
+                        <p class="type-p timer-p" id="time"><span class="text"></span><img  class="show_more_velocity" src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></p>
                         <ul id="timeList" class="hidden-list">
                             <li data-category="математика">математика</li>
                             <li data-category="англійська">англійська</li>
@@ -117,8 +131,9 @@
                             <li data-category="історія">історія</li>
                             <li data-category="фізика">фізика</li>
                             <li data-category="хімія">хімія</li>
-                            <li data-category="інше">інше</li>
+                            <li data-category="інше" class="last-li">інше</li>
                         </ul>
+                        
                     </div>
                 
                     <button class="watch_test" type="button">
@@ -129,6 +144,7 @@
             </div>
         </div>
         
+        
         <div class="buttons">
             <a class="add" href="/test/create_question">
                 + Додати питання
@@ -137,17 +153,26 @@
                 + Згенерувати питання
             </button>
         </div>
+
         <div class="all-cards">
+            {% set ns = namespace(counter=-1) %}
             {% for this_question in question_list %}
+                {% set ns.counter = ns.counter + 1 %}
                 <!-- якщо довжина питання більше чим один символ, то можемо створити питання -->
                 {% if this_question.question|length >= 1 %}
-                    <div class="question-card">          
-                        <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">     
+                    <div class="question-card">   
+                             
                         <span class="question-conainer">
-                            <p class="question">{{ this_question.question }}</p>
+                            <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">
+                            <div class="data-question">
+                                <p class="question">{{ this_question.question }}</p>
+                                {% if img_lists[loop.index0][0] != "not" %}
+                                    <img class="question_img" src="{{ img_lists[loop.index0][0] }}" alt="">
+                                {% endif %}
+                            </div>
                             <button type="button" class="button-delete {{ this_question.question }}" pk="{{ this_question.pk }}" value="{{ this_question.pk }}">delete</button>
                             <div class="delete-question">
-                                <img onclick="this.closest('.question-conainer').querySelector('.button-delete').click();" class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.png') }}" alt="">
+                                <img onclick="this.closest('.question-conainer').querySelector('.button-delete').click();" class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.svg') }}" alt="">
                             </div>
                             <div class="edit_question">
                                 <img class="pen-img" src="{{ url_for('test_pass.static', filename = 'images/white_pen.svg') }}" alt="" >
@@ -157,9 +182,24 @@
                         </span>
                         <span class="answers">
                             {% for answer in this_question.answers %}
-                            <div class="variant">
-                                <div class="circle"></div>
-                                <p class="answer">{% if answer != "image?#$?image" %}{{ answer }}{% else %}Зображення{% endif %}</p>
+                            <div class="{% if this_question.type_question != 'input-gap' %}variant {% endif %}{{ this_question.type_question }}">
+
+                                {% if this_question.type_question == "one-answer" %}
+                                    <div class="circle"></div>
+                                {% elif this_question.type_question == "many-answers" %}
+                                    <div class="quard"></div>
+                                {% elif this_question.type_question == "input-gap" %}
+                                    <img class="input-correct" src="{{ url_for('test_pass.static', filename = 'images/correct.png') }}" alt="">
+                                {% endif %}
+
+                                {% if img_lists[ns.counter][loop.index] == "not" %}
+                                    <p class="answer">{{ answer }}</p>
+                                {% elif img_lists[ns.counter][loop.index] != "not" %}
+                                    {% if answer != "image?#$?image" %}
+                                        <p class="answer">{{ answer }}</p>
+                                    {% endif %}
+                                    <img class="question_img" src="{{ img_lists[ns.counter][loop.index] }}" alt="">
+                                {% endif %}
                             </div>
                             {% endfor %}
                         </span>
@@ -169,21 +209,23 @@
         </div>
 
         
-        {% if question_list|length >= 2 %}
+        <!-- {% if question_list|length >= 2 %} -->
             <div class="buttons buttons-bottom">
-                <button class="add-test" type="button"> + Зберегти вікторину</button>
+                <button class="add-test" id="apple" type="button">+ Зберегти вікторину</button>
                 <button class="add-test" type="button">Почати тест</button>
             </div>
-        {% endif %}
+        <!-- {% endif %} -->
     </form>
 {% endblock %}
 
 {% block scripts %}
+    <script type="module" src="{{ url_for('static', filename= 'js/showMessage.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/test.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/test_category.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/modalimage.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/ajaxDeleteImage.js') }}"></script>
-    <script src="{{ url_for('test_pass.static', filename='js/createTest.js') }}" defer></script>
+    <script type="module" src="{{ url_for('test_pass.static', filename='js/createTest.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/underline.js') }}"></script>
+
 {% endblock %}

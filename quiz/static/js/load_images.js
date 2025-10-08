@@ -1,3 +1,5 @@
+import { answerScanning } from "./answers_scaning.js"
+
 // отображение картинок которых он подргрузил к ответу
 let inputsImages = document.querySelectorAll(".input_load")
 let answerBlocks = document.querySelectorAll(".inside-data")
@@ -27,7 +29,8 @@ for (let input of inputsImages){
 
             textAreas.forEach((textarea) => {
                 if (textarea.id == input.id){
-                    textarea.style.fontSize = "2vh"
+                    textarea.style.fontSize = "1.2vw"
+                    textarea.style.height = "30%"
                 }
             })
 
@@ -78,7 +81,8 @@ for (let buttonLoad of loadButtons){
                 })
                 textAreas.forEach((textarea) => {
                     if (textarea.id == buttonLoad.id){
-                        textarea.style.fontSize = "3vh"
+                        textarea.style.fontSize = "1.45vw"
+                        textarea.style.height = "80%"
                     }
                 })
                 loadButtons.forEach((button) => {

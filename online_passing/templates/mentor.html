@@ -1,0 +1,175 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Ментор
+{% endblock %}
+    
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('mentor.static', filename ='css/mentor.css') }}">
+{% endblock links %}
+    
+{% block content %}   
+    <img src="" alt="" data-link="{{ url_for('mentor.static', filename='images/mentor/cross_user.svg') }}" style="display: none;" id="imageLink">
+
+    <div class="window-choice">
+        <h1>Видалити учасника з кімнати</h1>
+        <p>Ви впевнені, що хочете видалити цього учасника з кімнати?</p>
+        <div>
+            <p class="decline">Скасувати</p>
+            <p class="remove_user">Видалити</p>
+        </div>
+    </div>
+
+    <div class="general_container_rect">
+    
+        <div class="mentor-layout">
+
+            <div class="mentor-info-card">
+                <div class="mentor-header">
+                    
+                    <div class="mentor-info">
+                        <span class="mentor_name">{{ user.username }}</span>
+                        <span class="email">{{ user.email }}</span>
+                    </div>
+                    <div class="mentor-avatar">
+                        <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                        <p class="you">ВИ</p>
+                    </div>
+                </div>
+                <div class="topic">
+                    <img class="image-test" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                    <p class="topic-text">{{ title_test }}</p>
+                </div>
+
+            </div>
+
+            <div>
+                <p class=""></p>
+            </div>
+
+
+         
+            <div class="mentor-card">
+                <div class="mentor-join-info">
+                    <div class="join">
+                        <span>Приєднуйтесь з будь-якого пристрою</span>
+                        <div class="url copy-url">
+                            <span id="link-text">joinquiz.com</span>
+                            <img class="copy" src="{{ url_for('mentor.static', filename='images/mentor/copy.svg') }}" alt="copy icon">
+                        </div>
+                    </div>
+
+                    <div class="join-code">
+                        <span>Код приєднання</span>
+                        <div class="code copy-code">
+                            <span id="code"></span>
+                            <img class="copy " src="{{ url_for('mentor.static', filename='images/mentor/copy.svg') }}" alt="copy icon">
+                        </div>
+                    </div>
+
+                    <div class="user-count">
+                        <span>Kількість учасників</span>
+                        <span id="amount_users">{{ all_participants | length }}</span>
+                    </div>
+
+                    <div class="qr-code">
+                        <p>Скануй QR-Code <br>та приєднуприєднуйся до тесту </p>
+                        <a class="qr-code-outline" href="" onclick="event.preventDefault(); showQR() "                                           >
+                            <img class="img-qrcode" src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                        </a>
+                    </div>
+
+                    <div class="modal-window" id="qrModal">
+                        <div class="modal-content">
+        
+                            <div class="qrcode">
+                                <div class="nameofcode">
+                                    <h2>QR-код</h2>
+                                    <div class="close-btn" onclick="hideQR()">
+                                        <img src="{{ url_for('mentor.static', filename='images/mentor/exit.svg') }}" alt="">
+                                    </div>
+                                </div>
+                                
+                                <div class="qr-code-div">
+                                    <img src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                                </div>
+                            </div>
+
+                            <div class="bottom-part">
+                                <h3 id="for-text">Або приєднуйся по коду!</h3>
+                                <h2>{{ code }}</h2>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div class="mentor-buttons">
+                        <button class="start">почати зараз</button>
+                        <button class="end">кінець уроку</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="participants-section">
+        <span class="flex-block">
+            <h4>Учасники</h4>
+            <img src="{{ url_for('mentor.static', filename='images/people.svg') }}" alt="">
+            <p id="amount_users">{{ all_participants | length }}</p>
+        </span>
+        <div class="users">
+
+        </div>
+        
+
+        <div class="chat-icon">
+
+            
+            <div class="chat-box">
+                <div class="header-chat">
+                    <div class="avatar-circle-chat">
+                        <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                    </div>
+                    <span class="username">{{ user.username }}</span>
+                    
+                    <p>Груповий чат</p>
+
+                    <img src="{{ url_for('mentor.static', filename='images/chat/chat-robot.svg') }}" alt="">
+                </div>
+                <div class="messages">
+                
+                </div>
+                <div class="input-text">
+                    <div class="quiz/static/images/mentor/message-logo.svg">
+                        <input type="text" placeholder="повідомлення" class="message-input">
+                        <span class="send-message"><img src="{{ url_for('mentor.static', filename='images/mentor/send-icon.svg') }}" alt=""></span>
+                    </div>
+                </div>
+            </div>
+           
+
+            <div class="check-click">
+                <img id="open-chat" src="{{ url_for('mentor.static', filename='images/chat_robot.png') }}" alt="">
+                Відкрити чат
+            </div>
+        </div>
+
+        
+    </div>
+
+{%  endblock %}
+
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        const staticBase = "{{ url_for('mentor.static', filename='images/mentor/student_avatar.png') }}";
+    </script>
+    <script src="{{ url_for('mentor.static', filename='js/mentor.js') }}"></script>
+    <script src="{{ url_for('mentor.static', filename='js/chat.js') }}"></script>
+    <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('mentor.static', filename='js/getNewUser.js') }}"></script>
+{% endblock scripts %}
