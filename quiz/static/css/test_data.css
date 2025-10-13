@@ -20,16 +20,16 @@
     display: flex;
     position: relative;
     justify-content: space-between;
-    width: 90vw;
+    width: 50vw;
     height: 35vh;
-    margin-top: 5vh;
-    margin-bottom: 8vh;
+    flex-direction: column;
+    gap: 10px;
 }
 
 
 .test-info{
     height: 100%;
-    width: 50%;
+    width: 78%;
     display: flex;
     justify-content: space-between;
 }
@@ -48,7 +48,19 @@
     object-fit: contain;
     filter: drop-shadow(0 0 60px rgb(120, 183, 235));
 }
-
+.second{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.first{
+    display: flex;
+    flex-direction: column;
+}
+.main{
+    display: flex;
+    flex-direction: row;
+}
 .python{
     height: 100%;
     aspect-ratio: 1 / 1; 
@@ -113,13 +125,20 @@
 
 
 .actions {
-    margin-top: 1vw;
+    margin-top: 10vw;
     display: flex;
     justify-content: center;
     gap: 0.5vw;
     margin-bottom: 8vh;
 }
-
+input{
+    margin-top: 5vh;
+    width: 30vw;
+    height: 45vh;
+    box-sizing: border-box;
+    padding: 10px;
+    font-size: 1rem;
+}
 .start-btn{
     min-height: 20px;
     position: relative;
@@ -160,7 +179,7 @@
 
 
 .questions-container{
-    width: 80vw;
+    width: 40vw;
     background-color: rgba(138, 187, 247, 20%);
     border-radius: 16px;
     border: 1px solid #000;
@@ -172,11 +191,12 @@
     position: relative;
     overflow-y: auto;
     margin-bottom: 8vh;
+    margin-top: 8vh;
 }
 
 .question-block {
-    width: 60vw;
-    height: 50vw;
+    width: 35vw;
+    height: 15vw;
     overflow: hidden;
     display: flex;
     flex-direction: column;
