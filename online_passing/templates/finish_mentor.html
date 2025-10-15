@@ -17,12 +17,17 @@
         </div>
     </div>
     <div class="graphics">
-
+        <div class="main-diagram">
+            <div class="diagram-pie">
+                <canvas class="myChart"></canvas>
+            </div>
+        </div>
     </div>
 {% endblock content %}
 
 {% block scripts %}
     {{ super() }}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('mentor.static', filename='js/finish_mentor.js') }}" defer></script>
     <script src="{{ url_for('mentor.static', filename='js/recconect.js') }}" defer></script>
 {% endblock %}

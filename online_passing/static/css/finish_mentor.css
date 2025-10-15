@@ -53,6 +53,23 @@ main{
     height: 90vh;
     display: flex;
     background-color: pink;
+    position: relative;
+    flex-direction: column;
+}
+
+.main-diagram{
+    width: 100%;
+    height: 50%;
+    background-color: white;
+    position: relative;
+    display: flex;
+
+}
+
+.diagram-pie{
+    width: 100%;
+    height: 71%;
+    display: flex;
 }
 
 .user-card{
@@ -79,3 +96,4 @@ main{
     height: 100%;
     transition: width 0.8s;
 }
+

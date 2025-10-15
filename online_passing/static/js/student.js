@@ -36,7 +36,7 @@ socket.on("update_users", data => {
 
     
     document.querySelector(".num-students").textContent = (users.length - 1 >= 0) ? (users.length - 1) : 0
-    document.querySelector(".code_room").textContent = data.code
+    // document.querySelector(".code_room").textContent = data.code
     const blockUsers = document.querySelector(".icons-users")
 
     blockUsers.innerHTML = "";

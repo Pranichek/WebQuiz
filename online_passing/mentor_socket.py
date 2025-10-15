@@ -239,13 +239,13 @@ def finish_test(data):
     user_list = []
     room = Rooms.query.filter_by(room_code= data["room"]).first()
     user_ids = room.users.split() if room and room.users else []
-
-    test : Test = Test.query.get(int(data["test_id"]))
+    accuracy_result = [[90, 3]] #[[80, 5],[50, 1]] - пример что в нем будет хранится(80 - это проценты, 5 - колво людей что прошло на такой результат)
 
     for user_id in user_ids:
         user : User  = User.query.get(int(user_id))
         user.user_profile.answering_answer = "відповідає"
         DATABASE.session.commit()
+
         if user and user.id != flask_login.current_user.id:
             avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.email}/{user.name_avatar}')
 
@@ -258,9 +258,29 @@ def finish_test(data):
                 "accuracy": user.user_profile.last_answered.split("/")[1],
             })
 
-    
+            accuracy = int(user.user_profile.last_answered.split("/")[1].split(".")[0])
+            check = False
+            for elem in accuracy_result:
+
+                if elem[0] == accuracy:
+                    # [80, 5]
+                    check = True
+                    elem[1] += 1
+                    break
+
+            if check == False:
+                new_list = []
+                new_list.append(accuracy)
+                new_list.append(1)
+                accuracy_result.append(new_list)
+
+            
+                
+            
+
     user_list = sorted(user_list, key=itemgetter("count_points"), reverse=True)
     
     emit("list_results", {
-        "users": user_list
+        "users": user_list,
+        "accuracy_result": accuracy_result
     })
