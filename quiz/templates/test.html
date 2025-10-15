@@ -102,46 +102,46 @@
                                 <p class="creator-name">{{ user.username }}</p>
                                 <p class="creator-email">{{ user.email }}</p>
                             </div>
+
+                            <button class="set-name" type="button" onclick="ChangeName();">
+                                змінити
+                            </button>
                         </div>
                     </div>
                 </div>
                 
-                <div class="gray-block">
-                    <img class="mini-robot" src="{{ url_for('test_pass.static', filename='images/mini-robot.png') }}" alt="">
-                    <span>
-                        <p class="big-text">Створюй</p>
-                        <p class="smaller-text">Створюй свої тести та проходь з друзями</p>
-                    </span>
-                </div>
+                <div class="right-block">
+                    
+                        <div class="description-block">   
+                            <textarea  class="description" name="description" id="description" type="text" placeholder="Опис тесту(необов’язково):"></textarea> 
+                        </div>
+                    
+                    <div class="additional-buttons">
+                        
+                            <div class="right-buttons">
+                                <div class="type">
+                                    <p class="type-p timer-p" id="time"><span class="text"></span><img  class="show_more_velocity" src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></p>
+                                    <ul id="timeList" class="hidden-list">
+                                        <li data-category="математика">математика</li>
+                                        <li data-category="англійська">англійська</li>
+                                        <li data-category="програмування">програмування</li>
+                                        <li data-category="історія">історія</li>
+                                        <li data-category="фізика">фізика</li>
+                                        <li data-category="хімія">хімія</li>
+                                        <li data-category="інше" class="last-li">інше</li>
+                                    </ul>
+                                    
+                                </div>
+                            
+                                <button class="watch_test" type="button">
+                                    <img class="sign" src="{{ url_for('test_pass.static', filename = 'images/watch_test.png') }}" alt="">
+                                    попердній перегляд
+                                </button>
+                            </div>
+                        </div> 
+                    </div>   
             </div>
             
-            <div class="additional-buttons">
-                <button class="set-name" type="button" onclick="ChangeName();">
-                    <img class="sign" src="{{ url_for('test_pass.static', filename = 'images/pen.png') }}" alt="">
-                    редагувати назву теста
-                </button>
-                
-                <div class="right-buttons">
-                    <div class="type">
-                        <p class="type-p timer-p" id="time"><span class="text"></span><img  class="show_more_velocity" src="{{ url_for('test_pass.static', filename='images/show_more.svg') }}" alt=""></p>
-                        <ul id="timeList" class="hidden-list">
-                            <li data-category="математика">математика</li>
-                            <li data-category="англійська">англійська</li>
-                            <li data-category="програмування">програмування</li>
-                            <li data-category="історія">історія</li>
-                            <li data-category="фізика">фізика</li>
-                            <li data-category="хімія">хімія</li>
-                            <li data-category="інше" class="last-li">інше</li>
-                        </ul>
-                        
-                    </div>
-                
-                    <button class="watch_test" type="button">
-                        <img class="sign" src="{{ url_for('test_pass.static', filename = 'images/watch_test.png') }}" alt="">
-                        попердній перегляд
-                    </button>
-                </div>
-            </div>
         </div>
         
         

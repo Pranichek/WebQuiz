@@ -59,6 +59,7 @@ def render_test():
 
         if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
             test_title = flask.request.form["test_title"]
+            description = flask.request.cookies.get("description", "").encode('raw_unicode_escape').decode('utf-8')
             question_time = flask.request.cookies.get("time").encode('raw_unicode_escape').decode('utf-8')
 
             len_questions = len(cookie_questions.split("?%?"))
@@ -81,6 +82,7 @@ def render_test():
 
             test = Test(
                 title_test = test_title,
+                description = description,
                 questions = new_questions,
                 type_questions = new_types_questions,
                 answers = new_answers,
