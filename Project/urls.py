@@ -65,6 +65,12 @@ home.login.add_url_rule(
     methods = ["GET", "POST"]
 )
 
+home.login.add_url_rule(
+    rule = "/registration/complete_finish_signup",
+    view_func = home.render_finish_google_signup,
+    methods = ["GET", "POST"]
+)
+
 home.registration.add_url_rule(
     rule = "/clear_code",
     view_func = home.clear_code

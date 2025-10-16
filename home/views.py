@@ -354,7 +354,7 @@ def render_login():
             email = email,
             message = message,
             random_num = random.randint(1, 5)
-            )
+        )
     else:
         return flask.redirect("/")
 
@@ -367,7 +367,7 @@ def render_google_login():
     # scopes that let you retrieve user's profile from Google
     request_uri = client.prepare_request_uri(
         authorization_endpoint,
-        redirect_uri = flask.url_for("app.render_callback", _external=True),
+        redirect_uri = flask.url_for("login.render_google_callback", _external=True),
         scope=["openid", "email", "profile"],
     )
     print("login func end")
@@ -423,13 +423,25 @@ def render_google_callback():
     print("callback func logging in")
     # Create a user in your db with the information provided
     # by Google
+    avatar = f"default_avatar{random.randint(1,5)}.svg"
     user = User(
-        google_id=unique_id, username=users_name, email=users_email
+        username=users_name,
+        email=users_email,
+        name_avatar = avatar,
+        google_id=unique_id
     )
 
     # Doesn't exist? Add it to the database.
     if not User.query.get(unique_id):
-        user = User(google_id = unique_id, username = users_name, email = users_email)
+        user = User(
+            username=users_name,
+            email=users_email,
+            name_avatar = avatar,
+            google_id=unique_id
+        )
+        profile = DataUser()
+        user.user_profile = profile
+
         DATABASE.session.add(user)
         DATABASE.session.commit()
 
@@ -438,4 +450,30 @@ def render_google_callback():
     print("callback func end")
 
     # Send user back to homepage
-    return flask.redirect("/")
+    return flask.redirect("/registration/complete_finish_signup")
+
+def render_finish_google_signup():
+    user = User.query.filter_by(email = flask_login.current_user.email).first()
+    password_shake = ""
+    if flask.request.method == "POST":
+        mentor_form = bool(flask.request.form["mentor"])
+
+        password_form = flask.request.form["password"]
+        confirm_password = flask.request.form["confirm-password"]
+        if password_form == confirm_password and len(password_form) == 8:
+            user.password = password_form
+            user.is_mentor = mentor_form
+
+            DATABASE.session.commit()
+            
+            return flask.redirect("/verify_code")
+        else:
+            flask.session.clear()
+            password_shake = "Passwords are not eual"
+            message = "Введені паролі не співпадають"
+        
+    return flask.render_template(
+        template_name_or_list = "finish_google_signup.html", 
+        password_shake = password_shake,
+        username = user.username
+    )

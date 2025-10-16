@@ -1,28 +1,21 @@
 {% extends 'base.html' %}
 
-{% block title %}Authorization{% endblock %}
+{% block title %}
+    Доповніть інформацію
+{% endblock %}
 
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('registration.static', filename='css/registration.css') }}">
-{% endblock links %}
-
-{% block nav %}
-    <div class="nav-links">
-        <a href="/" class="test-button">Приєднатися до тесту</a>
-    </div>
-{% endblock nav %}
+{% endblock %}
 
 {% block content %}
+    
     <div class = "content-registration">
         <div class="registration">
             <form action="" method="post">
-                <div class="img-avatar">
-                    <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar' ~ random_num ~ '.svg') }}" alt="avatar">
-                </div>
-                <!-- инпут для проверки post запроса -->
-                <input type="hidden" name="check_form" value="registration">
+
                 <div class="sua">
-                    <input minlength="2" maxlength="20" autocomplete="off" pattern="^.{2,20}$" class="text-input username_input" type="text" name= "username" placeholder= "Введіть ім'я" required>
+                    <input minlength="2" maxlength="20" autocomplete="off" pattern="^.{2,20}$" class="text-input username_input" type="text" name= "username" placeholder= "Введіть ім'я" required value="{{ username }}">
                     <div class="username-checklist">
                         <div class="top-part">
                             <h3 class="checklist-title">Ім'я повинно містити</h3>
@@ -46,8 +39,9 @@
                 </div>
                 
 
-                <input type="hidden" inputmode="numeric" id = "input_phone" pattern="[\d\+]*$" class="text-input phone {% if phone_shake %}phone_shake{% endif %}" type="tel" maxlength="13" minlength="13" name= "phone_number" placeholder="Введіть номер телефону (починайте з +380)" value="+380" autocomplete="off" required>
-                <input inputmode="email" autocomplete="off" class="text-input email {% if email_shake %}email_input{% endif %}" type= "email" name= "email" placeholder= "Введіть email" required>
+                <!-- <input type="hidden" inputmode="numeric" id = "input_phone" pattern="[\d\+]*$" class="text-input phone {% if phone_shake %}phone_shake{% endif %}" type="tel" maxlength="13" minlength="13" name= "phone_number" placeholder="Введіть номер телефону (починайте з +380)" value="+380" autocomplete="off" required>
+                <input inputmode="email" autocomplete="off" class="text-input email {% if email_shake %}email_input{% endif %}" type= "email" name= "email" placeholder= "Введіть email" required> -->
+                <p id="passwordLabel">Вигадайте унікільний пароль для цього сервісу, щоб мати змогу авторизуватися з його допомогою</p>
                 <div class="password-container">
                     <!-- Вот тут вот находится єтот глазик которій прячет и открівает пароль -->
                     <!-- 
@@ -56,7 +50,7 @@
                     (?=.*[A-Za-z]) - Хоча б одна буква
                     (?=.*\d) - Хоча б одна цифра
                     [A-Za-z\d]+ - Лише латинські літери
-                     -->
+                    -->
                     <input onpaste="return false;" autocomplete="new-password" class="text-input password-input" type="password" name="password"  pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+"  placeholder="Введіть Ваш пароль" class="input_password" id="password1" required>
                     <img id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
                     <img class="hidden1" id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
@@ -109,8 +103,8 @@
                     </label>
                 </div>
 
-                <a href="/google_login">Увійти за допомогою <img src="" alt="icon"></a>
-                <button class="send-data" onclick="Shake()" type="submit">Створити акаунт</button>
+                <!-- <a href="/google_login">Увійти за допомогою <img src="" alt="icon"></a> -->
+                <button class="send-data" onclick="Shake()" type="submit">Завершити реєстрацію</button>
                 <p class="problem">{{ message }}</p>
             </form>
         </div>
@@ -135,14 +129,11 @@
             <div class="robot-glowing-area"></div>
             <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
         </div>
-        <form action="" method="post" id="clear-form">
-            <input type="hidden" name="check_form" value="clear_form">
-        </form>
-
     </div>
+
 {% endblock %}
 
 {% block scripts %}
     <script src="{{ url_for('registration.static', filename='js/registration.js') }}"></script>
     <script src="{{ url_for('registration.static', filename='js/check_username.js') }}"></script>
-{% endblock scripts %}
+{% endblock %}

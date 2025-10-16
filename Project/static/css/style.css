@@ -199,7 +199,7 @@ nav {
 }
 
 html, body {
-    /* overflow-x: hidden; */
+    overflow-x: hidden;
     width: 100%;
 }
 
@@ -399,12 +399,12 @@ html, body {
         display: none;
     }
 }
-/* @media (max-height: 650px){
+@media (max-height: 650px){
     .panel{
         overflow-y: scroll;
         /* z-index: 1000; */
     }
-} */
+}
 
 #circle-overlay {
   position: fixed;
