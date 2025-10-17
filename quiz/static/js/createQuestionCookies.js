@@ -2,13 +2,9 @@ import { answerScanning } from "./answers_scaning.js"
 
 const button = document.getElementById("save");
 const question = document.querySelector("#question");
-const inputImg = document.getElementById("imgInput");
 let answerInputList = document.querySelectorAll(".answer");
-let timeP = document.querySelector(".timer-p")
 let answers;
-let questions;
-let timeC;
-let validAnswersFlag = false;
+
 
 
 document.addEventListener("input", answerScanning);
@@ -111,6 +107,8 @@ button.addEventListener("click", ()=>{
     newType = newType.replace("undefined", "");
     newType = newType.replace("null", "");
     document.cookie = `typeQuestions=${newType}; path=/`;
+
+    
 
     localStorage.removeItem("rightIndexes");
     localStorage.setItem("type", "one-answer");

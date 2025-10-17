@@ -9,6 +9,7 @@ socket.emit("finish_mentor",{
 socket.on("list_results", data => {
     let users = data.users
     
+    let count = 1
     users.forEach(user => {
 
         const userCardDiv = document.createElement("div")
@@ -25,6 +26,8 @@ socket.on("list_results", data => {
 
         console.log(user.email, user.accuracy)
 
+        user.count_points
+
         for (let i = 1; i <= parseInt(user.accuracy); i++) {
             fillDiv.style.width = "0%"; // старт с 0
 
@@ -33,6 +36,7 @@ socket.on("list_results", data => {
                 fillDiv.style.width = `${(parseInt(user.accuracy))}%`;
             }, 50); 
         }
+        count++
     });
 
     let accuracyResult = data.accuracy_result
