@@ -105,6 +105,7 @@ def render_test():
                 response.delete_cookie("inputname")
                 response.delete_cookie("test_url")
                 response.delete_cookie("images")
+                response.delete_cookie("description")
             except:
                 pass
 

@@ -20,14 +20,14 @@
     z-index: 3;
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 1.5vw; 
     background-color: #343434;
     border: 2px solid #B9BDF5;
     border-radius: 30px;
     height: 50vh;
     width: 40vw;
     align-items: center;
-    padding: 30px 0px
+    padding: 2vw 0px; 
 }
 
 .login form {
@@ -37,7 +37,7 @@
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    gap: 10px;
+    gap: 0.7vw; 
 }
 
 .text-input {
@@ -49,7 +49,7 @@
     color: #414141;
     background-color: #B9BDF5;
     text-align: center;
-    font-size: 20px;
+    font-size: 1.2vw; 
 }
 
 .password-container{
@@ -68,7 +68,7 @@
     position: absolute;
     right: 5%;
     z-index: 3;
-    width: 25px;
+    width: 25px; 
     height: 25px;
 }
 
@@ -79,12 +79,18 @@
 .send-data{
     border: solid 1px black;
     border-radius: 10px;
-    width: 80%;
-    height: 50px;
+    width: 40%;
+    height: 3vw; 
     background-color: #C48AF7;
     color: white;
     text-align: center;
-    font-size: 20px;
+    font-size: 1.2vw;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.send-data:hover{
+    background-color: #bc79f6;;
 }
 
 .user-status{
@@ -96,7 +102,7 @@
 .user-status label{
     width: 50%;
     color: white;
-    font-size: 20px;
+    font-size: 1.2vw;
 }
 
 .status-input{
@@ -104,84 +110,65 @@
     transform: scale(2); 
 }
 
-.promotion{
+.background{
     display: flex;
-    flex-direction: column;
-    gap: 100px;
+    align-items: center;
+    justify-content: center;
 }
-
-.bonuses{
-    position: relative;
-    display: flex;
-    gap: 10px;
-}
-
-.bonus{
-    width: 100px;
-    height: 100px;
-    border: 1px solid #C48AF7;
-    border-radius: 20px;
-    background-color: #343434;
-}
-
 .glowing-area{
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #b9bdf5b0;
+    left: 15%;
+    width: 70%;
+    height: 30%;
+    background-color: #B9BDF5;
     filter: blur(100px);
 }
 
-.b1{
-    transform: rotate(-20deg);
-}
-.b2{
-    transform: rotate(15deg);
-}
-.b3{
-    transform: rotate(10deg);
-}
-
 .avatar{
-    width: 100px;
-    height: 100px;
+    width: 7vw;
+    height: 7vw;
+    border: 3px solid #000000;
+    border-radius: 50%;
+}
+.if-not{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5vw;
 }
 
-.info-text p{
-    color: white;
-    font-size: 24px;
+.if-not p{
+    font-size: 1.1vw;
+}
+
+.if-not a{
+    font-size: 1.2vw;
 }
 
 .robot{
     position: absolute;
-    right: 50px;
-    bottom: 3vh;
-    width: 130px;
-    height: 190px;
+    right: 0;
+    bottom: 0;
+    margin-right: 2vw;
+    margin-bottom: 1.5vw;
+    width: 10vw;
+    height: 15vw;
 }
 
-.robot-glowing-area{
-    position: absolute;
-    right: 50px;
-    bottom: 100px;
-    width: 130px;
-    height: 190px;
-    background-color: #8af7d57a;
-    filter: blur(80px);
+.info-text p{
+    color: white;
+    font-size: 1.8vw;
 }
+
 
 .email_input, .password{
     animation: shake 0.4s;
-    /* animation-iteration-count: infinite; */
 }
 
 .problem {
     color: #ffffff;
 }
 
-/* создаем как бы обьект для анимации */
-/* transfron:translate передвигает обьект по осям, а rotate поворачивает тем самым создается эффект траски */
-/* Проценты это как бы фреймы анимации можно делать больше таких фреймов(кадров), а можно меньше */
 @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
     10% { transform: translate(-1px, -2px) rotate(-1deg); }
@@ -198,7 +185,7 @@
 
 @media (max-width: 900px){
     .content-login{
-        padding: 50px 10px;
+        padding: 5vw 1vw;
         height: auto;
     }
 }
@@ -211,4 +198,3 @@
         display: none;
     }
 }
-

@@ -1,4 +1,5 @@
-import flask, flask_login, os, random, shutil, traceback, random
+import flask, flask_login, os, random, shutil, traceback, requests, json, random
+from Project.login_manager import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_DISCOVERY_URL, client
 from .models import User
 from Project.db import DATABASE
 from .send_email import send_code, generate_code
@@ -353,6 +354,128 @@ def render_login():
             email = email,
             message = message,
             random_num = random.randint(1, 5)
-            )
+        )
     else:
         return flask.redirect("/")
+
+def render_google_login():
+    # Find out what URL to hit for Google login
+    google_provider_cfg = requests.get(GOOGLE_DISCOVERY_URL).json()
+    authorization_endpoint = google_provider_cfg["authorization_endpoint"]
+
+    # Use library to construct the request for Google login and provide
+    # scopes that let you retrieve user's profile from Google
+    request_uri = client.prepare_request_uri(
+        authorization_endpoint,
+        redirect_uri = flask.url_for("login.render_google_callback", _external=True),
+        scope=["openid", "email", "profile"],
+    )
+    print("login func end")
+    return flask.redirect(request_uri)
+
+def render_google_callback():
+    print("callback func start")
+    # Get authorization code Google sent back to you
+    code = flask.request.args.get("code")
+    # Find out what URL to hit to get tokens that allow you to ask for
+    # things on behalf of a user
+    google_provider_cfg = requests.get(GOOGLE_DISCOVERY_URL).json()
+    token_endpoint = google_provider_cfg["token_endpoint"]
+
+    os.environ['OAUTHLIB_INSECURE_TRANSPORT'] = '1'
+    # Prepare and send a request to get tokens! Yay tokens!
+    token_url, headers, body = client.prepare_token_request(
+        token_endpoint,
+        authorization_response=flask.request.url,
+        redirect_url=flask.request.base_url,
+        code=code
+    )
+
+    print(token_url, "\nheaders=", headers, "data=", body)
+
+    token_response = requests.post(
+        token_url,
+        headers=headers,
+        data=body,
+        auth=(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET),
+    )
+
+    # Parse the tokens!
+    client.parse_request_body_response(json.dumps(token_response.json()))
+
+    # Now that you have tokens (yay) let's find and hit the URL
+    # from Google that gives you the user's profile information,
+    # including their Google profile image and email
+    userinfo_endpoint = google_provider_cfg["userinfo_endpoint"]
+    uri, headers, body = client.add_token(userinfo_endpoint)
+    userinfo_response = requests.get(uri, headers=headers, data=body)
+
+    # You want to make sure their email is verified.
+    # The user authenticated with Google, authorized your
+    # app, and now you've verified their email through Google!
+    if userinfo_response.json().get("email_verified"):
+        unique_id = userinfo_response.json()["sub"]
+        users_email = userinfo_response.json()["email"]
+        users_name = userinfo_response.json()["given_name"]
+    else:
+        return "User email not available or not verified by Google.", 400
+
+    flask.session["username"] = users_name
+    flask.session["user_email"] = users_email
+    flask.session["google_id"] = unique_id
+
+    # Send user back to homepage
+    return flask.redirect("/registration/complete_finish_signup")
+
+def render_finish_google_signup():
+    user = User.query.filter_by(email = flask.session.get("user_email")).first()
+    if user:
+        return flask.redirect("/login")
+    password_shake = ""
+    if flask.request.method == "POST":
+        mentor_form = bool(flask.request.form["mentor"])
+
+        password_form = flask.request.form["password"]
+        confirm_password = flask.request.form["confirm-password"]
+        if password_form == confirm_password and len(password_form) == 8:
+            avatar = f"default_avatar{random.randint(1,5)}.svg"
+            user = User(
+                username=flask.session.get("username"),
+                email=flask.session.get("user_email"),
+                name_avatar = avatar,
+                google_id=flask.session.get("google_id"),
+                password = password_form,
+                is_mentor = mentor_form
+            )
+            profile = DataUser()
+            user.user_profile = profile
+
+            
+
+            DATABASE.session.add(user)
+            DATABASE.session.commit()
+
+            #створює папку із тим шляхом що указали
+            path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["user_email"])))
+            if not os.path.exists(path):
+                os.mkdir(path)
+
+                default_avatar_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", avatar))
+
+                destination_path = os.path.join(path, avatar)
+
+                shutil.copyfile(default_avatar_path, destination_path)
+
+            flask_login.login_user(user)
+            flask.session["email_sent"] = False
+                
+            return flask.redirect("/home_auth")
+        else:
+            flask.session.clear()
+            password_shake = "Passwords are not eual"
+        
+    return flask.render_template(
+        template_name_or_list = "finish_google_signup.html", 
+        password_shake = password_shake,
+        username = flask.session.get("username")
+    )

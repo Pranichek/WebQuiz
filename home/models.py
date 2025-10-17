@@ -8,7 +8,7 @@ class User(DATABASE.Model, flask_login.UserMixin):
     username = DATABASE.Column(DATABASE.String(150), nullable = False)
     phone_number =  DATABASE.Column(DATABASE.Integer, nullable = False, default = "Не під'єднан")
     nickname = DATABASE.Column(DATABASE.String(150))
-    password = DATABASE.Column(DATABASE.String(150), nullable = False)
+    password = DATABASE.Column(DATABASE.String(150))
     email = DATABASE.Column(DATABASE.String(150), nullable = False)
     is_mentor = DATABASE.Column(DATABASE.Boolean, default = False)
     
@@ -30,6 +30,7 @@ class User(DATABASE.Model, flask_login.UserMixin):
     # Зв'язок one to one із моделлю класу
     mentor_class = DATABASE.relationship("Classes", back_populates="user", lazy="dynamic")
 
+    google_id = DATABASE.Column(DATABASE.String(50), nullable = True)
 
 
 

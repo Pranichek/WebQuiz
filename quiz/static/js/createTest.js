@@ -1,7 +1,7 @@
 import { ShowMessage } from '/static/js/showMessage.js';
 
 const createTestButtons = document.getElementsByClassName("add-test")
-const StartButton = document.getElementById("apple")
+const StartButton = document.getElementById("create_test_buttin")
 
 StartButton.addEventListener(
     'click',

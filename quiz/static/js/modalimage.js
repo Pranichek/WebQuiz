@@ -21,7 +21,6 @@ const previewImage = (event) => {
 document.querySelector(".outline-image").addEventListener(
     'click',
     () => {
-        console.log(89)
         document.querySelector(".load_image").click()
     }
 )

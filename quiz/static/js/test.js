@@ -172,21 +172,20 @@ function myFunction() {
 document.addEventListener('DOMContentLoaded', function() {
     const descriptionTextarea = document.getElementById('description');
     if (descriptionTextarea) {
-        // Load description from cookie on page load
-        const savedDescription = getCookie('description');
-        if (savedDescription) {
-            descriptionTextarea.value = decodeURIComponent(savedDescription);
+        let check = document.cookie.match("descriptio")
+        if (check){
+            let savedDescription = document.cookie.split("description=")[1].split(";")[0];
+            if (savedDescription) {
+                descriptionTextarea.value = savedDescription;
+            }
+        }else{
+            document.cookie = `description=${descriptionTextarea.value}; path=/;`;
         }
+        
 
-        // Save description to cookie on input
         descriptionTextarea.addEventListener('input', function() {
-            document.cookie = `description=${encodeURIComponent(this.value)}; path=/; max-age=86400`;
+            document.cookie = `description=${this.value}; path=/;`;
         });
     }
-});
+})
 
-function getCookie(name) {
-    const value = `; ${document.cookie}`;
-    const parts = value.split(`; ${name}=`);
-    if (parts.length === 2) return parts.pop().split(';').shift();
-}
