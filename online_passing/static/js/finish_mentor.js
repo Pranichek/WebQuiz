@@ -14,7 +14,9 @@ socket.on("list_results", data => {
         const userCardDiv = document.createElement("div")
         userCardDiv.classList.add("user-card")
         userCardDiv.textContent = user.email
+        // userCardDiv.textContent = user.username
         cardsContainer.appendChild(userCardDiv)
+
 
         const outlineDiv = document.createElement("div")
         outlineDiv.classList.add("outline")
