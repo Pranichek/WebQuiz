@@ -5,16 +5,23 @@
 {% endblock %}
 
 {% block links %}
-    <link rel="stylesheet" href="{{ url_for('registration.static', filename='css/registration.css') }}">
+    <link rel="stylesheet" href="{{ url_for('registration.static', filename='css/finish_registration.css') }}">
 {% endblock %}
 
 {% block content %}
+
+    <div class="background">
+        <div class="glowing-area"></div>
+    </div>
     
     <div class = "content-registration">
         <div class="registration">
             <form action="" method="post">
-
+                <div class="img-avatar">
+                    <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar' ~ random_num ~ '.svg') }}" alt="avatar">
+                </div>
                 <div class="sua">
+                    
                     <input minlength="2" maxlength="20" autocomplete="off" pattern="^.{2,20}$" class="text-input username_input" type="text" name= "username" placeholder= "Введіть ім'я" required value="{{ username }}">
                     <div class="username-checklist">
                         <div class="top-part">
@@ -41,7 +48,7 @@
 
                 <!-- <input type="hidden" inputmode="numeric" id = "input_phone" pattern="[\d\+]*$" class="text-input phone {% if phone_shake %}phone_shake{% endif %}" type="tel" maxlength="13" minlength="13" name= "phone_number" placeholder="Введіть номер телефону (починайте з +380)" value="+380" autocomplete="off" required>
                 <input inputmode="email" autocomplete="off" class="text-input email {% if email_shake %}email_input{% endif %}" type= "email" name= "email" placeholder= "Введіть email" required> -->
-                <p id="passwordLabel">Вигадайте унікільний пароль для цього сервісу, щоб мати змогу авторизуватися з його допомогою</p>
+                <!-- <p id="passwordLabel">Вигадайте унікільний пароль для цього сервісу, щоб мати змогу авторизуватися з його допомогою</p> -->
                 <div class="password-container">
                     <!-- Вот тут вот находится єтот глазик которій прячет и открівает пароль -->
                     <!-- 
@@ -87,7 +94,7 @@
                     </div>
                 </div>
                 <div class="password-container">
-                    <input autocomplete="off" onpaste="return false"; class="text-input confirm_password {% if password_shake %}conf_password{% endif %}" type="password" name="confirm-password" maxlength="8" minlength="8" placeholder="Введіть Ваш пароль" class="input_password" id="password2" required>
+                    <input autocomplete="off" onpaste="return false"; class="text-input confirm_password {% if password_shake %}conf_password{% endif %}" type="password" name="confirm-password"  placeholder="Введіть Ваш пароль" class="input_password" id="password2" required>
                     <img class="eyea"  id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
                     <img class="hidden2 eyea" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
                 </div>
@@ -103,31 +110,9 @@
                     </label>
                 </div>
 
-                <!-- <a href="/google_login">Увійти за допомогою <img src="" alt="icon"></a> -->
                 <button class="send-data" onclick="Shake()" type="submit">Завершити реєстрацію</button>
                 <p class="problem">{{ message }}</p>
             </form>
-        </div>
-
-        <div class="promotion">
-            <div class="bonuses">
-                <div class="glowing-area"></div>
-                <div class="bonus b1">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_one.png') }}" alt="avatart">
-                </div>
-                <div class="bonus b2">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_two.png') }}" alt="avatart">
-                </div>
-                <div class="bonus b3">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_three.png') }}" alt="avatart">
-                </div>
-            </div>
-
-            <div class="info-text">
-                <p>Заробляй бонуси,відповідаючи на<br>запитання та змагайся з друзями !</p>
-            </div>
-            <div class="robot-glowing-area"></div>
-            <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
         </div>
     </div>
 

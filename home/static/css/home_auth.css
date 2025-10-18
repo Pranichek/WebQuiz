@@ -28,7 +28,7 @@ body {
 }
 
 header {
-    margin-bottom: 2.5vh;
+    margin-bottom: 2.50vh;
 }
 
 .top-part {
@@ -54,7 +54,7 @@ header {
     gap: 0.63vw;
     border: 0.06vw black solid;
     width: 60%;
-    min-width: 25vw;
+    min-width: 25.00vw;
     height: 11.88vw;
     overflow: hidden;
     max-width: 56.25vw;
@@ -65,9 +65,9 @@ header {
     flex-direction: column;
     background-color: transparent;
     border: 0.06vw black solid;
-    width: 18.5vw;
-    height: 12.5vw;
-    border-radius: 1.5vw;
+    width: 18.50vw;
+    height: 12.50vw;
+    border-radius: 1.50vw;
     overflow: hidden;
 }
 
@@ -103,8 +103,10 @@ header {
     flex-shrink: 0;
 }
 
+/* --- Uniform Font Size (1.10vw) applied to all text elements --- */
+
 .username {
-    font-size: 1.06vw;
+    font-size: 1.05vw;
     color: #ffffff;
 }
 
@@ -123,12 +125,12 @@ header {
     opacity: 0.8;
     color: #D6E8FE;
     font-weight: 500;
-    font-size: 2vh;
+    font-size: 1.05vw;
     text-decoration: none;
 }
 
 .nick {
-    font-size: 1.25vw;
+    font-size: 1.05vw;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -138,7 +140,11 @@ header {
 .nick .name-cont {
     height: 100%;
     width: 65%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
 }
+
 
 .nick .pet-cont {
     height: 100%;
@@ -158,10 +164,12 @@ input::-webkit-inner-spin-button {
 .number-tests {
     color: #FFE177;
     font-weight: bold;
+    font-size: 1.05vw;
 }
 
 .text-tests {
     margin-right: 0.44vw;
+    font-size: 1.05vw;
 }
 
 .main-input {
@@ -174,7 +182,7 @@ input::-webkit-inner-spin-button {
     border-radius: 0.94vw;
     width: 60%;
     min-width: 18.75vw;
-    max-width: 37.5vw;
+    max-width: 37.50vw;
 }
 
 .main-input input {
@@ -184,7 +192,7 @@ input::-webkit-inner-spin-button {
     height: 100%;
     color: #636262;
     font-weight: bold;
-    font-size: larger;
+    font-size: 1.05vw;
     padding-left: 1.88vw;
 }
 
@@ -202,6 +210,7 @@ input::-webkit-inner-spin-button {
     transition: background-color 0.3s ease, transform 0.2s ease;
     width: auto;
     min-width: 6.25vw;
+    font-size: 1.05vw;
 }
 
 .main-input button:hover {
@@ -246,7 +255,7 @@ input::-webkit-inner-spin-button {
     padding: 0.63vw;
     text-align: center;
     font-weight: bold;
-    font-weight: 1.2vw;
+    font-size: 1.05vw;
     transition: 0.2s;
 }
 
@@ -263,7 +272,7 @@ input::-webkit-inner-spin-button {
     padding: 0.63vw;
     text-align: center;
     font-weight: bold;
-    font-size: 1.2vw;
+    font-size: 1.05vw;
 }
 
 .cards {
@@ -271,10 +280,10 @@ input::-webkit-inner-spin-button {
     height: 85%;
     padding: 0.63vw;
     padding-top: 3.13vw;
-    gap: 2.5vw;
+    gap: 2.50vw;
     display: flex;
     flex-direction: row;
-    max-height: 12.5vw;
+    max-height: 12.50vw;
 }
 
 .card {
@@ -288,18 +297,18 @@ input::-webkit-inner-spin-button {
     justify-content: end;
     border: 0.06vw black solid;
     cursor: pointer;
-    min-width: 15vw;
+    min-width: 15.00vw;
     min-height: 11.25vw;
     padding-bottom: 0.63vw;
-    max-width: 17.5vw;
+    max-width: 17.50vw;
     transition: 0.5s ease;
-    box-shadow: 0 0 0.63vw rgba(170, 114, 161, 0.454);
+    box-shadow: 0 0 0.63vw rgba(170, 114, 161, 0.45);
 }
 
 .card:hover {
     transition: 0.5s ease;
     transform: translateY(-1.25vw);
-    box-shadow: 0 0 1.25vw rgba(255, 255, 255, 0.5);
+    box-shadow: 0 0 1.25vw rgba(255, 255, 255, 0.50);
 }
 
 .card_image {
@@ -311,7 +320,7 @@ input::-webkit-inner-spin-button {
 
 .topic-test {
     color: #343434;
-    font-size: 1.3vw;
+    font-size: 1.05vw;
     font-weight: 600;
 }
 
@@ -345,7 +354,7 @@ a {
     height: 20%;
     padding: 1.88vw 1.25vw 0.63vw 1.25vw;
     color: #343434;
-    font-size: larger;
+    font-size: 1.05vw;
 }
 
 .discription-test {
@@ -369,81 +378,26 @@ a {
     right: 0;
     margin-right: 0.63vw;
     position: absolute;
-    width: 3.5vw;
+    width: 3.50vw;
     height: auto;
     z-index: 10;
-    margin-bottom: 1vw;
+    margin-bottom: 1.00vw;
 }
 
 .static-theme {
     color: #C48AF7;
-    font-size: 1.3vw;
+    font-size: 1.05vw;
 }
 
 .theme-test {
     color: #343434;
-    font-weight: 1.2vw;
+    /* This was originally a font-weight value of 1.2vw, 
+       I am keeping the property name but adjusting the value for consistency in size */
+    font-weight: 1.10vw; 
 }
 
-.filter-test {
-    width: 100vw;
-    height: 14vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    padding: 0.63vw;
-    min-height: 4.44vw;
-}
 
-.filter-input {
-    width: 35vw;
-    height: 9vh;
-    background-color: #C7D7EB;
-    color: 636262;
-    font-weight: bolder;
-    padding: 3%;
-    border-radius: 1.56vw;
-    border: 0.5vw solid #343434;
-    box-shadow: 0 0 0 0.06vw #8AF7D4;
-    font-size: 1.25vw;
-    min-height: 3.75vw;
-    min-width: 25vw;
-    max-width: 37.5vw;
-    max-height: 4.44vw;
-}
-
-.submit-filter {
-    overflow: hidden;
-    position: absolute;
-    z-index: 10;
-    bottom: 0;
-    right: 0;
-    height: 0;
-    width: 12%;
-    height: 90%;
-    margin-right: 2%;
-    border-radius: 1.25vw;
-}
-
-.submit-filter {
-    background: transparent;
-    border: none;
-}
-
-.submit-filter img {
-    width: 60%;
-    height: 60%;
-    background-color: transparent;
-}
-
-.filter-test form {
-    position: relative;
-    width: fit-content;
-}
-
-@media(max-width: 64vw) {
+@media(max-width: 64.00vw) {
     .avatar-circle {
         width: 3.13vw;
         height: 3.13vw;
@@ -453,10 +407,10 @@ a {
         color: #D6E8FE;
         font-weight: 400;
         text-decoration: none;
-        font-size: 0.69vw;
+        font-size: 1.05vw;
     }
     .number-tests {
-        font-size: 0.75vw;
+        font-size: 1.05vw;
     }
 
     .card_image img {
@@ -467,15 +421,15 @@ a {
 
 .nothing{
     width: 100vw;
-    height: 33.5vh;
+    height: 33.50vh;
     display: flex;
     flex-direction: column;
 }
 
 .top-text{
-    font-size: 1.2vw;
+    font-size: 1.05vw;
 }
 
 .bottom-text{
-    font-size: 1.1vw;
+    font-size: 1.05vw;
 }

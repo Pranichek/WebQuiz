@@ -49,20 +49,17 @@ for (let eye2Icon of eyeIcons2List){
 
 
 window.addEventListener('load', () => {
-    if(document.querySelector(".email").classList.length >= 3){
-
-        setTimeout(() => {
-            document.querySelector(".email").classList.remove("email_input");
-            },  1000);
+    if (document.querySelector(".email")){
+        if(document.querySelector(".email").classList.length >= 3){
+            setTimeout(() => {
+                document.querySelector(".email").classList.remove("email_input");
+                },  1000);
+        }
     }
+    
     if(document.querySelector(".confirm_password").classList.length >= 3){
         setTimeout(() => {
             document.querySelector(".confirm_password").classList.remove("conf_password");
-            },  1000);
-    }
-    if(document.querySelector(".phone").classList.length >= 3){
-        setTimeout(() => {
-            document.querySelector(".phone").classList.remove("phone_shake");
             },  1000);
     }
 })
@@ -70,20 +67,25 @@ window.addEventListener('load', () => {
 
 let phone_number = document.querySelector("#input_phone")
 
-phone_number.addEventListener(
-    'keyup',
-    function () {
-        if(!phone_number.value.startsWith("+380")){
-            phone_number.value = "+380"
+if (phone_number){
+    phone_number.addEventListener(
+        'keyup',
+        function () {
+            if(!phone_number.value.startsWith("+380")){
+                phone_number.value = "+380"
+            }
         }
-    }
-)
+    )
+}
+
 
 
 // код который сделает так чтобы если человек что то не так ввел, то после обновления оно опять не тряслось
 if (performance.navigation.type === 1) {
     console.log("Страница обновлена (F5 или кнопка)");
-    document.querySelector("#clear-form").submit();
+    if (document.querySelector("#clear-form")){
+        document.querySelector("#clear-form")
+    }
 }
 
 
