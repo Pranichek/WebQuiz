@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/footer.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/message.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/cookie_modal.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/search_test.css') }}">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -35,6 +36,13 @@
                 <div class = "logo">
                     <img class="img-logo" src="{{ url_for('static', filename='images/logo.svg') }}" alt="">
                     <p>planet.quiz</p>
+                </div>
+                <div class="filter-test">
+                    <form action="" method="post" id="filter-form">
+                        <input type="hidden" name="check_form" vlaue="filter">
+                        <input type="text" class="filter-input" placeholder="Знайти вікторину" onkeydown="checkEnterPress(event)">
+                        <button type="button" class="submit-filter"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.svg') }}" alt=""></button>
+                    </form>
                 </div>
                 <nav>
                     {% if home_page %}

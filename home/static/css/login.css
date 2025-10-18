@@ -1,5 +1,7 @@
 #eye {
     cursor: pointer;
+    height: 50%;
+    width: auto;
 }
 
 .main {

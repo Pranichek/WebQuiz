@@ -1,0 +1,52 @@
+.filter-test {
+    width: 50%;
+    height: 100%;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+    align-items: center;
+    padding: 0.63vw;
+    min-height: 4.44vw;
+}
+
+.filter-input {
+    width: 30vw;
+    height: 6vh;
+    background-color: #C7D7EB;
+    color: 636262;
+    font-weight: bolder;
+    padding: 3%;
+    border-radius: 1vw;
+    font-size: 2vh;
+    border: none;
+}
+
+.submit-filter {
+    overflow: hidden;
+    position: absolute;
+    z-index: 10;
+    bottom: 0;
+    right: 0;
+    height: 0;
+    width: 12%;
+    height: 90%;
+    margin-right: 2%;
+    border-radius: 1.25vw;
+}
+
+.submit-filter {
+    background: transparent;
+    border: none;
+}
+
+.submit-filter img {
+    width: auto;
+    height: 80%;
+    background-color: transparent;
+}
+
+.filter-test form {
+    position: relative;
+    width: fit-content;
+}

@@ -54,20 +54,20 @@
 
 
 
-    {% if third_tests|length > 0 %}
+    {% if ready_list|length > 0 %}
         {% set ns.countrows = 1 %}
-        <div class="cards-floor">
-            <div class="show-more">
-                {% if fourt_topic[1] != "інше" and fourt_topic[1] != "Інше" %}
-                    <a href="/" class="tests-topic">{{ fourt_topic[0] }}</a>
-                {% else %}
-                    <a href="/" class="tests-topic">Різноманітні тести</a>
-                {% endif %}
-                <a data-value="{{ fourt_topic[1] }}" class="show-more-link">Побачити більше</a>
-            </div>
-            <div class="cards">
-                {% if third_tests|length > 0 %}
-                    {% for test in third_tests %}
+        {% for list_test in ready_list %}
+            <div class="cards-floor">
+                <div class="show-more">
+                    {% if list_test[0] != "інше" and list_test[0] != "Інше" %}
+                        <a href="/" class="tests-topic">{{ list_test[0] }}</a>
+                    {% else %}
+                        <a href="/" class="tests-topic">Різноманітні тести</a>
+                    {% endif %}
+                    <a data-value="{{ list_test[0] }}" class="show-more-link">Побачити більше</a>
+                </div>
+                <div class="cards">
+                    {% for test in list_test[1]  %}
                         <div class="card" onclick="this.querySelector('.topic-test').click();">
                             <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
                             {% if 'default' in test.image.split("/") %}
@@ -90,90 +90,10 @@
                             </div>
                         </div>
                     {% endfor %}
-                {% endif %}
+                </div>
             </div>
-        </div>
-    {% endif %}
-
-    {% if first_tests|length > 0 %}
-        {% set ns.countrows = 1%}
-        <div class="cards-floor">
-            <div class="show-more">
-                {% if first_topic != "інше" and first_topic != "Інше" %}
-                    <a href="/" class="tests-topic">Тести із теми {{ first_topic }}</a>
-                {% else %}
-                    <a href="/" class="tests-topic">Різноманітні тести</a>
-                {% endif %}
-                <a data-value="{{ first_topic }}" class="show-more-link">Побачити більше</a>
-            </div>
-            <div class="cards">
-                {% for test in first_tests %}
-                    <div class="card" onclick="this.querySelector('.topic-test').click();">
-                        <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
-                        {% if 'default' in test.image.split("/") %}
-                            <div class="card_image">
-                                <img class="image" src="{{ url_for('test_pass.static', filename='images/' + test.image.split('/')[-1]) }}" alt="">
-                            </div>
-                        {% else %}
-                            <div class="card_image">
-                                <img class="image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/user_tests/' + test.title_test + '/' + test.image ) }}" alt="">
-                            </div>
-                        {% endif %}
-                        <div class="discription">
-                            <div class="test-name">
-                                <a href="/test_data?id_test={{test.id}}" class="topic-test">{{ test.category }}</a>
-                            </div>
-                            <div class="discription-test">
-                                <p class="static-theme">тема:</p>
-                                <p class="theme-test">{{ test.title_test }}</p>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
-     
-
-    {% if second_tests|length > 0 %}
-        {% set ns.countrows = 1 %}
-        <div class="cards-floor">
-            <div class="show-more">
-                {% if second_topic != "інше" and second_topic != "Інше" %}
-                    <a href="/" class="tests-topic">Тести із теми {{ second_topic }}</a>
-                {% else %}
-                    <a href="/" class="tests-topic">Різноманітні тести</a>
-                {% endif %}
-                <a data-value="{{ second_topic }}" class="show-more-link">Побачити більше</a>
-            </div>
-            <div class="cards">
-                {% for test in second_tests %}
-                    <div class="card" onclick="this.querySelector('.topic-test').click();">
-                        <img class="image-robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
-                        {% if 'default' in test.image.split("/") %}
-                            <div class="card_image">
-                                <img class="image" src="{{ url_for('test_pass.static', filename='images/' + test.image.split('/')[-1]) }}" alt="">
-                            </div>
-                        {% else %}
-                            <div class="card_image">
-                                <img class="image" src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' + user.email + '/user_tests/' + test.title_test + '/' + test.image ) }}" alt="">
-                            </div>
-                        {% endif %}
-                        <div class="discription">
-                            <div class="test-name">
-                                <a href="/test_data?id_test={{test.id}}" class="topic-test">{{ test.category }}</a>
-                            </div>
-                            <div class="discription-test">
-                                <p class="static-theme">тема:</p>
-                                <p class="theme-test">{{ test.title_test }}</p>
-                            </div>
-                        </div>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
-    
+        {% endfor %}
+    {% endif %}    
 
     {% if ns.countrows == 0 %} 
         <div class="nothing">
@@ -181,14 +101,7 @@
             <p class="bottom-text">Почни зараз! Створи свій перший тест</p>
         </div>
     {% endif %} 
-    <!-- <div class="filter-test">
-        <form action="" method="post" id="filter-form">
-            <input type="hidden" name="check_form" vlaue="filter">
-            <input type="text" class="filter-input" placeholder="Знайти вікторину" onkeydown="checkEnterPress(event)">
-            <button type="button" class="submit-filter"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.png') }}" alt=""></button>
-        </form>
-    </div>
-    <a href="" class="search-filter-link"></a> -->
+    <!-- <a href="" class="search-filter-link"></a> -->
 
 {% endblock %}
 

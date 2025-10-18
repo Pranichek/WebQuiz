@@ -1,13 +1,6 @@
 #eye1, #eye2{
-    position: absolute;
-    right: 5%;
+    cursor: pointer;
     z-index: 103;
-    height: 50%;
-    width: auto;
-}
-
-#eye2{
-    z-index: 99;
 }
 
 #clear-form{
@@ -34,7 +27,7 @@
     background-color: #343434;
     border: 2px solid #B9BDF5;
     border-radius: 30px;
-    height: 90%;
+    height: 75%;
     width: 40vw;
     align-items: center;
     padding: 2vw 0px; 
@@ -54,7 +47,7 @@
     border: solid 2px black;
     border-radius: 10px;
     width: 80%;
-    height: 10%;
+    height: 15%;
     max-height: 70px;
     color: #414141;
     background-color: #B9BDF5;
@@ -200,7 +193,8 @@
     position: relative;
     display: flex;
     width: 80%;
-    height: 10%;
+    height: 12%;
+    /* background-color: green; */
 }
 
 .password-container .text-input, .sua .text-input{
@@ -208,6 +202,17 @@
     height: 100%;
 }
 
+#eye1, #eye2{
+    position: absolute;
+    right: 5%;
+    z-index: 103;
+    width: 1.8vw; 
+    height: 1.8vw;
+}
+
+#eye2{
+    z-index: 99;
+}
 
 .hidden1, .hidden2{
     display: none;
@@ -300,12 +305,15 @@ input[type='radio']:checked::after {
     filter: blur(100px);
 }
 
-.avatar{
-    width: 7vw; 
+.avatar {
+    width: 7vw;
     height: 7vw;
     border: 3px solid #000000;
     border-radius: 50%;
+    object-fit: cover;
+    display: block;
 }
+
 
 .if-not{
     display: flex;
@@ -319,7 +327,6 @@ input[type='radio']:checked::after {
     align-items: center;
     justify-content: center;
     gap: 0.5vw; 
-    position: relative;
 }
 .change-page p{
     display: flex;
@@ -348,26 +355,6 @@ input[type='radio']:checked::after {
     font-size: 1.2vw;
 }
 
-.if-yes p{
-    font-size: 1.1vw;
-}
-
-.change-page a{
-    font-size: 1.1vw;
-    height: 10%;
-    position: relative;
-    text-decoration: none;
-}
-
-.change-page a:hover{
-    text-decoration: underline;
-}
-
-.icon-google{
-    height: 1.7vw;
-    width: auto;
-}
-
 @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
     10% { transform: translate(-1px, -2px) rotate(-1deg); }
@@ -384,61 +371,6 @@ input[type='radio']:checked::after {
 
 
 
-/* @media (max-width: 900px){
-    .content-registration{
-        padding: 5vw 1vw;
-        height: auto;
-    }
-    .registration{
-        width: 80%;
-        font-size: 16px; 
-    }
-    .text-input {
-        width: 80%;
-        height: 40px;
-        font-size: 16px; 
-    }
-    .text-input::placeholder{
-        font-size: 16px;
-    }
-    .password-container .text-input, .sua .text-input{
-        width: 100%;
-        height: 40px;   
-    }
-}
-
-@media(max-width: 1370px){
-    .robot{
-        display: flex;
-        width: 6vw; 
-        height: 8vw;
-        right: 1vw;
-    }
-    .robot-glowing-area{
-        display: none;
-    }
-}
-
-@media(max-width: 600px){
-    .password-container .text-input, .sua .text-input{
-        width: 100%;
-        height: 40px;   
-    }
-    .text-input {
-        width: 80%;
-        height: 40px;
-
-    }
-    .robot{
-        display: flex;
-        width: 6vw; 
-        height: 8vw;
-        right: 1vw;
-    }
-    .checklist-title, .list-item, .username-item, .change-page p {
-        font-size: 14px;
-    }
-} */
 
 #passwordLabel{
     margin: 0 5vw;
