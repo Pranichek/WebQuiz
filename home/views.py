@@ -95,20 +95,24 @@ def render_home_auth():
             else:
                 if len(all_tests) > 0:
                     list_tests.append([category, all_tests])
+
         else:
-            if len (last_passed )> 0:
+            if len (last_passed) > 0:
                 last_tests = []
 
                 for id in last_passed:
-                    ready_id = int(id.split("/")[0])
-                    test = Test.query.get(ready_id)
-                    last_tests.append(test)
-                list_tests.append([category, last_tests])
+                    # isdigit - перевіряє, що у рядку є цифра/число
+                    if id.isdigit():
+                        ready_id = int(id.split("/")[0])
+                        test = Test.query.get(ready_id)
+                        last_tests.append(test)
+                if len(last_tests) > 0 and last_tests[0] != "":
+                    list_tests.append([category, last_tests])
 
 
     ready_list = list_tests if len(list_tests) <= 4 else list_tests[0:4]
 
-
+    
 
 
     return flask.render_template(

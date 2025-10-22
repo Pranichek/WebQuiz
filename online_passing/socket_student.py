@@ -110,7 +110,7 @@ def connect_to_room(data):
                 "count_points": user.user_profile.count_points
             })
 
-    emit("update_users", {"user_list":user_list}, room=data["code"], broadcast=True)
+    emit("users_data", {"user_list":user_list}, room=data["code"], broadcast=True)
 
 # remaining_time = max(total_time - time_taken, 0)
 # score = max_score * (0.5 + (1 - 0.5) * (remaining_time / total_time))
@@ -136,6 +136,7 @@ def answer_the_question(data):
     test : Test = Test.query.get(int(data["id_test"]))
     answers = test.answers.split("?@?")
     type = test.type_questions.split("?$?")[int(data["index"])]
+    print(int(data["index"]), "data_question")
     ready_answers = ""
 
     if type != "input-gap":
@@ -158,19 +159,20 @@ def answer_the_question(data):
             if len(user_answers.split("@")) > 1:
                 user_answers = user_answers.split("@")
                 for answer in user_answers:
-                    
-                    if current_answers[0][int(answer)] != "image?#$?image":
-                        ready_answers += current_answers[0][int(answer)] + " "
-                    else:
-                        ready_answers += f"зображення{count_img}" + " "
-                        count_img+=1
+                    if answer.isdigit():
+                        if current_answers[0][int(answer)] != "image?#$?image":
+                            ready_answers += current_answers[0][int(answer)] + " "
+                        else:
+                            ready_answers += f"зображення{count_img}" + " "
+                            count_img+=1
             else:
                 for answer in user_answers:
-                    if current_answers[0][int(answer)] != "image?#$?image":
-                        ready_answers += current_answers[0][int(answer)] + " "
-                    else:
-                        ready_answers += f"зображення{count_img}" + " "
-                        count_img += 1
+                    if answer.isdigit():
+                        if current_answers[0][int(answer)] != "image?#$?image":
+                            ready_answers += current_answers[0][int(answer)] + " "
+                        else:
+                            ready_answers += f"зображення{count_img}" + " "
+                            count_img += 1
         else:
             ready_answers = "пропустив"
     else:
@@ -361,17 +363,17 @@ def answer_the_question(data):
             })
     if count_answered >= count_people:
         DATABASE.session.commit()
-        emit("update_users", {"user_list": user_list}, room=data["code"], broadcast=True)
+        emit("users_data", {"user_list": user_list}, room=data["code"], broadcast=True)
         emit("page_result", room=data["code"], broadcast=True)
     else:
-        emit("update_users", {"user_list":user_list}, room=data["code"], broadcast=True)
+        emit("users_data", {"user_list":user_list}, room=data["code"], broadcast=True)
         emit("page_waiting")
 
    
 # сокет чтобы получить данные ответа пользователя когда он ждет
 @socket.on("get_data")
 def return_data(data):
-
+    print(int(data["index_question"]), "data_question")
     # ----------------
     index_question = int(data["index_question"]) - 1
     id_test = int(data["id_test"])
@@ -619,7 +621,8 @@ def return_data(data):
     clear_answers = None
     ans_clean = answers.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
     clear_answers = ans_clean.split('*|*|*')
-    clear_answers.remove("")
+    if "" in clear_answers:
+        clear_answers.remove("")
 
 
     user_list = []

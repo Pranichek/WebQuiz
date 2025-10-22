@@ -9,13 +9,15 @@ socket.emit("finish_mentor",{
 socket.on("list_results", data => {
     let users = data.users
     
-    let count = 1
+    // користувачі, що проходили тест(їхні блоки)
     users.forEach(user => {
 
         const userCardDiv = document.createElement("div")
         userCardDiv.classList.add("user-card")
         userCardDiv.textContent = user.email
+        // userCardDiv.textContent = user.username
         cardsContainer.appendChild(userCardDiv)
+
 
         const outlineDiv = document.createElement("div")
         outlineDiv.classList.add("outline")
@@ -26,8 +28,6 @@ socket.on("list_results", data => {
 
         console.log(user.email, user.accuracy)
 
-        user.count_points
-
         for (let i = 1; i <= parseInt(user.accuracy); i++) {
             fillDiv.style.width = "0%"; // старт с 0
 
@@ -36,12 +36,12 @@ socket.on("list_results", data => {
                 fillDiv.style.width = `${(parseInt(user.accuracy))}%`;
             }, 50); 
         }
-        count++
     });
 
     let accuracyResult = data.accuracy_result
     let dataDiagram = []
     let dataLabels = []
+
     const colorArray = [
         'rgba(107, 58, 126, 0.7)', 
         'rgba(143, 97, 158, 0.7)', 
@@ -54,6 +54,7 @@ socket.on("list_results", data => {
     let colorsDiagram = []
     
     for (let index = 0; index < accuracyResult.length; index++) {
+        
         dataDiagram.push(accuracyResult[index][0]) 
 
         countPeople = accuracyResult[index][1]
@@ -65,7 +66,6 @@ socket.on("list_results", data => {
         colorsDiagram.push(colorArray[index])
     }
 
-    console.log(colorArray, "lol")
 
     const ctx = document.querySelector('.myChart').getContext('2d');// полотно которое нужно именно в 2d
 
@@ -88,11 +88,14 @@ socket.on("list_results", data => {
                 display:false
                 },
                 title: {
-                display: true
+                display: false
                 }
             }
         }
     });
-})
 
+    const textAccuracy = document.querySelector(".average_accuracy")
+    const averageAccuracy = data.average_accuracy
+    textAccuracy.textContent = `${averageAccuracy}%`
+})
 

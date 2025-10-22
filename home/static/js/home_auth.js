@@ -21,34 +21,34 @@ window.addEventListener(
     }
 )
 
-// let submitFilter = document.querySelector(".submit-filter")
+let submitFilter = document.querySelector(".submit-filter")
 
-// submitFilter.addEventListener(
-//     'click',
-//     () => {
-//         let input = document.querySelector(".filter-input")
-//         let inputData = input.value
-//         localStorage.setItem("filter_data", inputData)
-//         location.replace("/catalog_tests")
-//         // document.querySelector(".search-filter-link").href = `/filter_page?input_data=${inputData}`
-//         // document.querySelector(".search-filter-link").click();
-//     }
-// )
+submitFilter.addEventListener(
+    'click',
+    () => {
+        let input = document.querySelector(".filter-input")
+        let inputData = input.value
+        localStorage.setItem("filter_data", inputData)
+        location.replace("/catalog_tests")
+        // document.querySelector(".search-filter-link").href = `/filter_page?input_data=${inputData}`
+        // document.querySelector(".search-filter-link").click();
+    }
+)
 
 // Проверяем на нажатие enter 
-// let input = document.querySelector(".filter-input");
+let input = document.querySelector(".filter-input");
 
-// input.addEventListener('keydown', (event) => {
-//   if (event.key === 'Enter') {
-//     event.preventDefault();
+input.addEventListener('keydown', (event) => {
+  if (event.key === 'Enter') {
+    event.preventDefault();
 
-//     let inputData = input.value;
-//     localStorage.setItem("filter_data", inputData);
-//     location.replace("/catalog_tests")
-//     // document.querySelector(".search-filter-link").href = `/filter_page?input_data=${inputData}`;
-//     // document.querySelector(".search-filter-link").click();
-//   }
-// });
+    let inputData = input.value;
+    localStorage.setItem("filter_data", inputData);
+    location.replace("/catalog_tests")
+    // document.querySelector(".search-filter-link").href = `/filter_page?input_data=${inputData}`;
+    // document.querySelector(".search-filter-link").click();
+  }
+});
 
 const cardsFloors = document.querySelectorAll(".cards")
 

@@ -391,9 +391,11 @@ a {
 
 .theme-test {
     color: #343434;
-    /* This was originally a font-weight value of 1.2vw, 
-       I am keeping the property name but adjusting the value for consistency in size */
-    font-weight: 1.10vw; 
+    font-size: 1.10vw; 
+    width: 50%;
+    white-space: nowrap;
+    overflow: hidden;    
+    text-overflow: ellipsis;
 }
 
 
