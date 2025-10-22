@@ -30,7 +30,6 @@ socket.on("stop_time",
 stopButton.addEventListener(
     'click',
     () => {
-        console.log("stopButton =", stopButton)
         socket.emit("stopTime", {"code":localStorage.getItem("room_code")});
     }
 )
