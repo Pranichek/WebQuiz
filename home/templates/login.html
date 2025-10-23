@@ -8,6 +8,10 @@
 
 
 {% block content %}
+    <div class="background">
+        <div class="glowing-area"></div>
+    </div>
+
     <div class = "content-login">
 
         <div class="login">
@@ -24,34 +28,20 @@
                     <img class="hidden" id="eye" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
                 </div>
                 <button class="send-data" type="submit">Авторизуватися</button>
+                <div class="if-not">
+                        <p>Ще не маєте акаунту?</p>
+                        <a href="{{ url_for('registration.render_registration') }}">Зареєструватися</a>
+                </div>
 
                 <p class="problem">{{ message }}</p>
             </form>
         </div>
     </div>
 
-        <div class="promotion">
-            <div class="bonuses">
-                <div class="glowing-area"></div>
-                <div class="bonus b1">
-                    <img src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_one.png') }}">
-                </div>
-                <div class="bonus b2">
-                    <img src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_two.png') }}">
-                </div>
-                <div class="bonus b3">
-                    <img src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_three.png') }}">
-                </div>
-            </div>
+    <!-- <div class="robot">
+        <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
+    </div> -->
 
-            <div class="info-text">
-                <p>Заробляй бонуси,відповідаючи на<br>запитання та змагайся з друзями !</p>
-            </div>
-            <div class="robot-glowing-area"></div>
-            <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
-        </div>
-
-    </div>
     <form action="" method="post" id="clear-form">
         <input type="hidden" name="check_form" value="clear_form">
     </form>

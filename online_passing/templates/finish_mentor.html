@@ -5,13 +5,72 @@
 {% endblock %}
 
 {% block content %}
-    <div id="cards">
+    <div class="users-results">
+        <div class="result">
+            <img src="{{ url_for('mentor.static', filename='images/mentor/result.svg') }}" alt="">
+            <p>Результати тесту: </p>
+        </div>
+        <div class="cards">
+            <div class="cards-header">
+                <img src="{{ url_for('mentor.static', filename='images/mentor/count_users.svg') }}" alt="">
+                <p>X учасників</p>
+            </div>
+            <div class="block-info">
+                <div class="div55">
+                    <p class="text-color">місце</p>
+                    <p class="for-margin">ім'я учасника</p>
+                    <p class="text-color">бали</p>
+                </div>
+                <div class="div45"><p class="text-color1">точність</p></div>
+            </div>
+            <div class="user-list">
+                
+            </div>
+        </div>
+    </div>
+    <div class="graphics">
+        <button class="q-btn">
+            <p>Перелік питань</p>
+        </button>
+        
+        <div class="accurancy">
+            <div class="main-diagram">
+                <p>Результати тесту: </p>
+                <div class="diagram-pie">
+                    <canvas class="myChart"></canvas>
+                </div>
+            </div>
+            <div class="gap-info">
+                <div class="res-info">
+                    <p>Загальна точність: </p>
+                    <p class="text-colo average_accuracy">100%</p>
+                </div>
+                <div class="full-info">
+                    <span>Найкраще питання за тест: </span>
+                    <div class="style-block">
+                        <p>Для чого потрібен Auto Layout?</p>
+                        <div class="graf">bb</div>
+                    </div>
+                    <span>Найгірше питання за тест: </span>
+                    <div class="style-block">
+                        <p>Для чого потрібен Auto Layout?</p>
+                        <div class="graf">bb</div>
+                    </div>
+
+                    <div class="time-info">
+                        <p>Середній час витрачений на тест: </p>
+                        <p class="text-color">Щось ....</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         
     </div>
 {% endblock content %}
 
 {% block scripts %}
     {{ super() }}
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('mentor.static', filename='js/finish_mentor.js') }}" defer></script>
     <script src="{{ url_for('mentor.static', filename='js/recconect.js') }}" defer></script>
 {% endblock %}

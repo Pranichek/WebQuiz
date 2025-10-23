@@ -169,3 +169,23 @@ function myFunction() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', function() {
+    const descriptionTextarea = document.getElementById('description');
+    if (descriptionTextarea) {
+        let check = document.cookie.match("descriptio")
+        if (check){
+            let savedDescription = document.cookie.split("description=")[1].split(";")[0];
+            if (savedDescription) {
+                descriptionTextarea.value = savedDescription;
+            }
+        }else{
+            document.cookie = `description=${descriptionTextarea.value}; path=/;`;
+        }
+        
+
+        descriptionTextarea.addEventListener('input', function() {
+            document.cookie = `description=${this.value}; path=/;`;
+        });
+    }
+})
+

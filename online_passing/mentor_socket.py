@@ -17,6 +17,7 @@ def users_results(data):
 
     test : Test = Test.query.get(int(data["test_id"]))
     index_question = int(data["index_question"])
+    print(index_question, "indf")
     text_question = test.questions.split("?%?")[index_question]
     type_question = test.type_questions.split('?$?')[index_question]
 
@@ -178,7 +179,7 @@ def load_question_mentor(data):
                 image_urls[index - 1] = url
     
     print("mentor_socket.jslol")
-    emit("update_users", {
+    emit("data_question_mentor", {
         "user_list": user_list,
         "text_question": text_question,
         "type_question": type_question,
@@ -187,6 +188,7 @@ def load_question_mentor(data):
         "img_url": img_url,
         "image_urls": image_urls
     }, room=data["room"], broadcast=True)
+    emit("users_data", {"user_list": user_list}, room=data["room"], broadcast=True)
 
 
 
@@ -238,13 +240,16 @@ def finish_test(data):
     user_list = []
     room = Rooms.query.filter_by(room_code= data["room"]).first()
     user_ids = room.users.split() if room and room.users else []
-
-    test : Test = Test.query.get(int(data["test_id"]))
+    accuracy_result = [] #[[80, 5],[50, 1]] - пример что в нем будет хранится(80 - это проценты, 5 - колво людей что прошло на такой результат)
+    sum_accuracy = 0
+    passed_test = 0
 
     for user_id in user_ids:
         user : User  = User.query.get(int(user_id))
         user.user_profile.answering_answer = "відповідає"
         DATABASE.session.commit()
+        
+
         if user and user.id != flask_login.current_user.id:
             avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.email}/{user.name_avatar}')
 
@@ -257,9 +262,31 @@ def finish_test(data):
                 "accuracy": user.user_profile.last_answered.split("/")[1],
             })
 
-    
+            accuracy = int(user.user_profile.last_answered.split("/")[1].split(".")[0]) 
+            check = False
+
+            for elem in accuracy_result:
+                if elem[0] == accuracy:
+                    # [80, 5]
+                    check = True
+                    elem[1] += 1
+                    sum_accuracy += accuracy
+                    
+                    break
+
+            if check == False:
+                new_list = [accuracy, 1]
+                sum_accuracy += accuracy
+                passed_test += 1
+                accuracy_result.append(new_list)
+                            
+
     user_list = sorted(user_list, key=itemgetter("count_points"), reverse=True)
+    print(sum_accuracy, passed_test, "lol")
+    average_accuracy = sum_accuracy // passed_test
     
     emit("list_results", {
-        "users": user_list
+        "users": user_list,
+        "accuracy_result": accuracy_result,
+        "average_accuracy": average_accuracy
     })

@@ -78,58 +78,41 @@ def render_home_auth():
     user = User.query.get(flask_login.current_user.id)
 
     # отримати баланс
-    money_user = user.user_profile.count_money
+    list_tests = []
+    category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше", "нещодавно пройдені"]
+    random.shuffle(category)
+    check_passed = user.user_profile.last_passed.split(" ")
+    random.shuffle(check_passed)
+    last_passed = check_passed if len(check_passed) <= 5 else check_passed[0:5]
 
-    category = ["хімія", "англійська", "математика", "історія", "програмування", "фізика", "інше"]
-    
+    for category in category:
+        if category != "нещодавно пройдені":
+            all_tests = Test.query.filter(Test.category == category, Test.check_del != "deleted").all()
+            
+            if len(all_tests) > 5:
+                random.shuffle(all_tests)
+                list_tests.append([category, all_tests[0:5]])
+            else:
+                if len(all_tests) > 0:
+                    list_tests.append([category, all_tests])
 
-    first_topic = random.choice(category)
-    category.remove(first_topic)
-    first_four_test = get_random_tests(category=first_topic)
+        else:
+            if len (last_passed) > 0:
+                last_tests = []
+
+                for id in last_passed:
+                    # isdigit - перевіряє, що у рядку є цифра/число
+                    if id.isdigit():
+                        ready_id = int(id.split("/")[0])
+                        test = Test.query.get(ready_id)
+                        last_tests.append(test)
+                if len(last_tests) > 0 and last_tests[0] != "":
+                    list_tests.append([category, last_tests])
 
 
-    second_topic = random.choice(category)
-    category.remove(second_topic)
-    second_four_test = get_random_tests(category=second_topic)
-
-
-    user : User = User.query.get(int(current_user.id))
-    third_random_numbers = user.user_profile.last_passed.split(" ")
-    for el in third_random_numbers:
-        indx = third_random_numbers.index(el)
-        normal = el.split("/")[0]
-        third_random_numbers[indx] = normal
-
-    # list(set(third_random_numbers))
-    for element in third_random_numbers:
-        if third_random_numbers.count(element) >= 2:
-            count = third_random_numbers.count(element)
-            for i in range(count - 1):
-                third_random_numbers.remove(element)
-
-    random.shuffle(third_random_numbers)
-    all_tests = Test.query.all()
-
-    third_ready_tests = []
-
-    if '' in third_random_numbers:
-        third_random_numbers.remove('')
-    
-    if len(third_random_numbers) >= 5:
-        range_count = 5
-    else:
-        range_count = len(third_random_numbers)
+    ready_list = list_tests if len(list_tests) <= 4 else list_tests[0:4]
 
     
-    for test in range(0, range_count - 1):
-        
-        if Test.query.get(int(third_random_numbers[test])).check_del != "deleted" and Test.query.get(int(third_random_numbers[test])) not in third_ready_tests:
-            third_ready_tests.append(Test.query.get(int(third_random_numbers[test])))
-
-
-    fourth_topic = random.choice(category)
-    fourth_four_test = get_random_tests(category= fourth_topic)
-
 
 
     return flask.render_template(
@@ -137,12 +120,7 @@ def render_home_auth():
         home_auth = True,
         count_tests = 0,
         user = user,
-        first_tests = first_four_test,
-        first_topic = first_topic,
-        second_topic = second_topic,
-        second_tests = second_four_test,
-        third_tests = third_ready_tests if len(third_ready_tests) >= 4 else fourth_four_test,
-        fourt_topic = ["Недавно пройдені тести", fourth_topic] if len(third_ready_tests) >= 4 else [f"Тести із теми {fourth_topic}", fourth_topic]
+        ready_list = ready_list
         )
 
     
@@ -169,41 +147,45 @@ def render_registration():
 
             password_form = flask.request.form["password"]
             confirm_password = flask.request.form["confirm-password"]
-            if password_form == confirm_password and len(password_form) == 8:
-                if User.query.filter_by(email = email_form).first() is None:
-                    # if User.query.filter_by(phone_number = phone_number_form).first() is None:
-                    is_mentor = None
-                    if mentor_form == 'True':
-                        is_mentor = True
-                    else:
-                        is_mentor = False
-                    random_code = generate_code()
+            if password_form == confirm_password:
+                if len(password_form) <= 20 and len(password_form) >= 8: 
+                    if User.query.filter_by(email = email_form).first() is None:
+                        # if User.query.filter_by(phone_number = phone_number_form).first() is None:
+                        is_mentor = None
+                        if mentor_form == 'True':
+                            is_mentor = True
+                        else:
+                            is_mentor = False
+                        random_code = generate_code()
 
-                    flask.session["count_email"] += 1
-                    flask.session["code"] = random_code
-                    flask.session["email"] = email_form
-                    flask.session["username"] = username_form
-                    flask.session["check_mentor"] = is_mentor
-                    flask.session["password"] = password_form
+                        flask.session["count_email"] += 1
+                        flask.session["code"] = random_code
+                        flask.session["email"] = email_form
+                        flask.session["username"] = username_form
+                        flask.session["check_mentor"] = is_mentor
+                        flask.session["password"] = password_form
 
-                    email = Thread(target = send_code, args = (email_form, flask.session["code"]))
-                    email.start()
+                        email = Thread(target = send_code, args = (email_form, flask.session["code"]))
+                        email.start()
+                        
+                        return flask.redirect("/verify_code")
                     
-                    return flask.redirect("/verify_code")
-                
 
-        
+            
 
+                    else:
+                        flask.session.clear()
+                        email_shake = "User already exists"
+                        message = "Користувач із такою поштою вже існує"
                 else:
                     flask.session.clear()
-                    email_shake = "User already exists"
-                    message = "Користувач із такою поштою вже існує"
+                    password_shake = "Password is not eqal each other"
+                    message = "Дотримуйтесь вірної довжини паролю"
             else:
                 flask.session.clear()
                 password_shake = "Password is not eqal each other"
                 message = "Введені паролі не співпадають"
         elif check_form == "clear_form":
-            print("da?")
             email_shake = ''
             password_shake = ''
             phone_shake = ''
@@ -299,9 +281,6 @@ def render_code():
                     flask.session["code"] = ''
                     flask.session["email_sent"] = False
                 else:
-                    print(str(flask.session["code"]))
-                    print(form_code)
-                    print("-------------------------------------------------")
                     flask.session["code"] = ''
                     flask.session["email_sent"] = False
                     return flask.redirect("/")
@@ -419,61 +398,72 @@ def render_google_callback():
         users_name = userinfo_response.json()["given_name"]
     else:
         return "User email not available or not verified by Google.", 400
-    
-    print("callback func logging in")
-    # Create a user in your db with the information provided
-    # by Google
-    avatar = f"default_avatar{random.randint(1,5)}.svg"
-    user = User(
-        username=users_name,
-        email=users_email,
-        name_avatar = avatar,
-        google_id=unique_id
-    )
 
-    # Doesn't exist? Add it to the database.
-    if not User.query.get(unique_id):
-        user = User(
-            username=users_name,
-            email=users_email,
-            name_avatar = avatar,
-            google_id=unique_id
-        )
-        profile = DataUser()
-        user.user_profile = profile
-
-        DATABASE.session.add(user)
-        DATABASE.session.commit()
-
-    # Begin user session by logging the user in
-    flask_login.login_user(user)
-    print("callback func end")
+    flask.session["username"] = users_name
+    flask.session["user_email"] = users_email
+    flask.session["google_id"] = unique_id
 
     # Send user back to homepage
     return flask.redirect("/registration/complete_finish_signup")
 
 def render_finish_google_signup():
-    user = User.query.filter_by(email = flask_login.current_user.email).first()
+    message = ""
+    user = User.query.filter_by(email = flask.session.get("user_email")).first()
+    if user:
+        return flask.redirect("/login")
     password_shake = ""
     if flask.request.method == "POST":
         mentor_form = bool(flask.request.form["mentor"])
 
         password_form = flask.request.form["password"]
         confirm_password = flask.request.form["confirm-password"]
-        if password_form == confirm_password and len(password_form) == 8:
-            user.password = password_form
-            user.is_mentor = mentor_form
+        username = flask.request.form["username"]
+        if password_form == confirm_password:
+            if len(password_form) >= 8 and len(password_form) <= 20:
+                avatar = f"default_avatar{random.randint(1,5)}.svg"
+                user = User(
+                    username=username,
+                    email=flask.session.get("user_email"),
+                    name_avatar = avatar,
+                    google_id=flask.session.get("google_id"),
+                    password = password_form,
+                    is_mentor = mentor_form
+                )
+                profile = DataUser()
+                user.user_profile = profile
 
-            DATABASE.session.commit()
-            
-            return flask.redirect("/verify_code")
+                
+
+                DATABASE.session.add(user)
+                DATABASE.session.commit()
+
+                #створює папку із тим шляхом що указали
+                path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(flask.session["user_email"])))
+                if not os.path.exists(path):
+                    os.mkdir(path)
+
+                    default_avatar_path = os.path.abspath(os.path.join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", avatar))
+
+                    destination_path = os.path.join(path, avatar)
+
+                    shutil.copyfile(default_avatar_path, destination_path)
+
+                flask_login.login_user(user)
+                flask.session["email_sent"] = False
+                    
+                return flask.redirect("/home_auth")
+            else:
+                password_shake = "Passwords are not eual"
+                message = "Дотримуйтесь вірної довжини паролю"
         else:
-            flask.session.clear()
             password_shake = "Passwords are not eual"
             message = "Введені паролі не співпадають"
         
     return flask.render_template(
         template_name_or_list = "finish_google_signup.html", 
         password_shake = password_shake,
-        username = user.username
+        username = flask.session.get("username"),
+        random_num = random.randint(1, 5),
+        message = message,
+        registration_page = True
     )

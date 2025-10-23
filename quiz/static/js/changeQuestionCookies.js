@@ -6,7 +6,6 @@ const button = document.getElementById("save");
 const question = document.querySelector("#question");
 let answerInputList = document.querySelectorAll(".answer");
 let timeP = document.querySelector(".timer-p");
-const inputImg = document.getElementById("imgInput");
 const pk = document.getElementById("pk").textContent;
 let answers;
 let questions;

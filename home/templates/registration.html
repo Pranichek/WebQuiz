@@ -13,6 +13,10 @@
 {% endblock nav %}
 
 {% block content %}
+    <div class="background">
+        <div class="glowing-area"></div>
+    </div>
+
     <div class = "content-registration">
         <div class="registration">
             <form action="" method="post">
@@ -71,7 +75,7 @@
                             <div class="first-rule">
                                 <img class="icon-item like1" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
                                 <img class="icon-item dislike1" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
-                                <li class="list-item">Довжина у 8 символів</li>
+                                <li class="list-item">Довжина мінімум у 8 символів</li>
                                 <!-- <div class="checklist-line"></div> -->
                             </div>
                             <div class="checklist-line first-line"></div>
@@ -93,7 +97,7 @@
                     </div>
                 </div>
                 <div class="password-container">
-                    <input autocomplete="off" onpaste="return false"; class="text-input confirm_password {% if password_shake %}conf_password{% endif %}" type="password" name="confirm-password" maxlength="8" minlength="8" placeholder="Введіть Ваш пароль" class="input_password" id="password2" required>
+                    <input autocomplete="off" onpaste="return false"; class="text-input confirm_password {% if password_shake %}conf_password{% endif %}" type="password" name="confirm-password" placeholder="Введіть Ваш пароль" class="input_password" id="password2" required>
                     <img class="eyea"  id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
                     <img class="hidden2 eyea" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
                 </div>
@@ -111,30 +115,25 @@
 
                 <a href="/google_login">Увійти за допомогою <img src="" alt="icon"></a>
                 <button class="send-data" onclick="Shake()" type="submit">Створити акаунт</button>
+                <div class="if-not">
+                    <div class="if-yes">
+                        <p>Вже маєте акаунт?</p>
+                    </div>
+                    <div class="change-page">
+                        <a href="{{ url_for('login.render_login') }}">Авторизуватися</a>
+                        <a class="google-image" href="/google_login">Зареєструватися за допомогою:
+                            <img class="icon-google" src="{{ url_for('home.static', filename='images/login_and_auth/google.svg') }}" alt="">
+                        </a>
+                    </div>
+                </div>
                 <p class="problem">{{ message }}</p>
             </form>
         </div>
 
-        <div class="promotion">
-            <div class="bonuses">
-                <div class="glowing-area"></div>
-                <div class="bonus b1">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_one.png') }}" alt="avatart">
-                </div>
-                <div class="bonus b2">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_two.png') }}" alt="avatart">
-                </div>
-                <div class="bonus b3">
-                    <img class="avatar" src="{{ url_for('registration.static', filename='images/login_and_auth/bonus_three.png') }}" alt="avatart">
-                </div>
-            </div>
-
-            <div class="info-text">
-                <p>Заробляй бонуси,відповідаючи на<br>запитання та змагайся з друзями !</p>
-            </div>
-            <div class="robot-glowing-area"></div>
+        <!-- <div class="robot">
             <img class="robot" src="{{ url_for('static', filename='images/panel-robot.png') }}" alt="">
-        </div>
+        </div> -->
+
         <form action="" method="post" id="clear-form">
             <input type="hidden" name="check_form" value="clear_form">
         </form>

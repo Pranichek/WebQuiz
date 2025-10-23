@@ -9,8 +9,6 @@ if (!chcklocal.includes("student")){
 const socket = io(); 
 
 
-console.log(localStorage.getItem("test_id"), "abradakadabra")
-
 socket.emit("connect_room",
     {
         code: localStorage.getItem("room_code"),
@@ -77,11 +75,11 @@ socket.on("page_result",
                 // отримуємо старі відповіді якщо вони були
                 let oldCookie = localStorage.getItem("users_answers")
                 let cookieList = oldCookie.split(",")   
-                cookieList.push("∅")
+                cookieList.push("skip")
 
                 localStorage.setItem("users_answers", cookieList)
             }else{
-                localStorage.setItem("users_answers", "∅")
+                localStorage.setItem("users_answers", "skip")
             }
 
         }
@@ -156,28 +154,28 @@ socket.on('student_question', (data) => {
         let correctIndexes = data.correct_answers
 
         const cont = document.querySelector(".answers");
-        // if (dataCookie == "set"){
-        //     timeQuestion = data.test_time;
-        //     if (timeQuestion != "not"){
-        //         if (timeQuestion < 61){
-        //             timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-        //         }else{
-        //             const minutes = Math.floor(timeQuestion / 60);
-        //             let remainingSeconds = timeQuestion % 60;
+        if (dataCookie == "set"){
+            timeQuestion = data.test_time;
+            if (timeQuestion != "not"){
+                if (timeQuestion < 61){
+                    timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+                }else{
+                    const minutes = Math.floor(timeQuestion / 60);
+                    let remainingSeconds = timeQuestion % 60;
 
-        //             if (remainingSeconds < 10) {
-        //                 remainingSeconds = '0' + remainingSeconds;
-        //             }
+                    if (remainingSeconds < 10) {
+                        remainingSeconds = '0' + remainingSeconds;
+                    }
 
-        //             timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
-        //         }
-        //     }else{
-        //         timer.textContent = "-"
-        //     }
-        //     localStorage.setItem('time_question', timeQuestion);
-        //     const maxTime = parseInt(data.test_time);
-        //     localStorage.setItem('max_time', maxTime);
-        // } 
+                    timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+                }
+            }else{
+                timer.textContent = "-"
+            }
+            localStorage.setItem('time_question', timeQuestion);
+            const maxTime = parseInt(data.test_time);
+            localStorage.setItem('max_time', maxTime);
+        } 
 
         // checkOportunity - чтобы пользоватль не смог несколько раз ответь на один и тот же вопрос, если будет быстро кликать
         if (checkOportunity != "not"){
@@ -367,8 +365,6 @@ socket.on('student_question', (data) => {
 
                                 let answers = stored.split(",");
                                 let lastAnswers = answers[answers.length - 1];
-
-                                localStorage.setItem("question_time", parseInt(localStorage.getItem("timeData")))
                                 if (checkCorrect == true){
                                     socket.emit(
                                         'answered',
@@ -434,9 +430,7 @@ socket.on('student_question', (data) => {
 
                 for (let index = 0; index < amountAnswers; index++) {
                     if (blockanswers[index].style.display == "flex"){
-                        if (answers[index] != "image?#$?image"){
-                            blockanswers[index].querySelector(".variant-text").textContent = answers[index]
-                        }
+                        blockanswers[index].querySelector(".variant-text").textContent = answers[index]
                     }
                 }
 
@@ -643,8 +637,6 @@ socket.on('student_question', (data) => {
 
                                 let answers = stored.split(",");
                                 let lastAnswers = answers[answers.length - 1];
-                                localStorage.setItem("question_time", parseInt(localStorage.getItem("timeData")))
-
                                 if (checkCorrect == true){
                                     socket.emit(
                                         'answered',
@@ -713,9 +705,9 @@ socket.on('student_question', (data) => {
                 
                 for (let index = 0; index < amountAnswers; index++) {
                     if (manyBlockAnswers[index].style.display == "flex"){
-                        if (answers[index] != "image?#$?image"){
-                            variantText[index].textContent = answers[index]
-                        }
+                        variantText[index].textContent = answers[index]
+                        // blockanswers[index].querySelector(".variant-text").textContent = answers[index]
+
                     }
                 }
             }
@@ -904,7 +896,7 @@ socket.on('student_question', (data) => {
 
                                     let answers = stored.split(",");
                                     let lastAnswers = answers[answers.length - 1];
-                                    localStorage.setItem("question_time", parseInt(localStorage.getItem("timeData")))
+
                                     if (checkCorrect == true){
                                         socket.emit(
                                             'answered',
@@ -1076,7 +1068,7 @@ socket.on('student_question', (data) => {
 
                                     let answers = stored.split(",");
                                     let lastAnswers = answers[answers.length - 1];
-                                    localStorage.setItem("question_time",  parseInt(localStorage.getItem("timeData")))
+
                                     if (checkCorrect == true){
                                         socket.emit(
                                             'answered',
@@ -1147,13 +1139,75 @@ socket.on('student_question', (data) => {
     }
 });
 
-socket.on("update_student_time_SS", (data) =>{
-    if (!isNaN(data.time)){
-        timer.textContent = data.time
-    } else{
-        timer.textContent = "-"
+window.addEventListener(
+    'load',
+    () => {
+        let checkTime = localStorage.getItem('time_question')
+        if (checkTime != "not"){
+            timeQuestion = parseInt(localStorage.getItem('time_question'));
+
+            if (isNaN(timeQuestion)) {
+                // Якщо немає часу або він некоректний 
+                timer.textContent = "-";
+                return; // або можна встановити якийсь дефолт, наприклад, 0
+            }
+            timeQuestion -= 1; // Зменшуємо yf 1
+            updateCircle(parseInt(timeQuestion))
+            if (timeQuestion < 61){
+                    timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+            }else{
+                const minutes = Math.floor(timeQuestion / 60);
+                let remainingSeconds = timeQuestion % 60;
+
+                if (remainingSeconds < 10) {
+                    remainingSeconds = '0' + remainingSeconds;
+                }
+
+                timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+            }
+
+
+            setTimeout(() => {
+                timeQuestion = parseInt(localStorage.getItem('time_question'));
+
+                if (isNaN(timeQuestion)) {
+                    // Якщо немає часу або він некоректний 
+                    timer.textContent = "-";
+                    return; // або можна встановити якийсь дефолт, наприклад, 0
+                }
+                timeQuestion -= 1; // Зменшуємо yf 1
+                updateCircle(parseInt(timeQuestion))
+
+                if (timeQuestion < 61){
+                    timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+                }else{
+                    const minutes = Math.floor(timeQuestion / 60);
+                    let remainingSeconds = timeQuestion % 60;
+
+                    if (remainingSeconds < 10) {
+                        remainingSeconds = '0' + remainingSeconds;
+                    }
+
+                    timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+                }
+                // timer.textContent = `${Math.trunc(timeQuestion)}`;
+            }, 1000);
+        }else{
+            timer.textContent = "-"
+        }
     }
-})
+)
+ 
+
+// SetInterval - запускает функцию через определенный промежуток времени(в милисекундах)
+socket.on("add_some_time",
+    data => {
+        timeQuestion = parseInt(localStorage.getItem('time_question'));
+        wasted_time = parseInt(timeQuestion)
+        localStorage.setItem('time_question', wasted_time+15)
+    }
+
+)
 
 socket.on("end_this_question",
     data => {
@@ -1164,11 +1218,11 @@ socket.on("end_this_question",
             // отримуємо старі відповіді якщо вони були
             let oldCookie = localStorage.getItem("users_answers")
             let cookieList = oldCookie.split(",")   
-            cookieList.push("∅")
+            cookieList.push("skip")
 
             localStorage.setItem("users_answers", cookieList)
         }else{
-            localStorage.setItem("users_answers", "∅")
+            localStorage.setItem("users_answers", "skip")
         }
 
         circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
@@ -1179,7 +1233,6 @@ socket.on("end_this_question",
         
         let answers = stored.split(",");
         let lastAnswers = answers[answers.length - 1];
-        localStorage.setItem("question_time",  parseInt(localStorage.getItem("timeData")))
         socket.emit(
             'answered',
             {
@@ -1205,6 +1258,101 @@ socket.on("end_this_question",
         
     }
 )
+
+
+socket.on("stop_time",
+    data => {
+        let checkdata = localStorage.getItem("flag_time")
+        if (checkdata == "false"){
+            localStorage.setItem("flag_time", "true")
+        }else{
+            localStorage.setItem("flag_time", "false")
+        }
+    }
+)
+
+setInterval(() => {
+    let checkTime = localStorage.getItem('time_question')
+
+    flag_time = localStorage.getItem("flag_time")
+
+    if (checkTime != "not" && flag_time != "false"){
+        timeQuestion = parseInt(localStorage.getItem('time_question'));
+
+        if (isNaN(timeQuestion)) {
+            // Якщо немає часу або він некоректний 
+            // timer.textContent = "-";
+            return; 
+        }
+        let wasted_time = parseInt(localStorage.getItem("timeData"))
+        wasted_time += 1;
+        localStorage.setItem("timeData", wasted_time)
+        timeQuestion -= 1; 
+        updateCircle(parseInt(timeQuestion))
+        if (timeQuestion < 61){
+            timer.textContent = `${Math.trunc(timeQuestion)}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+        }else{
+            const minutes = Math.floor(timeQuestion / 60);
+            let remainingSeconds = timeQuestion % 60;
+
+            if (remainingSeconds < 10) {
+                remainingSeconds = '0' + remainingSeconds;
+            }
+
+            timer.textContent = `${Math.trunc(minutes)}:${remainingSeconds}`; // задаем в параграф чтобы чувачек выдел сколько он просрал времени
+        }
+        localStorage.setItem('time_question', timeQuestion)
+        if (timeQuestion <= 0){
+            localStorage.setItem('time_question', "set")
+            let chekcookies = localStorage.getItem("users_answers")
+            if (chekcookies){
+                // отримуємо старі відповіді якщо вони були
+                let oldCookie = localStorage.getItem("users_answers")
+                let cookieList = oldCookie.split(",")   
+                cookieList.push("skip")
+
+                localStorage.setItem("users_answers", cookieList)
+            }else{
+                localStorage.setItem("users_answers", "skip")
+            }
+
+            let index = localStorage.getItem("index_question")
+            index = parseInt(index) + 1;
+            localStorage.setItem("index_question", index)
+
+            circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+
+            let midletime = localStorage.getItem("wasted_time")
+            midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+            localStorage.setItem("wasted_time", midletime);
+
+            localStorage.setItem("timeData", "0")
+
+            let stored = localStorage.getItem("users_answers");
+            
+            let answers = stored.split(",");
+            let lastAnswers = answers[answers.length - 1];
+            socket.emit(
+                'answered',
+                {
+                    code: localStorage.getItem("room_code"), 
+                    total_time: localStorage.getItem("default_time"), 
+                    wasted_time: 0,
+                    right_answered: "not",
+                    id_test: localStorage.getItem("test_id"),
+                    index:localStorage.getItem("index_question"),
+                    lastanswers: lastAnswers,
+                    users_answers: localStorage.getItem("users_answers")
+                }
+            )
+            // console.log("Питання відправлено на сервер, чекаємо відповіді");
+        }
+    }else{
+        timer.textContent = "-"
+    }
+}, 1000);
+
+
 
 let leaveButton = document.querySelector(".leave_test")
 
@@ -1232,12 +1380,12 @@ if (localStorage.getItem("reload") == "yes"){
 let progress = 0; 
  // максимальний час в 
 
-// function updateCircle(timeLeft) {
-//     let maxTime = parseInt(localStorage.getItem('max_time'))
+function updateCircle(timeLeft) {
+    let maxTime = parseInt(localStorage.getItem('max_time'))
+    console.log(maxTime)
+    let progress = 360 * (maxTime - timeLeft) / maxTime;
+    if (progress > 360) progress = 360;
+    if (progress < 0) progress = 0;
 
-//     let progress = 360 * (maxTime - timeLeft) / maxTime;
-//     if (progress > 360) progress = 360;
-//     if (progress < 0) progress = 0;
-
-//     circle.style.background = `conic-gradient(#677689 ${progress}deg, #8ABBF7 ${progress}deg)`;
-// }
+    circle.style.background = `conic-gradient(#677689 ${progress}deg, #8ABBF7 ${progress}deg)`;
+}

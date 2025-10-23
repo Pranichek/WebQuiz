@@ -1,17 +1,6 @@
-*{
-    font-size: 2.5vh;
-}
-
 #eye1, #eye2{
-    position: absolute;
-    right: 5%;
+    cursor: pointer;
     z-index: 103;
-    height: 50%;
-    width: auto;
-}
-
-#eye2{
-    z-index: 99;
 }
 
 #clear-form{
@@ -36,9 +25,9 @@
     flex-direction: column;
     gap: 1.5vw; 
     background-color: #343434;
-    border: 0.2vh solid #B9BDF5;
-    border-radius: 3vh;
-    height: 90%;
+    border: 2px solid #B9BDF5;
+    border-radius: 30px;
+    height: 75%;
     width: 40vw;
     align-items: center;
     padding: 2vw 0px; 
@@ -55,10 +44,11 @@
 }
 
 .text-input {
-    border: solid 0.2vh black;
-    border-radius: 1vh;
+    border: solid 2px black;
+    border-radius: 10px;
     width: 80%;
-    height: 10%;
+    height: 15%;
+    max-height: 70px;
     color: #414141;
     background-color: #B9BDF5;
     text-align: center;
@@ -71,19 +61,21 @@
     font-weight: 600;
 }
 
+
+
 .password-checklist, .username-checklist{
     position: absolute;
     top: calc(80%);
     width: 90%;
     padding: 1.5vw 2vw; 
     background: #414141;
-    border-radius: 2vh;
+    border-radius: 15px;
     opacity: 0;
     pointer-events: none;
     transform: translateY(1.5vw); 
     transition: .5s ease;
     z-index: 100;
-    border: 0.2vh #ffffff solid;
+    border: 2px #ffffff solid;
     display: flex;
     flex-direction: column;
     gap: 0.5vw; 
@@ -165,7 +157,7 @@
     flex-direction: row;
     justify-content: start;
     align-items: center;
-    gap: 0;
+    gap: 0px;
 }
 
 .icon-item{
@@ -191,7 +183,7 @@
     margin-left: 2.5vw; 
     opacity: 0;
     width: 0;
-    height: 0.1vh;
+    height: 1px;
     background-color: #C48AF7;
     transform: translateY(-0.5vw); 
     transition: width 1s ease, opacity 0.3s ease;
@@ -201,7 +193,8 @@
     position: relative;
     display: flex;
     width: 80%;
-    height: 10%;
+    height: 12%;
+    /* background-color: green; */
 }
 
 .password-container .text-input, .sua .text-input{
@@ -209,6 +202,17 @@
     height: 100%;
 }
 
+#eye1, #eye2{
+    position: absolute;
+    right: 5%;
+    z-index: 103;
+    width: 1.8vw; 
+    height: 1.8vw;
+}
+
+#eye2{
+    z-index: 99;
+}
 
 .hidden1, .hidden2{
     display: none;
@@ -269,7 +273,7 @@ input[type='radio']::before {
   border-radius: 50%;
   transform: translate(-50%, -50%);
   background-color: #8AF7D4;
-  border: 0.2vh solid rgb(0, 0, 0);
+  border: 2px solid rgb(0, 0, 0);
 }
 
 input[type='radio']:checked::after {
@@ -281,7 +285,7 @@ input[type='radio']:checked::after {
   height: 1.1vw;
   border-radius: 50%;
   background-color: #B9BDF5;
-  border: 0.2vh solid rgb(0, 0, 0);
+  border: 2px solid rgb(0, 0, 0);
   transform: translate(-50%, -50%);
   visibility: visible;
 }
@@ -301,12 +305,15 @@ input[type='radio']:checked::after {
     filter: blur(100px);
 }
 
-.avatar{
-    width: 7vw; 
+.avatar {
+    width: 7vw;
     height: 7vw;
     border: 3px solid #000000;
     border-radius: 50%;
+    object-fit: cover;
+    display: block;
 }
+
 
 .if-not{
     display: flex;
@@ -320,7 +327,6 @@ input[type='radio']:checked::after {
     align-items: center;
     justify-content: center;
     gap: 0.5vw; 
-    position: relative;
 }
 .change-page p{
     display: flex;
@@ -349,26 +355,6 @@ input[type='radio']:checked::after {
     font-size: 1.2vw;
 }
 
-.if-yes p{
-    font-size: 1.1vw;
-}
-
-.change-page a{
-    font-size: 1.1vw;
-    height: 10%;
-    position: relative;
-    text-decoration: none;
-}
-
-.change-page a:hover{
-    text-decoration: underline;
-}
-
-.icon-google{
-    height: 1.7vw;
-    width: auto;
-}
-
 @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
     10% { transform: translate(-1px, -2px) rotate(-1deg); }
@@ -385,61 +371,6 @@ input[type='radio']:checked::after {
 
 
 
-/* @media (max-width: 900px){
-    .content-registration{
-        padding: 5vw 1vw;
-        height: auto;
-    }
-    .registration{
-        width: 80%;
-        font-size: 16px; 
-    }
-    .text-input {
-        width: 80%;
-        height: 40px;
-        font-size: 16px; 
-    }
-    .text-input::placeholder{
-        font-size: 16px;
-    }
-    .password-container .text-input, .sua .text-input{
-        width: 100%;
-        height: 40px;   
-    }
-}
-
-@media(max-width: 1370px){
-    .robot{
-        display: flex;
-        width: 6vw; 
-        height: 8vw;
-        right: 1vw;
-    }
-    .robot-glowing-area{
-        display: none;
-    }
-}
-
-@media(max-width: 600px){
-    .password-container .text-input, .sua .text-input{
-        width: 100%;
-        height: 40px;   
-    }
-    .text-input {
-        width: 80%;
-        height: 40px;
-
-    }
-    .robot{
-        display: flex;
-        width: 6vw; 
-        height: 8vw;
-        right: 1vw;
-    }
-    .checklist-title, .list-item, .username-item, .change-page p {
-        font-size: 14px;
-    }
-} */
 
 #passwordLabel{
     margin: 0 5vw;

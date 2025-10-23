@@ -4,6 +4,8 @@
 
 #eye {
     cursor: pointer;
+    height: 50%;
+    width: auto;
 }
 
 .main {
@@ -30,14 +32,14 @@
     z-index: 3;
     display: flex;
     flex-direction: column;
-    gap: 2vh;
+    gap: 1.5vw; 
     background-color: #343434;
     border: 0.1vh solid #B9BDF5;
     border-radius: 3vh;
     height: 90%;
     width: 40vw;
     align-items: center;
-    padding: 3vh 0
+    padding: 2vw 0px; 
 }
 
 .login form {
@@ -47,7 +49,7 @@
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    gap: 1vh;
+    gap: 0.7vw; 
 }
 
 .text-input {
@@ -58,12 +60,7 @@
     color: #414141;
     background-color: #B9BDF5;
     text-align: center;
-}
-
-.text-input::placeholder{
-    color: #414141;
-    font-size: 3vh;
-    font-weight: 600;
+    font-size: 1.2vw; 
 }
 
 .password-container{
@@ -82,8 +79,8 @@
     position: absolute;
     right: 5%;
     z-index: 3;
-    width: 2vw;
-    height: 4vh;
+    width: 25px; 
+    height: 25px;
 }
 
 .hidden{
@@ -91,14 +88,20 @@
 }
 
 .send-data{
-    border: solid 0.1vh black;
-    border-radius: 1vh;
-    width: 80%;
-    height: 6vh;
+    border: solid 1px black;
+    border-radius: 10px;
+    width: 40%;
+    height: 3vw; 
     background-color: #C48AF7;
     color: white;
     text-align: center;
-    font-size: 3vh;
+    font-size: 1.2vw;
+    transition: 0.2s;
+    cursor: pointer;
+}
+
+.send-data:hover{
+    background-color: #bc79f6;;
 }
 
 .user-status{
@@ -110,95 +113,69 @@
 .user-status label{
     width: 50%;
     color: white;
-    font-size: 3vh;
+    font-size: 1.2vw;
 }
 
 
-.promotion{
+.background{
     display: flex;
-    flex-direction: column;
-    gap: 10vh;
+    align-items: center;
+    justify-content: center;
 }
-
-.bonuses{
-    position: relative;
-    display: flex;
-    gap: 0.5vw;
-}
-
-.bonus{
-    width: 13vh;
-    height: 13vh;
-    border: 0.1vh solid #C48AF7;
-    border-radius: 2vh;
-    background-color: #343434;
-}
-
-.bonus img{
-    width: 12vh;
-    height: 12vh;
-}
-
 .glowing-area{
     position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #b9bdf5b0;
-    filter: blur(10vh);
-}
-
-.b1{
-    transform: rotate(-20deg);
-}
-.b2{
-    transform: rotate(15deg);
-}
-.b3{
-    transform: rotate(10deg);
+    left: 15%;
+    width: 70%;
+    height: 30%;
+    background-color: #B9BDF5;
+    filter: blur(100px);
 }
 
 .avatar{
-    width: 15vh;
-    height: 15vh;
+    width: 7vw;
+    height: 7vw;
+    border: 3px solid #000000;
+    border-radius: 50%;
+}
+.if-not{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1.5vw;
 }
 
-.info-text p{
-    color: white;
-    font-size: 3vh;
+.if-not p{
+    font-size: 1.1vw;
+}
+
+.if-not a{
+    font-size: 1.2vw;
 }
 
 .robot{
     position: absolute;
     right: 0;
     bottom: 0;
-    margin-right: 3vw;
-    margin-bottom: 3vw;
-    width: 7vw;
-    height: 19vh;
+    margin-right: 2vw;
+    margin-bottom: 1.5vw;
+    width: 10vw;
+    height: 15vw;
 }
 
-.robot-glowing-area{
-    position: absolute;
-    right: 3vw;
-    bottom: 10vh;
-    width: 5vw;
-    height: 19vh;
-    background-color: #8af7d57a;
-    filter: blur(10vh);
+.info-text p{
+    color: white;
+    font-size: 1.8vw;
 }
+
 
 .email_input, .password{
     animation: shake 0.4s;
-    /* animation-iteration-count: infinite; */
 }
 
 .problem {
     color: #ffffff;
 }
 
-/* создаем как бы обьект для анимации */
-/* transfron:translate передвигает обьект по осям, а rotate поворачивает тем самым создается эффект траски */
-/* Проценты это как бы фреймы анимации можно делать больше таких фреймов(кадров), а можно меньше */
 @keyframes shake {
     0% { transform: translate(1px, 1px) rotate(0deg); }
     10% { transform: translate(-1px, -2px) rotate(-1deg); }
@@ -211,4 +188,20 @@
     80% { transform: translate(-1px, -1px) rotate(1deg); }
     90% { transform: translate(1px, 2px) rotate(0deg); }
     100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+@media (max-width: 900px){
+    .content-login{
+        padding: 5vw 1vw;
+        height: auto;
+    }
+}
+
+@media(max-width: 1370px){
+    .robot{
+        display: none;
+    }
+    .robot-glowing-area{
+        display: none;
+    }
 }

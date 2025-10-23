@@ -71,6 +71,7 @@
 
 {% block scripts %}
     {{ super() }}
+    
     <script src="{{ url_for('mentor.static', filename='js/mentor_passing.js') }}"></script>
     <script src="{{ url_for('mentor.static', filename='js/control_time.js') }}"></script>
 {% endblock scripts %}

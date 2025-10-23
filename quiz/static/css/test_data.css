@@ -1,123 +1,184 @@
 .main{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    width: 100vw;
+    height: 90vh;
 }
 
-.blur {
+.bottom-blur{
     position: fixed;
-    bottom: 0;          /* прив’язка до низу */
+    top: 0;
     left: 0;
-    width: 100vw;       /* повна ширина сторінки */
-    height: 30vh;       /* висота блюру тільки внизу */
-    background: linear-gradient(71deg, #3C3C3C 10%, #7c9abd 20%, #74919E 72%, #3C3C3C 5%);
-    filter: blur(6.25vw);
+    width: 60vw;
+    height: 100vh;
+    background: linear-gradient(135deg, #3C3C3C 10%, #7c9abd 20%, #74919E 72%, #3C3C3C 5%);
+    filter: blur(15.25vw);
     z-index: -1;
     pointer-events: none;
 }
 
+.purple-blur{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 10vw;
+    height: 100vh;
+    background: linear-gradient(45deg, #3C3C3C 10%, #c05ad7 20%, #8930ad 72%, #3C3C3C 5%);
+    filter: blur(10.25vw);
+    z-index: -1;
+    pointer-events: none;
+}
 
-.test-header {
+.info-test{
+    height: 100%;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    position: relative;
+    align-items: center;
+}
+
+.questions-test{
+    height: 100%;
+    width: 50vw;
     display: flex;
     position: relative;
-    justify-content: space-between;
-    width: 90vw;
-    height: 35vh;
-    margin-top: 5vh;
-    margin-bottom: 8vh;
 }
 
-
-.test-info{
-    height: 100%;
-    width: 50%;
+.cont-question{
+    width: 90%;
+    height: 95%;
+    border: #000000 1px solid;
+    border-radius: 34px;
     display: flex;
-    justify-content: space-between;
-}
-
-.robot{
-    height: 100%;
-    width: 50%;
-    display: flex;
-    justify-content: end;
+    flex-direction: column;
     position: relative;
+    justify-content: start;
+    background-color: rgba(138, 187, 247, 0.2);
 }
 
-.robot img{
-    height: 100%;
-    width: auto;
-    object-fit: contain;
-    filter: drop-shadow(0 0 60px rgb(120, 183, 235));
+.header-cont{
+    width: 100%;
+    height: 10%;
+    border-bottom: #000000 1px solid;
+    border-top-left-radius: 34px;
+    border-top-right-radius: 34px;
+    background-color: rgba(87, 91, 100, 0.6);
+    display: flex;
 }
 
-.python{
-    height: 100%;
-    aspect-ratio: 1 / 1; 
+.header-cont p{
+    font-size: 1.2vw;
+    color: #ffffff;
+}
+
+.info-text{
+    margin-top: 50px;
+    font-size: 1.5vw;
+    font-weight: 600;
+}
+
+
+
+.main-info{
+    height: 40%;
+    width: 85%;
+    /* background-color: red; */
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: relative;
+    
+}
+
+.image-test {
+    aspect-ratio: 1 / 1; /* делает квадрат */
+    width: 31%; /* или фиксированная ширина, например 200px */
     border-radius: 10px;
-    overflow: hidden;
-    display: flex;
-    background-color: rgba(148, 196, 255, 0.29);
-    border: 3px solid #37445A;
-}
-
-.python img{
-    height: 100%;
-    width: auto;
-    object-fit: cover;
-}
-
-.top_info{
+    /* object-fit: cover; */
+    border: 2px #ffffff solid;
+    max-height: 100%;
     position: relative;
-    height: 90%;
-    width: 48%;
+    display: flex;
+}
+
+
+.test-cover{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.data-text{
+    height: 76%;
+    width: 60%;
     display: flex;
     flex-direction: column;
     align-items: start;
     justify-content: space-between;
 }
 
-
-.top_info p{
-    color: #ffffff;
-    font-size: 2.7vh;
-}
-
-.top_info p span{
-    font-size: 2.7vh;
-    color: #ffcc00;
-}
-
-.top_info p .at{
-    color: #C39FE4;
-}
-
-.stats{
+.main-p{
     width: 100%;
+    height: 15%;
     display: flex;
+    flex-direction: row;
+    gap: 0.5vw;
+    color: #FFDB81;
+    font-size: 1.2vw;
+    font-weight: 500;
+    justify-content: start;
+    align-items: center;
+}
+
+.span-text{
+    flex-wrap: wrap;
+}
+
+.preview-data{
+    width: 100%;
+    height: 17%;
+    display: flex;
+    flex-direction: row;
     justify-content: space-between;
 }
 
-.stats span{
-    width: 48%;
-    padding: 0.5vw;
-    background-color: #D0E5FD;
-    border-radius: 5px;
+.count-data{
+    width: 45%;
+    height: 100%;
+    border-radius: 8px;
+    border: #FFDB81 1px solid;
     display: flex;
-    border: 1.5px solid #6E7A8B;
-    color: black;
-    font-weight: 450;
+    font-size: 1.2vw;
+    background-color: rgba(185, 189, 245, 0.2);
 }
 
-.stats span{
-    font-size: 1vw;
+.description-test{
+    width: 85%;
+    height: 30%;
+    background-color: rgba(256, 256, 256, 0.56);
+    border-radius: 15px;
+    padding: 0.3vw;
+    overflow-y: scroll;
 }
 
+.description-test p{
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 1.1vw;
+    font-weight: 500;
+    overflow-y: scroll;
+}
 
+button{
+    font-size: 1.2vw;
+}
 .actions {
-    margin-top: 1vw;
+    margin-top: 4vh;
     display: flex;
     justify-content: center;
-    gap: 0.5vw;
-    margin-bottom: 8vh;
+    gap: 2vw;
 }
 
 .start-btn{
@@ -133,7 +194,7 @@
     display: flex;
     position: relative;
     height: 4vh;
-
+    
 }
 
 
@@ -183,113 +244,4 @@
     position: relative;
     border-radius: 10px;
     border: 2px solid #7B9CDA;
-}
-
-.question_title{
-    width: 100%;
-    height: 45%;
-    position: relative;
-    z-index: 1;
-    display: flex;
-    gap: 2vw;
-}
-
-.answers{
-    width: 100%;
-    height: 55%;
-    background-color: #3c3c3c;
-    display: flex;
-    justify-content: start;
-    flex-wrap: wrap;
-    position: relative;
-}
-
-.variant{
-    display: flex;
-    justify-content: start;
-    gap: 10px;
-    width: 50%;
-    height: 50%;
-    color: #ffffff;
-    font-size: 1vw;
-    padding-left: 1vw;
-    word-wrap: break-word;   
-    overflow-wrap: break-word;
-}
-
-.variant img{
-    height: 90%;
-    width: auto;
-    object-fit: contain;
-}
-
-.variant-center{
-    width: 100%;
-    justify-content: center;
-}
-
-.circle{
-    width: 1.5vw;
-    height: 1.5vw;
-    border: 1px solid #94C4FF;
-    border-radius: 50%;
-    flex-shrink: 0;
-    flex-grow: 0;
-}
-
-.quard{
-    width: 1.5vw;
-    height: 1.5vw;
-    border: 1px solid #94C4FF;
-    border-radius: 2px;
-    flex-shrink: 0;
-    flex-grow: 0;
-}
-
-.question-bg{
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    z-index: 0;
-}
-
-.question{
-    z-index: 1;
-    width: 50%;
-    height: 100%;
-    display: flex;
-    word-wrap: break-word;   
-    overflow-wrap: break-word;
-    color: #ffffff;
-    font-size: 1.2vw;
-    font-weight: 500;
-}
-
-.question_img{
-    width: auto;
-    height: 90%;
-    object-fit: contain;
-    z-index: 1;
-}
-
-
-/* Затемнення фона кнопок при наведенні */
-.start-btn:hover,
-.profile-btn:hover {
-    background-color: rgba(196, 138, 247, 0.8); /* трохи темніший фіолетовий для start-btn */
-    transform: scale(1.01);                      /* легке збільшення */
-    transition:  0.2s;
-}
-
-.profile-btn:hover {
-    background-color: rgba(114, 145, 184, 0.8); /* трохи темніший синій для profile-btn */
-}
-
-
-.robot img:hover,
-.python img:hover,
-.question_img:hover {
-    transform: scale(1.03);                     
-    transition: all 0.5s ease-in-out;
 }

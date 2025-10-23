@@ -264,6 +264,7 @@ input[type="checkbox"].category-input:checked {
     display: flex;
     transition: 0.5s ease;
     box-shadow: 0 0 0.625vw rgba(170, 114, 161, 0.454);
+    font-size: 1.10vw;
 }
 
 .card:hover {

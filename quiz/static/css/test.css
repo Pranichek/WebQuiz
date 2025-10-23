@@ -53,18 +53,17 @@ button:hover{
     display: flex;
     flex-direction: column;
     width: 100%;
-    height: 35vh;
+    height: 25vh;
     min-height: 30vh;
     border-radius: 1.3vh;
     background-color: #C7D7EB;
-    padding-top: 1vh;
 }
 
 .main-info {
     display: flex;
     justify-content: space-between;
     width: 100%;
-    height: 75%;
+    height: 90%;
 }
 
 .additional-buttons {
@@ -72,7 +71,6 @@ button:hover{
     width: 100%;
     justify-content: space-between;
     height: 25%;
-    padding-right: 2vw;
     color: green;
 }
 
@@ -88,12 +86,15 @@ button:hover{
 
 .info {
     display: flex;
+    position: relative;
     flex-direction: column;
     align-items: start;
     justify-content: start;
     gap: 1.2vh;
     height: 100%;
-    padding-top: 2.5vh;
+    min-width: 25vw;
+    width: fit-content;
+    margin-top: 15vh;
 }
 
 .input-wrapper {
@@ -238,6 +239,7 @@ span {
     border-radius: 0.5vh;
     margin-left: 2vw;
     display: block;
+
 }
 
 .test-cover {
@@ -264,7 +266,7 @@ span {
 .creator-email,
 .creator-name {
     color: #636262;
-    font-size: 2vh;
+    font-size: 1.2vw;
 }
 
 .avatar {
@@ -288,23 +290,49 @@ span {
     margin-right: 0.4vw;
 }
 
-.gray-block {
+.right-block{
     display: flex;
-    gap: 5vw;
-    width: 40%;
-    height: 50%;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+    width: 45%;
+    gap: 1vw;
+    padding-right: 2vw;
+}
+
+.description-block {
+    display: flex;
+    flex-direction: column; 
+    padding: 1vh;
+    gap: 1vh;
+    height: 60%;
+    width: 100%;
     border-radius: 1vh;
-    background-color: #3C3C3C;
-    margin-right: 2vw;
+    background-color: rgba(255, 255, 255, 0.45);
+    box-sizing: border-box;
 }
 
-.mini-robot {
-    width: 4vw;
-    height: 4vw;
+
+.description {
+    width: 100%;
+    height: 100%;
+    font-size: 1.2vw;
+    border: none;
+    color: #343434;
+    background: none;
+    outline: none;
+    font-weight: 500;
+    resize: none;
+    box-sizing: border-box;
+    white-space: pre-wrap;
+    overflow-wrap: break-word;
 }
 
-.gray-block p {
-    color: #D6E8FE;
+.description::placeholder{
+    font-size: 1.2vw;
+    font-weight: 500;
+    color:rgba(0, 0, 0, 0.45);
 }
 
 .big-text {
@@ -317,21 +345,28 @@ span {
 
 .right-buttons {
     height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
 }
+
 
 .set-name {
     display: flex;
+    position: absolute;
+    margin-top: 0.5vh;
+    top: 0;
+    right: 0;
     align-items: center;
     gap: 0.6vw;
-    padding: 1vh;
-    border: 0.2vh black solid;
+    padding: 0.7vh 2.5vw;
+    border: none;
     border-radius: 0.5vh;
-    background-color: #ffffff;
+    background-color: #C48AF7;
     margin-left: 2vw;
-    color: #343434;
+    color: #ffff;
     font-weight: 600;
     font-size: 1vw;
 }
@@ -754,8 +789,6 @@ label[for="image"] {
     width: fit-content;
     justify-content: center;
     align-items: center;
-    width: fit-content;
-    height: 6vh;
     position: relative;
 }
 
