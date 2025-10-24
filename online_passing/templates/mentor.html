@@ -37,7 +37,11 @@
                     </div>
                 </div>
                 <div class="topic">
-                    <img class="image-test" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                    {% if 'default' in test.image.split("/") %}
+                        <img class="image-test"  src="{{ url_for('test_pass.static', filename='images/' + test.image.split('/')[-1]) }}" alt="">
+                    {% else %}
+                        <img class="image-test"  src="{{ url_for('edit_avatar.static', filename='images/edit_avatar/' ~ test.user.email ~ '/user_tests/' ~ test.title_test ~ '/' ~ test.image ) }}" alt="">
+                    {% endif %}
                     <p class="topic-text">{{ title_test }}</p>
                 </div>
 
@@ -74,8 +78,8 @@
 
                     <div class="qr-code">
                         <p>Скануй QR-Code <br>та приєднуприєднуйся до тесту </p>
-                        <a class="qr-code-outline" href="" onclick="event.preventDefault(); showQR() "                                           >
-                            <img class="img-qrcode" src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                        <a class="qr-code-outline" href="" onclick="event.preventDefault(); showQR()">
+                            <img class="img-qrcode" src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/code.png') }}">
                         </a>
                     </div>
 
@@ -91,13 +95,13 @@
                                 </div>
                                 
                                 <div class="qr-code-div">
-                                    <img src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/' ~ code ~ '.png') }}">
+                                    <img src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/code.png') }}">
                                 </div>
                             </div>
 
                             <div class="bottom-part">
                                 <h3 id="for-text">Або приєднуйся по коду!</h3>
-                                <h2>{{ code }}</h2>
+                                <h2 class="code-room"></h2>
                             </div>
                         </div>
                     </div>

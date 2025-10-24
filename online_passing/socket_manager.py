@@ -8,6 +8,9 @@ from home.models import User
 from .models import Rooms
 from Project.db import DATABASE
 from .generate_code import generate_code
+import qrcode, os
+from os.path import exists
+from .del_files import delete_files_in_folder
 
 
 @socket.on("join_room")
@@ -32,6 +35,40 @@ def handle_join(data):
                 room_code = code
                 DATABASE.session.add(room)
                 join_room(code)
+                 # qrcode - 
+                # Створюємо QR-код(об'єкт) з посиланням на кімнату
+                qr = qrcode.QRCode(
+                    # корекцыя помилок - висока
+                    error_correction = qrcode.constants.ERROR_CORRECT_H, 
+                    # розмір qrcode
+                    box_size = 15,
+                    # розмір рамки навколо qrcode
+                    border = 2
+                )
+                # задаємо посилання на яке буде вести QR-код
+                qr.add_data(f"http://127.0.0.1:5000/student?room_code={code}")
+                # створюємо QR-код, але у вигляді закодовоного коду
+                qr.make(fit = True)
+
+                # створюємо зображення QR-коду
+                image = qr.make_image(
+                    # кольори QR-коду
+                    fill_color = '#000000',
+                    # колір фону QR-коду
+                    back_color = "#ffffff",
+                )
+
+                # зберігаємо зображення QR-коду в папку користувача
+                if not exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes"))):
+                    os.makedirs(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email), "qrcodes")))
+                if not os.path.exists(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes", f"{code}.png"))):
+                    delete_files_in_folder(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes")))
+                    with open((abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes", "chat.json"))), "w") as f:
+                        f.write("")
+
+                image.save(abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(current_user.email),  "qrcodes", "code.png")))
+
+                
 
             DATABASE.session.commit()
 

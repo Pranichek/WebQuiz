@@ -25,7 +25,6 @@ window.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelectorAll('.text-filter a').forEach(link => {
-        console.log(cookieCheck.split("=")[1], "lololo")
         if (link.classList.contains(cookieCheck.split("=")[1])) {
             link.classList.add("active");
             document.querySelector(".page-type").value = cookieCheck.split("=")[1];

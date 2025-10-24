@@ -20,7 +20,15 @@
     border-radius: 1vw;
     font-size: 2vh;
     border: none;
+    color: #636262;
+    padding-right: 13%;
 }
+
+.filter-input:focus {
+    outline: none;
+    box-shadow: none; 
+}
+
 
 .submit-filter {
     overflow: hidden;
@@ -42,8 +50,9 @@
 
 .submit-filter img {
     width: auto;
-    height: 80%;
+    height: 71%;
     background-color: transparent;
+    transform: translateY(-2px);
 }
 
 .filter-test form {

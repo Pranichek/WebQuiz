@@ -137,6 +137,7 @@ main{
     word-wrap: break-word; /* разрешает переносить слова */
     overflow-wrap: break-word;
     overflow-y: auto;
+    color: #000000;
 }
 /* Join Info Card */
 .mentor-join-info {
