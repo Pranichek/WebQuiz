@@ -41,6 +41,7 @@ function loadRoom() {
         users = data.user_list
         document.querySelector("#amount_users").textContent = (users.length - 1 >= 0) ? (users.length - 1) : 0;
         localStorage.setItem("room_code", data.code)
+        document.querySelector(".code-room").textContent = data.code
         document.querySelector("#code").textContent = data.code
 
         users.forEach(user => {

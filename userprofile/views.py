@@ -1,8 +1,7 @@
-import flask, os, flask_login, random, shutil, qrcode
+import flask, os, flask_login, random, shutil
 from threading import Thread
 import PIL.Image
 from home.models import User
-from online_passing.models import Rooms
 from quiz.models import Test, TestData
 from online_passing.del_files import delete_files_in_folder
 from quiz.generate_image import return_img
