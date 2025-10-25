@@ -32,18 +32,23 @@
         </div>
 
         {% if not test_page %}
-            <header>
+            <header class="header js-header">
                 <div class = "logo">
-                    <img class="img-logo" src="{{ url_for('static', filename='images/logo.svg') }}" alt="">
-                    <p>planet.quiz</p>
+                    <div class="part-logo">
+                        <img class="img-logo" src="{{ url_for('static', filename='images/logo.svg') }}" alt="">
+                        <p>planet.quiz</p>
+                    </div>
+                    {% if search_test %}
+                        <div class="filter-test">
+                            <form action="" method="post" id="filter-form">
+                                <input type="hidden" name="check_form" vlaue="filter">
+                                <input type="text" class="filter-input" placeholder="Знайти вікторину" onkeydown="checkEnterPress(event)">
+                                <button type="button" class="submit-filter"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.svg') }}" alt=""></button>
+                            </form>
+                        </div>
+                    {% endif %}
                 </div>
-                <div class="filter-test">
-                    <form action="" method="post" id="filter-form">
-                        <input type="hidden" name="check_form" vlaue="filter">
-                        <input type="text" class="filter-input" placeholder="Знайти вікторину" onkeydown="checkEnterPress(event)">
-                        <button type="button" class="submit-filter"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.svg') }}" alt=""></button>
-                    </form>
-                </div>
+                
                 <nav>
                     {% if home_page %}
                         <div class = "nav-links">
@@ -181,6 +186,7 @@
         <script src="{{ url_for('static', filename='js/load_avatar.js') }}"></script>
         <script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
         <script src="{{ url_for('static', filename='js/cookiemodal.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/header.js') }}"></script>
 
         {% block scripts %}
             <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>

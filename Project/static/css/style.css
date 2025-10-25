@@ -13,30 +13,47 @@ body{
 
 }
 
-header{
+.header{
     z-index: 1000;
     background-color: #343434;
+    top: -50px;
+    left: 0;
+    transition: all .1s ease;
+    /* height: 10vh; */
+    width: 100%;
+    overflow: hidden;
+    padding-left: 1vw;
     display: flex;
     flex-direction: row;
-    height: 10vh;
     color: #ffffff;
     align-items: center;
     justify-content: space-between;
-    top: 0; 
-    width: 100%;
-    overflow: hidden;
-    /* padding: 0 2vw; */
-    padding-left: 1vw;
+}
+
+.header.fixed {
+    position: fixed;
+    transform: translateY(50px);
+}
+
+.header__wrapper {
+    height: 10vh;
 }
 
 .logo {
     font-weight: 500;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
-    gap: 0.2vw;
+    justify-content: start;
+    gap: 1vw;
     /* background-color: green; */
+    width: 50vw;
+}
+
+.part-logo{
+    display: flex;
+    flex-direction: row;
+    gap: 0.2vw;
 }
 
 .img-logo{
@@ -189,19 +206,7 @@ nav {
     gap: 1vh;
 }
 
-.ab {
-    margin-top: -5vh;
-}
 
-.about{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1vw;
-    color: #ffffff;
-    padding-top: 5vh;
-    
-}
 .linkk{
     text-decoration: none;
     color: #ffffff;

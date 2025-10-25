@@ -120,7 +120,8 @@ def render_home_auth():
         home_auth = True,
         count_tests = 0,
         user = user,
-        ready_list = ready_list
+        ready_list = ready_list,
+        search_test = True
         )
 
     
