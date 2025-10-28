@@ -1,5 +1,5 @@
 import flask, flask_login, os, random, shutil, traceback, requests, json, random
-from Project.login_manager import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_DISCOVERY_URL, client
+# from Project.login_manager import GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_DISCOVERY_URL, client
 from .models import User
 from Project.db import DATABASE
 from .send_email import send_code, generate_code
