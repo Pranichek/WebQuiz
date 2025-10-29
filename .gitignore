@@ -9,6 +9,8 @@ __pycache__/
 *.so
 
 
+client_secret.json
+
 # Distribution / packaging
 .Python
 env/
