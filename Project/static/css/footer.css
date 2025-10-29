@@ -6,38 +6,29 @@ footer{
     flex-direction: column;
     width: 100vw;
     height: 20vh;
-    min-height: 150px;
-    bottom: 0;
-    max-height: 300px;
 }
 
 .about-us{
     position: relative;
     width: 100vw;
-    height: 30%;
+    height: 45%;
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    gap: 30px;
-    padding: 36px 10px 10px 10px;
-    max-width: 2000px;
+    gap: 1vw;
 }
 
 .footer-line{
     position: absolute;
     width: 50%;
-    height: 1px;
+    height: 0.15vh;
     background-color: #ffffff;
     bottom: 0;
-    transform: translateY(10px);
-    min-width: 500px;
-    max-width: 800px;
 }
 
 .link-data{
     text-decoration: none;
-    /* Змінено: 20px -> 1.2vw */
     font-size: 1.2vw;
     color: #ffffff;
     font-weight: 400;
@@ -50,46 +41,53 @@ footer{
     flex-direction: row;
     align-items: center;
     justify-content: start;
-    padding: 10px 10px;
-    gap: 30px;
     position: relative;
-    max-width: 1800px;
 }
 
 .follow-us-text{
     position: absolute;
-    top: 50%;
     left: 50%;
-    transform: translateX(-50%) ;
-    /* Змінено: 20px -> 1.2vw */
+    transform: translateX(-50%);
     font-size: 1.2vw;
     color: #ffffff;
     font-weight: 400;
 }
 
 .follow-us-text1{
-    /* Змінено: 20px -> 1.2vw */
     font-size: 1.2vw;
     color: #ffffff;
     font-weight: 400;
 }
 
-.data-donate{
-    margin-left: 100px;
-    position: absolute;
-    bottom: 0;
-    /* Змінено: 15px -> 0.9vw */
-    font-size: 0.9vw;
-    font-weight: bold;
-    color: #ffffff;
-    left: 0;
-}
 
 .data-donate1{
-    /* Змінено: 15px -> 0.9vw */
     font-size: 0.9vw;
     font-weight: bold;
     color: #ffffff;
+}
+
+.left-data{
+    height: 13vh;
+    width: 30%;
+    position: absolute;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: end;
+    gap: 2vh;
+}
+
+.data-donate{
+    font-size: 0.9vw;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.data-card{
+    color: #FFB700;
+    font-size: 1.2vw;
+    font-weight: 600;
 }
 
 .cherity{
@@ -99,26 +97,12 @@ footer{
     flex-direction: row;
     align-items: center;
     justify-content: center;
-    padding: 10px 10px;
-    gap: 30px;
     position: relative;
-    max-width: 1800px;
 }
 
-.data-card{
-    position: absolute;
-    left: 0;
-    top: 25%;
-    margin-left: 50px;
-    color: #FFB700;
-    /* Змінено: 20px -> 1.2vw */
-    font-size: 1.2vw;
-    font-weight: 600;
-}
 
 .data-card1{
     color: #FFB700;
-    /* Змінено: 20px -> 1.2vw */
     font-size: 1.2vw;
     font-weight: 600;
 }
@@ -127,50 +111,19 @@ footer{
     display: flex;
     flex-direction: row;
     align-items: center;
-    gap: 25px;
+    gap: 1vw;
 }
 
 .for-media{
-    margin-top: 10px;
     display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100vw;
     height: 70%;
-    gap: 5px;
 }
 
-@media(max-width: 920px){
-    footer{
-        height: 34vh;
-        min-height: 250px;
-    }
-
-    .footer-line{
-        width: 440px;
-        min-width: 400px;
-    }
-
-    .for-media{
-        display: flex;
-    }
-
-    .cherity{
-        display: none;
-    }
-
-    .follow-us{
-        display: none;
-    }
-    
-    /* Оновлення font-size для Media Query, щоб запобігти надто малому тексту на мобільних */
-    /* Використовуємо тут фіксований rem або більший vw, щоб текст був читабельним на вузьких екранах */
-    .link-data, .follow-us-text, .follow-us-text1, .data-card, .data-card1 {
-        font-size: 1.8vw; /* Збільшуємо адаптивний розмір для менших екранів */
-    }
-
-    .data-donate, .data-donate1 {
-        font-size: 1.4vw; /* Збільшуємо адаптивний розмір для менших екранів */
-    }
+.img-soc{
+    height: 5vh;
+    width: auto;
 }

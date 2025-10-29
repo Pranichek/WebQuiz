@@ -1,20 +1,12 @@
-body {
-    margin: 0;
-    padding: 0;
-    background-image: url(images/background.png);
-    background-size: cover;
-    background-repeat: no-repeat;
-    background-position: center;
-    height: 100vh;
-    font-family: Arial, sans-serif;
-    color: white;
-}
-
 .container1 {
     margin: 0 auto;
     display: flex;
     justify-content: center;
     align-items: center;
+}
+main{
+    display: flex;
+    flex-direction: column;
 }
 
 .top-bar {
@@ -69,7 +61,6 @@ body {
     cursor: pointer;
     font-family: 'Inter', sans-serif;
     font-weight: 500;
-    font-size: 20px;
     transition: background-color 0.3s ease;
 }
 
@@ -80,7 +71,7 @@ body {
 .container2 {
     position: relative;
     text-align: center;
-    padding-top: 120px;
+    background-color: orange;
 }
 
 .cards-wrapper {

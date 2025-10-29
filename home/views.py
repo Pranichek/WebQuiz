@@ -118,10 +118,11 @@ def render_home_auth():
     return flask.render_template(
         "home_auth.html", 
         home_auth = True,
-        count_tests = 0,
+        count_tests = current_user.user_profile.count_tests,
         user = user,
         ready_list = ready_list,
-        search_test = True
+        search_test = True,
+        nothing = True if len(ready_list) <= 0 else False
         )
 
     
@@ -199,7 +200,8 @@ def render_registration():
         password_shake = password_shake,
         phone_shake = phone_shake,
         message = message,
-        random_num = random.randint(1, 5)
+        random_num = random.randint(1, 5),
+        home_page = True
     )
 
 
@@ -287,7 +289,13 @@ def render_code():
                     return flask.redirect("/")
                 
     if not flask_login.current_user.is_authenticated or "new_email" in flask.session:
-        return flask.render_template(template_name_or_list = "verify_code.html", code = 34, code1 = flask.session["code"], verify_code_page = True) 
+        return flask.render_template(
+            template_name_or_list = "verify_code.html", 
+            code = 34, 
+            code1 = flask.session["code"], 
+            verify_code_page = True,
+            home_page = True
+        ) 
     else:
         flask.session.pop("new_email", "code")
         return flask.redirect("/")
@@ -333,7 +341,8 @@ def render_login():
             password = password,
             email = email,
             message = message,
-            random_num = random.randint(1, 5)
+            random_num = random.randint(1, 5),
+            home_page = True
         )
     else:
         return flask.redirect("/")

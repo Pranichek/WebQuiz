@@ -283,7 +283,7 @@ def render_create_question():
         
         return flask.redirect("/test")
 
-    return flask.render_template(template_name_or_list= "create_question.html", create_test = True)
+    return flask.render_template(template_name_or_list= "create_question.html", create_test = True, create_question = True)
 
 @login_decorate
 def render_select_way():
@@ -499,7 +499,8 @@ def render_change_question(pk: int):
         current_type = current_type,
         list_checks = list_checks,
         list_urls = list_urls,
-        create_test = True
+        create_test = True,
+        create_question = True
     )
 
 @socket.on("delImage")

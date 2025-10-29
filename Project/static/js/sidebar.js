@@ -1,10 +1,7 @@
 let opener = document.querySelector(".listener");
-console.log(opener);
 let sideBar = document.querySelector(".panel");
 
 opener.addEventListener("click", () => {
-    console.log(sideBar);
-    console.log(sideBar.classList);
     if (sideBar.classList.contains("closed")){
         sideBar.classList.remove("closed");
         sideBar.classList.add("opened");
@@ -12,5 +9,15 @@ opener.addEventListener("click", () => {
         sideBar.classList.remove("opened");
         sideBar.classList.add("closed");
     };
-    console.log(sideBar);
+});
+
+document.addEventListener("click", (event) => {
+    if (
+        sideBar.classList.contains("opened") &&
+        !sideBar.contains(event.target) &&
+        !opener.contains(event.target)
+    ) {
+        sideBar.classList.remove("opened");
+        sideBar.classList.add("closed");
+    }
 });

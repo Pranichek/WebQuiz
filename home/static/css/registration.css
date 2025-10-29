@@ -348,6 +348,10 @@ input[type='radio']:checked::after {
     font-size: 1.2vw;
 }
 
+/* .if-yes{
+    background-color: green;
+} */
+
 .if-yes p{
     font-size: 1.1vw;
 }
@@ -361,6 +365,11 @@ input[type='radio']:checked::after {
 
 .change-page a:hover{
     text-decoration: underline;
+}
+
+.google-image{
+    display: flex;
+    gap: 5px;
 }
 
 .icon-google{

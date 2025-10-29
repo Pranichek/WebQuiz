@@ -97,7 +97,7 @@
 
     {% if ns.countrows == 0 %} 
         <div class="nothing">
-            <p class="top-text">Тут з’являться ваші створені та нещодавно створені тести</p>
+            <p class="top-text">Тут з’являться створені та нещодавно пройдені тести</p>
             <p class="bottom-text">Почни зараз! Створи свій перший тест</p>
         </div>
     {% endif %} 
@@ -107,4 +107,5 @@
 
 {% block scripts %}
     <script src="{{ url_for('home.static', filename='js/home_auth.js') }}"></script>
+    <script src="{{ url_for('home.static', filename='js/check_home.js') }}"></script>
 {% endblock scripts %}

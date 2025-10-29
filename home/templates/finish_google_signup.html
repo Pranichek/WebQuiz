@@ -22,7 +22,7 @@
                 </div>
                 <div class="sua">
                     
-                    <input minlength="2" maxlength="20" autocomplete="off" pattern="^.{2,20}$" class="text-input username_input" type="text" name= "username" placeholder= "Введіть ім'я" required value="{{ username }}">
+                    <input minlength="2" maxlength="20" autocomplete="off" pattern="^.{2,20}$" class="text-input username_input" type="text" name= "username" placeholder= "Задайте ім'я" required value="{{ username }}">
                     <div class="username-checklist">
                         <div class="top-part">
                             <h3 class="checklist-title">Ім'я повинно містити</h3>
@@ -46,8 +46,8 @@
                 </div>
                 
 
-                <!-- <input type="hidden" inputmode="numeric" id = "input_phone" pattern="[\d\+]*$" class="text-input phone {% if phone_shake %}phone_shake{% endif %}" type="tel" maxlength="13" minlength="13" name= "phone_number" placeholder="Введіть номер телефону (починайте з +380)" value="+380" autocomplete="off" required>
-                <input inputmode="email" autocomplete="off" class="text-input email {% if email_shake %}email_input{% endif %}" type= "email" name= "email" placeholder= "Введіть email" required> -->
+                <!-- <input type="hidden" inputmode="numeric" id = "input_phone" pattern="[\d\+]*$" class="text-input phone {% if phone_shake %}phone_shake{% endif %}" type="tel" maxlength="13" minlength="13" name= "phone_number" placeholder="Задайте номер телефону (починайте з +380)" value="+380" autocomplete="off" required>
+                <input inputmode="email" autocomplete="off" class="text-input email {% if email_shake %}email_input{% endif %}" type= "email" name= "email" placeholder= "Задайте email" required> -->
                 <!-- <p id="passwordLabel">Вигадайте унікільний пароль для цього сервісу, щоб мати змогу авторизуватися з його допомогою</p> -->
                 <div class="password-container">
                     <!-- Вот тут вот находится єтот глазик которій прячет и открівает пароль -->
@@ -58,7 +58,7 @@
                     (?=.*\d) - Хоча б одна цифра
                     [A-Za-z\d]+ - Лише латинські літери
                     -->
-                    <input onpaste="return false;" autocomplete="new-password" class="text-input password-input" type="password" name="password"  pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+"  placeholder="Введіть Ваш пароль" class="input_password" id="password1" required>
+                    <input onpaste="return false;" autocomplete="new-password"  class="text-input password-input" type="password" name="password"  pattern="(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+" maxlength="20"  placeholder="Задайте ваш пароль" class="input_password" id="password1" required>
                     <img id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
                     <img class="hidden1" id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
 
@@ -94,7 +94,7 @@
                     </div>
                 </div>
                 <div class="password-container">
-                    <input autocomplete="off" onpaste="return false"; class="text-input confirm_password {% if password_shake %}conf_password{% endif %}" type="password" name="confirm-password"  placeholder="Введіть Ваш пароль" class="input_password" id="password2" required>
+                    <input autocomplete="off" onpaste="return false"; class="text-input confirm_password {% if password_shake %}conf_password{% endif %}" type="password" name="confirm-password" maxlength="20"  placeholder="Підтвердіть ваш пароль" class="input_password" id="password2" required>
                     <img class="eyea"  id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
                     <img class="hidden2 eyea" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
                 </div>

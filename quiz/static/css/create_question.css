@@ -6,6 +6,11 @@ body header {
     display: none;
 }
 
+.main{
+    height: 100vh;
+    background-color: green;
+}
+
 li, .timer {
     display: flex;
     justify-content: end;

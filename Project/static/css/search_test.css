@@ -1,27 +1,30 @@
 .filter-test {
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
+    width: 26vw;
+    height: 10vh;
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content:end;
     align-items: center;
-    padding: 0.63vw;
-    min-height: 4.44vw;
+    position: relative;
 }
 
 .filter-input {
-    width: 30vw;
-    height: 6vh;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 0;
+    width: 26vw;
+    height: 5.5vh;
     background-color: #C7D7EB;
     color: 636262;
     font-weight: bolder;
     padding: 3%;
     border-radius: 1vw;
-    font-size: 2vh;
+    font-size: 1vw;
     border: none;
     color: #636262;
     padding-right: 13%;
+    z-index: 0;
 }
 
 .filter-input:focus {
@@ -33,29 +36,25 @@
 .submit-filter {
     overflow: hidden;
     position: absolute;
-    z-index: 10;
-    bottom: 0;
     right: 0;
-    height: 0;
-    width: 12%;
-    height: 90%;
-    margin-right: 2%;
-    border-radius: 1.25vw;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 20;
+    width: 3vw;
+    height: 5vh;
+    display: flex;
+    object-fit: contain;
 }
+
 
 .submit-filter {
     background: transparent;
     border: none;
-}
+} 
 
 .submit-filter img {
     width: auto;
     height: 71%;
-    background-color: transparent;
-    transform: translateY(-2px);
+    object-fit: contain;
 }
 
-.filter-test form {
-    position: relative;
-    width: fit-content;
-}

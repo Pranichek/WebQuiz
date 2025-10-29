@@ -31,50 +31,29 @@
             </div>
         </div>
 
-        {% if not test_page %}
+        {% if not test_page and not create_question %}
             <header class="header js-header">
                 <div class = "logo">
-                    <div class="part-logo">
-                        <img class="img-logo" src="{{ url_for('static', filename='images/logo.svg') }}" alt="">
-                        <p>planet.quiz</p>
-                    </div>
-                    {% if search_test %}
-                        <div class="filter-test">
-                            <form action="" method="post" id="filter-form">
-                                <input type="hidden" name="check_form" vlaue="filter">
-                                <input type="text" class="filter-input" placeholder="Знайти вікторину" onkeydown="checkEnterPress(event)">
-                                <button type="button" class="submit-filter"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.svg') }}" alt=""></button>
-                            </form>
-                        </div>
-                    {% endif %}
+                    <img onclick="location.replace('/home_auth')" class="img-logo" src="{{ url_for('static', filename='images/logo.svg') }}" alt="">
+                    <p onclick="location.replace('/home_auth')">planet.quiz</p>
                 </div>
+
+                {% if not home_page %}
+                    <div class="filter-test">
+                        <form action="" method="post" id="filter-form">
+                            <input type="hidden" name="check_form" vlaue="filter">
+                            <input type="text" class="filter-input" placeholder="Знайти вікторину" onkeydown="checkEnterPress(event)">
+                            <button type="button" class="submit-filter"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.svg') }}" alt=""></button>
+                        </form>
+                    </div>
+                {% endif %}
+                
                 
                 <nav>
                     {% if home_page %}
-                        <div class = "nav-links">
+                        <div class = "nav-links home-links">
                             <a href="/registration" class="auth-button">Реєстрація</a>
                             <a href="/login" class="login-button">Увійти</a>
-                        </div>
-                    {% elif registration_page %}
-                        <div class="nav-links">
-                            <a href="/" class="enter-code">Приєднатися</a>
-                            <a href="/login" class="login-button">Увійти</a>
-                        </div>
-                    {% elif login_page %}
-                        <div class="nav-links">
-                            <a href="/" class="enter-code">Приєднатися</a>
-                            <a href="/registration" class="auth-button">Реєстрація</a>
-                        </div>
-                    {% elif home_auth %}
-                        <div class="nav-links">
-                            {% if user.is_mentor %}
-                                <a href="/mentor_class" class="test-button">Інформація по класам</a>
-                            {% else %}
-                                <a href="/student_class" class="test-button">Інформація по класам</a>
-                            {% endif %}
-
-                            <a href="/select_way" class="test-button">+ Створити вікторину</a>
-
                         </div>
                     {% elif mentor %}
                         <div class="header_buttons">
@@ -87,45 +66,75 @@
                         </div>
                     {% else %}
                         <div class="nav-links">
-                            {% if check_auth or create_test %}
-                                <a href="/" class="enter-code">Додому</a>
-                            {% else %}
-                                <a href="/" class="enter-code">Додому</a>
-                                <a href="/select_way" class="test-button">+ Створити вікторину</a>
+                            <a href="/select_way" class="test-button">Створити</a>
+                            {% if not mentor %} 
+                                <div class="panel-container">
+                                    <div class="listener">
+                                        <img src="{{ url_for('static', filename='images/open-panel.png') }}" alt="" class="open-panel">
+                                    </div>
+                                    <div class="panel closed">
+                                        <span class="link-container">
+                                            <span class="links">
+                                                <div class="cont-link">
+                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/library_tests.svg') }}" alt="">
+                                                    <a class="created-test" href="/user_test">Створені тести</a>
+                                                    <div class="line"></div>
+                                                </div>
+        
+                                                <div class="cont-link">
+                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/passed_tests.svg') }}" alt="">
+                                                    <a class="created-test" href="/user_test">Пройдені тести</a>
+                                                    <div class="line"></div>
+                                                </div>
+                                                
+                                                <div class="cont-link">
+                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/diagrams_icon.svg') }}" alt="">
+                                                    <a href="/graphics_user">Діаграми</a>
+                                                    <div class="line"></div>
+                                                </div>
+                                                
+                                                <div class="cont-link">
+                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/info_icon.svg') }}" alt="">
+                                                    <a href="/profile">Загальна інформація</a>
+                                                    <div class="line"></div>
+                                                </div>
+                                                
+                                                <div class="cont-link">
+                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/class_icon.svg') }}" alt="">
+                                                    <a href="">Інформація про класи</a>
+                                                    <div class="line"></div>
+                                                </div>
+                             
+                                                <div class="cont-link">
+                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/protection_icon.svg') }}" alt="">
+                                                    <a href="">Безпека</a>
+                                                    <div class="line"></div>
+                                                </div>
+                                                
+                                                <div class="cont-link">
+                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/avatar_icon.svg') }}" alt="">
+                                                    <a href="/edit_avatar">Аватар</a>
+                                                    <div class="line"></div>
+                                                </div>
+                                                
+                                                <div class="cont-link">
+                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/awards_icon.svg') }}" alt="">
+                                                    <a href="">Нагороди</a>
+                                                    <div class="line"></div>
+                                                </div>
+                                                
+                                                <div class="cont-link">
+                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/presents_icon.svg') }}" alt="">
+                                                    <a href="/buy_pet">Купівля подарунків</a>
+                                                    <div class="line"></div>
+                                                </div>
+                                                
+                                            </span>
+                                        </span>
+                                    </div>
+                                </div>
                             {% endif %}
                         </div>
-                    {% endif %}
-                    {% if not mentor %} 
-                    <div class="panel-container">
-                        <div class="listener">
-                            <img src="{{ url_for('static', filename='images/open-panel.png') }}" alt="" class="open-panel">
-                        </div>
-                        <div class="panel closed">
-                            <span class="link-container">
-                                <span class="links">
-                                    <a class="created-test" href="/user_test">Бібліотека тестів</a>
-                                    <hr>
-                                    <a href="/graphics_user">Діаграми</a>
-                                    <hr>
-                                    <a href="/profile">Загальна інформація</a>
-                                    <hr>
-                                </span>
-                                <span class="links">
-                                    <a href="">Безпека</a>
-                                    <hr>
-                                    <a href="/edit_avatar">Аватар</a>
-                                    <hr>
-                                    <a href="">Нагороди</a>
-                                    <hr>
-                                    <a href="/buy_pet">Купівля подарунків</a>
-                                    <hr>
-                                </span>
-                                <span class="links">
-                                    
-                                </span>
-                            </span>
-                        </div>
-                    </div>
                     {% endif %}
                 </nav>
                     
@@ -133,15 +142,18 @@
         {% endif %}
         
         <div id="circle-overlay"></div>
-
-
-        <main class="main">
+        <main class="main {{ 'nothing-tests' if nothing else ('not-full-main' if not create_question else 'full-main') }}">
             {% block content %}{% endblock %}
         </main>
 
 
+
         {% if home_auth %}     
             <footer class="footer">
+                <div class="left-data">
+                    <p class="data-donate">РЕКВІЗИТИ ДЛЯ ДОНАТІВ</p>
+                    <p class="data-card">Нагодуйте безпритульних собак</p>
+                </div>
                 <div class="about-us">
                     <a href="" class="link-data">Контакти</a> 
                     <a href="" class="link-data">Про нас</a>
@@ -149,11 +161,10 @@
                     <div class="footer-line"></div>
                 </div>
                 <div class="follow-us">
-                    <p class="data-donate">РЕКВІЗИТИ ДЛЯ ДОНАТІВ</p>
                     <p class="follow-us-text">Слідкуйте за нами</p>
                 </div>
                 <div class="cherity">
-                    <p class="data-card">Нагодуйте безпритульних собак</p>
+                    
                     <div class="img-link">
                         <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('static', filename='images/github.svg') }}" alt="Github" class="img-soc"></a>
                         <a href="https://www.worldit.academy" class="social-network"><img src="{{ url_for('static', filename='images/telegram.svg') }}" alt="Telegram" class="img-soc"></a>

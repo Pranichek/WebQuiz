@@ -21,15 +21,15 @@ html, body {
     width: 100%;
 }
 
+
+
 body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
 
-header {
-    margin-bottom: 2.50vh;
-}
+
 
 .top-part {
     display: flex;
@@ -40,7 +40,6 @@ header {
     cursor: pointer;
     gap: 2.81vw;
     height: 30vh;
-    padding: 0.63vw 0.63vw 1.13vw 0.63vw;
     min-height: 15.63vw;
     flex-wrap: wrap;
 }
@@ -48,14 +47,14 @@ header {
 .enter-code {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    align-items: center;
     background-color: #D6E8FE;
     border-radius: 0.94vw;
-    padding: 0.63vw;
     gap: 0.63vw;
     border: 0.06vw black solid;
     width: 60%;
-    min-width: 25.00vw;
-    height: 11.88vw;
+    height: 12vw;
     overflow: hidden;
     max-width: 56.25vw;
 }
@@ -66,7 +65,7 @@ header {
     background-color: transparent;
     border: 0.06vw black solid;
     width: 18.50vw;
-    height: 12.50vw;
+    height: 12vw;
     border-radius: 1.50vw;
     overflow: hidden;
 }
@@ -139,7 +138,7 @@ header {
 
 .nick .name-cont {
     height: 100%;
-    width: 65%;
+    width: 80%;
     word-wrap: break-word;
     overflow-wrap: break-word;
     white-space: normal;
@@ -225,7 +224,6 @@ input::-webkit-inner-spin-button {
     min-height: 15.63vw;
     max-height: 1.88vw;
     max-width: 106.25vw;
-    margin: 0 auto 3.13vw auto;
     padding-left: 1.25vw;
     padding-right: 1.25vw;
 }
@@ -239,7 +237,7 @@ input::-webkit-inner-spin-button {
     height: 15%;
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: start;
     align-items: center;
     margin-bottom: 1.25vw;
     margin-top: 1.25vw;
@@ -283,6 +281,7 @@ input::-webkit-inner-spin-button {
     gap: 2.50vw;
     display: flex;
     flex-direction: row;
+    justify-content: start;
     max-height: 12.50vw;
 }
 
@@ -380,7 +379,7 @@ a {
     position: absolute;
     width: 3.50vw;
     height: auto;
-    z-index: 10;
+    /* z-index: 5; */
     margin-bottom: 1.00vw;
 }
 
@@ -423,9 +422,10 @@ a {
 
 .nothing{
     width: 100vw;
-    height: 33.50vh;
+    height: 30vh;
     display: flex;
     flex-direction: column;
+    background-color: green;
 }
 
 .top-text{
