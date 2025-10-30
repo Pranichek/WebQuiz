@@ -20,7 +20,11 @@ main{
     z-index: 2;
     display: none;
 }
-
+.col2{
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+}
 .back-blur {
     position: fixed;
     right: 0;
@@ -34,18 +38,16 @@ main{
 }
 .main-block{
     display: flex;
-    gap: 28px;
-    padding: 44px 13px 52px 13px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: start;
-    width: 80vw;
-    height: 170vh;
+    flex-direction: row;
+    width: 90vw;
+    height: 80vh;
+    gap: 5vh;
     border: 1px #94C4FF solid;
     border-radius: 34px;
     background-color: #343434;
     position: relative;
     z-index: 1;
+    overflow: hidden;
 }
 
 
@@ -60,6 +62,11 @@ main{
     color: #ffffff;
     font-size: 20px;
     font-weight: 600;
+}
+.ava{
+    display: flex;
+    gap: 5vh;
+    flex-direction: column;
 }
 
 .default-avatars{
@@ -105,8 +112,8 @@ main{
     border: 1px #C48AF7 solid;
     border-radius: 34px;
     background-color: #464F5B;
-    width: 100%;
-    height: 40%;
+    width: 70vw;
+    height: 40vh;
     padding-left: 131px;
     padding-right: 131px;
 }
@@ -549,9 +556,6 @@ main{
         overflow: none;
     }
 
-    .main-block{
-        height: 500px;
-    }
 
     .agree{
         margin: 1px;
@@ -813,9 +817,7 @@ main{
         padding-right: 10px;
     }
 
-    .main-block{
-        height: 1000px;
-    }
+
 
     .circle-image{
         height: 61px;
@@ -1176,9 +1178,7 @@ main{
         width: 30px;
         height: 30px;
     }
-    .main-block{
-        height: 1400px;
-    }
+    
 }
 
 
@@ -1201,9 +1201,7 @@ main{
         padding-left: 100px;
     }
 
-    .main-block{
-        height: 1600px;
-    }
+
 
     .options-avatar{
         width: 150px;
