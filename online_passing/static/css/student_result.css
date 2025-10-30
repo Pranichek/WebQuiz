@@ -72,7 +72,7 @@
 }
 
 .statistics-answer div{
-    font-size: 4vh;
+    font-size: 1.2vw;
     color:#ffff;
 }
 
@@ -82,7 +82,7 @@
 
 .waiting {
     color: #ffff;
-    font-size: 3vh;
+    font-size: 1.2vw;
 }
 
 .waiting div {
@@ -103,6 +103,7 @@
     border-radius: 2vh;
     width: 95vw;
     position: relative;
+    display: flex;
 }
 
 .outline-accuracy{
@@ -136,6 +137,7 @@
 
 .accuracy-rate {
     height: 70%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -152,11 +154,14 @@
 
 .rightwrong {
     height: 30%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     gap: 3vw;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    bottom: 0;
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
 
@@ -393,6 +398,8 @@
 
 .line{
     width: 100%;
+    min-width: 100%; 
+    background-color: rgba(255, 0, 0, 0.2); 
     border-top: 0.1vh solid #ffffff;
 }
 

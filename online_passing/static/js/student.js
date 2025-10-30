@@ -33,16 +33,17 @@ socket.on("update_users", data => {
     localStorage.setItem("test_id", data["id_test"])
     console.log(localStorage.getItem("test_id"), "privet")
     users = data.user_list
+    mentor_email = data.mentor_email
 
     
     document.querySelector(".num-students").textContent = (users.length - 1 >= 0) ? (users.length - 1) : 0
-    // document.querySelector(".code_room").textContent = data.code
+    document.querySelector(".code-room").textContent = data.code
     const blockUsers = document.querySelector(".icons-users")
 
     blockUsers.innerHTML = "";
 
     users.forEach(user => {
-        if (user.email != document.querySelector(".email").textContent){
+        if (user.email != mentor_email){
             const blockDiv = document.createElement("div")
                 blockDiv.classList.add("block")
                 

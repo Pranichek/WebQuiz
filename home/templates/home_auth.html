@@ -64,7 +64,9 @@
                     {% else %}
                         <a href="/" class="tests-topic">Різноманітні тести</a>
                     {% endif %}
-                    <a data-value="{{ list_test[0] }}" class="show-more-link">Побачити більше</a>
+                    {% if list_test[1]|length > 5 %}
+                        <a data-value="{{ list_test[0] }}" class="show-more-link">Побачити більше</a>
+                    {% endif %}
                 </div>
                 <div class="cards">
                     {% for test in list_test[1]  %}

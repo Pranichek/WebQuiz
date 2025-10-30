@@ -286,7 +286,6 @@ input[type="checkbox"].category-input:checked {
 
 .card:hover {
     transition: 0.5s ease;
-    transform: translateY(-1.25vw);
     box-shadow: 0 0 1.25vw rgba(255, 255, 255, 0.5);
 }
 

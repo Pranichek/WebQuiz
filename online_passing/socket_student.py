@@ -135,8 +135,8 @@ def answer_the_question(data):
     # -------------------- последний ответ пользователя
     test : Test = Test.query.get(int(data["id_test"]))
     answers = test.answers.split("?@?")
-    type = test.type_questions.split("?$?")[int(data["index"])]
     print(int(data["index"]), "data_question")
+    type = test.type_questions.split("?$?")[int(data["index"])]
     ready_answers = ""
 
     if type != "input-gap":

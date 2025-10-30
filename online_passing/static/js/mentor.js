@@ -43,6 +43,7 @@ function loadRoom() {
         localStorage.setItem("room_code", data.code)
         document.querySelector(".code-room").textContent = data.code
         document.querySelector("#code").textContent = data.code
+        mentor_email = data.mentor_email
 
         users.forEach(user => {
             if (user.email != document.querySelector(".email").textContent){

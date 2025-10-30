@@ -283,7 +283,6 @@ socket.on("data_question_mentor", data => {
     setInterval(() => {
         if (localStorage.getItem("flag_time") == "true"){
             let time = +localStorage.getItem("time_flag") - 1
-            console.log("time =", time)
             
             if (time < 61 && time > 0){
                 minutesP.textContent = "00"
@@ -331,6 +330,7 @@ document.querySelector('.add-time').addEventListener(
             'add_time',
             {code: localStorage.getItem("room_code")}
         )
+        localStorage.setItem("time_flag", parseInt(localStorage.getItem("time_flag")) + 15)
     }
 )
 

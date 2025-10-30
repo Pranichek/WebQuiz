@@ -93,7 +93,7 @@ main{
 }
 
 .window-choice div{
-    margin-top: 1vh;
+    /* margin-top: 1vh; */
     display: flex;
     align-items: center;
     gap: 1vw;
@@ -151,6 +151,7 @@ main{
 }
 .inf p{
     display: flex;
+    white-space: nowrap;
 }
 .avatark{
     width: 89px;
@@ -217,7 +218,7 @@ main{
     display: flex;
     gap: 10px;
     height: 60vh;
-    padding: 7px 0px 7px 0px;
+    /* padding: 7px 0px 7px 0px; */
     position: relative;
 }
 
@@ -273,22 +274,47 @@ main{
     flex-direction: column;
 }
 .main-prt{
-    width: 35vw;
-    /* height: 50%; */
+    width: 30vw;
     display: flex;
     align-items: center;
     justify-content: space-between;
     color: #ffffff;
     font-weight: 500;
 }
+
+.data-copy{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 10vw;
+}
+
+.background-blur {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 50vh;
+    background: linear-gradient(90deg, #74919E 20%, #7c9abd 20%, #74919E 55%, #3C3C3C 10%);
+    filter: blur(6.25vw);
+    z-index: -1;
+    pointer-events: none;
+}
+
+.icon-small{
+    height: 80%;
+    width: auto;
+    object-fit: contain;
+}
+
 .main-prt button{
     background-color: transparent;
     border: none;
     cursor: pointer;
 }
 #usersNum{
-    width: 15vw;
+    width: 12vw;
 }
+
 .numero{
     display: flex;
     align-items: center;
@@ -317,9 +343,7 @@ main{
     font-weight: 600;
 }
 .achievement{
-    /* width: 100%; */
     height: 18%;
-    /* justify-content: space-between; */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -487,62 +511,6 @@ main{
 .message-user img{
     position: absolute;
     right: 0;
-}
-
-@media (min-width: 390px) and (max-width: 800px){
-    .main{
-        display: flex;
-        justify-content: center;
-        flex-direction: column;
-    }
-    .data-users{
-        display: flex;
-        align-items: center;
-        height: auto;
-        margin-top: 800px;
-        width: 100%;
-    }
-    .icons-users{
-        height: 800px;
-    }
-    .user-data{
-        width: 100%;
-    }
-    .avatark{
-        width: 40px;
-        height: 40px;
-    }
-}
-@media (min-width: 801px) and (max-width: 1225px){
-    .icons-users{
-        display: flex;
-        height: 600px;
-    }
-    .user-info{
-        display: flex;
-        gap: 15px;
-    }
-    .main-prt{
-        display: flex;
-        gap: 5px;
-        flex-direction: column;
-    }
-    .num{
-        margin-left: 0px;
-    }
-    .numero{
-        margin-left: 0px;
-    }
-    .data-test{
-        display: flex;
-        flex-direction: column;
-        gap: 25px;
-    }
-    .achievement{
-        display: flex;
-        flex-direction: column;
-
-    }
 }
 
 .avatar{

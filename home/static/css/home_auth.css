@@ -237,7 +237,7 @@ input::-webkit-inner-spin-button {
     height: 15%;
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: space-between;
     align-items: center;
     margin-bottom: 1.25vw;
     margin-top: 1.25vw;

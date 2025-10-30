@@ -10,6 +10,8 @@
         <div class="line-coint">
             <div class="main-coint">
                 <div class="info-box-horizontal">
+                    <div class="background-blur"></div>
+                    
                     <div class="user-info">
                         {% if user.email %}
                             <div class="avatar-circle avatark">
@@ -23,22 +25,24 @@
                             <p class="email">{{ user.email }}</p>
                             {% endif %}
                         </div>
-                        
+    
                     </div>
                     <div class="data-test">
                         <div class="main-prt"> 
                             <p class="join"> Kод приєднання</p>
-                            <div class="num">
-                                <p>567657</p>
+                            <div class="data-copy">   
+                                <div class="num">
+                                    <p class="code-room"></p>
+                                </div>
+                                <button><img src="{{ url_for('mentor.static', filename='images/mentor/copy.svg' ) }}" alt=""></button>
                             </div>
-                            <button><img src="{{ url_for('mentor.static', filename='images/mentor/copy.svg' ) }}" alt=""></button>
                         </div>
                         <div class="main-prt"> 
-                            <p class="join">Приєднуйтесь з будь-якого пристрою</p>
-                            
-                            <p class="likes">joinquiz.com</p>
-                            <button><img src="{{ url_for('mentor.static', filename='images/mentor/copy.svg' ) }}" alt=""></button>
-                        
+                            <p class="join">Приєднуйтесь</p>
+                            <div class="data-copy">
+                                <p class="likes">joinquiz.com</p>
+                                <button><img src="{{ url_for('mentor.static', filename='images/mentor/copy.svg' ) }}" alt=""></button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -48,20 +52,20 @@
                         <div class="last">
                             <p>ваші бали</p>
                             <div class="block-num">
-                                <p>30</p>
-                                <img src="{{ url_for('profile.static', filename='images/robo-money.png' ) }}" alt="">
+                                <p>{{ count_money }}</p>
+                                <img class="icon-small" src="{{ url_for('mentor.static', filename='images/mentor/money_icon.svg' ) }}" alt="">
                             </div>
                         </div>
                         <div class="last">
                             <p>улюбленець</p>
                             <div class="block-num2">
-                                <img class="pet" src="{{ url_for('profile.static', filename='images/pets_id/1.png' ) }}" alt="">
+                                <img class="pet icon-small" src="{{ url_for('profile.static', filename='images/pets_id/1.png' ) }}" alt="">
                             </div>
                         </div>
                     </div>
                     <div class="main-prt" id="usersNum"> 
                         <p class="numero">Kількість учасників</p>
-                        <p class="num-students">12</p>
+                        <p class="num-students"></p>
                     </div>
                     
                 </div>

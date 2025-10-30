@@ -34,5 +34,6 @@ def render_student():
 
     return flask.render_template(
         "student.html",
-        user = flask_login.current_user if flask_login.current_user.is_authenticated else None
+        user = flask_login.current_user if flask_login.current_user.is_authenticated else None,
+        count_money = current_user.user_profile.count_money
     )

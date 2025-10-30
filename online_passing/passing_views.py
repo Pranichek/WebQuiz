@@ -8,7 +8,8 @@ from flask_socketio import join_room
 def render_mentor_passing():
     return flask.render_template(
         "settings_mentor.html",
-        test_page = True
+        test_page = True,
+        create_question = True
     )
 
 @login_decorate
@@ -18,7 +19,8 @@ def render_student_passing():
         "student_passing.html",
         user = flask_login.current_user,
         bonus_value = flask_login.current_user.user_profile.percent_bonus if flask_login.current_user.is_authenticated else "0",
-        test_page = True
+        test_page = True,
+        create_question = True
     )
 
 # страница ожидания для студента
@@ -27,7 +29,8 @@ def render_wait_student():
     return flask.render_template(
         'waiting_room.html',
         user = flask_login.current_user,
-        test_page = True
+        test_page = True,
+        create_question = True
     )
 
 # страница результатов студента
@@ -37,17 +40,17 @@ def render_result_student():
         'result_student.html',
         user = flask_login.current_user,
         test_page = True,
+        create_question = True
     )
 
 # страница результатов ментора
 @login_decorate
 def render_result_mentor():
-    
-
     return flask.render_template(
         'result_mentor.html',
         user = flask_login.current_user,
-        test_page = True
+        test_page = True,
+        create_question = True
     )
 
 # страница финиша ментора
@@ -55,7 +58,8 @@ def render_result_mentor():
 def render_finish_mentor():
     return flask.render_template(
         'finish_mentor.html',
-        user = flask_login.current_user
+        user = flask_login.current_user,
+        # create_question = True
     )
 
 # страница финиша студента
@@ -66,7 +70,7 @@ def render_finish_student():
         'finish_student.html',
         user = flask_login.current_user,
         test_page = True,
-        progress = find_percentage([10, 10, 10, 10, 18, 2, 20, 0, 10, 10])
+        progress = find_percentage([10, 10, 10, 10, 18, 2, 20, 0, 10, 10]),
     )
 
 def find_percentage(data: list) -> list:

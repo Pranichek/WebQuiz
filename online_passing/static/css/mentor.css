@@ -130,6 +130,18 @@ main{
     top: -45%;
 }
 
+
+.background-blur {
+    position: fixed;
+    left: 0;
+    width: 40vw;
+    height: 100vh;
+    background: linear-gradient(60deg, #3C3C3C 10%, #7c9abd 20%, #74919E 72%, #3C3C3C 5%);
+    filter: blur(6.25vw);
+    z-index: -1;
+    pointer-events: none;
+}
+
 .topic-text{
     font-size: 1.3vw;
     width: 96%;
@@ -493,7 +505,10 @@ main{
 }
 .inf p{
     display: flex;
+    width: 80%;
+    white-space: nowrap;
 }
+
 .avatark{
     width: 89px;
     height: 89px;

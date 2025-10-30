@@ -75,11 +75,11 @@ socket.on("page_result",
                 // отримуємо старі відповіді якщо вони були
                 let oldCookie = localStorage.getItem("users_answers")
                 let cookieList = oldCookie.split(",")   
-                cookieList.push("skip")
+                cookieList.push("∅")
 
                 localStorage.setItem("users_answers", cookieList)
             }else{
-                localStorage.setItem("users_answers", "skip")
+                localStorage.setItem("users_answers", "∅")
             }
 
         }
@@ -1218,11 +1218,11 @@ socket.on("end_this_question",
             // отримуємо старі відповіді якщо вони були
             let oldCookie = localStorage.getItem("users_answers")
             let cookieList = oldCookie.split(",")   
-            cookieList.push("skip")
+            cookieList.push("∅")
 
             localStorage.setItem("users_answers", cookieList)
         }else{
-            localStorage.setItem("users_answers", "skip")
+            localStorage.setItem("users_answers", "∅")
         }
 
         circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
@@ -1309,11 +1309,11 @@ setInterval(() => {
                 // отримуємо старі відповіді якщо вони були
                 let oldCookie = localStorage.getItem("users_answers")
                 let cookieList = oldCookie.split(",")   
-                cookieList.push("skip")
+                cookieList.push("∅")
 
                 localStorage.setItem("users_answers", cookieList)
             }else{
-                localStorage.setItem("users_answers", "skip")
+                localStorage.setItem("users_answers", "∅")
             }
 
             let index = localStorage.getItem("index_question")
