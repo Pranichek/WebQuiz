@@ -5,6 +5,14 @@
 {% endblock links %}
 
 {% block content %}
+    <!-- <div class="rightwrong">
+                    <div class="right">
+
+                    </div>
+                    <div class="wrong">
+
+                    </div>
+                </div> -->
     <img data-open="{{ url_for('mentor.static', filename='images/open_eye.svg') }}" class="open-eye">
     <img data-close="{{ url_for('mentor.static', filename='images/close_eye.svg') }}" class="close-eye">
     <span id="arrow-img-path" data-src="{{ url_for('student.static', filename='images/show_more.svg') }}"></span>
@@ -23,15 +31,6 @@
                     <div class="accuracy-gradient"></div>
                 </div>
 
-                <div class="rightwrong">
-                    <div class="right">
-
-                    </div>
-                    <div class="wrong">
-
-                    </div>
-                </div>
-
                 <div class="accuracy-form">
                     <div class="rate">
                         <div class="fill"></div>
@@ -43,12 +42,35 @@
                         </div>
                     </div>  
                 </div>
+
             </div>
         </div>
 
         <div class="users-data">
             <div class="top-data">
+                <div class="data-answers">
 
+                    <div class="circle-info">
+                        <div class="circle right-circle">
+                            <p class="right-text">0</p>
+                        </div>
+                        <p> - Правильних відповідей</p>
+                    </div>
+
+                    <div class="circle-info">
+                        <div class="circle wrong-circle">
+                            <p class="wrong-text">0</p>
+                        </div>
+                        <p> - Неправильних відповідей</p>
+                    </div>
+
+                    <div class="circle-info">
+                        <div class="circle simple-circle">
+                            <p class="simple-text">0</p>
+                        </div>
+                        <p> - Інше</p>
+                    </div>
+                </div>
             </div>
             <div class="users-ratings">
 
@@ -59,6 +81,7 @@
 
 {% block scripts %}
     {{ super() }}
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="{{ url_for('mentor.static', filename='js/mentor_result.js') }}"></script>
     <script src="{{ url_for('mentor.static', filename='js/recconect.js') }}"></script>
 {% endblock %}

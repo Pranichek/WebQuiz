@@ -1,4 +1,3 @@
-import flask
 from flask_login import current_user
 import functools
 from online_passing.models import Rooms

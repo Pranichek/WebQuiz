@@ -16,7 +16,6 @@
     display: flex;
     flex-direction: column;
     gap: 3vh;
-    /* overflow: hidden; */
 }
 
 
@@ -61,7 +60,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 4vh;
+    font-size: 1.3vw;
     color: #ffff;
     padding: 1vh 5vw 1vh 5vw;
 }
@@ -169,7 +168,7 @@
     justify-content: center; 
     height: 70%;
     width: 100%;
-    font-size: 3vh;
+    font-size: 1.3vw;
     color:#ffff;
     text-align: center;
 }
@@ -181,11 +180,12 @@
     padding-left: 2vw;
     padding-right: 2vw;
     justify-content: space-between;
-    align-items: center;
+    align-items: end;
+    font-size: 1.3vw;
+    /* background-color: green; */
 }
 
 .statistics-answer div{
-    font-size: 4vh;
     color:#ffff;
 }
 
@@ -195,7 +195,7 @@
 
 .waiting {
     color: #ffff;
-    font-size: 3vh;
+    font-size: 1.3vw;
 }
 
 .waiting div {
@@ -216,6 +216,7 @@
     border-radius: 2vh;
     width: 95vw;
     position: relative;
+    display: flex;
 }
 
 .outline-accuracy{
@@ -249,13 +250,14 @@
 
 .accuracy-rate {
     height: 70%;
+    width: 90%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .rate {
-    width: 90%;
+    width: 85%;
     height: 20%;
     background-color: #ffff;
     border-radius: 1vh;
@@ -263,15 +265,20 @@
 }
 
 
+
 .rightwrong {
     height: 30%;
+    width: 100%;
     display: flex;
     flex-direction: row;
     gap: 3vw;
     justify-content: center;
     align-items: center;
+    position: absolute;
+    bottom: 0;
     transition: opacity 0.5s ease-out, transform 0.5s ease-out;
 }
+
 
 .rightwrong.show {
     opacity: 1;
@@ -328,18 +335,18 @@
 
 .text-perc{
     display: flex;
-    height: 2.5vh;
-    width: 6vw;
-    font-size: 1vh;
+    padding: 0.5vw;
+    font-size: 1vw;
     color:#ffff;
     background-color: #29292A;
     border: 0.1vh solid #8AF7D4;
     border-radius: 0.5vh;
     align-items: center;
     justify-content: center;
-    top:-20%;
-    left: 80%;
+    top:-55%;
+    left: 95%;
     position: absolute;
+    white-space: nowrap;
 }
 
 .quard{
@@ -357,9 +364,7 @@
     z-index: 100;
 }
 
-img {
-  filter: drop-shadow(0 0 20px rgba(115, 238, 115, 0.492));
-}
+
 
 .loading img {
     width: 5vh;

@@ -139,7 +139,7 @@ socket.on("show_data",
             rightText.className = "right-text"
 
             const rightAnswers = document.createElement("p")
-            rightAnswers.textContent = data.answers.join("\n")
+            rightAnswers.textContent = data.normal_answers.join("\n")
             rightAnswers.style.whiteSpace = "pre-line"
 
             answers.appendChild(rightText)
@@ -156,7 +156,7 @@ socket.on("show_data",
 
 
         // ------------- создание диаграм
-        let answers = data.answers
+        let answers = data.normal_answers
         console.log(answers)
         const cont = document.querySelector(".variants")
 
@@ -228,7 +228,7 @@ socket.on("show_data",
 
             // создание бащень ответов
             const blockCont = document.querySelector(".blocks")
-            for (let i = 1; i <= data.answers.length; i++) {
+            for (let i = 1; i <= data.normal_answers.length; i++) {
                 const outlineBlock = document.createElement("div");
                 outlineBlock.className = "block";
 

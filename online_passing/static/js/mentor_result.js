@@ -20,13 +20,13 @@ socket.on("list_results",
     user_list => {  
         // подготовка зон для дл отображения информации взависимости от типа вопроса
         const topData = document.querySelector(".top-data")
-        topData.innerHTML = ""
+        // topData.innerHTML = ""
         const usersRatings = document.querySelector(".users-ratings")
         usersRatings.innerHTML = ""
 
         if (user_list.type_question == "one-answer" || user_list.type_question == "many-answers"){
             topData.style.height = "40%"
-            topData.style.width = "95%"
+            topData.style.width = "100%"
             usersRatings.style.height = "58%"
             usersRatings.style.border = "0.17vh solid #C48AF7"
             usersRatings.style.borderRadius = "2vw";
@@ -59,17 +59,6 @@ socket.on("list_results",
             topData.appendChild(divDiagram)
             topData.appendChild(divVariants)
 
-            // блок с карточками людей
-            // <div class="ratings-header">
-            //     <img src="{{ url_for('mentor.static', filename='images/people.svg') }}" class="people-icon">
-            //     <p class="num-people"></p>
-            //     <p class="count-people"></p>
-            // </div>
-
-            // <div class="body-ratings">
-                
-            // </div>
-
             const ratingsHeader = document.createElement("div")
             ratingsHeader.className = "ratings-header"
 
@@ -93,18 +82,15 @@ socket.on("list_results",
 
             usersRatings.appendChild(ratingsHeader)
             usersRatings.appendChild(bodyRatings)
-        }else if(user_list.type_question == "input-gap"){
-            topData.style.width = "100%"
-            topData.style.height = '32%'
 
-            usersRatings.style.height = "66%"
+        }else if(user_list.type_question == "input-gap"){
+            topData.style.height = "40%"
+            topData.style.width = "100%"
+            usersRatings.style.height = "58%"
+            usersRatings.style.border = "0.17vh solid #C48AF7"
+            usersRatings.style.borderRadius = "2vw";
             
-            // <div class="outline-input-gap">
-            //     <p class="question">How many oenis do you have?</p>
-            //     <div class="right-answers">
-            //         <p class="right-text">Правильні відповіді:</p>
-            //     </div>
-            // </div>
+
 
             const outlineInput = document.createElement("div")
             outlineInput.className = "outline-input-gap"
@@ -170,8 +156,7 @@ socket.on("list_results",
                 )
             }
 
-            
-
+            // создание той части где поя
             const answers = document.createElement("div")
             answers.className = "right-answers"
             
@@ -192,13 +177,32 @@ socket.on("list_results",
 
             topData.appendChild(outlineInput)
 
+            const ratingsHeader = document.createElement("div")
+            ratingsHeader.className = "ratings-header"
+
+            const image = document.createElement("img")
+            image.className = "people-icon"
+            image.src = document.querySelector(".hide").dataset.src
+
+            const numPeople = document.createElement("p")
+            numPeople.className = "num-people"
+
+            const countPeople = document.createElement("p")
+            countPeople.className = "count-people"
+
+
+            ratingsHeader.appendChild(image)
+            ratingsHeader.appendChild(numPeople)
+            ratingsHeader.appendChild(countPeople)
+
+            const bodyRatings = document.createElement("div")
+            bodyRatings.className = "body-ratings"
+
+            usersRatings.appendChild(ratingsHeader)
+            usersRatings.appendChild(bodyRatings)
+
             // <p class="accuracy-students">Прогресс учнів: </p>
 
-            const textProgress = document.createElement("p")
-            textProgress.className = "accuracy-students"
-            textProgress.textContent = "Прогресс учнів:"
-
-            usersRatings.appendChild(textProgress)
         }
 
 
@@ -248,7 +252,7 @@ socket.on("list_results",
                 line.style.height = `${height}%`
             }
 
-            document.querySelector(".diagram-informations").style.gap = `${height}%`
+            document.querySelector(".diagram-informations").style.gap = `${height - 0.5}%`
 
             // создание бащень ответов
             const blockCont = document.querySelector(".blocks")
@@ -265,23 +269,16 @@ socket.on("list_results",
 
                 // даём браузеру время вставить элемент, и только потом меняем высоту
                 setTimeout(() => {
-                    greenBlock.style.height = `${(height + 0.1) * parseInt(user_list.count_answers[i - 1])}%`;
+                    greenBlock.style.height = `${(height + 0.15) * parseInt(user_list.count_answers[i - 1])}%`;
                 }, 50); 
             }
         }
-        
 
-    
+                    
 
         // --------------
-        let usersConts
-
-        if (user_list.type_question != "input-gap"){
-            usersConts = document.querySelector(".body-ratings")
-            usersConts.innerHTML = ""  
-        }else{
-            usersConts = document.querySelector(".users-ratings")
-        }
+        let  usersConts = document.querySelector(".body-ratings")
+        
         // <div class="user-card">
 
         //     <div class="left-part">
@@ -304,6 +301,7 @@ socket.on("list_results",
         let countAccuracy = 0
         let countRight = 0
         let countUncorrect = 0
+        let countMissed = 0
         user_list.users.forEach((element, index) => {
             const usercont = document.createElement("div")
             usercont.className = "user-card"
@@ -380,6 +378,7 @@ socket.on("list_results",
                 countUncorrect++
             }else{
                 choicen.style.backgroundColor = `rgba(163, 159, 159, 0.25)`;
+                countMissed++
             }
         })
 
@@ -472,8 +471,12 @@ socket.on("list_results",
             fill.style.height = Math.round(accuracy) + "%" 
         }
 
+        const maxAccuracy = 92; // Максимальный процент, до которого может подняться робот
+        const clampedAccuracy = Math.min(Math.round(accuracy), maxAccuracy);
+
         if (quard) {
-            quard.style.bottom = `calc(${Math.round(accuracy)}% - 0.5vh)` 
+            // Используем ограниченное значение
+            quard.style.bottom = `calc(${clampedAccuracy}% - 0.5vh)`; 
         }
 
         if (textPerc) {
@@ -491,9 +494,9 @@ socket.on("list_results",
         }
 
         // количество правильніх ответов
-        document.querySelector(".right").textContent = `${countRight} вірно!`
-        document.querySelector(".wrong").textContent = `${countUncorrect} невірно`
-
+        document.querySelector(".right-text").textContent = `${countRight}`
+        document.querySelector(".wrong-text").textContent = `${countUncorrect}`
+        document.querySelector(".simple-text").textContent = `${countMissed}`
     }
 )
 

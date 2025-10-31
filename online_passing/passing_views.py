@@ -63,7 +63,6 @@ def render_finish_mentor():
     )
 
 # страница финиша студента
-@check_room
 @login_decorate
 def render_finish_student():
     return flask.render_template(

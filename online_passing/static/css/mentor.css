@@ -369,7 +369,7 @@ main{
     flex-wrap: wrap;
     justify-content: start;
     align-items: start;
-    gap: 30px;
+    gap: 0.3vw;
 }
 
 .coint-message{
@@ -775,7 +775,8 @@ main{
     width: 22vw;
     position: absolute;
     bottom: 0;
-    left: 0;
+    right: 0;
+    margin-left: 100%;
     background-color: #343434;
     border-radius: 15px;
     border: 2px #A9D0FF solid;

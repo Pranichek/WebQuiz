@@ -137,14 +137,14 @@
 
 .accuracy-rate {
     height: 70%;
-    width: 100%;
+    width: 90%;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
 .rate {
-    width: 90%;
+    width: 85%;
     height: 20%;
     background-color: #ffff;
     border-radius: 1vh;
@@ -220,18 +220,18 @@
 
 .text-perc{
     display: flex;
-    height: 2.5vh;
-    width: 6vw;
-    font-size: 1vh;
+    padding: 0.5vw;
+    font-size: 1vw;
     color:#ffff;
     background-color: #29292A;
     border: 0.1vh solid #8AF7D4;
     border-radius: 0.5vh;
     align-items: center;
     justify-content: center;
-    top:-20%;
-    left: 80%;
+    top:-55%;
+    left: 95%;
     position: absolute;
+    white-space: nowrap;
 }
 
 .quard{
@@ -241,7 +241,7 @@
     top: -30%;   
     left: -1%;
     display: flex;
-    transition: left 1s ease-in-out
+    transition: left 1s ease-in-out;
 }
 
 .quard img {

@@ -58,12 +58,18 @@ def users_results(data):
                 "user_avatar": avatar_url,
                 "avatar_size": user.size_avatar,
                 "last_answer": users_answers,
-                "accuracy": user.user_profile.last_answered.split("/")[1],
-                "right_wrong": user.user_profile.last_answered.split("/")[2]
+                "accuracy": user.user_profile.last_answered.split("𒀱")[1],
+                "right_wrong": user.user_profile.last_answered.split("𒀱")[2]
             })
 
+            # answer_int = 0
+            # try:
+            #     answer_int = int(answer)
+            # except ValueError:
+            #     answer_int = int(float(answer))
             if type_question != "input-gap":
-                answers = user.user_profile.last_answered.split("/")[3].split("@")
+                answers = user.user_profile.last_answered.split("𒀱")[3].split("@")
+                print(answers, "kiko")
                 for answer in answers:
                     if answer != '∅':
                         if int(answer) == 0:
@@ -259,10 +265,10 @@ def finish_test(data):
                 "count_points": user.user_profile.count_points,
                 "user_avatar": avatar_url,
                 "avatar_size": user.size_avatar,
-                "accuracy": user.user_profile.last_answered.split("/")[1],
+                "accuracy": user.user_profile.last_answered.split("𒀱")[1],
             })
 
-            accuracy = int(user.user_profile.last_answered.split("/")[1].split(".")[0]) 
+            accuracy = int(user.user_profile.last_answered.split("𒀱")[1].split(".")[0]) 
             check = False
 
             for elem in accuracy_result:

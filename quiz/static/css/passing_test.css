@@ -2,8 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, Helvetica, sans-serif;
     color: #ffffff;
+    text-align: center;
 }
 
 
@@ -116,6 +116,8 @@ span {
     cursor: pointer;
 }
 
+
+
 .progres {
     background-color: #C39FE4;
     border-radius: 4px;
@@ -135,14 +137,13 @@ span {
     width: 100vw;
     height: 30vh;
     padding: 0px 10px 10px 10px;
-    /* background-color: green; */
+    position: absolute;
+    top: 0;
+    margin-top: 10vh;
 }
 
 .question-image {
     height: 20%;
-    transform: translateY(-40px);
-
-    /* background-color: #8ABBF7; */
 }
 
 
@@ -153,6 +154,7 @@ span {
     padding: 3px;
     border: 1px solid black;
     transform: translateY(5px);
+    font-size: 1.4vw;
 }
 
 .num-que {
@@ -160,7 +162,7 @@ span {
 }
 
 .question-test {
-    font-size: 24px;
+    font-size: 1.3vw;
 }
 
 .question-bg {
@@ -177,8 +179,6 @@ span {
 #end-test {
     display: none;
 }
-
-
 
 .answers {
     display: flex;
@@ -249,10 +249,6 @@ span {
 .simple-image{
     width: 21%;
     height: 69%;
-    min-width: 230px;
-    max-width: 350px;
-    max-height: 300px;
-    min-height: 150px;
     border-radius: 15px;
     background-color: none;
     border: 3px #ffffff solid;
@@ -261,8 +257,7 @@ span {
     justify-content: center;
     align-items: center;
     margin-top: 20px;
-    /* margin-bottom: 20vh;
-    background-color: green; */
+    overflow: hidden;
 }
 
 .bottom-image img, .simple-image img{
@@ -279,7 +274,7 @@ span {
     border-radius: 15px;
     gap: 10px;
     padding: 72px 10px;
-    font-size: 24px;
+    font-size: 1.4vw;
     /* background-color: red; */
     min-width: 200px;
     display: none;
@@ -311,12 +306,13 @@ span {
     align-items: center;
     height: 44vh;
     border-radius: 15px;
-    font-size: 24px;
+    font-size: 1.4vw;
     overflow: hidden;
     flex-wrap: wrap;
     word-break: break-word;
     padding: 5px;
     cursor: pointer;
+    
 }
 
 .many-variant{
@@ -327,7 +323,7 @@ span {
     background-color: #94C4FF;
     height: 46vh;
     border-radius: 15px;
-    font-size: 24px;
+    font-size: 1.4vw;
     overflow: hidden;
     flex-wrap: wrap;
     word-break: break-word;
@@ -335,6 +331,7 @@ span {
     transition: all 0.1s ease;
     border: #ffffff solid;
     border-width: 0px;
+    text-align: center;
 }
 
 
@@ -433,7 +430,7 @@ span {
     height: 100%;
     gap: 5px;
     color: #3C3C3C;
-    font-size: 24px;
+    font-size: 1.4vw;
 }
 
 .circle {
@@ -677,7 +674,7 @@ header {
     position: absolute;
     top: 50%;
     left: 25%;
-    font-size: 24px;
+    font-size: 1.4vw;
     z-index: 401;
     font-weight: 800;
     color: #ffffff; /* Колір тексту */
@@ -812,3 +809,5 @@ header {
     opacity: 0.85;
     text-shadow: 0.5px 0.5px 1px rgba(0, 0, 0, 0.2);
 }
+
+

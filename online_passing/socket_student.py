@@ -336,9 +336,9 @@ def answer_the_question(data):
 
 
     if len(ready_answers.split()) == 1:
-        flask_login.current_user.user_profile.last_answered = f"{ready_answers.split()[0]}/{accuracy}/{check_answers[int(data['index'])]}/{data['lastanswers']}"
+        flask_login.current_user.user_profile.last_answered = f"{ready_answers.split()[0]}𒀱{accuracy}𒀱{check_answers[int(data['index'])]}𒀱{data['lastanswers']}"
     else:
-        flask_login.current_user.user_profile.last_answered = f"{ready_answers}/{accuracy}/{check_answers[int(data['index'])]}/{data['lastanswers']}"
+        flask_login.current_user.user_profile.last_answered = f"{ready_answers}𒀱{accuracy}𒀱{check_answers[int(data['index'])]}𒀱{data['lastanswers']}"
     
     DATABASE.session.commit()
     # --------------------
@@ -401,7 +401,6 @@ def return_data(data):
     else:
         img_url = "not"
 
-    last_answers = data["lastanswers"]    
     current_type = test.type_questions.split("?$?")[index_question]
     answers = test.answers.split("?@?")
     ready_answers = ""
@@ -414,11 +413,7 @@ def return_data(data):
         for ans in current_answers_list:
             ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
             current_answers.append(ans_clean.split("*|*|*"))
-
         user_answers = data["lastanswers"]
-
-        
-
         if user_answers != "∅":
             if len(user_answers.split("@")) > 1:
                 user_answers = user_answers.split("@")
@@ -442,6 +437,7 @@ def return_data(data):
             ready_answers = data["lastanswers"]
         else:
             ready_answers = "пропустив"
+            
 
     #подсчет точности и правильных/неправильных ответов
 
@@ -459,13 +455,6 @@ def return_data(data):
     correct_indexes = []
 
     questions = test.questions.split("?%?")
-
-    raw_type = DATABASE.session.query(Test.type_questions).filter_by(id=test_id).first()
-    # types_quest = []
-    for el in raw_type:
-        types_quest = el.split("?$?")
-        # types_quest.append(a)
-    
     
 
     count = 0
@@ -499,7 +488,6 @@ def return_data(data):
         for symbol in current_answer_list:
             if symbol == '+' or symbol == '-':
                 data_str += symbol
-        data_symbol = ['']
         
         symbol_list = []
         for i in range(0 ,len(data_str), 2):
@@ -610,6 +598,8 @@ def return_data(data):
                 else:
                     images_urls.append("NOT")
 
+    print(images_urls, "lolipop")
+
 
     # --------------- для старницы текущих резьультатов студента
     test : Test = Test.query.get(int(data["id_test"]))
@@ -639,7 +629,7 @@ def return_data(data):
         if user and int(room.user_id) != int(user.id):            
             count = 0
             count_image = 1
-            users_answers = user.user_profile.last_answered.split("/")[0].split()
+            users_answers = user.user_profile.last_answered.split("𒀱")[0].split()
             for user_answer in users_answers:
                 if type_question != "input-gap":
                     if user_answer == "image?#$?image":
@@ -655,7 +645,8 @@ def return_data(data):
 
             if type_question != "input-gap":
                
-                answers = user.user_profile.last_answered.split("/")[3].split("@")
+                answers = user.user_profile.last_answered.split("𒀱")[3].split("@")
+                print(answers, "kiko")
                 for answer in answers:
                     if answer != '∅':
                         if int(answer) == 0:
@@ -702,13 +693,13 @@ def return_data(data):
             "question": current_question,
             "type_question": current_type,
             "answers": ready_answers,
+            "normal_answers": clear_answers,
             "accuracy": accuracy,
             "right_answers": right_answers,
             "uncorrect_answers": uncorrect_answers,
             "user_indexes": data["lastanswers"], # 
             "correct_indexes": correct_indexes[int(data["index_question"]) - 1],
             "answers_images": images_urls,
-            "answers": clear_answers, 
             "type_question": type_question, 
             "text_question":text_question,
             "image_url":img_url,
@@ -716,3 +707,6 @@ def return_data(data):
             "count_answers":count_people_answes
         }
     )
+
+
+

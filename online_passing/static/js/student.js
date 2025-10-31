@@ -23,11 +23,12 @@ socket.on('connect', () => {
 // Получение сообщений из комнаты
 socket.on('receive_message', (data) => {
     const chat = document.querySelector(".messages");
-    chat.innerHTML += `<div class="message another-user">
-                            <p>${data["message"]}</p>
-                        </div>`;
+    const message = document.createElement("div")
+    message.textContent = data["message"]
+    chat.appendChild(message)
+    
+    chat.scrollTop = chat.scrollHeight;
 });
-
 // список подключенных
 socket.on("update_users", data => {
     localStorage.setItem("test_id", data["id_test"])

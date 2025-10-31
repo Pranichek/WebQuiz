@@ -162,6 +162,51 @@ def save_mentor_email(data):
 def connect_to_room(data):
     join_room(data["code"])
 
+# @socket.on("disconnect")
+# def handle_disconnect():
+#     if current_user.is_authenticated:
+#         user_id_str = str(current_user.id)
+        
+#         rooms_with_user = Rooms.query.filter(Rooms.users.like(f"%{user_id_str}%")).all()
+
+#         for room in rooms_with_user:
+#             if room.users:
+#                 user_ids = room.users.split()
+#                 if user_id_str in user_ids:
+#                     user_ids.remove(user_id_str)
+#                     room.users = " ".join(user_ids)
+#                     DATABASE.session.commit()
+
+#                     user_list = []
+#                     for uid in user_ids:
+#                         u = User.query.get(int(uid))
+#                         if u:
+#                             avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{u.email}/{u.name_avatar}')
+#                             pet_url = flask.url_for(
+#                                 'profile.static',
+#                                 filename=f'images/pets_id/{u.user_profile.pet_id}.png' 
+#                             )
+#                             user_list.append({
+#                                 "username": u.username,
+#                                 "email": u.email,
+#                                 "ready": u.user_profile.answering_answer,
+#                                 "count_points": u.user_profile.count_points,
+#                                 "user_avatar": avatar_url,
+#                                 "pet_img": pet_url
+#                             })
+
+#                     mentor_email = User.query.get(int(room.user_id)).email
+#                     emit(
+#                         "update_users", 
+#                         {
+#                             "user_list": user_list, 
+#                             "code": room.room_code, 
+#                             "mentor_email": mentor_email
+#                         }, 
+#                         room=room.room_code,
+#                         broadcast=True 
+#                     )
+
 
 
 @socket.on("delete_user")

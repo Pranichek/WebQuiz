@@ -57,6 +57,7 @@ socket.on("show_data",
         const answers = typeof data.answers === "string"
             ? data.answers.trim().split(" ").filter(a => a)
             : Array.isArray(data.answers) ? data.answers : [];
+        console.log(answers, "lolipop")
 
         const container = document.querySelector(".answers");
         container.innerHTML = "";
