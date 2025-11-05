@@ -20,8 +20,11 @@
     <img data-src="{{ url_for('mentor.static', filename='images/people.svg') }}" class="hide">
     <div class="pseudo-header">
         <p class="join-text">приєднатися по коду<span class="code-room"></span></p>
-
-        <button type="button" class="next-question">наступне питання</button>
+        
+        <div id="settingsButtons">
+            <button id="showAnswer">Показати відповіді</button>
+            <button type="button" class="next-question">наступне питання</button>
+        </div>
     </div>
 
     <div class="main-block">

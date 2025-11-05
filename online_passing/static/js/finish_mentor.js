@@ -3,7 +3,8 @@ const cardsContainer = document.querySelector(".user-list")
 
 socket.emit("finish_mentor",{
     test_id: localStorage.getItem("test_id"),
-    room: localStorage.getItem("room_code")
+    room: localStorage.getItem("room_code"),
+    question_index: localStorage.getItem("index_question")
 })
 
 socket.on("list_results", data => {

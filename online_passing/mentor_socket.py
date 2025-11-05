@@ -7,7 +7,8 @@ from flask_socketio import emit, join_room
 from Project.db import DATABASE
 from operator import itemgetter
 from os.path import exists, join, abspath
-# from .socket_manager import users_rooms
+
+
 
 @socket.on("users_results")
 def users_results(data):
@@ -17,7 +18,6 @@ def users_results(data):
 
     test : Test = Test.query.get(int(data["test_id"]))
     index_question = int(data["index_question"])
-    print(index_question, "indf")
     text_question = test.questions.split("?%?")[index_question]
     type_question = test.type_questions.split('?$?')[index_question]
 
@@ -26,6 +26,22 @@ def users_results(data):
     ans_clean = answers.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
     clear_answers = ans_clean.split('*|*|*')
     clear_answers.remove("")
+
+    # сохраняем варианы ответа с + либо -, взависимости от того правильный ответ или нет
+    unclear_answers = answers.replace("(?%", "").replace("%?)", "*|*|*").replace("(?%", "").replace("%?)", "*|*|*")
+    unclear_ready = unclear_answers.split("*|*|*")
+    unclear_ready.remove("")#['-8-', '+6+', '-10-', '-да-'] 
+    right_indexes = []
+
+    count = 0
+    for answer in unclear_ready:
+        if answer[0] == "+":
+            right_indexes.append(count)
+        count += 1
+
+    avarage_accuracy = 0
+    count_people = 0
+    
 
     count_people_answes = []
     for answer in clear_answers:
@@ -40,7 +56,7 @@ def users_results(data):
             
             count = 0
             count_image = 1
-            users_answers = user.user_profile.last_answered.split("/")[0].split()
+            users_answers = user.user_profile.last_answered.split("𒀱")[0].split()
             for user_answer in users_answers:
                 if type_question != "input-gap":
                     if user_answer == "image?#$?image":
@@ -62,14 +78,11 @@ def users_results(data):
                 "right_wrong": user.user_profile.last_answered.split("𒀱")[2]
             })
 
-            # answer_int = 0
-            # try:
-            #     answer_int = int(answer)
-            # except ValueError:
-            #     answer_int = int(float(answer))
+            avarage_accuracy += int(user.user_profile.last_answered.split("𒀱")[1].split(".")[0])
+            count_people += 1
+
             if type_question != "input-gap":
                 answers = user.user_profile.last_answered.split("𒀱")[3].split("@")
-                print(answers, "kiko")
                 for answer in answers:
                     if answer != '∅':
                         if int(answer) == 0:
@@ -89,6 +102,15 @@ def users_results(data):
                 clear_answers[count] = f"зображення   {count_image}"
                 count_image += 1
             count+=1
+
+    # проверка на лучший вопрос
+    avarage_accuracy = avarage_accuracy // count_people
+    best_question = room.best_question
+    print(best_question, "bedfbdf")
+
+    if best_question is None or avarage_accuracy > best_question:
+        room.best_question = avarage_accuracy
+        DATABASE.session.commit()
 
     # черещ встроенній модуль делаем филтрацию словаря за "count_points" и делаем реверс чтобі біло от большего к меньшему
     user_list = sorted(user_list, key=itemgetter("count_points"), reverse=True)
@@ -118,7 +140,8 @@ def users_results(data):
         "count_answers":count_people_answes, 
         "type_question": type_question, 
         "text_question":text_question,
-        "image_url":img_url
+        "image_url":img_url,
+        "right_indexes": right_indexes
     })
 
 
@@ -288,7 +311,6 @@ def finish_test(data):
                             
 
     user_list = sorted(user_list, key=itemgetter("count_points"), reverse=True)
-    print(sum_accuracy, passed_test, "lol")
     average_accuracy = sum_accuracy // passed_test
     
     emit("list_results", {

@@ -37,7 +37,14 @@
     /* background-color: green; */
 }
 
-.next-question{
+#settingsButtons{
+    display: flex;
+    flex-direction: row;
+    gap: 0.3vw;
+}
+
+
+.next-question, #showAnswer{
     font-size: 1.35vw;
     padding: 0.5vw 0.7vw;
     background-color: #E05359;
@@ -48,6 +55,10 @@
     flex-direction: row;
     cursor: pointer;
     transition: 0.3s;
+}
+
+#showAnswer{
+    background-color: #555;
 }
 
 .next-question:hover{

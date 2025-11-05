@@ -101,7 +101,11 @@
                                                 
                                                 <div class="cont-link">
                                                     <img class="icon" src="{{ url_for('static', filename='/images/sidebar/class_icon.svg') }}" alt="">
-                                                    <a href="">Інформація про класи</a>
+                                                    {% if user.is_mentor %}
+                                                        <a href="/mentor_class">Класи</a>
+                                                    {% else %}
+                                                        <a href="/student_class">Класи</a>
+                                                    {% endif %}
                                                     <div class="line"></div>
                                                 </div>
                              

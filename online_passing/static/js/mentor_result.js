@@ -14,8 +14,6 @@ socket.emit(
     }
 )
 
-
-
 socket.on("list_results",
     user_list => {  
         // подготовка зон для дл отображения информации взависимости от типа вопроса
@@ -262,7 +260,7 @@ socket.on("list_results",
 
                 const greenBlock = document.createElement("div");
                 greenBlock.className = "block-diagram";
-                greenBlock.style.height = "0%"; // старт с 0
+                greenBlock.style.height = "0%"; 
 
                 outlineBlock.appendChild(greenBlock);
                 blockCont.appendChild(outlineBlock);
@@ -278,30 +276,11 @@ socket.on("list_results",
 
         // --------------
         let  usersConts = document.querySelector(".body-ratings")
-        
-        // <div class="user-card">
-
-        //     <div class="left-part">
-        //         <p class="place-students">$1</p>
-
-        //         <div class="avatar-circle">
-        //             <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
-        //         </div>
-        //     </div>
-
-        //     <div class="right-part">
-        //         <p class="nickname">Грінченко Володимир</p>
-                
-        //         <div class="choicen">
-        //             <p class="text-achiv">Обрана відповідь:</p>
-        //         </div>
-        //     </div>
-        // </div>
-
         let countAccuracy = 0
         let countRight = 0
         let countUncorrect = 0
         let countMissed = 0
+
         user_list.users.forEach((element, index) => {
             const usercont = document.createElement("div")
             usercont.className = "user-card"
@@ -497,31 +476,34 @@ socket.on("list_results",
         document.querySelector(".right-text").textContent = `${countRight}`
         document.querySelector(".wrong-text").textContent = `${countUncorrect}`
         document.querySelector(".simple-text").textContent = `${countMissed}`
+        
+        const showAnswerButton = document.getElementById("showAnswer")
+        const right_indexes = user_list.right_indexes
+        const elements = document.getElementsByClassName("variant-outline")
+        let showAnswersFlag = false
+
+        showAnswerButton.addEventListener("click", ()=>{
+            if (!showAnswersFlag){
+                for (let count = 0; count < elements.length; count++){
+                    if (right_indexes.includes(count)){
+                        showAnswersFlag = true
+                        elements[count].style.backgroundColor = "#15b784ff"
+                        showAnswerButton.textContent = "Сховати відповіді"
+                    }
+                }
+            }else{
+                for (let count = 0; count < elements.length; count++){
+                    if (right_indexes.includes(count)){
+                        showAnswersFlag = false
+                        elements[count].style.backgroundColor = "rgb(195, 159, 228, 58%)"
+                        showAnswerButton.textContent = "Показати відповіді"
+                    }
+                }
+            }
+        })
     }
 )
 
-// socket.on("student_answers", data => {
-//     // находим все блоки пользователей
-//     const userBlocks = document.querySelectorAll(".cont-users .userCont")
-
-//     userBlocks.forEach(block => {
-//         // ищем блок по data-email
-//         if (block.classList.contains(data.email)) {
-//             const newblock = document.createElement("div")
-
-//             const text = document.createElement("p")
-//             text.textContent = "обрана відповідь"
-
-//             const answers = document.createElement("p")
-//             answers.textContent = data.answers
-
-//             newblock.appendChild(text)
-//             newblock.appendChild(answers)
-
-//             block.appendChild(newblock)
-//         }
-//     })
-// })
 
 socket.on("next_question", data => {
     window.location.replace("/passing_mentor")

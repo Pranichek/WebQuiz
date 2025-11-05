@@ -50,7 +50,8 @@ def render_create_class():
         return flask.redirect("/mentor_class")
     
     return flask.render_template(
-        "create_class.html"
+        "create_class.html",
+        user = flask_login.current_user
     )
 
 @login_decorate
@@ -62,7 +63,8 @@ def render_mentor_classes():
         all_classes = all_classes,
         email = flask_login.current_user.email,
         name_avatar = flask_login.current_user.name_avatar,
-        test_data = True
+        test_data = True,
+        user = flask_login.current_user
     )
 
 @login_decorate
@@ -149,9 +151,6 @@ def render_data_class():
         
         class_item.start_time = "@".join(old_time)
         class_item.term_task = "@".join(old_terms)
-
-
-                
         
         DATABASE.session.commit()
 
@@ -185,7 +184,8 @@ def render_data_class():
         'class_data.html',
         users_list = users_list,
         test_data = True,
-        ready_anoun = ready_anoun
+        ready_anoun = ready_anoun,
+        user = flask_login.current_user
     )
 
 # @socket.on("create_task")

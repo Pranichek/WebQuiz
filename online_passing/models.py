@@ -10,6 +10,9 @@ class Rooms(DATABASE.Model):
     # айді тіпочков которіе находятся в кімнаті (1 2 3)
     users = DATABASE.Column(DATABASE.String)
 
+    # найкараще питання за тест
+    best_question = DATABASE.Column(DATABASE.Integer)
+
     # Зв'язок one to one із користувачем
     user = DATABASE.relationship("User", back_populates="room")
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id'), unique=True)
