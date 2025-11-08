@@ -4,13 +4,16 @@
     width: 100%;
     height: 100%;
 }
-.left{
-    width: 30vw;
+.up{
+    width: 95vw;
     height: 90vh;
 }
-.right{
-    width: 70vw;
-    height: 90vh;
+.up-info{
+    width: 75vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 20vw;
 }
 .class{
     width: 25vw;
@@ -62,6 +65,11 @@
     border-radius: 25px;
     margin-top: 5vh;
 }
+.btn-div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
 .btn{
     width: 15vw;
     height: 5vh;
@@ -69,29 +77,43 @@
     border-radius: 5px;
     color: #ffff;
     border: transparent;
-    margin-top: 12vh;
+    margin-top: 1.5vh;
 }
 button{
     cursor: pointer;
 }
 .head-btns{
-    width: 65vw;
+    width: 100%;
     height: 10vh;
     display: flex;
     flex-direction: row;
-    gap: 35vw;
+    gap: 2vw;
     color: #ffff;
-    justify-content: center;
+    /* justify-content: center; */
 }
 .drop{
-    width: 15vw;
+    width: 13vw;
     height: 5vh;
     background-color: #7291B8 ;
     border-radius: 5px;
     border: transparent;
 }
+.img-message{
+    display: flex;
+}
 .task{
-    width: 65vw;
+    width: 45vw;
+    height: 70vh;
+    display: flex;
+    /* flex-wrap: wrap; */
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgba(255, 255, 255, 0.151);
+    border-radius: 2vw;
+
+    padding: 1.2%;
+    /* width: 65vw;
     height: 10vh;
     background-color: #2d2d2de4;
     border: 2px solid #000000;
@@ -102,8 +124,72 @@ button{
     justify-content: space-between;
     padding-left: 2vw;
     gap: 2vw;
-    color: #ffff;
+    color: #ffff; */
 }
+
+.card{
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 2%;
+    width: 16vw;
+    height: 18vh;
+    background-color: #424242;
+    border-radius: 2vh;
+    gap: 3px;   
+
+}
+.first-part{
+    display: flex;
+    flex-direction: row;
+    width: 90%;
+    gap: 2vh;
+}
+.text-i{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+}
+.yel{
+    color: #EFAE0A;
+}
+.description{
+    display: flex;
+    align-items: start;
+}
+.card-btn{
+    width: 12vw;
+    height: 4vh;
+    background-color: #668ab1;
+    border-radius: 5px;
+    color: #ffffff;
+    border: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card-btn2{
+    width: 12vw;
+    height: 4vh;
+    background-color: #566271;
+    border-radius: 5px;
+    color: #ffffff;
+    border: transparent;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.card-btn-div{
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+
+
 
 .info_div{
     display: flex;
@@ -125,11 +211,10 @@ button{
 }
 .tasks{
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 2vh;
     align-items: center;
     justify-content: center;
-    margin-top: 5vh;
 }
 .class, .students, .task, .btn, .drop {
     transition: all 0.3s ease;

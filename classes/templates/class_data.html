@@ -10,9 +10,9 @@
 
 {% block content %}
     <div class="main">
-        <div class="left">
-            <div class="minis">
-                <div class="class">
+        <!-- <div class="left"> -->
+            <!-- <div class="minis"> -->
+                <!-- <div class="class">
                     <img src="{{ url_for('mentor_class.static', filename='images/head.svg') }}" alt="" class="head">
                     <div class="texts">
                         <div class="big-txt">
@@ -29,16 +29,20 @@
                     <p>Кількість учнів: 10</p>
                     <button>Перейти до списку учнів</button>
                 </div>
-                <button class="btn">Переглянути успішність класу</button>
-            </div>
-        </div>
-        <div class="right">
+                <button class="btn">Переглянути успішність класу</button> -->
+            <!-- </div> -->
+        <!-- </div> -->
+        <div class="up">
             <div class="head-btns">
-                <h2>Події класу</h2>
+                <div class="up-info">
+                    <h3>Назва класу: </h3>
+                    <h3>Клас: </h3>
+                </div>
                 <button class="drop">Сортування</button>
+                <img class="img-message" src="{{ url_for('mentor_class.static', filename='images/bell.svg') }}" alt="">
             </div>
             <div class="tasks">
-                {% for anoun in ready_anoun %}
+                <!-- {% for anoun in ready_anoun %}
                     <div class="task">
                         <div class="info_div">
                             <img src="{{ url_for('mentor_class.static', filename='images/book.svg') }}" alt="" class="book">
@@ -49,9 +53,57 @@
                         </div>
                         <div class="right-head"></div>
                     </div>
-                {% endfor %}
-                
-                <img class="add_task" src="{{ url_for('mentor_class.static', filename='images/add_task.svg') }}" alt="">
+                {% endfor %} -->
+                <div class="task">
+
+                    <div class="card">
+                        <div class="first-part">
+                            <img src="{{ url_for('mentor_class.static', filename='images/book.svg') }}" alt="">
+                            <div class="text-i">
+                                <p>назва..</p>
+                                <p class="yel">термін</p>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <p></p>
+                            <p>опис якщо є</p>
+                        </div>
+                        <div class="description">
+                            <p>Кількість питань: <span class="yel">xxx</span></p>
+                        </div>
+                        <div class="card-btn-div">
+                            <button class="card-btn">Пройти тест</button>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="first-part">
+                            <img src="{{ url_for('mentor_class.static', filename='images/notes.svg') }}" alt="">
+                            <div class="text-i">
+                                <p>назва..</p>
+                                <p class="yel">термін</p>
+                            </div>
+                        </div>
+                        <div class="description">
+                            <p></p>
+                            <p>опис якщо є</p>
+                        </div>
+                        <div class="description">
+                            <p>Кількість питань: <span class="yel">xxx</span></p>
+                        </div>
+                        <div class="card-btn-div">
+                            <button class="card-btn2">Пройдено</button>
+                        </div>
+                    </div>
+
+                    <img class="add_task" src="{{ url_for('mentor_class.static', filename='images/add_task.svg') }}" alt="">
+                </div>
+                <div class="task">
+
+                </div>
+            </div>
+            <div class="btn-div">
+                <button class="btn">Переглянути успішність класу</button>
             </div>
         </div>
 
