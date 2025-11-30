@@ -253,3 +253,8 @@ classes.student_class.add_url_rule(
     view_func = classes.render_student_classes,
     methods = ["GET", "POST"]
 )
+classes.student_class.add_url_rule(
+    rule= "/student_information",
+    view_func= classes.student_information,
+    methods= ["GET", "POST"]
+)

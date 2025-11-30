@@ -6,6 +6,7 @@
     
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('mentor.static', filename ='css/mentor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('mentor.static', filename ='css/chat.css') }}">
 {% endblock links %}
     
 {% block content %}   
@@ -29,9 +30,10 @@
                 <div class="mentor-header">
                     
                     <div class="mentor-info">
-                        <span class="mentor_name">{{ user.username }}</span>
-                        <span class="email">{{ user.email }}</span>
+                        <span data-value="{{ user.username }}" class="mentor_name user-nickname">{{ user.username }}</span>
+                        <span data-value="{{ user.email }}" class="email">{{ user.email }}</span>
                     </div>
+
                     <div class="mentor-avatar">
                         <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
                         <p class="you">ВИ</p>
@@ -123,6 +125,7 @@
         <span class="flex-block">
             <h4>Учасники</h4>
             <img src="{{ url_for('mentor.static', filename='images/people.svg') }}" alt="">
+            <p class="count-users"></p>
         </span>
         <div class="users">
 
@@ -131,25 +134,28 @@
 
         <div class="chat-icon">
 
-            
-            <div class="chat-box">
+            <div class="chat-osnova">
                 <div class="header-chat">
                     <div class="avatar-circle-chat">
-                        <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                        <div class="ava-cont">
+                            <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                        </div>
+                        <span class="username">{{ user.username }}</span>
                     </div>
-                    <span class="username">{{ user.username }}</span>
                     
-                    <p>Груповий чат</p>
+                    <p class="main-text">Груповий чат</p>
 
-                    <img src="{{ url_for('mentor.static', filename='images/chat/chat-robot.svg') }}" alt="">
+                    <div class="avatar-circle-chat robot">
+                        <img class="robots" src="{{ url_for('mentor.static', filename='images/chat/chat_robots.svg') }}" alt="">
+                    </div>
                 </div>
                 <div class="messages">
-                
+
                 </div>
                 <div class="input-text">
-                    <div class="quiz/static/images/mentor/message-logo.svg">
+                    <div class="main-input">
                         <input type="text" placeholder="повідомлення" class="message-input">
-                        <span class="send-message"><img src="{{ url_for('mentor.static', filename='images/mentor/send-icon.svg') }}" alt=""></span>
+                        <span class="send-message"><img class="img-btn" src="{{ url_for('mentor.static', filename='images/chat/send_button.svg') }}" alt="btn"></span>
                     </div>
                 </div>
             </div>
@@ -161,7 +167,6 @@
             </div>
         </div>
 
-        
     </div>
 
 {%  endblock %}

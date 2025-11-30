@@ -20,15 +20,6 @@ socket.on('connect', () => {
    socket.emit('join_room', { username: username, room: room_code_user, email: document.querySelector(".email").textContent, flag: "student"});
 });
 
-// Получение сообщений из комнаты
-socket.on('receive_message', (data) => {
-    const chat = document.querySelector(".messages");
-    const message = document.createElement("div")
-    message.textContent = data["message"]
-    chat.appendChild(message)
-    
-    chat.scrollTop = chat.scrollHeight;
-});
 // список подключенных
 socket.on("update_users", data => {
     localStorage.setItem("test_id", data["id_test"])
@@ -51,14 +42,19 @@ socket.on("update_users", data => {
                 const infDiv = document.createElement("div")
                 infDiv.classList.add("inf")
 
+
+                const avaObodok = document.createElement("div")
+                avaObodok.className = "ava-obodok"
+
                 const avatarImg = document.createElement("img")
                 avatarImg.classList.add("ava")
                 avatarImg.src = user.user_avatar
+                avaObodok.appendChild(avatarImg)
 
                 const usernameP = document.createElement("p")
                 usernameP.textContent = user.username
 
-                infDiv.appendChild(avatarImg)
+                infDiv.appendChild(avaObodok)
                 infDiv.appendChild(usernameP)
 
                 const blockTextDiv = document.createElement("div")
@@ -92,28 +88,6 @@ socket.on("update_users", data => {
 
 
 
-// Отправка сообщеницу
-const sendBtn = document.querySelector(".send-message");
-
-sendBtn.addEventListener("click", () => {
-const msgInput = document.querySelector(".message-input");
-const text = msgInput.value;
-
-const chat = document.querySelector(".messages");
-chat.innerHTML += `<div class="message user">
-                        <p>${text}</p>
-                    </div>`;
-
-socket.emit('send_message', {
-    sender: username,
-    room: room_code_user,
-    message: text,
-    email: document.querySelector(".email").textContent,
-    email_mentor: localStorage.getItem("email_mentor")
-});
-
-msgInput.value = '';
-});
 
 socket.on(
     'start_passing',

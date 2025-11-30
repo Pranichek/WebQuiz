@@ -2,9 +2,10 @@ localStorage.setItem("flag_time", "true")
 localStorage.setItem("time_flag", "false")
 
 const chat = document.querySelector(".messages");
+const socket = io();
 
 function loadRoom() {
-    const socket = io();
+    
 
     // тупая штука которая получает квери параметры из поискового пути
     const urlParams = new URLSearchParams(window.location.search);
@@ -40,6 +41,7 @@ function loadRoom() {
         blockUsers.innerHTML = ""
         users = data.user_list
         document.querySelector("#amount_users").textContent = (users.length - 1 >= 0) ? (users.length - 1) : 0;
+        document.querySelector(".count-users").textContent = (users.length - 1 >= 0) ? (users.length - 1) : 0;
         localStorage.setItem("room_code", data.code)
         document.querySelector(".code-room").textContent = data.code
         document.querySelector("#code").textContent = data.code
@@ -59,14 +61,18 @@ function loadRoom() {
                 const infDiv = document.createElement("div")
                 infDiv.classList.add("inf")
 
+                const avaObodok = document.createElement("div")
+                avaObodok.className = "ava-obodok"
+
                 const avatarImg = document.createElement("img")
                 avatarImg.classList.add("ava")
                 avatarImg.src = user.user_avatar
+                avaObodok.appendChild(avatarImg)
 
                 const usernameP = document.createElement("p")
                 usernameP.textContent = user.username
 
-                infDiv.appendChild(avatarImg)
+                infDiv.appendChild(avaObodok)
                 infDiv.appendChild(usernameP)
 
                 const blockTextDiv = document.createElement("div")
@@ -133,15 +139,6 @@ function loadRoom() {
         }
     )
 
-    // когда пришло новое сообщение
-    socket.on('receive_message', (data) => {
-        const chat = document.querySelector(".messages");
-        chat.innerHTML += `<div class="message another-user">
-                                <p>${data["message"]}</p>
-                                <p>${data["sender"]}</p>
-                            </div>`;
-    });
-
     const startTest = document.querySelector(".start")
     startTest.addEventListener(
         "click",
@@ -151,28 +148,6 @@ function loadRoom() {
             })
         }
     )
-
-    const sendBtn = document.querySelector(".send-message");
-    
-    sendBtn.addEventListener("click", () => {
-        const msgInput = document.querySelector(".message-input");
-        const text = msgInput.value;
-
-        const chat = document.querySelector(".messages");
-        chat.innerHTML += `<div class="message user">
-                                <p>${text}</p>
-                            </div>`;
-
-        socket.emit('send_message', {
-            sender: username,
-            room: code,
-            message: text,
-            email: document.querySelector(".email").textContent,
-            email_mentor: localStorage.getItem("email_mentor")
-        });
-        msgInput.value = ''
-    });
-
 
     const copyCode = document.querySelector(".copy-code")
     copyCode.addEventListener(

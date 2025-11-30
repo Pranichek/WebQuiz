@@ -10,7 +10,30 @@ from datetime import timedelta
 from os.path import abspath, join, exists
 import os
 import secrets
+from flask_socketio import join_room
 
+@socket.on("join_room")
+def join_room_a(data):
+    join_room(data["code"])
+
+@socket.on("join_mentor")
+def join_mentor_b(data):
+    class_code = Classes.query.get(int(data["id"])).code
+    join_room(class_code)
+
+@socket.on("new_task")
+def new_task(data):
+    class_code = Classes.query.get(int(data["id"])).code
+    emit("new_for_student", {"name":"math"}, room=class_code)
+
+
+def student_information():
+    code_args = flask.request.args.get("code")
+    return flask.render_template(
+        "student_info.html", 
+        user = flask_login.current_user,
+        code = code_args
+    )
 
 @socket.on("generate_code")
 def generate_code():
@@ -23,9 +46,6 @@ def generate_code():
     emit("generate_code", {"generated_code": random_choice})
 
 def render_create_class():
-
-    
-
     if flask.request.method == "POST":
         class_name = flask.request.form.get("class_name")
         description = flask.request.form.get("description")
@@ -71,6 +91,7 @@ def render_mentor_classes():
 def render_data_class():
     class_id = flask.request.args.get("class_id")
     class_item = Classes.query.get(class_id)
+    code_class = class_item.code
     
     if flask.request.method == "POST":
         topic = flask.request.form.get('topic')
@@ -153,6 +174,12 @@ def render_data_class():
         class_item.term_task = "@".join(old_terms)
         
         DATABASE.session.commit()
+
+        return flask.jsonify({
+            "status": "ok",
+            "topic": topic,
+            "task_info": task_info
+        })
 
     class_id = flask.request.args.get("class_id")
     class_item = Classes.query.get(class_id)
@@ -265,12 +292,11 @@ def render_student_classes():
                 
                 check_class.students = new_user
                 DATABASE.session.commit()
-                
-
             
+            return flask.redirect(f"/student_information?code={code}")
 
 
-    return flask.render_template("student_classes.html", test_data = True)
+    return flask.render_template("student_classes.html", test_data = True, user = flask_login.current_user)
 
 
 

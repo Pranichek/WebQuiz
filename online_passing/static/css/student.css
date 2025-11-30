@@ -1,5 +1,6 @@
 main *{
-    font-size: 2vh;
+    /* Единица по умолчанию для текста в main */
+    font-size: 0.9vw; 
 }
 
 main{
@@ -11,13 +12,12 @@ main{
 }
 
 .data-users{
-    width: 65%;
+    width: 65vw; /* Изменено с 65% на 65vw для лучшей адаптивности */
     height: 100%;
     display: flex;
     flex-direction: row;
     gap: 0.3vw;
     position: relative;
-    
 }
 
 .icons-users{
@@ -37,9 +37,24 @@ main{
     flex-wrap: wrap;
     justify-content: start;
     align-items: start;
-    gap: 30px;
+    gap: 2.5vw; /* 30px -> ~2.5vw */
 }
 
+.data-copy{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 10vw;
+}
+
+.user-data{
+    display: flex;
+    gap: 0.8vw; 
+    height: 60vh;
+    position: relative;
+}
+
+/* --- Элементы Пользователя (Блоки/Сообщения) --- */
 .coint-message{
     background-color: #C48AF7;
 }
@@ -48,23 +63,121 @@ main{
     background-color: #00000047;
     width: 20vw;
     height: 10vh;
-    border-radius: 15px;
+    border-radius: 1.2vh; /* 12px -> ~1.2vh */
     display: flex;
     align-items: end;
+    justify-content: space-between; /* Из исходного кода */
+    padding-left: 1vw; /* Из исходного кода */
+    padding-right: 1vw; /* Из исходного кода */
     padding-bottom: 1vh;
-    gap: 10px;
+    gap: 0.8vw; /* 10px -> ~0.8vw */
     position: relative;
 }
+
 .cross-user{
     position: absolute;
     right: 0;
     top: 0;
-    margin-top: 5px;
-    margin-right: 5px;
+    margin-top: 0.5vh; /* 5px -> ~0.5vh */
+    margin-right: 0.5vw; /* 5px -> ~0.5vw */
     transition: 0.2s;
     cursor: pointer;
+    height: 2vh;
+    width: auto;
 }
 
+.cross-user:hover{
+    opacity: 0.8;
+}
+
+
+.inf{
+    display: flex;
+    color: #ffffff;
+    justify-content: space-between;
+    align-items: start;
+    padding: 1.5vh 0;
+    height: 100%;
+    width: 40%;
+    font-size: 2vh;
+    gap: 0.4vw; /* 5px -> ~0.4vw */
+}
+.inf p{
+    display: flex;
+    width: 80%; /* Добавлено из второй версии .inf */
+    white-space: nowrap;
+    font-size: 0.9vw; /* Изменено с 2vh на 1vw для текста в блоке */
+}
+
+.tetx{
+    font-size: 0.9vw; /* 11px -> ~1vw */
+}
+
+.pet{
+    width: auto; /* 17px -> auto */
+    height: 90%; /* 16px -> 90% */
+    object-fit: contain;
+}
+
+.block-text{
+    display: flex;
+    justify-content: end;
+    flex-direction: column;
+    color: #ffffff;
+    font-size: 1.3vh;
+    gap: 0.2vh; /* 2px -> ~0.2vh */
+}
+.block-text p{
+    font-size: 1.5vh;
+}
+
+.user {
+    align-self: flex-end;
+    background-color: rgb(150, 196, 218, 0.9);
+    color: #000000;
+}
+
+.another-user {
+    align-self: flex-start;
+    color: #000;
+    display: flex;
+    flex-direction: column;
+    max-width: 25vw; /* 300px -> ~25vw */
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.3vw; /* 4px -> ~0.3vw */
+}
+
+/* --- Главный Контейнер (Чат) --- */
+.line-coint{
+    background-color: #8abbf728;
+    height: 98%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.9vh; /* 10px -> ~0.9vh */
+    border-radius: 2.2vh; /* 24px -> ~2.2vh */
+    border: 0.2vh solid #C48AF7; /* 2px -> ~0.2vh */
+}
+.main-coint{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: #343434;
+    width: 60vw;
+    height: 98%;
+    border-radius: 3.1vh; 
+    gap: 0.9vh; 
+    padding: 1vw;
+    overflow: hidden;
+    position: relative;
+}
+
+/* --- Окно Выбора/Подтверждения (Modal-like) --- */
 .window-choice{
     position: absolute;
     justify-content: center;
@@ -92,7 +205,7 @@ main{
 }
 
 .window-choice div{
-    /* margin-top: 1vh; */
+    margin-top: 1vh;
     display: flex;
     align-items: center;
     gap: 1vw;
@@ -118,7 +231,7 @@ main{
     padding: 0.5vh 1vh;
     background-color: #FD6363;
     font-size: 1.4vh;
-    border-radius: 0.5vh;
+    border-radius: 0.5vh; /* 5px -> ~0.5vh */
     font-weight: 600;
     cursor: pointer;
     transition: 0.2s;
@@ -128,126 +241,14 @@ main{
     background-color: #eb4848;
 }
 
-.cross-user:hover{
-    opacity: 0.8;
-}
 
-.ava{
-    width: 7vh;
-    height: 7vh;
-    border-radius: 50%;
-
-}
-.inf{
-    display: flex;
-    color: #ffffff;
-    justify-content: space-between;
-    align-items: start;
-    padding: 1.5vh 0;
-    height: 100%;
-    width: 40%;
-    font-size: 2vh;
-}
-.inf p{
-    display: flex;
-    white-space: nowrap;
-}
-.avatark{
-    width: 89px;
-    height: 89px;
-}
-.bottom-data{
-    width: 100%;
-    height: 30%;
-    display: flex;
-    align-items: center;
-    gap: 62px;
-    color: #D6E8FE;
-    justify-content: start;
-}
-.tetx{
-    font-size: 11px;
-}
-.pet{
-    width: 17px;
-    height: 16px;
-}
-.block-pet{
-    width: 101px;
-    height: 21px;
-    background-color: #3C3C3C;
-    border-radius: 5px;
-    border: 1px solid #C48AF7;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.block-text{
-    display: flex;
-    justify-content: end;
-    flex-direction: column;
-    color: #ffffff;
-    gap: 2px;
-}
-.block-text p{
-    font-size: 1.5vh;
-}
-
-.user {
-    align-self: flex-end;
-    background-color: rgb(150, 196, 218, 0.9);
-    color: #000000;
-}
-
-.another-user {
-    align-self: flex-start;
-    color: #000;
-    display: flex;
-    flex-direction: column;
-    max-width: 300px;
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-}
-
-.user-data{
-    display: flex;
-    gap: 10px;
-    height: 60vh;
-    /* padding: 7px 0px 7px 0px; */
-    position: relative;
-}
-
-.line-coint{
-    background-color: #8abbf728;
-    height: 98%;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-    border-radius: 24px;
-    border: 2px solid #C48AF7;
-}
-.main-coint{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background-color: #343434;
-    width: 60vw;
-    height: 98%;
-    border-radius: 34px;
-    gap: 10px;
-    padding: 1vw;
-    overflow: hidden;
-}
+/* --- Поля Информации (Студенты/Лайки/Достижения) --- */
 .info-box-horizontal{
     display: flex;
     justify-content: space-between;
     width: 95%;
+    height: 50%;
+    background-color: green;
 }
 .name{
     display: flex;
@@ -261,15 +262,16 @@ main{
     height: 18%;
     display: flex;
     justify-content: start;
+    background-color: orange;
 }
 
 .data-test{
     width: 40vw;
-    height: 40%;
+    height: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 0.8vw; /* 10px -> ~0.8vw */
     flex-direction: column;
 }
 .main-prt{
@@ -279,15 +281,31 @@ main{
     justify-content: space-between;
     color: #ffffff;
     font-weight: 500;
-}
-
-.data-copy{
+    font-size: 0.9vw;
+    position: relative;
+    height: 40%;
+    background-color: red;
+    object-fit: contain;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    width: 10vw;
+    justify-content: center;
+    align-items: center;
+    width: 4.5vw; /* 80px -> ~5.5vw */
+    height: 4.5vw; /* 80px -> ~7.4vh */
+    border: 0.1vh black solid; /* 1px -> ~0.1vh */
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
+.icon-small{
+    height: 80%;
+    width: auto;
+    object-fit: contain;
+}
+
+/* --- Фон и Блюр --- */
 .background-blur {
     position: fixed;
     top: 0;
@@ -299,237 +317,5 @@ main{
     pointer-events: none;
 }
 
-.icon-small{
-    height: 80%;
-    width: auto;
-    object-fit: contain;
-}
-
-.main-prt button{
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-}
-#usersNum{
-    width: 12vw;
-}
-
-.numero{
-    display: flex;
-    align-items: center;
-    justify-content: start;
-    font-weight: 500;
-}
-.num-students{
-    color: #FFB700;
-    font-size: 25px;
-}
-.likes{
-    font-size: 15px;
-    text-decoration: underline;
-    text-decoration-color: #C48AF7;
-    font-weight: 600;
-} 
-.num{
-    width: 88px;
-    height: 30px;
-    border: 2px solid #FFB700;
-    border-radius: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    font-weight: 600;
-}
-.achievement{
-    height: 18%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-}
-.block-num{
-    width: 181px;
-    height: 35px;
-    background-color: #3C3C3C;
-    border: 1px solid #FFB700;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.block-num2{
-    width: 181px;
-    height: 35px;
-    background-color: #3C3C3C;
-    border: 1px solid #C48AF7;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.last{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    font-size: 16px;
-    flex-direction: column;
-}
-.rob{
-    width: 50px;
-    height: 50px;
-}
-
-.chat-icon{
-    position: absolute;
-    bottom: 2vh;
-    right: 4vw;
-    width: 150px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.check-click{
-    position: fixed;
-    display: flex;
-    justify-content: start;
-    width: 13vw;
-    height: 3vh;
-    background-color: #88B2E5;
-    border-radius: 1234px;
-    font-size: 2vh;
-    color: #fff;
-}
-
-#open-chat{
-    margin-top: -3vh;
-    height: 6vh;
-}
-
-.chat-box{
-    height: 60vh;
-    width: 22vw;
-    position: absolute;
-    /* z-index: -10; */
-    bottom: 0;
-    right: 0;
-    margin-left: 100%;
-    margin: 50px;
-    background-color: #343434;
-    border-radius: 15px;
-    border: 2px #A9D0FF solid;
-    display: flex;
-    flex-direction: column;
-    display: none;
-}
-
-.header-chat{
-    width: 100%;
-    height: 10%;
-    background-color: #C48AF7;
-    border-bottom: 1px #88B2E5 solid;
-    border-radius: 13px 13px 0px 0px;
-}
-
-.messages {
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    height: 80%;
-    gap: 15px;
-    overflow-y: scroll;
-    position: relative;
-    justify-content: flex-start;
-    padding: 10px 16px;
-}
-
-.message {
-    background-color: #8AF7D4;
-    border-radius: 20px;
-    display: inline-block;
-    align-self: flex-start;
-    /* white-space: pre-wrap; */
-    word-break: break-word;
-    text-align: left;
-    padding: 10px 15px;
-    min-width: 60px;
-    /* padding: 2px 10px; */
-    max-width: 70%;
-    z-index: 10;
-    font-size: 1rem;
-}
-
-.user {
-    align-self: flex-end;
-    background-color: #C48AF7;
-    color: #fff;
-}
-
-.another-user {
-    align-self: flex-start;
-    background-color: #8AF7D4;
-    color: #000;
-}
-
-.input-text{
-    width: 100%;
-    height: 10%;
-    background-color: #C48AF7;
-    border-top: 1px #88B2E5 solid;
-    border-radius: 0px 0px 13px 13px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
 
 
-.message-user{
-    width: 90%;
-    height: 71%;
-    position: relative;
-}
-
-.message-user input{
-    background-color: #D7D7D7;
-    border-radius: 20px;
-    color: black;
-    font-size: 14px;
-    border: none;
-    width: 100%;
-    height: 100%;
-    padding: 5px;
-    padding-left: 10px;
-    z-index: 20;
-    padding-right: 17%;
-
-}
-
-.message-user img{
-    position: absolute;
-    right: 0;
-}
-
-.avatar{
-    object-fit: contain;
-    width: 100%;
-    height: 100%;
-}
-
-.avatar-circle{
-    object-fit: contain;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 80px;
-    height: 80px;
-    border: 1px black solid;
-    border-radius: 50%;
-    overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}

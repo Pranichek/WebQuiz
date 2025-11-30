@@ -16,6 +16,9 @@ const socket = io()
 const queryString = window.location.search
 const urlParams = new URLSearchParams(queryString)
 const inputFile = document.querySelector("#file-upload")
+const id = urlParams.get('class_id')
+
+socket.emit("join_mentor", {"id": id})
 
 
 function showWithFade(el) {
@@ -34,9 +37,11 @@ function hideWithFade(el) {
 }
 
 
+
 buttonPlus.addEventListener(
     "click",
     () => {
+        console.log(12)
         divChoice.style.display = "flex"
         divAnnouncement.style.display = "none"
 
@@ -75,6 +80,42 @@ buttonChooseTest.addEventListener(
         showWithFade(divNextTestTask);
     }
 )
+
+
+$("#taskForm").on("submit", function(e) {
+    e.preventDefault();
+
+    let formData = new FormData(this);
+
+    $.ajax({
+        url: window.location.href,
+        type: "POST",
+        data: formData,
+        processData: false,
+        contentType: false,
+        success: function(res) {
+
+            let newTask = `
+                <div class="task">
+                    <div class="info_div">
+                        <img src="/static/mentor_class/images/book.svg" class="book">
+                        <div>
+                            <p class="name">${res.topic}, ${res.task_info}</p>
+                            <p class="term">термін події..</p>
+                        </div>
+                    </div>
+                    <div class="right-head"></div>
+                </div>
+            `;
+
+            document.querySelector(".tasks").innerHTML += newTask;
+            divAnnouncement.style.display = "none"
+            hideWithFade(divAnnouncement);
+        }
+    });
+
+    socket.emit("new_task", {"status":"ok", "id":id})
+});
 
 
 // buttonCreateTask.addEventListener(
