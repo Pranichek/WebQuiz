@@ -85,124 +85,125 @@
         </div>
     </div>
 
-    <h3 class="text-in-between">Обліковий запис та конфеденційність</h3>
-    
-    <div class="account-control">
+    <div class="acc-full">    
+        <h3 class="text-in-between">Обліковий запис та конфеденційність</h3>
+        <div class="account-control">
 
-        <div class="control-option">
-            <p>Оновити пароль</p>
-            <button class="account-button change" value = "password_button" onclick="ChangePassword()">Змінити</button>
-        </div>
-        <div class="control-option">
-            <p>Видалити акаунт</p>
-            <button type="button" onclick="DeletAccount()" class="account-button">Видалити</button>
-        </div>
-        <div class="control-option">
-            <p>Вийти з акаунта</p>
-            <form action="" method="post">
-                <input type="hidden" name="form_name" value="logout">
-                <button onclick="Logout()" class="account-button" type="button">Вийти</button>
-            </form>
-        </div>
-
-        <div class="confirm-logout">
-            <div class="logout-text">
-                <p class="logout-text">Вихід</p>
-                <p class="deny-text">Ви впеввпевнені, що хохочете вийти з<br>облікового ззапису ?</p>
+            <div class="control-option">
+                <p>Оновити пароль</p>
+                <button class="account-button change" value = "password_button" onclick="ChangePassword()">Змінити</button>
             </div>
-            <form action="" method="post" class="logout-buttons">
+            <div class="control-option">
+                <p>Видалити акаунт</p>
+                <button type="button" onclick="DeletAccount()" class="account-button">Видалити</button>
+            </div>
+            <div class="control-option">
+                <p>Вийти з акаунта</p>
                 <form action="" method="post">
-                    <button class="button-deny" type="button" onclick="CloseLogout()">скасувати</button>
                     <input type="hidden" name="form_name" value="logout">
-                    <button class="logout" type="submit">Вийти</button>
+                    <button onclick="Logout()" class="account-button" type="button">Вийти</button>
                 </form>
-            </form>
-        </div>
-
-        <div class="confirm-delete">
-            <div class="logout-text">
-                <p class="logout-text">Видалення облікового запису</p>
-                <p class="deny-text">Ви впевнені, що хохочете видалити обліковий запис? </p>
             </div>
-            <form action="" method="post" class="logout-buttons">
-                <button class="button-deny" type="button" onclick="CloseLogout()">скасувати</button>
-                <input type="hidden" name="form_name" value="delete">
-                <button class="logout" type="submit">Видалити</button>
-            </form>
-        </div>
-        
-        <!-- тут пришлось кое что поменять чтобы окно изменеия пароля было по центру -->
-        <div class="change_password">
-            <div class="password-text">
-                <p class="topic-password">Оновити пароль</p>
-                <p class="rule-text">Введіть поточний пароль та новий пароль</p>
+
+            <div class="confirm-logout">
+                <div class="logout-text">
+                    <p class="logout-text">Вихід</p>
+                    <p class="deny-text">Ви впеввпевнені, що хохочете вийти з<br>облікового ззапису ?</p>
+                </div>
+                <form action="" method="post" class="logout-buttons">
+                    <form action="" method="post">
+                        <button class="button-deny" type="button" onclick="CloseLogout()">скасувати</button>
+                        <input type="hidden" name="form_name" value="logout">
+                        <button class="logout" type="submit">Вийти</button>
+                    </form>
+                </form>
             </div>
-            <form action="" method="post" class="inputs-passwords">
-                <input type="hidden" name="form_name" value="change_password">
-                <p class="password-rule">Введіть попередній пароль</p>
-                <div class="first-password">
-                    <input maxlength="8" type="password" name="current_password" id="current_password" class="password-input" required>
-                    <img class="eye-hide" id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
-                    <img class="hidden1 eye-hide" id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
+
+            <div class="confirm-delete">
+                <div class="logout-text">
+                    <p class="logout-text">Видалення облікового запису</p>
+                    <p class="deny-text">Ви впевнені, що хохочете видалити обліковий запис? </p>
                 </div>
-                <div>
-                    <p class="password-rule">Введіть новий пароль </p>
+                <form action="" method="post" class="logout-buttons">
+                    <button class="button-deny" type="button" onclick="CloseLogout()">скасувати</button>
+                    <input type="hidden" name="form_name" value="delete">
+                    <button class="logout" type="submit">Видалити</button>
+                </form>
+            </div>
+            
+            <!-- тут пришлось кое что поменять чтобы окно изменеия пароля было по центру -->
+            <div class="change_password">
+                <div class="password-text">
+                    <p class="topic-password">Оновити пароль</p>
+                    <p class="rule-text">Введіть поточний пароль та новий пароль</p>
                 </div>
-
-                <div class="first-password">
-                    <input type="password" name="new_password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$" maxlength="8" minlength="8" class="password-input new_password" required>
-                    <img class="eye-hide" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
-                    <img class="hidden2 eye-hide" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
-
-                    <div class="password-checklist">
-                        <div class="top-part">
-                            <h3 class="checklist-title">Пароль повинен містити</h3>
-                            <img class="img-checklist" src="{{ url_for('home.static', filename='images/login_and_auth/checklist.png') }}" alt="checklist">
-                        </div>
-
-                        <ul class="checklist">
-                            <div class="first-rule">
-                                <img class="icon-item like1" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
-                                <img class="icon-item dislike1" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
-                                <li class="list-item">Довжина у 8 символів</li>
-                                <!-- <div class="checklist-line"></div> -->
-                            </div>
-                            <div class="checklist-line first-line"></div>
-                            <div class="first-rule">
-                                <img class="icon-item like2" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
-                                <img class="icon-item dislike2" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
-                                <li class="list-item">Хоча б одна цифра</li>    
-                                <!-- <div class="checklist-line"></div>                         -->
-                            </div>
-                            <div class="checklist-line second-line"></div>
-                            <div class="first-rule">
-                                <img class="icon-item like3" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
-                                <img class="icon-item dislike3" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
-                                <li class="list-item latin">Лише латинські літери</li>
-                                <!-- <div class="checklist-line"></div> -->
-                            </div>
-                            <div class="checklist-line third-line"></div>
-                        </ul>
+                <form action="" method="post" class="inputs-passwords">
+                    <input type="hidden" name="form_name" value="change_password">
+                    <p class="password-rule">Введіть попередній пароль</p>
+                    <div class="first-password">
+                        <input maxlength="8" type="password" name="current_password" id="current_password" class="password-input" required>
+                        <img class="eye-hide" id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
+                        <img class="hidden1 eye-hide" id="eye1" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
                     </div>
-                </div>
+                    <div>
+                        <p class="password-rule">Введіть новий пароль </p>
+                    </div>
 
-                <div>
-                    <p class="password-rule">Підтвердження нового пароля</p>
-                </div>
-        
-                <div class="first-password">
-                    <input type="password" name="confirm_password"  maxlength="8" class="password-input confirm-password" required>
-                    <img class="eye-hide" id="eye3" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
-                    <img class="hidden3 eye-hide" id="eye3" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
-                </div>
+                    <div class="first-password">
+                        <input type="password" name="new_password" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$" maxlength="8" minlength="8" class="password-input new_password" required>
+                        <img class="eye-hide" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
+                        <img class="hidden2 eye-hide" id="eye2" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
 
-                <div class="password-buttons">
-                    <button class="back-password" type="button" onclick="CloseLogout()">назад</button>
-                    <button class="password-button">Готово</button>
-                </div>
-            </form>
+                        <div class="password-checklist">
+                            <div class="top-part">
+                                <h3 class="checklist-title">Пароль повинен містити</h3>
+                                <img class="img-checklist" src="{{ url_for('home.static', filename='images/login_and_auth/checklist.png') }}" alt="checklist">
+                            </div>
+
+                            <ul class="checklist">
+                                <div class="first-rule">
+                                    <img class="icon-item like1" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
+                                    <img class="icon-item dislike1" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
+                                    <li class="list-item">Довжина у 8 символів</li>
+                                    <!-- <div class="checklist-line"></div> -->
+                                </div>
+                                <div class="checklist-line first-line"></div>
+                                <div class="first-rule">
+                                    <img class="icon-item like2" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
+                                    <img class="icon-item dislike2" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
+                                    <li class="list-item">Хоча б одна цифра</li>    
+                                    <!-- <div class="checklist-line"></div>                         -->
+                                </div>
+                                <div class="checklist-line second-line"></div>
+                                <div class="first-rule">
+                                    <img class="icon-item like3" src="{{ url_for('home.static', filename='images/login_and_auth/like.png') }}" alt="">
+                                    <img class="icon-item dislike3" src="{{ url_for('home.static', filename='images/login_and_auth/dislike.png') }}" alt="">
+                                    <li class="list-item latin">Лише латинські літери</li>
+                                    <!-- <div class="checklist-line"></div> -->
+                                </div>
+                                <div class="checklist-line third-line"></div>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div>
+                        <p class="password-rule">Підтвердження нового пароля</p>
+                    </div>
+            
+                    <div class="first-password">
+                        <input type="password" name="confirm_password"  maxlength="8" class="password-input confirm-password" required>
+                        <img class="eye-hide" id="eye3" src="{{ url_for('home.static', filename='images/login_and_auth/closedEye.png') }}" alt="">
+                        <img class="hidden3 eye-hide" id="eye3" src="{{ url_for('home.static', filename='images/login_and_auth/openedEye.png') }}" alt="">
+                    </div>
+
+                    <div class="password-buttons">
+                        <button class="back-password" type="button" onclick="CloseLogout()">назад</button>
+                        <button class="password-button">Готово</button>
+                    </div>
+                </form>
+            </div>
+
         </div>
-
     </div>
     <!-- <button onclick="Blur()">Haha</button> -->
     <!-- <script src="{{ url_for('profile.static', filename='js/profile.js') }}"></script> -->
