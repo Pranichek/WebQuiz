@@ -178,7 +178,7 @@
     color: #343434;
     font-size: 0.8vw;
     position: absolute;
-    margin-left: 36%;
+    margin-left: 40%;
 }
 
 
@@ -252,13 +252,14 @@ input:focus {
     position: absolute;
     display: flex;
     justify-content: start;
-    width: 13vw;
+    width: 10vw;
     height: 3vh;
     background-color: #88B2E5;
     border-radius: 1234px;
     font-size: 1vw;
     color: #fff;
     transition: 0.2s;
+    text-align: center;
 }
 
 #open-chat{

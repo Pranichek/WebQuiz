@@ -54,11 +54,12 @@
     font-size: 1.2vw; 
 }
 
+
 .password-container{
     position: relative;
     display: flex;
     width: 80%;
-    height: 17%;
+    height: 16%;
 }
 
 .password-container .text-input{
@@ -198,5 +199,17 @@
     }
     .robot-glowing-area{
         display: none;
+    }
+}
+
+@media (min-width: 1500px){
+
+    .login{
+        height: 50vh;
+        width: 36vw;
+    }
+
+    .password-container, .text-input{
+        height: 21%;
     }
 }

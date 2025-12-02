@@ -269,9 +269,9 @@ socket.on("data_question_mentor", data => {
             showAnswersBtn.textContent = "сховати відповіді"
             for (let i = 0; i < answers.length; i++){
                 if (check_answers[i] == true){
-                    answers[i].style.backgroundColor = "green"
+                    answers[i].style.backgroundColor = "#9bde8dff"
                 } else{
-                    answers[i].style.backgroundColor = "red"
+                    answers[i].style.backgroundColor = "#ea5c64ff"
                 }
             }
         }else{

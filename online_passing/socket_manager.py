@@ -146,6 +146,7 @@ def handle_start_test(data):
 
 @socket.on("copy_code")
 def handle_copy_code(data):
+    print("yaba")
     pyperclip.copy(data["code_room"])
 
 @socket.on("copy_link")

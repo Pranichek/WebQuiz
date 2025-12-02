@@ -12,19 +12,19 @@ import os
 import secrets
 from flask_socketio import join_room
 
-@socket.on("join_room")
-def join_room_a(data):
-    join_room(data["code"])
+# @socket.on("join_room")
+# def join_room_a(data):
+#     join_room(data["code"])
 
-@socket.on("join_mentor")
-def join_mentor_b(data):
-    class_code = Classes.query.get(int(data["id"])).code
-    join_room(class_code)
+# @socket.on("join_mentor")
+# def join_mentor_b(data):
+#     class_code = Classes.query.get(int(data["id"])).code
+#     join_room(class_code)
 
-@socket.on("new_task")
-def new_task(data):
-    class_code = Classes.query.get(int(data["id"])).code
-    emit("new_for_student", {"name":"math"}, room=class_code)
+# @socket.on("new_task")
+# def new_task(data):
+#     class_code = Classes.query.get(int(data["id"])).code
+#     emit("new_for_student", {"name":"math"}, room=class_code)
 
 
 def student_information():

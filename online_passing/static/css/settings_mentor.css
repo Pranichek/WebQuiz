@@ -89,7 +89,7 @@ main{
 }
 
 .question-text {
-    font-size: clamp(1.2rem, 2vw, 2rem);
+    font-size: 1.3vw;
     color: #ffffff;
 }
 
@@ -169,14 +169,14 @@ main{
 
 .time-text{
     color: #ffffff;
-    font-size: clamp(1.2rem, 2vw, 1.8rem);
     text-align: center;
-    transform: translateY(3vh);
+    font-size: 1.4vw;
 }
 
 .robo-img{
     width: 12vw;
     height: 12vw;
+    object-fit: contain;
 }
 
 .part-timer{
@@ -188,30 +188,34 @@ main{
 }
 
 .main-taimer{
-    border: 0.3rem #C48AF7 solid;
-    border-radius: 1rem;
+    border: 4px #C48AF7 solid;
+    border-radius: 16px;
     width: 80%;
     height: 60%;
-    transform: translateY(2vh) translateX(-1vw);
     background-color: #2F343A;
-    gap: 1vw;
+    gap: 5%;
     display: flex;
     flex-direction: row;
-    padding: 1vh;
+    justify-content: space-between;
+    padding: 5px;
+    font-size: 1.4vw;
 }
 
 .left-part, .right-part{
     width: 50%;
     height: 100%;
     background-color: #29292A;
-    border: 0.2rem #94C4FF solid;
+    border: 4px #94C4FF solid;
     color: #D6E8FE;
-    border-radius: 0.5rem;
+    border-radius: 8px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: clamp(1rem, 2vw, 1.6rem);
+    padding: 4px;
+    
 }
+
+
 
 .line{
     width: 80%;
@@ -221,44 +225,72 @@ main{
 }
 
 .first-buttons-group{
-    width: 100%;
+    width: 88%;
+    height: 24%;
+    /* background-color: green; */
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
     position: relative;
-    gap: 1vw;
-    justify-content: center;
-    align-items: stretch;
+    /* gap: 1vw; */
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.4vw;
 }
 
 .first-button{
-    width: 45%;
-    border: 0.1rem #494A4F solid;
+    width: 49%;
+    height: 48%;
+    border: 1px #494A4F solid;
     background-color: #323338;
     color: #ffffff;
-    font-size: clamp(1rem, 1.5vw, 1.3rem);
-    border-radius: 0.5rem;
+    border-radius: 8px;
     font-weight: 500;
+    font-size: 1.2vw;
 }
 
+.answer {
+    background-color: #94C4FF;
+    transition: background-color 0.4s ease; /* плавная смена фона */
+}
+
+.answer {
+    background-color: #94C4FF;
+    transition:
+        background-color 0.4s ease,
+        box-shadow 0.4s ease; /* доп эффект */
+
+    border-radius: 8px;
+}
+
+.answer.correct {
+    box-shadow: 0 0 12px rgba(0, 255, 0, 0.4);
+}
+
+.answer.wrong {
+    box-shadow: 0 0 12px rgba(255, 0, 0, 0.4);
+}
+
+
 .second-buttons-group{
-    width: 100%;
+    width: 95%;
     height: 20%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     gap: 1vh;
+    font-size: 1.4vw;
 }
 
 .button-second{
     width: 93%;
     color: #ffffff;
-    font-size: clamp(0.9rem, 1.5vw, 1.2rem);
     font-weight: 600;
     border: 0.1rem #C48AF7 solid;
     padding: 1vh 0.5vw;
     border-radius: 0.3rem;
+    font-size: 1.2vw;
 }
 
 .end-test{
@@ -289,7 +321,6 @@ main{
 .inf{
     display: flex;
     color: #ffffff;
-    font-size: clamp(0.3rem, 0.8vw, 0.9rem);
     height: 100%;
     display: flex;
     width: 30%;
@@ -314,12 +345,8 @@ main{
     color: #D6E8FE;
     justify-content: start;
     padding-left: 1vw;
-    font-size: clamp(0.7rem, 1vw, 1rem);
 }
 
-.tetx{
-    font-size: clamp(0.6rem, 1vw, 0.8rem);
-}
 
 .pet{
     width: 1.2vw;

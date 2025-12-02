@@ -6,23 +6,68 @@
 {% endblock links %}
 
 {% block content %}
+    <div class="blur-wrapper">
+        <div class="background-blur"></div>
+    </div>
+
     <div class="user-data">
-        <!-- обвдка для койнтейнера -->
-        <div class="line-coint">
-            <div class="main-coint">
-                <div class="info-box-horizontal">
-                    <div class="background-blur"></div>
-                    
-                    
-                </div>                
+        <div class="outline">
+            <div class="top-data">
+                <div class="main-data">
+                    <div class="cont-ava">
+                        <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                    </div>
+                    <div class="text-data">
+                        <p class="user-nickname" data-value="{{ user.username }}">{{ user.username }}</p>
+                        <p class="gmail-text email" data-value="{{ user.email }}">{{ user.email }}</p>
+                    </div>
+                </div>
+                <div class="join-data">
+                    <div class="code-join">
+                        <p>Kод приєднання</p>
+                        <div class="right-cont">
+                            <div class="outline-code">
+                                <p class="code-room"></p>
+                            </div> 
+                            <img class="copy copy-code img-copy" src="{{ url_for('mentor.static', filename='images/mentor/copy.svg') }}" alt="copy icon">
+                        </div>
+                    </div>
+
+                    <div class="link-join">
+                        <p>Скопіюйте посилання</p>
+                        <div class="right-cont copy-url">
+                            <p class="link-copy copy-url">joinquiz.com</p>
+                            <img class="copy img-copy copy-url" src="{{ url_for('mentor.static', filename='images/mentor/copy.svg') }}" alt="copy icon">
+                        </div>
+                    </div>
+                   
+                </div>
             </div>
-            
+            <div class="bottom-data">
+                <div class="two-blocks">
+                    <div class="block-data money-block">
+                        <p>ваші бали</p>
+                        <div class="outline-block">
+                            30
+                        </div>
+                    </div>
+                    <div class="block-data pet-block">
+                        <p>улюбленець</p>
+                        <div class="outline-block pet-outline">
+                            <img class="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/' ~ user.user_profile.pet_id ~ '.png') }}" alt="pet">
+                        </div>
+                    </div>
+                </div>
+                <div class="count-people">
+                    <p>кількість учасників</p>
+                    <p class="count">12</p>
+                </div>
+            </div>
         </div>
     </div>
 
     <div class="data-users">
-        <div class="icons-users">
-        </div>
+        
     </div>
 
     <div class="chat-icon">

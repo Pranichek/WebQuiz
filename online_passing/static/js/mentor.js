@@ -149,34 +149,49 @@ function loadRoom() {
         }
     )
 
-    const copyCode = document.querySelector(".copy-code")
+    const copyCode = document.querySelector(".copy-code");
     copyCode.addEventListener(
         'click',
-        () => {
-            let code = localStorage.getItem("room_code")
-            socket.emit('copy_code', {
-                code_room: code
-            });
+        async () => { 
+            let code = localStorage.getItem("room_code");
+            
+            if (code) {
+                try {
+                    await navigator.clipboard.writeText(code); 
+
+                } catch (err) {
+                    console.error('Не вдалося скопіювати текст');
+                }
+            }
         }
-    )
+    );
 
     const copyLink = document.querySelector(".copy-url")
-
     copyLink.addEventListener(
         'click',
-        () => {
+        async () => { 
             let code = localStorage.getItem("room_code")
             let link = window.location.origin + `/student?room_code=${code}`
-    
-            socket.emit('copy_link', {
-                link_room: link
-            });
-            document.getElementById("link-text").style.borderColor = "#8AF7D4"
+            
+            if (link) {
+                try {
+                    // Копіруєм посилання на фронте, щоб уменно н ак чела попало
+                    await navigator.clipboard.writeText(link); 
+
+                } catch (err) {
+                    console.error('Не вдалося скопіювати текст');
+                }
+            }
+
+            const copyLink = document.querySelector(".link-copy")
+            copyLink.classList.add('copied');
             setTimeout(() => {
-                document.getElementById("link-text").style.borderColor = "#b779ee"
-            }, "1000")
+                copyLink.classList.remove('copied');
+            }, 400);
         }
-    )
+    );
+
+
 
     socket.on(
         "load_chat",

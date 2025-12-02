@@ -13,11 +13,11 @@ chat.innerHTML = "";
 
 const socket = io(); 
 
-const username = document.querySelector(".save-nickname").textContent;  
+const username = document.querySelector(".username").textContent;  
 let room_code_user = localStorage.getItem("room_code")
 
 socket.on('connect', () => {
-   socket.emit('join_room', { username: username, room: room_code_user, email: document.querySelector(".email").textContent, flag: "student"});
+   socket.emit('join_room', { username: username, room: room_code_user, email: document.querySelector(".gmail-text").textContent, flag: "student"});
 });
 
 // список подключенных
@@ -28,14 +28,14 @@ socket.on("update_users", data => {
     mentor_email = data.mentor_email
 
     
-    document.querySelector(".num-students").textContent = (users.length - 1 >= 0) ? (users.length - 1) : 0
+    document.querySelector(".count").textContent = (users.length - 1 >= 0) ? (users.length - 1) : 0
     document.querySelector(".code-room").textContent = data.code
-    const blockUsers = document.querySelector(".icons-users")
+    const blockUsers = document.querySelector(".data-users")
 
     blockUsers.innerHTML = "";
 
     users.forEach(user => {
-        if (user.email != mentor_email){
+        if (user.email != document.querySelector(".gmail-text").textContent){
             const blockDiv = document.createElement("div")
                 blockDiv.classList.add("block")
                 
@@ -87,12 +87,55 @@ socket.on("update_users", data => {
 });
 
 
+const copyCode = document.querySelector(".copy-code");
+copyCode.addEventListener(
+    'click',
+    async () => { 
+        console.log("67")
+        let code = localStorage.getItem("room_code");
+        
+        if (code) {
+            try {
+                await navigator.clipboard.writeText(code); 
+
+            } catch (err) {
+                console.error('Не вдалося скопіювати текст');
+            }
+        }
+    }
+);
+
+const copyLink = document.querySelector(".copy-url")
+copyLink.addEventListener(
+    'click',
+    async () => { 
+        console.log("69")
+        let code = localStorage.getItem("room_code")
+        let link = window.location.origin + `/student?room_code=${code}`
+        
+        if (link) {
+            try {
+                // Копіруєм посилання на фронте, щоб уменно н ак чела попало
+                await navigator.clipboard.writeText(link); 
+
+            } catch (err) {
+                console.error('Не вдалося скопіювати текст');
+            }
+        }
+
+        const copyLink = document.querySelector(".link-copy")
+        copyLink.classList.add('copied');
+        setTimeout(() => {
+            copyLink.classList.remove('copied');
+        }, 400);
+    }
+);
+
 
 
 socket.on(
     'start_passing',
     data => {
-        console.log("zahodit")
         window.location.replace("/passing_student")
     }
 )
