@@ -1,3 +1,6 @@
+*{
+    box-sizing: border-box;
+}
 .main{
     display: flex;
     flex-direction: row;
@@ -56,6 +59,7 @@
     position: relative;
     justify-content: start;
     background-color: rgba(138, 187, 247, 0.2);
+    overflow: hidden;
 }
 
 .header-cont{
@@ -162,6 +166,7 @@
     border-radius: 15px;
     padding: 0.3vw;
     overflow-y: scroll;
+    display: flex;
 }
 
 .description-test p{
@@ -194,9 +199,12 @@ button{
     display: flex;
     position: relative;
     height: 4vh;
-    
+    transition: 0.3s;
 }
 
+.start-btn:hover{
+    background: #ba7af3;
+}
 
 .profile-btn {
     min-height: 20px;
@@ -209,6 +217,11 @@ button{
     cursor: pointer;
     height: 4vh;
     display: flex;
+    transition: 0.3s;
+}
+
+.profile-btn:hover{
+    background: #6d99ce;
 }
 
 .play{
@@ -238,10 +251,133 @@ button{
 .question-block {
     width: 60vw;
     height: 50vw;
-    overflow: hidden;
+    /* overflow: hidden; */
     display: flex;
     flex-direction: column;
     position: relative;
     border-radius: 10px;
     border: 2px solid #7B9CDA;
+
 }
+
+.all-questions{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    overflow-y: scroll;
+    height: 90%;
+    width: 100%;
+    gap: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    box-sizing: border-box;
+}
+
+.question-card{
+    width: 76%;
+    min-height: 23%;
+    max-height: 23%;
+    border: 1px #94C4FF solid;
+    border-radius: 19px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* margin-top: 5rem; */
+    /* margin-bottom: 1rem; */
+}
+
+.header-question{
+    width: 100%;
+    height: 44%;
+    position: relative;
+    display: flex;
+    white-space: normal;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    text-align: center;
+    gap: 5px;   
+    max-width: 100%;
+}
+
+.question {
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2; /* сколько строк будет видно до троеточия */
+    overflow: hidden;
+    text-align: center;
+    max-width: 60%;
+    max-height: 80%;
+}
+
+
+.question_img{
+    height: 90%;
+    width: auto;
+    object-fit: contain;
+}
+
+.body-question{
+    width: 100%;
+    height: 56%;
+    background-color: #343434;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /* justify-content: space-between; */
+}
+
+
+.top-image{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: 0;
+}
+
+.question{
+    font-size: 1vw;
+    z-index: 1;
+}
+
+.question_img{
+    z-index: 1;
+}
+
+.variant-answer{
+    /* background-color: pink; */
+    width: 49%;
+    height: 50%;
+    box-sizing: border-box;
+    display: flex;
+    font-size: 1vw;
+    gap: 5px;
+}
+
+.variant-answer .answer{
+     white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 70%;
+    text-align: center;
+}
+
+.answer-img{
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+}
+
+.circle{
+    width: 8%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    border: 1.7px #94C4FF solid;    
+}
+
+.quard{
+    width: 8%;
+    aspect-ratio: 1/1;
+    border-radius: 2px;
+    border: 1.7px #94C4FF solid;  
+}
+

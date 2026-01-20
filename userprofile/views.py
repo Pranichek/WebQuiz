@@ -11,6 +11,7 @@ from home.send_email import send_code, generate_code
 from Project.login_check import login_decorate
 from os.path import abspath, join, exists
 from Project.check_room import check_room
+from online_passing.models import Rooms
 from flask_login import current_user
 
 
@@ -186,7 +187,11 @@ def render_edit_avatar():
 @check_room
 @login_decorate
 def render_user_tests():
-    
+    existing_room = Rooms.query.filter_by(user_id=current_user.id).first()
+    if existing_room:
+        DATABASE.session.delete(existing_room)
+        DATABASE.session.commit()
+
     response = None
     if flask.request.method == "POST":
         delete_test_id = flask.request.form.get("test_id")

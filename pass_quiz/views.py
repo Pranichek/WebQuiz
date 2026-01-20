@@ -62,14 +62,15 @@ def handle_finish_test(data: dict):
         user_answers_raw = "∅"
 
     
-    
-    
     user_answers = user_answers_raw.split(",") 
     test : Test = Test.query.get(int(test_id))
     
     types_questions = test.type_questions.split("?$?")
     questions = test.questions.split("?%?")
     answers = test.answers.split("?@?")
+
+    if len(user_answers) > len(types_questions):
+        del user_answers[-1]
 
     for index in range(len(user_answers)):
         if types_questions[index] == "input-gap":
@@ -141,9 +142,13 @@ def handle_finish_test(data: dict):
     if len(user_answers) > 0:
         for answers in user_answers:
             small_list = []
-            list_users_answers.append(answers.split("@"))  
+            list_users_answers.append(answers.split("@")) 
 
-    print(list_users_answers, "lolka")
+    # если юзер ответил не на все вопросі
+    if len(list_users_answers) < len(questions):
+        while len(list_users_answers) < len(questions):
+            list_users_answers.append(["∅"])
+
 
 
     count_uncorrect_answers = 0

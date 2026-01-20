@@ -18,6 +18,30 @@ socket.emit(
     }
 )
 
+socket.on("upload_data",
+    () => {
+        socket.emit(
+            "get_data",
+            {   
+                lastanswers: lastAnswers,
+                id_test: localStorage.getItem("test_id"), 
+                index_question: localStorage.getItem("index_question"),
+                users_answers: localStorage.getItem("users_answers"),
+                room_code: localStorage.getItem("room_code")
+            }
+        )
+    }
+)
+
+// когда кикают с комнаті
+socket.on("leave_user",
+    data => {
+        if (parseInt(data["id"]) == parseInt(document.querySelector(".id").dataset.id)){
+            window.location.replace("/")
+        }
+    }
+)
+
 socket.on("show_data",
     data => {
 
@@ -179,15 +203,11 @@ socket.on("show_data",
                 const variantOutline = document.createElement("div")
                 variantOutline.className = "variant-outline"
 
-                console.log(correctIndexes)
-                console.log(usersindexes)
                 if (usersindexes.includes(count)){
                     if (correctIndexes.includes(count)){
-                        console.log(count, "da")
                         variantOutline.classList.add("correct")
                     }else{
                         variantOutline.classList.add("uncorrect")
-                        console.log(count, "net")
                     }
                 }
 
@@ -306,12 +326,13 @@ localStorage.setItem("flag_time", "true")
 
 socket.on("next_question",
     data => {
+        localStorage.setItem("index_question", data.index_question)
         window.location.replace("/passing_student")
     }
 )
 socket.on("end_test",
     data => {
-        window.location.replace("/finish_student")
+        window.location.replace("/questions")
     }
 )
 

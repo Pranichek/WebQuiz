@@ -21,10 +21,9 @@ def render_home():
         room = Rooms.query.filter_by(room_code = input_code).first()
             
         if room:
-            flask.session["room_code"] = input_code
-            return flask.redirect("/input_username")
+            return flask.redirect(f"/input_username?room_code={input_code}")
 
-    if not current_user.is_authenticated:
+    if not current_user.is_authenticated or str(current_user.password) == "1":
         return flask.render_template(
             template_name_or_list = "home.html", 
             home_page = True
@@ -52,12 +51,25 @@ def get_random_tests(category=None, max_tests=4):
     return all_tests[0:5]
 
 #головна сторінка коли користувач увійшов у акаунт
-@login_decorate
+
+
+# @login_decorate
 @check_room
 def render_home_auth():   
+    if str(current_user.password) == "1":
+        # DATABASE.session.delete(current_user)
+        # DATABASE.session.commit()
+        # flask.session.clear()
+        return flask.redirect("/")
+
     room = flask_login.current_user.room
     if room and room.room_code != "":
         room.room_code = ""
+        DATABASE.session.commit()
+
+    existing_room = Rooms.query.filter_by(user_id=current_user.id).first()
+    if existing_room:
+        DATABASE.session.delete(existing_room)
         DATABASE.session.commit()
 
     if flask.request.method == "POST":
@@ -74,7 +86,6 @@ def render_home_auth():
                 return flask.redirect(f"student?room_code={data_code}")
 
 
-        
     user = User.query.get(flask_login.current_user.id)
 
     # отримати баланс
@@ -167,13 +178,10 @@ def render_registration():
                         flask.session["check_mentor"] = is_mentor
                         flask.session["password"] = password_form
 
-                        email = Thread(target = send_code, args = (email_form, flask.session["code"]))
+                        email = Thread(target = send_code, args = (email_form, flask.session.get("code")))
                         email.start()
                         
                         return flask.redirect("/verify_code")
-                    
-
-            
 
                     else:
                         flask.session.clear()
@@ -205,8 +213,8 @@ def render_registration():
     )
 
 
-def is_admin(function: object) -> float: # функція що приймає параметри для редіректу на сторінку
-    def handler(*args, **kwargs): # Функція обробник фунції параметру із wrapper
+def is_admin(function: object) -> float: 
+    def handler(*args, **kwargs):
         try:
             if function:
                 function(*args, **kwargs)
@@ -225,11 +233,12 @@ def clear_code():
     random_code = generate_code()
     flask.session["code"] = random_code
     flask.session["count_email"] = 0
-    email = Thread(target = send_code, args = (flask.session["email"], flask.session["code"]))
+    email = Thread(target = send_code, args = (flask.session["email"], flask.session.get("code")))
     email.start()
 
 def render_code():
     form_code = ''
+    print(dict(flask.session), "hoho")
     if flask.request.method == "POST":
         send_again = flask.request.form.get("again")
         end_code = flask.request.form.get("end")
@@ -241,9 +250,12 @@ def render_code():
                 data = str(flask.request.form[f"verify_code{num_tag}"])
                 form_code += data
 
+        print(form_code, "lolo")
+        print(flask.session)
                 
         if "new_email" in flask.session:
-            if str(flask.session["code"]) == form_code:
+            print("pidor")
+            if str(flask.session.get("code")) == form_code:
                 flask_login.current_user.email = flask.session["new_email"]
                 DATABASE.session.commit()
                 flask.session.pop("new_email", "code")
@@ -252,8 +264,10 @@ def render_code():
                 os.rename(old_name_folder, new_name_folder)
                 return flask.redirect("/")
         else:
+            print("suka")
             if form_code != '':
-                if str(flask.session["code"]) == form_code:
+                if str(flask.session.get("code")) == form_code:
+                    print("gondon")
                     avatar = f"default_avatar{random.randint(1,5)}.svg"
                     user = User(
                             username = flask.session["username"],
@@ -286,13 +300,14 @@ def render_code():
                 else:
                     flask.session["code"] = ''
                     flask.session["email_sent"] = False
+                    print("evanat")
                     return flask.redirect("/")
                 
     if not flask_login.current_user.is_authenticated or "new_email" in flask.session:
         return flask.render_template(
             template_name_or_list = "verify_code.html", 
             code = 34, 
-            code1 = flask.session["code"], 
+            code1 = flask.session.get("code"), 
             verify_code_page = True,
             home_page = True
         ) 
@@ -327,14 +342,14 @@ def render_login():
                     message = 'Введений пароль не підходить до пошти'
                 else:
                     flask_login.login_user(user)
-                    return flask.redirect("/") 
+                    return flask.redirect("/home_auth") 
                 
         elif check_form == "clear_form":
             password = ''
             email = ''
             message = ''
 
-    if not flask_login.current_user.is_authenticated:
+    if not flask_login.current_user.is_authenticated or str(flask_login.current_user.password) == "1":
         return flask.render_template(
             template_name_or_list = "login.html", 
             login_page = True,
@@ -475,5 +490,5 @@ def render_finish_google_signup():
         username = flask.session.get("username"),
         random_num = random.randint(1, 5),
         message = message,
-        registration_page = True
+        home_page = True
     )

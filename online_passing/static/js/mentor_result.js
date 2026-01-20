@@ -5,12 +5,32 @@ localStorage.setItem("time_flag", "false")
 
 document.querySelector(".code-room").textContent = localStorage.getItem("room_code")
 
+setInterval(() => {
+    socket.emit("check_users", {room_code: localStorage.getItem("room_code"), page: "result", index_question: localStorage.getItem("index_question")})
+}, 3000)
+
 socket.emit(
     'users_results',
     {
         room: localStorage.getItem("room_code"), 
         test_id: localStorage.getItem("test_id"),
         index_question: localStorage.getItem("index_question")
+    }
+)
+
+socket.on("update_users",
+    ( ) => {
+        socket.emit(
+            'users_results',
+            {
+                room: localStorage.getItem("room_code"), 
+                test_id: localStorage.getItem("test_id"),
+                index_question: localStorage.getItem("index_question")
+            }
+        )
+
+        document.querySelector(".diagram").remove()
+        document.querySelector(".variants").remove()
     }
 )
 
@@ -21,6 +41,7 @@ socket.on("list_results",
         // topData.innerHTML = ""
         const usersRatings = document.querySelector(".users-ratings")
         usersRatings.innerHTML = ""
+        
 
         if (user_list.type_question == "one-answer" || user_list.type_question == "many-answers"){
             topData.style.height = "40%"
@@ -164,8 +185,8 @@ socket.on("list_results",
             rightText.className = "right-text"
 
             const rightAnswers = document.createElement("p")
-            rightAnswers.textContent = user_list.answers.join("\n")
-            rightAnswers.style.whiteSpace = "pre-line"
+            rightAnswers.textContent = "Сховано"
+            rightAnswers.className = "correct-answers"
 
             answers.appendChild(rightText)
             answers.appendChild(rightAnswers)
@@ -284,6 +305,7 @@ socket.on("list_results",
         user_list.users.forEach((element, index) => {
             const usercont = document.createElement("div")
             usercont.className = "user-card"
+            usercont.dataset.id = element.id
 
             const leftpart = document.createElement("div")
             leftpart.className = "left-part"
@@ -368,7 +390,6 @@ socket.on("list_results",
             eye.addEventListener(
                 'click',
                 () => {
-                    console.log(12)
                     const texts = document.querySelectorAll(".choicen-text")
                     for (let text of texts){
                         if (text.id == eye.id){
@@ -477,29 +498,83 @@ socket.on("list_results",
         document.querySelector(".wrong-text").textContent = `${countUncorrect}`
         document.querySelector(".simple-text").textContent = `${countMissed}`
         
-        const showAnswerButton = document.getElementById("showAnswer")
-        const right_indexes = user_list.right_indexes
-        const elements = document.getElementsByClassName("variant-outline")
-        let showAnswersFlag = false
+        const showAnswersBtn = document.getElementById("showAnswer")
+        const correctAnsws = document.querySelector(".correct-answers")
 
-        showAnswerButton.addEventListener("click", ()=>{
-            if (!showAnswersFlag){
-                for (let count = 0; count < elements.length; count++){
-                    if (right_indexes.includes(count)){
-                        showAnswersFlag = true
-                        elements[count].style.backgroundColor = "#15b784ff"
-                        showAnswerButton.textContent = "Сховати відповіді"
+        showAnswersBtn.addEventListener("click", () => {
+            const checkstate = showAnswersBtn.dataset.state
+            const right_indexes = user_list.right_indexes || []
+
+            if (user_list.type_question !== "input-gap") {
+                if (checkstate === "hide") {
+                    showAnswersBtn.dataset.state = "show"
+                    showAnswersBtn.textContent = "сховати відповіді"
+
+                    for (let i = 0; i < answers.length; i++) {
+                        if (right_indexes.includes(i)) {
+                            answers[i].style.backgroundColor = "#9bde8dff"
+                        } else {
+                            answers[i].style.backgroundColor = "#ea5c64ff"
+                        }
+                    }
+                } else {
+                    showAnswersBtn.dataset.state = "hide"
+                    showAnswersBtn.textContent = "Показати відповіді"
+
+                    for (let i = 0; i < answers.length; i++) {
+                        answers[i].style.backgroundColor = "#94C4FF"
                     }
                 }
             }else{
-                for (let count = 0; count < elements.length; count++){
-                    if (right_indexes.includes(count)){
-                        showAnswersFlag = false
-                        elements[count].style.backgroundColor = "rgb(195, 159, 228, 58%)"
-                        showAnswerButton.textContent = "Показати відповіді"
-                    }
+                if (checkstate === "hide") {
+                    showAnswersBtn.dataset.state = "show"
+                    showAnswersBtn.textContent = "сховати відповіді"
+                    correctAnsws.textContent = user_list.answers.join("\n")
+                    correctAnsws.style.whiteSpace = "pre-line"
+                }else{
+                    showAnswersBtn.dataset.state = "hide"
+                    showAnswersBtn.textContent = "Показати відповіді"
+                    correctAnsws.textContent = "Сховано"
                 }
+                
             }
+        })
+
+        // удаление пользователя
+        let lastid;
+
+        crossUser = document.getElementsByClassName("user-card")
+            for (let cross of crossUser){
+                cross.addEventListener("click", (event)=>{
+                    const isEyeClick = event.target.closest('.choicen') || event.target.closest('.choicen .open-eye')
+        
+                    if (isEyeClick) {
+                        return
+                    }
+
+                    document.querySelector(".window-choice").classList.add("active")
+                    document.querySelector("#overlay").classList.add("active")
+                    lastid = cross.dataset.id
+            })
+        }
+
+        let buttonRemove = document.querySelector(".remove_user")
+            buttonRemove.addEventListener("click", ()=>{
+                socket.emit(
+                    "delete_user",
+                    {
+                        room: localStorage.getItem("room_code"),
+                        id: lastid
+                    }
+                )
+            document.querySelector(".window-choice").classList.remove("active")
+            document.querySelector("#overlay").classList.remove("active")
+            location.reload()
+        })
+
+        document.querySelector(".decline").addEventListener("click", () => {
+            document.querySelector(".window-choice").classList.remove("active")
+            document.querySelector("#overlay").classList.remove("active")
         })
     }
 )

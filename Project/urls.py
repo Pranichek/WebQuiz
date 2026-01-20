@@ -146,6 +146,7 @@ quiz.test_pass.add_url_rule(
     methods = ["GET", "POST"]
 )
 
+
 pass_quiz.finish_test.add_url_rule(
     rule = "/finish_test",
     view_func = pass_quiz.render_finish_test,
@@ -194,6 +195,11 @@ online_passing.student.add_url_rule(
     methods = ["GET", "POST"]
 )
 
+online_passing.mentor.add_url_rule(
+    rule="/_page/<name>",
+    view_func= online_passing.render_online_page,
+    methods=["GET"]
+)
 
 online_passing.mentor.add_url_rule(
     rule = "/mentor",

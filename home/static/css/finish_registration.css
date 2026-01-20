@@ -2,6 +2,10 @@
     cursor: pointer;
     z-index: 103;
 }
+input:focus {
+    outline: none;
+}
+
 
 #clear-form{
     display: none;
@@ -52,12 +56,12 @@
     color: #414141;
     background-color: #B9BDF5;
     text-align: center;
-    font-size: 1.2vw; 
+    font-size: 2vh; 
 }
 
 .text-input::placeholder{
     color: #414141;
-    font-size: 1.2vw; 
+    font-size: 2vh; 
     font-weight: 600;
 }
 
@@ -176,7 +180,7 @@
     padding-left: 0.7vw; 
     color: #ffffff;
     font-weight: 300;
-    font-size: 1.2vw; 
+    font-size: 2vh; 
 }
 
 .checklist-line {
@@ -194,7 +198,6 @@
     display: flex;
     width: 80%;
     height: 12%;
-    /* background-color: green; */
 }
 
 .password-container .text-input, .sua .text-input{
@@ -206,8 +209,8 @@
     position: absolute;
     right: 5%;
     z-index: 103;
-    width: 1.8vw; 
-    height: 1.8vw;
+    height: 50%;
+    width: auto;
 }
 
 #eye2{
@@ -222,11 +225,11 @@
     border: solid 1px black;
     border-radius: 10px;
     width: 40%;
-    height: 3vw; 
     background-color: #C48AF7;
+    padding: 1.4vh 1vh;
     color: white;
     text-align: center;
-    font-size: 1.2vw;
+    font-size: 2vh;
     transition: 0.2s;
     cursor: pointer;
 }
@@ -240,13 +243,19 @@
     display: flex;
     gap: 2vw; 
     width: 80%;
+    height: 6%;
+    justify-content: start;
 }
 
 .user-status label{
-    width: 50%;
+    height: 100%;
     color: white;
-    font-size: 1.2vw;
+    font-size: 2vh;
+    /* background-color: orange; */
+    display: flex;
+    position: relative;
 }
+
 
 input[type='radio'],
 label {
@@ -255,40 +264,46 @@ label {
 
 input[type='radio'] {
   position: relative;
-  height: 1.7vw; 
-  width: 1.7vw;
+  height: 100%;     
+  aspect-ratio: 1/1; 
   -webkit-appearance: none;
-  -moz-appearance: none;
   appearance: none;
-  outline: none;
+  margin: 0;
+  display: flex;      
+  align-items: center;
+  justify-content: center;
 }
 
+/* Зеленый круг (фон) */
 input[type='radio']::before {
   content: '';
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 1.7vw; 
-  height: 1.7vw;
+  transform: translate(-50%, -50%); /* Центрируем точно по середине инпута */
+  height: 90%;       /* Теперь можно 100%, так как инпут — квадрат */
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
-  transform: translate(-50%, -50%);
   background-color: #8AF7D4;
-  border: 2px solid rgb(0, 0, 0);
+  border: 2px solid #000;
+  box-sizing: border-box;
 }
 
+/* Фиолетовый круг (точка) */
 input[type='radio']:checked::after {
   content: '';
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 1.1vw; 
-  height: 1.1vw;
+  transform: translate(-50%, -50%); /* Центрируем точно по середине инпута */
+  height: 60%;        /* Делаем точку чуть меньше фона */
+  aspect-ratio: 1 / 1;
   border-radius: 50%;
   background-color: #B9BDF5;
-  border: 2px solid rgb(0, 0, 0);
-  transform: translate(-50%, -50%);
-  visibility: visible;
+  border: 2px solid #000;
+  box-sizing: border-box;
 }
+
 
 .background{
     display: flex;
@@ -305,13 +320,13 @@ input[type='radio']:checked::after {
     filter: blur(100px);
 }
 
-.avatar {
-    width: 7vw;
-    height: 7vw;
-    border: 3px solid #000000;
-    border-radius: 50%;
-    object-fit: cover;
-    display: block;
+.img-avatar{
+    height: 20%;
+    position: relative;
+}
+
+.avatar{
+    height: 100%;
 }
 
 
@@ -333,7 +348,7 @@ input[type='radio']:checked::after {
     align-items: center;
     justify-content: center;
     gap: 0.7vw; 
-    font-size: 1.2vw;
+    font-size: 2vh;
 }
 
 .robot{
@@ -352,7 +367,7 @@ input[type='radio']:checked::after {
 
 .problem {
     color: #ffffff;
-    font-size: 1.2vw;
+    font-size: 2vh;
 }
 
 @keyframes shake {
@@ -369,6 +384,55 @@ input[type='radio']:checked::after {
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
+
+@media (max-width: 1200px) {
+    .registration {
+        width: 50vw;
+    }
+}
+
+@media (max-width: 1000px) {
+    .registration {
+        width: 55vw;
+    }
+    .if-yes p, .change-page a {
+        font-size: 1.8vh;
+    }
+}
+
+@media (max-width: 900px) {
+    .registration {
+        width: 70vw; 
+    }
+}
+
+@media (max-width: 800px) {
+    .registration {
+        width: 85vw; 
+        height: 65%;
+    }
+}
+
+@media (max-width: 800px) and (max-height: 400px) {
+    .registration {
+        width: 55vw; 
+        height: 85%;
+    }
+}
+
+
+@media (max-height: 450px) and (min-width: 801px){
+    .registration {
+        width: 20vw; 
+        height: 95%;
+    }
+}
+
+@media (max-width: 678px){
+    .registration{
+        width: 95vw;
+    }
+}
 
 
 

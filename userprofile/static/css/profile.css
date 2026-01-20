@@ -69,13 +69,13 @@ a{
 
 .topic-password{
     color: #ffffff;
-    font-size: 20px;
+    font-size: 2.5vh;
     font-weight: 600;
 }
 
 .rule-text{
     color: #ffffff;
-    font-size: 16px;
+    font-size: 2vh;
 }
 
 .inputs-passwords{
@@ -92,7 +92,7 @@ a{
 
 .password-rule{
     color: #BFBFBF;
-    font-size: 20px;
+    font-size: 2.5vh;
     font-weight: 600;
 }
 
@@ -112,14 +112,14 @@ a{
     color: #ffffff;
     background-color: #C48AF7;
     border-radius: 5px;
-    font-size: 16px;
+    font-size: 2vh;
     border: none;
 }
 
 .back-password{
     background: none;
     border: none;
-    font-size: 16px;
+    font-size: 2vh;
     padding: 10px;
     margin-right: 10px;
 }
@@ -155,21 +155,21 @@ a{
 }
 
 .deny-text{
-    color: #ffffff;
-    font-size: 16px;
+    color: #dc0101;
+    font-size: 2vh;
     font-weight: 500;
 }
 
 .button-deny{
     background: none;
     border: none;
-    font-size: 16px;
+    font-size: 2vh;
     font-weight: 500;
 }
 
 .logout-text{
     color: #ffffff;
-    font-size: 20px;
+    font-size: 2.5vh;
     font-weight: 700;
     margin-bottom: 10px;
 }
@@ -191,7 +191,7 @@ a{
     border-radius: 3px;
     padding: 10px 30px 10px 30px;
     border: none;
-    font-size: 16px;
+    font-size: 2vh;
     font-weight: 500;
 }
 
@@ -236,7 +236,7 @@ input{
     height: 100%;
     /* background: none; */
     border-radius: 10px;
-    font-size: 16px;
+    font-size: 2vh;
     color: #ffffff;
     font-weight: 700;
     background-color: #2f2f2f;
@@ -314,7 +314,7 @@ input{
 .nickname{
     position: absolute;
     left: 40%;
-    font-size: 22px;
+    font-size: 2vh;
     color: white;
 }
 
@@ -375,11 +375,11 @@ input{
 }
 
 .info-item p{
-    font-size: 20px;
+    font-size: 2.5vh;
 }
 
 .info-item input{
-    font-size: 20px;
+    font-size: 2.5vh;
     background-color: none;
     color: #ffffff;
     background: none;
@@ -390,7 +390,7 @@ input{
 .input_email{
     padding-top: 11px;
     width: 100%;
-    font-size: 20px;
+    font-size: 2.5vh;
     background-color: none;
     color: #ffffff;
     background: none;
@@ -399,7 +399,7 @@ input{
 }
 
 .deny-button{
-    font-size: 16px;
+    font-size: 2vh;
     color: #ffffff;
     font-weight: bold;
     background: none;
@@ -411,7 +411,7 @@ input{
     color: #ffffff;
     background-color: #7291B8;
     border-radius: 3px;
-    font-size: 16px;
+    font-size: 2vh;
     font-weight: bold;
     border: none;
     padding: 10px;
@@ -421,7 +421,7 @@ input{
     color: #ffffff;
     background-color: #7291B8;
     border-radius: 3px;
-    font-size: 15px;
+    font-size: 1.5vh;
     font-weight: bold;
     border: none;
     padding: 10px;
@@ -431,7 +431,7 @@ input{
     color: #ffffff;
     background-color: #7291B8;
     border-radius: 3px;
-    font-size: 16px;
+    font-size: 2vh;
     font-weight: bold;
     border: none;
     padding: 10px;
@@ -457,17 +457,18 @@ input{
     width: 22%;
     min-width: 80px;
     height: 42px;
-    gap: 10px;
     border-radius: 5px;
     padding: 10px;
     background-color: #C48AF7;
-    font-size: 16px;
+    font-size: 2vh;
     border: none;
+    text-align: center;
+    display: flex;
 }
 
 .text-in-between{
     font-weight: 500;
-    font-size: 24px;
+    font-size: 3vh;
     line-height: 100%;
     letter-spacing: 0%;
     text-align: center;
@@ -502,7 +503,7 @@ input{
 }
 
 .control-option p{
-    font-size: 20px;
+    font-size: 2.5vh;
 }
 
 .account-button{
@@ -511,6 +512,7 @@ input{
     border-radius: 5px;
     background-color: #C48AF7;
     border: none;
+    font-size: 2vh;
 }
 
 
@@ -557,7 +559,7 @@ input{
 .img-checklist{
     margin: 0;
     padding: 0;
-    width: 21px;
+    width: 2vh;
     height: 25px;
 }
 
@@ -574,7 +576,7 @@ input{
 
 .checklist-title{
     color: #ffffff;
-    font-size: 17px;
+    font-size: 2vh;
     font-weight: 500;
     /* margin-bottom: 10px; */
 }
@@ -621,7 +623,7 @@ input{
     padding-left: 10px;
     color: #ffffff;
     font-weight: 300;
-    font-size: 16px;
+    font-size: 2vh;
 }
 
 /* .checklist-line{
@@ -672,7 +674,7 @@ input{
     color: aqua;
 } */
 
-@media (max-width: 450px){
+/* @media (max-width: 450px){
     .info-container{
         width: 100%;
     }
@@ -685,7 +687,7 @@ input{
 
     .info-item .label{
         color: #BFBFBF;
-        font-size: 16px;
+        font-size: 2vh;
     }
 
     .avatar-changing{
@@ -694,7 +696,7 @@ input{
         border-radius: 5px;
         padding: 0px;
         background-color: #C48AF7; 
-        font-size: 20px;
+        font-size: 2.5vh;
         text-align: center;
     }
 }
@@ -764,12 +766,12 @@ input{
         border-radius: 5px;
         padding: 10px;
         background-color: #C48AF7;
-        font-size: 21px;
+        font-size: 2vh;
         border: none;
     }
 
     .deny-button{
-        font-size: 23px;
+        font-size: 2.5vh;
         color: #ffffff;
         font-weight: bold;
         background: none;
@@ -781,7 +783,7 @@ input{
         color: #ffffff;
         background-color: #7291B8;
         border-radius: 3px;
-        font-size: 20px;
+        font-size: 2.5vh;
         font-weight: bold;
         border: none;
         padding: 10px;
@@ -791,7 +793,7 @@ input{
         color: #ffffff;
         background-color: #7291B8;
         border-radius: 3px;
-        font-size: 20px;
+        font-size: 2.5vh;
         font-weight: bold;
         border: none;
         padding: 10px;
@@ -817,7 +819,7 @@ input{
     .account-control button{
         width: 200px;
         height: 60px;
-        font-size: 23px;
+        font-size: 2.5vh;
     }
 
     .text-in-between{
@@ -846,7 +848,7 @@ input{
         width: 52%;
         min-height: 50px;
         border: 2px black solid;
-        border-radius: 50%;  /* округляем всегда картинку юзераа */
+        border-radius: 50%;  
     }
 
     .main-info{
@@ -955,5 +957,5 @@ input{
     .account-control{
         max-width: 1900px;
     }
-}
+} */
 

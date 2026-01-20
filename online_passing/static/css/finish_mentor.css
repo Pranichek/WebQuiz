@@ -30,7 +30,6 @@ main{
     width: 90%;
     display: flex;
     flex-direction: column;
-    /* background-color: orange; */
     border: 2px solid #C48AF7;
     border-radius: 34px;
     position: relative;
@@ -55,28 +54,51 @@ main{
 .block-info{
     display: flex;
     background-color: rgba(138, 187, 247, 0.2);
-    padding: 1% 3% 1% 3%;
     width: 100%;
-    /* justify-content: space-between; */
+    position: relative;
+    justify-content: space-between;
 }
 .block-info p{
     font-size: 0.9vw;
     font-weight: 600;
+
 }
+
+
 .div55{
     display: flex;
     justify-content: start;
-    width: 55%;
-    justify-content: space-between;
-    margin-right: 10%;
+    width: 100%;
+    margin-top: 1%;
+    margin-left: 1%;
+    /* background-color: green; */
 }
+
+.first-block, .second-block{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.first-block{
+    height: 100%;
+    width: 30%;
+    /* background-color: purple; */
+    /* padding-left: 1%; */
+    padding-right: 1%;
+}
+.second-block{
+    height: 100%;
+    width: 50%;
+    /* background-color: pink; */
+    justify-content: center;
+    gap: 50%;
+}
+
 .div45{
     display: flex;
     justify-content: start;
     width: 45%;
-}
-.for-margin{
-    margin-right: 45%;
 }
 
 .user-list{
@@ -114,6 +136,7 @@ main{
     flex-direction: column;
     margin-right: 1.5vw;
 }
+
 .graphics p{
     font-size: 2.5vh;
 }
@@ -148,9 +171,9 @@ main{
     height: 100%;
     display: flex;
 }
-.myChart{
+/* .myChart{
     margin-bottom: 2vh;
-}
+} */
 
 .gap-info{
     display: flex;
@@ -234,23 +257,38 @@ main{
     height: 7%;
     width: 98%;
     display: flex;
-    /* background-color: green; */
+    background-color: green;
     position: relative;
     gap: 3vw;
+    background-color: #343434;
+    border-radius: 15px;
+    border: 2px #94C4FF solid;
 }
 
 .outline{
     width: 46%;
     height: 80%;
-    border-radius: 15px;
-    border: 2px black solid;
+    border-radius: 11px;
     display: flex;
     justify-content: start;
     overflow: hidden;
+    background-color: rgba(174, 174, 174, 0.29);
 }
 
 .fill{
     background-color: #B9BDF5;
     height: 100%;
     transition: width 0.8s;
+}
+
+
+.div-place, .div-name, .div-points{
+    height: 100%;
+    width: 10%;
+    display: flex;
+    font-size: 2vh;
+}
+
+.div-place p, .div-points p{
+    color: #FFB700;
 }

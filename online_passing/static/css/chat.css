@@ -1,18 +1,20 @@
 .chat-osnova{
     height: 64vh;
     width: 25vw;
-    position: absolute;
-    bottom: 0;
-    right: 0;
+    width: clamp(280px, 25vw, 420px); 
+    position: fixed;
+    right: 10px;
+    bottom: 10px;
     margin-left: 200%; 
     background-color: #343434;
     border-radius: 15px;
     border: 2px #A9D0FF solid;
     display: none;
     flex-direction: column;
-    z-index: 100;
+    z-index: 1000;
     margin-bottom: 10px;
     margin-right: 10px;
+    min-height: 20rem;
 }
 
 .header-chat{
@@ -60,7 +62,7 @@
 }
 
 .unknown-username{
-    font-size: 1vw;
+    font-size: 1.8vh;
 }
 
 .unknown-message{
@@ -89,7 +91,7 @@
 
 .my-message p, .unknown-message p{
     color: #000000;
-    font-size: 1vw;
+    font-size: 1.8vh;
 }
 
 .user {
@@ -190,7 +192,7 @@
 
 
 .main-text{
-    font-size: 1.1vw;
+    font-size: 2vh;
     color: #343434;
     font-weight: 550;
 }
@@ -210,7 +212,7 @@
     border: none;
     padding-left: 10px;
     color: #716f6f;
-    font-size: 1vw;
+    font-size: 1.8vh;
     padding-right: 13%;
 }
 
@@ -248,18 +250,32 @@ input:focus {
 
 }
 
-.check-click{
-    position: absolute;
+.check-click {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
     display: flex;
-    justify-content: start;
-    width: 10vw;
-    height: 3vh;
+    justify-content: center;
+    align-items: center;
+    
+    /* Растягивание по тексту */
+    width: auto;
+    /* min-width: 5vw; */
+    height: auto;
+    padding: 5px 5px;
+    /* min-height: 4vh; */
+    /* padding: 1vh 2vh; */
+    
+    /* Запрет переноса текста */
+    white-space: nowrap;
+    
     background-color: #88B2E5;
-    border-radius: 1234px;
-    font-size: 1vw;
+    border-radius: 15px;
+    font-size: 2vh;
     color: #fff;
     transition: 0.2s;
     text-align: center;
+    z-index: 800;
 }
 
 #open-chat{
@@ -270,4 +286,13 @@ input:focus {
 
 .check-click:hover{
     background-color: #6d9dd7;
+}
+
+@media (max-width: 480px){
+    .chat-osnova{
+        width: 98vw;
+        margin-bottom: 0;
+        margin-right: 0;
+        right: 0;
+    }
 }

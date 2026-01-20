@@ -5,8 +5,27 @@
 {% endblock links %}
 
 {% block content %}
-    <form method="POST">
-        <input type="text" name="input_name" class="input_name">
-        <button type="submit">SEND</button>
+    <div class="pulsating-bg"></div>
+    <form class="main-form" method="post">
+        <div class="top-text">
+            <p>Щоб ви могли приєднатися до цього тесту, <br>спочатку введіть ваше ім’я!</p>
+        </div>
+        <div class="input-name">
+            <input type="text" name="username" class="input-username" placeholder="Введіть ваше ім’я" maxlength="30">
+            <div class="img-avatar">
+                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar' ~ range(1, 5) | random ~ '.svg') }}" alt="avatar">
+            </div>
+        </div>
+        <div class="buttons">
+            <a href="/" class="cancel">скасувати</a>
+            <button class="save-name">Зберегти</button>
+        </div>
     </form>
+    <div class="cont-code">
+        {{ code }}
+    </div>
 {% endblock %}
+
+{% block scripts %}
+    <script src="{{ url_for('login.static', filename='js/check_input.js') }}"></script>
+{% endblock scripts %}

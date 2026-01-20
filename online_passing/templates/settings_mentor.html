@@ -5,11 +5,12 @@
 {% endblock links %}
 
 {% block content %}
+    <div class="overlay" id="overlay"></div>
     <span data-cross="{{ url_for('mentor.static', filename='images/cross_student.svg') }}" class="hide-ava"></span>
     <div class="test-part">
         <div class="question-test">
             <div class="num-question">
-                <p class="num-que">10/10</p>
+                <p class="num-que">1/1</p>
             </div>
             <div class= "question-bg">
                 <p class="question-text"></p>
@@ -43,9 +44,8 @@
             <div class="line"></div>
 
             <div class="first-buttons-group">
-                <button class="first-button">Додати<br>час</button>
                 <button class="first-button stop-button">Зупинити<br>час</button>
-                <button class="first-button end_question">Завершити<br>питання</button>
+                <button class="first-button end_question">Завершити питання</button>
                 <button class="first-button add-time">+15 Секунд</button>
             </div>
 
@@ -66,12 +66,31 @@
 
         </div>
     </div>
+
+    <div class="window-choice">
+        <h1>Видалити учасника з кімнати</h1>
+        <p>Ви впевнені, що хочете видалити цього учасника з кімнати?</p>
+        <div>
+            <p class="decline">Скасувати</p>
+            <p class="remove_user">Видалити</p>
+        </div>
+    </div>
+
+    <div class="window-end">
+        <h1>Закінчення тесту</h1>
+        <p>Ви впевнені, що хочете примусово закінчити тест?</p>
+        <div>
+            <p class="decline-ending">Скасувати</p>
+            <p class="end_test">Завершити</p>
+        </div>
+    </div>
 {% endblock content %}
 
 
 {% block scripts %}
     {{ super() }}
     
-    <script src="{{ url_for('mentor.static', filename='js/mentor_passing.js') }}"></script>
+    <script src="{{ url_for('mentor.static', filename='js/settings_mentor.js') }}"></script>
     <script src="{{ url_for('mentor.static', filename='js/control_time.js') }}"></script>
+    <script src="{{ url_for('mentor.static', filename='js/end_test.js') }}"></script>
 {% endblock scripts %}

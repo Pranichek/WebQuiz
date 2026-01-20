@@ -1,35 +1,46 @@
-#eye {
-    cursor: pointer;
-    height: 50%;
-    width: auto;
-}
-
 .main {
     height: 90vh;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    /* font-size: 2vh; */
 }
+
+input:focus {
+    outline: none;
+}
+
+
+.text-input, .send-data, .problem, .if-not p, .if-not a, .user-status label, input{
+    font-size: 2vh;
+}
+
 .content-login{
     display: flex;
-    width: 50vw;
+    width: 100vw;
     height: 90vh;
 }
 
 
 .login{
     position: relative;
+    /* max-width: 600px;
+    max-height: 500px; */
     z-index: 3;
     display: flex;
     flex-direction: column;
-    gap: 1.5vw; 
     background-color: #343434;
     border: 2px solid #B9BDF5;
     border-radius: 30px;
     height: 50vh;
     width: 40vw;
     align-items: center;
-    padding: 2vw 0px; 
+    padding: 2vw 0; 
+    border-radius: 30px;
+    min-width: 300px;
+    /* max-height: 40vh;
+    width: 90%;
+    max-width: 500px; */
 }
 
 .login form {
@@ -39,7 +50,6 @@
     justify-content: space-between;
     width: 100%;
     height: 100%;
-    gap: 0.7vw; 
 }
 
 .text-input {
@@ -47,11 +57,9 @@
     border-radius: 10px;
     width: 80%;
     height: 16%;
-    max-height: 70px;
     color: #414141;
     background-color: #B9BDF5;
     text-align: center;
-    font-size: 1.2vw; 
 }
 
 
@@ -69,10 +77,10 @@
 
 .password-container img{
     position: absolute;
+    cursor: pointer;
     right: 5%;
     z-index: 3;
-    width: 25px; 
-    height: 25px;
+    height: 50%;
 }
 
 .hidden{
@@ -83,11 +91,11 @@
     border: solid 1px black;
     border-radius: 10px;
     width: 40%;
-    height: 3vw; 
+    height: 14%; 
     background-color: #C48AF7;
     color: white;
     text-align: center;
-    font-size: 1.2vw;
+    /* font-size: 2vh; */
     transition: 0.2s;
     cursor: pointer;
 }
@@ -105,7 +113,7 @@
 .user-status label{
     width: 50%;
     color: white;
-    font-size: 1.2vw;
+    /* font-size: 2vh; */
 }
 
 .status-input{
@@ -126,12 +134,13 @@
     background-color: #B9BDF5;
     filter: blur(100px);
 }
+.img-avatar{
+    height: 25%;
+    position: relative;
+}
 
 .avatar{
-    width: 7vw;
-    height: 7vw;
-    border: 3px solid #000000;
-    border-radius: 50%;
+    height: 100%;
 }
 .if-not{
     display: flex;
@@ -140,13 +149,10 @@
     gap: 1.5vw;
 }
 
-.if-not p{
-    font-size: 1.1vw;
-}
+/* .if-not p, .if-not a{
+    font-size: 2vh;
+} */
 
-.if-not a{
-    font-size: 1.2vw;
-}
 
 .robot{
     position: absolute;
@@ -160,7 +166,7 @@
 
 .info-text p{
     color: white;
-    font-size: 1.8vw;
+    /* font-size: 2vh; */
 }
 
 
@@ -170,6 +176,7 @@
 
 .problem {
     color: #ffffff;
+    /* font-size: 2vh; */
 }
 
 @keyframes shake {
@@ -186,7 +193,87 @@
     100% { transform: translate(1px, -2px) rotate(-1deg); }
 }
 
-@media (max-width: 900px){
+@media (max-height: 500px) {
+    .login{
+        width: 25vw;
+        height: 85vh;
+    }
+
+    .text-input {
+        height: 20%;
+    }
+
+
+    .password-container{
+        height: 20%;
+    }
+
+    .text-input, .send-data, .problem, .if-not p, .if-not a, .user-status label, input{
+        font-size: 3vh;
+    }
+
+}
+
+@media (max-width: 678px){
+    .login{
+        width: 95vw;
+    }
+
+    .text-input, .password-container{
+        width: 90%;
+    }
+}
+
+/* @media (max-width: 768px){
+    .login{
+        width: 70vw;
+        height: 35vh;
+    }
+}
+
+@media(max-width: 900px) and(min-width: 769px){
+    .login{
+        width: 50vw;
+    }
+}
+@media (max-height: 400px){
+    .text-input, .send-data, .problem, .if-not p, .if-not a, .user-status label, input{
+        font-size: 3vh;
+    }
+    
+    .login{
+        width: 30vw;
+        height: 80vh;
+    }
+
+    .text-input {
+        border: solid 2px black;
+        border-radius: 10px;
+        width: 80%;
+        height: 20%;
+        color: #414141;
+        background-color: #B9BDF5;
+        text-align: center;
+    }
+
+
+    .password-container{
+        position: relative;
+        display: flex;
+        width: 80%;
+        height: 20%;
+    }
+
+    .login{
+        padding: 0;
+    }
+
+    .login form{
+        height: 95%;
+    }
+} */
+
+/* @media (max-width: 900px){
     .content-login{
         padding: 5vw 1vw;
         height: auto;
@@ -212,4 +299,4 @@
     .password-container, .text-input{
         height: 21%;
     }
-}
+} */

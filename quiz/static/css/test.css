@@ -76,7 +76,8 @@ form {
 
 .test-title-input {
     width: 100%;
-    min-width: 5vw;
+    max-width: 50%;
+    /* min-width: 5vw; */
     font-size: 1.7vw;
     border: none;
     color: #343434;
@@ -300,10 +301,14 @@ span {
     overflow-wrap: break-word;
 }
 
-.description::placeholder{
+.description::placeholder, .data-test{
     font-size: 1.2vw;
     font-weight: 500;
     color:rgba(0, 0, 0, 0.45);
+}
+
+.data-test{
+    font-size: 1.1vw;
 }
 
 .big-text {

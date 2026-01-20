@@ -118,6 +118,36 @@ window.addEventListener(
                 InputName.value = cookiename
             }
         }
+
+        let questions = document.cookie.split("questions=")[1].split(";")[0];
+        questions = questions.split("?%?")
+        if (questions[0] == ""){
+            questions = []
+        }
+        document.querySelector(".data-count-q").textContent = `Кількість питань: ${questions.length}`;
+
+        let time = document.cookie.split("time=")[1].split(";")[0];
+        time = time.split("?#?")
+        let sum = 0
+        if (time[0] != ""){
+            time.forEach(element => {
+                sum += parseInt(element)
+            });
+        }
+
+        if (sum < 60){
+            document.querySelector(".data-time-q").textContent = `Кількість часу: ${sum}с`;
+        }else{
+            const minutes = Math.floor(sum / 60);
+            const seconds = sum % 60;
+
+            let timeParts = [];
+
+            if (minutes > 0) timeParts.push(`${minutes}хв`);
+            if (seconds > 0 || sum === 0) timeParts.push(`${seconds}с`);
+
+            document.querySelector(".data-time-q").textContent = `Кількість часу: ${timeParts.join(' ')}`;
+        }
     }
 )
 

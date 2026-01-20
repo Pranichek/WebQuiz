@@ -129,7 +129,6 @@ socket.on('question', (data) => {
             const maxTime = parseInt(data.test_time);
             localStorage.setItem('max_time', maxTime);
         } 
-
         // checkOportunity - чтобы пользоватль не смог несколько раз ответь на один и тот же вопрос, если будет быстро кликать
         if (data.question_img != "not" && checkOportunity != "not"  && amountAnswers > 4){
             let justAnswerDiv = document.querySelector(".answers")
@@ -140,8 +139,7 @@ socket.on('question', (data) => {
 
             const simpleQuestion = document.querySelector(".question");
 
-            simpleQuestion.innerHTML = `
-            `;
+            simpleQuestion.innerHTML = ``;
             const imgQuestion = document.querySelector(".question-image");
 
             imgQuestion.innerHTML = `
@@ -383,13 +381,13 @@ socket.on('question', (data) => {
                         <div class="check-input" data-value="2">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
-                        <p class="variant-text">${answers[2]}</p>
+                        <p class="variant-text">${answers[2] !== "image?#$?image" ? answers[2] : ''}</p>
                     </div>
                     <div class="coint coint-top fade-in-right" data-value="3">
                         <div class="check-input" data-value="3">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
-                        <p class="variant-text">${answers[3]}</p>
+                        <p class="variant-text">${answers[3] !== "image?#$?image" ? answers[3] : ''}</p>
                     </div>
                 `;
 
@@ -400,7 +398,7 @@ socket.on('question', (data) => {
                         <div class="check-input" data-value="0">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
-                        <p class="variant-text">${answers[0]}</p>
+                        <p class="variant-text">${answers[0] !== "image?#$?image" ? answers[0] : ''}</p>
                     </div>
                     <div class="bottom-image">
 
@@ -409,7 +407,7 @@ socket.on('question', (data) => {
                         <div class="check-input" data-value="1">
                             <img src="${checkMarkUrl}" class="check-mark" alt="">
                         </div>
-                        <p class="variant-text">${answers[1]}</p>
+                        <p class="variant-text">${answers[1] !== "image?#$?image" ? answers[1] : ''}</p>
                     </div>
                 `;
                 let imgBig = document.querySelector(".bottom-image")
@@ -771,9 +769,7 @@ socket.on('question', (data) => {
 
                 
 
-                if (data.question_img != "not"){
-                
-                }
+
 
                 setTimeout(() => {
                     let divs = document.querySelectorAll(".variant")
@@ -894,7 +890,9 @@ socket.on('question', (data) => {
 
                 for (let index = 0; index < amountAnswers; index++) {
                     if (blockanswers[index].style.display == "flex"){
-                        blockanswers[index].querySelector(".variant-text").textContent = answers[index]
+                        if (answers[index] != "image?#$?image"){
+                            blockanswers[index].querySelector(".variant-text").textContent = answers[index]
+                        }
                     }
                 }
 
@@ -1135,7 +1133,9 @@ socket.on('question', (data) => {
                 
                 for (let index = 0; index < amountAnswers; index++) {
                     if (manyBlockAnswers[index].style.display == "flex"){
-                        variantText[index].textContent = answers[index]
+                        if (answers[index] != "image?#$?image"){
+                            variantText[index].textContent = answers[index]
+                        }
                         // blockanswers[index].querySelector(".variant-text").textContent = answers[index]
 
                     }
@@ -1650,7 +1650,6 @@ leaveButton.addEventListener(
 
 if (localStorage.getItem("reload") == "yes"){
     localStorage.setItem("reload", "no")
-    console.log(18)
     // location.reload()
 }
 
@@ -1659,7 +1658,6 @@ let progress = 0;
 
 function updateCircle(timeLeft) {
     let maxTime = parseInt(localStorage.getItem('max_time'))
-    console.log(maxTime)
     let progress = 360 * (maxTime - timeLeft) / maxTime;
     if (progress > 360) progress = 360;
     if (progress < 0) progress = 0;

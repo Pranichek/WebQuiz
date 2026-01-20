@@ -52,21 +52,6 @@ body {
     object-fit: contain;
 }
 
-
-.leave_test {
-    background-color: #E05359;
-    color: #ffffff;
-    font-size: 20px;
-    border-radius: 5px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    border: none;
-    padding: 6px 25px;
-    cursor: pointer;
-}
-
 .footer-test {
     display: flex;
     flex-direction: row;

@@ -1,12 +1,18 @@
 * {
     transition: 0.1s ease;
+    line-height: 1.1;
 }
 
 .code {
     padding-top: 2vh;
     padding-left: 1vw;
+    padding-right: 1vw;
     font-size: 2vh;
     color:#ffff;
+    display: flex;
+    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .code span {
@@ -14,13 +20,25 @@
     font-weight: 700;
 }
 
+.leave_test {
+    background-color: #E05359;
+    color: #ffffff;
+    font-size: 2vh;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: none;
+    padding: 6px 25px;
+    cursor: pointer;
+}
 .block-main{
     height: 89vh;
     margin: 3vh 2vw 0 2vw;
     display: flex;
     flex-direction: column;
     gap: 3vh;
-    /* overflow: hidden; */
 }
 
 
@@ -57,10 +75,6 @@
     width: 70%;    
 }
 
-
-
-
-
 .info-answer {
     display: flex;
     width: 100%;
@@ -72,7 +86,7 @@
 }
 
 .statistics-answer div{
-    font-size: 1.2vw;
+    font-size: 2vh;
     color:#ffff;
 }
 
@@ -82,7 +96,7 @@
 
 .waiting {
     color: #ffff;
-    font-size: 1.2vw;
+    font-size: 2vh;
 }
 
 .waiting div {
@@ -170,36 +184,32 @@
     transform: translateY(0); 
 }
 
-.right {
-    display: flex;
+.right, .wrong {
+    display: inline-flex; 
     height: 4vh;
-    width: 8vw;
+    width: auto;          
+    min-width: 8vw;       
+    padding: 0 1.5vw;     
+    
     font-size: 2vh;
-    color:#ffff;
+    color: #ffffff;
     background-color: #29292A;
     border: 0.1vh solid #8AF7D4;
     border-radius: 1vh;
+    
     align-items: center;
     justify-content: center;
+    
+    white-space: nowrap;  
     transition: 0.01s ease-in;
 }
-
 .right:hover{
     border: 0.15vh solid #7ff6d0;
 }
 
 .wrong {
-    display: flex;
-    height: 4vh;
-    width: 8vw;
-    font-size: 2vh;
-    color:#ffff;
-    background-color: #29292A;
     border: 0.1vh solid #E05359;
-    border-radius: 1vh;
-    align-items: center;
-    justify-content: center;
-    transition: 0.01s ease-in;
+
 }
 
 .wrong:hover{
@@ -221,7 +231,7 @@
 .text-perc{
     display: flex;
     padding: 0.5vw;
-    font-size: 1vw;
+    font-size: 1.8vh;
     color:#ffff;
     background-color: #29292A;
     border: 0.1vh solid #8AF7D4;
@@ -272,7 +282,7 @@
     flex-direction: column;
     justify-content: start;
     color: #ffffff;
-    font-size: 1.6vw;
+    font-size: 2.5vh;
     gap: 3%;
 }
 
@@ -287,19 +297,18 @@
     height: 90%;
     width: auto;
     object-fit: contain;
-    
 }
 
 .imageCont {
-    height: 0;               /* изначально скрыт */
-    overflow: hidden;        /* чтобы контент не торчал */
+    height: 0;               
+    overflow: hidden;        
     transition: height 0.5s ease;
     display: flex;
     height: 0%;
 }
 
 .imageCont.show {
-    height: 90%;             /* нужная высота при открытии */
+    height: 90%;             
     transition: height 0.5s ease;
 }
 
@@ -333,7 +342,7 @@
     justify-content: start;
     border-radius: 1vw;
     color: #ffffff;
-    font-size: 1.3vw;
+    font-size: 2vh;
 }
 
 .right-text{
@@ -359,7 +368,7 @@
     display: flex;
     justify-content: start;
     align-items: start;
-    font-size: 3.5vh;
+    font-size: 2.5vh;
     color: #ffffff;
     font-weight: 500;
 }
@@ -391,7 +400,6 @@
 
 .block-diagram{
     width: 60%;
-    /* height: calc(100% / 4 * 2); */
     background-color: #8AF7D4;
     transition: 0.8s;
 }
@@ -414,7 +422,6 @@
 .variant{
     width: 25%;
     height: 100%;
-    /* background-color: red; */
     display: flex;
 }
 
@@ -440,7 +447,7 @@
     width: 80%;
     height: 100%;
     display: flex;
-    font-size: 1.1vw;
+    font-size: 2vh;
     color: #ffffff;
     flex-direction: column;
     justify-content: start;

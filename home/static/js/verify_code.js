@@ -50,6 +50,7 @@ againButton.addEventListener(
     'click',
     () => {
         againButton.style.display = "flex"
+        enterButton.classList.remove("disabled-btn");
         localStorage.setItem("time", 60)
     }
 )
@@ -91,10 +92,12 @@ window.addEventListener(
             timerp.innerText = "00 : 60";
         }
 
-        console.log("Time from localStorage:", time);
+        
 
         if (time <= 0) {
             buttonAgain()
+        }else{
+            enterButton.classList.remove("disabled-btn");
         }
     }
 )
@@ -102,8 +105,10 @@ window.addEventListener(
 if (document.querySelector(".again").style.display === "flex") {
     enterButton.style.backgroundColor = "gray"
     enterButton.disabled = true
+    enterButton.classList.remove("disabled-btn");
     document.querySelector(".check_text").textContent = "час триває"
 }else{
     enterButton.disabled = false
+    enterButton.classList.add("disabled-btn");
     document.querySelector(".check_text").textContent = "надіслати знову"
 }

@@ -104,26 +104,30 @@
                 <div class="user-status">
                     <label>
                         <input class="status-input" type="radio" name="mentor" value="True" required>
-                        Викладач
+                        <p>Викладач</p>
                     </label>
                     
                     <label>
                         <input class="status-input" type="radio" name="mentor" value="False">
-                        Учень
+                        <p>Учень</p>
                     </label>
                 </div>
 
                 <button class="send-data" onclick="Shake()" type="submit">Створити акаунт</button>
+                
                 <div class="if-not">
-                    <div class="if-yes">
-                        <p>Вже маєте акаунт?</p>
-                    </div>
-                    <div class="change-page">
-                        <a href="{{ url_for('login.render_login') }}">Авторизуватися</a>
-                        <a class="google-image" href="/google_login">Зареєструватися за допомогою:
+                    <!-- <div class="if-yes"> -->
+                    <p>Вже маєте акаунт?</p>
+                    <!-- </div>
+                    <div class="change-page"> -->
+                        <!-- <a href="{{ url_for('login.render_login') }}">Авторизуватися</a> -->
+                    <div class="email-auth" onclick="document.querySelector('.icon-google').click()">
+                        <p class="reg-text">Зареєструватися за допомогою:</p>
+                        <a class="google-image" href="/google_login">
                             <img class="icon-google" src="{{ url_for('home.static', filename='images/login_and_auth/google.svg') }}" alt="">
                         </a>
                     </div>
+                    <!-- </div> -->
                 </div>
                 <p class="problem">{{ message }}</p>
             </form>

@@ -3,6 +3,7 @@ if (localStorage.getItem("room_code")){
     localStorage.removeItem("room_code")
 }
 
+
 // створення localstorage для відсліджування у якій вкладці зараз користувач
 // recently-passed - недавнопройдені тести
 // saved - збережені
@@ -39,6 +40,9 @@ for (let button of createRooms){
     button.addEventListener(
         'click',
         () => {
+            if (localStorage.getItem("users_list")){
+                localStorage.removeItem("users_list")
+            }
             location.replace(`/mentor?id_test=${button.value}`)
         }
     )

@@ -1,5 +1,14 @@
 const socket = io()
 
+socket.emit(
+    "connect_again",
+    {code: localStorage.getItem("room_code")}
+)
+
+setInterval(() => {
+    socket.emit("check_users", {room_code: localStorage.getItem("room_code"), page:"passing", index_question: localStorage.getItem("index_question")})
+}, 3000)
+
 if (localStorage.getItem("index_question")){
     socket.emit('load_question', {
         index: localStorage.getItem("index_question"),
@@ -8,7 +17,7 @@ if (localStorage.getItem("index_question")){
     })
 }
 
-socket.on("users_data", data => {
+socket.on("update_users", data => {
     const blockUsers = document.querySelector(".outline-users")
     document.querySelector(".outline-users")
     blockUsers.innerHTML = ""
@@ -25,16 +34,20 @@ socket.on("users_data", data => {
 
         const avatarImg = document.createElement("img")
         avatarImg.classList.add("ava")
-        avatarImg.src = user.avatar_url
+        avatarImg.src = user.user_avatar
 
-        infDiv.appendChild(avatarImg)
+        const obodokAva = document.createElement("div")
+        obodokAva.className = "ava-obodok"
+        obodokAva.appendChild(avatarImg)
+
+        infDiv.appendChild(obodokAva)
 
         const blockTextDiv = document.createElement("div")
         blockTextDiv.classList.add("block-text")
 
         const emailP = document.createElement("p")
         emailP.className = "email-paragraph"
-        emailP.textContent = user.email
+        emailP.textContent = user.username
 
         const blockPetDiv = document.createElement("div")
         blockPetDiv.classList.add("block-pet")
@@ -45,6 +58,7 @@ socket.on("users_data", data => {
 
         const cross = document.createElement("img")
         cross.className = "cross_student"
+        cross.dataset.id = user.id
         cross.src = document.querySelector(".hide-ava").dataset.cross
 
         blockDiv.appendChild(cross)
@@ -69,6 +83,7 @@ socket.on("users_data", data => {
         }
     )
     document.querySelector(".count-answered-people").textContent = `відповіли  ${count_answered} / `
+    document.querySelector(".num-people").textContent = data.user_list.length
     document.querySelector(".count-people").textContent = data.user_list.length
     if (count_answered == count_users){
         socket.emit(
@@ -76,27 +91,43 @@ socket.on("users_data", data => {
             {code: localStorage.getItem("room_code")}
         )
     }
+    
 
-    // видалення юзера із кімнати block
-    allBlocks = document.getElementsByClassName("block")
-    for (let block of allBlocks){
-        
-        block.addEventListener('click', ()=>{
+    let lastid;
+
+    crossUser = document.getElementsByClassName("cross_student")
+        for (let cross of crossUser){
+            cross.addEventListener("click", ()=>{
+                document.querySelector(".window-choice").classList.add("active")
+                document.querySelector("#overlay").classList.add("active")
+                lastid = cross.dataset.id
+        })
+    }
+
+    let buttonRemove = document.querySelector(".remove_user")
+        buttonRemove.addEventListener("click", ()=>{
             socket.emit(
                 "delete_user",
                 {
                     room: localStorage.getItem("room_code"),
-                    email: block.querySelector(".email-paragraph").textContent
+                    id: lastid
                 }
             )
-        })
-    }
+        document.querySelector(".window-choice").classList.remove("active")
+        document.querySelector("#overlay").classList.remove("active")
+    })
+
+    document.querySelector(".decline").addEventListener("click", () => {
+        document.querySelector(".window-choice").classList.remove("active")
+        document.querySelector("#overlay").classList.remove("active")
+    })
 })
 
 
 socket.on("data_question_mentor", data => {
     const check_answers = []
-    
+    document.querySelector(".num-que").textContent = `${parseInt(localStorage.getItem("index_question")) + 1}/${data.amount_question}`
+
     const answersBlock = document.querySelector(".answers-test");
     answersBlock.innerHTML = "";
     
@@ -106,10 +137,16 @@ socket.on("data_question_mentor", data => {
     )
     document.querySelector(".question-text").textContent = data.text_question
 
-    if (data.questionType == "input-gap"){
+    if (data.type_question == "input-gap"){
+        document.querySelector(".answers-test").style.padding = "0"
         document.querySelector(".answers-test").insertAdjacentHTML(
             "beforeend",
-            `<input class="answer-input" type="text">`
+            `<div class="input-div">
+                <p>Правильні відповіді:</p>
+                <div class="correct-answers">
+                    <p>Сховано</p>
+                <div/>
+            </div>`
         )
     }else{
         console.log(data.answer_options, "lolik")
@@ -117,7 +154,7 @@ socket.on("data_question_mentor", data => {
         answers[0] = answers[0].replace("(?%", "")
         answers[-1] = answers[answers.length-1].replace("%?)", "")
         for (let option of answers){
-            option = option.replace(/\?|\(|\)/g, "")
+            option = option.replace(/[?()%/]/g, "");
             
             
             if(option[0] == "+"){
@@ -147,8 +184,8 @@ socket.on("data_question_mentor", data => {
 
     if (timeFlag == "false"){
         if (data.time_question < 61){
-            minutesP.textContent = data.time_question
-            secondsP.textContent = "00"
+            minutesP.textContent = "00"
+            secondsP.textContent = data.time_question
         }else{
             const minutes = Math.floor(data.time_question / 60);
             let remainingSeconds = data.time_question % 60;
@@ -162,8 +199,8 @@ socket.on("data_question_mentor", data => {
         localStorage.setItem("time_flag", data.time_question)
     }else{
         if (timeFlag < 61){
-            minutesP.textContent = timeFlag
-            secondsP.textContent = "00"
+            minutesP.textContent = "00"
+            secondsP.textContent = timeFlag
         }else{
             const minutes = Math.floor(timeFlag / 60);
             let remainingSeconds = timeFlag % 60;
@@ -264,60 +301,91 @@ socket.on("data_question_mentor", data => {
     
     showAnswersBtn.addEventListener("click", ()=>{
         const checkstate = showAnswersBtn.dataset.state
-        if(checkstate == "hide"){
-            showAnswersBtn.dataset.state = "show"
-            showAnswersBtn.textContent = "сховати відповіді"
-            for (let i = 0; i < answers.length; i++){
-                if (check_answers[i] == true){
-                    answers[i].style.backgroundColor = "#9bde8dff"
-                } else{
-                    answers[i].style.backgroundColor = "#ea5c64ff"
+        if(data.type_question != "input-gap"){
+            if(checkstate == "hide"){
+                showAnswersBtn.dataset.state = "show"
+                showAnswersBtn.textContent = "сховати відповіді"
+                for (let i = 0; i < answers.length; i++){
+                    if (check_answers[i] == true){
+                        answers[i].style.backgroundColor = "#9bde8dff"
+                    } else{
+                        answers[i].style.backgroundColor = "#ea5c64ff"
+                    }
+                }
+            }else{
+                for (let i = 0; i < answers.length; i++){
+                    answers[i].style.backgroundColor = "#94C4FF"
+                    showAnswersBtn.dataset.state = "hide"
+                    showAnswersBtn.textContent = "Показати відповіді"
                 }
             }
         }else{
-            for (let i = 0; i < answers.length; i++){
-                answers[i].style.backgroundColor = "#94C4FF"
+            let box = document.querySelector(".correct-answers")
+            if(checkstate == "hide"){
+                showAnswersBtn.dataset.state = "show"
+                showAnswersBtn.textContent = "сховати відповіді"
+                box.innerHTML = "";
+                for(let answerText of data.answer_options){
+                    let answer = document.createElement("p")
+                    answer.textContent = answerText
+                    box.appendChild(answer)
+                }
+            }else{
+                box.innerHTML = "Сховано";
                 showAnswersBtn.dataset.state = "hide"
-                showAnswersBtn.textContent = "подивитися відповіді"
+                showAnswersBtn.textContent = "Показати відповіді"
             }
         }
     })
 
     setInterval(() => {
-        if (localStorage.getItem("flag_time") == "true"){
-            let time = +localStorage.getItem("time_flag") - 1
-            
-            if (time < 61 && time > 0){
-                minutesP.textContent = "00"
-                secondsP.textContent = time
-            } else if(time <= 0){
-                console.log("time <= 0")
+        if (localStorage.getItem("flag_time") === "true") {
+
+            let time = Number(localStorage.getItem("time_flag"));
+
+            if (time <= 0) {
+                minutesP.textContent = "00";
+                secondsP.textContent = "00";
+
                 socket.emit(
-                    'end_question',
-                    {code: localStorage.getItem("room_code")}
-                )
-            }else{
-                const minutes = Math.floor(time / 60);
-                let remainingSeconds = time % 60;
-                
-                if (remainingSeconds < 10) {
-                    remainingSeconds = '0' + remainingSeconds;
-                }
-                minutesP.textContent = minutes
-                secondsP.textContent = remainingSeconds        
+                    'end_time',
+                    { 
+                        index: localStorage.getItem("index_question"),
+                        test_id: localStorage.getItem("test_id"),
+                        room: localStorage.getItem("room_code")
+                    }
+                );
+                return; 
             }
-            localStorage.setItem("time_flag", time)
+
+            time--;
+
+            if (time < 60) {
+                minutesP.textContent = "00";
+                secondsP.textContent = time.toString().padStart(2, "0");
+            } else {
+                const minutes = Math.floor(time / 60);
+                const seconds = time % 60;
+
+                minutesP.textContent = minutes;
+                secondsP.textContent = seconds.toString().padStart(2, "0");
+            }
+
+            localStorage.setItem("time_flag", time);
+
             socket.emit(
                 "update_student_time_MS",
-                {room: localStorage.getItem("room_code"), time: time}
-            )
-        } else{
+                { room: localStorage.getItem("room_code"), time }
+            );
+
+        } else {
             socket.emit(
                 "update_student_time_MS",
-                {room: localStorage.getItem("room_code"), time: "stop"}
-            )
+                { room: localStorage.getItem("room_code"), time: "stop" }
+            );
         }
-    }, 1000)
+    }, 1000);
+
 })
 
 socket.on("page_result",
@@ -341,9 +409,13 @@ document.querySelector('.end_question').addEventListener(
     'click',
     () => {
         socket.emit(
-            'end_question',
-            {code: localStorage.getItem("room_code")}
-        )
+            'end_time',
+            { 
+                index: localStorage.getItem("index_question"),
+                test_id: localStorage.getItem("test_id"),
+                room: localStorage.getItem("room_code")
+            }
+        );
     }
 )
 

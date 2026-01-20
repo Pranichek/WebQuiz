@@ -1,15 +1,18 @@
 const urlParamsStudent = new URLSearchParams(window.location.search);
 const room_code = urlParamsStudent.get('room_code');
 
-localStorage.setItem("room_code", room_code)
-localStorage.setItem("index_question", "0")
-localStorage.setItem("flag_time", "true")
-localStorage.setItem("users_answers", "")
-localStorage.setItem('time_question', "set")
+if (room_code != localStorage.getItem("room_code")){
+    console.log("popo")
+    localStorage.setItem("room_code", room_code)
+    localStorage.setItem("index_question", "0")
+    localStorage.setItem("flag_time", "true")
+    localStorage.setItem("users_answers", "")
+    localStorage.setItem('time_question', "set")
+}
+
 
 const chat = document.querySelector(".messages");
-chat.innerHTML = ""; 
-
+chat.innerHTML = "";
 
 const socket = io(); 
 
@@ -20,67 +23,71 @@ socket.on('connect', () => {
    socket.emit('join_room', { username: username, room: room_code_user, email: document.querySelector(".gmail-text").textContent, flag: "student"});
 });
 
+socket.on('end_lesson', () => {
+    location.replace("/")
+})
+
 // список подключенных
 socket.on("update_users", data => {
     localStorage.setItem("test_id", data["id_test"])
-    console.log(localStorage.getItem("test_id"), "privet")
     users = data.user_list
     mentor_email = data.mentor_email
 
-    
-    document.querySelector(".count").textContent = (users.length - 1 >= 0) ? (users.length - 1) : 0
+    document.querySelector(".count").textContent = users.length 
     document.querySelector(".code-room").textContent = data.code
+    let userNick = document.querySelector(".username").textContent
+    let userEmail = document.querySelector(".gmail-text").textContent
     const blockUsers = document.querySelector(".data-users")
 
     blockUsers.innerHTML = "";
 
     users.forEach(user => {
-        if (user.email != document.querySelector(".gmail-text").textContent){
+        if(user.id != document.querySelector(".id").dataset.id){
             const blockDiv = document.createElement("div")
-                blockDiv.classList.add("block")
-                
-                const infDiv = document.createElement("div")
-                infDiv.classList.add("inf")
+            blockDiv.classList.add("block")
+            
+            const infDiv = document.createElement("div")
+            infDiv.classList.add("inf")
 
 
-                const avaObodok = document.createElement("div")
-                avaObodok.className = "ava-obodok"
+            const avaObodok = document.createElement("div")
+            avaObodok.className = "ava-obodok"
 
-                const avatarImg = document.createElement("img")
-                avatarImg.classList.add("ava")
-                avatarImg.src = user.user_avatar
-                avaObodok.appendChild(avatarImg)
+            const avatarImg = document.createElement("img")
+            avatarImg.classList.add("ava")
+            avatarImg.src = user.user_avatar
+            avaObodok.appendChild(avatarImg)
 
-                const usernameP = document.createElement("p")
-                usernameP.textContent = user.username
+            const usernameP = document.createElement("p")
+            usernameP.textContent = user.username
 
-                infDiv.appendChild(avaObodok)
-                infDiv.appendChild(usernameP)
+            infDiv.appendChild(avaObodok)
+            infDiv.appendChild(usernameP)
 
-                const blockTextDiv = document.createElement("div")
-                blockTextDiv.classList.add("block-text")
+            const blockTextDiv = document.createElement("div")
+            blockTextDiv.classList.add("block-text")
 
-                const emailP = document.createElement("p")
-                emailP.className = "email-paragraph"
-                emailP.textContent = "улюбленець"
+            const emailP = document.createElement("p")
+            emailP.className = "email-paragraph"
+            emailP.textContent = "улюбленець"
 
-                const blockPetDiv = document.createElement("div")
-                blockPetDiv.classList.add("block-pet")
+            const blockPetDiv = document.createElement("div")
+            blockPetDiv.classList.add("block-pet")
 
-                const petImg = document.createElement("img")
-                petImg.classList.add("pet")
-                petImg.src = user.pet_img
+            const petImg = document.createElement("img")
+            petImg.classList.add("pet")
+            petImg.src = user.pet_img
 
 
-                blockPetDiv.appendChild(petImg)
+            blockPetDiv.appendChild(petImg)
 
-                blockTextDiv.appendChild(emailP)
-                blockTextDiv.appendChild(blockPetDiv)
+            blockTextDiv.appendChild(emailP)
+            blockTextDiv.appendChild(blockPetDiv)
 
-                blockDiv.appendChild(infDiv)
-                blockDiv.appendChild(blockTextDiv)
+            blockDiv.appendChild(infDiv)
+            blockDiv.appendChild(blockTextDiv)
 
-                blockUsers.appendChild(blockDiv)
+            blockUsers.appendChild(blockDiv)
         }
     });
 
@@ -169,7 +176,7 @@ socket.on(
 
 socket.on("leave_user",
     data => {
-        if (data["email"] == document.querySelector(".email").textContent){
+        if (parseInt(data["id"]) == parseInt(document.querySelector(".id").dataset.id)){
             window.location.replace("/")
         }
     }
@@ -182,3 +189,4 @@ socket.on("fake_room",
         }
     }
 )
+

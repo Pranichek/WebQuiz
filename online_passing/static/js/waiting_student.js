@@ -25,6 +25,11 @@ socket.emit(
     }
 )
 
+socket.on("no_time",
+    data => {
+        window.location.replace("/result_student")
+    }
+)
 
 socket.on("page_result",
     data => {
@@ -54,9 +59,20 @@ socket.on("show_data",
 
         const typeQuestion = data.type_question;
 
-        const answers = typeof data.answers === "string"
-            ? data.answers.trim().split(" ").filter(a => a)
-            : Array.isArray(data.answers) ? data.answers : [];
+        let answers = []
+
+        console.log(data.answers, "koko")
+        if (typeof data.answers === "string") {
+            answers = data.answers
+                .trim()
+                .split("𒀱")
+                .filter(a => a);
+        } else if (Array.isArray(data.answers)) {
+            answers = data.answers;
+        } else {
+            answers = [];
+        }
+
         console.log(answers, "lolipop")
 
         const container = document.querySelector(".answers");
@@ -172,7 +188,7 @@ socket.on("show_data",
 
         // потраченное время на вопрос
         try {
-            document.querySelector(".nickname-time").textContent = localStorage.getItem("question_time")
+            document.querySelector(".nickname-time").textContent = localStorage.getItem("timeData")
         } catch (error) {
             console.log(error)
         }
@@ -213,5 +229,13 @@ socket.on("show_data",
                 }
             }, 15);
         }
+    }
+)
+
+
+socket.on("next_question",
+    data => {
+        localStorage.setItem("index_question", data.index_question)
+        window.location.replace("/passing_student")
     }
 )

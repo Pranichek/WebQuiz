@@ -10,6 +10,8 @@ class Rooms(DATABASE.Model):
     # айді тіпочков которіе находятся в кімнаті (1 2 3)
     users = DATABASE.Column(DATABASE.String)
 
+    check_socket = DATABASE.Column(DATABASE.String, default="")
+
     # найкараще питання за тест
     best_question = DATABASE.Column(DATABASE.Integer)
 

@@ -46,7 +46,8 @@ function sendMessage(){
             room: localStorage.getItem("room_code"),
             message: text,
             email: document.querySelector(".email").dataset.value,
-            email_mentor: localStorage.getItem("email_mentor")
+            email_mentor: localStorage.getItem("email_mentor"),
+            id: localStorage.getItem("user_id")
         });
         msgInput.value = ''
         chat.scrollTop = chat.scrollHeight

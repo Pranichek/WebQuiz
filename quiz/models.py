@@ -21,11 +21,11 @@ class Test(DATABASE.Model):
     check_del = DATABASE.Column(DATABASE.String, default = "exists")
 
     # Зв'язок з таблицею User
-    user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey("user.id"), nullable=False)
+    user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey("user.id", ondelete='CASCADE'), nullable=False)
     user = DATABASE.relationship("User", back_populates="tests")
 
     # Зв'язок із таблицею даних про тест(one to one)
-    test_profile = DATABASE.relationship("TestData", back_populates="test", uselist=False)
+    test_profile = DATABASE.relationship("TestData", back_populates="test", uselist=False,cascade="all, delete-orphan" )
 
     description = DATABASE.Column(DATABASE.String(300))
     
@@ -41,5 +41,5 @@ class TestData(DATABASE.Model):
 
     # Зв'язок із тестом(one to one)
     test = DATABASE.relationship("Test", back_populates="test_profile")
-    test_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('test.id'), unique=True)
+    test_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('test.id', ondelete='CASCADE'), unique=True)
 

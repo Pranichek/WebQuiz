@@ -13,13 +13,16 @@ from os.path import exists, join, abspath
 @socket.on("users_results")
 def users_results(data):
     user_list = []
-    room = Rooms.query.filter_by(room_code= data["room"]).first()
+    room : Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
     user_ids = room.users.split() if room and room.users else []
 
-    test : Test = Test.query.get(int(data["test_id"]))
+
+    test : Test = Test.query.get(int(room.id_test))
     index_question = int(data["index_question"])
     text_question = test.questions.split("?%?")[index_question]
     type_question = test.type_questions.split('?$?')[index_question]
+
+    # print(index_question, "perec_ed")
 
     answers = test.answers.split("?@?")[index_question]
     clear_answers = None
@@ -52,7 +55,7 @@ def users_results(data):
         user.user_profile.answering_answer = "відповідає"
         DATABASE.session.commit()
         if user and user.id != flask_login.current_user.id:
-            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.email}/{user.name_avatar}')
+            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
             
             count = 0
             count_image = 1
@@ -75,7 +78,8 @@ def users_results(data):
                 "avatar_size": user.size_avatar,
                 "last_answer": users_answers,
                 "accuracy": user.user_profile.last_answered.split("𒀱")[1],
-                "right_wrong": user.user_profile.last_answered.split("𒀱")[2]
+                "right_wrong": user.user_profile.last_answered.split("𒀱")[2],
+                "id":user.id
             })
 
             avarage_accuracy += int(user.user_profile.last_answered.split("𒀱")[1].split(".")[0])
@@ -103,10 +107,11 @@ def users_results(data):
                 count_image += 1
             count+=1
 
+    count_people = 1 if count_people <= 0 else count_people
+
     # проверка на лучший вопрос
     avarage_accuracy = avarage_accuracy // count_people
     best_question = room.best_question
-    print(best_question, "bedfbdf")
 
     if best_question is None or avarage_accuracy > best_question:
         room.best_question = avarage_accuracy
@@ -141,16 +146,15 @@ def users_results(data):
         "type_question": type_question, 
         "text_question":text_question,
         "image_url":img_url,
-        "right_indexes": right_indexes
+        "right_indexes": right_indexes,
+        "answer_options": answers if type_question != "input-gap" else answers.replace("(?%+", "").replace("+%?)", " ").split(),
     })
 
 
 @socket.on("load_question")
 def load_question_mentor(data):
-    join_room(data["room"])
-
     user_list = []
-    room = Rooms.query.filter_by(room_code= data["room"]).first()
+    room: Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
     user_ids = room.users.split() if room and room.users else []
 
     for user_id in user_ids:
@@ -158,7 +162,7 @@ def load_question_mentor(data):
         user.user_profile.answering_answer = "відповідає"
         DATABASE.session.commit()
         if user and user.id != flask_login.current_user.id:
-            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.email}/{user.name_avatar}')
+            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
             pet_url = flask.url_for(
                 'profile.static',
                 filename=f'images/pets_id/{user.user_profile.pet_id}.png'
@@ -166,14 +170,15 @@ def load_question_mentor(data):
 
             user_list.append({
                 "username": user.username,
-                "email": user.email,
                 "ready": user.user_profile.answering_answer,
                 "count_points": user.user_profile.count_points,
-                "avatar_url": avatar_url,
-                "pet_img": pet_url
+                "user_avatar": avatar_url,
+                "pet_img": pet_url,
+                "id": user.id
             })
 
-    test : Test = Test.query.get(int(data["test_id"]))
+    test : Test = Test.query.get(room.id_test)
+
     index_question = int(data["index"])
     text_question = test.questions.split("?%?")[index_question]
     type_question = test.type_questions.split('?$?')[index_question]
@@ -207,33 +212,52 @@ def load_question_mentor(data):
                 url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{index_question + 1}/{str(index)}/{os.listdir(current_path)[0]}")
                 image_urls[index - 1] = url
     
-    print("mentor_socket.jslol")
     emit("data_question_mentor", {
         "user_list": user_list,
         "text_question": text_question,
         "type_question": type_question,
         "time_question": time_question,
-        "answer_options": answer_options,
+        "answer_options": answer_options if type_question != "input-gap" else answer_options.replace("(?%+", "").replace("+%?)", " ").split(),
         "img_url": img_url,
-        "image_urls": image_urls
-    }, room=data["room"], broadcast=True)
-    emit("users_data", {"user_list": user_list}, room=data["room"], broadcast=True)
+        "image_urls": image_urls,
+        "amount_question": len(text_question)
+    })
+    emit("update_users", {"user_list": user_list})
+
+    check_room = room.check_socket.split()
+
+    if len(check_room) != len(room.users.split()):
+        emit("check_connect", {"page": "start_passing"}, room=data["room"])
+
+@socket.on("check_users")
+def check_users(data):
+    room : Rooms = Rooms.query.filter_by(room_code = data["room_code"]).first()
+    check_room = room.check_socket.split()
+
+    users = room.users.split()
+
+    for id in users:
+        user : User = User.query.get(int(id))
+        if str(user.user_profile.index_question) != str(data["index_question"]):
+            user.user_profile.last_answered = "пропустив𒀱0.0𒀱2𒀱∅"
+            user.user_profile.index_question = str(data["index_question"])
+            DATABASE.session.commit()
+            emit("update_users", {"status": "ok"})
+
+            # emit("upload_data", {"status":"ok"}, room = data["room_code"])
+
+    if len(check_room) != len(room.users.split()):
+        if data["page"] == "passing":
+            emit("check_connect", {"page": "start_passing", "index_question": data["index_question"]}, room = data["room_code"])
+        elif data["page"] == "result":
+            emit("check_connect", {"page": "result", "index_question":data["index_question"]}, room = data["room_code"])
 
 
+@socket.on("end_time")
+def no_time(data):
+    room_code = data["room"]
 
-
-
-@socket.on("end_question")
-def end_question(data):
-    code = data["code"]
-    room = Rooms.query.filter_by(room_code= data["code"]).first()
-    user_ids = room.users.split() if room and room.users else []
-
-    for user_id in user_ids:
-        user : User = User.query.get(int(user_id))
-        user.user_profile.answering_answer = "відповідає"
-
-    emit("page_result", room = code, broadcast=True)
+    emit("no_time", {"index_question": data["index"]}, room=room_code, broadcast=True)
 
 
 @socket.on("next_one")
@@ -241,22 +265,20 @@ def next_question(data):
     index_question = int(data["index"])
     test_id = int(data["test_id"])
     room_code = data["room"]
+    room : Rooms = Rooms.query.filter_by(room_code=room_code).first()
 
-    test : Test = Test.query.get(test_id)
-
-    if index_question < test.questions.count("?%?") + 1:
-        emit("next_question", {"status": "ok"}, room=room_code, broadcast=True)
-    else:
+    test : Test = Test.query.get(room.id_test)
+    if index_question  > test.questions.count("?%?"):
         emit("end_test", {"status": "ok"}, room=room_code, broadcast=True)
+    else:
+        emit("next_question", {"index_question": data["index"]}, room=room_code, broadcast=True)
+        room.check_socket = ""
+        DATABASE.session.commit()
 
 
 @socket.on("add_time")
 def add_time(data):
     emit("add_some_time", room=data["code"], broadcast= True)
-
-@socket.on('end_question')
-def end_question(data):
-    emit("end_this_question", room=data["code"], broadcast= True, include_self=False)
 
 @socket.on("stopTime")
 def stop_time(data):
@@ -267,7 +289,7 @@ def stop_time(data):
 @socket.on("finish_mentor")
 def finish_test(data):
     user_list = []
-    room = Rooms.query.filter_by(room_code= data["room"]).first()
+    room : Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
     user_ids = room.users.split() if room and room.users else []
     accuracy_result = [] #[[80, 5],[50, 1]] - пример что в нем будет хранится(80 - это проценты, 5 - колво людей что прошло на такой результат)
     sum_accuracy = 0
@@ -280,7 +302,7 @@ def finish_test(data):
         
 
         if user and user.id != flask_login.current_user.id:
-            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.email}/{user.name_avatar}')
+            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
 
             user_list.append({
                 "username": user.username,
@@ -316,5 +338,19 @@ def finish_test(data):
     emit("list_results", {
         "users": user_list,
         "accuracy_result": accuracy_result,
-        "average_accuracy": average_accuracy
+        "average_accuracy": average_accuracy,
+        "best_question": room.best_question
     })
+
+@socket.on("alarm-end")
+def alarm_end(data):
+    code = data["code"]
+    print("kaka")
+    index = data["index"]
+
+    id_test = int(Rooms.query.filter_by(room_code= code).first().id_test)
+    test: Test = Test.query.get(id_test)
+    max_questions = test.questions.count("?%?") + 1
+
+    emit("last-end", {"index": index, "max_questions": max_questions}, room = code, broadcast=True)
+

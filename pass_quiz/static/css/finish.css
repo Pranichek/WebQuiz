@@ -334,16 +334,22 @@ main{
     padding-bottom: 1.2vh;
 }
 
-.line{
-    position: relative;
-    display: flex;
-    width: 90%;
-    height: 23%;
-    background-color: #D7FFF2;
-    align-items: center;
-    overflow: visible;
+
+.lin{
+    width: 85%;
+    height: 30%;
     border-radius: 3vh;
+    border: 0.1vw solid #94C4FF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #343434;
+    color: #FFFFFF;
+    font-size: 1.6vw;
+    gap: 2vh;
+    position: relative;
 }
+
 
 .fill{
     background: #84ffd8;

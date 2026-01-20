@@ -4,9 +4,8 @@ localStorage.setItem("time_flag", "false")
 const chat = document.querySelector(".messages");
 const socket = io();
 
-function loadRoom() {
-    
 
+function loadRoom() {
     // тупая штука которая получает квери параметры из поискового пути
     const urlParams = new URLSearchParams(window.location.search);
     const id_test = urlParams.get('id_test');
@@ -34,14 +33,22 @@ function loadRoom() {
         )
     });
 
+    socket.on("set_qrcode", (data) => {
+        const imgs = document.querySelectorAll(".qr-code-img")
+        console.log(data.url_qrcode)
+        for (const img of imgs){
+            img.src = data.url_qrcode
+        }
+    })
+
     // список подключенных
     socket.on("update_users", data => {
         const blockUsers = document.querySelector(".users")
 
         blockUsers.innerHTML = ""
         users = data.user_list
-        document.querySelector("#amount_users").textContent = (users.length - 1 >= 0) ? (users.length - 1) : 0;
-        document.querySelector(".count-users").textContent = (users.length - 1 >= 0) ? (users.length - 1) : 0;
+        document.querySelector("#amount_users").textContent = users.length 
+        document.querySelector(".count-users").textContent = users.length
         localStorage.setItem("room_code", data.code)
         document.querySelector(".code-room").textContent = data.code
         document.querySelector("#code").textContent = data.code
@@ -55,7 +62,7 @@ function loadRoom() {
                 const userCross = document.createElement("img")
                 userCross.src = document.querySelector("#imageLink").dataset.link
                 userCross.classList = "cross-user"
-                userCross.dataset.email = user.email
+                userCross.dataset.id = user.id
                 blockDiv.appendChild(userCross)
                 
                 const infDiv = document.createElement("div")
@@ -70,7 +77,9 @@ function loadRoom() {
                 avaObodok.appendChild(avatarImg)
 
                 const usernameP = document.createElement("p")
+                usernameP.classList.add("username-box")
                 usernameP.textContent = user.username
+
 
                 infDiv.appendChild(avaObodok)
                 infDiv.appendChild(usernameP)
@@ -101,14 +110,16 @@ function loadRoom() {
                 blockUsers.appendChild(blockDiv)
             }
         });
-        let lastemail;
+        let lastid;
 
         // видалення юзера із кімнати block
         crossUser = document.getElementsByClassName("cross-user")
         for (let cross of crossUser){
             cross.addEventListener("click", ()=>{
-                document.querySelector(".window-choice").style.display = "flex"
-                lastemail = cross.dataset.email
+                document.querySelector(".window-choice").classList.add("active")
+                document.querySelector("#overlay").classList.add("active")
+                lastid = cross.dataset.id
+                console.log(lastid)
             })
         }
 
@@ -118,14 +129,16 @@ function loadRoom() {
                 "delete_user",
                 {
                     room: code,
-                    email: lastemail
+                    id: lastid
                 }
             )
-            document.querySelector(".window-choice").style.display = "none"
+            document.querySelector(".window-choice").classList.remove("active")
+            document.querySelector("#overlay").classList.remove("active")
         })
 
         document.querySelector(".decline").addEventListener("click", () => {
-            document.querySelector(".window-choice").style.display = "none"
+            document.querySelector(".window-choice").classList.remove("active")
+            document.querySelector("#overlay").classList.remove("active")
         })
     });
 
@@ -158,7 +171,6 @@ function loadRoom() {
             if (code) {
                 try {
                     await navigator.clipboard.writeText(code); 
-
                 } catch (err) {
                     console.error('Не вдалося скопіювати текст');
                 }
@@ -175,7 +187,6 @@ function loadRoom() {
             
             if (link) {
                 try {
-                    // Копіруєм посилання на фронте, щоб уменно н ак чела попало
                     await navigator.clipboard.writeText(link); 
 
                 } catch (err) {
@@ -244,3 +255,8 @@ function hideQR() {
 } 
 
 window.addEventListener("DOMContentLoaded", loadRoom);
+
+document.querySelector(".end").addEventListener("click", () => {
+    socket.emit('end_lesson', {room: code})
+    document.location.replace("/")
+})

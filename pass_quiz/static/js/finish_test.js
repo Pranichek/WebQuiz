@@ -1,7 +1,6 @@
 const socket = io();
 
 
-
 localStorage.setItem('index_question', '0');
 localStorage.setItem('time_question', 'set');
 localStorage.setItem("need_rolad", "True");
@@ -20,7 +19,6 @@ socket.emit("finish_test", {
 
 
 socket.on("test_result", (data) => {
-    console.log(data.questions)
     // масив где и 
 
     playAgain.value = data.test_id;

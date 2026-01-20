@@ -10,6 +10,7 @@
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/message.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/cookie_modal.css') }}">
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/search_test.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/header.css') }}">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -33,110 +34,137 @@
 
         {% if not test_page and not create_question %}
             <header class="header js-header">
-                <div class = "logo">
-                    <img onclick="location.replace('/home_auth')" class="img-logo" src="{{ url_for('static', filename='images/logo.svg') }}" alt="">
-                    <p onclick="location.replace('/home_auth')">planet.quiz</p>
-                </div>
-
-                {% if not home_page %}
-                    <div class="filter-test">
-                        <form action="" method="post" id="filter-form">
-                            <input type="hidden" name="check_form" vlaue="filter">
-                            <input type="text" class="filter-input" placeholder="Знайти вікторину" onkeydown="checkEnterPress(event)">
-                            <button type="button" class="submit-filter"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.svg') }}" alt=""></button>
-                        </form>
+                <div class="header-limite">
+                    <div class = "logo">
+                        <img onclick="location.replace('/')" class="img-logo" src="{{ url_for('static', filename='images/logo.svg') }}" alt="">
+                        <p onclick="location.replace('/')">planet.quiz</p>
                     </div>
-                {% endif %}
-                
-                
-                <nav>
-                    {% if home_page %}
-                        <div class = "nav-links home-links">
-                            <a href="/registration" class="auth-button">Реєстрація</a>
-                            <a href="/login" class="login-button">Увійти</a>
-                        </div>
-                    {% elif mentor %}
-                        <div class="header_buttons">
-                            <button type="submit" class="mentor-buttons">
-                                <img src="{{ url_for('static', filename='images/sound.png') }}" alt="sound">
-                            </button>
-                            <button type="submit" class="mentor-buttons">
-                                <img src="{{ url_for('static', filename='images/settings.png') }}" alt="settings">
-                            </button>
-                        </div>
-                    {% else %}
-                        <div class="nav-links">
-                            <a href="/select_way" class="test-button">Створити</a>
-                            {% if not mentor %} 
-                                <div class="panel-container">
-                                    <div class="listener">
-                                        <img src="{{ url_for('static', filename='images/open-panel.png') }}" alt="" class="open-panel">
-                                    </div>
-                                    <div class="panel closed">
-                                        <span class="link-container">
-                                            <span class="links">
-                                                <div class="cont-link">
-                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/library_tests.svg') }}" alt="">
-                                                    <a class="created-test" href="/user_test">Створені тести</a>
-                                                    <div class="line"></div>
-                                                </div>
-        
-                                                <div class="cont-link">
-                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/passed_tests.svg') }}" alt="">
-                                                    <a class="created-test" href="/user_test">Пройдені тести</a>
-                                                    <div class="line"></div>
-                                                </div>
-                                                
-                                                <div class="cont-link">
-                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/diagrams_icon.svg') }}" alt="">
-                                                    <a href="/graphics_user">Діаграми</a>
-                                                    <div class="line"></div>
-                                                </div>
-                                                
-                                                <div class="cont-link">
-                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/info_icon.svg') }}" alt="">
-                                                    <a href="/profile">Загальна інформація</a>
-                                                    <div class="line"></div>
-                                                </div>
-                                                
-                                                <div class="cont-link">
-                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/class_icon.svg') }}" alt="">
 
-                                                    <div class="line"></div>
-                                                </div>
-                             
-                                                <div class="cont-link">
-                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/protection_icon.svg') }}" alt="">
-                                                    <a href="">Безпека</a>
-                                                    <div class="line"></div>
-                                                </div>
-                                                
-                                                <div class="cont-link">
-                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/avatar_icon.svg') }}" alt="">
-                                                    <a href="/edit_avatar">Аватар</a>
-                                                    <div class="line"></div>
-                                                </div>
-                                                
-                                                <div class="cont-link">
-                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/awards_icon.svg') }}" alt="">
-                                                    <a href="">Нагороди</a>
-                                                    <div class="line"></div>
-                                                </div>
-                                                
-                                                <div class="cont-link">
-                                                    <img class="icon" src="{{ url_for('static', filename='/images/sidebar/presents_icon.svg') }}" alt="">
-                                                    <a href="/buy_pet">Купівля подарунків</a>
-                                                    <div class="line"></div>
-                                                </div>
-                                                
-                                            </span>
-                                        </span>
-                                    </div>
-                                </div>
-                            {% endif %}
+                    {% if not home_page %}
+                        <div class="filter-test">
+                            <form action="" method="post" id="filter-form">
+                                <input type="hidden" name="check_form" vlaue="filter">
+                                <input type="text" class="filter-input" placeholder="Знайти вікторину" onkeydown="checkEnterPress(event)">
+                                <button type="button" class="submit-filter"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.svg') }}" alt=""></button>
+                            </form>
                         </div>
                     {% endif %}
-                </nav>
+                    
+                    
+                    <nav>
+                        {% if home_page %}
+                            <div class = "nav-links home-links">
+                                <a href="/registration" class="auth-button">Реєстрація</a>
+                                <a href="/login" class="login-button">Увійти</a>
+                            </div>
+                        {% elif mentor %}
+                            <div class="header_buttons">
+                                <button type="submit" class="mentor-buttons">
+                                    <img src="{{ url_for('static', filename='images/sound.png') }}" alt="sound">
+                                </button>
+                                <button type="submit" class="mentor-buttons">
+                                    <img src="{{ url_for('static', filename='images/settings.png') }}" alt="settings">
+                                </button>
+                            </div>
+                        {% else %}
+                            <div class="nav-links">
+                                <a href="/select_way" class="test-button">Створити</a>
+                                {% if not mentor %} 
+                                    <div class="panel-container">
+                                        <div class="listener">
+                                            <img src="{{ url_for('static', filename='images/open-panel.png') }}" alt="" class="open-panel">
+                                        </div>
+                                        <div class="panel closed">
+                                            <span class="link-container">
+                                                <span class="links">
+                                                    <div class="cont-link">
+                                                        <img class="icon" src="{{ url_for('static', filename='/images/sidebar/library_tests.svg') }}" alt="">
+                                                        <div class="part-name">
+                                                            <a class="created-test" href="/user_test">Створені тести</a>
+                                                            <div class="line"></div>
+                                                        </div>
+                                                        
+                                                    </div>
+            
+                                                    <div class="cont-link">
+                                                        <img class="icon" src="{{ url_for('static', filename='/images/sidebar/passed_tests.svg') }}" alt="">
+                                                        <div class="part-name">
+                                                            <a class="created-test" href="/user_test">Пройдені тести</a>
+                                                            <div class="line"></div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    
+                                                    <div class="cont-link">
+                                                        <img class="icon" src="{{ url_for('static', filename='/images/sidebar/diagrams_icon.svg') }}" alt="">
+                                                        <div class="part-name">
+                                                            <a href="/graphics_user">Діаграми</a>
+                                                            <div class="line"></div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    
+                                                    <div class="cont-link">
+                                                        <img class="icon" src="{{ url_for('static', filename='/images/sidebar/info_icon.svg') }}" alt="">
+                                                        <div class="part-name">
+                                                            <a href="/profile">Загальна інформація</a>
+                                                            <div class="line"></div>
+                                                        </div>  
+                                                        
+                                                    </div>
+                                                    
+                                                    <div class="cont-link">
+                                                        <img class="icon" src="{{ url_for('static', filename='/images/sidebar/class_icon.svg') }}" alt="">
+                                                        <div class="part-name">
+                                                            <a href="">Класи</a>
+                                                            <div class="line"></div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                
+                                                    <div class="cont-link">
+                                                        <img class="icon" src="{{ url_for('static', filename='/images/sidebar/protection_icon.svg') }}" alt="">
+                                                        <div class="part-name">
+                                                            <a href="">Безпека</a>
+                                                            <div class="line"></div>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <div class="cont-link">
+                                                        <img class="icon" src="{{ url_for('static', filename='/images/sidebar/avatar_icon.svg') }}" alt="">
+                                                        <div class="part-name">
+                                                            <a href="/edit_avatar">Аватар</a>
+                                                            <div class="line"></div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    
+                                                    <div class="cont-link">
+                                                        <img class="icon" src="{{ url_for('static', filename='/images/sidebar/awards_icon.svg') }}" alt="">
+                                                        <div class="part-name">
+                                                            <a href="">Нагороди</a>
+                                                            <div class="line"></div>
+                                                        </div>
+                                                        
+                                                    </div>
+                                                    
+                                                    <div class="cont-link">
+                                                        <img class="icon" src="{{ url_for('static', filename='/images/sidebar/presents_icon.svg') }}" alt="">
+                                                        <div class="part-name">
+                                                            <a href="/buy_pet">Купівля подарунків</a>
+                                                            <div class="line"></div>
+                                                        </div>
+                                                    </div>                   
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    </nav>
+                </div>
+                
                     
             </header>
         {% endif %}

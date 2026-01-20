@@ -72,3 +72,11 @@ for (let show of showmores){
         }
     )
 }
+
+const form = document.querySelector('.main-input');
+
+form.addEventListener('submit', function(event) {
+    if (localStorage.getItem("users_list")){
+        localStorage.removeItem("users_list")
+    }
+});

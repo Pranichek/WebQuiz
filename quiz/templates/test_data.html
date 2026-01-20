@@ -35,6 +35,8 @@
         <div class="description-test">
             {% if test.description != "" %}
                 <p>{{test.description}}</p>
+            {% else %}
+                <p>Опису немає</p>
             {% endif %}
         </div>
 
@@ -50,8 +52,58 @@
     <div class="questions-test">
         <div class="cont-question">
             <div class="header-cont"><p>Перелік питань:</p></div>
-            <div>
+            <div class="all-questions">
+                {% set ns = namespace(counter=-1) %}
                 
+
+                {% for this_question in question_list %}
+                    {% set ns.counter = ns.counter + 1 %}
+                    {% set ns3 = namespace(shown_an=false) %}
+                    <!-- якщо довжина питання більше чим один символ, то можемо створити питання -->
+                    {% if this_question.question|length >= 1 %}
+                        <div class="question-card {% if ns.counter == 0 %}first-block{% endif %}">   
+                            <div class="header-question">
+                                <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">
+                                <p class="question">{{ this_question.question }}</p>
+                                {% if img_lists[loop.index0][0] != "not" %}
+                                    <img class="question_img" src="{{ img_lists[loop.index0][0] }}" alt="">
+                                {% endif %}
+                            </div>
+                            <div class="body-question">
+                                <!-- чтобі если надо ввесті ответ самостоятельно то показівалась надписі только один раз -->
+                                {% set ns2 = namespace(shown=false) %}
+
+                                {% for answer in this_question.answers %}
+                                    {% if not ns3.shown_an %}
+                                        <div class="variant-answer">
+                                            {% if this_question.type_question == "one-answer" %}
+                                                <div class="circle"></div>
+                                            {% elif this_question.type_question == "many-answers" %}
+                                                <div class="quard"></div>
+                                            {% endif %}
+
+                                            {% if img_lists[ns.counter][loop.index] == "not" and this_question.type_question != "input-gap" %}
+                                                <p class="answer">{{ answer }}</p>
+                                            {% elif this_question.type_question == "input-gap" and not ns2.shown %}
+                                                {% set ns2.shown = true %}
+                                                <p>Введіть правильну відповідь</p>
+                                            {% elif img_lists[ns.counter][loop.index] != "not" %}
+                                                {% if answer != "image?#$?image" %}
+                                                    <p class="answer">{{ answer }}</p>
+                                                {% endif %}
+                                                <img class="answer-img" src="{{ img_lists[ns.counter][loop.index] }}" alt="">
+                                            {% endif %}
+
+                                            {% if this_question.type_question == "input-gap" %}
+                                                {% set ns3.shown_an = true %}
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
             </div>
         </div>
     </div>

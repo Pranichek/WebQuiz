@@ -34,6 +34,12 @@ project.config['MAIL_USE_SSL'] = False
 project.config['MAIL_USE_TLS'] = True
 project.secret_key = os.getenv("SECRET_KEY")
 project.config['SESSION_COOKIE_SECURE'] = True
+project.config["SQLALCHEMY_ECHO"] = True
+project.config.update(
+    SESSION_COOKIE_SAMESITE="Lax",#None
+    SESSION_COOKIE_SECURE= False
+)
+
 
 mail = Mail(app = project)
 

@@ -1,13 +1,32 @@
 .code {
     padding-top: 2vh;
     padding-left: 1vw;
+    padding-right: 1vw;
     font-size: 2vh;
     color:#ffff;
+    display: flex;
+    width: 100vw;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .code span {
     color: #FFB700;
     font-weight: 700;
+}
+
+.leave_test {
+    background-color: #E05359;
+    color: #ffffff;
+    font-size: 2vh;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border: none;
+    padding: 6px 25px;
+    cursor: pointer;
 }
 
 .block-main{
@@ -26,7 +45,7 @@
     border-radius: 2vh;
     width: 95vw;
     position: relative;
-    overflow: hidden;
+    /* overflow: hidden; */
 }
 
 .gradient{

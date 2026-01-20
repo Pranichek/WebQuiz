@@ -92,7 +92,7 @@
             <div class="bottom-data">
                 <div class="result">
                     <p>Точність</p>
-                    <div class="line">
+                    <div class="lin">
                         <div class="fill"></div>
                         <div class="quard">
                             <div class="text-perc">
@@ -156,7 +156,7 @@
 
 {% block scripts %}
     {{ super() }}
+    <script src="{{ url_for('finish_test.static', filename='js/finish_test.js') }}" defer></script>
     <script type="module" src="{{ url_for('finish_test.static', filename='js/copy_modal.js') }}"></script>
-    <script  src="{{ url_for('test_result.static', filename='js/test_result.js') }}"></script> 
     <script type="module" src="{{ url_for('finish_test.static', filename='js/add_favorite.js') }}"></script>
 {% endblock scripts %}

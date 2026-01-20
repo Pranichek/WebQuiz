@@ -2,9 +2,9 @@
     display: none;
 }
 
-*{
+/* *{
     transition: 0.1s;
-}
+} */
 
 .cont-users{
     width: 100vw;
@@ -16,27 +16,6 @@
 }
 
 
-.full-main{
-    width: 100vw;
-    height: 100vh;
-    min-height: 100vh;
-    flex-direction: column;
-    justify-content: end;
-    align-items: end;
-    position: relative;
-}
-
-.pseudo-header{
-    width: 100vw;
-    height: 6%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-left: 1vw;
-    padding-right: 2vw; 
-    /* background-color: green; */
-}
-
 #settingsButtons{
     display: flex;
     flex-direction: row;
@@ -45,8 +24,8 @@
 
 
 .next-question, #showAnswer{
-    font-size: 1.35vw;
-    padding: 0.5vw 0.7vw;
+    font-size: 2vh;
+    padding: 5px 10px;
     background-color: #E05359;
     color: #ffffff;
     border: none;
@@ -61,12 +40,16 @@
     background-color: #555;
 }
 
+#showAnswer:hover{
+    background-color: #676666;
+}
+
 .next-question:hover{
     background-color: #c93e45;
 }
 
 .join-text{
-    font-size: 1.1vw;
+    font-size: 2vh;
     font-weight: 500;
     color: #ffffff;
     display: flex;
@@ -77,16 +60,36 @@
     color: #FFB700;
 }
 
+.full-main{
+    width: 100vw;
+    height: 100vh;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    position: relative;
+}
+
+.pseudo-header{
+    width: 99vw;
+    height: 6%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+
 .main-block{
     width: 100vw;
-    height: 90%;
+    height: 94%;
     display: flex;
     justify-content: space-between;
     align-items: start;
 }
 
 .accuracy-block{
-    height: 100%;
+    height: 99%;
     width: 20%;
     display: flex;
     flex-direction: row;
@@ -189,11 +192,9 @@
     position: absolute;
     height: 5vh;
     width: auto;  
-    /* left: -50%; */
     bottom: 0;
     display: flex;
     align-items: end;
-    /* background-color: green; */
     transition: bottom 1s ease-in-out;
 }
 
@@ -235,7 +236,7 @@
 
 .users-data{
     width: 79%;
-    height: 100%;
+    height: 99%;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -254,14 +255,13 @@
 
 
 .data-answers{
-    /* background-color: orange; */
     width: 25%;
     height: 32%;
     position: absolute;
     right: 0;
     display: flex;
     flex-direction: column;
-    font-size: 1.2vw;
+    font-size: 2vh;
     align-items: start;
     justify-content: center;
     gap: 5vh;
@@ -276,8 +276,8 @@
 }
 
 .circle{
-    width: 2.5vw;
     height: 2.5vw;
+    aspect-ratio: 1 / 1;
     border-radius: 50%;
     background-color: #D9D9D9;
     display: flex;
@@ -303,7 +303,7 @@
     flex-direction: column;
     justify-content: start;
     color: #ffffff;
-    font-size: 1.6vw;
+    font-size: 2.5vh;
     gap: 3%;
     
 }
@@ -323,15 +323,14 @@
 }
 
 .imageCont {
-    height: 0;               /* изначально скрыт */
-    overflow: hidden;        /* чтобы контент не торчал */
+    height: 0;               
+    overflow: hidden;        
     transition: height 0.5s ease;
     display: flex;
-    height: 0%;
 }
 
 .imageCont.show {
-    height: 60%;             /* нужная высота при открытии */
+    height: 60%;             
     transition: height 0.5s ease;
 }
 
@@ -365,7 +364,7 @@
     justify-content: start;
     border-radius: 1vw;
     color: #ffffff;
-    font-size: 1.3vw;
+    font-size: 2vh;
 }
 
 
@@ -382,7 +381,7 @@
     display: flex;
     justify-content: start;
     align-items: start;
-    font-size: 1.3vw;
+    font-size: 2vh;
     color: #ffffff;
     font-weight: 500;
 }
@@ -403,7 +402,6 @@
     display: flex;
     align-items: end;
     justify-content: center;
-    /* position: relative; */
 }
 
 .block{
@@ -415,7 +413,6 @@
 
 .block-diagram{
     width: 60%;
-    /* height: calc(100% / 4 * 2); */
     background-color: #8AF7D4;
     transition: 0.8s;
 }
@@ -439,7 +436,6 @@
 .variant{
     width: 25%;
     height: 100%;
-    /* background-color: red; */
     display: flex;
 }
 
@@ -457,7 +453,7 @@
     width: 80%;
     height: 100%;
     display: flex;
-    font-size: 1.1vw;
+    font-size: 2vh;
     color: #ffffff;
     flex-direction: column;
     justify-content: start;
@@ -475,7 +471,7 @@
 .users-ratings{
     width: 100%;
     height: 66%;
-    
+    background-color: rgba(132, 130, 130, 0.5);
     display: flex;
     flex-direction: column;
     position: relative;
@@ -490,7 +486,7 @@
 .accuracy-students{
     width: 100%;
     height: 14%;
-    font-size: 2vw;
+    font-size: 2.5vh;
     color: #ffffff;
     display: flex;
     justify-content: start;
@@ -515,7 +511,7 @@
 }
 
 .count-people, .num-people{
-    font-size: 1.2vw;
+    font-size: 2vh;
     color: #ffffff;
     font-weight: 450;
 }
@@ -524,40 +520,18 @@
     margin-right: 0.3vw;
 }
 
-.body-ratings{
-    width: 100%;
-    height: 86%;
-    background-color: rgba(132, 130, 130, 0.5);
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-
-    align-items:  start;
-    /* flex-wrap: wrap; */
-    flex-wrap: wrap;
-    padding-top: 2%;
-    padding-left: 3%;
-    gap: 5%;
-
-    overflow-y: auto;
-    
-}
-
 .body-ratings {
     width: 100%;
-    height: 86%;
-    background-color: rgba(132, 130, 130, 0.5);
+    /* 100% минус высота верхних блоков (14% + 14%) */
+    height: calc(100% - 28%); 
     display: flex;
     flex-direction: row;
-    justify-content: start;
-    align-items: start;
     flex-wrap: wrap;
-    padding-top: 2%;
-    padding-left: 3%;
-    gap: 5%;
+    align-content: flex-start; /* Прижимает ряды к верху */
+    gap: 2%; /* Уменьшите gap или перейдите на px, если карточки прыгают */
     overflow-y: auto;
+    margin-top: 2%;
 }
-
 
 .body-ratings::-webkit-scrollbar {
     width: 1vw; 
@@ -582,15 +556,21 @@
 
 .user-card{
     width: 46%;
-    height: 22%;
+    height: 4rem;
+    min-width: 20rem;
     background-color: #343434;
-    border-radius: 1vw;
-    border: 0.29vh solid #94C4FF;
+    border-radius: 1rem;
+    border: 2px solid #94C4FF;
     display: flex;
     align-items: center;
     overflow: hidden;
     cursor: pointer;
-    font-size: 1vw;
+    font-size: 2vh;
+    transition: 0.2s ease;
+}
+
+.user-card:hover{
+    border-color: #df434a;
 }
 
 .left-part{
@@ -598,20 +578,19 @@
     width: 22%;
     display: flex;
     justify-content: space-between;
-    /* gap: 6%; */
     padding-left: 1%;
     padding-right: 1%;
 }
 
 .place-students{
     color: #FFB700;
-    white-space: nowrap;   /* запрет переноса */
+    white-space: nowrap;   
     text-overflow: ellipsis;
-    font-size: 1.2vw;
+    font-size: 2vh;
 }
 
 .avatar{
-    object-fit: co;
+    object-fit: contain;
     width: 100%;
     height: 100%;
 }
@@ -621,16 +600,14 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 60%;               /* ширина относительно род класса я так поянл */
-    aspect-ratio: 1 / 1;      /* тут тип ширина = высота */
+    height: 80%;  
     border: 0.1vh solid black;
     border-radius: 50%;  
     overflow: hidden;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     flex-shrink: 0;
 }
+
+
 
 .right-part{
     height: 100%;
@@ -644,7 +621,7 @@
     width: 25%;
     height: 100%;
     color: #ffffff;
-    font-size: 1.2vw;
+    font-size: 2vh;
     font-weight: 450;
     display: flex;
     flex-direction: column;
@@ -659,26 +636,19 @@
 .choicen{
     width: 69%;
     height: 80%;
-    border-radius: 0.5vw;
+    border-radius: 0.5rem;
     background-color: rgba(245, 243, 109, 0.31);
     position: relative;
     display: flex;
     align-items: end;
     justify-content: start;
-    
     color: #ffffff;
-    font-size: 1.2vw;
-    padding-left: 0.3vw;
-    padding-bottom: 0.2vw;
+    font-size: 2vh;
+    padding-left:0;
+    padding-bottom: 0;
     overflow-y: auto;    
-    padding-top: au;
-}
-
-.choicen {
-    display: flex;
     flex-direction: column;
     justify-content: space-between; 
-    overflow-y: auto;   
 }
 
 .choicen-text {
@@ -694,23 +664,128 @@
 
 
 .text-achiv{
-    /* position: absolute;
-    left: 0;
-    top: 0; */
     width: 100%;
     height: 30%;
-    padding-left: 3%;
-    padding-top: 2%;
+    padding-left: 1%;
+    padding-top: 1%;
     color: #ffffff;
     font-weight: 400;
-    font-size: 1.2vw;
+    font-size: 2vh;
 }
 
 .type-eye {
-  /* position: absolute; */
   right: 0;
-  bottom: 0; /* завжди внизу контейнера */
+  bottom: 0; 
   cursor: pointer;
   width: 14%;
   object-fit: contain;
+}
+
+.window-choice, .window-end {
+    position: absolute;
+    justify-content: center;
+    width: clamp(280px, 90vw, 420px); 
+    height: 19vh;
+    display: flex; 
+    flex-direction: column;
+    background-color: #343434;
+    left: 50%;
+    top: 50%;    
+    transform: translate(-50%, -50%) scale(0.8); 
+    gap: 1vw;
+    border: 0.5vh solid #94C4FF;
+    border-radius: 1.5vh;
+    z-index: 1000;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;    
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.window-choice.active, .window-end.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(3px); 
+    z-index: 999; 
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.window-choice h1, .window-end h1{
+    color: white;
+    font-size: 2.5vh;
+}
+
+.window-choice p, .window-end p{
+    color: white;
+    font-size: 2vh;
+    font-weight: 500;
+}
+
+.window-choice div, .window-end div{
+    margin-top: 1vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 1vw;
+}
+
+.decline, .decline-ending{
+    text-align: center;
+    border: none;
+    padding: 0.5vh 1vh;
+    font-size: 2vh;
+    cursor: pointer;
+    justify-content: center;
+    display: flex;
+    font-weight: 600;
+}
+
+.decline:hover, .decline-ending:hover{
+    color: #d2d0d0;
+}
+
+.remove_user, .end_test{
+    text-align: center;
+    border: none;
+    display: flex;
+    justify-content: center;
+    padding: 0.5vh 1vh;
+    background-color: #FD6363;
+    font-size: 2vh;
+    border-radius: 0.5vh;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.remove_user:hover, .end_test:hover{
+    background-color: #eb4848;
+}
+
+@media(max-width: 900px){
+    .user-card{
+        width: 66%;
+    }
+
+    .body-ratings{
+        justify-content: center;
+    }
 }

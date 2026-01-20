@@ -78,20 +78,26 @@ socket.on("test_result", (data) => {
         let indexel = index;
 
         let questionDiv = document.createElement("div");
-        let questText = document.createElement('div');
+        let questText = document.createElement('p');
 
         questionDiv.className = "question";
 
-        questText.innerHTML = `${index + 1}. ${element.question}`;
+        let questionText = document.createElement("div")
+        questionText.className = "outline-question"
+
+        questText.innerHTML = `${index + 1}.${element.question}`;
         questText.className = "quest-text";
 
-        if (data.images[index][0] != "not"){
-            const imgQuestion = document.createElement("img")
-            imgQuestion.src = data.images[index][0]
-            questionDiv.appendChild(imgQuestion)
-        }
+        questionText.appendChild(questText)
 
-        questionDiv.appendChild(questText);
+        // if (data.images[index][0] != "not"){
+        //     const imgQuestion = document.createElement("img")
+        //     imgQuestion.src = data.images[index][0]
+        //     imgQuestion.className = "question-img"
+        //     questionDiv.appendChild(imgQuestion)
+        // }
+
+        questionDiv.appendChild(questionText);
 
         questionDiv.insertBefore(mainHead, questionDiv.firstChild);
 
@@ -105,6 +111,7 @@ socket.on("test_result", (data) => {
 
             let count_right = 0;
             let count_uncorrect = 0
+ 
             for (let userAnswer of userAnswersForThisQuestion) {
                 if (correctForThisQuestion.includes(userAnswer)) {
                     count_right++;
@@ -150,20 +157,14 @@ socket.on("test_result", (data) => {
                     // Для одиночных правильных ответов
                     if (correctForThisQuestion.includes(index) && userAnswersForThisQuestion.includes(index)) {
                         circle.className = "correct-circle";
-                        console.log(1)
                     } else if (correctForThisQuestion.includes(index) && !userAnswersForThisQuestion.includes(index)) {
-                        console.log(2)
                         circle.className = "right-circle"; // Правильный вариант, но не выбран
                     }else if (userAnswersForThisQuestion.includes(index) && !correctForThisQuestion.includes(index)) {
-                        console.log(3)
                         circle.className = "uncorrect-circle"; // Неправильный ответ
                     } else {
-                        console.log(4)
                         circle.className = "simple-circle"; // Ответ не выбран
                     }
                     // }
-                }else if (type_quest == "input-gap"){
-
                 }
             }
             
@@ -171,13 +172,10 @@ socket.on("test_result", (data) => {
         
             if (answ!= "image?#$?image"){
                 if (type_quest == "many-answers" || type_quest == "one-answer"){
-                    answerDiv.innerHTML = `${answ}`;
-                    if (data.images[indexel][index + 1] != "not"){
-                        const img = document.createElement("img")
-                        img.src = data.images[indexel][index + 1]
-                        img.className = "answer-img"
-                        answerDiv.appendChild(img)
-                    }
+                    let textAnsw = document.createElement("p")
+                    textAnsw.textContent = answ
+                    textAnsw.className = "answer-text"
+                    answerDiv.appendChild(textAnsw)
                 }else{
                     // берем ответ что ввел пользователь
                     if (!questionDiv.querySelector(".input-block")){
@@ -217,44 +215,50 @@ socket.on("test_result", (data) => {
                             }
 
                             answerDiv.append(blocksDiv)
-
-                            const paragraph = document.createElement("p")
-                            paragraph.classList = "right-answers-gaps"
-                            let text = "Вірні варіанти: "
-                            
-                            for (let correctAnswers of correct_answers){
-                                text += correctAnswers + " "
-                            }
-                            paragraph.textContent = text
-                            answerDiv.appendChild(paragraph)
                         }  
 
+                        const paragraph = document.createElement("p")
+                        paragraph.classList = "right-answers-gaps"
+                        let text = "Вірні варіанти: "
                         
+                        for (let correctAnswers of correct_answers){
+                            text += correctAnswers + " "
+                        }
+                        paragraph.textContent = text
+                        answerDiv.appendChild(paragraph)
                     }
                 }
             }else{
-                answerDiv.innerHTML = `Зображення`;
+                let textAnsw = document.createElement("p")
+                textAnsw.textContent = `Зображення`
+                textAnsw.className = "answer-text"
+                textAnsw.classList.add("text-img")
+                answerDiv.appendChild(textAnsw)
             }
 
             
-
             answerDiv.appendChild(divRight)
             answerDiv.insertBefore(circle, answerDiv.firstChild);
             answerDiv.className = "answ";
-            if (type_quest == "input-gap"){
-                answerDiv.classList.add("center-blocks")
-                questionDiv.classList.add("center-blocks")
-            }
+            // if (type_quest == "input-gap"){
+            //     answerDiv.classList.add("center-blocks")
+            //     questionDiv.classList.add("center-blocks")
+            // }
 
-            questionDiv.appendChild(answerDiv);
+            if (answerDiv.childNodes[1].textContent != ""){
+                questionDiv.appendChild(answerDiv);
+            }
+            
         });
 
         mainQuestDiv.appendChild(questionDiv);
     });
 
     let divAnsw = document.querySelectorAll(".question");
+    let divAnswArray = Array.from(divAnsw);
 
     for (let cont of divAnsw) {
+        const currentIndex = divAnswArray.indexOf(cont);
         cont.addEventListener("click", () => {
             let backWind = document.createElement("div");
             backWind.className = "back-wind";
@@ -269,6 +273,7 @@ socket.on("test_result", (data) => {
             backWind.appendChild(windowQuestion);
 
             setTimeout(() => {
+                backWind.style.opacity = '1';
                 windowQuestion.style.transform = 'translate(-50%, -50%)';
             }, 10);
 
@@ -292,11 +297,23 @@ socket.on("test_result", (data) => {
                 windowQuestion.appendChild(headNew);
             }
 
+            
             let qustion_text = cont.getElementsByClassName('quest-text');
             for (let i = 0; i < qustion_text.length; i++) {
                 const textBlock = document.createElement('div');
+                if (data.images[currentIndex][0] != "not"){
+                    const imgQuestion = document.createElement("img")
+                    imgQuestion.src = data.images[currentIndex][0]
+                    imgQuestion.className = "question-img"
+                    textBlock.appendChild(imgQuestion)
+                }
+
                 textBlock.className = "question-text";
-                textBlock.innerHTML = qustion_text[i].innerHTML;
+                const text = document.createElement("p")
+                text.textContent = qustion_text[i].innerHTML
+                textBlock.appendChild(text)
+
+                
                 windowQuestion.appendChild(textBlock);
             }
 
@@ -312,15 +329,34 @@ socket.on("test_result", (data) => {
                 if (cont.classList.contains("center-blocks")){
                     answDiv.classList.add("center-blocks")
                 }
-                answDiv.innerHTML = answersNew[i].innerHTML;
+                const htmlStr = answersNew[i].innerHTML
+                const tempContainer = document.createElement('div');
+                tempContainer.innerHTML = htmlStr;
+                const targetElement = tempContainer.querySelector('.answer-text');
+
+                if (targetElement && !targetElement.classList.contains("text-img")){
+
+                    answDiv.innerHTML = answersNew[i].innerHTML;
+                }else{
+                    if (targetElement) { 
+                        targetElement.remove();
+                    }
+                    
+                    answDiv.innerHTML = tempContainer.innerHTML;
+                }
+                
+                if (data.images[currentIndex][i + 1] != "not"){
+                    const img = document.createElement("img")
+                    img.src = data.images[currentIndex][i + 1]
+                    img.className = "answer-img"
+                    answDiv.appendChild(img)
+                }
                 unswerSpace.appendChild(answDiv);
             }
 
             backWind.addEventListener("click", (event) => {
                 if (event.target === backWind) {
-                    // Анимация исчезновения для модального окна
                     windowQuestion.style.transform = 'translate(-50%, 150%)';
-                    // Анимация исчезновения затемнения
                     backWind.style.opacity = '0';
                     setTimeout(() => backWind.remove(), 500);
                 }

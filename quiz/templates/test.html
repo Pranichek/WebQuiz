@@ -132,11 +132,8 @@
                                     </ul>
                                     
                                 </div>
-                            
-                                <button class="watch_test" type="button">
-                                    <img class="sign" src="{{ url_for('test_pass.static', filename = 'images/watch_test.png') }}" alt="">
-                                    попердній перегляд
-                                </button>
+                                <p class="data-test data-time-q">Кількість часу: </p>
+                                <p class="data-test data-count-q">Кількість питань: {{ len_questions }}</p>
                             </div>
                         </div> 
                     </div>   
@@ -166,9 +163,10 @@
                             <img class="top-image" src="{{ url_for('static', filename='images/background.png') }}" alt="">
                             <div class="data-question">
                                 <p class="question">{{ this_question.question }}</p>
-                                {% if img_lists[loop.index0][0] != "not" %}
+                                {% if img_lists[loop.index0] and img_lists[loop.index0][0] != "not" %}
                                     <img class="question_img" src="{{ img_lists[loop.index0][0] }}" alt="">
                                 {% endif %}
+
                             </div>
                             <button type="button" class="button-delete {{ this_question.question }}" pk="{{ this_question.pk }}" value="{{ this_question.pk }}">delete</button>
                             <div class="delete-question">
@@ -182,25 +180,35 @@
                         </span>
                         <span class="answers">
                             {% for answer in this_question.answers %}
-                            <div class="{% if this_question.type_question != 'input-gap' %}variant {% endif %}{{ this_question.type_question }}">
+                                <div class="{% if this_question.type_question != 'input-gap' %}variant {% endif %}{{ this_question.type_question }}">
 
-                                {% if this_question.type_question == "one-answer" %}
-                                    <div class="circle"></div>
-                                {% elif this_question.type_question == "many-answers" %}
-                                    <div class="quard"></div>
-                                {% elif this_question.type_question == "input-gap" %}
-                                    <img class="input-correct" src="{{ url_for('test_pass.static', filename = 'images/correct.png') }}" alt="">
-                                {% endif %}
-
-                                {% if img_lists[ns.counter][loop.index] == "not" %}
-                                    <p class="answer">{{ answer }}</p>
-                                {% elif img_lists[ns.counter][loop.index] != "not" %}
-                                    {% if answer != "image?#$?image" %}
-                                        <p class="answer">{{ answer }}</p>
+                                    {% if this_question.type_question == "one-answer" %}
+                                        <div class="circle"></div>
+                                    {% elif this_question.type_question == "many-answers" %}
+                                        <div class="quard"></div>
+                                    {% elif this_question.type_question == "input-gap" %}
+                                        <img class="input-correct" src="{{ url_for('test_pass.static', filename = 'images/correct.png') }}" alt="">
                                     {% endif %}
-                                    <img class="question_img" src="{{ img_lists[ns.counter][loop.index] }}" alt="">
-                                {% endif %}
-                            </div>
+
+
+
+                                    {% if img_lists[ns.counter]
+                                        and img_lists[ns.counter]|length > loop.index0
+                                        and img_lists[ns.counter][loop.index] == "not" %}
+                                        
+                                        <p class="answer">{{ answer }}</p>
+                                        
+                                    {% elif img_lists[ns.counter]
+                                            and img_lists[ns.counter]|length > loop.index0
+                                            and img_lists[ns.counter][loop.index] != "not" %}
+
+                                        {% if answer != "image?#$?image" %}
+                                            <p class="answer">{{ answer }}</p>
+                                        {% endif %}
+                                        <img class="question_img" src="{{ img_lists[ns.counter][loop.index] }}" alt="">
+                                    {% endif %}
+
+                                </div>
                             {% endfor %}
                         </span>
                     </div>
@@ -209,12 +217,10 @@
         </div>
 
         
-        <!-- {% if question_list|length >= 2 %} -->
         <div class="buttons buttons-bottom">
             <button class="add-test" id="create_test_buttin" type="button">+ Зберегти вікторину</button>
             <button class="add-test" type="button">Почати тест</button>
         </div>
-        <!-- {% endif %} -->
     </form>
 {% endblock %}
 
@@ -227,5 +233,4 @@
     <script src="{{ url_for('test_pass.static', filename='js/ajaxDeleteImage.js') }}"></script>
     <script type="module" src="{{ url_for('test_pass.static', filename='js/createTest.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/underline.js') }}"></script>
-
 {% endblock %}

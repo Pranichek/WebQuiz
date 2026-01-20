@@ -47,15 +47,11 @@ def render_test():
             shutil.rmtree(path= images_directory)
 
 
-
     if flask.request.method == "POST":
         check_form = flask.request.form.get('check_post')
 
         cookie_questions = flask.request.cookies.get("questions")
         answers_cookies = flask.request.cookies.get("answers")
-
-        
-
 
         if check_form == "create_test" and cookie_questions is not None and answers_cookies is not None:
             test_title = flask.request.form["test_title"]
@@ -234,7 +230,7 @@ def render_test():
         question_list = list_to_template,
         user = flask_login.current_user,
         cash_image = flask.session["test_image"] if "test_image" in flask.session and flask.session["test_image"] != "default" else "default",
-        img_lists = img_lists
+        img_lists = img_lists,
     )
 
 @login_decorate

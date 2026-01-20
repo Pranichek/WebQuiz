@@ -1,0 +1,331 @@
+.header {
+    z-index: 1000;
+    background-color: #343434;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-weight: 500;
+    border-radius: 0;
+}
+
+.header-limite{
+    width: 100%;
+    max-width: 1600px; 
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1vw;
+}
+
+.listener{
+    height: 6vh;
+    position: relative;
+}
+
+.listener img{
+    height: 100%;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    max-width: 10%;
+    height: 60%;
+    cursor: pointer;
+    gap: 5px;
+}
+
+
+.img-logo {
+    height: 100%;
+}
+
+header p {
+    font-size: 2vh;
+}
+
+nav {
+    display: flex;
+    align-items: center;
+    gap: 20px; 
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.home-links a, .test-button {
+    height: 5vh;
+    background-color: #C48AF7;
+    color: #ffffff;
+    border-radius: 0.5vh;
+    text-decoration: none;
+    padding: 0.5vw;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+    font-size: 2vh;
+    white-space: nowrap;
+}
+
+
+
+.cont-link a{
+    background-color: #C48AF7;
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    font-size: 2vh;
+    white-space: nowrap;    
+}
+
+.link-container a{
+    background-color: transparent;
+    padding: 0;
+}
+
+.link-container a:hover{
+    background-color: transparent;
+}
+
+.home-links a:hover, .test-button:hover{
+    background-color: #b06aed;
+}
+
+.header_buttons {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.mentor-buttons {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+.mentor-buttons img{
+    width: 5vh;
+    height: 5vh;
+}
+
+
+.open-panel:hover{
+    opacity: 0.9;
+
+}
+
+.panel{
+    position: fixed;
+    z-index: 100;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: width 0.6s;
+    height: 65vh;
+    width: 10vw;
+    border-radius: 10px;
+    background-color: #343434;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.link-container{
+    display: flex;
+    flex-direction: column;
+    gap: 9vw;
+    z-index: 100;
+}
+
+.links{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 57vh;
+    width: 16vw;
+}
+
+.sidebar-robot{
+    position: absolute;
+    right: 5vw;
+    bottom: 0;
+    width: 13vw;
+    height: 19vh;
+}
+
+.closed{
+    width: 0;
+    overflow: hidden;
+}
+
+.opened{
+    width: 20vw;
+}
+
+
+.last{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+
+/* --- БАЗОВЫЕ СТИЛИ (ПК / Ноутбук) --- */
+
+.open-panel:hover {
+    opacity: 0.9;
+}
+
+.panel {
+    position: fixed;
+    z-index: 100;
+    top: 50%;
+    transform: translateY(-50%); /* Центрирование по вертикали для ПК */
+    right: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: width 0.6s, height 0.6s, border-radius 0.6s; /* Добавили плавность для высоты и радиуса */
+    height: 65vh; /* Высота для ПК */
+    width: 0; /* Изначально скрыта, управляется классами .closed/.opened */
+    border-radius: 10px;
+    background-color: #343434;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.link-container {
+    display: flex;
+    flex-direction: column;
+    gap: 9vw;
+    z-index: 100;
+    /* Центрируем контент внутри панели */
+    align-items: center; 
+    width: 100%;
+}
+
+.links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 57vh;
+    width: 17vw;
+    /* background-color: green; */
+}
+
+.cont-link {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    /* background-color: orange; */
+    width: 100%; /* Чтобы линия подчеркивания была корректной */
+}
+
+.part-name {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start; 
+    text-align: left; 
+    justify-content: space-between;
+    height: 100%;
+    width: 90%;
+}
+/* --- ИЗМЕНЕНИЕ ШРИФТА --- */
+.cont-link a {
+    font-size: 2vh; /* Ваше требование */
+    color: white; /* Добавил цвет, так как фон темный */
+    text-decoration: none;
+}
+
+.line {
+    width: 100%; 
+    background-color: #ffffff;
+    height: 1px;
+}
+
+.icon {
+    height: 3vh; /* Размер иконки лучше привязать к высоте экрана */
+    width: auto;
+    object-fit: contain;
+}
+
+.sidebar-robot {
+    position: absolute;
+    right: 5vw;
+    bottom: 0;
+    width: 13vw;
+    height: 19vh;
+}
+
+/* Состояния открытия/закрытия */
+.closed {
+    width: 0;
+    padding: 0; /* Убираем отступы, когда закрыто */
+}
+
+.opened {
+    width: 20vw; /* Ширина для ПК */
+}
+
+.last {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 1vh;
+}
+
+/* --- МОБИЛЬНАЯ ВЕРСИЯ (Телефоны) --- */
+/* Срабатывает, если ширина экрана меньше 768px */
+@media (max-width: 678px) {
+    .panel {
+        top: 0;
+        margin-top: 10vh; /* Прижимаем к верху */
+        transform: none; /* Убираем центрирование */
+        border-radius: 0; /* Убираем скругления */
+        height: 90vh; /* На всю высоту экрана */
+    }
+
+    /* Когда панель открыта на телефоне */
+    .opened {
+        width: 100vw; /* На всю ширину экрана */
+    }
+
+    /* Корректировка ширины контейнера ссылок для телефона */
+    .links {
+        width: 60vw; /* Делаем область ссылок шире для удобства */
+        height: 70vh; /* Растягиваем ссылки по вертикали */
+    }
+    
+    .sidebar-robot {
+        display: none; /* Робота лучше скрыть на телефоне, чтобы не мешал, или изменить его размеры */
+    }
+
+    /* Увеличиваем размер кликабельной области для пальцев */
+    .cont-link {
+        margin-bottom: 2vh; 
+    }
+}

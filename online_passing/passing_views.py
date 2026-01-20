@@ -1,7 +1,10 @@
 import flask, flask_login
 from Project.login_check import login_decorate
-from Project.check_room import check_room
 from flask_socketio import join_room
+
+def render_online_page(name):
+    return flask.render_template(f"{name}.html")
+
 
 
 @login_decorate
@@ -56,6 +59,7 @@ def render_result_mentor():
 # страница финиша ментора
 @login_decorate
 def render_finish_mentor():
+    print("ducking_finish_mentor")
     return flask.render_template(
         'finish_mentor.html',
         user = flask_login.current_user,
@@ -65,6 +69,7 @@ def render_finish_mentor():
 # страница финиша студента
 @login_decorate
 def render_finish_student():
+    print("ducking_finish_student")
     return flask.render_template(
         'finish_student.html',
         user = flask_login.current_user,

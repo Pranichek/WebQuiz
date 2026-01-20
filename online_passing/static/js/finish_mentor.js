@@ -9,14 +9,41 @@ socket.emit("finish_mentor",{
 
 socket.on("list_results", data => {
     let users = data.users
-    
+    document.querySelector(".best_question").textContent = `${data.best_question}%`
+    let count = 0
     // користувачі, що проходили тест(їхні блоки)
     users.forEach(user => {
-
+        count++
         const userCardDiv = document.createElement("div")
+
         userCardDiv.classList.add("user-card")
-        userCardDiv.textContent = user.email
-        // userCardDiv.textContent = user.username
+        // userCardDiv.textContent = user.email
+
+        // місце користувача
+        const divPlace = document.createElement("div")
+        divPlace.className = "div-place"
+        const textPlace = document.createElement("p")
+        textPlace.textContent = `№ ${count}`
+        divPlace.appendChild(textPlace)
+        userCardDiv.appendChild(divPlace)
+
+
+        // ім'я
+        const nameDiv = document.createElement("div")
+        nameDiv.className = "div-name"
+        const textName = document.createElement("p")
+        textName.textContent = user.username
+        nameDiv.appendChild(textName)
+        userCardDiv.appendChild(nameDiv)
+
+        // Бали
+        const pointsDiv = document.createElement("div")
+        pointsDiv.className = "div-points"
+        const textPoints = document.createElement("p")
+        textPoints.textContent = user.count_points
+        pointsDiv.appendChild(textPoints)
+        userCardDiv.appendChild(pointsDiv)
+
         cardsContainer.appendChild(userCardDiv)
 
 
@@ -26,8 +53,6 @@ socket.on("list_results", data => {
         const fillDiv = document.createElement("div")
         fillDiv.classList.add("fill")
         outlineDiv.appendChild(fillDiv)
-
-        console.log(user.email, user.accuracy)
 
         for (let i = 1; i <= parseInt(user.accuracy); i++) {
             fillDiv.style.width = "0%"; // старт с 0

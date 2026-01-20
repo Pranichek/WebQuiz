@@ -17,12 +17,12 @@ class User(DATABASE.Model, flask_login.UserMixin):
 
     # Зв'язок з таблицею Test
     # можно так, но если мы используем back_populates то тогда в таблице Test нужно самому создать поле user
-    tests = DATABASE.relationship("Test", back_populates="user", lazy="dynamic")
+    tests = DATABASE.relationship("Test", back_populates="user", lazy="dynamic", cascade="all, delete-orphan")
     # можна так, и тогда нам не нужно в таблице Test создавать поле user
     # tests = DATABASE.relationship("Test", backref="user", lazy="dynamic")
 
     # Зв'язок one to one із моделлю інфи користувача
-    user_profile = DATABASE.relationship("DataUser", back_populates="user", uselist=False)
+    user_profile = DATABASE.relationship("DataUser", back_populates="user", uselist=False, cascade="all, delete-orphan")
 
     # Зв'язок one to one із моделлю кімнати
     room = DATABASE.relationship("Rooms", back_populates="user", uselist=False)

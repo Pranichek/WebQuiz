@@ -28,17 +28,18 @@ main{
 }
 
 .question-test{
-    width: calc(100% - 24vw);
+    width: calc(100% - 300px);
     height: 40%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 0 1vw 1vh 1vw;
+    /* background-color: green; */
 }
 
 .answers-test{
-    width: calc(100% - 24vw);
+    width: calc(100% - 300px);
     height: 60%;
     position: relative;
     display: flex;
@@ -67,7 +68,7 @@ main{
     align-items: center;
     width: 25%;
     height: 96%;
-    font-size: clamp(0.9rem, 1.5vw, 1.3rem);
+    font-size: 2vh;
 }
 
 .answer p {
@@ -88,10 +89,6 @@ main{
     transform: translateY(0.5vh);
 }
 
-.question-text {
-    font-size: 1.3vw;
-    color: #ffffff;
-}
 
 .num-que {
     color: #C48AF7;
@@ -101,16 +98,26 @@ main{
     background-color: #2D2D2D;
     border-radius: 0.5rem;
     padding: 1vh 2vw;
+    max-width: 90%;
+    flex-wrap: wrap;
+    overflow-wrap: break-word;
+    text-align: center;
+}
+
+.question-text {
+    font-size: 2vh;
+    color: #ffffff;
+    overflow-wrap: break-word;
 }
 
 .checkMark{
     position: absolute;
     top: 0;
     right: 0;
-    margin-top: 1vh;
-    margin-right: 1vw;
-    width: 2vw;
-    height: 2vw;
+    margin-top: 10px;
+    margin-right: 10px;
+    width: 1.5rem;
+    height: 1.5rem;
     border: 0.1rem #ffffff solid;
     background-color: #4E4747;
     border-radius: 0.3rem;
@@ -120,7 +127,6 @@ main{
     position: absolute;
     right: 0;
     bottom: 0;
-    width: 24vw;
     height: 98%;
     border-radius: 1rem 0 0 0;
     background-color: #343434;
@@ -129,6 +135,7 @@ main{
     display: flex;
     flex-direction: column;
     gap: 1vh;
+    width: 300px;
 }
 
 .users{
@@ -139,6 +146,7 @@ main{
     border-top: 0.2rem #C48AF7 solid;
     display: flex;
     flex-direction: column;
+    justify-content: start;
 }
 
 .add-time{
@@ -170,12 +178,11 @@ main{
 .time-text{
     color: #ffffff;
     text-align: center;
-    font-size: 1.4vw;
+    font-size: 2vh;
 }
 
 .robo-img{
-    width: 12vw;
-    height: 12vw;
+    height: 100%;
     object-fit: contain;
 }
 
@@ -190,7 +197,7 @@ main{
 .main-taimer{
     border: 4px #C48AF7 solid;
     border-radius: 16px;
-    width: 80%;
+    width: 60%;
     height: 60%;
     background-color: #2F343A;
     gap: 5%;
@@ -198,7 +205,7 @@ main{
     flex-direction: row;
     justify-content: space-between;
     padding: 5px;
-    font-size: 1.4vw;
+    font-size: 2vh;
 }
 
 .left-part, .right-part{
@@ -229,24 +236,26 @@ main{
     height: 24%;
     /* background-color: green; */
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     flex-wrap: wrap;
     position: relative;
     /* gap: 1vw; */
     justify-content: space-between;
     align-items: center;
-    font-size: 1.4vw;
+    font-size: 2vh;
 }
 
 .first-button{
-    width: 49%;
-    height: 48%;
+    width: 100%;
+    height: 32%;
     border: 1px #494A4F solid;
     background-color: #323338;
     color: #ffffff;
     border-radius: 8px;
     font-weight: 500;
-    font-size: 1.2vw;
+    font-size: 2vh;
+    white-space: pre-line;
+    overflow-wrap: break-word;
 }
 
 .answer {
@@ -280,7 +289,7 @@ main{
     justify-content: center;
     align-items: center;
     gap: 1vh;
-    font-size: 1.4vw;
+    font-size: 2vh;
 }
 
 .button-second{
@@ -290,7 +299,7 @@ main{
     border: 0.1rem #C48AF7 solid;
     padding: 1vh 0.5vw;
     border-radius: 0.3rem;
-    font-size: 1.2vw;
+    font-size: 2vh;
 }
 
 .end-test{
@@ -301,22 +310,38 @@ main{
     background-color: #C48AF7;
 }
 
-.block{
-    background-color: #00000081;
-    width: 16vw;
-    height: 10vh;
-    border-radius: 1rem;
+.block {
+    background-color: #00000047;
+    width: auto;
+    min-width: 220px;
+    height: 8vh;
+    min-height: 75px;
+    border-radius: 12px;
     display: flex;
-    gap: 1vw;
-    margin: 1vh;
+    align-items: end;
+    justify-content: space-between;
+    padding: 5px;
+    
+    gap: 10px;
+    z-index: 10;
+    position: relative;
+    background-color: rgba(11, 10, 10, 0.6); 
+    backdrop-filter: blur(0px); 
+    -webkit-backdrop-filter: blur(0px);
+}
+
+.ava-obodok {
+    height: 72%;
+    /* background-color: orange; */
     position: relative;
 }
 
-.ava{
-    width: 80%;
-    height: auto;
-    object-fit: contain;
+.ava {
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
 }
+
 
 .inf{
     display: flex;
@@ -354,28 +379,35 @@ main{
 }
 
 .block-pet{
-    width: 8vw;
-    height: 3vh;
+    width: 100%;
+    height: 40%;
     background-color: #3C3C3C;
     border-radius: 0.5rem;
     border: 0.1rem solid #C48AF7;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: clamp(0.7rem, 1vw, 0.9rem);
+    font-size: 10px;
+}
+
+.block-pet img{
+    height: 90%;
+    width: auto;
+    object-fit: contain;
 }
 
 .block-text{
     display: flex;
-    justify-content: end;
+    justify-content: space-between;
     flex-direction: column;
     color: #ffffff;
-    font-size: clamp(0.2rem, 0.8vw, 0.8rem);
-    margin-bottom: -2vh;
-    gap: 0.3vh;
+    font-size: 13px;
+    height: 95%;
+    width: 50%;
+    /* background-color: green; */
+    /* gap: 1px; */
+    /* gap: 0.3vh; */
 }
-
-
 
 .first-button, .button-second {
     transition: all 0.2s ease; 
@@ -418,11 +450,153 @@ main{
 
 .outline-users{
     width: 100%;
-    height: 80%;
+    max-height: 90%;
+    height: auto;
     display: flex;
-    gap: 0.4vw;
+    flex-direction: row;
     flex-wrap: wrap;
-    overflow-y: auto;
+    justify-content: center;
     align-items: start;
-    justify-content: start;
+    gap: 15px;
+    z-index: 10;
+    overflow-y: auto;
+}
+
+.window-choice, .window-end {
+    position: absolute;
+    justify-content: center;
+    width: clamp(280px, 90vw, 420px); 
+    height: 19vh;
+    display: flex; 
+    flex-direction: column;
+    background-color: #343434;
+    left: 50%;
+    top: 50%;    
+    transform: translate(-50%, -50%) scale(0.8); 
+    gap: 1vw;
+    border: 0.5vh solid #94C4FF;
+    border-radius: 1.5vh;
+    z-index: 1002;
+    text-align: center;
+    opacity: 0;
+    visibility: hidden;    
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.window-choice.active, .window-end.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    backdrop-filter: blur(3px); 
+    z-index: 1001; 
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+
+.window-choice h1, .window-end h1{
+    color: white;
+    font-size: 2.5vh;
+}
+
+.window-choice p, .window-end p{
+    color: white;
+    font-size: 2vh;
+    font-weight: 500;
+}
+
+.window-choice div, .window-end div{
+    margin-top: 1vh;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    gap: 1vw;
+}
+
+.decline, .decline-ending{
+    text-align: center;
+    border: none;
+    padding: 0.5vh 1vh;
+    font-size: 2vh;
+    cursor: pointer;
+    justify-content: center;
+    display: flex;
+    font-weight: 600;
+}
+
+.decline:hover, .decline-ending:hover{
+    color: #d2d0d0;
+}
+
+.remove_user, .end_test{
+    text-align: center;
+    border: none;
+    display: flex;
+    justify-content: center;
+    padding: 0.5vh 1vh;
+    background-color: #FD6363;
+    font-size: 2vh;
+    border-radius: 0.5vh;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.remove_user:hover, .end_test:hover{
+    background-color: #eb4848;
+}
+
+.input-div{
+    width: 100%;
+    height: 100%;
+    background-color: #353535;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    justify-content: space-between;
+    font-size: 2vh;
+}
+
+.correct-answers{
+    height: 90%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    background-color: #585757;
+    border-radius: 1rem;
+}
+
+@media(max-width: 768px){
+    .answers-test{
+        flex-direction: column;
+    }
+
+    .answer{
+        width: 90%;
+        height: 25%;
+        font-size: 1.5vh;
+    }
+
+    .question-test{
+        height: 30%;
+    }
+
+    .answers-test{
+        height: 70%;
+    }
 }

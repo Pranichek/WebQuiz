@@ -2,7 +2,7 @@
     position: fixed;
     bottom: 20px;
     left: 20px; 
-    width: clamp(280px, 90vw, 420px); /* Автоматически подстраивается */
+    width: clamp(280px, 90vw, 420px); 
     background: #353535;
     border-radius: 12px;
     padding: 20px;
@@ -10,17 +10,16 @@
     z-index: 9999;
     
     opacity: 0;
-    transform: translateX(-120%); /* Спрятано за экраном слева */
+    transform: translateX(-120%);
     pointer-events: none;
     transition: 
         opacity 0.4s ease, 
         transform 0.4s cubic-bezier(0.25, 1, 0.3, 1);
 }
 
-/* Активное состояние */
 .cookie-modal.show {
     opacity: 1;
-    transform: translateX(0); /* Выезжает на место */
+    transform: translateX(0); 
     pointer-events: auto;
 }
 
@@ -54,7 +53,7 @@
     display: flex;
     justify-content: center;
     gap: 10px;
-    flex-wrap: wrap; /* Чтобы на маленьких экранах кнопки переносились */
+    flex-wrap: wrap; 
 }
 .cookie-modal .button {
     flex: 1 1 45%;
@@ -64,7 +63,7 @@
     border: none;
     font-weight: 600;
     cursor: pointer;
-    transition: background 0.3s ease, color 0.3s ease;
+    transition: 0.3s ease, color 0.3s ease;
     min-width: 100px;
 }
 .cookie-modal #acceptBtn {
@@ -84,13 +83,13 @@
     color: #fff;
 }
 
-/* 📱 Смартфоны */
+
 @media (max-width: 480px) {
     .cookie-modal {
         bottom: 10px;
         left: 10px;
         right: 10px;
-        width: auto; /* занимает всю ширину */
+        width: auto; 
         padding: 15px;
     }
     .cookie-modal .buttons {
@@ -101,7 +100,7 @@
     }
 }
 
-/* 💻 Большие экраны */
+
 @media (min-width: 1024px) {
     .cookie-modal {
         bottom: 30px;

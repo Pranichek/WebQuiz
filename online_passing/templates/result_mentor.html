@@ -5,24 +5,17 @@
 {% endblock links %}
 
 {% block content %}
-    <!-- <div class="rightwrong">
-                    <div class="right">
-
-                    </div>
-                    <div class="wrong">
-
-                    </div>
-                </div> -->
     <img data-open="{{ url_for('mentor.static', filename='images/open_eye.svg') }}" class="open-eye">
     <img data-close="{{ url_for('mentor.static', filename='images/close_eye.svg') }}" class="close-eye">
     <span id="arrow-img-path" data-src="{{ url_for('student.static', filename='images/show_more.svg') }}"></span>
+    <div class="overlay" id="overlay"></div>
 
     <img data-src="{{ url_for('mentor.static', filename='images/people.svg') }}" class="hide">
     <div class="pseudo-header">
         <p class="join-text">приєднатися по коду<span class="code-room"></span></p>
         
         <div id="settingsButtons">
-            <button id="showAnswer">Показати відповіді</button>
+            <button id="showAnswer" data-state="hide">Показати відповіді</button>
             <button type="button" class="next-question">наступне питання</button>
         </div>
     </div>
@@ -78,6 +71,15 @@
             <div class="users-ratings">
 
             </div>
+        </div>
+    </div>
+
+    <div class="window-choice">
+        <h1>Видалити учасника з кімнати</h1>
+        <p>Ви впевнені, що хочете видалити цього учасника з кімнати?</p>
+        <div>
+            <p class="decline">Скасувати</p>
+            <p class="remove_user">Видалити</p>
         </div>
     </div>
 {% endblock content %}

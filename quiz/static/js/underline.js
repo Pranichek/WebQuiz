@@ -8,7 +8,7 @@ function updateUnderline() {
     const inputParentWidth = input.parentElement.offsetWidth;
     const mirrorWidth = mirror.offsetWidth;
 
-    const maxWidth = inputParentWidth * 1; // максимум 200% от родителя
+    const maxWidth = inputParentWidth * 0.5; // максимум 200% от родителя
 
     // Вычисляем новую ширину, но не больше maxWidth
     const finalWidth = Math.min(mirrorWidth, maxWidth);

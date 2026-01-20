@@ -6,7 +6,8 @@
 
 {% block content %}
     <div class="code">
-        приєднатися по коду <span class="code-text"></span>
+        <p>приєднатися по коду <span class="code-text"></span></p>
+        <button class="leave_test">Покинути тест</button>
     </div>
     <div class="block-main">
         <div class="block-answer">
@@ -72,4 +73,6 @@
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('student.static', filename='js/waiting_student.js') }}"></script>
+    <script src="{{ url_for('student.static', filename='js/check_student.js') }}"></script>
+    <script src="{{ url_for('student.static', filename='js/leave_test.js') }}"></script>
 {% endblock %}

@@ -12,6 +12,7 @@
 {% block content %}   
     <img src="" alt="" data-link="{{ url_for('mentor.static', filename='images/mentor/cross_user.svg') }}" style="display: none;" id="imageLink">
     <div class="background-blur"></div>
+    <div class="overlay" id="overlay"></div>
 
     <div class="window-choice">
         <h1>Видалити учасника з кімнати</h1>
@@ -82,7 +83,7 @@
                     <div class="qr-code">
                         <p>Скануй QR-Code <br>та приєднуйся до тесту </p>
                         <a class="qr-code-outline" href="" onclick="event.preventDefault(); showQR()">
-                            <img class="img-qrcode" src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/code.png') }}">
+                            <img class="img-qrcode qr-code-img" src="{{ url_qrcode }}">
                         </a>
                     </div>
 
@@ -98,7 +99,7 @@
                                 </div>
                                 
                                 <div class="qr-code-div">
-                                    <img src="{{ url_for('profile.static', filename='images/edit_avatar/' ~ user.email ~ '/qrcodes/code.png') }}">
+                                    <img class="qr-code-img" src="">
                                 </div>
                             </div>
 
@@ -133,6 +134,7 @@
         
 
         <div class="chat-icon">
+
 
             <div class="chat-osnova">
                 <div class="header-chat">
@@ -174,8 +176,8 @@
 
 {% block scripts %}
     {{ super() }}
+    <!-- <script type="module" src="{{ url_for('mentor.static', filename='js/route.js') }}"></script> -->
     <script src="{{ url_for('mentor.static', filename='js/mentor.js') }}"></script>
     <script src="{{ url_for('mentor.static', filename='js/chat.js') }}"></script>
     <script src="{{ url_for('test_pass.static', filename='js/jquery-3.7.1.min.js') }}"></script>
-    <script src="{{ url_for('mentor.static', filename='js/getNewUser.js') }}"></script>
 {% endblock scripts %}

@@ -21,15 +21,11 @@ html, body {
     width: 100%;
 }
 
-
-
 body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
 }
-
-
 
 .top-part {
     display: flex;
@@ -42,6 +38,9 @@ body {
     height: 30vh;
     min-height: 15.63vw;
     flex-wrap: wrap;
+    /* background-color: orange; */
+    padding-top: 1rem;
+    padding-bottom: 1rem;
 }
 
 .enter-code {
@@ -56,7 +55,6 @@ body {
     width: 60%;
     height: 12vw;
     overflow: hidden;
-    max-width: 56.25vw;
 }
 
 .data-user {
@@ -102,10 +100,8 @@ body {
     flex-shrink: 0;
 }
 
-/* --- Uniform Font Size (1.10vw) applied to all text elements --- */
-
 .username {
-    font-size: 1.05vw;
+    font-size: 2vh;
     color: #ffffff;
 }
 
@@ -124,12 +120,12 @@ body {
     opacity: 0.8;
     color: #D6E8FE;
     font-weight: 500;
-    font-size: 1.05vw;
+    font-size: 2vh;
     text-decoration: none;
 }
 
 .nick {
-    font-size: 1.05vw;
+    font-size: 2vh;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -143,7 +139,6 @@ body {
     overflow-wrap: break-word;
     white-space: normal;
 }
-
 
 .nick .pet-cont {
     height: 100%;
@@ -163,12 +158,12 @@ input::-webkit-inner-spin-button {
 .number-tests {
     color: #FFE177;
     font-weight: bold;
-    font-size: 1.05vw;
+    font-size: 2vh;
 }
 
 .text-tests {
     margin-right: 0.44vw;
-    font-size: 1.05vw;
+    font-size: 2vh;
 }
 
 .main-input {
@@ -191,7 +186,7 @@ input::-webkit-inner-spin-button {
     height: 100%;
     color: #636262;
     font-weight: bold;
-    font-size: 1.05vw;
+    font-size: 2vh;
     padding-left: 1.88vw;
 }
 
@@ -209,7 +204,7 @@ input::-webkit-inner-spin-button {
     transition: background-color 0.3s ease, transform 0.2s ease;
     width: auto;
     min-width: 6.25vw;
-    font-size: 1.05vw;
+    font-size: 2vh;
 }
 
 .main-input button:hover {
@@ -217,7 +212,7 @@ input::-webkit-inner-spin-button {
     transform: scale(1.01);
 }
 
-.cards-floor {
+/* .cards-floor {
     width: 100vw;
     height: 45vh;
     margin-bottom: 3.13vw;
@@ -226,6 +221,18 @@ input::-webkit-inner-spin-button {
     max-width: 106.25vw;
     padding-left: 1.25vw;
     padding-right: 1.25vw;
+} */
+
+.cards-floor {
+    width: 100vw;
+    height: auto; /* Изменено с 45vh */
+    margin-bottom: 3.13vw;
+    min-height: 15.63vw;
+    /* max-height: 1.88vw;  <-- Удалите это, оно мешает росту */
+    padding-left: 1.25vw;
+    padding-right: 1.25vw;
+    display: flex;
+    flex-direction: column;
 }
 
 .card-1 {
@@ -253,7 +260,7 @@ input::-webkit-inner-spin-button {
     padding: 0.63vw;
     text-align: center;
     font-weight: bold;
-    font-size: 1.05vw;
+    font-size: 2vh;
     transition: 0.2s;
 }
 
@@ -270,10 +277,10 @@ input::-webkit-inner-spin-button {
     padding: 0.63vw;
     text-align: center;
     font-weight: bold;
-    font-size: 1.05vw;
+    font-size: 2vh;
 }
 
-.cards {
+/* .cards {
     width: 100%;
     height: 85%;
     padding: 0.63vw;
@@ -281,13 +288,27 @@ input::-webkit-inner-spin-button {
     gap: 2.50vw;
     display: flex;
     flex-direction: row;
-    justify-content: start;
+    justify-content: center;
+    flex-wrap: wrap;
     max-height: 12.50vw;
+    padding: 0.5rem;
+} */
+ .cards {
+    width: 100%;
+    height: auto; /* Изменено с 85% */
+    padding: 0.63vw;
+    padding-top: 1.5vw; /* Уменьшил отступ для компактности */
+    gap: 2.50vw;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap; /* Разрешаем перенос на новые строки */
+    /* max-height: 12.50vw; <-- Удалите это обязательно */
 }
 
 .card {
     position: relative;
-    width: 23.19vw;
+    width: 17vw;
     height: 13.13vw;
     overflow: hidden;
     flex-direction: column;
@@ -296,12 +317,14 @@ input::-webkit-inner-spin-button {
     justify-content: end;
     border: 0.06vw black solid;
     cursor: pointer;
-    min-width: 15.00vw;
-    min-height: 11.25vw;
+    /* min-width: 15.00vw;
+    min-height: 11.25vw; */
     padding-bottom: 0.63vw;
-    max-width: 17.50vw;
+    /* max-width: 17.50vw; */
     transition: 0.5s ease;
     box-shadow: 0 0 0.63vw rgba(170, 114, 161, 0.45);
+    min-width: 10rem;
+    min-height: 7rem;
 }
 
 .card:hover {
@@ -319,7 +342,7 @@ input::-webkit-inner-spin-button {
 
 .topic-test {
     color: #343434;
-    font-size: 1.05vw;
+    font-size: 2vh;
     font-weight: 600;
 }
 
@@ -353,7 +376,7 @@ a {
     height: 20%;
     padding: 1.88vw 1.25vw 0.63vw 1.25vw;
     color: #343434;
-    font-size: 1.05vw;
+    font-size: 2vh;
 }
 
 .discription-test {
@@ -379,59 +402,48 @@ a {
     position: absolute;
     width: 3.50vw;
     height: auto;
-    /* z-index: 5; */
     margin-bottom: 1.00vw;
 }
 
 .static-theme {
     color: #C48AF7;
-    font-size: 1.05vw;
+    font-size: 2vh;
 }
 
 .theme-test {
     color: #343434;
-    font-size: 1.10vw; 
+    font-size: 2vh; 
     width: 50%;
     white-space: nowrap;
     overflow: hidden;    
     text-overflow: ellipsis;
 }
 
-
-@media(max-width: 64.00vw) {
-    .avatar-circle {
-        width: 3.13vw;
-        height: 3.13vw;
-    }
-
-    .antoher-data .text-tests {
-        color: #D6E8FE;
-        font-weight: 400;
-        text-decoration: none;
-        font-size: 1.05vw;
-    }
-    .number-tests {
-        font-size: 1.05vw;
-    }
-
-    .card_image img {
-        width: 100%;
-        height: 100%;
-    }
-}
-
 .nothing{
     width: 100vw;
-    height: 30vh;
+    height: 40vh;
     display: flex;
     flex-direction: column;
-    background-color: green;
 }
 
 .top-text{
-    font-size: 1.05vw;
+    font-size: 2vh;
 }
 
 .bottom-text{
-    font-size: 1.05vw;
+    font-size: 2vh;
+}
+/* 
+@media(max-width: 1000px){
+    main{
+        background-color: orange;
+    }
+
+} */
+
+@media(max-width: 678px){
+    .card{
+        width: 60%;
+        height: 10rem;
+    }
 }

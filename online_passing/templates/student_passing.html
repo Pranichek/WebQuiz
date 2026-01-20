@@ -5,6 +5,7 @@
 {% endblock links %}
 
 {% block content %}
+    <p style="display: none;" data-id="{{ user.id }}" class="id"></p>
     <a href="/finish_test?test_id="></a>
     <!-- <head> -->
     <div class="head-part">
@@ -12,6 +13,7 @@
             <div class="full-bonus" data-value="{{ bonus_value }}" id="bonus"></div>
             <p class="text-bonus">бонус</p>
         </div>
+        <button class="leave_test">Покинути тест</button>
     </div>
 
     <audio id="correct-sound" src="{{ url_for('test_pass.static', filename='audio/right.mp3') }}" preload="auto"></audio>
@@ -110,6 +112,8 @@
 {% block scripts %}
     {{ super() }}
     <script src="{{ url_for('student.static', filename='js/passing_test.js') }}"></script>
-    <!-- <script type="module" src="{{ url_for('student.static', filename='js/count_bonus.js') }}"></script>
-    <script type="module" src="{{ url_for('student.static', filename='js/count_money.js') }}"></script> -->
+    <script src="{{ url_for('student.static', filename='js/count_bonus.js') }}"></script> 
+    <script src="{{ url_for('student.static', filename='js/count_money.js') }}"></script> 
+    <script src="{{ url_for('student.static', filename='js/check_student.js') }}"></script>
+    <script src="{{ url_for('student.static', filename='js/leave_test.js') }}"></script>
 {% endblock scripts %}

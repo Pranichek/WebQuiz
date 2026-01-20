@@ -3,7 +3,7 @@
     width: 100vw;
     height: 90vh;
     flex-direction: column;
-    background-color: #414141;
+    background-color: #d91b1b;
     align-items: center;
     justify-content: center;
 }
@@ -11,23 +11,27 @@
 .text-ferify {
     display: flex;
     flex-direction: column;
-    justify-content: end;
-    align-items: center;
+    justify-content: flex-end;
+    align-items: stretch;   
     color: #ffffff;
     text-align: center;
     width: 100vw;
     height: 30vh;
+    /* background-color: green; */
 }
 
 .text-ferify p {
-    font-size: 1.68vw;
+    width: 100%;           
+    font-size: 17.5px;
+    word-wrap: break-word;
 }
 
+
 .time{
-    font-size: 1.2vh;
+    font-size: 12px;
 }
 .again{
-    font-size: 0.8vw;
+    font-size: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -38,6 +42,9 @@
     width: auto;
 }
 
+.disabled-btn:hover{
+    cursor: not-allowed;
+}
 
 .again:hover{
     color: rgb(113, 117, 223);
@@ -48,21 +55,22 @@
     align-items: center;
     justify-content: center;
     text-align: center;
-    width: 34vw;
+    width: 30rem;
+    /* background-color: green; */
     gap: 1vw;
 }
 
 .butt-again p{
     color: rgb(172, 179, 179);
     font-weight: 600;
-    font-size: 1vw;
+    font-size: 16px;
 }
 
 .butt-again a{
     text-decoration: none;
     color: rgb(172, 179, 179);
     font-weight: 600;
-    font-size: 1vw;
+    font-size: 16px;
     white-space: nowrap;
 }
 
@@ -87,35 +95,32 @@ p {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    height: 12vh;
-    width: 34vw;
+    height: 5rem;
+    width: 30rem;
+    /* background-color: green; */
 }
 
 .input-tag {
-    border-radius: 1.2vh;
+    border-radius: 10px;
     position: relative;
-    min-width: 3vw;
     width: 15%;
-    height: 95%;
-    min-height: 4vh;
+    height: 100%;
     border: none;
     color: #414141;
     text-align: center;
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 1.8vh;
+    font-size: 16px;
 }
 
 .buttons-verify {
     display: flex;
     flex-direction: row;
-    /* padding: 0.8vh 0.8vw 1.5vh 0.8vw; */
-    width: 34vw;
-    height: 10vh;
+    width: 30rem;
+    height: 4.5rem;
     justify-content: space-between;
     align-items: center;
-    /* background-color: green; */
     position: relative;
 }
 
@@ -123,9 +128,9 @@ p {
     text-decoration: none;
     background-color: #B9BDF5;
     border: solid 0.15vh black; 
-    font-size: 1.1vw;
+    font-size: 16px;
     font-weight: bold;
-    border-radius: 1.5vh; 
+    border-radius: 10px; 
     color: #414141;
     /* padding: 1.5vh 2vw;  */
     width: 49%;
@@ -171,7 +176,7 @@ form{
 
 /* Таймер */
 .time {
-    font-size: 1.2vh;
+    font-size: 12px;
     transition: color 0.1s ease, transform 0.1s ease;
 }
 .time.active {
@@ -186,7 +191,7 @@ form{
 
 /* Инпуты */
 input {
-    border-radius: 1.2vh;
+    border-radius: 10px;
     position: relative;
     min-width: 3vw;
     width: 12%;
@@ -198,7 +203,7 @@ input {
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    font-size: 1.8vh;
+    font-size: 16px;
     transition: all 0.1s ease, box-shadow 0.1s ease;
 }
 
@@ -220,3 +225,17 @@ input:focus {
         color: #96ffd6;
     }
 }
+
+
+@media (max-width: 678px) and (pointer: coarse) {
+    .input-code,
+    .buttons-verify {
+        width: 95vw;
+        height: 9vh;
+    }
+    main{
+        overflow-x: hidden; 
+        overflow-y: hidden; 
+    }
+}
+
