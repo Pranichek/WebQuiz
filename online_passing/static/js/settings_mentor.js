@@ -149,12 +149,12 @@ socket.on("data_question_mentor", data => {
             </div>`
         )
     }else{
-        console.log(data.answer_options, "lolik")
         const answers = data.answer_options.split("%?)(?%")
+        
         answers[0] = answers[0].replace("(?%", "")
-        answers[-1] = answers[answers.length-1].replace("%?)", "")
+        answers[answers.length - 1] = answers[answers.length - 1].replace("%?)", "")
         for (let option of answers){
-            option = option.replace(/[?()%/]/g, "");
+            // option = option.replace(/[?()%/]/g, "");
             
             
             if(option[0] == "+"){

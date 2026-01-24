@@ -59,7 +59,6 @@ def render_result_mentor():
 # страница финиша ментора
 @login_decorate
 def render_finish_mentor():
-    print("ducking_finish_mentor")
     return flask.render_template(
         'finish_mentor.html',
         user = flask_login.current_user,

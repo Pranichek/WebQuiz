@@ -238,7 +238,6 @@ def clear_code():
 
 def render_code():
     form_code = ''
-    print(dict(flask.session), "hoho")
     if flask.request.method == "POST":
         send_again = flask.request.form.get("again")
         end_code = flask.request.form.get("end")

@@ -28,7 +28,7 @@ socket.on("check_connect",
             
         }else if(data["page"] == "result" && page != "result_student"){
             try {
-                localStorage.setItem("index_question", parseInt(data.index_question))
+                localStorage.setItem("index_question", parseInt(data.index_question) + 1)
                 localStorage.setItem('time_question', "set")
             } catch (error) {
                 

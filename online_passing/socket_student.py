@@ -12,19 +12,18 @@ def change_check(id: int, code: int):
     data_room: Rooms = Rooms.query.filter_by(room_code=code).first()
     users_id = []
     
-    if data_room.check_socket:
-        check_socket : list = data_room.check_socket.split()
-        users_id : list = data_room.users.split()
+    if data_room.sockets_users:
+        check_socket : list = data_room.sockets_users
+        users_id : list = data_room.users
     else:
         check_socket = []
 
-    check_socket.append(str(id))
+    if User.query.get(id) not in check_socket:
+        check_socket.append(str(id))
 
-    if str(id) not in users_id:
+    if User.query.get(id) not in users_id:
         users_id.append(str(id))
 
-    data_room.users = " ".join(users_id)
-    data_room.check_socket = " ".join(check_socket)
     DATABASE.session.commit()
 
 @socket.on("connect_room")
@@ -44,6 +43,7 @@ def connect_to_room(data):
     types = test.type_questions.split("?$?")
 
     correct_answers = return_answers(index= index_question, test_id= int(id_test))
+
 
     current_question = questions[index_question]
     test_time = test_time[index_question]
@@ -146,7 +146,8 @@ def answer_the_question(data):
         pass
 
     flask_login.current_user.user_profile.answering_answer = "відповів"
-    flask_login.current_user.user_profile.index_question = int(data["index"])
+    flask_login.current_user.user_profile.index_question = int(data["index"]) 
+    DATABASE.session.commit()
     
 
     # -------------------- последний ответ пользователя
@@ -286,7 +287,6 @@ def answer_the_question(data):
     # список для того чтобы понимать правильно он ответил последний вопрос или нет
     check_answers = []
 
-    print(user_answers, "loh")
 
     for i in range(len(user_answers)):
         if list_users_answers[i][0] != "∅":
@@ -351,8 +351,6 @@ def answer_the_question(data):
     answered_questions = int(data["index"]) + 1   # сколько вопросов уже пройдено
     accuracy = (right_answers  / answered_questions) * 100 if answered_questions > 0 else 0
 
-    print(check_answers, "dup")
-    print(int(data['index']))
     if len(ready_answers.split()) == 1: 
         flask_login.current_user.user_profile.last_answered = f"{ready_answers.split()[0]}𒀱{accuracy}𒀱{check_answers[int(data['index'])]}𒀱{data['lastanswers']}"
     else:
@@ -362,34 +360,43 @@ def answer_the_question(data):
 
     user_list = []
     room : Rooms = Rooms.query.filter_by(room_code= data["code"]).first()
-    user_ids = room.users.split() if room and room.users else []
+    user_ids = room.users if room and room.users else []
 
     count_answered = 0
     count_people = 0
-    for user_id in user_ids:
-        user = User.query.get(int(user_id))
+    for user in user_ids:
+        # user = User.query.get(int(user_id))
         if user and user.id != room.user_id:
             count_people += 1
             if user.user_profile.answering_answer == "відповів":
                 count_answered += 1
+
+            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
+            pet_url = flask.url_for(
+                'profile.static',
+                filename=f'images/pets_id/{user.user_profile.pet_id}.png'
+            )
+
             user_list.append({
                 "username": user.username,
-                "email": user.email,
                 "ready": user.user_profile.answering_answer,
-                "count_points": flask_login.current_user.user_profile.count_points,
+                "count_points": user.user_profile.count_points,
+                "user_avatar": avatar_url,
+                "pet_img": pet_url,
                 "id": user.id
             })
+    
 
     if "finish" in data.keys():
         DATABASE.session.commit()
         emit("finish_student")
     elif count_answered >= count_people or "check_end" in data.keys():
-        room.check_socket = ""
+        room.sockets_users.clear()
         DATABASE.session.commit()
-        emit("users_data", {"user_list": user_list}, room=data["code"], broadcast=True)
+        emit("update_users", {"user_list": user_list}, room=data["code"], broadcast=True)
         emit("page_result", room=data["code"], broadcast=True)
     else:
-        emit("users_data", {"user_list":user_list}, room=data["code"], broadcast=True)
+        emit("update_users", {"user_list":user_list}, room=data["code"], broadcast=True)
         emit("page_waiting")
 
     DATABASE.session.commit()
@@ -430,7 +437,6 @@ def return_data(data):
     answers = test.answers.split("?@?")
     ready_answers = ""
 
-
     if current_type != "input-gap":
         current_answers = []
         current_answers_list = answers[int(data["index_question"]) - 1].split("?@?")
@@ -439,6 +445,8 @@ def return_data(data):
             ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
             current_answers.append(ans_clean.split("*|*|*"))
         user_answers = data["lastanswers"]
+
+        
         if user_answers != "∅":
             if len(user_answers.split("@")) > 1:
                 user_answers = user_answers.split("@")
@@ -508,22 +516,9 @@ def return_data(data):
     #логика получение индекса правильного ответа даже если правильных несколько
     # например, если правильные ответы на вопрос 1 это да и нет, то в массиве будет [[0, 1], [тут индексі уже следующего вопроса и тд]]
     for index in range(len(questions)):
-        current_answer_list = answers[index]
-        data_str = ''
-        for symbol in current_answer_list:
-            if symbol == '+' or symbol == '-':
-                data_str += symbol
+        correct_answers = return_answers(index= index, test_id= int(test_id))
         
-        symbol_list = []
-        for i in range(0 ,len(data_str), 2):
-            symbol_list.append(data_str[i:i+2]) 
-
-        question_right_answers = []
-        for i in range(len(symbol_list)):
-            if symbol_list[i] == '++':
-                question_right_answers.append(i)
-        
-        correct_indexes.append(question_right_answers)
+        correct_indexes.append(correct_answers)
 
     count_right_answers = 0
 
@@ -605,7 +600,6 @@ def return_data(data):
   
     answers = data["lastanswers"].split("@")
     images_urls = []
-    print(answers, "koko")
     if test.type_questions.split('?$?')[int(data["index_question"]) - 1] != "input-gap":
         for answer in answers:
             if answer != "∅":
@@ -642,15 +636,15 @@ def return_data(data):
 
     user_list = []
     room : Rooms = Rooms.query.filter_by(room_code= data["room_code"]).first()
-    user_ids = room.users.split() 
+    user_ids = room.users
 
 
     count_people_answes = []
     for answer in clear_answers:
         count_people_answes.append(0)
 
-    for user_id in user_ids:
-        user : User  = User.query.get(int(user_id))
+    for user in user_ids:
+        # user : User  = User.query.get(int(user_id))
         if user and int(room.user_id) != int(user.id):            
             count = 0
             count_image = 1

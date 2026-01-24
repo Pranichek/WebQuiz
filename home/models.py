@@ -1,5 +1,6 @@
 import flask_login, sqlalchemy
 from Project.db import DATABASE
+from Project.settings_many import room_users, check_socket
 
 class User(DATABASE.Model, flask_login.UserMixin):
     __tablename__ = "user"
@@ -32,6 +33,18 @@ class User(DATABASE.Model, flask_login.UserMixin):
 
     google_id = DATABASE.Column(DATABASE.String(50), nullable = True)
 
+    # когда ты в какой то комнате
+    rooms = DATABASE.relationship(
+        "Rooms",
+        secondary=room_users,
+        back_populates="users"
+    )
+
+    room_sockets = DATABASE.relationship(
+        "Rooms",
+        secondary=check_socket, 
+        back_populates="sockets_users"
+    )
 
 
 

@@ -12,8 +12,8 @@
         </div>
         <div class="cards">
             <div class="cards-header">
-                <img src="{{ url_for('mentor.static', filename='images/mentor/count_users.svg') }}" alt="">
-                <p>X учасників</p>
+                <img src="{{ url_for('mentor.static', filename = 'images/people.svg') }}" alt="">
+                <p class="count-people">учасників</p>
             </div>
             <div class="block-info">
                 <div class="div55">
@@ -33,10 +33,10 @@
         </div>
     </div>
     <div class="graphics">
-        <button class="q-btn">
+        <!-- <button class="q-btn">
             <p>Перелік питань</p>
         </button>
-        
+         -->
         <div class="accurancy">
             <div class="main-diagram">
                 <p>Результати тесту: </p>
@@ -52,18 +52,13 @@
                 <div class="full-info">
                     <span>Найкраще питання за тест: </span>
                     <div class="style-block">
-                        <p>Для чого потрібен Auto Layout?</p>
+                        <p class="text-question">Для чого потрібен Auto Layout?</p>
                         <div class="graf"><p class="best_question"></p></div>
                     </div>
                     <span>Найгірше питання за тест: </span>
                     <div class="style-block">
-                        <p>Для чого потрібен Auto Layout?</p>
-                        <div class="graf">bb</div>
-                    </div>
-
-                    <div class="time-info">
-                        <p>Середній час витрачений на тест: </p>
-                        <p class="text-color">Щось ....</p>
+                        <p class="worst_text">Для чого потрібен Auto Layout?</p>
+                        <div class="graf"><p class="worst_question"></p></div>
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@ class Test(DATABASE.Model):
     user = DATABASE.relationship("User", back_populates="tests")
 
     # Зв'язок із таблицею даних про тест(one to one)
-    test_profile = DATABASE.relationship("TestData", back_populates="test", uselist=False,cascade="all, delete-orphan" )
+    test_profile = DATABASE.relationship("TestData", back_populates="test", uselist=False,cascade="all, delete-orphan")
 
     description = DATABASE.Column(DATABASE.String(300))
     

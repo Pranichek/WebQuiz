@@ -9,9 +9,8 @@ def check_room(function: object):
     def handler(*args, **kwargs):
         existing_room : Rooms = Rooms.query.filter_by(user_id=current_user.id).first()
 
-        all_users = existing_room.users.split() if existing_room is not None else []
-        for id in all_users:
-            user : User = User.query.get(int(id))
+        all_users = existing_room.users if existing_room is not None else []
+        for user in all_users:
             if user:
                 if len(user.password) == 1:
                     DATABASE.session.delete(user)

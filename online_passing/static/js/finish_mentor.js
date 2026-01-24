@@ -10,8 +10,15 @@ socket.emit("finish_mentor",{
 socket.on("list_results", data => {
     let users = data.users
     document.querySelector(".best_question").textContent = `${data.best_question}%`
+    document.querySelector(".text-question").textContent = data.text_best
     let count = 0
     // користувачі, що проходили тест(їхні блоки)
+    document.querySelector(".count-people").textContent = `${users.length} учасників`
+
+    document.querySelector(".worst_question").textContent = `${data.worst_question}%`
+    document.querySelector(".worst_text").textContent = data.text_worst
+
+
     users.forEach(user => {
         count++
         const userCardDiv = document.createElement("div")
@@ -30,10 +37,22 @@ socket.on("list_results", data => {
 
         // ім'я
         const nameDiv = document.createElement("div")
+
+        const avatarImg = document.createElement("img")
+        avatarImg.classList.add("ava")
+        avatarImg.src = user.user_avatar
+
+        const obodokAva = document.createElement("div")
+        obodokAva.className = "ava-obodok"
+        obodokAva.appendChild(avatarImg)
+
+        nameDiv.appendChild(obodokAva)
+
         nameDiv.className = "div-name"
         const textName = document.createElement("p")
         textName.textContent = user.username
         nameDiv.appendChild(textName)
+
         userCardDiv.appendChild(nameDiv)
 
         // Бали
@@ -97,13 +116,14 @@ socket.on("list_results", data => {
 
 
     new Chart(ctx, {
-        type: 'pie',// тип диграмы пирог
+        type: 'pie',// тип диграмvы пирог
         data: {
             labels: dataLabels,// надписи при наведении на диаграму
             datasets: [{
                 data: dataDiagram, // сами значения люлдей
                 backgroundColor: colorsDiagram,
-                borderWidth: 1
+                borderWidth: 0,
+                borderColor: 'transparent'
         }]
         },
         options: {

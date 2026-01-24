@@ -2,7 +2,6 @@ const urlParamsStudent = new URLSearchParams(window.location.search);
 const room_code = urlParamsStudent.get('room_code');
 
 if (room_code != localStorage.getItem("room_code")){
-    console.log("popo")
     localStorage.setItem("room_code", room_code)
     localStorage.setItem("index_question", "0")
     localStorage.setItem("flag_time", "true")

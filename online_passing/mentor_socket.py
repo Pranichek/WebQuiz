@@ -14,7 +14,7 @@ from os.path import exists, join, abspath
 def users_results(data):
     user_list = []
     room : Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
-    user_ids = room.users.split() if room and room.users else []
+    user_ids = room.users if room and room.users else []
 
 
     test : Test = Test.query.get(int(room.id_test))
@@ -50,8 +50,8 @@ def users_results(data):
     for answer in clear_answers:
         count_people_answes.append(0)
 
-    for user_id in user_ids:
-        user : User  = User.query.get(int(user_id))
+    for user in user_ids:
+        # user : User  = User.query.get(int(user_id))
         user.user_profile.answering_answer = "відповідає"
         DATABASE.session.commit()
         if user and user.id != flask_login.current_user.id:
@@ -112,9 +112,21 @@ def users_results(data):
     # проверка на лучший вопрос
     avarage_accuracy = avarage_accuracy // count_people
     best_question = room.best_question
+    worst_question = room.worst_question
 
-    if best_question is None or avarage_accuracy > best_question:
-        room.best_question = avarage_accuracy
+    if best_question is None:
+        room.best_question = f"{avarage_accuracy} {index_question}"
+        room.worst_question = f"{avarage_accuracy} {index_question}"
+        DATABASE.session.commit()
+
+    else:
+        best_question = room.best_question.split(" ")
+        if int(avarage_accuracy) > int(best_question[0]):
+            room.best_question = f"{avarage_accuracy} {index_question}"
+
+        if int(avarage_accuracy) < int(worst_question.split(" ")[0]):
+            room.worst_question = f"{avarage_accuracy} {index_question}"
+
         DATABASE.session.commit()
 
     # черещ встроенній модуль делаем филтрацию словаря за "count_points" и делаем реверс чтобі біло от большего к меньшему
@@ -155,12 +167,11 @@ def users_results(data):
 def load_question_mentor(data):
     user_list = []
     room: Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
-    user_ids = room.users.split() if room and room.users else []
+    user_ids = room.users if room and room.users else []
 
-    for user_id in user_ids:
-        user : User  = User.query.get(int(user_id))
-        user.user_profile.answering_answer = "відповідає"
-        DATABASE.session.commit()
+    for user in user_ids:
+        # user.user_profile.answering_answer = "відповідає"
+        # DATABASE.session.commit()
         if user and user.id != flask_login.current_user.id:
             avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
             pet_url = flask.url_for(
@@ -220,33 +231,53 @@ def load_question_mentor(data):
         "answer_options": answer_options if type_question != "input-gap" else answer_options.replace("(?%+", "").replace("+%?)", " ").split(),
         "img_url": img_url,
         "image_urls": image_urls,
-        "amount_question": len(text_question)
+        "amount_question": len(test.questions.split("?%?"))
     })
     emit("update_users", {"user_list": user_list})
 
-    check_room = room.check_socket.split()
+    check_room = room.sockets_users
 
-    if len(check_room) != len(room.users.split()):
+    if len(check_room) != len(room.users):
         emit("check_connect", {"page": "start_passing"}, room=data["room"])
 
 @socket.on("check_users")
 def check_users(data):
     room : Rooms = Rooms.query.filter_by(room_code = data["room_code"]).first()
-    check_room = room.check_socket.split()
+    check_room = room.sockets_users
 
-    users = room.users.split()
+    users = room.users
+    for user in users:
+        # user : User = User.query.get(int(id))
 
-    for id in users:
-        user : User = User.query.get(int(id))
         if str(user.user_profile.index_question) != str(data["index_question"]):
             user.user_profile.last_answered = "пропустив𒀱0.0𒀱2𒀱∅"
             user.user_profile.index_question = str(data["index_question"])
             DATABASE.session.commit()
-            emit("update_users", {"status": "ok"})
+            user_list = []
+            user_ids = room.users if room and room.users else []
+
+            for user in user_ids:
+                # user : User  = User.query.get(int(user_id))
+                if user and user.id != flask_login.current_user.id:
+                    avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
+                    pet_url = flask.url_for(
+                        'profile.static',
+                        filename=f'images/pets_id/{user.user_profile.pet_id}.png'
+                    )
+
+                    user_list.append({
+                        "username": user.username,
+                        "ready": user.user_profile.answering_answer,
+                        "count_points": user.user_profile.count_points,
+                        "user_avatar": avatar_url,
+                        "pet_img": pet_url,
+                        "id": user.id
+                    })
+            emit("update_users", {"user_list": user_list})
 
             # emit("upload_data", {"status":"ok"}, room = data["room_code"])
 
-    if len(check_room) != len(room.users.split()):
+    if len(check_room) != len(room.users):
         if data["page"] == "passing":
             emit("check_connect", {"page": "start_passing", "index_question": data["index_question"]}, room = data["room_code"])
         elif data["page"] == "result":
@@ -272,7 +303,7 @@ def next_question(data):
         emit("end_test", {"status": "ok"}, room=room_code, broadcast=True)
     else:
         emit("next_question", {"index_question": data["index"]}, room=room_code, broadcast=True)
-        room.check_socket = ""
+        room.sockets_users.clear()
         DATABASE.session.commit()
 
 
@@ -290,13 +321,22 @@ def stop_time(data):
 def finish_test(data):
     user_list = []
     room : Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
-    user_ids = room.users.split() if room and room.users else []
+    user_ids = room.users if room and room.users else []
     accuracy_result = [] #[[80, 5],[50, 1]] - пример что в нем будет хранится(80 - это проценты, 5 - колво людей что прошло на такой результат)
     sum_accuracy = 0
     passed_test = 0
 
-    for user_id in user_ids:
-        user : User  = User.query.get(int(user_id))
+    # отримання найкращого питання
+    index_best = int(room.best_question.split(" ")[-1])
+    test : Test = Test.query.get(int(room.id_test))
+    question = test.questions.split("?%?")[index_best]
+
+    # отримання найгіршого питання
+    index_worst = int(room.worst_question.split(" ")[-1])
+    question_worst = test.questions.split("?%?")[index_worst]
+
+    for user in user_ids:
+        # user : User  = User.query.get(int(user_id))
         user.user_profile.answering_answer = "відповідає"
         DATABASE.session.commit()
         
@@ -339,7 +379,10 @@ def finish_test(data):
         "users": user_list,
         "accuracy_result": accuracy_result,
         "average_accuracy": average_accuracy,
-        "best_question": room.best_question
+        "best_question": room.best_question.split(" ")[0],
+        "text_best": question,
+        "worst_question": room.worst_question.split(" ")[0],
+        "text_worst": question_worst
     })
 
 @socket.on("alarm-end")
