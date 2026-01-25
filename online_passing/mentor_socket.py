@@ -325,6 +325,15 @@ def finish_test(data):
     accuracy_result = [] #[[80, 5],[50, 1]] - пример что в нем будет хранится(80 - это проценты, 5 - колво людей что прошло на такой результат)
     sum_accuracy = 0
     passed_test = 0
+    total_accuracy = 0
+
+    stats_bins = {
+        '<40%': 0,
+        '40-59%': 0,
+        '60-79%': 0,
+        '80-99%': 0,
+        '100%': 0
+    }
 
     # отримання найкращого питання
     index_best = int(room.best_question.split(" ")[-1])
@@ -364,16 +373,31 @@ def finish_test(data):
                     sum_accuracy += accuracy
                     
                     break
-
+                
             if check == False:
                 new_list = [accuracy, 1]
                 sum_accuracy += accuracy
-                passed_test += 1
+
                 accuracy_result.append(new_list)
-                            
+            passed_test += 1
+            total_accuracy += accuracy
+
+            if accuracy < 40:
+                stats_bins['<40%'] += 1
+            elif 40 <= accuracy <= 59:
+                stats_bins['40-59%'] += 1
+            elif 60 <= accuracy <= 79:
+                stats_bins['60-79%'] += 1
+            elif 80 <= accuracy <= 99:
+                stats_bins['80-99%'] += 1
+            elif accuracy == 100:
+                stats_bins['100%'] += 1
 
     user_list = sorted(user_list, key=itemgetter("count_points"), reverse=True)
-    average_accuracy = sum_accuracy // passed_test
+    average_accuracy = total_accuracy // passed_test
+
+    bar_labels = list(stats_bins.keys())   # ['<40%', '40-59%', ...]
+    bar_values = list(stats_bins.values())
     
     emit("list_results", {
         "users": user_list,
@@ -382,7 +406,9 @@ def finish_test(data):
         "best_question": room.best_question.split(" ")[0],
         "text_best": question,
         "worst_question": room.worst_question.split(" ")[0],
-        "text_worst": question_worst
+        "text_worst": question_worst,
+        "bar_labels": bar_labels,
+        "bar_values": bar_values
     })
 
 @socket.on("alarm-end")

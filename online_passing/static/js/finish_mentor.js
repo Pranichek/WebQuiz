@@ -7,92 +7,58 @@ socket.emit("finish_mentor",{
     question_index: localStorage.getItem("index_question")
 })
 
+
 socket.on("list_results", data => {
     let users = data.users
-    document.querySelector(".best_question").textContent = `${data.best_question}%`
-    document.querySelector(".text-question").textContent = data.text_best
+    document.querySelector(".count-users").textContent = users.length
+
     let count = 0
-    // користувачі, що проходили тест(їхні блоки)
-    document.querySelector(".count-people").textContent = `${users.length} учасників`
+    let userCointainer = document.querySelector(".list-users")
 
-    document.querySelector(".worst_question").textContent = `${data.worst_question}%`
-    document.querySelector(".worst_text").textContent = data.text_worst
-
+    let htmlContent = ""
 
     users.forEach(user => {
-        count++
-        const userCardDiv = document.createElement("div")
+        count++;
+        let checkDark = count % 2 == 0 ? 'dark' : ''
+        let accuracy = parseInt(user.accuracy)
 
-        userCardDiv.classList.add("user-card")
-        // userCardDiv.textContent = user.email
+        htmlContent += `
+            <div class="user ${checkDark}">
+                <div class="left-category">
+                    <p class="place">№${count}</p>
+                    <p class="name">${user.username}</p>
+                </div>
+                <div class="right-category">
+                    <p class="points">${user.count_points}</p>
 
-        // місце користувача
-        const divPlace = document.createElement("div")
-        divPlace.className = "div-place"
-        const textPlace = document.createElement("p")
-        textPlace.textContent = `№ ${count}`
-        divPlace.appendChild(textPlace)
-        userCardDiv.appendChild(divPlace)
-
-
-        // ім'я
-        const nameDiv = document.createElement("div")
-
-        const avatarImg = document.createElement("img")
-        avatarImg.classList.add("ava")
-        avatarImg.src = user.user_avatar
-
-        const obodokAva = document.createElement("div")
-        obodokAva.className = "ava-obodok"
-        obodokAva.appendChild(avatarImg)
-
-        nameDiv.appendChild(obodokAva)
-
-        nameDiv.className = "div-name"
-        const textName = document.createElement("p")
-        textName.textContent = user.username
-        nameDiv.appendChild(textName)
-
-        userCardDiv.appendChild(nameDiv)
-
-        // Бали
-        const pointsDiv = document.createElement("div")
-        pointsDiv.className = "div-points"
-        const textPoints = document.createElement("p")
-        textPoints.textContent = user.count_points
-        pointsDiv.appendChild(textPoints)
-        userCardDiv.appendChild(pointsDiv)
-
-        cardsContainer.appendChild(userCardDiv)
-
-
-        const outlineDiv = document.createElement("div")
-        outlineDiv.classList.add("outline")
-        userCardDiv.appendChild(outlineDiv)
-        const fillDiv = document.createElement("div")
-        fillDiv.classList.add("fill")
-        outlineDiv.appendChild(fillDiv)
-
-        for (let i = 1; i <= parseInt(user.accuracy); i++) {
-            fillDiv.style.width = "0%"; // старт с 0
-
-            // даём браузеру время вставить элемент, и только потом меняем высоту
-            setTimeout(() => {
-                fillDiv.style.width = `${(parseInt(user.accuracy))}%`;
-            }, 50); 
-        }
+                    <div class="outline-accuracy">
+                        <p class="text-accuracy">${accuracy}%</p>
+                        <div class="fill-accuracy" style="width: 0%" data-width="${accuracy}%"></div>
+                    </div>
+                </div>
+            </div>
+        `;
     });
+
+    userCointainer.innerHTML = htmlContent
+
+    setTimeout(() => {
+        const bars = userCointainer.querySelectorAll('.fill-accuracy')
+        bars.forEach(bar => {
+            bar.style.width = bar.getAttribute('data-width')
+        })
+    }, 100)
 
     let accuracyResult = data.accuracy_result
     let dataDiagram = []
     let dataLabels = []
 
     const colorArray = [
-        'rgba(107, 58, 126, 0.7)', 
-        'rgba(143, 97, 158, 0.7)', 
-        'rgba(156, 127, 181, 0.7)',
-        'rgba(179, 134, 197, 0.7)',
-        'rgba(212, 168, 229, 0.7)'
+        'rgba(107, 58, 126, 1)', 
+        'rgba(143, 97, 158, 1)', 
+        'rgba(156, 127, 181, 1)',
+        'rgba(179, 134, 197, 1)',
+        'rgba(212, 168, 229, 1)'
     ];
 
     colorArray.sort(() => Math.random() - 0.5);
@@ -105,43 +71,171 @@ socket.on("list_results", data => {
         countPeople = accuracyResult[index][1]
         dataLabels.push(`Кількість людей: ${countPeople}`)
 
-        // Generate a random index
-        // const randomIndex = Math.floor(Math.random() * colorArray.length)
-        // Get the element at the random index
+        // рандомінй цвет
         colorsDiagram.push(colorArray[index])
     }
 
 
-    const ctx = document.querySelector('.myChart').getContext('2d');// полотно которое нужно именно в 2d
+    const ctx = document.querySelector('.myChart').getContext('2d');
 
 
     new Chart(ctx, {
-        type: 'pie',// тип диграмvы пирог
+        type: 'pie',
         data: {
-            labels: dataLabels,// надписи при наведении на диаграму
+            labels: dataLabels,
             datasets: [{
-                data: dataDiagram, // сами значения люлдей
+                data: dataDiagram,
                 backgroundColor: colorsDiagram,
                 borderWidth: 0,
                 borderColor: 'transparent'
-        }]
+            }]
         },
         options: {
             responsive: true,
+            maintainAspectRatio: false, 
             plugins: {
                 legend: {
-                position: 'bottom',//надписи, котороые можно отключить
-                display:false
+                    position: 'bottom',
+                    display: true,
+                    labels: {
+                        color: "#ffffff",
+                    }
                 },
                 title: {
-                display: false
+                    display: false
                 }
             }
         }
     });
 
-    const textAccuracy = document.querySelector(".average_accuracy")
+    let barLabels = []
+    let barValues = []
+
+    for (let i = 0; i < accuracyResult.length; i++) {
+        barValues.push(accuracyResult[i][0])
+        
+        let labelFromServer = accuracyResult[i][2] || `< ${100 - (i * 20)}%`;
+        barLabels.push(labelFromServer);
+    }
+
+    barLabels = data.bar_labels 
+    barValues = data.bar_values
+
+    // ... распоковівают маисв и предоставляют єлементі в нем как отдельніе аргументі(чтобі даже нету в поле значений то график біл) 
+    const maxVal = Math.max(...barValues)
+
+    const ctxBar = document.getElementById('accuracyChart').getContext('2d');
+
+    const gradientBar = ctxBar.createLinearGradient(0, 0, 400, 0);
+    gradientBar.addColorStop(0, 'rgba(107, 58, 126, 1)')
+    gradientBar.addColorStop(1, 'rgba(179, 134, 197, 1)');
+
+    new Chart(ctxBar, {
+        type: 'bar',
+        data: {
+            labels: barLabels,
+            datasets: [
+                {
+                    data: barValues,
+                    backgroundColor: gradientBar,
+                    borderRadius: 4, 
+                    barPercentage: 0.5, 
+                    categoryPercentage: 1.0,
+                    grouped: false, 
+                    order: 1 
+                },
+                {
+                    data: barValues.map(() => maxVal), 
+                    backgroundColor: 'rgba(255, 255, 255, 0.05)', 
+                    borderRadius: 4,
+                    barPercentage: 0.5,
+                    categoryPercentage: 1.0,
+                    grouped: false,
+                    order: 2, 
+                    hoverBackgroundColor: 'rgba(255, 255, 255, 0.05)' 
+                }
+            ]
+        },
+        
+        options: {
+            indexAxis: 'y', 
+            responsive: true,
+            maintainAspectRatio: false,
+            
+            interaction: {
+                mode: 'y', 
+                intersect: false
+            },
+
+            plugins: {
+                legend: { display: false }, 
+                tooltip: { 
+                    enabled: true,
+                    filter: function(tooltipItem) {
+                        return tooltipItem.datasetIndex === 0
+                    },
+                    displayColors: true, 
+                }
+            },
+            scales: {
+                x: {
+                    display: false, 
+                    max: maxVal 
+                },
+                y: {
+                    grid: { display: false, drawBorder: false },
+                    ticks: {
+                        color: '#ffffff', 
+                    }
+                },
+                y2: {
+                    position: 'right',
+                    grid: { display: false, drawBorder: false },
+                    ticks: {
+                        color: '#ffffff',
+                        callback: function(value, index) {
+                            return barValues[index];
+                        }
+                    }
+                }
+            }
+        }
+    })
+
+    const textAccuracy = document.querySelector(".accuracy-result")
     const averageAccuracy = data.average_accuracy
     textAccuracy.textContent = `${averageAccuracy}%`
+
+    const dropdownList = document.querySelector(".dropdown-users")
+    let dropdownContent = "";
+
+    users.forEach(user => {
+        dropdownContent += `<div class="dropdown-item">${user.username}</div>`
+    })
+
+    dropdownList.innerHTML = dropdownContent
+})
+
+const arrow = document.querySelector(".solo-data img")
+document.addEventListener("DOMContentLoaded", () => {
+    const soloBtn = document.querySelector(".solo-data")
+    const dropdownList = document.querySelector(".dropdown-users")
+
+    if (soloBtn) {
+        
+        soloBtn.addEventListener("click", (e) => {
+            e.stopPropagation()
+            dropdownList.classList.toggle("active")
+            arrow.classList.toggle("rotate")
+        })
+    }
+
+    document.addEventListener("click", (e) => {
+        if (!e.target.closest(".solo-wrapper")) {
+            if (dropdownList) {
+                dropdownList.classList.remove("active")
+            }
+        }
+    })
 })
 
