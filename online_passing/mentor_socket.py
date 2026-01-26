@@ -7,6 +7,7 @@ from flask_socketio import emit, join_room
 from Project.db import DATABASE
 from operator import itemgetter
 from os.path import exists, join, abspath
+from Project.settings import project
 
 
 
@@ -354,6 +355,7 @@ def finish_test(data):
             avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
 
             user_list.append({
+                "id": user.id,
                 "username": user.username,
                 "email": user.email,
                 "count_points": user.user_profile.count_points,

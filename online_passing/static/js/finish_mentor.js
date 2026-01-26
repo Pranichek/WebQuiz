@@ -206,14 +206,23 @@ socket.on("list_results", data => {
     const averageAccuracy = data.average_accuracy
     textAccuracy.textContent = `${averageAccuracy}%`
 
-    const dropdownList = document.querySelector(".dropdown-users")
+    const dropdownList = document.querySelector(".dropdown-users");
     let dropdownContent = "";
 
+    // Додаємо data-id, щоб потім знати кого вантажити
     users.forEach(user => {
-        dropdownContent += `<div class="dropdown-item">${user.username}</div>`
-    })
+        dropdownContent += `<div class="dropdown-item" data-id="${user.id}">${user.username}</div>`;
+    });
 
-    dropdownList.innerHTML = dropdownContent
+    dropdownList.innerHTML = dropdownContent;
+
+    // --- НОВА ЛОГІКА ДЛЯ КЛІКІВ ---
+    document.querySelectorAll('.dropdown-item').forEach(item => {
+        item.addEventListener('click', function() {
+            const userId = this.getAttribute('data-id');
+            openUserModal(userId);
+        });
+    });
 })
 
 const arrow = document.querySelector(".solo-data img")
@@ -234,8 +243,39 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!e.target.closest(".solo-wrapper")) {
             if (dropdownList) {
                 dropdownList.classList.remove("active")
+                arrow.classList.toggle("rotate")
             }
         }
     })
 })
+
+
+// Функція відкриття та завантаження
+function openUserModal(userId) {
+    // AJAX запит до Python
+    fetch('/get_user_detail_stats', { // <-- Куда стучимся (адрес маршрута в Python)
+        method: 'POST', // <-- Тип запроса (мы "постим", то есть передаем данные)
+        headers: {
+            'Content-Type': 'application/json' // <-- Говорим серверу: "Мы шлем тебе JSON"
+        },
+        body: JSON.stringify({
+            user_id: userId, // Отправляем ID пользователя (аргумент функции)
+            room: localStorage.getItem("room_code") // Отправляем код комнаты из памяти браузера
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if(data.error) {
+            return
+        }
+
+        document.querySelector(".text-button").textContent = data.username
+        
+        document.getElementById('modal-username').textContent = data.username
+        document.getElementById('modal-points').textContent = data.points
+        document.getElementById('modal-accuracy').textContent = data.accuracy 
+        document.getElementById('modal-avatar').src = data.avatar
+
+    })
+}
 

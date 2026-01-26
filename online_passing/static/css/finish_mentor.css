@@ -329,7 +329,7 @@ main{
     justify-content: center;
 }
 
-.bar-chart-container {
+.bar-chart-container{
     width: 100%;
     height: 100%;
     position: relative;
@@ -398,4 +398,45 @@ main{
 }
 .dropdown-users::-webkit-scrollbar-track {
     background: transparent;
+}
+
+
+.user-modal-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.user-modal-content {
+    background: #1e1e1e; /* Темний фон під ваш стиль */
+    padding: 20px;
+    border-radius: 10px;
+    width: 500px;
+    max-width: 90%;
+    color: white;
+    position: relative;
+}
+.close-modal {
+    position: absolute;
+    top: 10px; right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+.modal-header {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #444;
+    padding-bottom: 10px;
+}
+.modal-user-avatar {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
 }
