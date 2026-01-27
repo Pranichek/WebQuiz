@@ -57,6 +57,7 @@ main{
 
 .button-question{
     background-color: #7EA2CE;
+    cursor:not-allowed;
 }
 
 .button-question:hover{
@@ -252,6 +253,7 @@ main{
 
 .save-result{
     background-color: #7EA2CE;
+    cursor: not-allowed;
 }
 
 .save-result:hover{
@@ -264,6 +266,7 @@ main{
 
 .solo-data{
     gap: 2px;
+    min-width: 40px;
 }
 
 .solo-data img{

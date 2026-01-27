@@ -46,7 +46,7 @@
                     <p>Зберегти результат</p>
                 </div>
             </div>
-
+<!-- 
             <div class="personal-data">
 
                 <div class="points-user">
@@ -68,9 +68,9 @@
                         <p>12хв</p>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="user-questions">
+            <!-- <div class="user-questions">
                 <p class="info-text">Детальний аналіз відповідей</p>
                 <div class="all-questions">
                     <div class="question-header">
@@ -230,9 +230,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
-<!-- 
+
             <div class="users">
                 <div class="head-titles">
                     <div class="left-category">
@@ -257,7 +257,7 @@
                 <div class="page">
                     <p>1</p>
                 </div>
-            </div> -->
+            </div>
 
         </div>
 
@@ -272,7 +272,7 @@
             <div class="line"></div>
                 
             <div class="data-accuracy">
-                <div class="user-tips">
+                <!-- <div class="user-tips">
                     <div class="correct-answers div-answer">
                         <div class="left-block">
                             <div class="sighn-correct"></div>
@@ -293,17 +293,17 @@
                     </div>
                     <div class="unanswered-answers div-answer">
                         <div class="left-block">
-                            <div class="sighn-skip"></div>
+                            <div class=" "></div>
                             <p>Пропущені відповіді</p>
                         </div>
                         <div class="text-num">
                             <p>6</p>
                         </div>
                     </div>
-                </div>
-                <!-- <div class="bar-chart-container">
-                    <canvas id="accuracyChart"></canvas>
                 </div> -->
+                <div class="bar-chart-container">
+                    <canvas id="accuracyChart"></canvas>
+                </div>
             </div>
         </div>
     </div>
@@ -332,4 +332,5 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="{{ url_for('mentor.static', filename='js/finish_mentor.js') }}" defer></script>
     <script src="{{ url_for('mentor.static', filename='js/recconect.js') }}" defer></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 {% endblock %}

@@ -18,7 +18,7 @@ socket.on("list_results", data => {
     let htmlContent = ""
 
     users.forEach(user => {
-        count++;
+        count++
         let checkDark = count % 2 == 0 ? 'dark' : ''
         let accuracy = parseInt(user.accuracy)
 
@@ -37,8 +37,8 @@ socket.on("list_results", data => {
                     </div>
                 </div>
             </div>
-        `;
-    });
+        `
+    })
 
     userCointainer.innerHTML = htmlContent
 
@@ -59,9 +59,9 @@ socket.on("list_results", data => {
         'rgba(156, 127, 181, 1)',
         'rgba(179, 134, 197, 1)',
         'rgba(212, 168, 229, 1)'
-    ];
+    ]
 
-    colorArray.sort(() => Math.random() - 0.5);
+    colorArray.sort(() => Math.random() - 0.5)
     let colorsDiagram = []
     
     for (let index = 0; index < accuracyResult.length; index++) {
@@ -76,7 +76,7 @@ socket.on("list_results", data => {
     }
 
 
-    const ctx = document.querySelector('.myChart').getContext('2d');
+    const ctx = document.querySelector('.myChart').getContext('2d')
 
 
     new Chart(ctx, {
@@ -106,7 +106,7 @@ socket.on("list_results", data => {
                 }
             }
         }
-    });
+    })
 
     let barLabels = []
     let barValues = []
@@ -114,8 +114,8 @@ socket.on("list_results", data => {
     for (let i = 0; i < accuracyResult.length; i++) {
         barValues.push(accuracyResult[i][0])
         
-        let labelFromServer = accuracyResult[i][2] || `< ${100 - (i * 20)}%`;
-        barLabels.push(labelFromServer);
+        let labelFromServer = accuracyResult[i][2] || `< ${100 - (i * 20)}%`
+        barLabels.push(labelFromServer)
     }
 
     barLabels = data.bar_labels 
@@ -124,11 +124,11 @@ socket.on("list_results", data => {
     // ... распоковівают маисв и предоставляют єлементі в нем как отдельніе аргументі(чтобі даже нету в поле значений то график біл) 
     const maxVal = Math.max(...barValues)
 
-    const ctxBar = document.getElementById('accuracyChart').getContext('2d');
+    const ctxBar = document.getElementById('accuracyChart').getContext('2d')
 
-    const gradientBar = ctxBar.createLinearGradient(0, 0, 400, 0);
+    const gradientBar = ctxBar.createLinearGradient(0, 0, 400, 0)
     gradientBar.addColorStop(0, 'rgba(107, 58, 126, 1)')
-    gradientBar.addColorStop(1, 'rgba(179, 134, 197, 1)');
+    gradientBar.addColorStop(1, 'rgba(179, 134, 197, 1)')
 
     new Chart(ctxBar, {
         type: 'bar',
@@ -194,7 +194,7 @@ socket.on("list_results", data => {
                     ticks: {
                         color: '#ffffff',
                         callback: function(value, index) {
-                            return barValues[index];
+                            return barValues[index]
                         }
                     }
                 }
@@ -206,23 +206,52 @@ socket.on("list_results", data => {
     const averageAccuracy = data.average_accuracy
     textAccuracy.textContent = `${averageAccuracy}%`
 
-    const dropdownList = document.querySelector(".dropdown-users");
-    let dropdownContent = "";
+    const dropdownList = document.querySelector(".dropdown-users")
+    let dropdownContent = ""
 
-    // Додаємо data-id, щоб потім знати кого вантажити
     users.forEach(user => {
-        dropdownContent += `<div class="dropdown-item" data-id="${user.id}">${user.username}</div>`;
-    });
+        dropdownContent += `<div class="dropdown-item" data-id="${user.id}">${user.username}</div>`
+    })
 
-    dropdownList.innerHTML = dropdownContent;
+    dropdownList.innerHTML = dropdownContent
 
-    // --- НОВА ЛОГІКА ДЛЯ КЛІКІВ ---
     document.querySelectorAll('.dropdown-item').forEach(item => {
         item.addEventListener('click', function() {
-            const userId = this.getAttribute('data-id');
-            openUserModal(userId);
-        });
-    });
+            const userId = this.getAttribute('data-id')
+            openUserModal(userId)
+        })
+    })
+
+
+    const downloadBtn = document.querySelector(".load-excel")
+    
+    const newBtn = downloadBtn.cloneNode(true)
+    downloadBtn.parentNode.replaceChild(newBtn, downloadBtn)
+    
+    newBtn.addEventListener("click", () => {
+        const excelData = users.map(user => {
+            return {
+                "Ім'я учня": user.username,
+                "Email": user.email,
+                "Бали": user.count_points,
+                "Точність (%)": parseInt(user.accuracy) 
+            }
+        })
+
+        const workbook = XLSX.utils.book_new()
+        const worksheet = XLSX.utils.json_to_sheet(excelData)
+
+        const wscols = [
+            {wch: 25}, // ширина 
+            {wch: 30}, 
+            {wch: 10}, 
+            {wch: 15}  
+        ]
+        worksheet['!cols'] = wscols
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Результати")
+
+        XLSX.writeFile(workbook, `Results_Room_${localStorage.getItem("room_code")}.xlsx`)
+    })
 })
 
 const arrow = document.querySelector(".solo-data img")

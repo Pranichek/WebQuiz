@@ -44,9 +44,9 @@
                     <div class="midle-info">
                         <div class="avatar-circle da">
                             {% if current_user.is_authenticated %}
-                                <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
+                                <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.name_avatar ) }} alt="avatar">
                             {% else %}
-                                <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.svg') }}" alt="avatar">
+                                <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.name_avatar ) }} alt="avatar">
                             {% endif %}
                         </div>
                     </div>

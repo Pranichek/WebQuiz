@@ -10,7 +10,7 @@ class User(DATABASE.Model, flask_login.UserMixin):
     phone_number =  DATABASE.Column(DATABASE.Integer, nullable = False, default = "Не під'єднан")
     nickname = DATABASE.Column(DATABASE.String(150))
     password = DATABASE.Column(DATABASE.String(150))
-    email = DATABASE.Column(DATABASE.String(150), nullable = False)
+    email = DATABASE.Column(DATABASE.String(150), nullable = False, unique = True)
     is_mentor = DATABASE.Column(DATABASE.Boolean, default = False)
     
     name_avatar = DATABASE.Column(DATABASE.String)

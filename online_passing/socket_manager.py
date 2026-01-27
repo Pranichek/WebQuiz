@@ -106,12 +106,11 @@ def handle_join(data):
             )
             user_list.append({
                 "username": user.username,
-                "email": user.email,
                 "ready": user.user_profile.answering_answer,
                 "count_points": user.user_profile.count_points,
                 "user_avatar": avatar_url,
                 "pet_img": pet_url,
-                "id":user.id
+                "id": user.id
             })
 
     emit("update_users", {"user_list":user_list, "code":room_code, "id_test": room.id_test}, room=room_code, broadcast=True)
@@ -195,15 +194,14 @@ def handle_disconnect():
                     )
                     user_list.append({
                         "username": user.username,
-                        "email": user.email,
                         "ready": user.user_profile.answering_answer,
                         "count_points": user.user_profile.count_points,
                         "user_avatar": avatar_url,
                         "pet_img": pet_url,
-                        "id":user.id
+                        "id": user.id
                     })
 
-            emit("update_users", {"user_list":user_list, "code":room.room_code, "id_test": room.id_test}, room= room.room_code, broadcast=True)
+            # emit("update_users", {"user_list":user_list, "code":room.room_code, "id_test": room.id_test}, room= room.room_code, broadcast=True)
 
 
 
@@ -245,14 +243,13 @@ def delete_user(data):
                 )
 
                 user_list.append({
-                    "username": u.username,
-                    "email": u.email,
-                    "ready": u.user_profile.answering_answer,
-                    "count_points": u.user_profile.count_points,
-                    "user_avatar": avatar_url,
-                    "pet_img": pet_url,
-                    "id": u.id
-                })
+                        "username": u.username,
+                        "ready": u.user_profile.answering_answer,
+                        "count_points": u.user_profile.count_points,
+                        "user_avatar": avatar_url,
+                        "pet_img": pet_url,
+                        "id": u.id
+                    })
 
             emit(
                 "update_users",

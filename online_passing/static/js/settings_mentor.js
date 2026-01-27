@@ -129,7 +129,7 @@ socket.on("data_question_mentor", data => {
     document.querySelector(".num-que").textContent = `${parseInt(localStorage.getItem("index_question")) + 1}/${data.amount_question}`
 
     const answersBlock = document.querySelector(".answers-test");
-    answersBlock.innerHTML = "";
+    answersBlock.innerHTML = ""
     
     document.querySelector(".question-test").insertAdjacentHTML(
         "afterbegin",
@@ -154,7 +154,6 @@ socket.on("data_question_mentor", data => {
         answers[0] = answers[0].replace("(?%", "")
         answers[answers.length - 1] = answers[answers.length - 1].replace("%?)", "")
         for (let option of answers){
-            // option = option.replace(/[?()%/]/g, "");
             
             
             if(option[0] == "+"){
