@@ -13,6 +13,7 @@ from Project.check_room import check_room
 
 
 #Просто головна сторінка
+@check_room
 def render_home():
     flask.session["code"] = ''
     if flask.request.method == "POST":

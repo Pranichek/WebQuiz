@@ -6,19 +6,6 @@ main{
     justify-content: start;
 }
 
-/* .blur {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: linear-gradient(69deg, #3C3C3C 10%, #7c9abd 20%, #74919E 72%, #3C3C3C 5%);
-    filter: blur(6.25vw);
-    z-index: -1;
-    pointer-events: none;
-} */
-
-
 .pseudo-header{
     width: 100%;
     height: 8vh;
@@ -27,6 +14,7 @@ main{
     align-items: center;
     justify-content: space-between;
     padding: 0 1vw;
+    /* background-color: green; */
 }
 
 .buttons{
@@ -79,7 +67,7 @@ main{
 .main-data{
     width: 100vw;
     height: 82vh;
-    padding: 1vw 1vw;
+    padding: 0 1vw 1vw 1vw;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -429,17 +417,11 @@ main{
     font-size: 24px;
     cursor: pointer;
 }
-.modal-header {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #444;
-    padding-bottom: 10px;
-}
-.modal-user-avatar {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
+
+
+#choice-diagram{
+    color: gray;
+    font-size: 1.8vh;
+    /* background-color: transparent; */
+    /* border: transparent; */
 }

@@ -6,3 +6,4 @@ from .socket_student import *
 from .mentor_socket import *
 from .leave_test import *
 from .ajax_request import *
+from .diagram import *

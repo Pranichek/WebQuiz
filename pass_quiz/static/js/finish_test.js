@@ -19,8 +19,6 @@ socket.emit("finish_test", {
 
 
 socket.on("test_result", (data) => {
-    // масив где и 
-
     playAgain.value = data.test_id;
 
     document.querySelector(".uncorrect-answers").textContent = data.uncorrect_answers;
@@ -36,11 +34,11 @@ socket.on("test_result", (data) => {
     }
 
     if (data.count_answered == 0) {
-        document.querySelector(".midle-time").textContent = "0";
+        document.querySelector(".wasted_time").textContent = "0";
     } else {
         let midleTime = localStorage.getItem("wasted_time") / data.count_answered;
         midleTime = midleTime.toFixed(0);
-        document.querySelector(".midle-time").textContent = midleTime + " сек";
+        document.querySelector(".midle-time").textContent = midleTime
     }
 
     localStorage.setItem("accuracy", data.accuracy);

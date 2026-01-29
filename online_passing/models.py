@@ -32,3 +32,9 @@ class Rooms(DATABASE.Model):
     # Зв'язок one to one із користувачем
     user = DATABASE.relationship("User", back_populates="room")
     user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id'), unique=True)
+
+    # pquestions procents
+    all_questions = DATABASE.Column(DATABASE.String, default = "")
+
+    # how many correct/uncorrect for question
+    data_question = DATABASE.Column(DATABASE.String, default = "")

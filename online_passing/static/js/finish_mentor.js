@@ -49,159 +49,6 @@ socket.on("list_results", data => {
         })
     }, 100)
 
-    let accuracyResult = data.accuracy_result
-    let dataDiagram = []
-    let dataLabels = []
-
-    const colorArray = [
-        'rgba(107, 58, 126, 1)', 
-        'rgba(143, 97, 158, 1)', 
-        'rgba(156, 127, 181, 1)',
-        'rgba(179, 134, 197, 1)',
-        'rgba(212, 168, 229, 1)'
-    ]
-
-    colorArray.sort(() => Math.random() - 0.5)
-    let colorsDiagram = []
-    
-    for (let index = 0; index < accuracyResult.length; index++) {
-        
-        dataDiagram.push(accuracyResult[index][0]) 
-
-        countPeople = accuracyResult[index][1]
-        dataLabels.push(`Кількість людей: ${countPeople}`)
-
-        // рандомінй цвет
-        colorsDiagram.push(colorArray[index])
-    }
-
-
-    const ctx = document.querySelector('.myChart').getContext('2d')
-
-
-    new Chart(ctx, {
-        type: 'pie',
-        data: {
-            labels: dataLabels,
-            datasets: [{
-                data: dataDiagram,
-                backgroundColor: colorsDiagram,
-                borderWidth: 0,
-                borderColor: 'transparent'
-            }]
-        },
-        options: {
-            responsive: true,
-            maintainAspectRatio: false, 
-            plugins: {
-                legend: {
-                    position: 'bottom',
-                    display: true,
-                    labels: {
-                        color: "#ffffff",
-                    }
-                },
-                title: {
-                    display: false
-                }
-            }
-        }
-    })
-
-    let barLabels = []
-    let barValues = []
-
-    for (let i = 0; i < accuracyResult.length; i++) {
-        barValues.push(accuracyResult[i][0])
-        
-        let labelFromServer = accuracyResult[i][2] || `< ${100 - (i * 20)}%`
-        barLabels.push(labelFromServer)
-    }
-
-    barLabels = data.bar_labels 
-    barValues = data.bar_values
-
-    // ... распоковівают маисв и предоставляют єлементі в нем как отдельніе аргументі(чтобі даже нету в поле значений то график біл) 
-    const maxVal = Math.max(...barValues)
-
-    const ctxBar = document.getElementById('accuracyChart').getContext('2d')
-
-    const gradientBar = ctxBar.createLinearGradient(0, 0, 400, 0)
-    gradientBar.addColorStop(0, 'rgba(107, 58, 126, 1)')
-    gradientBar.addColorStop(1, 'rgba(179, 134, 197, 1)')
-
-    new Chart(ctxBar, {
-        type: 'bar',
-        data: {
-            labels: barLabels,
-            datasets: [
-                {
-                    data: barValues,
-                    backgroundColor: gradientBar,
-                    borderRadius: 4, 
-                    barPercentage: 0.5, 
-                    categoryPercentage: 1.0,
-                    grouped: false, 
-                    order: 1 
-                },
-                {
-                    data: barValues.map(() => maxVal), 
-                    backgroundColor: 'rgba(255, 255, 255, 0.05)', 
-                    borderRadius: 4,
-                    barPercentage: 0.5,
-                    categoryPercentage: 1.0,
-                    grouped: false,
-                    order: 2, 
-                    hoverBackgroundColor: 'rgba(255, 255, 255, 0.05)' 
-                }
-            ]
-        },
-        
-        options: {
-            indexAxis: 'y', 
-            responsive: true,
-            maintainAspectRatio: false,
-            
-            interaction: {
-                mode: 'y', 
-                intersect: false
-            },
-
-            plugins: {
-                legend: { display: false }, 
-                tooltip: { 
-                    enabled: true,
-                    filter: function(tooltipItem) {
-                        return tooltipItem.datasetIndex === 0
-                    },
-                    displayColors: true, 
-                }
-            },
-            scales: {
-                x: {
-                    display: false, 
-                    max: maxVal 
-                },
-                y: {
-                    grid: { display: false, drawBorder: false },
-                    ticks: {
-                        color: '#ffffff', 
-                    }
-                },
-                y2: {
-                    position: 'right',
-                    grid: { display: false, drawBorder: false },
-                    ticks: {
-                        color: '#ffffff',
-                        callback: function(value, index) {
-                            return barValues[index]
-                        }
-                    }
-                }
-            }
-        }
-    })
-
     const textAccuracy = document.querySelector(".accuracy-result")
     const averageAccuracy = data.average_accuracy
     textAccuracy.textContent = `${averageAccuracy}%`
@@ -255,41 +102,38 @@ socket.on("list_results", data => {
 })
 
 const arrow = document.querySelector(".solo-data img")
-document.addEventListener("DOMContentLoaded", () => {
-    const soloBtn = document.querySelector(".solo-data")
-    const dropdownList = document.querySelector(".dropdown-users")
+const soloBtn = document.querySelector(".solo-data")
+const dropdownList = document.querySelector(".dropdown-users")
 
-    if (soloBtn) {
-        
-        soloBtn.addEventListener("click", (e) => {
-            e.stopPropagation()
-            dropdownList.classList.toggle("active")
-            arrow.classList.toggle("rotate")
-        })
-    }
-
-    document.addEventListener("click", (e) => {
-        if (!e.target.closest(".solo-wrapper")) {
-            if (dropdownList) {
-                dropdownList.classList.remove("active")
-                arrow.classList.toggle("rotate")
-            }
-        }
+if (soloBtn) {
+    
+    soloBtn.addEventListener("click", (e) => {
+        e.stopPropagation()
+        dropdownList.classList.toggle("active")
+        arrow.classList.toggle("rotate")
     })
+}
+
+document.addEventListener("click", (e) => {
+    if (!e.target.closest(".solo-wrapper")) {
+        if (dropdownList) {
+            dropdownList.classList.remove("active")
+            arrow.classList.toggle("rotate")
+        }
+    }
 })
 
 
-// Функція відкриття та завантаження
+
 function openUserModal(userId) {
-    // AJAX запит до Python
-    fetch('/get_user_detail_stats', { // <-- Куда стучимся (адрес маршрута в Python)
-        method: 'POST', // <-- Тип запроса (мы "постим", то есть передаем данные)
+    fetch('/get_user_detail_stats', { 
+        method: 'POST',
         headers: {
-            'Content-Type': 'application/json' // <-- Говорим серверу: "Мы шлем тебе JSON"
+            'Content-Type': 'application/json' 
         },
         body: JSON.stringify({
-            user_id: userId, // Отправляем ID пользователя (аргумент функции)
-            room: localStorage.getItem("room_code") // Отправляем код комнаты из памяти браузера
+            user_id: userId, 
+            room: localStorage.getItem("room_code") 
         })
     })
     .then(response => response.json())
@@ -298,12 +142,137 @@ function openUserModal(userId) {
             return
         }
 
+        const dataCont = document.querySelector(".left-part")
+        const usersBlock = dataCont.querySelector(".users")
+        const pageUsers = dataCont.querySelector(".check-page")
+        if (usersBlock) {
+            usersBlock.remove()
+            pageUsers.remove()
+        }
+
+        dataCont.innerHTML += `
+            <div class="personal-data">
+
+                <div class="points-user">
+                    <p class="points-text">200/200</p>
+                    <div class="block-accuracy">
+                        <p>Бали</p>
+                        <p>Точність</p>
+                    </div>
+                </div>
+
+                <div class="personal-accuracy">
+                    <p>100%</p>
+                    <p>Точність</p>
+                </div>
+
+                <div class="avarage-time">
+                    Середній час:
+                    <div class="time-text">
+                        <p>12хв</p>
+                    </div>
+                </div>
+            </div> 
+
+             <div class="user-questions">
+                <p class="info-text">Детальний аналіз відповідей</p>
+                <div class="all-questions">
+                    <div class="question-header">
+                        <div class="nums">
+                            #
+                        </div>
+                        <div class="question-part">
+                            Питання
+                        </div>
+                        <div class="answer-part">
+                            Ваша відповідь
+                        </div>
+                        <div class="part-result">
+                            Результат
+                        </div>
+                    </div>
+                    <div class="questions-cont">
+                        <div class="question-example">
+                            <div class="nums">
+                                <p>1</p>
+                            </div>
+                            <div class="question-block">
+                                <p>Для чого я существую взагалі?</p>
+                            </div>
+                            <div class="answer-block">
+                                <p>Я сам хз бро</p>
+                            </div>
+                            <div class="result-block">
+                                <p>правильно</p>
+                            </div>
+                        </div>
+                        <div class="question-example dark-example">
+                            <div class="nums">
+                                <p>1</p>
+                            </div>
+                            <div class="question-block">
+                                <p>Для чого я существую взагалі?</p>
+                            </div>
+                            <div class="answer-block">
+                                <p>Я сам хз бро</p>
+                            </div>
+                            <div class="result-block">
+                                <p>правильно</p>
+                            </div>
+                        </div>
+            
+                    </div>
+                </div>
+            </div> 
+        `
+
+        const dataDiagram = document.querySelector(".right-part")
+        const bottomDiagram = dataDiagram.querySelector(".bar-chart-container")
+
+        if (bottomDiagram){
+            bottomDiagram.remove()
+        }
+
+        document.querySelector(".data-accuracy").innerHTML +=  `
+            <div class="user-tips">
+                <div class="correct-answers div-answer">
+                    <div class="left-block">
+                        <div class="sighn-correct"></div>
+                        <p>Правильні відповіді</p>
+                    </div>
+                    <div class="text-num">
+                        <p>6</p>
+                    </div>
+                </div>
+                <div class="uncorrect-answers div-answer">
+                    <div class="left-block">
+                        <div class="sighn-uncorrect"></div>
+                        <p>Не правильні відповіді</p>
+                    </div>
+                    <div class="text-num">
+                        <p>6</p>
+                    </div>
+                </div>
+                <div class="unanswered-answers div-answer">
+                    <div class="left-block">
+                        <div class="sighn-skip"></div>
+                        <p>Пропущені відповіді</p>
+                    </div>
+                    <div class="text-num">
+                        <p>6</p>
+                    </div>
+                </div>
+            </div>
+        `
+
         document.querySelector(".text-button").textContent = data.username
         
-        document.getElementById('modal-username').textContent = data.username
-        document.getElementById('modal-points').textContent = data.points
-        document.getElementById('modal-accuracy').textContent = data.accuracy 
-        document.getElementById('modal-avatar').src = data.avatar
+        // document.getElementById('modal-username').textContent = data.username
+        // document.getElementById('modal-points').textContent = data.points
+        // document.getElementById('modal-accuracy').textContent = data.accuracy 
+        // document.getElementById('modal-avatar').src = data.avatar
+
+
 
     })
 }

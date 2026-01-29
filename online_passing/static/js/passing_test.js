@@ -90,7 +90,7 @@ socket.on("page_result",
         circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
 
         let midletime = localStorage.getItem("wasted_time")
-        midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+        midletime = (parseInt(midletime) || 0) + (parseInt(localStorage.getItem("timeData")) || 0)
         localStorage.setItem("wasted_time", midletime);
 
         localStorage.setItem("timeData", "0")
@@ -99,11 +99,11 @@ socket.on("page_result",
 )
 
 // socket.on("leave_user",
-//     data => {
-//         if (data["email"] == document.querySelector(".email").textContent){
-//             window.location.replace("/")
-//         }
-//     }
+//      data => {
+//          if (data["email"] == document.querySelector(".email").textContent){
+//              window.location.replace("/")
+//          }
+//      }
 // )
 
 socket.on('student_question', (data) => {
@@ -364,7 +364,7 @@ socket.on('student_question', (data) => {
                             setTimeout(() => {
                                 let midletime = localStorage.getItem("wasted_time")
 
-                                midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                midletime = (parseInt(midletime) || 0) + (parseInt(localStorage.getItem("timeData")) || 0)
                                 let stored = localStorage.getItem("users_answers");
                                 
 
@@ -637,7 +637,7 @@ socket.on('student_question', (data) => {
 
                             setTimeout(() => {
                                 let midletime = localStorage.getItem("wasted_time")
-                                midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                midletime = (parseInt(midletime) || 0) + (parseInt(localStorage.getItem("timeData")) || 0)
 
                                 let stored = localStorage.getItem("users_answers");
                                 
@@ -704,7 +704,7 @@ socket.on('student_question', (data) => {
                         variantText[index].style.fontSize  = "2.5vh"
 
                         manyBlockAnswers[index].appendChild(imgContainer);
-                         
+                          
                     }
                 }
 
@@ -729,7 +729,7 @@ socket.on('student_question', (data) => {
                 footer.innerHTML = `
                     <button type="button" class="confirm-button">надіслати відповідь</button>
                 `;
-                if (amountAnswers == 1){
+                if (amountAnswers == 0){
                     const divparent = document.querySelector(".answers")
 
                     const text = document.createElement("p")
@@ -852,8 +852,8 @@ socket.on('student_question', (data) => {
                                         document.querySelector(".modal").style.display = "block";
                                         document.querySelector(".right-answer").classList.add("fade-in-anim");
                                         document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
-                                        valueBonus = "10";
                                         checkCorrect = true
+                                        valueBonus = "10";
                                         const audio = document.querySelector("#correct-sound");
                                         if (audio) audio.play();
 
@@ -898,10 +898,10 @@ socket.on('student_question', (data) => {
 
                                 setTimeout(() => {
                                     let midletime = localStorage.getItem("wasted_time")
-                                    midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                    midletime = (parseInt(midletime) || 0) + (parseInt(localStorage.getItem("timeData")) || 0)
 
                                     let stored = localStorage.getItem("users_answers");
-                                
+                                    
 
                                     let answers = stored.split(",");
                                     let lastAnswers = answers[answers.length - 1];
@@ -917,8 +917,7 @@ socket.on('student_question', (data) => {
                                                 id_test: localStorage.getItem("test_id"),
                                                 index:localStorage.getItem("index_question"),
                                                 lastanswers: lastAnswers,
-                                                users_answers: localStorage.getItem("users_answers"),
-                                                
+                                                users_answers: localStorage.getItem("users_answers")
                                             }
                                         )
                                     }else{
@@ -1024,7 +1023,7 @@ socket.on('student_question', (data) => {
                                 }
 
                             
-
+                                
     
                                 let answers = data.answers
                                 let checkCorrect = false
@@ -1070,10 +1069,10 @@ socket.on('student_question', (data) => {
 
                                 setTimeout(() => {
                                     let midletime = localStorage.getItem("wasted_time")
-                                    midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+                                    midletime = (parseInt(midletime) || 0) + (parseInt(localStorage.getItem("timeData")) || 0)
 
                                     let stored = localStorage.getItem("users_answers");
-                                
+                                    
 
                                     let answers = stored.split(",");
                                     let lastAnswers = answers[answers.length - 1];
@@ -1140,7 +1139,7 @@ socket.on('student_question', (data) => {
                     block.style.backgroundColor = colors[index % colors.length];
                 });
             }
-        }   
+        }    
     }else{
         setTimeout(() => {
             window.location.replace('/finish_test');
@@ -1260,7 +1259,7 @@ socket.on("end_this_question",
         index = parseInt(index) + 1;
         localStorage.setItem("index_question", index)
 
-        midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+        midletime = (parseInt(midletime) || 0) + (parseInt(localStorage.getItem("timeData")) || 0)
         localStorage.setItem("wasted_time", midletime);
 
         localStorage.setItem("timeData", "0")
@@ -1301,7 +1300,7 @@ socket.on("no_time",
             circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
 
             let midletime = localStorage.getItem("wasted_time")
-            midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+            midletime = (parseInt(midletime) || 0) + (parseInt(localStorage.getItem("timeData")) || 0)
             localStorage.setItem("wasted_time", midletime);
 
             localStorage.setItem("timeData", "0")
@@ -1368,49 +1367,49 @@ setInterval(() => {
         }
         localStorage.setItem('time_question', timeQuestion)
         // if (timeQuestion <= 0){
-        //     localStorage.setItem('time_question', "set")
-        //     let chekcookies = localStorage.getItem("users_answers")
-        //     if (chekcookies){
-        //         // отримуємо старі відповіді якщо вони були
-        //         let oldCookie = localStorage.getItem("users_answers")
-        //         let cookieList = oldCookie.split(",")   
-        //         cookieList.push("∅")
+        //      localStorage.setItem('time_question', "set")
+        //      let chekcookies = localStorage.getItem("users_answers")
+        //      if (chekcookies){
+        //          // отримуємо старі відповіді якщо вони були
+        //          let oldCookie = localStorage.getItem("users_answers")
+        //          let cookieList = oldCookie.split(",")   
+        //          cookieList.push("∅")
 
-        //         localStorage.setItem("users_answers", cookieList)
-        //     }else{
-        //         localStorage.setItem("users_answers", "∅")
-        //     }
+        //          localStorage.setItem("users_answers", cookieList)
+        //      }else{
+        //          localStorage.setItem("users_answers", "∅")
+        //      }
 
-        //     let index = localStorage.getItem("index_question")
-        //     index = parseInt(index) + 1;
-        //     localStorage.setItem("index_question", index)
+        //      let index = localStorage.getItem("index_question")
+        //      index = parseInt(index) + 1;
+        //      localStorage.setItem("index_question", index)
 
-        //     circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
+        //      circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
 
-        //     let midletime = localStorage.getItem("wasted_time")
-        //     midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
-        //     localStorage.setItem("wasted_time", midletime);
+        //      let midletime = localStorage.getItem("wasted_time")
+        //      midletime = parseInt(midletime) + parseInt(localStorage.getItem("timeData"))
+        //      localStorage.setItem("wasted_time", midletime);
 
-        //     localStorage.setItem("timeData", "0")
+        //      localStorage.setItem("timeData", "0")
 
-        //     let stored = localStorage.getItem("users_answers");
+        //      let stored = localStorage.getItem("users_answers");
             
-        //     let answers = stored.split(",");
-        //     let lastAnswers = answers[answers.length - 1];
-        //     socket.emit(
-        //         'answered',
-        //         {
-        //             code: localStorage.getItem("room_code"), 
-        //             total_time: localStorage.getItem("default_time"), 
-        //             wasted_time: 0,
-        //             right_answered: "not",
-        //             id_test: localStorage.getItem("test_id"),
-        //             index:localStorage.getItem("index_question"),
-        //             lastanswers: lastAnswers,
-        //             users_answers: localStorage.getItem("users_answers")
-        //         }
-        //     )
-        //     // console.log("Питання відправлено на сервер, чекаємо відповіді");
+        //      let answers = stored.split(",");
+        //      let lastAnswers = answers[answers.length - 1];
+        //      socket.emit(
+        //          'answered',
+        //          {
+        //              code: localStorage.getItem("room_code"), 
+        //              total_time: localStorage.getItem("default_time"), 
+        //              wasted_time: 0,
+        //              right_answered: "not",
+        //              id_test: localStorage.getItem("test_id"),
+        //              index:localStorage.getItem("index_question"),
+        //              lastanswers: lastAnswers,
+        //              users_answers: localStorage.getItem("users_answers")
+        //          }
+        //      )
+        //      // console.log("Питання відправлено на сервер, чекаємо відповіді");
         // }
     }else{
         timer.textContent = "-"

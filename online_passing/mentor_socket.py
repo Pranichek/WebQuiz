@@ -51,6 +51,10 @@ def users_results(data):
     for answer in clear_answers:
         count_people_answes.append(0)
 
+    count_correct = 0
+    count_uncorrect = 0
+    count_skip = 0
+
     for user in user_ids:
         # user : User  = User.query.get(int(user_id))
         user.user_profile.answering_answer = "відповідає"
@@ -83,6 +87,13 @@ def users_results(data):
                 "id":user.id
             })
 
+            if int(user.user_profile.last_answered.split("𒀱")[2]) == 1:
+                count_correct += 1
+            elif int(user.user_profile.last_answered.split("𒀱")[2]) == 0:
+                count_uncorrect += 1
+            else:
+                count_skip += 1
+
             avarage_accuracy += int(user.user_profile.last_answered.split("𒀱")[1].split(".")[0])
             count_people += 1
 
@@ -114,6 +125,18 @@ def users_results(data):
     avarage_accuracy = avarage_accuracy // count_people
     best_question = room.best_question
     worst_question = room.worst_question
+
+    all_procents = room.all_questions.split(" ") if room.all_questions is not "" else []
+    data_questions = room.data_question.split(" ") if room.data_question is not "" else []
+    # Убедимся, что записываем строку, или полагаемся на map(str, ...) ниже
+
+    if index_question != len(all_procents) - 1 or len(all_procents) == 0:
+        all_procents.append(str(avarage_accuracy)) 
+        data_questions.append(f"{count_correct}/{count_uncorrect}/{count_skip}")
+
+    room.all_questions = " ".join(all_procents)
+    room.data_question = " ".join(data_questions)
+    DATABASE.session.commit()
 
     if best_question is None:
         room.best_question = f"{avarage_accuracy} {index_question}"
@@ -337,13 +360,13 @@ def finish_test(data):
     }
 
     # отримання найкращого питання
-    index_best = int(room.best_question.split(" ")[-1])
-    test : Test = Test.query.get(int(room.id_test))
-    question = test.questions.split("?%?")[index_best]
+    # index_best = int(room.best_question.split(" ")[-1])
+    # test : Test = Test.query.get(int(room.id_test))
+    # question = test.questions.split("?%?")[index_best]
 
-    # отримання найгіршого питання
-    index_worst = int(room.worst_question.split(" ")[-1])
-    question_worst = test.questions.split("?%?")[index_worst]
+    # # отримання найгіршого питання
+    # index_worst = int(room.worst_question.split(" ")[-1])
+    # question_worst = test.questions.split("?%?")[index_worst]
 
     for user in user_ids:
         # user : User  = User.query.get(int(user_id))
@@ -405,10 +428,6 @@ def finish_test(data):
         "users": user_list,
         "accuracy_result": accuracy_result,
         "average_accuracy": average_accuracy,
-        "best_question": room.best_question.split(" ")[0],
-        "text_best": question,
-        "worst_question": room.worst_question.split(" ")[0],
-        "text_worst": question_worst,
         "bar_labels": bar_labels,
         "bar_values": bar_values
     })
