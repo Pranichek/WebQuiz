@@ -2,8 +2,9 @@ from Project.socket_config import socket
 from quiz.models import Test
 from .models import Rooms
 from Project.db import DATABASE
-import flask_login, flask
+import flask_login
 from flask_socketio import emit
+from home.models import User
 
 
 @socket.on("general-diagram")
@@ -73,6 +74,24 @@ def general_diagran(data):
         "average_accuracy": average_accuracy,
         "bar_labels": bar_labels,
         "bar_values": bar_values
+    })
+
+# точкова одного користувача
+@socket.on("student_diagram")
+def dots_student(data):
+    test : Test = Test.query.get(int(data["test_id"]))
+    length_questions = test.questions.count("?%?") + 1
+
+    list_question = []
+    for index in range(length_questions):
+        list_question.append(index + 1)
+    user : User = User.query.get(int(data["id"]))
+    list_procents = user.user_profile.all_procents
+    
+
+    emit("dots-diagram", {
+        "list_question": list_question,
+        "list_procents": list_procents
     })
 
 @socket.on("dots-diagram")

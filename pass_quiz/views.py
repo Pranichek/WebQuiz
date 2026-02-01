@@ -198,6 +198,7 @@ def handle_finish_test(data: dict):
                     count_uncorrect_answers += 1
                     uncorrect_answers += 1
 
+    flask.session["count_answered"] = count_answered
 
     answered_questions = test.answers.count("?@?") + 1   # сколько вопросов уже пройдено
     accuracy = (right_answers  / answered_questions) * 100 if answered_questions > 0 else 0
@@ -230,6 +231,7 @@ def handle_finish_test(data: dict):
                 current_index = indexes.index(el)
                 formatted_answers = ",".join(user_answers)
                 average_time = int(int(data["wasted_time"]) / count_answered) if count_answered != 0 else 0
+
                 indexes[current_index] = f"{test_id}/{formatted_answers}/{average_time}/{int(accuracy)}"
 
         flask_login.current_user.user_profile.last_passed = " ".join(indexes)
@@ -295,6 +297,13 @@ def handle_finish_test(data: dict):
         "type_question": types_quest,
         "images": img_lists
     })
+
+@socket.on("save_time")
+def save_time(data):
+    if str(flask_login.current_user.user_profile.avarage_time) != str(data["midle_time"]):
+        print(int(data["midle_time"]), int(flask.session["count_answered"]), 'lols')
+        flask_login.current_user.user_profile.avarage_time = int(data["midle_time"]) // int(flask.session["count_answered"])
+        DATABASE.session.commit()
 
 
 

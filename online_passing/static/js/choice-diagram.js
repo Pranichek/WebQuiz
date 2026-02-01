@@ -3,10 +3,30 @@ let currentChart = null
 let diagramChoice = document.querySelector("#choice-diagram")
 
 socket.emit("general-diagram",{
+    test_id: localStorage.getItem("test_id"),
+    room: localStorage.getItem("room_code"),
+    question_index: localStorage.getItem("index_question")
+})
+
+// чтобы можно было вибирать диграмы после того как заново нажал на кнопку все участники
+document.addEventListener('change', (event) => {
+    if (event.target && event.target.id === 'choice-diagram') {
+        const diagramValue = event.target.value
+        const params = {
             test_id: localStorage.getItem("test_id"),
             room: localStorage.getItem("room_code"),
             question_index: localStorage.getItem("index_question")
-        })
+        }
+
+        if (diagramValue == "general"){
+            socket.emit("general-diagram", params)
+        } else if(diagramValue == "dots-diagram"){
+            socket.emit("dots-diagram", params)
+        } else {
+            socket.emit("column-diagram", params)
+        }
+    }
+})
 
 diagramChoice.onchange = (event) => {
     const diagramValue = diagramChoice.value
@@ -90,6 +110,13 @@ socket.on("general_diagram",
                     },
                     title: {
                         display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return  context.raw + '%';
+                            }
+                        }
                     }
                 }
             }
@@ -222,7 +249,8 @@ socket.on("dots-diagram", data => {
                 pointBorderColor: 'rgba(179, 134, 197, 1)', 
                 pointBorderWidth: 2,
                 tension: 0.3, 
-                fill: true,   
+                fill: true, 
+                clip: false,  
                 backgroundColor: (context) => {
                     const ctx = context.chart.ctx
                     const gradient = ctx.createLinearGradient(0, 0, 0, 400)

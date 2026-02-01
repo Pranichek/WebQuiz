@@ -135,18 +135,30 @@ def connect_to_room(data):
 def answer_the_question(data):
     
     try:
-        if (data["right_answered"] != "not"):
-            remaining_time = max(int(data["total_time"]) - int(data["wasted_time"]), 0)
-            score = 1000 * (0.2 + (1 - 0.2) * (remaining_time / int(data["total_time"])))
+        if data["right_answered"] != "not":
+            total_time = int(data["total_time"])
+            wasted_time = int(data["wasted_time"])
+            reaction_buffer = 3000 
+            effective_wasted = max(0, wasted_time - reaction_buffer)
+            remaining_time = max(total_time - effective_wasted, 0)
+
+            if total_time > 0:
+                score = 1000 * (0.2 + (1 - 0.2) * (remaining_time / total_time))
+            else:
+                score = 0 
+
+            score = min(score, 1000)
 
             old_points = flask_login.current_user.user_profile.count_points
             new_points = old_points + score
             flask_login.current_user.user_profile.count_points = int(new_points)
-    except:
+    except Exception as e:
+        print(f"Error calculating score: {e}") 
         pass
 
     flask_login.current_user.user_profile.answering_answer = "відповів"
     flask_login.current_user.user_profile.index_question = int(data["index"]) 
+
     DATABASE.session.commit()
     
 
@@ -219,10 +231,8 @@ def answer_the_question(data):
     for el in raw_type:
         types_quest = el.split("?$?")
     
-    
     # 
     count = 0
-    answers = test.answers.split("?@?")
     correct_indexes = []
     list_final = []
     for question in questions:
@@ -270,6 +280,7 @@ def answer_the_question(data):
     # счеткички сколько именно правильных а сколько нет
     right_answers = 0
     uncorrect_answers = 0
+    count_skip = 0
     # список для того чтобы понимать правильно он ответил последний вопрос или нет
     check_answers = []
 
@@ -333,14 +344,30 @@ def answer_the_question(data):
         else:
             # не ответил
             check_answers.append(2)
+            count_skip += 1
 
     answered_questions = int(data["index"]) + 1   # сколько вопросов уже пройдено
     accuracy = (right_answers  / answered_questions) * 100 if answered_questions > 0 else 0
+
+    all_procents = flask_login.current_user.user_profile.all_procents.split(" ") if flask_login.current_user.user_profile.all_procents is not "" else []
+    data_questions = flask_login.current_user.user_profile.data_questions.split(" ") if flask_login.current_user.user_profile.data_questions is not "" else ""
+    # Убедимся, что записываем строку, или полагаемся на map(str, ...) ниже
+
+    if int(data["index"]) != len(all_procents) - 1 or len(all_procents) == 0:
+        all_procents.append(str(int(float(accuracy)))) 
+        data_questions = f"{right_answers}/{uncorrect_answers}/{count_skip}"
+
+    flask_login.current_user.user_profile.all_procents = " ".join(all_procents)
+    flask_login.current_user.user_profile.data_questions = data_questions
+    DATABASE.session.commit()
+
 
     if len(ready_answers.split()) == 1: 
         flask_login.current_user.user_profile.last_answered = f"{ready_answers.split()[0]}𒀱{accuracy}𒀱{check_answers[int(data['index'])]}𒀱{data['lastanswers']}"
     else:
         flask_login.current_user.user_profile.last_answered = f"{ready_answers}𒀱{accuracy}𒀱{check_answers[int(data['index'])]}𒀱{data['lastanswers']}"
+    
+    flask_login.current_user.user_profile.all_answers += data['lastanswers'] + " "
     
     # --------------------
 

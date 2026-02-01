@@ -45,7 +45,6 @@ main{
 
 .button-question{
     background-color: #7EA2CE;
-    cursor:not-allowed;
 }
 
 .button-question:hover{
@@ -248,7 +247,7 @@ main{
     background-color: #617c9e;
 }
 
-.solo-data:hover{
+.solo-data:hover, .all-users:hover{
     background-color: #b571f0;
 }
 

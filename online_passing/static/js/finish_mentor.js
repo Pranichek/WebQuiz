@@ -7,6 +7,79 @@ socket.emit("finish_mentor",{
     question_index: localStorage.getItem("index_question")
 })
 
+document.querySelector(".all-users").addEventListener('click', () => {    
+    const textBtn = document.querySelector(".text-button")
+    if (textBtn) textBtn.textContent = "Окремо"
+
+    const dataCont = document.querySelector(".left-part")
+
+    const personalData = dataCont.querySelector(".personal-data")
+    const userQuestions = dataCont.querySelector(".user-questions")
+    if (personalData) personalData.remove()
+    if (userQuestions) userQuestions.remove()
+
+    const accuracyContainer = document.querySelector(".data-accuracy")
+    const userTips = accuracyContainer.querySelector(".user-tips")
+    if (userTips) userTips.remove()
+
+    if (!dataCont.querySelector(".users")) {
+        dataCont.insertAdjacentHTML('beforeend', `
+            <div class="users">
+                <div class="head-titles">
+                    <div class="left-category">
+                        <p class="place">місце</p>
+                        <p class="name">ім'я учня</p>
+                    </div>
+                    <div class="right-category">
+                        <p class="points">бали</p>
+                        <p>точність</p>
+                    </div>
+                </div>
+                <div class="list-users"></div>
+            </div>
+            <div class="check-page">
+                <p>Переглянути сторінку:</p>
+                <div class="page"><p>1</p></div>
+            </div>
+        `)
+    }
+
+    const firstDiagramBlock = document.querySelector(".first-diagram")
+    if (!document.querySelector("#choice-diagram") && firstDiagramBlock) {
+        const accuracyText = firstDiagramBlock.querySelector("p")
+        accuracyText.insertAdjacentHTML('afterend', `
+            <select id="choice-diagram" name="diagram">
+                <option value="general" selected>Загальна діаграма</option>
+                <option value="column-diagram">Стовпчикова діаграма</option>
+                <option value="dots-diagram">Точкова діаграма</option>
+            </select>
+        `)
+        
+    } else if (document.querySelector("#choice-diagram")) {
+        document.querySelector("#choice-diagram").value = "general"
+    }
+
+    if (!document.querySelector(".bar-chart-container")) {
+        accuracyContainer.insertAdjacentHTML('beforeend', `
+            <div class="bar-chart-container">
+                <canvas id="accuracyChart"></canvas>
+            </div>
+        `)
+    }
+
+    socket.emit("finish_mentor",{
+        test_id: localStorage.getItem("test_id"),
+        room: localStorage.getItem("room_code"),
+        question_index: localStorage.getItem("index_question")
+    })
+
+    socket.emit("general-diagram",{
+        test_id: localStorage.getItem("test_id"),
+        room: localStorage.getItem("room_code"),
+        question_index: localStorage.getItem("index_question")
+    })
+})
+
 
 socket.on("list_results", data => {
     let users = data.users
@@ -66,6 +139,10 @@ socket.on("list_results", data => {
         item.addEventListener('click', function() {
             const userId = this.getAttribute('data-id')
             openUserModal(userId)
+            
+            dropdownList.classList.remove("active")
+            const arrow = document.querySelector(".solo-data img")
+            if (arrow) arrow.classList.remove("rotate")
         })
     })
 
@@ -89,7 +166,7 @@ socket.on("list_results", data => {
         const worksheet = XLSX.utils.json_to_sheet(excelData)
 
         const wscols = [
-            {wch: 25}, // ширина 
+            {wch: 25}, 
             {wch: 30}, 
             {wch: 10}, 
             {wch: 15}  
@@ -103,26 +180,26 @@ socket.on("list_results", data => {
 
 const arrow = document.querySelector(".solo-data img")
 const soloBtn = document.querySelector(".solo-data")
-const dropdownList = document.querySelector(".dropdown-users")
+const getDropdown = () => document.querySelector(".dropdown-users")
 
 if (soloBtn) {
-    
     soloBtn.addEventListener("click", (e) => {
-        e.stopPropagation()
-        dropdownList.classList.toggle("active")
-        arrow.classList.toggle("rotate")
+        e.stopPropagation() 
+        const list = getDropdown()
+        if (list) list.classList.toggle("active")
+        if (arrow) arrow.classList.toggle("rotate")
     })
 }
 
 document.addEventListener("click", (e) => {
     if (!e.target.closest(".solo-wrapper")) {
-        if (dropdownList) {
-            dropdownList.classList.remove("active")
-            arrow.classList.toggle("rotate")
+        const list = getDropdown()
+        if (list && list.classList.contains("active")) {
+            list.classList.remove("active")
+            if (arrow) arrow.classList.remove("rotate")
         }
     }
 })
-
 
 
 function openUserModal(userId) {
@@ -133,7 +210,8 @@ function openUserModal(userId) {
         },
         body: JSON.stringify({
             user_id: userId, 
-            room: localStorage.getItem("room_code") 
+            room: localStorage.getItem("room_code"),
+            id_test: localStorage.getItem("test_id")
         })
     })
     .then(response => response.json())
@@ -145,12 +223,17 @@ function openUserModal(userId) {
         const dataCont = document.querySelector(".left-part")
         const usersBlock = dataCont.querySelector(".users")
         const pageUsers = dataCont.querySelector(".check-page")
-        if (usersBlock) {
-            usersBlock.remove()
-            pageUsers.remove()
-        }
+        const answers = data.count_answers.split("/")
+        
+        if (usersBlock) usersBlock.remove()
+        if (pageUsers) pageUsers.remove()
+        
+        const oldPersonalData = dataCont.querySelector(".personal-data")
+        const oldUserQuestions = dataCont.querySelector(".user-questions")
+        if (oldPersonalData) oldPersonalData.remove()
+        if (oldUserQuestions) oldUserQuestions.remove()
 
-        dataCont.innerHTML += `
+        dataCont.insertAdjacentHTML('beforeend', `
             <div class="personal-data">
 
                 <div class="points-user">
@@ -162,14 +245,14 @@ function openUserModal(userId) {
                 </div>
 
                 <div class="personal-accuracy">
-                    <p>100%</p>
+                    <p class='student-accuracy'>100%</p>
                     <p>Точність</p>
                 </div>
 
                 <div class="avarage-time">
                     Середній час:
                     <div class="time-text">
-                        <p>12хв</p>
+                        <p class='student-time'>12хв</p>
                     </div>
                 </div>
             </div> 
@@ -192,48 +275,25 @@ function openUserModal(userId) {
                         </div>
                     </div>
                     <div class="questions-cont">
-                        <div class="question-example">
-                            <div class="nums">
-                                <p>1</p>
-                            </div>
-                            <div class="question-block">
-                                <p>Для чого я существую взагалі?</p>
-                            </div>
-                            <div class="answer-block">
-                                <p>Я сам хз бро</p>
-                            </div>
-                            <div class="result-block">
-                                <p>правильно</p>
-                            </div>
-                        </div>
-                        <div class="question-example dark-example">
-                            <div class="nums">
-                                <p>1</p>
-                            </div>
-                            <div class="question-block">
-                                <p>Для чого я существую взагалі?</p>
-                            </div>
-                            <div class="answer-block">
-                                <p>Я сам хз бро</p>
-                            </div>
-                            <div class="result-block">
-                                <p>правильно</p>
-                            </div>
-                        </div>
             
                     </div>
                 </div>
             </div> 
-        `
+        `)
 
         const dataDiagram = document.querySelector(".right-part")
         const bottomDiagram = dataDiagram.querySelector(".bar-chart-container")
 
         if (bottomDiagram){
             bottomDiagram.remove()
+            document.querySelector("#choice-diagram").remove()
         }
 
-        document.querySelector(".data-accuracy").innerHTML +=  `
+        const accuracyContainer = document.querySelector(".data-accuracy")
+        const oldTips = accuracyContainer.querySelector(".user-tips")
+        if (oldTips) oldTips.remove()
+
+        accuracyContainer.insertAdjacentHTML('beforeend', `
             <div class="user-tips">
                 <div class="correct-answers div-answer">
                     <div class="left-block">
@@ -241,7 +301,7 @@ function openUserModal(userId) {
                         <p>Правильні відповіді</p>
                     </div>
                     <div class="text-num">
-                        <p>6</p>
+                        <p>${answers[0]}</p>
                     </div>
                 </div>
                 <div class="uncorrect-answers div-answer">
@@ -250,7 +310,7 @@ function openUserModal(userId) {
                         <p>Не правильні відповіді</p>
                     </div>
                     <div class="text-num">
-                        <p>6</p>
+                        <p>${answers[1]}</p>
                     </div>
                 </div>
                 <div class="unanswered-answers div-answer">
@@ -259,21 +319,57 @@ function openUserModal(userId) {
                         <p>Пропущені відповіді</p>
                     </div>
                     <div class="text-num">
-                        <p>6</p>
+                        <p>${answers[2]}</p>
                     </div>
                 </div>
             </div>
-        `
+        `)
 
         document.querySelector(".text-button").textContent = data.username
+        document.querySelector(".student-accuracy").textContent = `${data.accuracy}%`
+        document.querySelector(".points-text").textContent = `${data.points}/${data.max_points}`
         
-        // document.getElementById('modal-username').textContent = data.username
-        // document.getElementById('modal-points').textContent = data.points
-        // document.getElementById('modal-accuracy').textContent = data.accuracy 
-        // document.getElementById('modal-avatar').src = data.avatar
+        const blockanswers = document.querySelector(".questions-cont")
+        for (let index = 0; index < data.questions.length; index++){
+            let dark = index % 2 == 0 ? "dark-example" : ""
+            blockanswers.innerHTML += `
+                <div class="question-example ${dark}">
+                    <div class="nums">
+                        <p>${index + 1}</p>
+                    </div>
+                    <div class="question-block">
+                        <p>${data.questions[index]}</p>
+                    </div>
+                    <div class="answer-block">
+                        <p>${data.user_answers[index]}</p>
+                    </div>
+                    <div class="result-block">
+                        <p>${data.list_check[index]}</p>
+                    </div>
+                </div>
+            `
+        }
+
+        let avarage_time = Number(data.avarage_time)
+        let timeString = ""
+
+        if (avarage_time > 60) {
+            let minutes = Math.floor(avarage_time / 60)
+            let seconds = Math.floor(avarage_time % 60)
+            timeString = `${minutes} хв ${seconds} сек`
+        } else {
+            timeString = `${Math.floor(avarage_time)} сек`
+        }
+
+        document.querySelector(".student-time").textContent = timeString
 
 
 
+
+        socket.emit("student_diagram", {
+            "id": data.id,
+            "test_id": localStorage.getItem("test_id")
+        })
     })
 }
 

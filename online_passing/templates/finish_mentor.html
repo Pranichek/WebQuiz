@@ -3,6 +3,7 @@
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('mentor.static', filename='css/finish_mentor.css') }}">
     <link rel="stylesheet" href="{{ url_for('mentor.static', filename='css/personal_user.css') }}">
+    <link rel="stylesheet" href="{{ url_for('mentor.static', filename='css/questions_diagrams.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -209,5 +210,6 @@
     <script src="{{ url_for('mentor.static', filename='js/finish_mentor.js') }}" defer></script>
     <script src="{{ url_for('mentor.static', filename='js/choice-diagram.js') }}" defer></script>
     <script src="{{ url_for('mentor.static', filename='js/recconect.js') }}" defer></script>
+    <script src="{{ url_for('mentor.static', filename='js/diagram_questions.js') }}" defer></script>
     <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
 {% endblock %}

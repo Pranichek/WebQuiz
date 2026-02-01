@@ -7,8 +7,6 @@ class DataUser(DATABASE.Model):
     count_points = DATABASE.Column(DATABASE.Integer, default = 0, nullable = False)
     # кількість проїдених тестів
     count_tests = DATABASE.Column(DATABASE.Integer, default = 0, nullable = False)
-    # кількість переможних місць
-    winners_counts = DATABASE.Column(DATABASE.Integer, default = 0, nullable = False)
     # айді останніх пройденів тестів
     last_passed = DATABASE.Column(DATABASE.String, default = '')
     # айді тестів, що сподобались користувачу
@@ -24,6 +22,14 @@ class DataUser(DATABASE.Model):
     last_answered = DATABASE.Column(DATABASE.String, default = "")
     # індекс питання при проходженні тесту
     index_question = DATABASE.Column(DATABASE.String, default = "")
+    # процент відповідей під час проходження в групі
+    all_procents = DATABASE.Column(DATABASE.String, default = "")
+    # дані про відповідь на питання
+    data_questions = DATABASE.Column(DATABASE.String, default = "")
+    # середнє час на відповідь при проходжені
+    avarage_time = DATABASE.Column(DATABASE.String, default = "")
+    # усі відповіді за тест
+    all_answers = DATABASE.Column(DATABASE.String, default = "")
 
     # зв'язок із моделлю користувача one-to-one
     user = DATABASE.relationship("User", back_populates="user_profile")

@@ -34,8 +34,18 @@ socket.on("test_result", (data) => {
     //     midleTime = midleTime.toFixed(0);
     //     document.querySelector(".midle-time").textContent = midleTime + " сек";
     // }
+    let midleTime = localStorage.getItem("wasted_time")
 
-    localStorage.setItem("accuracy", data.accuracy);
+    if (midleTime) {
+        midleTime = Number(midleTime).toFixed(0);
+    } else {
+        midleTime = 0
+    }
+    console.log(midleTime)
+    socket.emit("save_time", { midle_time: midleTime })
+
+    localStorage.setItem("accuracy", data.accuracy)
+
     const fill = document.querySelector(".fill");
     const textPerc = document.querySelector(".text-perc p");
     const quard = document.querySelector(".quard");
