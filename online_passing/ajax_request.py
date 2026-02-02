@@ -29,14 +29,14 @@ def get_user_detail_stats():
     answers = test.answers.split("?@?")
     list_answers = []
     for ans in answers:
-            current_answers = []
-            ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
-            current_answers.append(ans_clean)
+        current_answers = []
+        ans_clean = ans.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
+        current_answers.append(ans_clean)
 
-            clear_answer = current_answers[0].split('*|*|*')
-            if (clear_answer[-1] == ''):
-                del clear_answer[-1]
-            list_answers.append(clear_answer)
+        clear_answer = current_answers[0].split('*|*|*')
+        if (clear_answer[-1] == ''):
+            del clear_answer[-1]
+        list_answers.append(clear_answer)
             
 
     text_user_answers = []

@@ -1,48 +1,54 @@
-/* --- Основной контейнер --- */
-.questions-cont {
+.questions-test {
     width: 100%;
     height: 100%;
-    /* Используем border-box, чтобы padding не ломал размеры */
     box-sizing: border-box; 
     border-radius: 34px;
-    border: 1px solid #C48AF7; /* Ваш фиолетовый бордер */
-    /* Фон под вашу гамму (прозрачный голубоватый) */
+    border: 1px solid #C48AF7; 
     background-color: rgba(138, 187, 247, 0.1);
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start; /* Начинаем сверху, не центруем по вертикали */
+    justify-content: flex-start;
     padding: 20px;
-    overflow: hidden; /* Скрываем вылезающие элементы */
+    overflow-x: hidden; 
+    font-size: 2vh; 
 }
 
-/* --- Сетка для карточек --- */
 .results-grid {
     width: 100%;
     height: 100%;
     display: grid;
-    /* Адаптивность: 2 колонки на широком экране, 1 на узком. */
-    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    /* grid-template-columns: repeat(auto-fit, minmax(min(100%, 600px), 1fr)); */
     gap: 20px;
-    overflow-y: auto; /* Скролл только внутри сетки */
-    padding-right: 5px; /* Отступ для скроллбара */
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-right: 5px;
+    box-sizing: border-box;
 }
 
-/* Кастомный скроллбар (Ваши цвета) */
+.results-grid {
+    display: flex;
+    flex-wrap: wrap; /* Разрешить перенос на новую строку */
+    gap: 20px;
+}
+
+.result-card {
+    flex: 1 1 600px; /* Расти, сжимайся, но старайся быть 600px */
+    max-width: 100%; /* Чтобы не вылезало на мобилках */
+}
+
 .results-grid::-webkit-scrollbar {
     width: 6px;
 }
 .results-grid::-webkit-scrollbar-thumb {
-    background-color: #7EA2CE; /* Ваш синий */
+    background-color: #7EA2CE; 
     border-radius: 10px;
 }
 .results-grid::-webkit-scrollbar-track {
     background: transparent;
 }
 
-/* --- Карточка вопроса (Стиль карточки) --- */
 .result-card {
-    /* Фон и обводка под стиль списка пользователей */
     background: rgba(196, 138, 247, 0.15); 
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
@@ -53,6 +59,9 @@
     flex-direction: column;
     gap: 15px;
     transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s;
+    max-width: 100%; 
+    min-width: 0;
+    box-sizing: border-box;
 }
 
 .result-card:hover {
@@ -60,7 +69,6 @@
     border-color: #C48AF7;
 }
 
-/* --- Шапка карточки --- */
 .card-header {
     display: flex;
     align-items: center;
@@ -70,50 +78,53 @@
 }
 
 .q-number {
-    background-color: #7EA2CE; /* Ваш синий */
+    background-color: #7EA2CE; 
     color: #ffffff;
     font-weight: bold;
     padding: 5px 10px;
     border-radius: 8px;
-    font-size: 0.9rem;
+    font-size: 0.9em;
 }
 
 .q-title {
-    flex-grow: 1; /* Занимает все свободное место */
+    flex-grow: 1; 
     color: #FFFFFF;
-    font-size: 1.1rem;
+    font-size: 1.1em;
     font-weight: 500;
     margin: 0;
     line-height: 1.3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
 }
 
 .details-btn {
     background: transparent;
-    border: 1px solid #C48AF7; /* Фиолетовая обводка */
+    border: 1px solid #C48AF7; 
     color: #e0e0e0;
     padding: 6px 12px;
     border-radius: 6px;
     cursor: pointer;
-    font-size: 0.8rem;
+    font-size: 0.8em;
     transition: 0.2s;
 }
 
 .details-btn:hover {
-    background: #C48AF7; /* Заливка при наведении */
+    background: #C48AF7; 
     color: #FFF;
 }
 
-/* --- Контейнер графиков --- */
 .charts-container {
     display: flex;
     flex-direction: row;
-    height: 100%;
+    flex-grow: 1;
+    width: 100%;
     gap: 20px;
+    align-items: stretch;
+    min-height: 180px;
 }
 
 .chart-wrapper {
-    flex: 1; /* Оба графика занимают по 50% */
-    background: rgba(0, 0, 0, 0.2); /* Темная подложка */
+    background: rgba(0, 0, 0, 0.2); 
     border-radius: 16px;
     padding: 15px;
     display: flex;
@@ -121,10 +132,19 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    box-sizing: border-box;
+    min-width: 0;
 }
 
-/* --- Стилизация графиков (Ваши цвета: Зеленый, Фиолетовый, Синий) --- */
-/* Круговая */
+.pie-wrapper {
+    flex: 1;
+    min-width: 120px; 
+}
+
+.bar-wrapper {
+    flex: 3;
+}
+
 .visual-pie {
     width: 100px;
     height: 100px;
@@ -133,26 +153,12 @@
     margin-bottom: 10px;
 }
 
-/* Пример градиента для "пирога" */
-.css-pie-1 {
-    background: conic-gradient(
-        #7ac87a 0% 70%,  /* Ваш зеленый */
-        #C48AF7 70% 100% /* Ваш фиолетовый */
-    );
-}
-.css-pie-2 {
-    background: conic-gradient(
-        #7EA2CE 0% 45%,  /* Ваш синий */
-        #C48AF7 45% 100% /* Ваш фиолетовый */
-    );
-}
-
 .pie-center-text {
     position: absolute;
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     width: 70%; height: 70%;
-    background-color: #2b2b2b; /* Темный центр (как в дропдауне) */
+    background-color: #2b2b2b; 
     border-radius: 50%;
     display: flex;
     flex-direction: column;
@@ -160,84 +166,111 @@
     justify-content: center;
 }
 
-.big-num { font-size: 1.2rem; font-weight: bold; color: #fff; }
-.small-text { font-size: 0.6rem; color: #B0B0C0; }
+.big-num { font-size: 1.2em; font-weight: bold; color: #fff; }
+.small-text { font-size: 0.6em; color: #B0B0C0; }
 
 .legend {
     display: flex;
-    gap: 15px;
-    font-size: 0.8rem;
+    gap: 10px;
+    font-size: 0.8em;
     color: #e0e0e0;
+    flex-wrap: wrap;
+    justify-content: center;
 }
+
 .legend-item { display: flex; align-items: center; gap: 5px; }
 .dot { width: 8px; height: 8px; border-radius: 50%; }
-.dot.correct { background-color: #7ac87a; } /* Ваш зеленый */
-.dot.wrong { background-color: #C48AF7; }   /* Ваш фиолетовый */
 
-/* Столбчатая */
 .visual-bars {
     display: flex;
     align-items: flex-end;
-    justify-content: space-around;
+    justify-content: space-between;
     width: 100%;
-    height: 80px;
+    height: 100%;
+    min-height: 120px;
     border-bottom: 1px solid rgba(255,255,255,0.1);
-    padding-bottom: 5px;
+    padding-bottom: 45px; 
+    padding-top: 20px;
+    position: relative;
+    gap: 10px;
 }
 
 .bar-group {
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-end;
     gap: 5px;
     height: 100%;
-    justify-content: flex-end;
+    flex: 1;
+    min-width: 0;
+    position: relative;
+}
+
+.bar-count {
+    font-size: 0.8em;
+    font-weight: bold;
+    color: #ffffff;
+    margin-bottom: 2px;
 }
 
 .bar {
-    width: 12px;
-    border-radius: 4px 4px 0 0;
+    width: 80%;
+    max-width: 120px;
+    border-radius: 8px 8px 0 0; 
     opacity: 0.9;
-    /* Цвета баров задаются инлайново в HTML, но можно переопределить здесь если нужно */
+    transition: height 0.5s ease;
+    min-height: 2%; 
 }
 
 .bar-label {
-    font-size: 0.7rem;
+    font-size: 0.75em; 
     color: #e0e0e0;
+    text-align: center;
+    width: 100%; 
+    line-height: 1.2;
+    position: absolute;
+    bottom: -40px; 
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: normal; 
+    word-wrap: break-word;
 }
 
-.axis-label {
-    margin-top: 8px;
-    font-size: 0.75rem;
-    color: #b0b0b0;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-/* --- Адаптивность (Медиа запросы) --- */
-
-@media (max-width: 900px) {
-    .results-grid {
-        grid-template-columns: 1fr; 
-    }
-}
-
-@media (max-width: 500px) {
-    .questions-cont {
+@media (max-width: 768px) {
+    .questions-test {
         padding: 10px;
         border-radius: 20px;
+        font-size: 16px;
     }
     
+    .results-grid {
+        grid-auto-rows: auto;
+    }
+
     .charts-container {
         flex-direction: column; 
+        height: auto; 
     }
     
     .chart-wrapper {
         width: 100%; 
-        box-sizing: border-box;
+        margin-bottom: 20px;
+    }
+
+    .pie-wrapper, 
+    .bar-wrapper {
+        flex: none; 
+        width: 100%;
+        min-width: 0;
     }
     
-    .q-title {
-        font-size: 1rem;
+    .visual-bars {
+        height: 200px;
+    }
+
+    .bar-label {
+        font-size: 0.7em;
+        bottom: -35px;
     }
 }
