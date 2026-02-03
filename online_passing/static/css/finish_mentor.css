@@ -23,7 +23,7 @@ main{
     gap: 5px;
 }
 
-.button-header {
+.button-header, .button-results{
     height: 5vh;
     color: #ffffff;
     border-radius: 6px;
@@ -43,11 +43,11 @@ main{
     object-fit: contain;
 }
 
-.button-question{
+.button-question, .button-results{
     background-color: #7EA2CE;
 }
 
-.button-question:hover{
+.button-question:hover, .button-results:hover{
     background-color: #617c9e;
 }
 

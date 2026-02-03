@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    mentor_class
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('mentor_class.static', filename='css/mentor_class.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <div class="pseudo-header">
+        <p class="name-class">Назва класа: Додаткові заняття</p>
+
+        <div class="data-sort">
+            <p>клас: 8-А</p>
+            <p class="sort-button">Сортування</p>
+            <img class="bell-img" src="{{ url_for('mentor_class.static', filename='images/class_mentor/bell.svg') }}" alt="bell">
+        </div>
+    </div>
+
+    <div class="tasks-part">
+        <div class="real-tasks">
+
+        </div>
+        <div class="old-tasks">
+            
+        </div>
+    </div>
+
+    <div class="footer-button">
+        <div class="diagram-class">
+            Переглянути успішність учнів
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %} 
+    {{ super() }}
+{% endblock scripts %}

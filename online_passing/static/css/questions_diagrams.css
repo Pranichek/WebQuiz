@@ -274,3 +274,105 @@
         bottom: -35px;
     }
 }
+
+/* --- Стилі для блоку відповідей Input-Gap --- */
+
+.answers-cloud-wrapper {
+    flex: 3; /* Займає стільки ж місця, скільки графік стовпчиків */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    overflow: hidden; /* Щоб не вилазило за межі */
+}
+
+.answers-header {
+    font-size: 0.9em;
+    color: #b0b0c0;
+    margin-bottom: 10px;
+    width: 100%;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 5px;
+}
+
+.answers-cloud {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto; /* Прокрутка, якщо відповідей багато */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    align-content: flex-start;
+    padding-right: 5px; /* Місце для скролу */
+}
+
+/* Кастомний скрол для блоку відповідей */
+.answers-cloud::-webkit-scrollbar {
+    width: 4px;
+}
+.answers-cloud::-webkit-scrollbar-thumb {
+    background-color: rgba(196, 138, 247, 0.5);
+    border-radius: 4px;
+}
+
+/* --- Самі картки відповідей --- */
+.ans-tag {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 8px;
+    font-size: 0.9em;
+    font-weight: 500;
+    transition: transform 0.2s;
+    border: 1px solid transparent;
+}
+
+.ans-tag:hover {
+    transform: scale(1.02);
+}
+
+.ans-text {
+    color: #ffffff;
+    word-break: break-word;
+}
+
+.ans-count {
+    background: rgba(0, 0, 0, 0.2);
+    color: #fff;
+    font-size: 0.8em;
+    padding: 2px 6px;
+    border-radius: 6px;
+    min-width: 15px;
+    text-align: center;
+}
+
+/* Кольори для правильних/неправильних */
+.ans-tag.correct {
+    background-color: rgba(187, 227, 179, 0.2); /* Напівпрозорий зелений */
+    border-color: #BBE3B3;
+    color: #BBE3B3;
+}
+
+.ans-tag.wrong {
+    background-color: rgba(255, 118, 124, 0.2); /* Напівпрозорий червоний */
+    border-color: #FF767C;
+    color: #FF767C;
+}
+
+.no-data-text {
+    width: 100%;
+    text-align: center;
+    color: #888;
+    font-style: italic;
+    margin-top: 20px;
+}
+
+/* Адаптивність для мобільних */
+@media (max-width: 768px) {
+    .answers-cloud-wrapper {
+        min-height: 150px;
+        max-height: 250px; /* Обмеження висоти на мобільному */
+    }
+}

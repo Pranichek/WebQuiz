@@ -10,29 +10,13 @@ from datetime import timedelta
 from os.path import abspath, join, exists
 import os
 import secrets
-from flask_socketio import join_room
-
-# @socket.on("join_room")
-# def join_room_a(data):
-#     join_room(data["code"])
-
-# @socket.on("join_mentor")
-# def join_mentor_b(data):
-#     class_code = Classes.query.get(int(data["id"])).code
-#     join_room(class_code)
-
-# @socket.on("new_task")
-# def new_task(data):
-#     class_code = Classes.query.get(int(data["id"])).code
-#     emit("new_for_student", {"name":"math"}, room=class_code)
 
 
-def student_information():
-    code_args = flask.request.args.get("code")
+def classes_information():
     return flask.render_template(
-        "student_info.html", 
+        "menu_classes.html", 
         user = flask_login.current_user,
-        code = code_args
+        mentor_classes = flask_login.current_user.classes
     )
 
 @socket.on("generate_code")
@@ -49,42 +33,40 @@ def render_create_class():
     if flask.request.method == "POST":
         class_name = flask.request.form.get("class_name")
         description = flask.request.form.get("description")
-        form = flask.request.form.get("form")
+
+        try:
+            form = int(flask.request.form.get("form-num"))
+        except (ValueError, TypeError):
+            form = 0 
+            
         letter = flask.request.form.get("letter")
         lesson = flask.request.form.get("lesson")
-        type = flask.request.form.get("type")
         generated_code = flask.request.form.get("generated-code")
         
+        if not flask_login.current_user.is_authenticated:
+            return flask.redirect("/login") 
+
         class_mentor = Classes(
             name_class = class_name,
             description = description,
             form = form,
             letter = letter,
             lesson = lesson,
-            user_id = flask_login.current_user.id,
-            code = generated_code
+            code = generated_code,
+            mentor = flask_login.current_user 
         )
+        
         DATABASE.session.add(class_mentor)
         DATABASE.session.commit()
 
-        return flask.redirect("/mentor_class")
-    
-    return flask.render_template(
-        "create_class.html",
-        user = flask_login.current_user
-    )
+        return flask.redirect("/menu_classes")
+        
+    return flask.render_template("create_class.html")
 
 @login_decorate
-def render_mentor_classes():
-    all_classes = flask_login.current_user.mentor_class.all()
-
+def render_mentor_class():
     return flask.render_template(
-        "mentor_classes.html",
-        all_classes = all_classes,
-        email = flask_login.current_user.email,
-        name_avatar = flask_login.current_user.name_avatar,
-        test_data = True,
-        user = flask_login.current_user
+        "mentor_class.html",
     )
 
 @login_decorate

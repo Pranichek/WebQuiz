@@ -9,7 +9,6 @@
 {% endblock links %}
 
 {% block content %}
-    <h1>{{random_choice}}</h1>
     <form class="main" method="post" action="create_class">
         <div class="create">
             <p>Створення класу: </p>
@@ -23,9 +22,9 @@
                     <p>Оберіть клас:</p>
                     
                     <div class="sels">
-                        <button type="button" class="sel1">№</button>
+                        <button type="button" class="sel1" name="form-num" >№</button>
                         <p>-</p>
-                        <button type="button" class="sel2">А...</button>
+                        <button type="button" class="sel2" name="letter">А...</button>
                     </div>
                 </div>
             </div>
@@ -33,7 +32,7 @@
                 <textarea type="text" class="inp2" placeholder="Опис класу (не обов'язково)" name="description" style="resize: none;"></textarea>
             </div>
             <div class="lstin">
-                <button type="button" class="obj">Оберіть предмет класу</button>
+                <button type="button" class="obj" name="lesson">Оберіть предмет класу</button>
                 <button type="button" class="choo">тип приєднання до класу</button>
             </div>
             

@@ -1,0 +1,275 @@
+main {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1vw;
+}
+
+.all_classes {
+    border-radius: 2vw;
+    border: 0.2vw rgba(196, 155, 233, 0.52) solid;
+    height: 80vh;
+    width: 60vw;
+    background-color: rgba(217, 217, 217, 0.19);
+}
+
+.outline_class {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 1.5vw;
+    padding: 1.5vw;
+    height: 100%;
+    max-height: 100%;
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.class-card {
+    width: calc(50% - 0.75vw);
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 1.5vw;
+    padding: 1.5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 0.5vh 1.5vh rgba(0, 0, 0, 0.05);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5vh;
+    gap: 0.5vw;
+}
+
+.subject-name {
+    font-size: 2.2vh;
+    font-weight: 700;
+    color: #333;
+}
+
+.class-badge {
+    background: #333;
+    color: #fff;
+    padding: 0.5vh 1vw;
+    border-radius: 1vw;
+    font-size: 1.8vh;
+    font-weight: 600;
+}
+
+.teacher-name {
+    font-size: 2vh;
+    color: #666;
+    margin: 0 0 0.8vh 0;
+    font-weight: 500;
+}
+
+.class-desc {
+    font-size: 1.8vh;
+    color: #888;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.card-body {
+    width: 100%;
+}
+
+.card-footer {
+    margin-top: 2.5vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 1.5vh;
+    border-top: 0.15vh solid rgba(0, 0, 0, 0.05);
+    width: 100%;
+}
+
+.students-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw;
+    color: #666;
+    font-size: 1.8vh;
+}
+
+.students-info svg {
+    width: 2vh;
+    height: 2vh;
+}
+
+.btn-leave {
+    padding: 1vh 1.5vw;
+    border: none;
+    border-radius: 1vw;
+    background: #E05359;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1.8vh;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.btn-leave:hover{
+    background: #ba383e;
+}
+
+.class-card.accent {
+    border-left: 0.4vw solid #FF9F43;
+}
+
+.side-menu {
+    height: 80vh;
+    width: 35vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.side-menu {
+    height: 80vh;
+    width: 35vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; 
+    gap: 3vh;
+}
+
+.profile-card, 
+.join-class {
+    background: rgba(217, 217, 217, 0.15);
+    border-radius: 28px; 
+    padding: 2vh 1.5vw;
+    width: 90%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5vw; 
+    position: relative;
+    height: 100%;
+}
+
+.profile-main h3 {
+    margin: 0;
+    font-size: 2.2vh; 
+    color: #fff;
+    line-height: 1.2;
+}
+
+.class-name {
+    font-size: 1.6vh;
+    color: #c49be9;
+}
+
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1vh; 
+}
+
+.info-row span {
+    font-size: 1.6vh; 
+    color: #aaa;
+    display: block;
+}
+
+.info-row p {
+    margin: 0;
+    font-size: 2vh; 
+    color: #fff;
+    font-weight: 500;
+    word-break: break-all;    /* Дозволяє розривати довге слово (пошту) у будь-якому місці */
+    overflow-wrap: break-word;
+}
+
+.join-class h3 {
+    margin: 0 0 2vh 0;
+    font-size: 2.2vh;
+    color: #fff;
+}
+
+.join-class input {
+    width: 100%;
+    padding: 1.5vh 1vw; 
+    border-radius: 1vw;
+    border: none;
+    outline: none;
+    margin-bottom: 2vh;
+    background: rgba(0, 0, 0, 0.4);
+    color: #fff;
+    font-size: 2vh; 
+    box-sizing: border-box;
+}
+
+.join-class input::placeholder {
+    color: #aaa;
+    font-size: 1.8vh;
+}
+
+.join-class button {
+    width: 100%;
+    padding: 1.5vh;
+    border-radius: 1.2vw; 
+    border: none;
+    background: #b67cf0;
+    color: #fff;
+    font-size: 2vh; 
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s ease;
+}
+
+.join-class button:hover {
+    background: #a568e0;
+}
+
+
+@media (max-width: 768px) {
+    .class-card {
+        width: 100%;
+    }
+    .subject-name {
+        font-size: 2.5vh;
+    }
+    .class-desc {
+        font-size: 2vh;
+    }
+}
+
+.profile-header {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    position: relative;
+    height: 8vh;
+    margin-bottom: 2vh;
+}
+
+.avatar-circle {
+    height: 100%;
+    aspect-ratio: 1 / 1; 
+    
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.avatar {
+    object-fit: cover; 
+    width: 100%;
+    height: 100%;
+}

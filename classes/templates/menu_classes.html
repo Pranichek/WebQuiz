@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    menu_classes
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('mentor_class.static', filename='css/classes.css') }}">
+{% endblock links %}
+
+{% block content %}
+    <div class="all_classes">
+        <div class="outline_class">
+            {% for class in mentor_classes %}
+                <div class="class-card accent">
+                    <div class="card-header">
+                        <span class="subject-name">{{ class.name_class }}</span>
+                        <span class="class-badge">{{ class.form }}-{{ class.letter }}</span>
+                    </div>
+                    <div class="card-body">
+                        <p class="teacher-name">Вчитель:{{ class.mentor.username }}</p>
+                        <p class="class-desc">{{ class.description }}</p>
+                    </div>
+
+                    <div class="card-footer">
+                        <div class="students-info">
+                            <span></span>
+                        </div>
+                        {% if user.is_mentor %}
+                            <button class="btn-leave">видалити</button>
+                        {% else %}
+                            <button class="btn-leave">покинути</button>
+                        {% endif %}
+                        
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <div class="side-menu">
+        <div class="profile-card">
+            <div class="profile-header">
+                <div class="avatar-circle">
+                    <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email + '/' + user.name_avatar ) }}" alt="avatar">
+                </div>
+                <div class="profile-main">
+                    <h3>{{ user.username }}</h3>
+                </div>
+            </div>
+
+            <div class="profile-info">
+                <div class="info-row">
+                    <span>Імʼя</span>
+                    <p>{{ user.username }}</p>
+                </div>
+                <div class="info-row">
+                    <span>Email</span>
+                    <p>{{ user.email }}</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="join-class">
+            {% if not user.is_mentor %}
+                <h3>Вступити до класу</h3>
+                <input type="text" placeholder="Введіть код класу">
+                <button class="join-class">Приєднатися</button>
+            {% else %}
+                <h3>Створення</h3>
+                <button class="create-class" onclick="location.replace('/create_class')">Створити клас</button>
+            {% endif %}
+        </div>
+
+    </div>
+
+{% endblock %}
+
+{% block scripts %} 
+    {{ super() }}
+{% endblock scripts %}

@@ -1,0 +1,77 @@
+.pseudo-header{
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 1vw;
+    font-size: 2vh;
+}
+
+.data-sort{
+    display: flex;
+    flex-direction: row;
+    height: 10vh;
+    gap: 5px;
+}
+
+.sort-button{
+    height: 6vh;
+    background-color: #7291B8;
+    border-radius: 5px;
+    font-size: 2vh;
+    font-weight: bold;
+    padding: 0 2vw;
+    display: flex;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.sort-button:hover{
+    background-color: #436c9d;
+}
+
+.bell-img{
+    height: 60%;
+    object-fit: contain;
+}
+
+.name-class{
+    font-size: 2.5vh;
+}
+
+.tasks-part{
+    height: 70vh;
+    width: 100vw;
+    display: flex;
+    gap: 1vw;
+    /* justify-content: space-between; */
+    padding: 0 1vw;
+}
+
+.real-tasks, .old-tasks{
+    height: 100%;
+    width: 45%;
+    border-radius: 25px;
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.footer-button{
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+}
+
+.diagram-class{
+    background-color: #C48AF7;
+    display: flex;
+    height: 6vh;
+    padding: 0 3vw;
+    border-radius: 5px;
+    font-size: 2vh;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.diagram-class:hover{
+    background-color: #965fc7;
+}

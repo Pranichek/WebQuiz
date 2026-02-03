@@ -237,11 +237,7 @@ online_passing.mentor.add_url_rule(
     view_func = online_passing.render_finish_mentor
 )
 
-classes.mentor_class.add_url_rule(
-    rule = "/mentor_class",
-    view_func = classes.render_mentor_classes,
-    methods = ["GET", "POST"]
-)
+
 classes.mentor_class.add_url_rule(
     rule = "/create_class",
     view_func = classes.render_create_class,
@@ -249,18 +245,13 @@ classes.mentor_class.add_url_rule(
 )
 
 classes.mentor_class.add_url_rule(
-    rule="/data_class",
-    view_func= classes.render_data_class,
+    rule="/menu_classes",
+    view_func = classes.classes_information,
     methods = ["GET", "POST"]
 )
 
-classes.student_class.add_url_rule(
-    rule = "/student_class",
-    view_func = classes.render_student_classes,
+classes.mentor_class.add_url_rule(
+    rule="/mentor_class",
+    view_func=classes.render_mentor_class,
     methods = ["GET", "POST"]
-)
-classes.student_class.add_url_rule(
-    rule= "/student_information",
-    view_func= classes.student_information,
-    methods= ["GET", "POST"]
 )

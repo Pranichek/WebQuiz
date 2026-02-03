@@ -1,6 +1,7 @@
 import flask_login, sqlalchemy
 from Project.db import DATABASE
 from Project.settings_many import room_users, check_socket
+from Project.settings_classes_many import student_classes
 
 class User(DATABASE.Model, flask_login.UserMixin):
     __tablename__ = "user"
@@ -28,9 +29,6 @@ class User(DATABASE.Model, flask_login.UserMixin):
     # Зв'язок one to one із моделлю кімнати
     room = DATABASE.relationship("Rooms", back_populates="user", uselist=False)
 
-    # Зв'язок one to one із моделлю класу
-    mentor_class = DATABASE.relationship("Classes", back_populates="user", lazy="dynamic")
-
     google_id = DATABASE.Column(DATABASE.String(50), nullable = True)
 
     # когда ты в какой то комнате
@@ -46,8 +44,21 @@ class User(DATABASE.Model, flask_login.UserMixin):
         back_populates="sockets_users"
     )
 
+    # Класи якими володіє ментор або якщо студент то у яких класах він состоїть
+    classes = DATABASE.relationship(
+        "Classes", 
+        back_populates="mentor", 
+        lazy="dynamic"
+    )
 
-
+    # 3. ЗВ'ЯЗОК: Класи, в які студент ВСТУПИВ (Many-to-Many)
+    # Тут ми кажемо: шукай поле 'students' у моделі Classes
+    joined_classes = DATABASE.relationship(
+        "Classes",
+        secondary=student_classes,
+        back_populates="students", 
+        lazy="dynamic"
+    )
 
 
 

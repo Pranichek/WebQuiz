@@ -8,6 +8,7 @@
 
 {% block content %}
     <div class="blur"></div>
+    <span style="display: none;" data-src="{{ url_for('mentor.static', filename='images/finish_mentor/show_more.svg') }}" class="arrow-src"></span>
     <div class="pseudo-header">
         <p class="text-result">Результати тесту:</p>
 
@@ -47,81 +48,6 @@
                     <p>Зберегти результат</p>
                 </div>
             </div>
-
-            <!-- <div class="personal-data">
-
-                <div class="points-user">
-                    <p class="points-text">200/200</p>
-                    <div class="block-accuracy">
-                        <p>Бали</p>
-                        <p>Точність</p>
-                    </div>
-                </div>
-
-                <div class="personal-accuracy">
-                    <p>100%</p>
-                    <p>Точність</p>
-                </div>
-
-                <div class="avarage-time">
-                    Середній час:
-                    <div class="time-text">
-                        <p>12хв</p>
-                    </div>
-                </div>
-            </div> 
-
-             <div class="user-questions">
-                <p class="info-text">Детальний аналіз відповідей</p>
-                <div class="all-questions">
-                    <div class="question-header">
-                        <div class="nums">
-                            #
-                        </div>
-                        <div class="question-part">
-                            Питання
-                        </div>
-                        <div class="answer-part">
-                            Ваша відповідь
-                        </div>
-                        <div class="part-result">
-                            Результат
-                        </div>
-                    </div>
-                    <div class="questions-cont">
-                        <div class="question-example">
-                            <div class="nums">
-                                <p>1</p>
-                            </div>
-                            <div class="question-block">
-                                <p>Для чого я существую взагалі?</p>
-                            </div>
-                            <div class="answer-block">
-                                <p>Я сам хз бро</p>
-                            </div>
-                            <div class="result-block">
-                                <p>правильно</p>
-                            </div>
-                        </div>
-                        <div class="question-example dark-example">
-                            <div class="nums">
-                                <p>1</p>
-                            </div>
-                            <div class="question-block">
-                                <p>Для чого я существую взагалі?</p>
-                            </div>
-                            <div class="answer-block">
-                                <p>Я сам хз бро</p>
-                            </div>
-                            <div class="result-block">
-                                <p>правильно</p>
-                            </div>
-                        </div>
-            
-                    </div>
-                </div>
-            </div>  -->
-
 
             <div class="users">
                 <div class="head-titles">
@@ -167,39 +93,11 @@
             <div class="line"></div>
                 
             <div class="data-accuracy">
-                <!-- <div class="user-tips">
-                    <div class="correct-answers div-answer">
-                        <div class="left-block">
-                            <div class="sighn-correct"></div>
-                            <p>Правильні відповіді</p>
-                        </div>
-                        <div class="text-num">
-                            <p>6</p>
-                        </div>
-                    </div>
-                    <div class="uncorrect-answers div-answer">
-                        <div class="left-block">
-                            <div class="sighn-uncorrect"></div>
-                            <p>Не правильні відповіді</p>
-                        </div>
-                        <div class="text-num">
-                            <p>6</p>
-                        </div>
-                    </div>
-                    <div class="unanswered-answers div-answer">
-                        <div class="left-block">
-                            <div class=" "></div>
-                            <p>Пропущені відповіді</p>
-                        </div>
-                        <div class="text-num">
-                            <p>6</p>
-                        </div>
-                    </div>
-                </div> -->
                 <div class="bar-chart-container">
                     <canvas id="accuracyChart"></canvas>
                 </div>
             </div>
+
         </div>
     </div>
 {% endblock content %}

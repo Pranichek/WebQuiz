@@ -30,7 +30,7 @@
     font-weight: 600;
 }
 .create p{
-    font-size: 3.5vh;
+    font-size: 2.5h;
 }
 .create-class{
     display: flex;
@@ -238,7 +238,7 @@
     background-color: #B9BDF5;
     border: none;
     border-radius: 1.5vh;
-    font-size: 4vh;
+    font-size: 2.5vh;
 }
 .generate-container{
     display: flex;
@@ -246,11 +246,11 @@
     align-items: center;
 }
 .generate-container p{
-    font-size: 4vh;
+    font-size: 2.5vh;
     color: #FFFFFF;
 }
 .generate-container .generated-code{
-    font-size: 3vh;
+    font-size: 2vh;
 }
 .generate-container hr{
     width: 100%;

@@ -145,7 +145,6 @@ def column_diagram(data):
 
 @socket.on("questions-result")
 def return_result(data):
-    print("lolj")
     room : Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
     test : Test = Test.query.get(int(data["test_id"]))
     users = room.users
@@ -175,6 +174,7 @@ def return_result(data):
         skip_answers = 0
         right_answers = return_answers(index= index, test_id= int(int(data["test_id"])))
         count_chosen = [0, 0, 0, 0]
+        users_variants = []
 
 
         for user in users:
@@ -183,7 +183,6 @@ def return_result(data):
                 total_answers += 1
                 if types[index] == "one-answer":
                     count_chosen[int(user_answers[index])] += 1
-                    print(index, right_answers, "kmkm")
                     if int(right_answers[0]) == int(user_answers[index]):
                         correct_answers += 1
                     else:
@@ -215,10 +214,12 @@ def return_result(data):
                     if "" in answers_gaps:
                         answers_gaps.remove("")
                     new_answers = []
+
                     for answer in answers_gaps:
                         answer = answer.replace("(?%+", "").replace("+%?)", "")
                         new_answers.append(answer)
 
+                    users_variants.append(user_answer_value)
                     if user_answer_value in new_answers:
                         correct_answers += 1
                     else:
@@ -238,12 +239,15 @@ def return_result(data):
                 "is_correct": True if answer_index in right_answers else False,
                 "count_choosen": count_chosen[answer_index]
             })
+        
+            
 
 
         time_dict = {
             "question_id": index + 1,
             "type_question": types[index],
             "question_text": questions[index],
+            "users_variants": users_variants, # варіанти, що написали люди при питанні де треба дати відповідь вручну
             "stats": {
                 "total_answers": total_answers,
                 "correct_count": correct_answers,

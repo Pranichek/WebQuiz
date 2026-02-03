@@ -7,7 +7,10 @@ socket.emit("finish_mentor",{
     question_index: localStorage.getItem("index_question")
 })
 
-document.querySelector(".all-users").addEventListener('click', () => {    
+document.addEventListener("click", (e) => {
+    const solo = e.target.closest(".all-users")
+    if (!solo) return
+    
     const textBtn = document.querySelector(".text-button")
     if (textBtn) textBtn.textContent = "Окремо"
 
@@ -54,7 +57,6 @@ document.querySelector(".all-users").addEventListener('click', () => {
                 <option value="dots-diagram">Точкова діаграма</option>
             </select>
         `)
-        
     } else if (document.querySelector("#choice-diagram")) {
         document.querySelector("#choice-diagram").value = "general"
     }
@@ -79,7 +81,6 @@ document.querySelector(".all-users").addEventListener('click', () => {
         question_index: localStorage.getItem("index_question")
     })
 })
-
 
 socket.on("list_results", data => {
     let users = data.users
@@ -135,17 +136,16 @@ socket.on("list_results", data => {
 
     dropdownList.innerHTML = dropdownContent
 
-    document.querySelectorAll('.dropdown-item').forEach(item => {
-        item.addEventListener('click', function() {
-            const userId = this.getAttribute('data-id')
-            openUserModal(userId)
-            
-            dropdownList.classList.remove("active")
-            const arrow = document.querySelector(".solo-data img")
-            if (arrow) arrow.classList.remove("rotate")
-        })
+    document.addEventListener("click", (e) => {
+        const item = e.target.closest(".dropdown-item")
+        if (!item) return
+        const userId = item.dataset.id
+        openUserModal(userId)
+        const dropdown = document.querySelector(".dropdown-users")
+        dropdown?.classList.remove("active")
+        const arrow = document.querySelector(".solo-data img")
+        arrow?.classList.remove("rotate")
     })
-
 
     const downloadBtn = document.querySelector(".load-excel")
     
@@ -182,14 +182,14 @@ const arrow = document.querySelector(".solo-data img")
 const soloBtn = document.querySelector(".solo-data")
 const getDropdown = () => document.querySelector(".dropdown-users")
 
-if (soloBtn) {
-    soloBtn.addEventListener("click", (e) => {
-        e.stopPropagation() 
-        const list = getDropdown()
-        if (list) list.classList.toggle("active")
-        if (arrow) arrow.classList.toggle("rotate")
-    })
-}
+document.addEventListener("click", (e) => {
+    const solo = e.target.closest(".solo-data")
+    if (!solo) return
+    const list = document.querySelector(".dropdown-users")
+    list?.classList.toggle("active")
+    const arrow = solo.querySelector("img")
+    arrow?.classList.toggle("rotate")
+})
 
 document.addEventListener("click", (e) => {
     if (!e.target.closest(".solo-wrapper")) {
@@ -200,7 +200,6 @@ document.addEventListener("click", (e) => {
         }
     }
 })
-
 
 function openUserModal(userId) {
     fetch('/get_user_detail_stats', { 
@@ -216,9 +215,7 @@ function openUserModal(userId) {
     })
     .then(response => response.json())
     .then(data => {
-        if(data.error) {
-            return
-        }
+        if(data.error) return
 
         const dataCont = document.querySelector(".left-part")
         const usersBlock = dataCont.querySelector(".users")
@@ -235,7 +232,6 @@ function openUserModal(userId) {
 
         dataCont.insertAdjacentHTML('beforeend', `
             <div class="personal-data">
-
                 <div class="points-user">
                     <p class="points-text">200/200</p>
                     <div class="block-accuracy">
@@ -257,26 +253,16 @@ function openUserModal(userId) {
                 </div>
             </div> 
 
-             <div class="user-questions">
+            <div class="user-questions">
                 <p class="info-text">Детальний аналіз відповідей</p>
                 <div class="all-questions">
                     <div class="question-header">
-                        <div class="nums">
-                            #
-                        </div>
-                        <div class="question-part">
-                            Питання
-                        </div>
-                        <div class="answer-part">
-                            Ваша відповідь
-                        </div>
-                        <div class="part-result">
-                            Результат
-                        </div>
+                        <div class="nums">#</div>
+                        <div class="question-part">Питання</div>
+                        <div class="answer-part">Ваша відповідь</div>
+                        <div class="part-result">Результат</div>
                     </div>
-                    <div class="questions-cont">
-            
-                    </div>
+                    <div class="questions-cont"></div>
                 </div>
             </div> 
         `)
@@ -284,7 +270,7 @@ function openUserModal(userId) {
         const dataDiagram = document.querySelector(".right-part")
         const bottomDiagram = dataDiagram.querySelector(".bar-chart-container")
 
-        if (bottomDiagram){
+        if (bottomDiagram) {
             bottomDiagram.remove()
             document.querySelector("#choice-diagram").remove()
         }
@@ -300,52 +286,39 @@ function openUserModal(userId) {
                         <div class="sighn-correct"></div>
                         <p>Правильні відповіді</p>
                     </div>
-                    <div class="text-num">
-                        <p>${answers[0]}</p>
-                    </div>
+                    <div class="text-num"><p>${answers[0]}</p></div>
                 </div>
                 <div class="uncorrect-answers div-answer">
                     <div class="left-block">
                         <div class="sighn-uncorrect"></div>
                         <p>Не правильні відповіді</p>
                     </div>
-                    <div class="text-num">
-                        <p>${answers[1]}</p>
-                    </div>
+                    <div class="text-num"><p>${answers[1]}</p></div>
                 </div>
                 <div class="unanswered-answers div-answer">
                     <div class="left-block">
                         <div class="sighn-skip"></div>
                         <p>Пропущені відповіді</p>
                     </div>
-                    <div class="text-num">
-                        <p>${answers[2]}</p>
-                    </div>
+                    <div class="text-num"><p>${answers[2]}</p></div>
                 </div>
             </div>
         `)
 
         document.querySelector(".text-button").textContent = data.username
         document.querySelector(".student-accuracy").textContent = `${data.accuracy}%`
+        document.querySelector(".accuracy-result").textContent = `${data.accuracy}%`
         document.querySelector(".points-text").textContent = `${data.points}/${data.max_points}`
         
         const blockanswers = document.querySelector(".questions-cont")
-        for (let index = 0; index < data.questions.length; index++){
+        for (let index = 0; index < data.questions.length; index++) {
             let dark = index % 2 == 0 ? "dark-example" : ""
             blockanswers.innerHTML += `
                 <div class="question-example ${dark}">
-                    <div class="nums">
-                        <p>${index + 1}</p>
-                    </div>
-                    <div class="question-block">
-                        <p>${data.questions[index]}</p>
-                    </div>
-                    <div class="answer-block">
-                        <p>${data.user_answers[index]}</p>
-                    </div>
-                    <div class="result-block">
-                        <p>${data.list_check[index]}</p>
-                    </div>
+                    <div class="nums"><p>${index + 1}</p></div>
+                    <div class="question-block"><p>${data.questions[index]}</p></div>
+                    <div class="answer-block"><p>${data.user_answers[index]}</p></div>
+                    <div class="result-block"><p>${data.list_check[index]}</p></div>
                 </div>
             `
         }
@@ -363,13 +336,9 @@ function openUserModal(userId) {
 
         document.querySelector(".student-time").textContent = timeString
 
-
-
-
         socket.emit("student_diagram", {
-            "id": data.id,
-            "test_id": localStorage.getItem("test_id")
+            id: data.id,
+            test_id: localStorage.getItem("test_id")
         })
     })
 }
-
