@@ -1,123 +1,96 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const dropdowns = [
+        { btn: document.querySelector('.number-list').parentElement, list: document.querySelector('.number-list') },
+        { btn: document.querySelector('.letter-list').parentElement, list: document.querySelector('.letter-list') },
+        { btn: document.querySelector('.subject-list').parentElement, list: document.querySelector('.subject-list') },
+        { btn: document.querySelector('.type-menu').parentElement, list: document.querySelector('.type-menu') }
+    ]
 
-let btn1 = document.querySelector(".sel1")
-let btn2 = document.querySelector(".sel2")
-let btn3 = document.querySelector(".obj")
-let btn4 = document.querySelector(".choo")
+    dropdowns.forEach(dropdown => {
+        const { btn, list } = dropdown
 
-btn1.addEventListener(
-    "click", 
-    () => {
-            let oldList = btn1.querySelector(".list");
-            if (oldList) {
-                oldList.remove();
-                return;
-            }
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation()
+            
+            dropdowns.forEach(d => {
+                if (d.list !== list) d.list.classList.remove('open')
+            })
 
-            let newList = document.createElement("div");
-            newList.className = "list";
-            btn1.appendChild(newList);
+            list.classList.toggle('open')
+        })
 
-            for (let i = 1; i <= 11; i++) {
-                let newBox = document.createElement("div");
-                newBox.className = "box";
-                newBox.textContent = i;
+        if (!list.classList.contains('type-menu')) {
+            const items = list.querySelectorAll('.dropdown-item')
+            
+            const displayElement = btn.querySelector('.selected-value') || btn.querySelector('p')
 
-                newBox.addEventListener("click", () => {
-                    btn1.textContent = i;
-                    newList.remove();
-                });
+            items.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.stopPropagation()
+                    
+                    const dataValue = item.getAttribute('data-value')
+                    
+                    const text = item.textContent
 
-                newList.appendChild(newBox);
-            }
+                    displayElement.textContent = text
+                    displayElement.style.color = "rgba(0, 0, 0, 0.4)" 
 
+                    displayElement.setAttribute('value', dataValue)
+
+                    list.classList.remove('open')
+                })
+            })
+        }
+    })
+
+    // Закриття при кліку поза меню
+    document.addEventListener('click', () => {
+        dropdowns.forEach(d => d.list.classList.remove('open'))
+    })
+})
+
+document.querySelector(".create-button").addEventListener('click', function() {
+    const className = document.querySelector(".input-name").value
+    const description = document.querySelector(".description-class").value
+    const gradeNumber = document.querySelector("#grade-number-btn .selected-value").getAttribute('value')
+    const gradeLetter = document.querySelector("#grade-letter-btn .selected-value").getAttribute('value')
+    const subject = document.querySelector("#subject-btn .selected-value").getAttribute('value')
+    const joinTypeInput = document.querySelector('input[name="join_type"]:checked')
+    const joinType = joinTypeInput ? joinTypeInput.value : null
+
+    console.log("kdfkmdkfvlkm")
+
+    if (!className || !gradeNumber || !gradeLetter || !subject || !joinType) {
+        alert("Будь ласка, заповніть усі обов'язкові поля!")
+        return
     }
-)
-
-btn2.addEventListener(
-    "click", 
-    () => {
-            let oldList = btn2.querySelector(".list2");
-            if (oldList) {
-                oldList.remove();
-                return;
-            }
-
-            let newList2 = document.createElement("div");
-            newList2.className = "list2";
-            btn2.appendChild(newList2);
-
-            const alph = ["А", "Б", "В", "Г", "Д", "І"]
-            for (let i = 0; i <= alph.length - 1; i++) {
-                let newBox2 = document.createElement("div");
-                newBox2.className = "box";
-                newBox2.textContent = alph[i];
-
-                newBox2.addEventListener("click", () => {
-                    btn2.textContent = alph[i];
-                    newList2.remove();
-                });
-                newList2.appendChild(newBox2);
-            }
-    }
-)
 
 
-btn3.addEventListener(
-    "click", 
-    () => {
-            let oldList = btn3.querySelector(".list3");
-            if (oldList) {
-                oldList.remove();
-                return;
-            }
-            let newList3 = document.createElement("div");
-            newList3.className = "list3";
-            btn3.appendChild(newList3);
-
-            const alph = ["математика", "англійська", "програмування", "історія", "фізика", "хімія", "інше"]
-            for (let i = 0; i <= alph.length - 1; i++) {
-                let newBox3 = document.createElement("div");
-                newBox3.className = "box2";
-                newBox3.textContent = alph[i];
-
-                newBox3.addEventListener("click", () => {
-                    btn3.textContent = alph[i];
-                    newList3.remove();
-                });
-                newList3.appendChild(newBox3);
-            }
-    }
-)
-
-
-
-btn4.addEventListener(
-    "click", 
-    () => {
-            let oldList = btn4.querySelector(".list4");
-            if (oldList) {
-                oldList.remove();
-                return;
-            }
-            let newList4 = document.createElement("div");
-            newList4.className = "list4";
-            btn4.appendChild(newList4);
-
-            const type = ["Лише за кодом", "Лише за запрошенням"]
-            for (let i = 0; i <= type.length - 1; i++) {
-                let newBox4 = document.createElement("div");
-                let circle = document.createElement("div");
-                circle.className = "circle"
-                newBox4.className = "box3";
-                newBox4.textContent = type[i];
-
-                newBox4.addEventListener("click", () => {
-                    btn4.textContent = type[i];
-                    newList4.remove();
-                });
-                newList4.appendChild(newBox4);
-                newBox4.appendChild(circle)
-            }
-    }
-)
-
+    fetch('/create_class', { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify({
+            class_name: className,
+            grade_number: gradeNumber,
+            grade_letter: gradeLetter,
+            subject: subject,
+            description: description,
+            join_type: joinType
+        })
+    })
+    .then(response => {
+        if (response.redirected) {
+             window.location.href = response.url
+        } else {
+             return response.json()
+        }
+    })
+    .then(data => {
+        if (data && data.redirect_url) {
+            window.location.href = data.redirect_url
+        }
+    })
+    .catch(error => console.error('Помилка:', error))
+})

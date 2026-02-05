@@ -10,7 +10,7 @@ class Classes(DATABASE.Model):
     letter = DATABASE.Column(DATABASE.String(1))
     description = DATABASE.Column(DATABASE.String(255))
     lesson = DATABASE.Column(DATABASE.String(25))
-    type = DATABASE.Column(DATABASE.Boolean, default = None)
+    type = DATABASE.Column(DATABASE.String, default = None)
     code = DATABASE.Column(DATABASE.String(8))
 
     mentor_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey("user.id"), nullable=False)
@@ -20,6 +20,6 @@ class Classes(DATABASE.Model):
         "User",
         secondary=student_classes,
         back_populates="joined_classes",
-        lazy="dynamic"
+        lazy="select" #чтобы можно было получить учеников в виде списка(каждый раз кога будем пытаться сделать запрос чтобы получить всех людей, то будет происходит отдельынй запрос)
     )
 

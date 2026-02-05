@@ -9,50 +9,116 @@
 {% endblock links %}
 
 {% block content %}
-    <form class="main" method="post" action="create_class">
-        <div class="create">
-            <p>Створення класу: </p>
-        </div>
+    <form method="post" class="main-form">
+        <div class="create_class">
+            <div class="text-title">
+                <h2 class="main-title">Створення класу</h2>
+                <div class="create-button">
+                    <p>Створити</p>
+                </div>
+            </div>
+            <div class="input-data">
+                <div class="first-text">
+                    <p class="placeholder-text">Заповніть інформацію про клас:</p>
+                </div>
+                <div class="second-data">
+                    <input type="text" class="input-name" name="class-name" placeholder="Назва для класу" required>
+                    <div class="grade-class">
+                        <p>Оберіть клас:</p>
+                        <div class="bottom-data">
+                            <div class="number-class choice" id="grade-number-btn">
+                                <span class="selected-value" value="">№..</span> 
+                                <img class="arrow-img" src="{{ url_for('mentor_class.static', filename = 'images/create_class/arrow.svg') }}">
+                                
+                                <div class="dropdown-list number-list">
+                                    <div class="dropdown-item" data-value="1">1</div>
+                                    <div class="dropdown-item" data-value="2">2</div>
+                                    <div class="dropdown-item" data-value="3">3</div>
+                                    <div class="dropdown-item" data-value="4">4</div>
+                                    <div class="dropdown-item" data-value="5">5</div>
+                                    <div class="dropdown-item" data-value="6">6</div>
+                                    <div class="dropdown-item" data-value="7">7</div>
+                                    <div class="dropdown-item" data-value="8">8</div>
+                                    <div class="dropdown-item" data-value="9">9</div>
+                                    <div class="dropdown-item" data-value="10">10</div>
+                                    <div class="dropdown-item" data-value="11">11</div>
+                                </div>
+                            </div>
 
-        <div class="create-class">
-            <p class="text">Заповніть інформацію про клас:</p>
-            <div class="inp1">
-                <input type="text" placeholder="Назва класу" class="name" name="class_name">
-                <div class="sel">
-                    <p>Оберіть клас:</p>
-                    
-                    <div class="sels">
-                        <button type="button" class="sel1" name="form-num" >№</button>
-                        <p>-</p>
-                        <button type="button" class="sel2" name="letter">А...</button>
+                            <img class="line-img" src="{{ url_for('mentor_class.static', filename = 'images/create_class/line.svg') }}" alt="line">
+                            
+                            <div class="number-class choice" id="grade-letter-btn">
+                                <span class="selected-value" value="">А..</span> 
+                                <img class="arrow-img" src="{{ url_for('mentor_class.static', filename = 'images/create_class/arrow.svg') }}">
+                                
+                                <div class="dropdown-list letter-list">
+                                    <div class="dropdown-item" data-value="А">А</div>
+                                    <div class="dropdown-item" data-value="Б">Б</div>
+                                    <div class="dropdown-item" data-value="В">В</div>
+                                    <div class="dropdown-item" data-value="Г">Г</div>
+                                    <div class="dropdown-item" data-value="Д">Д</div>
+                                    <div class="dropdown-item" data-value="Е">Е</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="third-data">
+                    <textarea 
+                        class="description-class" 
+                        name="description" 
+                        placeholder="Опис класу (не обов’язково)"></textarea>
+                </div>
+                <div class="last-floor">
+                    <div class="choice-class" id="subject-btn">
+                        <p class="selected-value" value="">Оберіть предмет класу</p>
+                        <img class="arrow-img" src="{{ url_for('mentor_class.static', filename = 'images/create_class/arrow.svg') }}">
+                        
+                        <div class="dropdown-list subject-list">
+                            <div class="dropdown-item" data-value="Математика">Математика</div>
+                            <div class="dropdown-item" data-value="Англійська">Англійська</div>
+                            <div class="dropdown-item" data-value="Програмування">Програмування</div>
+                            <div class="dropdown-item" data-value="Історія">Історія</div>
+                            <div class="dropdown-item" data-value="Фізика">Фізика</div>
+                            <div class="dropdown-item" data-value="Хімія">Хімія</div>
+                            <div class="dropdown-item" data-value="Інше">Інше</div>
+                        </div>
+                    </div>
+
+                    <div class="type-class" id="type-btn">
+                        <p>тип приєднання до класу</p>
+                        
+                        <div class="dropdown-list type-menu">
+                            <label class="dropdown-item-type">
+                                <input type="radio" name="join_type" value="code">
+                                <span>Лише за кодом</span>
+                            </label>
+                            <label class="dropdown-item-type">
+                                <input type="radio" name="join_type" value="invite">
+                                <span>Лише за запрошенням</span>
+                            </label>
+                            <label class="dropdown-item-type">
+                                <input type="radio" name="join_type" value="open">
+                                <span>Відкритий для всіх</span>
+                            </label>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="inp">
-                <textarea type="text" class="inp2" placeholder="Опис класу (не обов'язково)" name="description" style="resize: none;"></textarea>
-            </div>
-            <div class="lstin">
-                <button type="button" class="obj" name="lesson">Оберіть предмет класу</button>
-                <button type="button" class="choo">тип приєднання до класу</button>
-            </div>
-            
         </div>
-        <div class="bottom-div">
-            <button type="button" class="generate-btn">Згенерувати код</button>
-            <span class="generate-container">
-                <p>Ваш код з’явиться тут</p>
-                <input type="text" class="generated-code" name="generated-code"  readonly>
-                <!-- <p >якийсь згенерований код</p> -->
-                <hr>
-            </span>
+        
+        <div class="generate-data">
+            <div class="generate">
+                <p>Згенерувати</p>
+            </div>
+            <div class="result">
+                <p>Ваш код з'явиться тут</p>
+                <div class="ready-code"></div>
+            </div>
         </div>
-        <button id="createClassBtn">Створити клас</button>
     </form>
-    
 {% endblock %}
 
 {% block scripts %} 
-    {{ super() }}
     <script src="{{ url_for('mentor_class.static', filename='js/create_class.js') }}"></script>
-    <script src="{{ url_for('mentor_class.static', filename='js/generate_code.js') }}"></script>
 {% endblock scripts %}

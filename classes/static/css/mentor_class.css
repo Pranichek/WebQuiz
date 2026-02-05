@@ -1,77 +1,247 @@
-.pseudo-header{
-    width: 100vw;
-    height: 10vh;
+main {
     display: flex;
-    justify-content: space-between;
-    padding: 0 1vw;
+    flex-direction: column;
+    align-items: center;
+    justify-content: start;
     font-size: 2vh;
 }
 
-.data-sort{
+.pseudo-header {
+    width: 98vw;
+    height: 9vh;
     display: flex;
-    flex-direction: row;
-    height: 10vh;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.right-part {
+    height: 100%;
+    display: flex;
     gap: 5px;
 }
 
-.sort-button{
-    height: 6vh;
-    background-color: #7291B8;
+.list_users {
+    padding: 1vw 2vw;
     border-radius: 5px;
-    font-size: 2vh;
-    font-weight: bold;
-    padding: 0 2vw;
-    display: flex;
+    background-color: #7291B8;
     cursor: pointer;
     transition: 0.2s;
 }
 
-.sort-button:hover{
-    background-color: #436c9d;
+.list_users:hover {
+    background-color: #526e8f;
 }
 
-.bell-img{
-    height: 60%;
-    object-fit: contain;
-}
-
-.name-class{
-    font-size: 2.5vh;
-}
-
-.tasks-part{
-    height: 70vh;
-    width: 100vw;
+.container-tasks {
+    width: 85vw;
+    height: 72vh;
     display: flex;
-    gap: 1vw;
-    /* justify-content: space-between; */
-    padding: 0 1vw;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-.real-tasks, .old-tasks{
+.task-cont {
     height: 100%;
-    width: 45%;
+    width: 49%;
     border-radius: 25px;
     background-color: rgba(255, 255, 255, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
 }
 
-.footer-button{
-    width: 100vw;
-    height: 10vh;
+.top-title {
+    height: 10%;
+    width: 95%;
     display: flex;
-}
-
-.diagram-class{
-    background-color: #C48AF7;
-    display: flex;
-    height: 6vh;
-    padding: 0 3vw;
-    border-radius: 5px;
+    align-items: center;
+    justify-content: flex-start;
     font-size: 2vh;
+    font-weight: 500;
+    box-sizing: border-box;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.top-title p {
+    margin: 0;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.task-left, .right-task {
+    width: 98%;
+    height: 80%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    padding: 1vh; /* Вот этот отступ мы скопировали в заголовок */
+    box-sizing: border-box;
+    gap: 1.5vh;
+    align-content: flex-start;
+    overflow-y: auto;
+}
+
+.right-task {
+    height: 88%;
+}
+
+.add_new {
+    height: 10%;
+    width: 98%;
+    display: flex;
+}
+
+.img-plus {
+    height: 95%;
     cursor: pointer;
     transition: 0.2s;
 }
 
-.diagram-class:hover{
-    background-color: #965fc7;
+.img-plus:hover {
+    opacity: 0.8;
+}
+
+.pseudo-footer {
+    width: 98vw;
+    height: 9vh;
+    display: flex;
+}
+
+.diagram-class {
+    font-size: 2vh;
+    padding: 1vw 2vw;
+    border-radius: 5px;
+    background-color: #C48AF7;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.diagram-class:hover {
+    background-color: #9f6bcd;
+}
+
+.task-card {
+    width: calc(50% - 1.5vh);
+    min-width: 180px;
+    flex-grow: 1;
+    min-height: 18vh;
+    background-color: #4A4E53;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s;
+}
+
+.task-card:hover {
+    transform: translateY(-3px);
+}
+
+.card-body {
+    flex: 1;
+    box-sizing: border-box;
+    padding: 1.5vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-strip {
+    width: 2.5vw;
+    min-width: 15px;
+    height: auto;
+}
+
+.status-red {
+    background-color: #CD5C5C;
+}
+
+.status-green {
+    background-color: #98FFD8;
+}
+
+.card-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 1vh;
+}
+
+.icon-box {
+    width: 3.5vh;
+    height: 3.5vh;
+    margin-right: 0.8vw;
+    color: #8faac9;
+    flex-shrink: 0;
+}
+
+.icon-box svg {
+    width: 100%;
+    height: 100%;
+}
+
+.card-title {
+    color: white;
+    font-weight: bold;
+    font-size: 2vh;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    margin-right: auto;
+    min-width: 0;
+    padding-right: 1vw;
+}
+
+.card-date {
+    color: #F0AD4E;
+    font-size: 1.6vh;
+    font-weight: 500;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.card-desc {
+    color: #e0e0e0;
+    font-size: 1.6vh;
+    line-height: 1.2;
+    width: 100%;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin-bottom: 1vh;
+    word-break: break-word;
+    overflow-wrap: break-word;
+}
+
+.card-desc p {
+    margin: 0;
+    display: inline;
+}
+
+.card-footer {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    width: 100%;
+    gap: 0.5vh;
+}
+
+.stat-row {
+    font-size: 1.8vh;
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+}
+
+.stat-label {
+    color: #8faac9;
+}
+
+.stat-value {
+    color: #F0AD4E;
+    font-weight: bold;
 }

@@ -27,7 +27,7 @@ main {
 
 .class-card {
     width: calc(50% - 0.75vw);
-    background: rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.6);
     border-radius: 1.5vw;
     padding: 1.5vw;
     display: flex;
@@ -38,6 +38,12 @@ main {
     cursor: pointer;
     box-shadow: 0 0.5vh 1.5vh rgba(0, 0, 0, 0.05);
 }
+
+.class-card:hover {
+    box-shadow: 0 2vh 4vh rgba(0, 0, 0, 0.15);
+    background: rgba(255, 255, 255, 0.9);
+}
+
 
 .card-header {
     display: flex;

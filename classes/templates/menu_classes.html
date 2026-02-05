@@ -12,7 +12,8 @@
     <div class="all_classes">
         <div class="outline_class">
             {% for class in mentor_classes %}
-                <div class="class-card accent">
+                <form method="post" class="class-card accent">
+                    <input type="text" style="display: none;" name="check_form" value="leave">
                     <div class="card-header">
                         <span class="subject-name">{{ class.name_class }}</span>
                         <span class="class-badge">{{ class.form }}-{{ class.letter }}</span>
@@ -24,16 +25,16 @@
 
                     <div class="card-footer">
                         <div class="students-info">
-                            <span></span>
+                            <span>{{ class.students|length }}</span>
                         </div>
                         {% if user.is_mentor %}
-                            <button class="btn-leave">видалити</button>
+                            <button type="button" value="{{ class.code }}" name="btn-leave" class="btn-leave btn-delete">видалити</button>
                         {% else %}
-                            <button class="btn-leave">покинути</button>
+                            <button value="{{ class.code }}" name="btn-leave" class="btn-leave">покинути</button>
                         {% endif %}
                         
                     </div>
-                </div>
+                </form>
             {% endfor %}
         </div>
     </div>
@@ -60,21 +61,25 @@
             </div>
         </div>
 
-        <div class="join-class">
+        <form class="join-class" method="post">
             {% if not user.is_mentor %}
+                <input type="text" style="display: none;" name="check_form" value="join">
                 <h3>Вступити до класу</h3>
-                <input type="text" placeholder="Введіть код класу">
-                <button class="join-class">Приєднатися</button>
+                <input type="text" name="class_code" placeholder="Введіть код класу">
+                <button type="submit" class="join-class">Приєднатися</button>
             {% else %}
                 <h3>Створення</h3>
-                <button class="create-class" onclick="location.replace('/create_class')">Створити клас</button>
+                <button type="button" class="create-class" onclick="location.replace('/create_class')">Створити клас</button>
             {% endif %}
-        </div>
+        </form>
 
     </div>
 
 {% endblock %}
 
 {% block scripts %} 
-    {{ super() }}
+    <script src="{{ url_for('mentor_class.static', filename='js/delete_class.js') }}"></script>
+    {% if user.is_mentor %}
+        <script src="{{ url_for('mentor_class.static', filename='js/change_page.js') }}"></script>
+    {% endif %}
 {% endblock scripts %}

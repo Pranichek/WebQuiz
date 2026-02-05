@@ -1,73 +1,91 @@
-import flask, flask_login
+import flask, flask_login, os, secrets, datetime, pytz
 from .models import Classes
 from Project.db import DATABASE
 from flask_socketio import emit
 from home.models import User
 from Project.login_check import login_decorate
 from Project.socket_config import socket
-import datetime, pytz
 from datetime import timedelta
 from os.path import abspath, join, exists
-import os
-import secrets
+from Project.settings import project
+from flask import request, jsonify
 
+
+@project.route('/delete_class', methods = ['POST'])
+def delete_class():
+    data = request.json
+    code_class = data["code_class"]
+    mentor_class = Classes.query.filter_by(code=code_class).first()
+    
+    if mentor_class:
+        DATABASE.session.delete(mentor_class)
+        DATABASE.session.commit()
+
+    return jsonify({'redirect_url': '/menu_classes'})
 
 def classes_information():
+    if flask.request.method == "POST":
+        check = flask.request.form.get("check_form")
+        
+        if check == "join":
+            code_class = flask.request.form.get("class_code")
+            mentor_class = Classes.query.filter_by(code=code_class).first()
+            
+            if mentor_class:
+                if flask_login.current_user not in mentor_class.students:
+                    mentor_class.students.append(flask_login.current_user)
+        else:
+            code_class = flask.request.form.get("btn-leave")
+            mentor_class = Classes.query.filter_by(code=code_class).first()
+            
+            if mentor_class:
+                if flask_login.current_user in mentor_class.students:
+                    mentor_class.students.remove(flask_login.current_user)
+
+        DATABASE.session.commit()
+        
+
     return flask.render_template(
         "menu_classes.html", 
         user = flask_login.current_user,
-        mentor_classes = flask_login.current_user.classes
+        mentor_classes = flask_login.current_user.classes if flask_login.current_user.is_mentor else flask_login.current_user.joined_classes
     )
 
-@socket.on("generate_code")
-def generate_code():
+def render_create_class():        
+    return flask.render_template("create_class.html")
+
+
+
+@project.route('/create_class', methods=['POST'])
+def create_classs():
+    data = request.json
+
+    if not flask_login.current_user.is_authenticated:
+        return flask.redirect("/login") 
+    
     while True:
-        random_choice = secrets.token_hex(8)
+        random_choice = secrets.token_hex(10)
         check_class = Classes.query.filter_by(code = random_choice).first()
         if not check_class:
             break
         
-    emit("generate_code", {"generated_code": random_choice})
 
-def render_create_class():
-    if flask.request.method == "POST":
-        class_name = flask.request.form.get("class_name")
-        description = flask.request.form.get("description")
-
-        try:
-            form = int(flask.request.form.get("form-num"))
-        except (ValueError, TypeError):
-            form = 0 
-            
-        letter = flask.request.form.get("letter")
-        lesson = flask.request.form.get("lesson")
-        generated_code = flask.request.form.get("generated-code")
-        
-        if not flask_login.current_user.is_authenticated:
-            return flask.redirect("/login") 
-
-        class_mentor = Classes(
-            name_class = class_name,
-            description = description,
-            form = form,
-            letter = letter,
-            lesson = lesson,
-            code = generated_code,
-            mentor = flask_login.current_user 
-        )
-        
-        DATABASE.session.add(class_mentor)
-        DATABASE.session.commit()
-
-        return flask.redirect("/menu_classes")
-        
-    return flask.render_template("create_class.html")
-
-@login_decorate
-def render_mentor_class():
-    return flask.render_template(
-        "mentor_class.html",
+    class_mentor = Classes(
+        name_class = data["class_name"],
+        description = data["description"],
+        form = data["grade_number"],
+        letter = data["grade_letter"],
+        lesson = data["subject"],
+        code = random_choice,
+        type = data["join_type"],
+        mentor = flask_login.current_user 
     )
+    
+    DATABASE.session.add(class_mentor)
+    DATABASE.session.commit()
+
+    return jsonify({'redirect_url': '/menu_classes'})
+
 
 @login_decorate
 def render_data_class():

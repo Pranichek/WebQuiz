@@ -10,31 +10,111 @@
 
 {% block content %}
     <div class="pseudo-header">
-        <p class="name-class">Назва класа: Додаткові заняття</p>
+        <p>Назва класу: сосунок 3000 </p>
 
-        <div class="data-sort">
-            <p>клас: 8-А</p>
-            <p class="sort-button">Сортування</p>
-            <img class="bell-img" src="{{ url_for('mentor_class.static', filename='images/class_mentor/bell.svg') }}" alt="bell">
+        <div class="right-part">
+            <p>Клас 8-А</p>
+            <div class="list_users">
+                Переглянути усіх учнів
+            </div>
         </div>
     </div>
 
-    <div class="tasks-part">
-        <div class="real-tasks">
+    <div class="container-tasks">
+        <div class="task-cont">
+            <div class="top-title">
+                <p>Назначені завдання:</p>
+            </div>
+            <div class="task-left">
+                <div class="task-card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <span class="card-title">Урок 1. Основи</span>
+                            <span class="card-date">до 20.10.2024</span>
+                        </div>
+                        <div class="card-desc">
+                            Опис.... інформація про щось, нагадування, повідомлення
+                        </div>
+                        <div class="card-footer">
+                            <div class="stat-row">
+                                <span class="stat-label">Виконали:</span>
+                                <span class="stat-value">10</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Назначено:</span>
+                                <span class="stat-value">25</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-strip status-red"></div>
+                </div>
 
+                <div class="task-card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <span class="card-title">Контрольна</span>
+                            <span class="card-date">15.10.2024</span>
+                        </div>
+                        <div class="card-desc">
+                            Підсумкова робота за семестр...
+                        </div>
+                        <div class="card-footer">
+                            <div class="stat-row">
+                                <span class="stat-label">Виконали:</span>
+                                <span class="stat-value">18</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Назначено:</span>
+                                <span class="stat-value">20</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-strip status-green"></div>
+                </div>
+            </div>
+            <div class="add_new">
+                <img class="img-plus" src="{{ url_for('mentor_class.static', filename='images/mentor_class/add_new.svg') }}" alt="plus">
+            </div>
         </div>
-        <div class="old-tasks">
-            
+        <div class="task-cont">
+            <div class="top-title">
+                <p>Виконані завдання:</p>
+            </div>
+            <div class="right-task">
+                <div class="task-card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <span class="card-title">Контрольна 05/02/1223</span>
+                            <span class="card-date">15.10.2024</span>
+                        </div>
+                        <div class="card-desc">
+                            <p>dfskjvsdfkjvnsdjkfvkjdsfnjkvnsdkfjvnsdjkfvndskjnvkdjsnfvkjsdnfkvsdfnvjsdfvkjnsdfkjvnsdjkfvksdjfndfjvsdkjfvksjdnf</p>
+                        </div>
+                        <div class="card-footer">
+                            <div class="stat-row">
+                                <span class="stat-label">Виконали:</span>
+                                <span class="stat-value">18</span>
+                            </div>
+                            <div class="stat-row">
+                                <span class="stat-label">Назначено:</span>
+                                <span class="stat-value">20</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-strip status-green"></div>
+                </div>
+
+                
+            </div>
         </div>
     </div>
 
-    <div class="footer-button">
+    <div class="pseudo-footer">
         <div class="diagram-class">
-            Переглянути успішність учнів
+            <p>Переглянути успішність учнів</p>
         </div>
     </div>
 {% endblock %}
 
 {% block scripts %} 
-    {{ super() }}
 {% endblock scripts %}
