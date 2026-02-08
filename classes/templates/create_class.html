@@ -17,6 +17,7 @@
                     <p>Створити</p>
                 </div>
             </div>
+            
             <div class="input-data">
                 <div class="first-text">
                     <p class="placeholder-text">Заповніть інформацію про клас:</p>
@@ -74,7 +75,9 @@
                         <p class="selected-value" value="">Оберіть предмет класу</p>
                         <img class="arrow-img" src="{{ url_for('mentor_class.static', filename = 'images/create_class/arrow.svg') }}">
                         
-                        <div class="dropdown-list subject-list">
+                        <div class="dropdown-list subject-list sublects">
+                            <div class="dropdown-item" data-value="Українська мова">Українська мова</div>
+                            <div class="dropdown-item" data-value="Українська література">Українська література</div>
                             <div class="dropdown-item" data-value="Математика">Математика</div>
                             <div class="dropdown-item" data-value="Англійська">Англійська</div>
                             <div class="dropdown-item" data-value="Програмування">Програмування</div>
@@ -94,26 +97,12 @@
                                 <span>Лише за кодом</span>
                             </label>
                             <label class="dropdown-item-type">
-                                <input type="radio" name="join_type" value="invite">
-                                <span>Лише за запрошенням</span>
-                            </label>
-                            <label class="dropdown-item-type">
                                 <input type="radio" name="join_type" value="open">
                                 <span>Відкритий для всіх</span>
                             </label>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-        
-        <div class="generate-data">
-            <div class="generate">
-                <p>Згенерувати</p>
-            </div>
-            <div class="result">
-                <p>Ваш код з'явиться тут</p>
-                <div class="ready-code"></div>
             </div>
         </div>
     </form>

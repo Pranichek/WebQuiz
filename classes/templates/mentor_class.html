@@ -10,10 +10,10 @@
 
 {% block content %}
     <div class="pseudo-header">
-        <p>Назва класу: сосунок 3000 </p>
+        <p>Назва класу: {{ mentor_class.name_class }}</p>
 
         <div class="right-part">
-            <p>Клас 8-А</p>
+            <p>Клас {{ mentor_class.form }}-{{ mentor_class.letter }}</p>
             <div class="list_users">
                 Переглянути усіх учнів
             </div>
@@ -26,51 +26,39 @@
                 <p>Назначені завдання:</p>
             </div>
             <div class="task-left">
-                <div class="task-card">
-                    <div class="card-body">
-                        <div class="card-header">
-                            <span class="card-title">Урок 1. Основи</span>
-                            <span class="card-date">до 20.10.2024</span>
-                        </div>
-                        <div class="card-desc">
-                            Опис.... інформація про щось, нагадування, повідомлення
-                        </div>
-                        <div class="card-footer">
-                            <div class="stat-row">
-                                <span class="stat-label">Виконали:</span>
-                                <span class="stat-value">10</span>
+                {% if active_tasks|length > 0 %}
+                    {% for task in active_tasks %}
+                        <div class="task-card">
+                            <div class="card-body">
+                                
+                                <div class="card-header">
+                                    <span class="card-title">{{ task.topic_task }}</span>
+                                    
+                                    <span class="card-date">
+                                        {{ time_formatter(task.deadline) }}
+                                    </span>
+                                </div>
+                                <div class="card-desc">
+                                    {{ task.description_task }}
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stat-row">
+                                        <span class="stat-label">Виконали:</span>
+                                            <span class="stat-value">{{ task.parent_class.students|length }}</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Назначено:</span>
+                                        <span class="stat-value">{{ task.completed_by.count() }}</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="stat-row">
-                                <span class="stat-label">Назначено:</span>
-                                <span class="stat-value">25</span>
-                            </div>
+                            <div class="card-strip status-green"></div>
                         </div>
-                    </div>
-                    <div class="card-strip status-red"></div>
-                </div>
-
-                <div class="task-card">
-                    <div class="card-body">
-                        <div class="card-header">
-                            <span class="card-title">Контрольна</span>
-                            <span class="card-date">15.10.2024</span>
-                        </div>
-                        <div class="card-desc">
-                            Підсумкова робота за семестр...
-                        </div>
-                        <div class="card-footer">
-                            <div class="stat-row">
-                                <span class="stat-label">Виконали:</span>
-                                <span class="stat-value">18</span>
-                            </div>
-                            <div class="stat-row">
-                                <span class="stat-label">Назначено:</span>
-                                <span class="stat-value">20</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card-strip status-green"></div>
-                </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: white; padding: 10px;">Завдань немає</p>
+                {% endif %}
+               
             </div>
             <div class="add_new">
                 <img class="img-plus" src="{{ url_for('mentor_class.static', filename='images/mentor_class/add_new.svg') }}" alt="plus">
@@ -81,30 +69,36 @@
                 <p>Виконані завдання:</p>
             </div>
             <div class="right-task">
-                <div class="task-card">
-                    <div class="card-body">
-                        <div class="card-header">
-                            <span class="card-title">Контрольна 05/02/1223</span>
-                            <span class="card-date">15.10.2024</span>
-                        </div>
-                        <div class="card-desc">
-                            <p>dfskjvsdfkjvnsdjkfvkjdsfnjkvnsdkfjvnsdjkfvndskjnvkdjsnfvkjsdnfkvsdfnvjsdfvkjnsdfkjvnsdjkfvksdjfndfjvsdkjfvksjdnf</p>
-                        </div>
-                        <div class="card-footer">
-                            <div class="stat-row">
-                                <span class="stat-label">Виконали:</span>
-                                <span class="stat-value">18</span>
+                {% if expired_tasks|length > 0 %}
+                    {% for task in expired_tasks %}
+                        <div class="task-card">
+                            <div class="card-body">
+                                <div class="card-header">
+                                    <span class="card-title">{{ task.topic_task }}</span>
+                                    <span class="card-date" style="color: #CD5C5C;">
+                                        {{ time_formatter(task.deadline) }}
+                                    </span>
+                                </div>
+                                <div class="card-desc">
+                                    {{ task.description_task }}
+                                </div>
+                                <div class="card-footer">
+                                    <div class="stat-row">
+                                        <span class="stat-label">Здали:</span>
+                                        <span class="stat-value">{{ task.completed_by.count() }}</span>
+                                    </div>
+                                    <div class="stat-row">
+                                        <span class="stat-label">Всього:</span>
+                                        <span class="stat-value">{{ task.parent_class.students|length }}</span>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="stat-row">
-                                <span class="stat-label">Назначено:</span>
-                                <span class="stat-value">20</span>
-                            </div>
+                            <div class="card-strip status-red"></div>
                         </div>
-                    </div>
-                    <div class="card-strip status-green"></div>
-                </div>
-
-                
+                    {% endfor %}
+                {% else %}
+                    <p style="color: white; padding: 10px;">Архів порожній</p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -114,7 +108,42 @@
             <p>Переглянути успішність учнів</p>
         </div>
     </div>
+
+    <div class="create-task-modal">
+        <p>Створення завдання для учнів</p>
+        
+        <div class="row-input">
+            <input type="text" placeholder="Введіть тему завдання..." name="title" required>
+        </div>
+
+        <input type="text" class="full-input" placeholder="Введіть інформацію про завдання..." name="description" required>
+
+        <div class="deadline-wrapper">
+            <span class="deadline-label">Задати термін:</span>
+            <div class="deadline-inputs">
+                <div class="d-item"><input type="number" name="weeks"><span>тижнів</span></div>
+                <div class="d-item"><input type="number" name="days"><span>днів</span></div>
+                <div class="d-item"><input type="number" name="hours"><span>годин</span></div>
+                <div class="d-item"><input type="number" name="minutes"><span>хвилин</span></div>
+            </div>
+        </div>
+        <button type="button" class="submit-task-btn">Створити завдання</button>
+    </div>
+
+    <div class="modal-overlay"></div>
+
+    <div class="choice-task">
+        <p>Створити..</p>
+        <div class="anounce">
+            <p>Оголошення</p>
+        </div>
+        <div class="task-test">
+            <p>Завдання з тестом</p>
+        </div>
+    </div>
+
 {% endblock %}
 
 {% block scripts %} 
+    <script src="{{ url_for('mentor_class.static', filename = 'js/create_task.js') }}"></script>
 {% endblock scripts %}

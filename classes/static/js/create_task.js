@@ -1,141 +1,70 @@
-let buttonPlus = document.querySelector(".add_task")
-let divChoice = document.querySelector(".choice")
-let divAnnouncement = document.querySelector(".announcement")
-let divTestTask = document.querySelector(".test_task")
-let divNextTestTask = document.querySelector(".next_test_task")
-let buttonAnnouncement = document.querySelector(".announcement-btn")
-let buttonTestTask = document.querySelector(".test_task-btn")
-let buttonChooseTest = document.querySelector(".choose-test")
-let buttonCreateTask = document.querySelector(".create_task")
-const weeksInput = document.querySelector(".week_data")
-const daysInput = document.querySelector(".days_data")
-const hoursInput = document.querySelector(".hours_data")
-const minutesInput = document.querySelector(".minutes_data")
-// let buttonCreateTestTask = document.querySelector(".create_test_task")
-const socket = io()
-const queryString = window.location.search
-const urlParams = new URLSearchParams(queryString)
-const inputFile = document.querySelector("#file-upload")
-const id = urlParams.get('class_id')
+document.addEventListener('DOMContentLoaded', () => {
+    const plusBtn = document.querySelector(".img-plus")
+    const choiceModal = document.querySelector(".choice-task")
+    const createModal = document.querySelector(".create-task-modal")
+    const overlay = document.querySelector(".modal-overlay")
+    const announceBtn = document.querySelector(".anounce")
 
-socket.emit("join_mentor", {"id": id})
+    if (plusBtn && choiceModal && overlay) {
+        plusBtn.addEventListener('click', () => {
+            choiceModal.classList.add('open')
+            overlay.classList.add('open')
+        })
 
-
-function showWithFade(el) {
-  el.style.display = "flex";           
-  el.classList.remove("is-open");      
-  requestAnimationFrame(() => {        
-    el.classList.add("is-open");
-  });
-}
-
-function hideWithFade(el) {
-  el.classList.remove("is-open");   
-  setTimeout(() => {                   
-    el.style.display = "none";
-  }, 280);
-}
-
-
-
-buttonPlus.addEventListener(
-    "click",
-    () => {
-        console.log(12)
-        divChoice.style.display = "flex"
-        divAnnouncement.style.display = "none"
-
-        showWithFade(divChoice);
-        hideWithFade(divAnnouncement);
-    }
-)
-buttonAnnouncement.addEventListener(
-    "click",
-    () => {
-        divChoice.style.display = "none"
-        divAnnouncement.style.display = "flex"
-
-        hideWithFade(divChoice);
-        showWithFade(divAnnouncement);
-    }
-)
-buttonTestTask.addEventListener(
-    'click',
-    () => {
-        divChoice.style.display = "none"
-        divTestTask.style.display = "flex"
-
-        hideWithFade(divChoice);
-        showWithFade(divTestTask);
-    }
-)
-
-buttonChooseTest.addEventListener(
-    'click',
-    () => {
-        divTestTask.style.display = "none"
-        divNextTestTask.style.display = "flex"
-
-        hideWithFade(divTestTask);
-        showWithFade(divNextTestTask);
-    }
-)
-
-
-$("#taskForm").on("submit", function(e) {
-    e.preventDefault();
-
-    let formData = new FormData(this);
-
-    $.ajax({
-        url: window.location.href,
-        type: "POST",
-        data: formData,
-        processData: false,
-        contentType: false,
-        success: function(res) {
-
-            let newTask = `
-                <div class="task">
-                    <div class="info_div">
-                        <img src="/static/mentor_class/images/book.svg" class="book">
-                        <div>
-                            <p class="name">${res.topic}, ${res.task_info}</p>
-                            <p class="term">термін події..</p>
-                        </div>
-                    </div>
-                    <div class="right-head"></div>
-                </div>
-            `;
-
-            document.querySelector(".tasks").innerHTML += newTask;
-            divAnnouncement.style.display = "none"
-            hideWithFade(divAnnouncement);
+        if (announceBtn && createModal) {
+            announceBtn.addEventListener('click', () => {
+                choiceModal.classList.remove('open')
+                createModal.classList.add('open')
+            })
         }
-    });
 
-    socket.emit("new_task", {"status":"ok", "id":id})
-});
+        overlay.addEventListener('click', () => {
+            choiceModal.classList.remove('open')
+            if (createModal) createModal.classList.remove('open')
+            overlay.classList.remove('open')
+        })
+    }
+})
 
+document.querySelector(".submit-task-btn").addEventListener('click', () => {
+    const modal = document.querySelector('.create-task-modal')    
+    const title = modal.querySelector('input[name="title"]').value
+    const description = modal.querySelector('input[name="description"]').value // Или input.full-input
+    
+    const weeks = modal.querySelector('input[name="weeks"]').value || 0
+    const days = modal.querySelector('input[name="days"]').value || 0
+    const hours = modal.querySelector('input[name="hours"]').value || 0
+    const minutes = modal.querySelector('input[name="minutes"]').value || 0
 
-// buttonCreateTask.addEventListener(
-//     'click',
-//     () => {
-//         socket.emit(
-//             'create_task',
-//             {
-//                 theme: document.querySelector(".topic").value,
-//                 information: document.querySelector(".task_info").value,
-//                 class_id: urlParams.get('class_id'),
-//                 weeks: weeksInput.value,
-//                 days: daysInput.value,
-//                 hours: hoursInput.value,
-//                 minutes: minutesInput.value,
-//                 file: inputFile.files[0]
-//             }
-//         )
-  
-//         location.reload()    
-//     }
-// )
-// fileInput.files[0];
+    const urlParams = new URLSearchParams(window.location.search)
+    const classKey = urlParams.get('class_key')
+
+    // Проверка на обязательные поля
+    if (!title || !description) {
+        alert("Будь ласка, заповніть тему та опис завдання")
+        return
+    }
+
+    fetch('/create_task', { 
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify({
+            class_key: classKey, 
+            title: title,
+            description: description,
+            weeks: weeks,
+            days: days,
+            hours: hours,
+            minutes: minutes
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.success) {
+            window.location.reload()
+        }
+    })
+    .catch(error => console.error('Помилка', error))
+})
