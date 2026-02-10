@@ -43,11 +43,11 @@
                                 </div>
                                 <div class="card-footer">
                                     <div class="stat-row">
-                                        <span class="stat-label">Виконали:</span>
+                                        <span class="stat-label">Назначено:</span>
                                             <span class="stat-value">{{ task.parent_class.students|length }}</span>
                                     </div>
                                     <div class="stat-row">
-                                        <span class="stat-label">Назначено:</span>
+                                        <span class="stat-label">Виконали:</span>
                                         <span class="stat-value">{{ task.completed_by.count() }}</span>
                                     </div>
                                 </div>
@@ -88,7 +88,7 @@
                                         <span class="stat-value">{{ task.completed_by.count() }}</span>
                                     </div>
                                     <div class="stat-row">
-                                        <span class="stat-label">Всього:</span>
+                                        <span class="stat-label">Назначено:</span>
                                         <span class="stat-value">{{ task.parent_class.students|length }}</span>
                                     </div>
                                 </div>

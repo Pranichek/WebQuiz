@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+
+{% block title %}
+    Клас: {{ student_class.name_class }}
+{% endblock %}
+
+{% block links %}
+    <link rel="stylesheet" href="{{ url_for('student_class.static', filename='css/student_class.css') }}">
+{% endblock links %}
+
+{% block content %}
+<main>
+    <div class="pseudo-header">
+        <div class="left-header">
+            <span class="header-text">Назва класу: {{ student_class.name_class }}</span>
+        </div>
+        <div class="right-header">
+            <span class="class-id">Клас: {{ student_class.form }}-{{ student_class.letter }}</span>
+            <button class="sort-btn">Сортування</button>
+
+        </div>
+    </div>
+
+    <div class="columns-container">
+        
+        <div class="task-column">
+            <div class="column-title">Назначені завдання</div>
+            <div class="column-content">
+                {% if active_tasks|length > 0 %}
+                    {% for task in active_tasks %}
+                        <div class="student-card">
+                            <div class="card-top">
+                                <div class="card-icon blue-icon">
+                                    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M5 21V5C5 3.89543 5.89543 3 7 3H17C18.1046 3 19 3.89543 19 5V21L12 18L5 21Z" fill="white" stroke="white" stroke-width="2" stroke-linejoin="round"/>
+                                    </svg>
+                                </div>
+                                <div class="card-info">
+                                    <div class="card-header-row">
+                                        <span class="s-card-title">{{ task.topic_task }}</span>
+                                        <span class="s-card-date">{{ time_formatter(task.deadline) }}</span>
+                                    </div>
+                                    <div class="s-card-desc">
+                                        {{ task.description_task }}
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="card-action-btn blue-btn" onclick="toggleTaskStatus('{{ task.id }}')">
+                                Позначити як виконано
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: rgba(255,255,255,0.5); text-align: center;">Завдань немає</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="task-column">
+            <div class="column-title">Прострочені завдання</div>
+            <div class="column-content">
+                {% if expired_tasks|length > 0 %}
+                    {% for task in expired_tasks %}
+                        <div class="student-card">
+                            <div class="card-top">
+                                <div class="card-icon blue-icon" style="background-color: #CD5C5C;">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <line x1="12" y1="8" x2="12" y2="12"></line>
+                                        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+                                    </svg>
+                                </div>
+                                <div class="card-info">
+                                    <div class="card-header-row">
+                                        <span class="s-card-title">{{ task.topic_task }}</span>
+                                        <span class="s-card-date" style="color: #CD5C5C;">{{ time_formatter(task.deadline) }}</span>
+                                    </div>
+                                    <div class="s-card-desc">
+                                        {{ task.description_task }}
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="card-action-btn grey-btn" disabled>Термін вийшов</button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: rgba(255,255,255,0.5); text-align: center;">Прострочених немає</p>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="task-column">
+            <div class="column-title">Виконані завдання</div>
+            <div class="column-content">
+                {% if completed_tasks|length > 0 %}
+                    {% for task in completed_tasks %}
+                        <div class="student-card">
+                            <div class="card-top">
+                                <div class="card-icon black-icon">
+                                    <span>OK</span>
+                                </div>
+                                <div class="card-info">
+                                    <div class="card-header-row">
+                                        <span class="s-card-title">{{ task.topic_task }}</span>
+                                        <span class="s-card-date" style="color: #98FFD8;">Виконано</span>
+                                    </div>
+                                    <div class="s-card-desc">
+                                        {{ task.description_task }}
+                                    </div>
+                                </div>
+                            </div>
+                            <button class="card-action-btn blue-btn" onclick="toggleTaskStatus('{{ task.id }}')">
+                                Скасувати виконання
+                            </button>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p style="color: rgba(255,255,255,0.5); text-align: center;">Ви ще нічого не здали</p>
+                {% endif %}
+            </div>
+        </div>
+
+    </div>
+
+    <div class="footer-area">
+        <button class="stats-btn">Переглянути свою успішність</button>
+    </div>
+
+</main>
+{% endblock content %}
+
+{% block scripts %}
+    <script src="{{ url_for('mentor_class.static', filename='js/pass_task.js') }}"></script>
+{% endblock scripts %}

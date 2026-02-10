@@ -77,9 +77,23 @@
 
 {% endblock %}
 
-{% block scripts %} 
+{% block scripts %}
+
     <script src="{{ url_for('mentor_class.static', filename='js/delete_class.js') }}"></script>
+
     {% if user.is_mentor %}
         <script src="{{ url_for('mentor_class.static', filename='js/change_page.js') }}"></script>
+    {% else %}
+        <script>
+            const allClasses = document.querySelectorAll(".class-card");
+
+            allClasses.forEach(card => {
+                card.addEventListener("click", () => {
+                    const code = card.querySelector(".btn-leave").value;
+                    location.replace(`/student_class?class_key=${code}`);
+                });
+            });
+        </script>
     {% endif %}
+
 {% endblock scripts %}

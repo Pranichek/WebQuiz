@@ -255,3 +255,9 @@ classes.mentor_class.add_url_rule(
     view_func=classes.render_mentor_class,
     methods = ["GET", "POST"]
 )
+
+classes.mentor_class.add_url_rule(
+    rule = "/student_class",
+    view_func = classes.render_student_class,
+    methods = ["GET", "POST"]
+)
