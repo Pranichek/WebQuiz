@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block links %}
-    <link rel="stylesheet" href="{{ url_for('mentor_class.static', filename='css/mentor_class.css') }}">
+    <link rel="stylesheet" href="{{ url_for('mentor_class.static', filename='css/mentor_css/mentor_class.css') }}">
+    <link rel="stylesheet" href="{{ url_for('mentor_class.static', filename='css/mentor_css/modal_tests.css') }}">
 {% endblock links %}
 
 {% block content %}
@@ -16,6 +17,9 @@
             <p>Клас {{ mentor_class.form }}-{{ mentor_class.letter }}</p>
             <div class="list_users">
                 Переглянути усіх учнів
+            </div>
+            <div class="list_users load_test">
+                Запустити тест класом
             </div>
         </div>
     </div>
@@ -48,7 +52,7 @@
                                     </div>
                                     <div class="stat-row">
                                         <span class="stat-label">Виконали:</span>
-                                        <span class="stat-value">{{ task.completed_by.count() }}</span>
+                                        <span class="stat-value">{{ task.completed_by|length }}</span>
                                     </div>
                                 </div>
                             </div>
@@ -85,7 +89,7 @@
                                 <div class="card-footer">
                                     <div class="stat-row">
                                         <span class="stat-label">Здали:</span>
-                                        <span class="stat-value">{{ task.completed_by.count() }}</span>
+                                        <span class="stat-value">{{ task.completed_by|length }}</span>
                                     </div>
                                     <div class="stat-row">
                                         <span class="stat-label">Назначено:</span>
@@ -142,8 +146,21 @@
         </div>
     </div>
 
+    <div class="mentor_classes">
+        <p class="title-card">Усі тести</p>
+        {% for test in mentor_tests %}
+        <div class="test-card">
+            <p>{{ test.title_test }}</p>
+            <p>{{ test.category }}</p>
+            <button value="{{ test.id }}" class="start-button">запустити</button>
+        </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}
 
 {% block scripts %} 
-    <script src="{{ url_for('mentor_class.static', filename = 'js/create_task.js') }}"></script>
+    {{ super() }}
+    <script src="{{ url_for('mentor_class.static', filename = 'js/mentor_code/create_task.js') }}"></script>
+    <script src="{{ url_for('mentor_class.static', filename = 'js/mentor_code/start_test.js') }}"></script>
 {% endblock scripts %}

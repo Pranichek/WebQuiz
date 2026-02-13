@@ -130,5 +130,6 @@
 {% endblock content %}
 
 {% block scripts %}
+    {{ super() }}
     <script src="{{ url_for('mentor_class.static', filename='js/pass_task.js') }}"></script>
 {% endblock scripts %}

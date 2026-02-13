@@ -29,7 +29,8 @@ def users_results(data):
     clear_answers = None
     ans_clean = answers.replace("(?%+", "").replace("+%?)", "*|*|*").replace("(?%-", "").replace("-%?)", "*|*|*")
     clear_answers = ans_clean.split('*|*|*')
-    clear_answers.remove("")
+    if "" in clear_answers:
+        clear_answers.remove("")
 
     # сохраняем варианы ответа с + либо -, взависимости от того правильный ответ или нет
     unclear_answers = answers.replace("(?%", "").replace("%?)", "*|*|*").replace("(?%", "").replace("%?)", "*|*|*")

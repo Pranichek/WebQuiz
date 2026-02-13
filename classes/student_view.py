@@ -1,10 +1,11 @@
 import flask, flask_login
 from .models import Classes, TextTask
 from .mentor_view import format_deadline
-from datetime import datetime, timedelta
+from datetime import datetime
 from Project.settings import project
 from Project.db import DATABASE
 from flask import request, jsonify
+from flask_socketio import join_room, emit
 
 
 @project.route('/toggle_task_status', methods=['POST'])
@@ -43,6 +44,8 @@ def render_student_class():
     if not check_class:
         return flask.redirect("/")
     
+    join_room(str(check_class.code))
+    
     now = datetime.now()
     current_user = flask_login.current_user
     
@@ -60,6 +63,8 @@ def render_student_class():
     
     active_tasks.sort(key=lambda x: x.deadline if x.deadline else datetime.max)
     expired_tasks.sort(key=lambda x: x.deadline, reverse=True)
+
+
     
     return flask.render_template(
         template_name_or_list="student_class.html",

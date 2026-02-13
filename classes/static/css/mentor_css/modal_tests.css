@@ -1,0 +1,123 @@
+.mentor_classes {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 90%;
+    max-width: 55vh;
+    max-height: 55vh;
+    box-sizing: border-box;
+    background-color: #343434;
+    border: 2px solid #94C4FF;
+    border-radius: 2.5vh;
+    display: flex;
+    flex-direction: column;
+    gap: 2vh;
+    z-index: 1006;
+    transition: all 0.3s ease-in-out;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #94C4FF #343434;
+    justify-content: start;
+    padding-bottom: 1vh;
+}
+
+.mentor_classes.open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.mentor_classes > p {
+    color: #FFFFFF;
+    font-size: 3vh;
+    font-weight: bold;
+    text-align: center;
+    margin: 1vh 0 0 0;
+}
+
+.test-card {
+    background-color: #4A4E53;
+    border-radius: 1.5vh;
+    width: 98%;
+    padding: 2vh;
+    display: flex;
+    flex-direction: row;
+    gap: 1vh;
+    border-left: 0.8vh solid #C48AF7;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s, background-color 0.2s;
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.test-card:hover {
+    background-color: #555a60;
+}
+
+.test-card p:first-of-type {
+    color: white;
+    font-weight: 600;
+    font-size: 2.2vh;
+    margin: 0;
+    word-break: break-word;
+}
+
+.test-card p:last-of-type {
+    color: #8faac9;
+    font-size: 1.8vh;
+    margin: 0;
+    font-style: italic;
+}
+
+.test-card button {
+    background-color: #C48AF7;
+    color: white;
+    border: none;
+    padding: 1.2vh;
+    border-radius: 1vh;
+    font-weight: bold;
+    font-size: 1.8vh;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-top: 0.5vh;
+}
+
+.test-card button:hover {
+    background-color: #b070e6;
+}
+
+@media screen and (max-width: 850px) {
+    .mentor_classes {
+        width: 85vw;
+        max-width: none;
+        padding: 4vh 3vh;
+    }
+
+    .mentor_classes > p {
+        font-size: 2.5vh;
+    }
+
+    .test-card {
+        padding: 2.5vh;
+    }
+
+    .test-card p:first-of-type {
+        font-size: 2.4vh;
+    }
+
+    .test-card p:last-of-type {
+        font-size: 2vh;
+    }
+    
+    .test-card button {
+        padding: 1.5vh;
+        font-size: 2vh;
+    }
+}
+
+.title-card {
+    width: 100%;
+    height: 10vh;
+}

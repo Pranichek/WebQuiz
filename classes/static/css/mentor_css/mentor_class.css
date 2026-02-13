@@ -21,7 +21,7 @@ main {
 }
 
 .list_users {
-    padding: 1vw 2vw;
+    padding: 1vw 1vw;
     border-radius: 5px;
     background-color: #7291B8;
     cursor: pointer;
@@ -693,3 +693,5 @@ main {
         padding: 2vh;
     }
 }
+
+

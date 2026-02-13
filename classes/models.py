@@ -49,5 +49,5 @@ class TextTask(DATABASE.Model):
         "User", 
         secondary= submitted_tasks, 
         backref= "completed_tasks",
-        lazy= "dynamic" # Дозволяє разувати через count()
+        lazy= "select" # Дозволяє разувати через count()
     )

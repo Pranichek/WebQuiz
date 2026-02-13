@@ -5,6 +5,24 @@ from Project.db import DATABASE
 from datetime import datetime, timedelta
 from Project.settings import project
 from flask import request, jsonify
+from flask_socketio import join_room, emit
+from Project.socket_config import socket
+
+# @socket.on('connect_room')
+# def render_connect(data):
+#     join_room(str(data["class_code"]))
+
+@socket.on('load_test')
+def render_start_test(data):
+    test_id = int(data["test_id"])
+    class_code = flask.request.args.get('class_key')
+    code_class = data["code_class"]
+
+    emit(
+        'change_page',
+        {"test_id": test_id, "code_class": code_class},
+        room = str(code_class)
+    )
 
 @project.route('/create_task', methods=['POST']) 
 @flask_login.login_required
@@ -87,13 +105,14 @@ def render_mentor_class():
 
     if not check_class or check_class.mentor_id != flask_login.current_user.id:
         return flask.redirect("/")
-    
+
+    # print(check_class.code, "oko")
     now = datetime.now()
     
     active_tasks = []
     expired_tasks = []
     for task in check_class.text_tasks:
-        if task.deadline and task.deadline < now:
+        if task.deadline and task.deadline < now or len(task.completed_by) == len(task.parent_class.students):
             expired_tasks.append(task)
         else:
             active_tasks.append(task)
@@ -106,5 +125,6 @@ def render_mentor_class():
         active_tasks=active_tasks,   
         expired_tasks=expired_tasks,
         mentor_class=check_class,        
-        time_formatter=format_deadline 
+        time_formatter=format_deadline,
+        mentor_tests = flask_login.current_user.tests
     )
