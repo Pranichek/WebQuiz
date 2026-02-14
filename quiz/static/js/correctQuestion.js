@@ -96,22 +96,24 @@ window.addEventListener(
                                 tickCircleList[index].style.display = `none`
                             }
                         }
+                    }else{
+                        tickCircleList[index].style.display = `none`
                     }
                 }
             )
         }
-        let count = 0
-        let answers = document.querySelectorAll(".answer")
-        for (let tick of tickCircleList){
-            if (tick.style.display == "flex"){
-                count += 1
-            }
-        }
+        // let count = 0
+        // let answers = document.querySelectorAll(".answer")
+        // for (let tick of tickCircleList){
+        //     if (tick.style.display == "flex"){
+        //         count += 1
+        //     }
+        // }
 
-        if (count === 0){
-            tickCircleList[0].style.display = `flex`
-            answers[0].classList.add("correct")
-        }
+        // if (count === 0){
+        //     tickCircleList[0].style.display = `flex`
+        //     answers[0].classList.add("correct")
+        // }
     }
 )
 

@@ -3,9 +3,7 @@ import { answerScanning } from "./answers_scaning.js"
 const button = document.getElementById("save");
 const question = document.querySelector("#question");
 let answerInputList = document.querySelectorAll(".answer");
-let answers;
-
-
+let answers = "";
 
 document.addEventListener("input", answerScanning);
 document.addEventListener("click", answerScanning);
@@ -13,8 +11,6 @@ document.addEventListener("change", answerScanning);
 document.addEventListener("keyup", answerScanning);
 document.addEventListener("keydown", answerScanning)
 window.addEventListener("load", answerScanning);
-
-
 
 button.addEventListener("click", ()=>{
     localStorage.removeItem("question");
@@ -28,17 +24,22 @@ button.addEventListener("click", ()=>{
     let ticks = document.querySelectorAll(".tick-circle")
 
     let type = localStorage.getItem("type");
+    
+    answers = "";
 
     if (type == "one-answer" || type=="many-answers"){
         answerInputList.forEach((input, index) => {
             let ParentTag = input.parentNode
             const checkImageCreate = ParentTag.querySelector(".for-image")
             if (input.checkVisibility()){
+                // Очистка от переносов строк
+                let cleanValue = input.value.replace(/(\r\n|\n|\r)/gm, " ");
+
                 if (input.value != ''){
                     if (ticks[index].style.display == "flex"){
-                    answers += `(?%+${input.value}+%?)`;
+                    answers += `(?%+${cleanValue}+%?)`;
                     }else{
-                        answers += `(?%-${input.value}-%?)`;
+                        answers += `(?%-${cleanValue}-%?)`;
                     }
                 }else{
                     if (ticks[index].style.display == "flex"){
@@ -102,7 +103,7 @@ button.addEventListener("click", ()=>{
     answers = answers.replace("answers", "");
     answers = answers.replace("null", "");
     document.cookie = `answers=${answers}; path=/;`;
-    answers = null;
+    answers = "";
 
     newType = newType.replace("undefined", "");
     newType = newType.replace("null", "");

@@ -1,59 +1,86 @@
 .message {
     background-color: #343434;
     border: 2px #C48AF7 solid;
-    width: 20vw;
-    align-items: stretch; 
-    padding: 1vh 0;
     border-radius: 12px;
-    position: fixed;   
+    padding: 10px;
+    position: fixed;
+    width: 350px;
+    max-width: 90vw;
     display: flex;
     flex-direction: row;
-    justify-content: center;
-    left: -50%;
-    bottom: 1.5%;
-    transition: 0.5s ease;
-    z-index: 1000;     
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    bottom: 20px;
+    left: -100%;
+    transition: left 0.5s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .show {
-    left: 1%;
+    left: 20px;
 }
 
-
-.box-message{
-    width: 79%;
-    padding: 0.5vh;
+.box-message {
+    flex: 1;
+    padding: 8px;
     position: relative;
     display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: #2D2D2D;
     border: #94C4FF 1px solid;
     border-radius: 6px;
-    word-wrap: break-word;       
-    overflow-wrap: break-word;    
-    white-space: normal;          
-    text-align: center; 
-    min-height: 6vh;
+    min-height: 50px;
 }
 
-.text-message{
-
+.text-message {
     color: #fff;
-    font-size: 0.8vw;
-    width: 90%;
+    font-size: 16px;
+    line-height: 1.4;
+    width: 100%;
+    margin: 0;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: normal;
+    text-align: center;
 }
 
-.cross-box{
-    width: 12%;
-    height: 77%;
+.cross-box {
+    width: 40px;
+    height: 40px;
     display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: end;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
 }
 
-.cross-img{
-    width: 80%;
-    height: auto;
+.cross-img {
+    width: 24px;
+    height: 24px;
     object-fit: contain;
-    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.cross-box:hover .cross-img {
+    transform: scale(1.1);
+}
+
+@media (max-width: 600px) {
+    .message {
+        width: calc(100% - 40px);
+        max-width: none;
+        left: -150%;
+    }
+    
+    .show {
+        left: 20px;
+        right: 20px;
+    }
+
+    .text-message {
+        font-size: 14px;
+    }
 }

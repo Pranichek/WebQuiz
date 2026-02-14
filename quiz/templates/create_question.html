@@ -30,9 +30,6 @@
                         <ul class="type-ul">
                             <li data-value="input-gap" class="check-type-question"><input type="radio" data-value="input-gap" class="typeButton"  name="question_type" id="">Заповнити пропуск</li>
                         </ul>
-                        <ul class="type-ul">
-                            <li data-value="write-answer" class="check-type-question"><input type="radio" data-value="write-answer"  class="typeButton"  name="question_type" id="">Писемна відповідь</li>
-                        </ul>
                     </div>
                 </div>
 
@@ -90,10 +87,10 @@
         <div class="blocks">
             <div class="answer-block first-block"  id="1">
                 <div class="detector" id="1">
-                    <img id="1" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
+                    <img  id="1" class="small-img tick-circle" src="{{ url_for('test_pass.static', filename='images/tick.png') }}" alt="">
                 </div>
                 <div class="inside-data" id="1">
-                    <textarea maxlength="165" type="text" class="answer correct first_input" name="answer" id="1" placeholder="Відповідь"></textarea>
+                    <textarea maxlength="271" type="text" class="answer correct first_input" name="answer" id="1" placeholder="Відповідь"></textarea>
                 </div>
                 
                 <div class="delete-answer" id="1">
@@ -103,7 +100,6 @@
                 <div class="load_image" id="1">
                     <img class="small-img load_img" id="1" data-state="load" src="{{ url_for('test_pass.static', filename='images/load_image.svg') }}" alt="">
                     <img class="small-img load_img invisible" id="1" data-state="load"  src="{{ url_for('test_pass.static', filename='images/cross.svg') }}" alt="">
-
                 </div>
             </div>
 
@@ -114,7 +110,7 @@
 
                 <div class="inside-data" id="2">
                     
-                    <textarea maxlength="171" type="text" class="answer second-input" name="answer" id="2" placeholder="Відповідь"></textarea>
+                    <textarea maxlength="271" type="text" class="answer second-input" name="answer" id="2" placeholder="Відповідь"></textarea>
                 </div>
                 <div class="delete-answer" id="2">
                     <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.svg') }}" alt="">
@@ -131,7 +127,7 @@
                 </div>
                 <div class="inside-data" id="3">
                     
-                    <textarea maxlength="165" type="text" class="answer" name="answer" id="3" placeholder="Відповідь"></textarea>
+                    <textarea maxlength="271" type="text" class="answer" name="answer" id="3" placeholder="Відповідь"></textarea>
                 </div>
                 <div class="delete-answer" id="3">
                     <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.svg') }}" alt="">
@@ -148,7 +144,7 @@
                 </div>
                 <div class="inside-data" id="4">
                     
-                    <textarea maxlength="165" type="text" class="answer" name="answer" id="4" placeholder="Відповідь"></textarea>
+                    <textarea maxlength="271" type="text" class="answer" name="answer" id="4" placeholder="Відповідь"></textarea>
                 </div>
                 <div class="delete-answer" id="4">
                     <img class="small-img" src="{{ url_for('test_pass.static', filename='images/trashcan.svg') }}" alt="">
