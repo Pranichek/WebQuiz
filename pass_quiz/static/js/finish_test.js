@@ -36,9 +36,7 @@ socket.on("test_result", (data) => {
     if (data.count_answered == 0) {
         document.querySelector(".wasted_time").textContent = "0";
     } else {
-        let midleTime = localStorage.getItem("wasted_time") / data.count_answered;
-        midleTime = midleTime.toFixed(0);
-        document.querySelector(".midle-time").textContent = midleTime
+        document.querySelector(".midle-time").textContent = data.avarage_time
     }
 
     localStorage.setItem("accuracy", data.accuracy);

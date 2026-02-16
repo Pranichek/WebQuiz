@@ -91,11 +91,18 @@
     display: flex;
 }
 
-.question-part, .answer-part, .question-block, .answer-block{
+.question-part,
+.answer-part,
+.question-block,
+.answer-block {
     height: 100%;
     width: 36%;
     display: flex;
     justify-content: start;
+    text-align: center;
+    white-space: normal;
+    word-break: break-word;
+    overflow: hidden;
 }
 
 .part-result, .result-block{

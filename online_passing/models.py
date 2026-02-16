@@ -2,6 +2,11 @@ import flask_login, sqlalchemy
 from Project.db import DATABASE
 from Project.settings_many import room_users, check_socket
 
+blocked_room_users = DATABASE.Table('blocked_room_users',
+    DATABASE.Column('room_id', DATABASE.Integer, DATABASE.ForeignKey('room.id')),
+    DATABASE.Column('user_id', DATABASE.Integer, DATABASE.ForeignKey('user.id'))
+)
+
 class Rooms(DATABASE.Model):
     __tablename__ = "room"
     id = DATABASE.Column(DATABASE.Integer, primary_key = True)
@@ -38,3 +43,11 @@ class Rooms(DATABASE.Model):
 
     # how many correct/uncorrect for question
     data_question = DATABASE.Column(DATABASE.String, default = "")
+
+    # blocked users
+    blocked_users = DATABASE.relationship(
+        "User",
+        secondary=blocked_room_users, 
+        backref="blocked_in_rooms",    
+        lazy="dynamic"                 # Дозволяє робити .append() .remove() 
+    )

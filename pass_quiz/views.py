@@ -148,55 +148,65 @@ def handle_finish_test(data: dict):
     uncorrect_answers = 0
 
     for i in range(len(user_answers)):
-        if list_users_answers[i][0] != "∅":
-            count_answered += 1
-            if types[i] == "one-answer":
-                if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
-                    count_right_answers += 1
-                    index_corect.append(i)
-                    right_answers += 1
-                else:
-                    count_uncorrect_answers += 1
-                    uncorrect_answers += 1
-
-            elif types[i] == "many-answers":
-                correct = 0
-                uncorrect = 0
-                for ans in list_users_answers[i]:
-                    if int(ans) in correct_indexes[i]:
+        if len(correct_indexes[i]) > 0:
+            if list_users_answers[i][0] != "∅":
+                count_answered += 1
+                if types[i] == "one-answer":
+                    if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
                         count_right_answers += 1
-                        correct += 1
+                        index_corect.append(i)
+                        right_answers += 1
                     else:
                         count_uncorrect_answers += 1
-                        uncorrect += 1
-                
-                # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
-                count_min = len(correct_indexes[i]) / 2 
+                        uncorrect_answers += 1
 
-                if correct > int(count_min) and uncorrect == 0:
-                    right_answers += 1
-                else:
-                    uncorrect_answers += 1
-                if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
-                    index_corect.append(i)
+                elif types[i] == "many-answers":
+                    correct = 0
+                    uncorrect = 0
+                    for ans in list_users_answers[i]:
+                        if int(ans) in correct_indexes[i]:
+                            count_right_answers += 1
+                            correct += 1
+                        else:
+                            count_uncorrect_answers += 1
+                            uncorrect += 1
+                    
+                    # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
+                    count_min = len(correct_indexes[i]) / 2 
 
-            elif types[i] == "input-gap":
-                user_answer_value = list_users_answers[i][0]
-                answers_gaps = test.answers.split("?@?")[i].split("+%?)")
-                if "" in answers_gaps:
-                    answers_gaps.remove("")
-                new_answers = []
-                for answer in answers_gaps:
-                    answer = answer.replace("(?%+", "").replace("+%?)", "")
-                    new_answers.append(answer)
+                    if correct > int(count_min) and uncorrect == 0:
+                        right_answers += 1
+                    else:
+                        uncorrect_answers += 1
+                    if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
+                        index_corect.append(i)
 
-                if user_answer_value in new_answers:
-                    count_right_answers += 1
-                    index_corect.append(i)
-                    right_answers += 1
-                else:
-                    count_uncorrect_answers += 1
-                    uncorrect_answers += 1
+                elif types[i] == "input-gap":
+                    user_answer_value = list_users_answers[i][0]
+                    answers_gaps = test.answers.split("?@?")[i].split("+%?)")
+                    if "" in answers_gaps:
+                        answers_gaps.remove("")
+                    new_answers = []
+                    for answer in answers_gaps:
+                        answer = answer.replace("(?%+", "").replace("+%?)", "")
+                        new_answers.append(answer)
+
+                    if user_answer_value in new_answers:
+                        count_right_answers += 1
+                        index_corect.append(i)
+                        right_answers += 1
+                    else:
+                        count_uncorrect_answers += 1
+                        uncorrect_answers += 1
+        else:
+            if list_users_answers[i][0] != "∅":
+                count_answered += 1
+                right_answers += 1
+                count_right_answers += 1
+                index_corect.append(i)
+            else:
+                count_uncorrect_answers += 1
+                uncorrect_answers += 1
 
     flask.session["count_answered"] = count_answered
 
@@ -281,6 +291,11 @@ def handle_finish_test(data: dict):
 
         img_lists.append(small_list)
 
+    avarage_times = flask_login.current_user.user_profile.avarage_time.split()
+    sum_time = 0
+    for time in avarage_times:
+        sum_time += int(time)
+    sum_time = sum_time // len(avarage_times)
     
     emit("test_result", {
         "amount_questions": test.answers.count("?@?") + 1,
@@ -295,15 +310,16 @@ def handle_finish_test(data: dict):
         "users_answers": list_users_answers,
         "correct_answers": correct_indexes,
         "type_question": types_quest,
-        "images": img_lists
+        "images": img_lists,
+        "avarage_time": sum_time
     })
 
-@socket.on("save_time")
-def save_time(data):
-    if str(flask_login.current_user.user_profile.avarage_time) != str(data["midle_time"]):
-        print(int(data["midle_time"]), int(flask.session["count_answered"]), 'lols')
-        flask_login.current_user.user_profile.avarage_time = int(data["midle_time"]) // int(flask.session["count_answered"])
-        DATABASE.session.commit()
+# @socket.on("save_time")
+# def save_time(data):
+#     if str(flask_login.current_user.user_profile.avarage_time) != str(data["midle_time"]):
+#         print(int(data["midle_time"]), int(flask.session["count_answered"]), 'lols')
+#         flask_login.current_user.user_profile.avarage_time = int(data["midle_time"]) // int(flask.session["count_answered"])
+#         DATABASE.session.commit()
 
 
 

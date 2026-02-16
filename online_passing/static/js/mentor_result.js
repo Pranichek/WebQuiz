@@ -119,6 +119,7 @@ socket.on("list_results",
 
             const paragraph = document.createElement("p")
             paragraph.className = "question-text"
+            console.log(user_list.text_question, "kiki")
             paragraph.textContent = user_list.text_question
 
             questionDiv.appendChild(paragraph)
@@ -438,7 +439,7 @@ socket.on("list_results",
         }
 
         // Прогресс-бар точности
-        let accuracy = countAccuracy / user_list.users.length
+        let accuracy = Math.round(Number(user_list.avarage_accuracy))
         try {
             document.querySelector(".num-people").textContent = user_list.users.length
 
@@ -482,7 +483,7 @@ socket.on("list_results",
         if (textPerc) {
             textPerc.textContent = "0% точностi !"
             let current = 0
-            const target = Math.round(accuracy)
+            const target = Math.round(Number(user_list.avarage_accuracy))
             const interval = setInterval(() => {
                 if (current < target) {
                     current++

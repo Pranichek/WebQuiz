@@ -7,6 +7,11 @@ socket.emit("finish_mentor",{
     question_index: localStorage.getItem("index_question")
 })
 
+setInterval(() => {
+    socket.emit("check_users", {room_code: localStorage.getItem("room_code"), page: "finish_test", index_question: localStorage.getItem("index_question")})
+}, 3000)
+
+
 document.addEventListener("click", (e) => {
     const solo = e.target.closest(".all-users")
     if (!solo) return
@@ -55,10 +60,17 @@ document.addEventListener("click", (e) => {
                 <option value="general" selected>Загальна діаграма</option>
                 <option value="column-diagram">Стовпчикова діаграма</option>
                 <option value="dots-diagram">Точкова діаграма</option>
+                <option value="time-diagram">Аналіз часу</option>
             </select>
         `)
     } else if (document.querySelector("#choice-diagram")) {
         document.querySelector("#choice-diagram").value = "general"
+        document.querySelector("#choice-diagram").innerHTML = `
+            <option value="general">Загальна успішність</option>
+            <option value="column-diagram">Точність відповідей</option>
+            <option value="dots-diagram">Аналіз питань</option>
+            <option value="time-diagram">Аналіз часу</option>
+        `
     }
 
     if (!document.querySelector(".bar-chart-container")) {
@@ -272,8 +284,13 @@ function openUserModal(userId) {
 
         if (bottomDiagram) {
             bottomDiagram.remove()
-            document.querySelector("#choice-diagram").remove()
         }
+
+        document.querySelector("#choice-diagram").innerHTML = `
+            <option value="general-student">Загальна успішність</option>
+            <option value="time-diagram-student">Аналіз часу</option>
+        `
+
 
         const accuracyContainer = document.querySelector(".data-accuracy")
         const oldTips = accuracyContainer.querySelector(".user-tips")
@@ -335,7 +352,7 @@ function openUserModal(userId) {
         }
 
         document.querySelector(".student-time").textContent = timeString
-
+        localStorage.setItem("user_id", data.id)
         socket.emit("student_diagram", {
             id: data.id,
             test_id: localStorage.getItem("test_id")

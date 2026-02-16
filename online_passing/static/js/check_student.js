@@ -53,6 +53,8 @@ socket.on("check_connect",
             }
         
             window.location.replace("/result_student")
+        }else if(data["page"] == "finsh_test"){
+            window.location.replace("/finish_test")
         }
     }
 )

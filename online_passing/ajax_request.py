@@ -46,64 +46,91 @@ def get_user_detail_stats():
 
     for i in range(len(user_answers)):
         time_data = []
-        if user_answers[i] != "∅":
-            if types[i] == "one-answer":
-                if int(correct_indexes[i][0]) == int(user_answers[i]):
-                    list_check.append("правильно")
-                else:
-                    list_check.append("неправильно")
-                text_user_answers.append([list_answers[i][int(user_answers[i])]])
+        if len(correct_indexes[i]) > 0:
+            if user_answers[i] != "∅":
+                if types[i] == "one-answer":
+                    if int(correct_indexes[i][0]) == int(user_answers[i]):
+                        list_check.append("правильно")
+                    else:
+                        list_check.append("неправильно")
+                    text_user_answers.append([list_answers[i][int(user_answers[i])]])
 
-            elif types[i] == "many-answers":
-                correct = 0
-                uncorrect = 0
-                list_answs = user_answers[i].split("@")
+                elif types[i] == "many-answers":
+                    correct = 0
+                    uncorrect = 0
+                    list_answs = user_answers[i].split("@")
 
-                for ans in list_answs:
-                    time_data.append(list_answers[i][int(ans)])
-                    if int(ans) in correct_indexes[i]:
-                        count_right_answers += 1
-                        correct += 1
+                    for ans in list_answs:
+                        time_data.append(list_answers[i][int(ans)])
+                        if int(ans) in correct_indexes[i]:
+                            count_right_answers += 1
+                            correct += 1
+                        else:
+                            count_uncorrect_answers += 1
+                            uncorrect += 1
+                    text_user_answers.append(time_data)
+                    
+                    # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
+                    count_min = len(correct_indexes[i]) / 2 
+
+                    if correct > int(count_min) and uncorrect == 0:
+                        list_check.append("правильно")
+                    else:
+                        list_check.append("неправильно")
+
+                elif types[i] == "input-gap":
+                    user_answer_value = user_answers[i]
+                    answers_gaps = test.answers.split("?@?")[i].split("+%?)")
+                    if "" in answers_gaps:
+                        answers_gaps.remove("")
+                    new_answers = []
+                    for answer in answers_gaps:
+                        answer = answer.replace("(?%+", "").replace("+%?)", "")
+                        new_answers.append(answer)
+
+                    text_user_answers.append(user_answer_value)
+
+                    if user_answer_value in new_answers:
+                        list_check.append("правильно")
                     else:
                         count_uncorrect_answers += 1
-                        uncorrect += 1
-                text_user_answers.append(time_data)
-                
-                # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
-                count_min = len(correct_indexes[i]) / 2 
-
-                if correct > int(count_min) and uncorrect == 0:
-                    list_check.append("правильно")
-                else:
-                    list_check.append("неправильно")
-
-            elif types[i] == "input-gap":
-                user_answer_value = user_answers[i]
-                answers_gaps = test.answers.split("?@?")[i].split("+%?)")
-                if "" in answers_gaps:
-                    answers_gaps.remove("")
-                new_answers = []
-                for answer in answers_gaps:
-                    answer = answer.replace("(?%+", "").replace("+%?)", "")
-                    new_answers.append(answer)
-
-                text_user_answers.append(user_answer_value)
-
-                if user_answer_value in new_answers:
-                    list_check.append("правильно")
-                else:
-                    count_uncorrect_answers += 1
-                    list_check.append("неправильно")
+                        list_check.append("неправильно")
+            else:
+                # не ответил
+                list_check.append("пропустив")
         else:
-            # не ответил
-            list_check.append("пропустив")
-
+            if user_answers[i] != "∅":
+                list_check.append("правильно")
+                
+                if types[i] == "input-gap":
+                    text_user_answers.append(user_answers[i])
+                else:
+                    indices = user_answers[i].split("@")
+                    temp_text_answers = []
+                    
+                    for idx in indices:
+                        if idx.isdigit():
+                            try:
+                                temp_text_answers.append(list_answers[i][int(idx)])
+                            except IndexError:
+                                pass
+                                
+                    text_user_answers.append(temp_text_answers)
+            else:
+                list_check.append("пропустив")
+                text_user_answers.append("не відповідав")
     
     
     if not user:
         return jsonify({"error": "User not found"}), 404
 
     count_answers = user.user_profile.data_questions
+
+    avarage_times = user.user_profile.avarage_time.split()
+    sum_time = 0
+    for time in avarage_times:
+        sum_time += int(time)
+    sum_time = sum_time // len(avarage_times)
     
     # Приклад даних, які повертаємо:
     response_data = {
@@ -112,9 +139,9 @@ def get_user_detail_stats():
         "avatar": flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}'),
         "points": user.user_profile.count_points,
         "max_points": count_points,
-        "accuracy": user.user_profile.last_answered.split("𒀱")[1], 
+        "accuracy": user.user_profile.all_procents.split()[-1], 
         "count_answers": count_answers,
-        "avarage_time": user.user_profile.avarage_time,
+        "avarage_time": sum_time,
         "questions": questions,
         "user_answers": text_user_answers,
         "list_check": list_check

@@ -4,13 +4,14 @@ from userprofile.models import DataUser
 import random
 import uuid  # генерація рандомніх строк
 from Project.db import DATABASE
+from online_passing.models import Rooms
+
 
 def render_input_username():
     room_code = flask.request.args.get("room_code")
     if flask.request.method == "POST":
 
         if not flask_login.current_user.is_authenticated:
-            print("loh")
             username = flask.request.form.get("username")
             
             unique_id = str(uuid.uuid4())[:6] 
@@ -37,11 +38,13 @@ def render_input_username():
                 DATABASE.session.rollback()
 
         else:
-            # Логика зареганіх людішек
-            print("kik")
-            flask_login.current_user.username = flask.request.form.get("username")
-            DATABASE.session.commit()
-            return flask.redirect(f"student?room_code={room_code}")
+            room : Rooms = Rooms.query.filter_by(room_code = room_code).first()
+            if flask_login.current_user not in room.blocked_users:
+                flask_login.current_user.username = flask.request.form.get("username")
+                DATABASE.session.commit()
+                return flask.redirect(f"student?room_code={room_code}")
+            else:
+                return flask.redirect("/")
 
     return flask.render_template(
         "input_username.html",

@@ -11,6 +11,7 @@ from .generate_code import generate_code
 import qrcode, os
 from os.path import exists
 from .del_files import delete_files_in_folder
+from flask import request
 
 
 @socket.on("join_room")
@@ -50,7 +51,7 @@ def handle_join(data):
                     border = 2
                 )
                 # задаємо посилання на яке буде вести QR-код
-                qr.add_data(f"http://127.0.0.1:5000/student?room_code={code}")
+                qr.add_data(f"https://openhandedly-exemptible-abrielle.ngrok-free.dev/input_username?room_code={code}")
                 # створюємо QR-код, але у вигляді закодовоного коду
                 qr.make(fit = True)
 
@@ -104,13 +105,13 @@ def handle_join(data):
                 'profile.static',
                 filename=f'images/pets_id/{user.user_profile.pet_id}.png'
             )
+            # user_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
             user_list.append({
                 "username": user.username,
                 "ready": user.user_profile.answering_answer,
                 "count_points": user.user_profile.count_points,
-                "user_avatar": avatar_url,
-                "pet_img": pet_url,
-                "id": user.id
+                "id": user.id,
+                "email": user.email
             })
 
     emit("update_users", {"user_list":user_list, "code":room_code, "id_test": room.id_test}, room=room_code, broadcast=True)
@@ -192,13 +193,15 @@ def handle_disconnect():
                         'profile.static',
                         filename=f'images/pets_id/{user.user_profile.pet_id}.png'
                     )
+                    
                     user_list.append({
                         "username": user.username,
                         "ready": user.user_profile.answering_answer,
                         "count_points": user.user_profile.count_points,
                         "user_avatar": avatar_url,
                         "pet_img": pet_url,
-                        "id": user.id
+                        "id": user.id,
+                        "email": user.email
                     })
 
             # emit("update_users", {"user_list":user_list, "code":room.room_code, "id_test": room.id_test}, room= room.room_code, broadcast=True)
@@ -248,7 +251,8 @@ def delete_user(data):
                         "count_points": u.user_profile.count_points,
                         "user_avatar": avatar_url,
                         "pet_img": pet_url,
-                        "id": u.id
+                        "id": u.id,
+                        "email": u.email
                     })
 
             emit(
@@ -257,6 +261,47 @@ def delete_user(data):
                 room=room.room_code,
                 broadcast=True
             )
+
+@socket.on("block_user")
+def block_user(data):
+    room_code = data.get("room")
+    user_id = data.get("id")
+
+    room = Rooms.query.filter_by(room_code=room_code).first()
+    user = User.query.get(int(user_id))
+
+    if not room or not user:
+        return
+
+    if not room.blocked_users.filter_by(id=user.id).first():
+        room.blocked_users.append(user)
+
+    if user in room.users:
+        room.users.remove(user)
+    
+    if user in room.sockets_users:
+        room.sockets_users.remove(user)
+
+    DATABASE.session.commit()
+
+    emit("you_are_blocked", {"user_id": user.id}, room=room.room_code)
+
+    user_list = []
+    for u in room.users:
+        if u.id == room.user_id:
+            continue
+            
+
+        user_list.append({
+            "username": u.username,
+            "ready": u.user_profile.answering_answer,
+            "count_points": u.user_profile.count_points,
+            "id": u.id,
+            "email": u.email
+        })
+
+    emit("update_users", {"user_list": user_list, "code": room.room_code, "id_test": room.id_test}, room=room.room_code, broadcast=True)
+
 @socket.on("update_student_time_MS")
 def update_student_time(data):
     emit("update_student_time_SS", {"time": data["time"]}, room = data["room"])

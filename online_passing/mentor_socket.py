@@ -90,12 +90,14 @@ def users_results(data):
 
             if int(user.user_profile.last_answered.split("𒀱")[2]) == 1:
                 count_correct += 1
+                avarage_accuracy += 100
+                print("loko")
             elif int(user.user_profile.last_answered.split("𒀱")[2]) == 0:
                 count_uncorrect += 1
             else:
                 count_skip += 1
 
-            avarage_accuracy += int(user.user_profile.last_answered.split("𒀱")[1].split(".")[0])
+            
             count_people += 1
 
             if type_question != "input-gap":
@@ -123,6 +125,7 @@ def users_results(data):
     count_people = 1 if count_people <= 0 else count_people
 
     # проверка на лучший вопрос
+    print(avarage_accuracy, count_people, "sok")
     avarage_accuracy = avarage_accuracy // count_people
     best_question = room.best_question
     worst_question = room.worst_question
@@ -175,8 +178,8 @@ def users_results(data):
     if name_img:
         img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{index_question + 1}/{name_img}")
 
-    
     emit("list_results", {
+        "avarage_accuracy": avarage_accuracy,
         "users": user_list, 
         "answers": clear_answers, 
         "count_answers":count_people_answes, 
@@ -307,6 +310,8 @@ def check_users(data):
             emit("check_connect", {"page": "start_passing", "index_question": data["index_question"]}, room = data["room_code"])
         elif data["page"] == "result":
             emit("check_connect", {"page": "result", "index_question":data["index_question"]}, room = data["room_code"])
+        elif data["page"] == "finish_test":
+            emit("check_connect", {"page": "finsh_test", "index_question":data["index_question"]}, room = data["room_code"])
 
 
 @socket.on("end_time")
@@ -385,10 +390,10 @@ def finish_test(data):
                 "count_points": user.user_profile.count_points,
                 "user_avatar": avatar_url,
                 "avatar_size": user.size_avatar,
-                "accuracy": user.user_profile.last_answered.split("𒀱")[1],
+                "accuracy": user.user_profile.all_procents.split()[-1],
             })
 
-            accuracy = int(user.user_profile.last_answered.split("𒀱")[1].split(".")[0]) 
+            accuracy = int(user.user_profile.all_procents.split()[-1]) 
             check = False
 
             for elem in accuracy_result:

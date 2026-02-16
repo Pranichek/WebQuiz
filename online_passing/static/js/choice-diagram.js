@@ -22,7 +22,19 @@ document.addEventListener('change', (event) => {
             socket.emit("general-diagram", params)
         } else if(diagramValue == "dots-diagram"){
             socket.emit("dots-diagram", params)
-        } else {
+        }else if(diagramValue == "time-diagram"){
+            socket.emit("time-diagram", params)
+        }else if(diagramValue == "general-student"){
+            socket.emit("student_diagram", {
+                id: localStorage.getItem("user_id"),
+                test_id: localStorage.getItem("test_id")
+            })
+        }else if(diagramValue == "time-diagram-student"){
+            socket.emit("time-student", {
+                id: localStorage.getItem("user_id")
+            })
+        }
+        else {
             socket.emit("column-diagram", params)
         }
     }
@@ -389,6 +401,99 @@ socket.on("column-diagram", data => {
                         color: 'rgba(255, 255, 255, 0.1)',
                         zeroLineColor: '#ffffff',
                         zeroLineWidth: 2
+                    }
+                }
+            }
+        }
+    });
+});
+
+socket.on("time_diagrams", data => {
+    const labels = data.uesetions_list; 
+    const timeData = data.avarage_time;
+
+    const ctx = document.querySelector('.myChart').getContext('2d');
+
+    if (currentChart) {
+        currentChart.destroy();
+    }
+
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, 'rgba(107, 58, 126, 1)');   
+    gradient.addColorStop(1, 'rgba(179, 134, 197, 1)'); 
+
+    currentChart = new Chart(ctx, {
+        type: 'bar', 
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Середній час',
+                data: timeData,
+                backgroundColor: gradient,
+                borderRadius: 8, 
+                borderWidth: 0,
+                barPercentage: 0.6, 
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false 
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `Середній час: ${context.raw} с`;
+                        },
+                        title: function(context) {
+                            return `Питання №${context[0].label}`;
+                        }
+                    }
+                },
+                title: {
+                    display: false,
+                    text: 'Середній час на кожне питання (секунди)',
+                    color: '#ffffff',
+                    font: {
+                        size: 14
+                    },
+                    padding: {
+                        bottom: 10
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(255, 255, 255, 0.1)',
+                        drawBorder: false
+                    },
+                    ticks: {
+                        color: '#ffffff',
+                        callback: function(value) {
+                            return value + ' с'; 
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: 'Час (сек)',
+                        color: 'rgba(255, 255, 255, 0.5)'
+                    }
+                },
+                x: {
+                    grid: {
+                        display: false
+                    },
+                    ticks: {
+                        color: '#ffffff'
+                    },
+                    title: {
+                        display: true,
+                        text: 'Номер питання',
+                        color: 'rgba(255, 255, 255, 0.5)'
                     }
                 }
             }

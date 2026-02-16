@@ -1,4 +1,4 @@
-import flask, flask_login, qrcode, os
+import flask, flask_login
 from Project.login_check import login_decorate
 from os.path import exists, abspath, join
 from Project.socket_config import socket

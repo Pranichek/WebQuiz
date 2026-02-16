@@ -34,7 +34,7 @@ def general_diagran(data):
 
         if user and user.id != flask_login.current_user.id:
 
-            accuracy = int(user.user_profile.last_answered.split("𒀱")[1].split(".")[0]) 
+            accuracy = int(user.user_profile.all_procents.split()[-1]) 
             check = False
 
             for elem in accuracy_result:
@@ -117,7 +117,6 @@ def column_diagram(data):
     room : Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
     test : Test = Test.query.get(int(data["test_id"]))
     
-
     length_questions = test.questions.count("?%?") + 1
 
     list_question = []
@@ -141,6 +140,55 @@ def column_diagram(data):
         "uncorrect_answers": uncorrect_answers,
         "count_people": count_people,
         "length_answers": length_questions
+    })
+@socket.on("time-diagram")
+def time_diagram(data):
+    room = Rooms.query.filter_by(room_code=data["room"]).first()
+    test = Test.query.get(int(data["test_id"]))
+    users = room.users if room and room.users else []
+    length_questions = test.questions.count("?%?") + 1 
+    
+    avarage_time = []
+    quesetions_list = []
+
+    for index in range(length_questions):
+        sum_time = 0
+        valid_users_count = 0 
+        
+        for user in users:
+            times = user.user_profile.avarage_time.split()
+            if len(times) > index:
+                sum_time += int(times[index]) 
+                valid_users_count += 1
+        
+        if valid_users_count > 0:
+            avarage_time.append(sum_time // valid_users_count)
+        else:
+            avarage_time.append(0)
+            
+        quesetions_list.append(index + 1)
+
+    emit("time_diagrams", {
+        "avarage_time": avarage_time,
+        "uesetions_list": quesetions_list 
+    })
+
+@socket.on("time-student")
+def time_student(data):
+    user : User = User.query.get(int(data["id"]))
+    user_time = user.user_profile.avarage_time.split()
+    avarage_time = []
+    quesetions_list = []
+    count = 1
+
+    for time in user_time:
+        avarage_time.append(int(time))
+        quesetions_list.append(count)
+        count+=1
+    
+    emit("time_diagrams", {
+        "avarage_time": avarage_time,
+        "uesetions_list": quesetions_list 
     })
 
 @socket.on("questions-result")

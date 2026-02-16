@@ -181,6 +181,12 @@ socket.on("leave_user",
     }
 )
 
+socket.on("you_are_blocked", (data) => {
+    if (parseInt(data["user_id"]) == parseInt(document.querySelector(".id").dataset.id)){
+        window.location.href = "/"
+    }
+})
+
 socket.on("fake_room",
     data => {
         if (data["email"] == document.querySelector(".email").textContent){

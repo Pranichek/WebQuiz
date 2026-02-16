@@ -6,6 +6,7 @@ main {
     width: 100vw;
     height: 90vh;
     padding-left: 2%;
+    box-sizing: border-box;
 }
 
 .general_container_rect {
@@ -29,6 +30,7 @@ main {
     width: 100%;
     height: 100%;
     padding: 1.5% 2.5%;
+    box-sizing: border-box;
 }
 
 .mentor-info-card,
@@ -301,7 +303,7 @@ main {
 
 .participants-section {
     width: 62vw;
-    height: 90vh;
+    height: 90%;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -311,11 +313,6 @@ main {
     display: flex;
     gap: 1vw;
     font-size: 2vh;
-}
-
-.count-users {
-    font-size: 2.5vh;
-    color: #FFB700;
 }
 
 .flex-block img {
@@ -373,19 +370,158 @@ main {
     width: 62vw;
 }
 
+.users::-webkit-scrollbar {
+    width: 8px;
+}
+
+.users::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 0 0 15px 0;
+}
+
+.users::-webkit-scrollbar-thumb {
+    background-color: #555;
+    border-radius: 4px;
+}
+
+.users::-webkit-scrollbar-thumb:hover {
+    background-color: #C48AF7;
+}
+
 .users {
-    width: 100%;
-    max-height: 90%;
-    height: auto;
+    width: 95%;
+    max-height: 100%;
+    height: 100%;
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: start;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
     gap: 15px;
     z-index: 10;
+    border-radius: 15px;
+    background-color: rgba(30, 30, 30, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-sizing: border-box;
     overflow-y: auto;
-    /* background-color: green; */
+    overflow-x: hidden;
+    position: relative;
+    padding: 0;
+}
+
+.header-title {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    width: 100%;
+    background-color: #343434;
+    height: 50px;
+    min-height: 50px;
+    border-radius: 15px 15px 0 0;
+    display: flex;
+    align-items: center;
+    padding-left: 20px;
+    color: white;
+    font-weight: bold;
+    font-size: 2vh;
+    box-sizing: border-box;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+}
+
+.students-card {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    gap: 12px;
+    padding: 5px 15px 30px 15px; 
+    box-sizing: border-box;
+    max-height: 100%;
+}
+
+.user-ourline {
+    background-color: #3E3E3E;
+    border-radius: 12px;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    transition: transform 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    flex-shrink: 0;
+}
+
+.user-ourline:hover {
+    transform: translateY(-2px);
+    background-color: #3a3a3a;
+}
+
+.text-data {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    align-items: start;
+    text-align: left;
+}
+
+.text-data p:first-child {
+    font-size: 2.2vh;
+    font-weight: 600;
+    color: #ffffff;
+    margin: 0;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 15vw;
+}
+
+.text-data p:last-child {
+    font-size: 1.8vh;
+    font-weight: 400;
+    color: #bfbfbf;
+    margin: 0;
+}
+
+.buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.buttons div {
+    padding: 8px 16px;
+    border-radius: 8px;
+    font-size: 1.8vh;
+    font-weight: 500;
+    color: white;
+    cursor: pointer;
+    transition: opacity 0.2s ease, transform 0.1s ease;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 80px;
+}
+
+.buttons div:hover {
+    opacity: 0.9;
+}
+
+.buttons div:active {
+    transform: scale(0.98);
+}
+
+.buttons div:first-child {
+    background-color: #9D76C1;
+    box-shadow: 0 2px 5px rgba(157, 118, 193, 0.3);
+}
+
+.buttons div:last-child {
+    background-color: #5B9BD5;
+    box-shadow: 0 2px 5px rgba(91, 155, 213, 0.3);
 }
 
 .message {
@@ -411,13 +547,11 @@ main {
     align-items: end;
     justify-content: space-between;
     padding: 5px;
-    
-    /* padding: 0 1vw 1vh 1vw; */
     gap: 10px;
     z-index: 10;
     position: relative;
-    background-color: rgba(11, 10, 10, 0.6); 
-    backdrop-filter: blur(0px); 
+    background-color: rgba(11, 10, 10, 0.6);
+    backdrop-filter: blur(0px);
     -webkit-backdrop-filter: blur(0px);
 }
 
@@ -436,21 +570,23 @@ main {
 .window-choice{
     position: absolute;
     justify-content: center;
-    width: clamp(280px, 90vw, 420px); 
+    width: clamp(280px, 90vw, 420px);
     height: 19vh;
-    display: flex; 
+    display: flex;
     flex-direction: column;
     background-color: #343434;
     left: 50%;
-    top: 50%;    
-    transform: translate(-50%, -50%) scale(0.8); 
+    top: 50%;
+
+    transform: translate(-50%, -50%) scale(0.8);
     gap: 1vw;
     border: 0.5vh solid #94C4FF;
     border-radius: 1.5vh;
     z-index: 1002;
     text-align: center;
     opacity: 0;
-    visibility: hidden;    
+    visibility: hidden;
+
     transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
@@ -466,9 +602,9 @@ main {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.5); 
-    backdrop-filter: blur(3px); 
-    z-index: 1001; 
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    z-index: 1001;
     opacity: 0;
     visibility: hidden;
     transition: all 0.3s ease;
@@ -546,19 +682,16 @@ main {
     align-items: end;
     justify-content: space-between;
     padding: 5px;
-    
-    /* padding: 0 1vw 1vh 1vw; */
     gap: 10px;
     z-index: 10;
     position: relative;
-    background-color: rgba(11, 10, 10, 0.6); 
-    backdrop-filter: blur(0px); 
+    background-color: rgba(11, 10, 10, 0.6);
+    backdrop-filter: blur(0px);
     -webkit-backdrop-filter: blur(0px);
 }
 
 .ava-obodok {
     height: 72%;
-    /* background-color: orange; */
     position: relative;
 }
 
@@ -618,7 +751,6 @@ main {
     color: #ffffff;
     font-size: 2vh;
     gap: 2px;
-    /* background-color: green; */
 }
 
 .user {
@@ -732,46 +864,88 @@ main {
     font-weight: 400;
 }
 
-
 @media(max-width: 768px){
-    .main{
+    main {
         flex-direction: column;
         overflow-y: scroll;
-        /* background-color: orange; */
+        height: auto;
+        padding: 10px 0;
+        align-items: center;
     }
 
-
     .general_container_rect {
-        width: 68vw;
-        min-width: 350px;
-        height: 90%;
+        width: 95%;
         max-width: 100%;
+        height: 65vh; 
+        min-height: 500px;
         margin-top: 10px;
+        margin-bottom: 20px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mentor-layout {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .mentor-info-card,
+    .mentor-card {
+        height: auto;
+        flex: 1;
+        min-height: 0;
+    }
+
+    .participants-section {
+        width: 95%;
+        height: auto;
+        justify-content: start;
+        flex-shrink: 0;
     }
 
     .users {
-        width: 100vw;
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: center;
-        align-items: start;
-        gap: 15px;
-        overflow-y: auto;
+        width: 100%;
+        height: 60vh;
+        margin-bottom: 20px;
+    }
+
+    .students-card {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+        gap: 10px;
+        padding: 5px 15px 40px 15px;
+    }
+
+    .user-ourline {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 15px;
+        margin-bottom: 0;
+    }
+
+    .text-data p {
+        max-width: 100%;
+    }
+
+    .user-ourline .buttons {
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 5px;
+    }
+
+    .buttons div {
+        flex-grow: 1;
     }
 
     .background-blur {
-        position: absolute;
+        position: fixed;
         left: 0;
         top: 0;
         width: 100vw;
-        height: 80vh; 
+        height: 100vh; 
         background: linear-gradient(270deg, #3C3C3C 5%, #7c9abd 40%, #74919E 82%, #3C3C3C 5%);
-        /* transform: rotate(80deg);
-        filter: blur(6.25vw);
-        z-index: -5;
-        pointer-events: none; */
     }
-
-
 }

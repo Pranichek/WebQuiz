@@ -138,7 +138,8 @@ def answer_the_question(data):
         if data["right_answered"] != "not":
             total_time = int(data["total_time"])
             wasted_time = int(data["wasted_time"])
-            reaction_buffer = 3000 
+            
+            reaction_buffer = 3
             effective_wasted = max(0, wasted_time - reaction_buffer)
             remaining_time = max(total_time - effective_wasted, 0)
 
@@ -286,79 +287,97 @@ def answer_the_question(data):
 
 
     for i in range(len(user_answers)):
-        if list_users_answers[i][0] != "∅":
-            count_answered += 1
-            if types[i] == "one-answer":
-                if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
-                    count_right_answers += 1
-                    index_corect.append(i)
-                    right_answers += 1
-                    check_answers.append(1)
-                else:
-                    count_uncorrect_answers += 1
-                    uncorrect_answers += 1
-                    check_answers.append(0)
-
-            elif types[i] == "many-answers":
-                correct = 0
-                uncorrect = 0
-                for ans in list_users_answers[i]:
-                    if int(ans) in correct_indexes[i]:
+        if len(correct_indexes[i]) > 0:
+            if list_users_answers[i][0] != "∅":
+                count_answered += 1
+                if types[i] == "one-answer":
+                    if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
                         count_right_answers += 1
-                        correct += 1
+                        index_corect.append(i)
+                        right_answers += 1
+                        check_answers.append(1)
                     else:
                         count_uncorrect_answers += 1
-                        uncorrect += 1
-                
-                # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
-                count_min = len(correct_indexes[i]) / 2 
+                        uncorrect_answers += 1
+                        check_answers.append(0)
 
-                if correct > int(count_min) and uncorrect == 0:
-                    right_answers += 1
-                    check_answers.append(1)
-                else:
-                    uncorrect_answers += 1
-                    check_answers.append(0)
-                if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
-                    index_corect.append(i)
+                elif types[i] == "many-answers":
+                    correct = 0
+                    uncorrect = 0
+                    for ans in list_users_answers[i]:
+                        if int(ans) in correct_indexes[i]:
+                            count_right_answers += 1
+                            correct += 1
+                        else:
+                            count_uncorrect_answers += 1
+                            uncorrect += 1
+                    
+                    # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
+                    count_min = len(correct_indexes[i]) / 2 
 
-            elif types[i] == "input-gap":
-                user_answer_value = list_users_answers[i][0]
-                answers_gaps = test.answers.split("?@?")[i].split("+%?)")
-                if "" in answers_gaps:
-                    answers_gaps.remove("")
-                new_answers = []
-                for answer in answers_gaps:
-                    answer = answer.replace("(?%+", "").replace("+%?)", "")
-                    new_answers.append(answer)
+                    if correct > int(count_min) and uncorrect == 0:
+                        right_answers += 1
+                        check_answers.append(1)
+                    else:
+                        uncorrect_answers += 1
+                        check_answers.append(0)
+                    if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
+                        index_corect.append(i)
 
-                if user_answer_value in new_answers:
-                    count_right_answers += 1
-                    index_corect.append(i)
-                    right_answers += 1
-                    check_answers.append(1)
-                else:
-                    count_uncorrect_answers += 1
-                    uncorrect_answers += 1
-                    check_answers.append(0)
+                elif types[i] == "input-gap":
+                    user_answer_value = list_users_answers[i][0]
+                    answers_gaps = test.answers.split("?@?")[i].split("+%?)")
+                    if "" in answers_gaps:
+                        answers_gaps.remove("")
+                    new_answers = []
+                    for answer in answers_gaps:
+                        answer = answer.replace("(?%+", "").replace("+%?)", "")
+                        new_answers.append(answer)
+
+                    if user_answer_value in new_answers:
+                        count_right_answers += 1
+                        index_corect.append(i)
+                        right_answers += 1
+                        check_answers.append(1)
+                    else:
+                        count_uncorrect_answers += 1
+                        uncorrect_answers += 1
+                        check_answers.append(0)
+            else:
+                # не ответил
+                check_answers.append(2)
+                count_skip += 1
         else:
-            # не ответил
-            check_answers.append(2)
-            count_skip += 1
+            if list_users_answers[i][0] != "∅":
+                count_answered += 1
+                right_answers += 1
+                count_right_answers += 1
+                check_answers.append(1)
+                index_corect.append(i)
+            else:
+                count_skip += 1
+                check_answers.append(2)
 
     answered_questions = int(data["index"]) + 1   # сколько вопросов уже пройдено
     accuracy = (right_answers  / answered_questions) * 100 if answered_questions > 0 else 0
+    time =  str(data["wasted_time"])
 
     all_procents = flask_login.current_user.user_profile.all_procents.split(" ") if flask_login.current_user.user_profile.all_procents is not "" else []
     data_questions = flask_login.current_user.user_profile.data_questions.split(" ") if flask_login.current_user.user_profile.data_questions is not "" else ""
+    if flask_login.current_user.user_profile.avarage_time:
+        all_time = flask_login.current_user.user_profile.avarage_time.split(" ")
+    else:
+        all_time = []
     # Убедимся, что записываем строку, или полагаемся на map(str, ...) ниже
 
     if int(data["index"]) != len(all_procents) - 1 or len(all_procents) == 0:
         all_procents.append(str(int(float(accuracy)))) 
         data_questions = f"{right_answers}/{uncorrect_answers}/{count_skip}"
+        all_time.append(time)
 
     flask_login.current_user.user_profile.all_procents = " ".join(all_procents)
     flask_login.current_user.user_profile.data_questions = data_questions
+    flask_login.current_user.user_profile.avarage_time = " ".join(all_time)
     DATABASE.session.commit()
 
 
@@ -550,56 +569,66 @@ def return_data(data):
     uncorrect_answers = 0
 
     for i in range(len(user_answers)):
-        if list_users_answers[i][0] != "∅":
-            count_answered += 1
-            if types[i] == "one-answer":
-                if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
-                    count_right_answers += 1
-                    index_corect.append(i)
-                    right_answers += 1
-                else:
-                    count_uncorrect_answers += 1
-                    uncorrect_answers += 1
-
-            elif types[i] == "many-answers":
-                correct = 0
-                uncorrect = 0
-                for ans in list_users_answers[i]:
-                    if int(ans) in correct_indexes[i]:
+        if len(correct_indexes[i]) > 0:
+            if list_users_answers[i][0] != "∅":
+                count_answered += 1
+                if types[i] == "one-answer":
+                    if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
                         count_right_answers += 1
-                        correct += 1
+                        index_corect.append(i)
+                        right_answers += 1
                     else:
                         count_uncorrect_answers += 1
-                        uncorrect += 1
-                
-                # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
-                count_min = len(correct_indexes[i]) / 2 
+                        uncorrect_answers += 1
 
-                if correct > int(count_min) and uncorrect == 0:
-                    right_answers += 1
-                else:
-                    uncorrect_answers += 1
+                elif types[i] == "many-answers":
+                    correct = 0
+                    uncorrect = 0
+                    for ans in list_users_answers[i]:
+                        if int(ans) in correct_indexes[i]:
+                            count_right_answers += 1
+                            correct += 1
+                        else:
+                            count_uncorrect_answers += 1
+                            uncorrect += 1
+                    
+                    # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
+                    count_min = len(correct_indexes[i]) / 2 
 
-                if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
-                    index_corect.append(i)
+                    if correct > int(count_min) and uncorrect == 0:
+                        right_answers += 1
+                    else:
+                        uncorrect_answers += 1
 
-            elif types[i] == "input-gap":
-                user_answer_value = list_users_answers[i][0]
-                answers_gaps = test.answers.split("?@?")[i].split("+%?)")
-                if "" in answers_gaps:
-                    answers_gaps.remove("")
-                new_answers = []
-                for answer in answers_gaps:
-                    answer = answer.replace("(?%+", "").replace("+%?)", "")
-                    new_answers.append(answer)
+                    if correct > len(correct_indexes[i]) / 2 and uncorrect == 0:
+                        index_corect.append(i)
 
-                if user_answer_value in new_answers:
-                    count_right_answers += 1
-                    index_corect.append(i)
-                    right_answers += 1
-                else:
-                    count_uncorrect_answers += 1
-                    uncorrect_answers += 1
+                elif types[i] == "input-gap":
+                    user_answer_value = list_users_answers[i][0]
+                    answers_gaps = test.answers.split("?@?")[i].split("+%?)")
+                    if "" in answers_gaps:
+                        answers_gaps.remove("")
+                    new_answers = []
+                    for answer in answers_gaps:
+                        answer = answer.replace("(?%+", "").replace("+%?)", "")
+                        new_answers.append(answer)
+
+                    if user_answer_value in new_answers:
+                        count_right_answers += 1
+                        index_corect.append(i)
+                        right_answers += 1
+                    else:
+                        count_uncorrect_answers += 1
+                        uncorrect_answers += 1
+        else:
+            if list_users_answers[i][0] != "∅":
+                count_answered += 1
+                right_answers += 1
+                count_right_answers += 1
+                index_corect.append(i)
+            else:
+                count_uncorrect_answers += 1
+                uncorrect_answers += 1
 
 
     answered_questions = int(data["index_question"])   # сколько вопросов уже пройдено

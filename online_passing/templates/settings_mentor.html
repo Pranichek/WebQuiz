@@ -6,6 +6,98 @@
 
 {% block content %}
     <div class="overlay" id="overlay"></div>
+    <div class="question-cont">
+        <div class="question-test">
+            <div class="num-question">
+                <p class="num-que"></p>
+            </div>
+
+            <!-- <div class="image-cont">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFYqoKTu_o3Zns2yExbst2Co84Gpc2Q1RJbA&s" alt="">
+            </div>  -->
+
+            <div class= "question-bg">
+                <p class="question-text">
+                </p>
+            </div>
+
+
+        </div>
+        <div class="answers-test">
+            <!-- <div class="input-type">
+                <p>правильна відповідь:</p>
+                <p>поки схована</p>
+            </div> -->
+<!-- 
+            <div class="block-answer">
+                <div class="sign"></div>
+                <div class="text-part">
+                    <p>
+                        привіт
+                    </p>
+                </div>
+            </div> -->
+
+        </div>
+    </div>
+
+    <div class="side-menu">
+        <div class="timer-section">
+            <div class="timer-box">
+                <span id="timer-display">00:00</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="participants-section">
+            <div class="section-header">
+                <span class="title">УЧАСНИКИ</span>
+                <span class="count text-people">0/0</span>
+            </div>
+            
+            <div class="users-list-container outline-users">
+                <!-- <div class="user-card active">
+                    <div class="user-info">
+                        <span class="user-name">Вова</span>
+                    </div>
+                    <div class="user-status finished">✔</div>
+                </div>
+
+                <div class="user-card">
+                    <div class="user-info">
+                        <span class="user-name">Анна</span>
+                    </div>
+                    <div class="user-status box"></div>
+                </div> -->
+            </div>
+        </div>
+
+        <div class="controls-section">
+            <div class="playback-controls">
+                <button class="ctrl-btn pause stop-button">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                </button>
+                <button class="ctrl-btn add-time">+15</button>
+
+               <button class="ctrl-btn next end_question">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path>
+                    </svg>
+                </button>
+
+                <button class="ctrl-btn stop open-modal-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12"></rect></svg>
+                </button>
+            </div>
+
+            <button class="view-answers-btn check-answers">
+                Переглянути відповіді
+            </button>
+        </div>
+    </div>
+
+    <!-- <div class="overlay" id="overlay"></div>
     <span data-cross="{{ url_for('mentor.static', filename='images/cross_student.svg') }}" class="hide-ava"></span>
     <div class="test-part">
         <div class="question-test">
@@ -83,6 +175,14 @@
             <p class="decline-ending">Скасувати</p>
             <p class="end_test">Завершити</p>
         </div>
+    </div> -->
+    <div class="window-end">
+        <h1>Закінчення тесту</h1>
+        <p>Ви впевнені, що хочете примусово закінчити тест?</p>
+        <div>
+            <p class="decline-ending">Скасувати</p>
+            <p class="end_test">Завершити</p>
+        </div>
     </div>
 {% endblock content %}
 
@@ -92,5 +192,5 @@
     
     <script src="{{ url_for('mentor.static', filename='js/settings_mentor.js') }}"></script>
     <script src="{{ url_for('mentor.static', filename='js/control_time.js') }}"></script>
-    <script src="{{ url_for('mentor.static', filename='js/end_test.js') }}"></script>
+    <script src="{{ url_for('mentor.static', filename='js/end_test.js') }}"></script> 
 {% endblock scripts %}

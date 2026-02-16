@@ -75,16 +75,20 @@ document.addEventListener('click', (e) => {
 
             <div class="right-part">
                 <div class="first-diagram">
-                    <p>Загальна точність: <span class="accuracy-result">0%</span></p>
-                    <select id="choice-diagram" name="diagram" value="general">
-                        <option value="general">Загальна діаграма</option>
-                        <option value="column-diagram">Стовпчикова діаграма</option>
-                        <option value="dots-diagram">Точкова діаграма</option>
-                    </select>
+                    <div class="top-part">
+                        <p>Загальна точність: <span class="accuracy-result">0%</span></p>
+                        <select id="choice-diagram" name="diagram" value="general">
+                            <option value="general">Загальна успішність</option>
+                            <option value="column-diagram">Точність відповідей</option>
+                            <option value="dots-diagram">Аналіз питань</option>
+                        </select>
+                    </div>
+
                     <div class="diagram-pie">
                         <canvas id="myChart" class="myChart"></canvas>
                     </div>
                 </div>
+
 
                 <div class="line"></div>
                     

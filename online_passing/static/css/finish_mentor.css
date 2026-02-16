@@ -424,3 +424,51 @@ main{
     /* background-color: transparent; */
     /* border: transparent; */
 }
+
+#choice-diagram {
+    height: 4vh;        
+    min-height: 4vh;      
+    max-height: 4vh;           
+    line-height: 3.8vh;   
+    white-space: nowrap;   
+    overflow: hidden;      
+    text-overflow: ellipsis; 
+    box-sizing: border-box;
+    padding: 0 3vh 0 1vw;  
+    
+    font-size: 1.8vh;
+    font-family: inherit;
+    color: #e0e0e0;
+    
+    background-color: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    
+    appearance: none;      
+    outline: none;
+    cursor: pointer;
+    transition: border-color 0.2s ease;
+    text-align: center;
+    display: flex;
+}
+
+#choice-diagram:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+#choice-diagram:focus {
+    border-color: #7EA2CE;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+#choice-diagram option {
+    background-color: #2b2b2b;
+    color: #ffffff;
+}
+
+.top-part{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}

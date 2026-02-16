@@ -43,12 +43,12 @@ function loadRoom() {
 
     // список подключенных
     socket.on("update_users", data => {
-        const blockUsers = document.querySelector(".users")
+        const blockUsers = document.querySelector(".students-card")
 
         blockUsers.innerHTML = ""
         users = data.user_list
         document.querySelector("#amount_users").textContent = users.length 
-        document.querySelector(".count-users").textContent = users.length
+        document.querySelector(".count-users").textContent = `Учасники(${users.length})`
         localStorage.setItem("room_code", data.code)
         document.querySelector(".code-room").textContent = data.code
         document.querySelector("#code").textContent = data.code
@@ -56,90 +56,78 @@ function loadRoom() {
 
         users.forEach(user => {
             if (user.email != document.querySelector(".email").textContent){
-                const blockDiv = document.createElement("div")
-                blockDiv.classList.add("block")
+                const newUser = `
+                    <div class="user-ourline">
+                        <div class="text-data">
+                            <p>${user.username}</p>
+                            <p>${user.email}</p>
+                        </div>
+                        <div class="buttons">
+                            <div class="delete-btn" data-id="${user.id}">
+                                Видалити
+                            </div>
+                            <div class="block-btn" data-id="${user.id}">
+                                Заблокувати
+                            </div>
+                        </div>
+                    </div>
+                `
+                blockUsers.innerHTML += newUser
 
-                const userCross = document.createElement("img")
-                userCross.src = document.querySelector("#imageLink").dataset.link
-                userCross.classList = "cross-user"
-                userCross.dataset.id = user.id
-                blockDiv.appendChild(userCross)
-                
-                const infDiv = document.createElement("div")
-                infDiv.classList.add("inf")
+                const deleteButtons = document.querySelectorAll(".delete-btn")
 
-                const avaObodok = document.createElement("div")
-                avaObodok.className = "ava-obodok"
+                deleteButtons.forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        document.querySelector(".window-choice").classList.add("active")
+                        document.querySelector("#overlay").classList.add("active")
+                        
+                        userToDeleteId = btn.getAttribute("data-id")
+                    });
+                });
 
-                const avatarImg = document.createElement("img")
-                avatarImg.classList.add("ava")
-                avatarImg.src = user.user_avatar
-                avaObodok.appendChild(avatarImg)
+                const blockButtons = document.querySelectorAll(".block-btn")
+        
+                blockButtons.forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        const userIdToBlock = btn.getAttribute("data-id");
+                        const currentRoomCode = localStorage.getItem("room_code");
 
-                const usernameP = document.createElement("p")
-                usernameP.classList.add("username-box")
-                usernameP.textContent = user.username
-
-
-                infDiv.appendChild(avaObodok)
-                infDiv.appendChild(usernameP)
-
-                const blockTextDiv = document.createElement("div")
-                blockTextDiv.classList.add("block-text")
-
-                const emailP = document.createElement("p")
-                emailP.className = "email-paragraph"
-                emailP.textContent = "улюбленець"
-
-                const blockPetDiv = document.createElement("div")
-                blockPetDiv.classList.add("block-pet")
-
-                const petImg = document.createElement("img")
-                petImg.classList.add("pet")
-                petImg.src = user.pet_img
-
-
-                blockPetDiv.appendChild(petImg)
-
-                blockTextDiv.appendChild(emailP)
-                blockTextDiv.appendChild(blockPetDiv)
-
-                blockDiv.appendChild(infDiv)
-                blockDiv.appendChild(blockTextDiv)
-
-                blockUsers.appendChild(blockDiv)
+                        socket.emit("block_user", {
+                            room: currentRoomCode,
+                            id: userIdToBlock
+                        });
+                    });
+                });
             }
         });
         let lastid;
 
-        // видалення юзера із кімнати block
-        crossUser = document.getElementsByClassName("cross-user")
-        for (let cross of crossUser){
-            cross.addEventListener("click", ()=>{
-                document.querySelector(".window-choice").classList.add("active")
-                document.querySelector("#overlay").classList.add("active")
-                lastid = cross.dataset.id
-                console.log(lastid)
-            })
-        }
+        const buttonRemove = document.querySelector(".remove_user");
+    
+        buttonRemove.replaceWith(buttonRemove.cloneNode(true));
+        document.querySelector(".remove_user").addEventListener("click", () => {
+            if (userToDeleteId) {
+                let code = localStorage.getItem("room_code"); 
+                socket.emit(
+                    "delete_user",
+                    {
+                        room: code,
+                        id: userToDeleteId 
+                    }
+                );
+                document.querySelector(".window-choice").classList.remove("active");
+                document.querySelector("#overlay").classList.remove("active");
+                userToDeleteId = null;
+            }
+        });
 
-        let buttonRemove = document.querySelector(".remove_user")
-        buttonRemove.addEventListener("click", ()=>{
-            socket.emit(
-                "delete_user",
-                {
-                    room: code,
-                    id: lastid
-                }
-            )
-            document.querySelector(".window-choice").classList.remove("active")
-            document.querySelector("#overlay").classList.remove("active")
-        })
-
+        const declineBtn = document.querySelector(".decline");
+        declineBtn.replaceWith(declineBtn.cloneNode(true));
         document.querySelector(".decline").addEventListener("click", () => {
-            document.querySelector(".window-choice").classList.remove("active")
-            document.querySelector("#overlay").classList.remove("active")
-        })
+            document.querySelector(".window-choice").classList.remove("active");
+            document.querySelector("#overlay").classList.remove("active");
+            userToDeleteId = null;
+        });
     });
 
     socket.on(

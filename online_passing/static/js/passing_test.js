@@ -90,7 +90,7 @@ socket.on("page_result",
         circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
 
         let midletime = localStorage.getItem("wasted_time")
-        midletime = (parseInt(midletime) || 0) + (parseInt(localStorage.getItem("timeData")) || 0)
+        midletime = (parseInt(localStorage.getItem("timeData")))
         localStorage.setItem("wasted_time", midletime);
 
         localStorage.setItem("timeData", "0")
@@ -364,7 +364,8 @@ socket.on('student_question', (data) => {
                             setTimeout(() => {
                                 let midletime = localStorage.getItem("wasted_time")
 
-                                midletime = (parseInt(midletime) || 0) + (parseInt(localStorage.getItem("timeData")) || 0)
+                                midletime = (parseInt(localStorage.getItem("timeData")))
+                                localStorage.setItem("wasted_time", midletime)
                                 let stored = localStorage.getItem("users_answers");
                                 
 
@@ -401,7 +402,7 @@ socket.on('student_question', (data) => {
                                 }
                                 
 
-                                localStorage.setItem("wasted_time", midletime);
+                                
                                 
                                 // localStorage.setItem("timeData", "0")
 
@@ -637,8 +638,8 @@ socket.on('student_question', (data) => {
 
                             setTimeout(() => {
                                 let midletime = localStorage.getItem("wasted_time")
-                                midletime = (parseInt(midletime) || 0) + (parseInt(localStorage.getItem("timeData")) || 0)
-
+                                midletime = (parseInt(localStorage.getItem("timeData")))
+                                localStorage.setItem("wasted_time", midletime);
                                 let stored = localStorage.getItem("users_answers");
                                 
 
@@ -673,7 +674,7 @@ socket.on('student_question', (data) => {
                                         }
                                     )
                                 }
-                                localStorage.setItem("wasted_time", midletime);
+                                
                                 
                                 // localStorage.setItem("timeData", "0")
                                 
@@ -780,7 +781,7 @@ socket.on('student_question', (data) => {
                     divparent.style.height = "35vh"
                     divparent.style.flexDirection = "column"
                     divparent.style.gap = "10vh"
-                    divparent.style.backgroundColor = "#353535"
+                    divparent.style.backgroundColor = "#5c5c5c"
                     divparent.style.display = "flex";
 
                     let inputs = document.querySelectorAll(".small-input-answer")
@@ -898,7 +899,8 @@ socket.on('student_question', (data) => {
 
                                 setTimeout(() => {
                                     let midletime = localStorage.getItem("wasted_time")
-                                    midletime = (parseInt(midletime) || 0) + (parseInt(localStorage.getItem("timeData")) || 0)
+                                    midletime = (parseInt(localStorage.getItem("timeData")))
+                                    localStorage.setItem("wasted_time", midletime);
 
                                     let stored = localStorage.getItem("users_answers");
                                     
@@ -935,7 +937,7 @@ socket.on('student_question', (data) => {
                                             }
                                         )
                                     }
-                                    localStorage.setItem("wasted_time", midletime);
+                                    
                                     
                                     // localStorage.setItem("timeData", "0")
                                     
@@ -970,7 +972,7 @@ socket.on('student_question', (data) => {
                     divparent.style.height = "35vh"
                     divparent.style.flexDirection = "column"
                     divparent.style.gap = "10vh"
-                    divparent.style.backgroundColor = "#353535"
+                    divparent.style.backgroundColor = "#414040"
                     divparent.style.display = "flex";
 
                     divparent.appendChild(text)
@@ -1069,7 +1071,8 @@ socket.on('student_question', (data) => {
 
                                 setTimeout(() => {
                                     let midletime = localStorage.getItem("wasted_time")
-                                    midletime = (parseInt(midletime) || 0) + (parseInt(localStorage.getItem("timeData")) || 0)
+                                    midletime = (parseInt(localStorage.getItem("timeData")))
+                                    localStorage.setItem("wasted_time", midletime);
 
                                     let stored = localStorage.getItem("users_answers");
                                     
@@ -1106,7 +1109,7 @@ socket.on('student_question', (data) => {
                                             }
                                         )
                                     }
-                                    localStorage.setItem("wasted_time", midletime);
+                                
                                     
                                     // localStorage.setItem("timeData", "0")
                                     
@@ -1246,7 +1249,7 @@ socket.on("end_this_question",
             {
                 code: localStorage.getItem("room_code"), 
                 total_time: localStorage.getItem("default_time"), 
-                wasted_time: 0,
+                wasted_time: parseInt(localStorage.getItem("timeData")),
                 right_answered: "not",
                 id_test: localStorage.getItem("test_id"),
                 index:localStorage.getItem("index_question"),
@@ -1259,7 +1262,7 @@ socket.on("end_this_question",
         index = parseInt(index) + 1;
         localStorage.setItem("index_question", index)
 
-        midletime = (parseInt(midletime) || 0) + (parseInt(localStorage.getItem("timeData")) || 0)
+        midletime = (parseInt(localStorage.getItem("timeData")))
         localStorage.setItem("wasted_time", midletime);
 
         localStorage.setItem("timeData", "0")
@@ -1300,7 +1303,7 @@ socket.on("no_time",
             circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
 
             let midletime = localStorage.getItem("wasted_time")
-            midletime = (parseInt(midletime) || 0) + (parseInt(localStorage.getItem("timeData")) || 0)
+            midletime = (parseInt(localStorage.getItem("timeData")))
             localStorage.setItem("wasted_time", midletime);
 
             localStorage.setItem("timeData", "0")
@@ -1314,7 +1317,7 @@ socket.on("no_time",
                 {
                     code: localStorage.getItem("room_code"), 
                     total_time: localStorage.getItem("default_time"), 
-                    wasted_time: 0,
+                    wasted_time: parseInt(localStorage.getItem("timeData")),
                     right_answered: "not",
                     id_test: localStorage.getItem("test_id"),
                     index:localStorage.getItem("index_question"),
