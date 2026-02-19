@@ -57,9 +57,9 @@ document.addEventListener("click", (e) => {
         const accuracyText = firstDiagramBlock.querySelector("p")
         accuracyText.insertAdjacentHTML('afterend', `
             <select id="choice-diagram" name="diagram">
-                <option value="general" selected>Загальна діаграма</option>
-                <option value="column-diagram">Стовпчикова діаграма</option>
-                <option value="dots-diagram">Точкова діаграма</option>
+                <option value="general">Загальна успішність</option>
+                <option value="column-diagram">Точність відповідей</option>
+                <option value="dots-diagram">Аналіз питань</option>
                 <option value="time-diagram">Аналіз часу</option>
             </select>
         `)

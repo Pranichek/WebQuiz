@@ -105,13 +105,16 @@ def handle_join(data):
                 'profile.static',
                 filename=f'images/pets_id/{user.user_profile.pet_id}.png'
             )
+            
             # user_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
             user_list.append({
                 "username": user.username,
                 "ready": user.user_profile.answering_answer,
                 "count_points": user.user_profile.count_points,
                 "id": user.id,
-                "email": user.email
+                "email": user.email,
+                "user_avatar": avatar_url,
+                "pet_img": pet_url,
             })
 
     emit("update_users", {"user_list":user_list, "code":room_code, "id_test": room.id_test}, room=room_code, broadcast=True)

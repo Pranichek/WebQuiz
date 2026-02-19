@@ -1025,8 +1025,7 @@ socket.on('student_question', (data) => {
                                 }
 
                             
-                                
-    
+                            
                                 let answers = data.answers
                                 let checkCorrect = false
                                 if (answers.includes(dataString)){

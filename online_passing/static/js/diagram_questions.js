@@ -81,6 +81,7 @@ document.addEventListener('click', (e) => {
                             <option value="general">Загальна успішність</option>
                             <option value="column-diagram">Точність відповідей</option>
                             <option value="dots-diagram">Аналіз питань</option>
+                            <option value="time-diagram">Аналіз часу</option>
                         </select>
                     </div>
 

@@ -68,7 +68,6 @@ socket.on("update_users", data => {
 
             const emailP = document.createElement("p")
             emailP.className = "email-paragraph"
-            emailP.textContent = "улюбленець"
 
             const blockPetDiv = document.createElement("div")
             blockPetDiv.classList.add("block-pet")

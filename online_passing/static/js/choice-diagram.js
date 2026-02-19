@@ -430,7 +430,7 @@ socket.on("time_diagrams", data => {
                 label: 'Середній час',
                 data: timeData,
                 backgroundColor: gradient,
-                borderRadius: 8, 
+                borderRadius: 6, 
                 borderWidth: 0,
                 barPercentage: 0.6, 
             }]

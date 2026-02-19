@@ -227,7 +227,8 @@ def return_result(data):
 
         for user in users:
             user_answers = user.user_profile.all_answers.split()
-            if user_answers[index] != "∅":
+            
+            if len(user_answers) > 0 and user_answers[index] != "∅":
                 total_answers += 1
                 if types[index] == "one-answer":
                     count_chosen[int(user_answers[index])] += 1
