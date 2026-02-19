@@ -72,9 +72,6 @@ def handle_get_question(data_index):
 
     # print(current_answers, "lol")
     current_answers = current_answers[0].split('*|*|*')
-    print(current_answers, "loli")
-
-    print(current_answers, "loli")
 
 
     path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(idx + 1)))
@@ -107,7 +104,6 @@ def handle_get_question(data_index):
                 url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{idx + 1}/{str(index)}/{os.listdir(current_path)[0]}")
                 image_urls[index - 1] = url
 
-    print(image_urls, "url")
 
     emit("question", {
         "answers_image": image_urls,
@@ -125,8 +121,6 @@ def handle_get_question(data_index):
 
 @socket.on("next_question")
 def handle_next_question(data_index):
-    print("next_question")
-
     test_id = data_index["test_id"]
     test = Test.query.get(int(test_id))
 
@@ -137,7 +131,7 @@ def handle_next_question(data_index):
 
             if user.user_profile.percent_bonus >= 100:
                 user.user_profile.percent_bonus = 0
-                user.user_profile.count_money += 20
+                user.user_profile.count_money += 10
             if user.user_profile.percent_bonus is not None:
                 DATABASE.session.commit()
     

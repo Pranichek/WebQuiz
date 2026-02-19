@@ -98,7 +98,7 @@ def connect_to_room(data):
         "test_time": int(test_time) if test_time.isdigit() else test_time,
         "question_img": img_url if name_img else "not",
         "correct_answers": correct_answers,
-        "value_bonus": "0" 
+        "value_bonus": int(flask_login.current_user.user_profile.percent_bonus) if flask_login.current_user.is_authenticated else "0"
     })
 
 
@@ -156,6 +156,17 @@ def answer_the_question(data):
     except Exception as e:
         print(f"Error calculating score: {e}") 
         pass
+
+    if 'value_bonus' in data.keys():
+        if int(data["value_bonus"]) > 0 and flask_login.current_user.is_authenticated:
+            user = User.query.get(int(flask_login.current_user.id))
+            user.user_profile.percent_bonus += int(data["value_bonus"])
+
+            if user.user_profile.percent_bonus >= 100:
+                user.user_profile.percent_bonus = 0
+                user.user_profile.count_money += 20
+            if user.user_profile.percent_bonus is not None:
+                DATABASE.session.commit()
 
     flask_login.current_user.user_profile.answering_answer = "відповів"
     flask_login.current_user.user_profile.index_question = int(data["index"]) 
@@ -362,22 +373,21 @@ def answer_the_question(data):
     accuracy = (right_answers  / answered_questions) * 100 if answered_questions > 0 else 0
     time =  str(data["wasted_time"])
 
-    all_procents = flask_login.current_user.user_profile.all_procents.split(" ") if flask_login.current_user.user_profile.all_procents is not "" else []
-    data_questions = flask_login.current_user.user_profile.data_questions.split(" ") if flask_login.current_user.user_profile.data_questions is not "" else ""
-    if flask_login.current_user.user_profile.avarage_time:
-        all_time = flask_login.current_user.user_profile.avarage_time.split(" ")
-    else:
-        all_time = []
-    # Убедимся, что записываем строку, или полагаемся на map(str, ...) ниже
+    prof = flask_login.current_user.user_profile
+
+    all_procents = prof.all_procents.split(" ") if prof.all_procents else []    
+    data_questions = prof.data_questions if prof.data_questions else ""
+    all_time = prof.avarage_time.split(" ") if prof.avarage_time else []
 
     if int(data["index"]) != len(all_procents) - 1 or len(all_procents) == 0:
         all_procents.append(str(int(float(accuracy)))) 
         data_questions = f"{right_answers}/{uncorrect_answers}/{count_skip}"
         all_time.append(time)
 
-    flask_login.current_user.user_profile.all_procents = " ".join(all_procents)
-    flask_login.current_user.user_profile.data_questions = data_questions
-    flask_login.current_user.user_profile.avarage_time = " ".join(all_time)
+
+    prof.all_procents = " ".join(all_procents)
+    prof.data_questions = data_questions  
+    prof.avarage_time = " ".join(all_time)
     DATABASE.session.commit()
 
 
