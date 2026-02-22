@@ -3,8 +3,6 @@ const socket = io()
 localStorage.setItem("flag_time", "true")
 localStorage.setItem("time_flag", "false")
 
-document.querySelector(".code-room").textContent = localStorage.getItem("room_code")
-
 setInterval(() => {
     socket.emit("check_users", {room_code: localStorage.getItem("room_code"), page: "result", index_question: localStorage.getItem("index_question")})
 }, 3000)
@@ -18,590 +16,502 @@ socket.emit(
     }
 )
 
-socket.on("update_users",
-    ( ) => {
-        socket.emit(
-            'users_results',
-            {
-                room: localStorage.getItem("room_code"), 
-                test_id: localStorage.getItem("test_id"),
-                index_question: localStorage.getItem("index_question")
-            }
-        )
-
-        document.querySelector(".diagram").remove()
-        document.querySelector(".variants").remove()
-    }
-)
-
-socket.on("list_results",
-    user_list => {  
-        // подготовка зон для дл отображения информации взависимости от типа вопроса
-        const topData = document.querySelector(".top-data")
-        // topData.innerHTML = ""
-        const usersRatings = document.querySelector(".users-ratings")
-        usersRatings.innerHTML = ""
-        
-
-        if (user_list.type_question == "one-answer" || user_list.type_question == "many-answers"){
-            topData.style.height = "40%"
-            topData.style.width = "100%"
-            usersRatings.style.height = "58%"
-            usersRatings.style.border = "0.17vh solid #C48AF7"
-            usersRatings.style.borderRadius = "2vw";
-
-            const divDiagram = document.createElement("div")
-            divDiagram.className = "diagram"
-
-            const textDiagram = document.createElement("p")
-            textDiagram.textContent = "Прогресс учнів:"
-            textDiagram.className = "text-diagram"
-
-            const diagramInfo = document.createElement("div")
-            diagramInfo.className = "diagram-informations"
-
-            const line = document.createElement("div")
-            line.className = "line"
-            diagramInfo.appendChild(line)
-
-            const divBlocks = document.createElement("div")
-            divBlocks.className = "blocks"
-
-            divDiagram.appendChild(textDiagram)
-            diagramInfo.appendChild(divBlocks)
-            divDiagram.appendChild(diagramInfo)
-            
-
-            const divVariants = document.createElement("div")
-            divVariants.className = "variants"
-
-            topData.appendChild(divDiagram)
-            topData.appendChild(divVariants)
-
-            const ratingsHeader = document.createElement("div")
-            ratingsHeader.className = "ratings-header"
-
-            const image = document.createElement("img")
-            image.className = "people-icon"
-            image.src = document.querySelector(".hide").dataset.src
-
-            const numPeople = document.createElement("p")
-            numPeople.className = "num-people"
-
-            const countPeople = document.createElement("p")
-            countPeople.className = "count-people"
-
-
-            ratingsHeader.appendChild(image)
-            ratingsHeader.appendChild(numPeople)
-            ratingsHeader.appendChild(countPeople)
-
-            const bodyRatings = document.createElement("div")
-            bodyRatings.className = "body-ratings"
-
-            usersRatings.appendChild(ratingsHeader)
-            usersRatings.appendChild(bodyRatings)
-
-        }else if(user_list.type_question == "input-gap"){
-            topData.style.height = "40%"
-            topData.style.width = "100%"
-            usersRatings.style.height = "58%"
-            usersRatings.style.border = "0.17vh solid #C48AF7"
-            usersRatings.style.borderRadius = "2vw";
-            
-
-
-            const outlineInput = document.createElement("div")
-            outlineInput.className = "outline-input-gap"
-
-            const questionDiv = document.createElement("div")
-            questionDiv.className = "question"
-
-            const paragraph = document.createElement("p")
-            paragraph.className = "question-text"
-            console.log(user_list.text_question, "kiki")
-            paragraph.textContent = user_list.text_question
-
-            questionDiv.appendChild(paragraph)
-            
-            if (user_list.image_url != "not"){
-                const img = document.createElement("img")
-                img.src = document.getElementById("arrow-img-path").dataset.src
-                img.className = "arrow"
-                paragraph.appendChild(img)
-
-                const imageDiv = document.createElement("div");
-                imageDiv.className = "imageCont"; 
-                const imgq = document.createElement("img")
-                imgq.src = user_list.image_url
-                imgq.className = "questionImage"
-                imageDiv.appendChild(imgq)
-
-                questionDiv.style.flexDirection = "column"
-                questionDiv.appendChild(imageDiv)
-
-                let rotated = false
-                img.addEventListener(
-                    'click',
-                    () => {
-                        rotated = !rotated
-                        img.style.transform = rotated ? "rotate(180deg)" : "rotate(0deg)"
-
-                        if (rotated){
-                            document.querySelector(".imageCont").classList.add("show")
-
-                            paragraph.style.height = "40%"
-
-                            
-
-                            
-
-                            topData.style.height = "40%"
-                            usersRatings.style.height = "58%"   
-
-                            document.querySelector(".question").style.height = "55%"
-                            document.querySelector(".right-answers").style.height = "35%"
-
-
-                        }else{
-                            document.querySelector(".imageCont").classList.remove("show")
-                            paragraph.style.height = "100%"
-
-                            topData.style.height = "32%"
-                            usersRatings.style.height = "66%"
-                            document.querySelector(".question").style.height = "40%"
-                            document.querySelector(".right-answers").style.height = "50%"
-                        }
-                    }
-                )
-            }
-
-            // создание той части где поя
-            const answers = document.createElement("div")
-            answers.className = "right-answers"
-            
-
-            const rightText = document.createElement("p")
-            rightText.textContent = "Правильні відповіді:"
-            rightText.className = "right-text"
-
-            const rightAnswers = document.createElement("p")
-            rightAnswers.textContent = "Сховано"
-            rightAnswers.className = "correct-answers"
-
-            answers.appendChild(rightText)
-            answers.appendChild(rightAnswers)
-
-            outlineInput.appendChild(questionDiv)
-            outlineInput.appendChild(answers)
-
-            topData.appendChild(outlineInput)
-
-            const ratingsHeader = document.createElement("div")
-            ratingsHeader.className = "ratings-header"
-
-            const image = document.createElement("img")
-            image.className = "people-icon"
-            image.src = document.querySelector(".hide").dataset.src
-
-            const numPeople = document.createElement("p")
-            numPeople.className = "num-people"
-
-            const countPeople = document.createElement("p")
-            countPeople.className = "count-people"
-
-
-            ratingsHeader.appendChild(image)
-            ratingsHeader.appendChild(numPeople)
-            ratingsHeader.appendChild(countPeople)
-
-            const bodyRatings = document.createElement("div")
-            bodyRatings.className = "body-ratings"
-
-            usersRatings.appendChild(ratingsHeader)
-            usersRatings.appendChild(bodyRatings)
-
-            // <p class="accuracy-students">Прогресс учнів: </p>
-
+socket.on("update_users", () => {
+    socket.emit(
+        'users_results',
+        {
+            room: localStorage.getItem("room_code"), 
+            test_id: localStorage.getItem("test_id"),
+            index_question: localStorage.getItem("index_question")
         }
+    )
 
+    const diagram = document.querySelector(".diagram")
+    if (diagram) diagram.remove()
+    
+    const variants = document.querySelector(".variants")
+    if (variants) variants.remove()
+})
 
-        // ------------- создание диаграм
-        let answers = user_list.answers
-        const cont = document.querySelector(".variants")
-        if (user_list.type_question != "input-gap"){
-            cont.innerHTML = ""
-            let count = 0
-            for (let answer of answers){
-                const variantDiv = document.createElement("div")
-                variantDiv.className = "variant"
+socket.on("list_results", user_list => {  
+    const topData = document.querySelector(".top-data")
+    const usersRatings = document.querySelector(".users-list-container")
+    
+    usersRatings.innerHTML = ""
+    
+    const oldDiagram = document.querySelector(".diagram")
+    if (oldDiagram) oldDiagram.remove()
+    
+    const oldInputGap = document.querySelector(".outline-input-gap")
+    if (oldInputGap) oldInputGap.remove()
 
-                const variantOutline = document.createElement("div")
-                variantOutline.className = "variant-outline"
+    const topDiagram = document.querySelector(".top-data")
+    const circleDiagram = document.querySelector(".circle-diagram")
 
-                const paragraph = document.createElement("p")
-                paragraph.className = "variant-text"
-                paragraph.textContent = answer
+    let countAccuracy = 0
+    let countRight = 0
+    let countUncorrect = 0
+    let countMissed = 0
 
-                variantOutline.appendChild(paragraph)
-                variantDiv.appendChild(variantOutline)
-                cont.appendChild(variantDiv)
-
-                count++
-            }
-
-            let variants = document.querySelectorAll("variant")
-            let width = 100 / count
-            for (let variant of variants){
-                variant.style.width = `${width}%`
-            }    
-
-            // создание линий
-            const linesCont = document.querySelector(".diagram-informations")
-            let countLines = 0
-            for (let i = 0; i <= user_list.users.length; i++){
-                const line = document.createElement("div")
-                line.className = "line"
-                linesCont.appendChild(line)
-                countLines++
-            }
-
-            const lines = document.querySelectorAll(".line")
-            let height = 100 / countLines
-            for (let line of lines){
-                line.style.height = `${height}%`
-            }
-
-            document.querySelector(".diagram-informations").style.gap = `${height - 0.5}%`
-
-            // создание бащень ответов
-            const blockCont = document.querySelector(".blocks")
-            for (let i = 1; i <= user_list.answers.length; i++) {
-                const outlineBlock = document.createElement("div");
-                outlineBlock.className = "block";
-
-                const greenBlock = document.createElement("div");
-                greenBlock.className = "block-diagram";
-                greenBlock.style.height = "0%"; 
-
-                outlineBlock.appendChild(greenBlock);
-                blockCont.appendChild(outlineBlock);
-
-                // даём браузеру время вставить элемент, и только потом меняем высоту
-                setTimeout(() => {
-                    greenBlock.style.height = `${(height + 0.15) * parseInt(user_list.count_answers[i - 1])}%`;
-                }, 50); 
-            }
+    user_list.users.forEach((element) => {
+        countAccuracy += parseInt(element.accuracy)
+        if (parseInt(element.right_wrong) == 1) {
+            countRight++
+        } else if (parseInt(element.right_wrong) == 0) {
+            countUncorrect++
+        } else {
+            countMissed++
         }
+    })
 
-                    
+    if (user_list.type_question == "one-answer" || user_list.type_question == "many-answers" || user_list.type_question == "input-gap") {
+        if (topDiagram) topDiagram.style.display = "flex"
 
-        // --------------
-        let  usersConts = document.querySelector(".body-ratings")
-        let countAccuracy = 0
-        let countRight = 0
-        let countUncorrect = 0
-        let countMissed = 0
-
-        user_list.users.forEach((element, index) => {
-            const usercont = document.createElement("div")
-            usercont.className = "user-card"
-            usercont.dataset.id = element.id
-
-            const leftpart = document.createElement("div")
-            leftpart.className = "left-part"
-            const rightpart = document.createElement("div")
-            rightpart.className = "right-part"
-
-            usercont.appendChild(leftpart)
-            usercont.appendChild(rightpart)
-
-            const textplace = document.createElement("p")
-            textplace.className = "place-students"
-            textplace.textContent = `№${index + 1}`  
-
-            const avatarCircle = document.createElement("div")
-            avatarCircle.className = 'avatar-circle'
-
-            const avatar = document.createElement("img")
-            avatar.className = "avatar"
-            avatar.setAttribute("data-size", element.avatar_size)
-            avatar.src = element.user_avatar
+        if (circleDiagram) {
+            circleDiagram.innerHTML = "" 
             
-            avatarCircle.appendChild(avatar)
-
-            leftpart.appendChild(textplace)
-            leftpart.appendChild(avatarCircle)
-
-            const nickname = document.createElement("p")
-            nickname.className = "nickname"
-            nickname.textContent = element.username
-            
-            const choicen = document.createElement("div")
-            choicen.className = "choicen"
-            choicen.id = index
-            
-            const textAchiv = document.createElement("p")
-            textAchiv.classList = "text-achiv"
-            textAchiv.textContent = "Обрана відповідь:"
-            choicen.appendChild(textAchiv)
-
-            const lastAnswering = document.createElement("p")
-            lastAnswering.dataset.text = `${element.last_answer.join(" ")}`
-            lastAnswering.textContent = "......"
-            lastAnswering.className = "choicen-text"
-            lastAnswering.id = index
-            lastAnswering.style.width = "99%"
-            choicen.appendChild(lastAnswering)
-
-
-            // if (user_list.type_question == "input-gap"){
-            const eye = document.createElement("img")
-            eye.src = document.querySelector(".close-eye").dataset.close
-            eye.className = "type-eye"
-            eye.id = index
-            eye.dataset.type = "close"
-            lastAnswering.appendChild(eye)
-            // }
-
-            rightpart.appendChild(nickname)
-            rightpart.appendChild(choicen)
-
-            usersConts.appendChild(usercont)
-
-            countAccuracy += parseInt(element.accuracy)
-
-            // choicen.style.alignItems = "end"
-            if (parseInt(element.right_wrong) == 1){
-                choicen.style.backgroundColor = `rgba(169, 255, 182, 0.25)`;
-                countRight++
-            }else if (parseInt(element.right_wrong) == 0){
-                choicen.style.backgroundColor = `rgba(255, 118, 124, 0.25)`;
-                countUncorrect++
-            }else{
-                choicen.style.backgroundColor = `rgba(163, 159, 159, 0.25)`;
-                countMissed++
-            }
-        })
-
-        // открытие закрытие текста
-        let eyes = document.querySelectorAll(".type-eye")
-
-        for (let eye of eyes){
-            eye.addEventListener(
-                'click',
-                () => {
-                    const texts = document.querySelectorAll(".choicen-text")
-                    for (let text of texts){
-                        if (text.id == eye.id){
-                            if (eye.dataset.type == "close"){
-                                // const choicen = document.getElementById(eye.id);
-                                // if (choicen.classList.contains("choicen")) {
-                                //     choicen.style.alignItems = "start"
-                                // }
-
-                                // text.replaceChildren()
-                                
-                                // const neweye = document.createElement("img")
-                                // neweye.className = "type-eye"
-                                // neweye.id = text.id
-                                // neweye.dataset.type = "open"
-
-                                // neweye.src = document.querySelector(".open-eye").dataset.open
-                                eye.src = document.querySelector(".open-eye").dataset.open
-                                eye.dataset.type = "open"
-                                text.textContent = text.dataset.text
-                                
-                                text.appendChild(eye)
-                            }else{
-                                const choicen = document.getElementById(eye.id);
-                                if (choicen.classList.contains("choicen")) {
-                                    choicen.style.alignItems = "end"
+            const pieOptions = {
+                series: [countRight, countUncorrect, countMissed],
+                labels: ['Правильно', 'Неправильно', 'Пропущено'],
+                chart: {
+                    type: 'donut',
+                    height: '100%',
+                    background: 'transparent',
+                    fontFamily: 'inherit'
+                },
+                colors: ['#8AF7D4', '#FF767C', '#848282'],
+                stroke: { show: false },
+                dataLabels: { enabled: false },
+                legend: {
+                    position: 'bottom',
+                    labels: { colors: '#ffffff' }
+                },
+                plotOptions: {
+                    pie: {
+                        donut: {
+                            size: '65%',
+                            labels: {
+                                show: true,
+                                name: { color: '#ffffff', fontSize: '1.5vh' },
+                                value: { color: '#ffffff', fontSize: '2.5vh', fontWeight: 'bold' },
+                                total: {
+                                    show: true,
+                                    label: 'Всього',
+                                    color: '#D9D9D9',
+                                    formatter: function (w) {
+                                        return w.globals.seriesTotals.reduce((a, b) => a + b, 0)
+                                    }
                                 }
-
-                                text.replaceChildren()
-                                // const neweye = document.createElement("img")
-                                // neweye.className = "type-eye"
-                                // neweye.id = text.id
-                                // neweye.dataset.type = "close"
-                                // neweye.src = document.querySelector(".close-eye").dataset.close
-
-                                text.textContent = "......"
-                                eye.src = document.querySelector(".close-eye").dataset.close
-                                eye.dataset.type = "close"
-                                // text.replaceChildren()
-                                text.appendChild(eye)
                             }
                         }
                     }
                 }
-            )
+            }
+            new ApexCharts(circleDiagram, pieOptions).render()
         }
 
-        // Прогресс-бар точности
-        let accuracy = Math.round(Number(user_list.avarage_accuracy))
-        try {
-            document.querySelector(".num-people").textContent = user_list.users.length
 
-            if (user_list.users.length % 10 === 1 && user_list.users.length % 100 !== 11) {
-                document.querySelector(".count-people").textContent = "учасник";
-            } else if ([2,3,4].includes(user_list.users.length % 10) && ![12,13,14].includes(user_list.users.length % 100)) {
-                document.querySelector(".count-people").textContent = "учасники";
+        if (user_list.type_question == "one-answer" || user_list.type_question == "many-answers"){
+            const divDiagram = document.createElement("div")
+            divDiagram.className = "diagram"
+            divDiagram.style.flexGrow = "1" 
+            divDiagram.style.height = "100%"
+            divDiagram.style.display = "flex"
+            divDiagram.style.flexDirection = "column"
+            divDiagram.style.backgroundColor = "transparent"
+
+            const textDiagram = document.createElement("p")
+            textDiagram.textContent = "Прогресс учнів:"
+            textDiagram.className = "text-diagram"
+            textDiagram.style.height = "10%"
+
+            const diagramInfo = document.createElement("div")
+            diagramInfo.className = "diagram-informations"
+            diagramInfo.style.height = "75%"
+            diagramInfo.style.position = "relative"
+            diagramInfo.style.display = "flex"
+            diagramInfo.style.flexDirection = "column"
+            diagramInfo.style.justifyContent = "space-between"
+            diagramInfo.style.borderBottom = "2px solid #ffffff" 
+
+            const divBlocks = document.createElement("div")
+            divBlocks.className = "blocks"
+            divBlocks.style.position = "absolute"
+            divBlocks.style.width = "100%"
+            divBlocks.style.height = "100%"
+            divBlocks.style.display = "flex"
+            divBlocks.style.alignItems = "flex-end" 
+            divBlocks.style.bottom = "0"
+            divBlocks.style.left = "0"
+            divBlocks.style.zIndex = "2"
+
+            divDiagram.appendChild(textDiagram)
+            diagramInfo.appendChild(divBlocks)
+            divDiagram.appendChild(diagramInfo)
+
+            const divVariants = document.createElement("div")
+            divVariants.className = "variants"
+            divVariants.style.height = "auto"
+            divVariants.style.minHeight = "15%"
+            divVariants.style.display = "flex"
+            divVariants.style.width = "100%"
+            divVariants.style.alignItems = "stretch" 
+            divVariants.style.marginTop = "10px"
+
+            divDiagram.appendChild(divVariants)
+
+            if (topDiagram) {
+                topDiagram.appendChild(divDiagram)
             } else {
-                document.querySelector(".count-people").textContent = "учасників";
-            }
-        } catch (error) {
-            try {
-                document.querySelector(".num-people").textContent = 0
-            } catch (error) {
-                
+                topData.appendChild(divDiagram)
             }
 
-        }
+            let answers = user_list.answers
+            let count = answers.length
+            let width = 100 / count
 
-        const fill = document.querySelector(".fill")
-        const textPerc = document.querySelector(".text-perc p")
-        const quard = document.querySelector(".quard")
+            let countLines = user_list.users.length > 0 ? user_list.users.length : 1
+            for (let i = 0; i <= countLines; i++){
+                const line = document.createElement("div")
+                line.className = "line"
+                line.style.width = "100%"
+                line.style.borderTop = "1px solid rgba(255, 255, 255, 0.2)"
+                line.style.backgroundColor = "transparent"
+                diagramInfo.appendChild(line)
+            }
 
-        // Сброс анимации
-        if (fill) {
-            fill.style.transition = "none"
-            fill.style.height = "0%"
-            void fill.offsetHeight
-            fill.style.transition = "height 1s ease-in-out"
-            fill.style.height = Math.round(accuracy) + "%" 
-        }
+            let heightStep = 100 / countLines
 
-        const maxAccuracy = 92; // Максимальный процент, до которого может подняться робот
-        const clampedAccuracy = Math.min(Math.round(accuracy), maxAccuracy);
+            for (let i = 0; i < count; i++) {
+                const variantDiv = document.createElement("div")
+                variantDiv.className = "variant"
+                variantDiv.style.width = `${width}%`
+                variantDiv.style.display = "flex"
+                variantDiv.style.justifyContent = "center"
+                variantDiv.style.padding = "0 5px"
 
-        if (quard) {
-            // Используем ограниченное значение
-            quard.style.bottom = `calc(${clampedAccuracy}% - 0.5vh)`; 
-        }
+                const variantOutline = document.createElement("div")
+                variantOutline.className = "variant-outline"
+                variantOutline.style.width = "100%"
+                variantOutline.style.height = "100%"
+                variantOutline.style.boxSizing = "border-box"
+                variantOutline.style.borderRadius = "12px"
+                variantOutline.style.backgroundColor = "rgba(195, 159, 228, 0.58)"
+                variantOutline.style.display = "flex"
+                variantOutline.style.alignItems = "center"
+                variantOutline.style.justifyContent = "center"
+                variantOutline.style.padding = "10px"
 
-        if (textPerc) {
-            textPerc.textContent = "0% точностi !"
-            let current = 0
-            const target = Math.round(Number(user_list.avarage_accuracy))
-            const interval = setInterval(() => {
-                if (current < target) {
-                    current++
-                    textPerc.textContent = `${current}% точностi !`
+                const paragraph = document.createElement("p")
+                paragraph.className = "variant-text"
+                paragraph.textContent = answers[i]
+                paragraph.style.margin = "0"
+                paragraph.style.wordBreak = "break-word"
+                paragraph.style.textAlign = "center"
+
+                variantOutline.appendChild(paragraph)
+                variantDiv.appendChild(variantOutline)
+                divVariants.appendChild(variantDiv)
+
+                const outlineBlock = document.createElement("div")
+                outlineBlock.className = "block"
+                outlineBlock.style.width = `${width}%`
+                outlineBlock.style.height = "100%"
+                outlineBlock.style.display = "flex"
+                outlineBlock.style.alignItems = "flex-end"
+                outlineBlock.style.justifyContent = "center"
+
+                const greenBlock = document.createElement("div")
+                greenBlock.className = "block-diagram"
+                greenBlock.style.width = "60%"
+                const right_indexes = user_list.right_indexes || []
+                if (right_indexes.includes(i)) {
+                    greenBlock.style.backgroundColor = "#8AF7D4" 
                 } else {
-                    clearInterval(interval)
+                    greenBlock.style.backgroundColor = "#FF767C" 
                 }
-            }, 15)
+                // greenBlock.style.borderRadius = "6px 6px 0 0" 
+                greenBlock.style.height = "0%"
+                greenBlock.style.transition = "0.8s ease-out"
+
+                outlineBlock.appendChild(greenBlock)
+                divBlocks.appendChild(outlineBlock)
+
+                setTimeout(() => {
+                    greenBlock.style.height = `${heightStep * parseInt(user_list.count_answers[i])}%`
+                }, 50)
+            }
+        }else{
+            // создай тут диаграмму которая подойдет для типа вопроса input-gap через chart.js
+            const divDiagram = document.createElement("div")
+            divDiagram.className = "diagram"
+            divDiagram.style.flexGrow = "1" 
+            divDiagram.style.height = "100%"
+            divDiagram.style.display = "flex"
+            divDiagram.style.flexDirection = "column"
+            divDiagram.style.backgroundColor = "transparent"
+
+            const textDiagram = document.createElement("p")
+            textDiagram.textContent = "Відповіді учнів:"
+            textDiagram.className = "text-diagram"
+            textDiagram.style.height = "10%"
+
+            const chartWrapper = document.createElement("div")
+            chartWrapper.style.position = "relative"
+            chartWrapper.style.height = "90%"
+            chartWrapper.style.width = "100%"
+
+            const canvas = document.createElement("canvas")
+            chartWrapper.appendChild(canvas)
+
+            divDiagram.appendChild(textDiagram)
+            divDiagram.appendChild(chartWrapper)
+
+            if (topDiagram) {
+                topDiagram.appendChild(divDiagram)
+            } else {
+                topData.appendChild(divDiagram)
+            }
+
+            let answerCounts = {}
+            user_list.users.forEach(u => {
+                let ans = u.last_answer && u.last_answer.length > 0 ? u.last_answer.join(" ") : "Пропущено"
+                if (!ans.trim() || ans === "......" || ans === "∅") ans = "Пропущено"
+                
+                if (!answerCounts[ans]) {
+                    answerCounts[ans] = { count: 0, isCorrect: (parseInt(u.right_wrong) === 1) }
+                }
+                answerCounts[ans].count++
+            })
+
+            let uniqueAnswers = Object.keys(answerCounts).sort((a,b) => answerCounts[b].count - answerCounts[a].count)
+            let labels = []
+            let data = []
+            let bgColors = []
+
+            uniqueAnswers.forEach(ans => {
+                let wrappedText = []
+                const words = String(ans).split(' ')
+                let currentLine = ''
+                words.forEach(word => {
+                    if ((currentLine + word).length > 15) {
+                        wrappedText.push(currentLine.trim())
+                        currentLine = word + ' '
+                    } else {
+                        currentLine += word + ' '
+                    }
+                })
+                wrappedText.push(currentLine.trim())
+                labels.push(wrappedText)
+
+                data.push(answerCounts[ans].count)
+                
+                if (ans === "Пропущено") {
+                    bgColors.push("#848282")
+                } else if (answerCounts[ans].isCorrect) {
+                    bgColors.push("#8AF7D4")
+                } else {
+                    bgColors.push("#FF767C")
+                }
+            })
+
+            new Chart(canvas, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: data,
+                        backgroundColor: bgColors,
+                        borderRadius: 6,
+                        maxBarThickness: 80
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { display: false },
+                        tooltip: {
+                            titleFont: { size: 14 },
+                            bodyFont: { size: 14 }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            grid: { display: false },
+                            ticks: { color: "#ffffff", font: { size: 14 } },
+                            border: { color: "#ffffff" }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            ticks: { stepSize: 1, color: "#ffffff", font: { size: 14 } },
+                            grid: { color: "rgba(255, 255, 255, 0.1)" },
+                            border: { display: false }
+                        }
+                    }
+                }
+            })
+
         }
 
-        // количество правильніх ответов
+    } 
+
+    // let usersConts = document.querySelector(".body-ratings")
+    // if (!usersConts) {
+    //     const ratingsHeader = document.createElement("div")
+    //     ratingsHeader.className = "ratings-header"
+    //     usersConts = document.createElement("div")
+    //     usersConts.className = "body-ratings"
+    // }
+
+    usersConts = document.querySelector(".users-list-container");
+
+    user_list.users.forEach((element, index) => {
+        let statusIcon = "";
+        let statusClass = "";
+
+        // Проверяем правильность ответа для иконки и цвета
+        if (parseInt(element.right_wrong) === 1) {
+            statusIcon = "✔";
+            statusClass = "correct-status";
+        } else if (parseInt(element.right_wrong) === 0) {
+            statusIcon = "✖";
+            statusClass = "wrong-status";
+        } else {
+            statusIcon = "➖";
+            statusClass = "missed-status";
+        }
+
+        // Если с сервера приходят очки, используем их. Иначе 0.
+        let points = element.points !== undefined ? element.points : 0;
+
+        // Формируем HTML карточки по вашему дизайну
+        const cardHTML = `
+            <div class="user-card active" data-id="${element.id}">
+                <div class="user-info">
+                    <span class="place-students">№${index + 1}</span>
+                    
+                    <div class="user-text-data">
+                        <span class="user-name">${element.username}</span>
+                        <span class="user-stats">Точність: ${parseInt(element.accuracy)}%</span>
+                    </div>
+                </div>
+
+                <div class="user-status  ${statusClass}">${statusIcon}</div>
+            </div>
+        `;
+
+        usersConts.insertAdjacentHTML('beforeend', cardHTML);
+    });
+
+
+    let accuracy = Math.round(Number(user_list.avarage_accuracy))
+    // try {
+    //     document.querySelector(".num-people").textContent = user_list.users.length
+
+    //     if (user_list.users.length % 10 === 1 && user_list.users.length % 100 !== 11) {
+    //         document.querySelector(".count-people").textContent = "учасник"
+    //     } else if ([2,3,4].includes(user_list.users.length % 10) && ![12,13,14].includes(user_list.users.length % 100)) {
+    //         document.querySelector(".count-people").textContent = "учасники"
+    //     } else {
+    //         document.querySelector(".count-people").textContent = "учасників"
+    //     }
+    // } catch (error) {
+    //     try {
+    //         document.querySelector(".num-people").textContent = 0
+    //     } catch (error) {}
+    // }
+
+    const fill = document.querySelector(".fill")
+    const textPerc = document.querySelector(".text-perc p")
+    const quard = document.querySelector(".quard")
+
+    if (fill) {
+        fill.style.transition = "none"
+        fill.style.width = "0%"  /
+        void fill.offsetWidth    
+        fill.style.transition = "width 1s ease-in-out" 
+        fill.style.width = Math.round(accuracy) + "%" 
+    }
+
+    const maxAccuracy = 95 
+    const clampedAccuracy = Math.min(Math.round(accuracy), maxAccuracy)
+
+    if (quard) {
+        quard.style.left = `${clampedAccuracy}%` 
+    }
+
+    if (textPerc) {
+        textPerc.textContent = "0% точностi !"
+        let current = 0
+        const target = Math.round(Number(user_list.avarage_accuracy))
+        const interval = setInterval(() => {
+            if (current < target) {
+                current++
+                textPerc.textContent = `${current}% точностi !`
+            } else {
+                clearInterval(interval)
+            }
+        }, 15)
+    }
+
+    try {
         document.querySelector(".right-text").textContent = `${countRight}`
         document.querySelector(".wrong-text").textContent = `${countUncorrect}`
         document.querySelector(".simple-text").textContent = `${countMissed}`
-        
-        const showAnswersBtn = document.getElementById("showAnswer")
-        const correctAnsws = document.querySelector(".correct-answers")
+    } catch (error) {}
 
-        showAnswersBtn.addEventListener("click", () => {
-            const checkstate = showAnswersBtn.dataset.state
-            const right_indexes = user_list.right_indexes || []
+    let lastid
 
-            if (user_list.type_question !== "input-gap") {
-                if (checkstate === "hide") {
-                    showAnswersBtn.dataset.state = "show"
-                    showAnswersBtn.textContent = "сховати відповіді"
-
-                    for (let i = 0; i < answers.length; i++) {
-                        if (right_indexes.includes(i)) {
-                            answers[i].style.backgroundColor = "#9bde8dff"
-                        } else {
-                            answers[i].style.backgroundColor = "#ea5c64ff"
-                        }
-                    }
-                } else {
-                    showAnswersBtn.dataset.state = "hide"
-                    showAnswersBtn.textContent = "Показати відповіді"
-
-                    for (let i = 0; i < answers.length; i++) {
-                        answers[i].style.backgroundColor = "#94C4FF"
-                    }
-                }
-            }else{
-                if (checkstate === "hide") {
-                    showAnswersBtn.dataset.state = "show"
-                    showAnswersBtn.textContent = "сховати відповіді"
-                    correctAnsws.textContent = user_list.answers.join("\n")
-                    correctAnsws.style.whiteSpace = "pre-line"
-                }else{
-                    showAnswersBtn.dataset.state = "hide"
-                    showAnswersBtn.textContent = "Показати відповіді"
-                    correctAnsws.textContent = "Сховано"
-                }
-                
+    let crossUser = document.getElementsByClassName("user-card")
+    for (let cross of crossUser) {
+        cross.addEventListener("click", (event) => {
+            const isEyeClick = event.target.closest('.choicen') || event.target.closest('.choicen .open-eye')
+            if (isEyeClick) {
+                return
             }
+            document.querySelector(".window-choice").classList.add("active")
+            document.querySelector("#overlay").classList.add("active")
+            lastid = cross.dataset.id
         })
+    }
 
-        // удаление пользователя
-        let lastid;
-
-        crossUser = document.getElementsByClassName("user-card")
-            for (let cross of crossUser){
-                cross.addEventListener("click", (event)=>{
-                    const isEyeClick = event.target.closest('.choicen') || event.target.closest('.choicen .open-eye')
-        
-                    if (isEyeClick) {
-                        return
-                    }
-
-                    document.querySelector(".window-choice").classList.add("active")
-                    document.querySelector("#overlay").classList.add("active")
-                    lastid = cross.dataset.id
+    let buttonRemove = document.querySelector(".remove_user")
+    if (buttonRemove) {
+        buttonRemove.addEventListener("click", () => {
+            socket.emit("delete_user", {
+                room: localStorage.getItem("room_code"),
+                id: lastid
             })
-        }
-
-        let buttonRemove = document.querySelector(".remove_user")
-            buttonRemove.addEventListener("click", ()=>{
-                socket.emit(
-                    "delete_user",
-                    {
-                        room: localStorage.getItem("room_code"),
-                        id: lastid
-                    }
-                )
             document.querySelector(".window-choice").classList.remove("active")
             document.querySelector("#overlay").classList.remove("active")
             location.reload()
         })
+    }
 
-        document.querySelector(".decline").addEventListener("click", () => {
+    let declineBtn = document.querySelector(".decline")
+    if (declineBtn) {
+        declineBtn.addEventListener("click", () => {
             document.querySelector(".window-choice").classList.remove("active")
             document.querySelector("#overlay").classList.remove("active")
         })
     }
-)
-
+})
 
 socket.on("next_question", data => {
     window.location.replace("/passing_mentor")
 })
 
-socket.on("end_test",
-    data => {
-        window.location.replace("/finish_mentor")
-    }
-)
+socket.on("end_test", data => {
+    window.location.replace("/finish_mentor")
+})
 
-
-document.querySelector(".next-question").addEventListener(
-    'click',
-    () => {
-        const oldData = parseInt(localStorage.getItem("index_question"))
-        localStorage.setItem("index_question", oldData + 1)
-        socket.emit('next_one', {
-            index: localStorage.getItem("index_question"),
-            test_id: localStorage.getItem("test_id"),
-            room: localStorage.getItem("room_code"),
-        })
-    }
-)
-
+document.querySelector(".next-question").addEventListener('click', () => {
+    const oldData = parseInt(localStorage.getItem("index_question"))
+    localStorage.setItem("index_question", oldData + 1)
+    socket.emit('next_one', {
+        index: localStorage.getItem("index_question"),
+        test_id: localStorage.getItem("test_id"),
+        room: localStorage.getItem("room_code"),
+    })
+})

@@ -8,7 +8,7 @@ from .correct_answers import return_answers
 @project.route('/get_user_detail_stats', methods=['POST'])
 def get_user_detail_stats():
     data = request.json
-    user_id = data.get('user_id')
+    user_id = data["user_id"]
     user : User = User.query.get(user_id)
 
     test : Test = Test.query.get(int(data["id_test"]))

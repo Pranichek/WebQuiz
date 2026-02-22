@@ -14,6 +14,10 @@ a {
     text-decoration: none;
 }
 
+button{
+    margin-top: 2vh;
+}
+
 .window-question{
     position: fixed;
     width: 60vw;
@@ -851,4 +855,140 @@ a {
     white-space: normal;
     word-break: break-word;
     flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .name, .info, .prt-2, .animal .text, .result, .quest-text, 
+    .answer-text, .skip-head, .email-user, .input-block, 
+    .block-1, .block-2, .block-3, .block-4, .answ2, .question-text, .text {
+        font-size: 4.5vw !important;
+    }
+
+    .big-div, .result, .inf, .line, .small-div, .space, .questions, .question {
+        width: 95% !important;
+        height: auto !important;
+        min-height: unset;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .big-div, .small-div {
+        flex-direction: column;
+        padding: 20px 10px;
+        gap: 20px;
+        margin-top: 20px;
+    }
+
+    .info, .prt-2 {
+        gap: 15px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .robots, .robots2 {
+        width: 100%;
+        gap: 0;
+        justify-content: space-between;
+        padding: 0 5%;
+        position: relative;
+    }
+
+    .inf {
+        padding: 20px 5px;
+        margin-top: 30px;
+    }
+
+    .prt1 {
+        flex-wrap: wrap;
+        gap: 15px;
+        flex-direction: row;
+    }
+
+    .block-1, .block-2, .block-3, .block-4 {
+        width: 45%;
+        margin-bottom: 0;
+        padding: 10px 5px;
+    }
+
+    .answ {
+        padding-left: 4vw;
+        padding-right: 2vw;
+    }
+
+    .correct-circle, .correct-quard, .orange-circle, .orange-quard,
+    .simple-circle, .right-circle, .simple-quard, .corrected-quard,
+    .uncorrect-circle, .uncorrect-quard, .quard {
+        width: 7vw;
+        height: 7vw;
+    }
+
+    .window-question {
+        width: 95vw;
+        max-height: 80vh;
+        overflow-y: auto;
+    }
+
+    .switch-buttons {
+        gap: 15px;
+        flex-direction: column;
+        align-items: center;
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .switch-buttons button, .button {
+        font-size: 4vw;
+        padding: 3vw 6vw;
+        width: 80%;
+    }
+
+    .input-block {
+        width: 12vw;
+        height: 12vw;
+        font-size: 5vw !important;
+        min-width: unset;
+        min-height: unset;
+    }
+
+    .blocks-div {
+        justify-content: center;
+    }
+
+    .justify-btn {
+        flex-direction: column;
+        gap: 20px;
+        margin-top: 30px;
+    }
+
+    .btn {
+        width: 80vw;
+        height: 60px;
+        font-size: 5vw;
+    }
+
+    .avatar-circle {
+        width: 25vw;
+        height: 25vw;
+    }
+
+    .animal {
+        width: 80%;
+    }
+
+    .header {
+        height: auto;
+        padding: 20px 0;
+    }
+
+    .answ2 {
+        height: auto;
+        padding: 10px;
+        gap: 3vw;
+    }
+
+    .answer-img, .question-img {
+        width: 40%;
+    }
+
+    
 }

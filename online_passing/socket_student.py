@@ -153,6 +153,7 @@ def answer_the_question(data):
             old_points = flask_login.current_user.user_profile.count_points
             new_points = old_points + score
             flask_login.current_user.user_profile.count_points = int(new_points)
+
     except Exception as e:
         print(f"Error calculating score: {e}") 
         pass
@@ -294,11 +295,10 @@ def answer_the_question(data):
     uncorrect_answers = 0
     count_skip = 0
     # список для того чтобы понимать правильно он ответил последний вопрос или нет
-    check_answers = []
-
+    check_answers = []  
 
     for i in range(len(user_answers)):
-        if len(correct_indexes[i]) > 0:
+        if  i + 1 <= len(correct_indexes) and len(correct_indexes[i]) > 0:
             if list_users_answers[i][0] != "∅":
                 count_answered += 1
                 if types[i] == "one-answer":
@@ -435,6 +435,7 @@ def answer_the_question(data):
         DATABASE.session.commit()
         emit("update_users", {"user_list": user_list}, room=data["code"], broadcast=True)
         emit("page_result", room=data["code"], broadcast=True)
+        emit("page_waiting")
     else:
         emit("update_users", {"user_list":user_list}, room=data["code"], broadcast=True)
         emit("page_waiting")
@@ -782,3 +783,107 @@ def return_data(data):
 
 
 
+# отримання усіх користувачів
+@socket.on("get_users")
+def return_users(data):
+    user_list = []
+    room: Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
+    user_ids = room.users if room and room.users else []
+
+    for user in user_ids:
+
+        user_list.append({
+            "username": user.username,
+            "ready": user.user_profile.answering_answer,
+            "count_points": user.user_profile.count_points,
+            "id": user.id
+        })
+
+    user_answers_raw = data.get("users_answers")
+    if user_answers_raw == '':
+        user_answers_raw = "∅"
+
+    test_id = data["id_test"]
+
+    user_answers = user_answers_raw.split(",")
+
+    list_users_answers = []
+    if len(user_answers) > 0:
+        for answers in user_answers:
+            list_users_answers.append(answers.split("@"))
+    
+    test = Test.query.get(int(test_id))
+    questions = test.questions.split("?%?")
+    types = test.type_questions.split("?$?")
+    correct_indexes = []
+
+    for index in range(len(questions)):
+        correct_answers = return_answers(index= index, test_id= int(test_id))
+        
+        correct_indexes.append(correct_answers)
+
+
+    right_answers = 0
+    uncorrect_answers = 0
+    skip_answers = 0
+    count_answered = 0
+
+
+    for i in range(len(user_answers)):
+        if len(correct_indexes[i]) > 0:
+            if list_users_answers[i][0] != "∅":
+                count_answered += 1
+                if types[i] == "one-answer":
+                    if int(correct_indexes[i][0]) == int(list_users_answers[i][0]):
+                        right_answers += 1
+                    else:
+                        uncorrect_answers += 1
+
+                elif types[i] == "many-answers":
+                    correct = 0
+                    uncorrect = 0
+                    for ans in list_users_answers[i]:
+                        if int(ans) in correct_indexes[i]:
+                            correct += 1
+                        else:
+                            uncorrect += 1
+                    
+                    # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
+                    count_min = len(correct_indexes[i]) / 2 
+
+                    if correct > int(count_min) and uncorrect == 0:
+                        right_answers += 1
+                    else:
+                        uncorrect_answers += 1
+
+
+                elif types[i] == "input-gap":
+                    user_answer_value = list_users_answers[i][0]
+                    answers_gaps = test.answers.split("?@?")[i].split("+%?)")
+                    if "" in answers_gaps:
+                        answers_gaps.remove("")
+                    new_answers = []
+                    for answer in answers_gaps:
+                        answer = answer.replace("(?%+", "").replace("+%?)", "")
+                        new_answers.append(answer)
+
+                    if user_answer_value in new_answers:
+                        right_answers += 1
+                    else:
+                        uncorrect_answers += 1
+            elif list_users_answers[i][0] == "∅" and int(data["index_question"]) != 0:
+                skip_answers += 1
+
+
+    answered_questions = int(data["index_question"])
+    accuracy = (right_answers  / answered_questions) * 100 if answered_questions > 0 else 0
+
+    emit("side_users", {
+        "username": flask_login.current_user.username,
+        "user_list": user_list, 
+        "right_answers": right_answers, 
+        "uncorrect_answers": uncorrect_answers, 
+        "skip_answers": skip_answers,
+        "accuracy": int(accuracy),
+        "points": flask_login.current_user.user_profile.count_points
+    })

@@ -1,13 +1,13 @@
 import flask, flask_login, os
 from Project.socket_config import socket
 from quiz.models import Test
-from .models import Rooms
+from .models import Rooms, TestResult
 from home.models import User
-from flask_socketio import emit, join_room
+from flask_socketio import emit
 from Project.db import DATABASE
 from operator import itemgetter
 from os.path import exists, join, abspath
-from Project.settings import project
+from userprofile.models import DataUser
 
 
 
@@ -201,18 +201,11 @@ def load_question_mentor(data):
         # user.user_profile.answering_answer = "відповідає"
         # DATABASE.session.commit()
         if user and user.id != flask_login.current_user.id:
-            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
-            pet_url = flask.url_for(
-                'profile.static',
-                filename=f'images/pets_id/{user.user_profile.pet_id}.png'
-            )
 
             user_list.append({
                 "username": user.username,
                 "ready": user.user_profile.answering_answer,
                 "count_points": user.user_profile.count_points,
-                "user_avatar": avatar_url,
-                "pet_img": pet_url,
                 "id": user.id
             })
 
@@ -271,7 +264,11 @@ def load_question_mentor(data):
 @socket.on("check_users")
 def check_users(data):
     room : Rooms = Rooms.query.filter_by(room_code = data["room_code"]).first()
-    check_room = room.sockets_users
+    check_room = []
+    if data["page"] == "finish_test":
+        check_room = room.users_results.all() if room else []
+    else:
+        check_room = room.users
 
     users = room.users
     for user in users:
@@ -287,18 +284,12 @@ def check_users(data):
             for user in user_ids:
                 # user : User  = User.query.get(int(user_id))
                 if user and user.id != flask_login.current_user.id:
-                    avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
-                    pet_url = flask.url_for(
-                        'profile.static',
-                        filename=f'images/pets_id/{user.user_profile.pet_id}.png'
-                    )
+
 
                     user_list.append({
                         "username": user.username,
                         "ready": user.user_profile.answering_answer,
                         "count_points": user.user_profile.count_points,
-                        "user_avatar": avatar_url,
-                        "pet_img": pet_url,
                         "id": user.id
                     })
             emit("update_users", {"user_list": user_list})
@@ -351,7 +342,45 @@ def stop_time(data):
 def finish_test(data):
     user_list = []
     room : Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
-    user_ids = room.users if room and room.users else []
+
+    # одразу зберігаємо результати усіх користувачів
+    if room.users_results.count() == 0:
+        user_ids = room.users if room and room.users else []
+        
+        for user in user_ids:
+            # Ментору результат не записываем
+            if user.id == room.user_id:
+                continue
+                
+            profile : DataUser = user.user_profile 
+
+            all_procents = profile.all_procents.split()
+            sum_prcoents = sum(int(x) for x in all_procents)
+            accuracy = sum_prcoents // len(all_procents)
+            
+            mark = (12 * accuracy) // 100
+            
+            # 1. Создаем отдельную модель с результатом
+            model_result = TestResult(
+                user_id=user.id,
+                mark = mark,
+                user_answers=profile.all_answers,
+                all_procents=profile.all_procents,
+                avarage_time=profile.avarage_time,
+                accuracy = accuracy,
+                count_points = profile.count_points,
+                username = profile.user.username,
+                email = profile.user.email
+            )
+            
+            room.users_results.append(model_result)
+            
+            DATABASE.session.add(model_result)
+            
+        DATABASE.session.commit()
+
+    user_ids = room.users_results.all() if room else []
+
     accuracy_result = [] #[[80, 5],[50, 1]] - пример что в нем будет хранится(80 - это проценты, 5 - колво людей что прошло на такой результат)
     sum_accuracy = 0
     passed_test = 0
@@ -376,24 +405,20 @@ def finish_test(data):
 
     for user in user_ids:
         # user : User  = User.query.get(int(user_id))
-        user.user_profile.answering_answer = "відповідає"
-        DATABASE.session.commit()
+        # user.answering_answer = "відповідає"
+        # DATABASE.session.commit()
         
-
-        if user and user.id != flask_login.current_user.id:
-            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
-
+        if user:
+            print(user.id, "lokd")
             user_list.append({
-                "id": user.id,
+                "id": user.user_id,
                 "username": user.username,
                 "email": user.email,
-                "count_points": user.user_profile.count_points,
-                "user_avatar": avatar_url,
-                "avatar_size": user.size_avatar,
-                "accuracy": user.user_profile.all_procents.split()[-1],
+                "count_points": user.count_points,
+                "accuracy": user.accuracy,
             })
 
-            accuracy = int(user.user_profile.all_procents.split()[-1]) 
+            accuracy = int(user.accuracy) 
             check = False
 
             for elem in accuracy_result:
@@ -425,11 +450,15 @@ def finish_test(data):
                 stats_bins['100%'] += 1
 
     user_list = sorted(user_list, key=itemgetter("count_points"), reverse=True)
-    average_accuracy = total_accuracy // passed_test
+    if passed_test > 0:
+        average_accuracy = total_accuracy // passed_test
+    else:
+        average_accuracy = 0
 
-    bar_labels = list(stats_bins.keys())   # ['<40%', '40-59%', ...]
+    bar_labels = list(stats_bins.keys())  
     bar_values = list(stats_bins.values())
-    
+
+
     emit("list_results", {
         "users": user_list,
         "accuracy_result": accuracy_result,
@@ -441,7 +470,6 @@ def finish_test(data):
 @socket.on("alarm-end")
 def alarm_end(data):
     code = data["code"]
-    print("kaka")
     index = data["index"]
 
     id_test = int(Rooms.query.filter_by(room_code= code).first().id_test)

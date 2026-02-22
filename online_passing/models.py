@@ -51,3 +51,29 @@ class Rooms(DATABASE.Model):
         backref="blocked_in_rooms",    
         lazy="dynamic"                 # Дозволяє робити .append() .remove() 
     )
+
+    # результаты всех пользователей после прохождения
+    users_results = DATABASE.relationship("TestResult", back_populates="room", lazy="dynamic")
+
+# модель яка буде зберігати дані проходження тесту, після його завершення
+class TestResult(DATABASE.Model):
+    __tablename__ = 'test_result'
+    
+    id = DATABASE.Column(DATABASE.Integer, primary_key=True)
+    
+    user_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('user.id', ondelete='CASCADE'), nullable=False)
+
+    room_id = DATABASE.Column(DATABASE.Integer, DATABASE.ForeignKey('room.id', ondelete='SET NULL'), nullable=True)
+    
+
+    mark = DATABASE.Column(DATABASE.Integer, default=0)            
+    accuracy = DATABASE.Column(DATABASE.Float, default=0.0)          
+    user_answers = DATABASE.Column(DATABASE.String, default="")    
+    all_procents = DATABASE.Column(DATABASE.String, default = "")   
+    avarage_time = DATABASE.Column(DATABASE.String, default = "")
+    # кількість балів за пройдений тест
+    count_points = DATABASE.Column(DATABASE.Integer, default = 0, nullable = False)
+    username = DATABASE.Column(DATABASE.String(150), nullable = False)
+    email = DATABASE.Column(DATABASE.String(150), nullable = False, unique = True)
+
+    room = DATABASE.relationship("Rooms", back_populates="users_results")

@@ -8,7 +8,6 @@ def return_answers(index: int, test_id: int) -> list:
         return []
     else:
         current_answer_list = answers[index]
-        # (?%+++%?)(?%+*+%?)(?%-==-%?)(?%+//+%?)
 
         answers = current_answer_list.split("%?)(?%")
         answers[0] = answers[0].replace("(?%", "")
@@ -25,5 +24,5 @@ def return_answers(index: int, test_id: int) -> list:
         for i in range(0 ,len(data_str)):
             if data_str[i] == "+":
                 question_right_answers.append(i)
-        
+
         return question_right_answers

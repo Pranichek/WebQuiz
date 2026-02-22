@@ -1,41 +1,45 @@
-const socket = io()
+const socket = io();
 
-socket.emit(
-    "connect_again",
-    {code: localStorage.getItem("room_code")}
-)
+socket.emit("connect_again", {
+    code: localStorage.getItem("room_code")
+});
 
 setInterval(() => {
-    socket.emit("check_users", {room_code: localStorage.getItem("room_code"), page:"passing", index_question: localStorage.getItem("index_question")})
-}, 3000)
+    socket.emit("check_users", {
+        room_code: localStorage.getItem("room_code"),
+        page: "passing",
+        index_question: localStorage.getItem("index_question")
+    });
+}, 3000);
 
-if (localStorage.getItem("index_question")){
+if (localStorage.getItem("index_question")) {
     socket.emit('load_question', {
         index: localStorage.getItem("index_question"),
         test_id: localStorage.getItem("test_id"),
         room: localStorage.getItem("room_code"),
-    })
+    });
 }
 
 socket.on("update_users", data => {
-    const blockUsers = document.querySelector(".outline-users") 
-    blockUsers.innerHTML = ""
+    const blockUsers = document.querySelector(".outline-users");
+    blockUsers.innerHTML = "";
 
-    let count_answered = 0
-    let count_users = data.user_list.length
+    let count_answered = 0;
+    let count_users = data.user_list.length;
     
     data.user_list.forEach(user => {
         let user_card;
-        if (user.ready == "відповів"){
-            count_answered++
+        if (user.ready == "відповів") {
+            count_answered++;
             user_card = `
-                <div class="user-card active" data-id="${user.id}"> <div class="user-info">
+                <div class="user-card active" data-id="${user.id}"> 
+                    <div class="user-info">
                         <span class="user-name">${user.username}</span>
                     </div>
                     <div class="user-status finished">✔</div>
                 </div>
-            `
-        }else{
+            `;
+        } else {
             user_card = `
                 <div class="user-card" data-id="${user.id}">
                     <div class="user-info">
@@ -43,29 +47,34 @@ socket.on("update_users", data => {
                     </div>
                     <div class="user-status box"></div>
                 </div>
-            `
+            `;
         }
 
-        blockUsers.insertAdjacentHTML('beforeend', user_card)
-    })
+        blockUsers.insertAdjacentHTML('beforeend', user_card);
+    });
     
-    document.querySelector(".text-people").textContent = `${count_answered}/${count_users}`
+    document.querySelector(".text-people").textContent = `${count_answered}/${count_users}`;
 
-    if (count_answered == count_users && count_users > 0){
-        socket.emit(
-            "end_question",
-            {code: localStorage.getItem("room_code")}
-        )
+    if (count_answered == count_users && count_users > 0) {
+        socket.emit("end_question", {
+            code: localStorage.getItem("room_code")
+        });
     }
-})
+});
+
+const formatTime = (seconds) => {
+    const m = Math.floor(seconds / 60).toString().padStart(2, '0');
+    const s = (seconds % 60).toString().padStart(2, '0');
+    return `${m}:${s}`;
+};
 
 socket.on("data_question_mentor", data => {
-    const check_answers = []
+    const check_answers = [];
     
-    document.querySelector(".num-que").textContent = `${parseInt(localStorage.getItem("index_question")) + 1}/${data.amount_question}`
+    document.querySelector(".num-que").textContent = `${parseInt(localStorage.getItem("index_question")) + 1}/${data.amount_question}`;
 
     const answersBlock = document.querySelector(".answers-test");
-    answersBlock.innerHTML = "" 
+    answersBlock.innerHTML = "";
     
     const questionTestBlock = document.querySelector(".question-test");
     const oldImage = questionTestBlock.querySelector(".image-cont");
@@ -77,12 +86,12 @@ socket.on("data_question_mentor", data => {
                 <img src="${data.img_url}">
             </div>
         `;
-        document.querySelector(".question-test").innerHTML += imgHTML
+        document.querySelector(".question-test").innerHTML += imgHTML;
     }
 
-    document.querySelector(".question-text").textContent = data.text_question
+    document.querySelector(".question-text").textContent = data.text_question;
 
-    if (data.type_question == "input-gap"){
+    if (data.type_question == "input-gap") {
         answersBlock.innerHTML = `
             <div class="input-type">
                 <p>правильна відповідь:</p>
@@ -90,19 +99,19 @@ socket.on("data_question_mentor", data => {
             </div>
         `;
     } else {
-        const answers = data.answer_options.split("%?)(?%")
+        const answers = data.answer_options.split("%?)(?%");
         
-        answers[0] = answers[0].replace("(?%", "")
-        answers[answers.length - 1] = answers[answers.length - 1].replace("%?)", "")
+        answers[0] = answers[0].replace("(?%", "");
+        answers[answers.length - 1] = answers[answers.length - 1].replace("%?)", "");
         
         answers.forEach((option, index) => {
-            if(option[0] == "+"){
-                check_answers.push(true)
-            }else{
-                check_answers.push(false)
+            if(option[0] == "+") {
+                check_answers.push(true);
+            } else {
+                check_answers.push(false);
             }
 
-            option = (option.slice(1, -1) == "image?#$?image") ? null : option.slice(1, -1)
+            option = (option.slice(1, -1) == "image?#$?image") ? null : option.slice(1, -1);
 
             let innerHTML = `<div class="sign"></div>`;
 
@@ -118,7 +127,7 @@ socket.on("data_question_mentor", data => {
                innerHTML += `
                <div class = 'answer-img-wrapper'>
                     <img src="${data.image_urls[index]}">
-               </div>`
+               </div>`;
             }
 
             let answerHTML = `
@@ -127,28 +136,24 @@ socket.on("data_question_mentor", data => {
                 </div>
             `;
             
-            answersBlock.insertAdjacentHTML("beforeend", answerHTML)
+            answersBlock.insertAdjacentHTML("beforeend", answerHTML);
         });
     }
 
     const timerDisplay = document.querySelector("#timer-display");
     
-    let timeFlag = localStorage.getItem("time_flag")
+    let timeFlag = localStorage.getItem("time_flag");
 
-    const formatTime = (seconds) => {
-        const m = Math.floor(seconds / 60).toString().padStart(2, '0');
-        const s = (seconds % 60).toString().padStart(2, '0');
-        return `${m}:${s}`;
-    };
-
-    if (timeFlag == "false"){
+    if (timeFlag == "false" || !timeFlag) {
         timerDisplay.textContent = formatTime(data.time_question);
-        localStorage.setItem("time_flag", data.time_question)
+        localStorage.setItem("time_flag", data.time_question);
+        localStorage.setItem("end_time", Date.now() + data.time_question * 1000);
     } else {
         timerDisplay.textContent = formatTime(parseInt(timeFlag));
+        localStorage.setItem("end_time", Date.now() + parseInt(timeFlag) * 1000);
     }
 
-    const showAnswersBtn = document.querySelector(".check-answers") 
+    const showAnswersBtn = document.querySelector(".check-answers");
     
     const newBtn = showAnswersBtn.cloneNode(true);
     showAnswersBtn.parentNode.replaceChild(newBtn, showAnswersBtn);
@@ -156,35 +161,29 @@ socket.on("data_question_mentor", data => {
     const showAnswersBtnActive = document.querySelector(".check-answers");
 
     showAnswersBtnActive.dataset.state = "hide"; 
-    showAnswersBtnActive.innerHTML = `
-        Переглянути відповіді
-    `;
+    showAnswersBtnActive.innerHTML = `Переглянути відповіді`;
 
     showAnswersBtnActive.addEventListener("click", () => {
-        const checkstate = showAnswersBtnActive.dataset.state
+        const checkstate = showAnswersBtnActive.dataset.state;
         const answerBlocks = document.querySelectorAll(".block-answer");
 
-        if(data.type_question != "input-gap"){
-            if(checkstate == "hide"){
-                showAnswersBtnActive.dataset.state = "show"
-                showAnswersBtnActive.innerHTML = `
-                    Сховати відповіді
-                `;
+        if(data.type_question != "input-gap") {
+            if(checkstate == "hide") {
+                showAnswersBtnActive.dataset.state = "show";
+                showAnswersBtnActive.innerHTML = `Сховати відповіді`;
                 
                 answerBlocks.forEach((block, i) => {
-                    if (check_answers[i] == true){
+                    if (check_answers[i] == true) {
                         block.style.backgroundColor = "#7dc683"; 
                         block.style.borderColor = "#7dc683"; 
-                    } else{
+                    } else {
                         block.style.backgroundColor = "#ea5c64"; 
                         block.style.opacity = "0.7";
                     }
                 });
             } else {
-                showAnswersBtnActive.dataset.state = "hide"
-                showAnswersBtnActive.innerHTML = `
-                    Переглянути відповіді
-                `;
+                showAnswersBtnActive.dataset.state = "hide";
+                showAnswersBtnActive.innerHTML = `Переглянути відповіді`;
                 answerBlocks.forEach((block) => {
                     block.style.backgroundColor = "#9abcf7"; 
                     block.style.opacity = "1";
@@ -192,100 +191,81 @@ socket.on("data_question_mentor", data => {
             }
         } else {
             const correctTextP = document.querySelector(".correct-answer-text");
-            if(checkstate == "hide"){
-                showAnswersBtnActive.dataset.state = "show"
-                showAnswersBtnActive.innerHTML = `
-                    Сховати відповіді
-                `;
+            if(checkstate == "hide") {
+                showAnswersBtnActive.dataset.state = "show";
+                showAnswersBtnActive.innerHTML = `Сховати відповіді`;
                 correctTextP.textContent = data.answer_options.join(", "); 
                 correctTextP.style.color = "#7dc683"; 
             } else {
-                showAnswersBtnActive.dataset.state = "hide"
-                showAnswersBtnActive.innerHTML = `
-                    Переглянути відповіді
-                `;
+                showAnswersBtnActive.dataset.state = "hide";
+                showAnswersBtnActive.innerHTML = `Переглянути відповіді`;
                 correctTextP.textContent = "поки схована";
                 correctTextP.style.color = "#ffffff";
             }
         }
-    })
+    });
 
     if (window.questionTimer) clearInterval(window.questionTimer);
 
     window.questionTimer = setInterval(() => {
         if (localStorage.getItem("flag_time") === "true") {
-
-            let time = Number(localStorage.getItem("time_flag"));
+            let end_time = Number(localStorage.getItem("end_time"));
+            let time = Math.round((end_time - Date.now()) / 1000);
 
             if (time <= 0) {
                 timerDisplay.textContent = "00:00";
-
-                socket.emit(
-                    'end_time',
-                    { 
-                        index: localStorage.getItem("index_question"),
-                        test_id: localStorage.getItem("test_id"),
-                        room: localStorage.getItem("room_code")
-                    }
-                );
+                socket.emit('end_time', { 
+                    index: localStorage.getItem("index_question"),
+                    test_id: localStorage.getItem("test_id"),
+                    room: localStorage.getItem("room_code")
+                });
                 localStorage.setItem("flag_time", "false"); 
+                clearInterval(window.questionTimer);
                 return; 
             }
 
-            time--;
-            
             timerDisplay.textContent = formatTime(time);
-
             localStorage.setItem("time_flag", time);
 
-            socket.emit(
-                "update_student_time_MS",
-                { room: localStorage.getItem("room_code"), time }
-            );
-
+            socket.emit("update_student_time_MS", { 
+                room: localStorage.getItem("room_code"), 
+                time 
+            });
         } else {
-            socket.emit(
-                "update_student_time_MS",
-                { room: localStorage.getItem("room_code"), time: "stop" }
-            );
+            let storedTime = Number(localStorage.getItem("time_flag")) || 0;
+            localStorage.setItem("end_time", Date.now() + storedTime * 1000);
+            
+            socket.emit("update_student_time_MS", { 
+                room: localStorage.getItem("room_code"), 
+                time: "stop" 
+            });
         }
     }, 1000);
+});
 
-})
+socket.on("page_result", data => {
+    window.location.replace("/result_mentor");
+});
 
-socket.on("page_result",
-    data => {
-        window.location.replace("/result_mentor")
-    }
-)
+document.querySelector('.add-time').addEventListener('click', () => {
+    socket.emit('add_time', {
+        code: localStorage.getItem("room_code")
+    });
+    
+    let currentEndTime = Number(localStorage.getItem("end_time"));
+    let newEndTime = currentEndTime + 15000;
+    localStorage.setItem("end_time", newEndTime);
+    
+    let newTimeRemaining = Math.round((newEndTime - Date.now()) / 1000);
+    localStorage.setItem("time_flag", newTimeRemaining);
+    
+    document.querySelector("#timer-display").textContent = formatTime(newTimeRemaining);
+});
 
-document.querySelector('.add-time').addEventListener(
-    'click',
-    () => {
-        socket.emit(
-            'add_time',
-            {code: localStorage.getItem("room_code")}
-        )
-        let currentTime = parseInt(localStorage.getItem("time_flag"));
-        let newTime = currentTime + 15;
-        localStorage.setItem("time_flag", newTime);
-        
-        const m = Math.floor(newTime / 60).toString().padStart(2, '0');
-        const s = (newTime % 60).toString().padStart(2, '0');
-        document.querySelector("#timer-display").textContent = `${m}:${s}`;
-    }
-)
-
-document.querySelector('.end_question').addEventListener(
-    'click',
-    () => {
-        socket.emit(
-            'end_time',
-            { 
-                index: localStorage.getItem("index_question"),
-                test_id: localStorage.getItem("test_id"),
-                room: localStorage.getItem("room_code")
-            }
-        );
-    }
-)
+document.querySelector('.end_question').addEventListener('click', () => {
+    socket.emit('end_time', { 
+        index: localStorage.getItem("index_question"),
+        test_id: localStorage.getItem("test_id"),
+        room: localStorage.getItem("room_code")
+    });
+});

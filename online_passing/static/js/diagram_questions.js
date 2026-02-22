@@ -66,11 +66,6 @@ document.addEventListener('click', (e) => {
                     </div>
                     <div class="list-users"></div>
                 </div>
-
-                <div class="check-page">
-                    <p>Переглянути сторінку:</p>
-                    <div class="page"><p>1</p></div>
-                </div>
             </div>
 
             <div class="right-part">

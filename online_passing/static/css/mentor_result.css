@@ -100,7 +100,7 @@
 
 .outline-accruracy{
     height: 100%;
-    width: 90%;
+    width: 98%;
     background-color: rgba(196, 138, 247, 8%);
     border: 0.17vh solid #C48AF7;
     border-radius: 2vh;
@@ -108,7 +108,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    /* overflow: hidden; */
     position: relative;
 }
 
@@ -171,22 +171,6 @@
     border-radius: 1vh;
 }
 
-.text-perc{
-    display: flex;
-    height: 5vh;
-    width: 11vw;
-    font-size: 2vh;
-    color:#ffff;
-    background-color: #29292A;
-    border: 0.3vh solid #94C4FF;
-    border-radius: 1vh;
-    align-items: center;
-    justify-content: center;
-    top:-90%;
-    left: 90%;
-    right: 2vw;
-    position: absolute;
-}
 
 .quard{
     position: absolute;
@@ -198,11 +182,6 @@
     transition: bottom 1s ease-in-out;
 }
 
-.quard img {
-    width: 10vh;
-    z-index: 100;
-    filter: drop-shadow(0 0 20px rgba(115, 238, 115, 0.492));
-}
 
 
 .outline-accuracy{
@@ -210,7 +189,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%; 
+    height: 20%; 
     overflow: hidden;
     border-radius: 2vh;
     z-index: -1;
@@ -246,8 +225,8 @@
 }
 
 .top-data{
-    width: 100%;
-    height: 32%;
+    width: 70%;
+    height: 98%;
     display: flex;
     flex-direction: column;
     align-items: start;
@@ -369,10 +348,11 @@
 
 
 .diagram{
-    width: 75%;
-    height: 90%;
+    width: 100%;
+    height: 60%;
     display: flex;
     flex-direction: column;
+    background-color: khaki;
 }
 
 .text-diagram{
@@ -426,7 +406,7 @@
 
 
 .variants{
-    width: 75%;
+    width: 100%;
     height: 10%;
     display: flex;
     flex-direction: row;
@@ -442,7 +422,7 @@
 .variant-outline{
     width: 80%;
     height: 71%;
-    border-radius: 3vw;
+    border-radius: 24px;
     background-color: rgb(195, 159, 228, 58%);
     display: flex;
     position: relative;
@@ -554,20 +534,6 @@
     border-radius: 2vw;
 }
 
-.user-card{
-    width: 46%;
-    height: 4rem;
-    min-width: 20rem;
-    background-color: #343434;
-    border-radius: 1rem;
-    border: 2px solid #94C4FF;
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    cursor: pointer;
-    font-size: 2vh;
-    transition: 0.2s ease;
-}
 
 .user-card:hover{
     border-color: #df434a;
@@ -778,6 +744,175 @@
 
 .remove_user:hover, .end_test:hover{
     background-color: #eb4848;
+}
+
+
+/* --------------- */
+.main-part{
+    height: 100vh;
+    width: 75vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+}
+
+.top-diagram{
+    width: 75vw;
+    height: 88vh;
+    display: flex;
+    justify-content: space-between;
+}
+
+.circle-diagram{
+    height: 100%;
+    width: 30%;
+}
+
+.accuracy-block{
+    width: 100%;
+    height: 10vh;
+    display: flex;
+}
+
+.main{
+    flex-direction: row;
+}
+
+/* Выравниваем блок по центру, убираем левый отступ */
+.accuracy-form {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; 
+    padding-left: 0;
+}
+
+.rate {
+    width: 90%;         
+    height: 90%;      
+    background-color: #ffff;
+    border-radius: 1vh;
+    position: relative;
+    display: flex;
+    align-items: center; 
+}
+
+.fill {
+    background: #94C4FF;
+    transition: width 1s ease-in-out;
+    position: absolute;
+    top: 0;              
+    left: 0;
+    height: 100%;            
+    width: 0%;   
+    border-radius: 1vh;
+}
+
+.quard {
+    position: absolute;
+    height: 8vh;
+    width: auto;  
+    left: 0; 
+    top: 50%;
+    transform: translate(-50%, -50%); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: left 1s ease-in-out;
+    z-index: 10;
+}
+
+.quard img {
+    width: 8vh;
+    z-index: 100;
+    /* filter: drop-shadow(0 0 20px rgba(115, 238, 115, 0.492)); */
+}
+
+.text-perc {
+    display: flex;
+    height: 4vh;
+    width: max-content;
+    padding: 0 1vw;
+    font-size: 2vh;
+    color: #ffff;
+    background-color: #29292A;
+    border: 0.3vh solid #94C4FF;
+    border-radius: 1vh;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -5vh;
+    left: 50%;
+    transform: translateX(-50%); 
+    white-space: nowrap;
+}
+
+.accuracy-gradient {
+    position: absolute; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%; 
+    background: linear-gradient(90deg, #C49BE9 0%, #3C3C3C 50%, #70E6C1 100%); 
+    filter: blur(6.25vw);
+    z-index: -1;
+    opacity: 0.3;
+}
+
+.quard {
+    position: absolute;
+    height: 8vh;
+    width: auto;  
+    left: 0; 
+    top: 50%;
+    transform: translate(-50%, -50%); 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: left 1s ease-in-out;
+    z-index: 10;
+    cursor: pointer; /* Добавляем курсор в виде руки при наведении на робота */
+}
+
+.quard img {
+    width: 8vh;
+    z-index: 100;
+    /* Свечение убрано, как вы и просили */
+}
+
+.text-perc {
+    display: flex;
+    height: 4vh;
+    width: max-content;
+    padding: 0 1vw;
+    font-size: 2vh;
+    color: #ffff;
+    background-color: #29292A;
+    border: 0.3vh solid #94C4FF;
+    border-radius: 1vh;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -5vh;
+    left: 50%;
+    transform: translateX(-50%); 
+    white-space: nowrap;
+    
+    /* Скрываем элемент по умолчанию */
+    opacity: 0;
+    visibility: hidden;
+    /* Плавное появление */
+    transition: opacity 0.3s ease, visibility 0.3s ease; 
+    /* Чтобы текст не перекрывал клики по самому насекомому/роботу */
+    pointer-events: none; 
+}
+
+/* Показываем надпись при наведении на контейнер с роботом */
+.quard:hover .text-perc {
+    opacity: 1;
+    visibility: visible;
 }
 
 @media(max-width: 900px){

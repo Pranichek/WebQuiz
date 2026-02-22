@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
         <title>{% block title %}{% endblock %}</title>
         {% block links %}{% endblock %}
         <link rel="stylesheet" href="{{ url_for('static', filename= 'css/style.css') }}">
@@ -15,6 +16,7 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        
     </head>
     
     <body class="body-web">
@@ -45,7 +47,7 @@
                             <form action="" method="post" id="filter-form">
                                 <input type="hidden" name="check_form" vlaue="filter">
                                 <input type="text" class="filter-input" placeholder="Знайти вікторину" onkeydown="checkEnterPress(event)">
-                                <button type="button" class="submit-filter"><img src="{{ url_for('home.static', filename='images/home_auth/lupa.svg') }}" alt=""></button>
+                                <button type="button" class="submit-filter"></button>
                             </form>
                         </div>
                     {% endif %}
@@ -122,14 +124,14 @@
                                                         
                                                     </div>
                                 
-                                                    <div class="cont-link">
+                                                    <!-- <div class="cont-link">
                                                         <img class="icon" src="{{ url_for('static', filename='/images/sidebar/protection_icon.svg') }}" alt="">
                                                         <div class="part-name">
                                                             <a href="">Безпека</a>
                                                             <div class="line"></div>
                                                         </div>
                                                     </div>
-                                                    
+                                                     -->
                                                     <div class="cont-link">
                                                         <img class="icon" src="{{ url_for('static', filename='/images/sidebar/avatar_icon.svg') }}" alt="">
                                                         <div class="part-name">
@@ -138,7 +140,7 @@
                                                         </div>
                                                         
                                                     </div>
-                                                    
+<!--                                                     
                                                     <div class="cont-link">
                                                         <img class="icon" src="{{ url_for('static', filename='/images/sidebar/awards_icon.svg') }}" alt="">
                                                         <div class="part-name">
@@ -146,15 +148,15 @@
                                                             <div class="line"></div>
                                                         </div>
                                                         
-                                                    </div>
-                                                    
+                                                    </div> -->
+<!--                                                     
                                                     <div class="cont-link">
                                                         <img class="icon" src="{{ url_for('static', filename='/images/sidebar/presents_icon.svg') }}" alt="">
                                                         <div class="part-name">
                                                             <a href="/buy_pet">Купівля подарунків</a>
                                                             <div class="line"></div>
                                                         </div>
-                                                    </div>                   
+                                                    </div>                    -->
                                                 </span>
                                             </span>
                                         </div>

@@ -2,63 +2,170 @@
 
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('test_pass.static', filename = 'css/passing_test.css') }}">
+    <link rel="stylesheet" href="{{ url_for('mentor.static', filename = 'css/side_menu.css') }}">
 {% endblock links %}
 
 {% block content %}
     <p style="display: none;" data-id="{{ user.id }}" class="id"></p>
     <a href="/finish_test?test_id="></a>
-    <!-- <head> -->
-    <div class="head-part">
-        <div class="bonus-block">
-            <div class="full-bonus" data-value="{{ bonus_value }}" id="bonus"></div>
-            <p class="text-bonus">бонус</p>
-        </div>
-        <button class="leave_test">Покинути тест</button>
-    </div>
-
-    <audio id="correct-sound" src="{{ url_for('test_pass.static', filename='audio/right.mp3') }}" preload="auto"></audio>
-    <audio id="incorrect-sound" src="{{ url_for('test_pass.static', filename='audio/false.mp3') }}" preload="auto"></audio>
-    <div class="modal"></div>
-
-    <div class="coin-anim">
-        <img class="first-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
-        <img class="second-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
-        <img class="third-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
-        <img class="fourth-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
-        <img class="fifth-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
-        <img class="sighn-plus" src="{{ url_for('test_pass.static', filename = 'images/plus.svg') }}" alt="">
-    </div>
-
 
     <img class="sad_robot" src="{{ url_for('test_pass.static', filename='images/sad_robot.svg') }}" alt="">
     <img class="happy_robot" src="{{ url_for('test_pass.static', filename='images/happy_robot.svg') }}" alt="">
 
     <div class="right-answer">
-        <!-- сттворюємо div для блюру цього койнейнеру -->
         <div class="blur"></div>
         <p class="correct-text">ПРАВИЛЬНО!</p>
     </div>
 
     <div class="uncorrect-answer">
-        <!-- сттворюємо div для блюру цього койнейнеру -->
         <div class="red-blur"></div>
         <p class="uncorrect-text">НЕПРАВИЛЬНО!</p>
     </div>
-        
-    <!-- </head> -->
-    <div class= 'question'>
-        
+
+
+    <div class="main-part">
+        <div class="head-part">
+            <div class="bonus-block">
+                <div class="full-bonus" data-value="{{ bonus_value }}" id="bonus"></div>
+                <p class="text-bonus">бонус</p>
+            </div>
+
+            <div class="timer-section phone-timer">
+                <div class="timer-box">
+                    <span class="timer-display" id="timer-display">00:00</span>
+                </div>
+            </div>
+
+            <div class="open-menu" id="openMenuBtn">
+                <img src="{{ url_for('student.static', filename = 'images/click.svg') }}" alt="">
+            </div>
+        </div>
+
+        <audio id="correct-sound" src="{{ url_for('test_pass.static', filename='audio/right.mp3') }}" preload="auto"></audio>
+        <audio id="incorrect-sound" src="{{ url_for('test_pass.static', filename='audio/false.mp3') }}" preload="auto"></audio>
+        <div class="modal"></div>
+
+        <div class="coin-anim">
+            <img class="first-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+            <img class="second-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+            <img class="third-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+            <img class="fourth-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+            <img class="fifth-coin" src="{{ url_for('test_pass.static', filename = 'images/money.svg') }}" alt="">
+            <img class="sighn-plus" src="{{ url_for('test_pass.static', filename = 'images/plus.svg') }}" alt="">
+        </div>
+
+        <!-- </head> -->
+        <div class= 'question'>
+            
+        </div>
+
+
+        <div id="image-container"></div>
+
+        <div class= "answers">
+            
+        </div>
+
+        <!-- <div class = "circle-send">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
+                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
+            </svg>
+        </div> -->
+    </div>
+
+    <div class="side-menu">
+        <button class="close-menu" id="closeMenuBtn">&times;</button>
+
+        <div class="timer-section margin-timer">
+            <div class="timer-box">
+                <span class="timer-display" id="timer-display">00:00</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="participants-section">
+            <div class="section-header">
+                <span class="title">УЧАСНИКИ</span>
+                <span class="count text-people">0/0</span>
+            </div>
+            
+            <div class="users-list-container outline-users">
+                <!-- <div class="user-card active">
+                    <div class="user-info">
+                        <span class="user-name">Вова</span>
+                    </div>
+                    <div class="user-status finished">✔</div>
+                </div>
+
+                <div class="user-card">
+                    <div class="user-info">
+                        <span class="user-name">Анна</span>
+                    </div>
+                    <div class="user-status box"></div>
+                </div> -->
+            </div>
+        </div>
+
+        <div class="controls-section student-control">
+            <p class="username">Грінченко Володимир</p>
+            <div class="cont">
+                <div class="left-part">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#22A67D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                        <polyline points="20 6 9 17 4 12"></polyline>
+                    </svg>
+                    <p>Правильних:</p>
+                </div>
+                <p class="correct_answers">0</p>
+            </div>
+
+            <div class="cont">
+                <div class="left-part">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#E05359" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                    <p>Неправильних:</p>
+                </div>
+                <p class="uncorrect_answers">0</p>
+            </div>
+
+            <div class="cont">
+                <div class="left-part">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#a0a0b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="8" y1="12" x2="16" y2="12"></line>
+                    </svg>
+                    <p>Пропущено:</p>
+                </div>
+                <p class="skip_answers">0</p>
+            </div>
+
+            <div class="cont">
+                <div class="left-part">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#94C4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <circle cx="12" cy="12" r="6"></circle>
+                        <circle cx="12" cy="12" r="2"></circle>
+                    </svg>
+                    <p>Точність:</p>
+                </div>
+                <p class="accuracy-text">0%</p>
+            </div>
+
+            <div class="cont">
+                <div class="left-part">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="#FFB700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
+                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                    </svg>
+                    <p>Бали:</p>
+                </div>
+                <p class="points-text">0</p>
+            </div>
     </div>
 
 
-    <div id="image-container"></div>
-
-    <!--  -->
-    <div class= "answers">
-        
-    </div>
-
-    <div class="answers-image">
+    <!-- <div class="answers-image">
         <div class="top-answers">
         </div>
         <div class= 'question-image'>
@@ -66,29 +173,20 @@
         </div>
         <div class="bottom-answers">
         </div>
-    </div>
+    </div> -->
     
     <!--  -->
-    <div class="footer-test">
+    <!-- <div class="footer-test">
         <div class="bonus-data">
-            <div class="avatar-circle">
-                {% if user.size_avatar %}
-                    <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.email +'/'+ user.name_avatar ) }}" alt="avatar">
-                {% else %}
-                    <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.svg') }}" alt="avatar">
-
-                {% endif %}
-            </div>
             {% if user.size_avatar %}
                 <p class="text-kem">{{ user.username }}</p>
             {% else %}
                 <p class="text-kem">Guest</p>
             {% endif %}
-            <div class="line"></div>
             {% if user.user_profile %}
-                <p class="count-money" data-value="{{ user.user_profile.count_money }}"></p>
+                <p class="count-money" data-value="{{ user.user_profile.count_money }}">{{ user.user_profile.count_money }}</p>
             {% else %}
-                <p class="count-money" data-value="0"></p>
+                <p class="count-money" data-value="0">0</p>
             {% endif %}
             <img class="money" src="{{ url_for('test_pass.static', filename='images/money.svg') }}" alt="avatar">
         </div>
@@ -105,7 +203,7 @@
             </div>
         </div>
 
-    </div>
+    </div> -->
     </body>
 {% endblock content %}
 
@@ -115,5 +213,7 @@
     <script src="{{ url_for('student.static', filename='js/count_bonus.js') }}"></script> 
     <script src="{{ url_for('student.static', filename='js/count_money.js') }}"></script> 
     <script src="{{ url_for('student.static', filename='js/check_student.js') }}"></script>
-    <script src="{{ url_for('student.static', filename='js/leave_test.js') }}"></script>
+    <!-- <script src="{{ url_for('student.static', filename='js/leave_test.js') }}"></script> -->
+    <script src="{{ url_for('student.static', filename='js/side_menu.js') }}"></script>
+    <script src="{{ url_for('student.static', filename='js/load_users.js') }}"></script>
 {% endblock scripts %}

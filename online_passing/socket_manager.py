@@ -40,7 +40,7 @@ def handle_join(data):
                 room_code = code
                 DATABASE.session.add(room)
                 join_room(code)
-                 # qrcode - 
+                # qrcode - 
                 # Створюємо QR-код(об'єкт) з посиланням на кімнату
                 qr = qrcode.QRCode(
                     # корекцыя помилок - висока
@@ -51,7 +51,7 @@ def handle_join(data):
                     border = 2
                 )
                 # задаємо посилання на яке буде вести QR-код
-                qr.add_data(f"https://openhandedly-exemptible-abrielle.ngrok-free.dev/input_username?room_code={code}")
+                qr.add_data(f"https://xntyw-77-239-164-153.a.free.pinggy.link/input_username?room_code={code}")
                 # створюємо QR-код, але у вигляді закодовоного коду
                 qr.make(fit = True)
 

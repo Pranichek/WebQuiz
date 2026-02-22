@@ -62,7 +62,6 @@ def render_finish_mentor():
     return flask.render_template(
         'finish_mentor.html',
         user = flask_login.current_user,
-        # create_question = True
     )
 
 # страница финиша студента

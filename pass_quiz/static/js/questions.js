@@ -267,110 +267,110 @@ socket.on("test_result", (data) => {
     let divAnsw = document.querySelectorAll(".question");
     let divAnswArray = Array.from(divAnsw);
 
-    for (let cont of divAnsw) {
-        const currentIndex = divAnswArray.indexOf(cont);
-        cont.addEventListener("click", () => {
-            let backWind = document.createElement("div");
-            backWind.className = "back-wind";
-            document.body.appendChild(backWind);
+    // for (let cont of divAnsw) {
+    //     const currentIndex = divAnswArray.indexOf(cont);
+    //     cont.addEventListener("click", () => {
+    //         let backWind = document.createElement("div");
+    //         backWind.className = "back-wind";
+    //         document.body.appendChild(backWind);
 
-            setTimeout(() => {
-                backWind.style.opacity = '1';
-            }, 10);
+    //         setTimeout(() => {
+    //             backWind.style.opacity = '1';
+    //         }, 10);
 
-            let windowQuestion = document.createElement('div');
-            windowQuestion.className = "window-question";
-            backWind.appendChild(windowQuestion);
+    //         let windowQuestion = document.createElement('div');
+    //         windowQuestion.className = "window-question";
+    //         backWind.appendChild(windowQuestion);
 
-            setTimeout(() => {
-                backWind.style.opacity = '1';
-                windowQuestion.style.transform = 'translate(-50%, -50%)';
-            }, 10);
+    //         setTimeout(() => {
+    //             backWind.style.opacity = '1';
+    //             windowQuestion.style.transform = 'translate(-50%, -50%)';
+    //         }, 10);
 
-            let headNew;
+    //         let headNew;
 
-            if (cont.getElementsByClassName("correct-head").length > 0) {
-                headNew = document.createElement("div");
-                headNew.className = "correct-head";
-            } else if (cont.getElementsByClassName("uncorrect-head").length > 0) {
-                headNew = document.createElement("div");
-                headNew.className = "uncorrect-head";
-            } else if (cont.getElementsByClassName("yellow-head").length > 0) {
-                headNew = document.createElement("div");
-                headNew.className = "yellow-head";
-            } else if (cont.getElementsByClassName("skip-head").length > 0) {
-                headNew = document.createElement("div");
-                headNew.className = "skip-head";
-            }
+    //         if (cont.getElementsByClassName("correct-head").length > 0) {
+    //             headNew = document.createElement("div");
+    //             headNew.className = "correct-head";
+    //         } else if (cont.getElementsByClassName("uncorrect-head").length > 0) {
+    //             headNew = document.createElement("div");
+    //             headNew.className = "uncorrect-head";
+    //         } else if (cont.getElementsByClassName("yellow-head").length > 0) {
+    //             headNew = document.createElement("div");
+    //             headNew.className = "yellow-head";
+    //         } else if (cont.getElementsByClassName("skip-head").length > 0) {
+    //             headNew = document.createElement("div");
+    //             headNew.className = "skip-head";
+    //         }
 
-            if (headNew) {
-                windowQuestion.appendChild(headNew);
-            }
+    //         if (headNew) {
+    //             windowQuestion.appendChild(headNew);
+    //         }
 
             
-            let qustion_text = cont.getElementsByClassName('quest-text');
-            for (let i = 0; i < qustion_text.length; i++) {
-                const textBlock = document.createElement('div');
-                if (data.images[currentIndex][0] != "not"){
-                    const imgQuestion = document.createElement("img")
-                    imgQuestion.src = data.images[currentIndex][0]
-                    imgQuestion.className = "question-img"
-                    textBlock.appendChild(imgQuestion)
-                }
+    //         let qustion_text = cont.getElementsByClassName('quest-text');
+    //         for (let i = 0; i < qustion_text.length; i++) {
+    //             const textBlock = document.createElement('div');
+    //             if (data.images[currentIndex][0] != "not"){
+    //                 const imgQuestion = document.createElement("img")
+    //                 imgQuestion.src = data.images[currentIndex][0]
+    //                 imgQuestion.className = "question-img"
+    //                 textBlock.appendChild(imgQuestion)
+    //             }
 
-                textBlock.className = "question-text";
-                const text = document.createElement("p")
-                text.textContent = qustion_text[i].innerHTML
-                textBlock.appendChild(text)
+    //             textBlock.className = "question-text";
+    //             const text = document.createElement("p")
+    //             text.textContent = qustion_text[i].innerHTML
+    //             textBlock.appendChild(text)
 
                 
-                windowQuestion.appendChild(textBlock);
-            }
+    //             windowQuestion.appendChild(textBlock);
+    //         }
 
-            const unswerSpace = document.createElement("div");
-            unswerSpace.className = "space-div";
-            windowQuestion.appendChild(unswerSpace);
+    //         const unswerSpace = document.createElement("div");
+    //         unswerSpace.className = "space-div";
+    //         windowQuestion.appendChild(unswerSpace);
             
-            let answersNew = cont.getElementsByClassName("answ");
-            for (let i = 0; i < answersNew.length; i++) {
-                const answDiv = document.createElement('div');
-                answDiv.className = "answ2";
+    //         let answersNew = cont.getElementsByClassName("answ");
+    //         for (let i = 0; i < answersNew.length; i++) {
+    //             const answDiv = document.createElement('div');
+    //             answDiv.className = "answ2";
 
-                if (cont.classList.contains("center-blocks")){
-                    answDiv.classList.add("center-blocks")
-                }
-                const htmlStr = answersNew[i].innerHTML
-                const tempContainer = document.createElement('div');
-                tempContainer.innerHTML = htmlStr;
-                const targetElement = tempContainer.querySelector('.answer-text');
+    //             if (cont.classList.contains("center-blocks")){
+    //                 answDiv.classList.add("center-blocks")
+    //             }
+    //             const htmlStr = answersNew[i].innerHTML
+    //             const tempContainer = document.createElement('div');
+    //             tempContainer.innerHTML = htmlStr;
+    //             const targetElement = tempContainer.querySelector('.answer-text');
 
-                if (targetElement && !targetElement.classList.contains("text-img")){
+    //             if (targetElement && !targetElement.classList.contains("text-img")){
 
-                    answDiv.innerHTML = answersNew[i].innerHTML;
-                }else{
-                    if (targetElement) { 
-                        targetElement.remove();
-                    }
+    //                 answDiv.innerHTML = answersNew[i].innerHTML;
+    //             }else{
+    //                 if (targetElement) { 
+    //                     targetElement.remove();
+    //                 }
                     
-                    answDiv.innerHTML = tempContainer.innerHTML;
-                }
+    //                 answDiv.innerHTML = tempContainer.innerHTML;
+    //             }
                 
-                if (data.images[currentIndex][i + 1] != "not"){
-                    const img = document.createElement("img")
-                    img.src = data.images[currentIndex][i + 1]
-                    img.className = "answer-img"
-                    answDiv.appendChild(img)
-                }
-                unswerSpace.appendChild(answDiv);
-            }
+    //             if (data.images[currentIndex][i + 1] != "not"){
+    //                 const img = document.createElement("img")
+    //                 img.src = data.images[currentIndex][i + 1]
+    //                 img.className = "answer-img"
+    //                 answDiv.appendChild(img)
+    //             }
+    //             unswerSpace.appendChild(answDiv);
+    //         }
 
-            backWind.addEventListener("click", (event) => {
-                if (event.target === backWind) {
-                    windowQuestion.style.transform = 'translate(-50%, 150%)';
-                    backWind.style.opacity = '0';
-                    setTimeout(() => backWind.remove(), 500);
-                }
-            });
-        });
-    }
+    //         backWind.addEventListener("click", (event) => {
+    //             if (event.target === backWind) {
+    //                 windowQuestion.style.transform = 'translate(-50%, 150%)';
+    //                 backWind.style.opacity = '0';
+    //                 setTimeout(() => backWind.remove(), 500);
+    //             }
+    //         });
+    //     });
+    // }
     })

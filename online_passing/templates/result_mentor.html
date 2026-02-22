@@ -2,10 +2,76 @@
 
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('student.static', filename='css/mentor_result.css') }}">
+    <link rel="stylesheet" href="{{ url_for('mentor.static', filename = 'css/side_menu.css') }}">
 {% endblock links %}
 
 {% block content %}
-    <img data-open="{{ url_for('mentor.static', filename='images/open_eye.svg') }}" class="open-eye">
+    <div class="main-part">
+        <div class="top-diagram">
+            <div class="circle-diagram">
+
+            </div>
+            <div class="top-data">
+
+            </div>
+        </div>
+        <div class="accuracy-block">
+            <div class="outline-accruracy">
+                <div class="outline-accuracy">
+                    <div class="accuracy-gradient"></div>
+                </div>
+
+                <div class="accuracy-form">
+                    <div class="rate">
+                        <div class="fill"></div>
+                        <div class="quard">
+                            <img src="{{ url_for('mentor.static', filename = 'images/robot-acc.svg') }}" alt="">
+                            <div class="text-perc">
+                                <p></p>
+                            </div>
+                        </div>
+                    </div>  
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="side-menu">
+        <button class="close-menu" id="closeMenuBtn">&times;</button>
+        
+
+        <div class="participants-section">
+            <div class="section-header">
+                <span class="title">УЧАСНИКИ</span>
+                <span class="count text-people">0/0</span>
+            </div>
+            
+            <div class="divider"></div>
+
+            <div class="users-list-container outline-users">
+                <!-- <div class="user-card active">
+                    <div class="user-info">
+                        <span class="user-name">Вова</span>
+                    </div>
+                    <div class="user-status finished">✔</div>
+                </div>
+
+                <div class="user-card">
+                    <div class="user-info">
+                        <span class="user-name">Анна</span>
+                    </div>
+                    <div class="user-status box"></div>
+                </div> -->
+            </div>
+        </div>
+
+        <div class="controls-section">
+            <button class="view-answers-btn check-answers next-question">
+                Наступне питання
+            </button>
+        </div>
+    </div>
+    <!-- <img data-open="{{ url_for('mentor.static', filename='images/open_eye.svg') }}" class="open-eye">
     <img data-close="{{ url_for('mentor.static', filename='images/close_eye.svg') }}" class="close-eye">
     <span id="arrow-img-path" data-src="{{ url_for('student.static', filename='images/show_more.svg') }}"></span>
     <div class="overlay" id="overlay"></div>
@@ -81,11 +147,13 @@
             <p class="decline">Скасувати</p>
             <p class="remove_user">Видалити</p>
         </div>
-    </div>
+    </div> -->
 {% endblock content %}
 
 {% block scripts %}
     {{ super() }}
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="{{ url_for('mentor.static', filename='js/mentor_result.js') }}"></script>
     <script src="{{ url_for('mentor.static', filename='js/recconect.js') }}"></script>

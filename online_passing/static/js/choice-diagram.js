@@ -27,14 +27,16 @@ document.addEventListener('change', (event) => {
         }else if(diagramValue == "general-student"){
             socket.emit("student_diagram", {
                 id: localStorage.getItem("user_id"),
-                test_id: localStorage.getItem("test_id")
+                test_id: localStorage.getItem("test_id"),
+                room: localStorage.getItem("room_code")
             })
         }else if(diagramValue == "time-diagram-student"){
             socket.emit("time-student", {
-                id: localStorage.getItem("user_id")
+                id: localStorage.getItem("user_id"),
+                room: localStorage.getItem("room_code")
             })
         }
-        else {
+        else if(diagramValue == "column-diagram"){
             socket.emit("column-diagram", params)
         }
     }
@@ -71,12 +73,12 @@ socket.on("general_diagram",
         let dataLabels = []
 
         const colorArray = [
-            'rgba(107, 58, 126, 1)', 
-            'rgba(143, 97, 158, 1)', 
-            'rgba(156, 127, 181, 1)',
-            'rgba(179, 134, 197, 1)',
-            'rgba(212, 168, 229, 1)'
-        ]
+    'rgba(138, 247, 212, 1)',  // Ваш мятно-салатовый (#8AF7D4)
+    'rgba(196, 138, 247, 1)',  // Ваш фирменный фиолетовый (#C48AF7)
+    'rgba(148, 196, 255, 1)',  // Ваш приятный голубой (#94C4FF)
+    'rgba(241, 226, 114, 1)',  // Ваш мягкий желтый (#f1e272)
+    'rgba(255, 118, 124, 1)'   // Ваш кораллово-красный (#FF767C)
+];
 
         colorArray.sort(() => Math.random() - 0.5)
         let colorsDiagram = []

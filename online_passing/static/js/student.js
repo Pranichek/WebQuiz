@@ -9,6 +9,9 @@ if (room_code != localStorage.getItem("room_code")){
     localStorage.setItem('time_question', "set")
 }
 
+localStorage.setItem("next_page", "none")   
+localStorage.setItem("checkCorrect", "none") 
+
 
 const chat = document.querySelector(".messages");
 chat.innerHTML = "";

@@ -45,10 +45,6 @@ document.addEventListener("click", (e) => {
                 </div>
                 <div class="list-users"></div>
             </div>
-            <div class="check-page">
-                <p>Переглянути сторінку:</p>
-                <div class="page"><p>1</p></div>
-            </div>
         `)
     }
 
@@ -355,7 +351,8 @@ function openUserModal(userId) {
         localStorage.setItem("user_id", data.id)
         socket.emit("student_diagram", {
             id: data.id,
-            test_id: localStorage.getItem("test_id")
+            test_id: localStorage.getItem("test_id"),
+            room: localStorage.getItem("room_code"),
         })
     })
 }

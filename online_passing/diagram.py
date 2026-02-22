@@ -1,6 +1,6 @@
 from Project.socket_config import socket
 from quiz.models import Test
-from .models import Rooms
+from .models import Rooms, TestResult
 from Project.db import DATABASE
 import flask_login
 from flask_socketio import emit
@@ -10,9 +10,8 @@ from .correct_answers import return_answers
 
 @socket.on("general-diagram")
 def general_diagran(data):
-    user_list = []
     room : Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
-    user_ids = room.users if room and room.users else []
+    user_ids = room.users_results.all() if room else []
     accuracy_result = [] #[[80, 5],[50, 1]] - пример что в нем будет хранится(80 - это проценты, 5 - колво людей что прошло на такой результат)
     sum_accuracy = 0
     passed_test = 0
@@ -28,13 +27,13 @@ def general_diagran(data):
 
     for user in user_ids:
         # user : User  = User.query.get(int(user_id))
-        user.user_profile.answering_answer = "відповідає"
-        DATABASE.session.commit()
+        # user.answering_answer = "відповідає"
+        # DATABASE.session.commit()
         
 
-        if user and user.id != flask_login.current_user.id:
+        if user and user.user_id != flask_login.current_user.id:
 
-            accuracy = int(user.user_profile.all_procents.split()[-1]) 
+            accuracy = int(user.accuracy) 
             check = False
 
             for elem in accuracy_result:
@@ -65,7 +64,10 @@ def general_diagran(data):
             elif accuracy == 100:
                 stats_bins['100%'] += 1
     
-    average_accuracy = total_accuracy // passed_test
+    if passed_test > 0:
+        average_accuracy = total_accuracy // passed_test
+    else:
+        average_accuracy = 0
 
     bar_labels = list(stats_bins.keys())   # ['<40%', '40-59%', ...]
     bar_values = list(stats_bins.values())
@@ -83,12 +85,13 @@ def dots_student(data):
     test : Test = Test.query.get(int(data["test_id"]))
     length_questions = test.questions.count("?%?") + 1
 
-    list_question = []
-    for index in range(length_questions):
-        list_question.append(index + 1)
-    user : User = User.query.get(int(data["id"]))
-    list_procents = user.user_profile.all_procents
+    list_question = [index + 1 for index in range(length_questions)]
     
+    room : Rooms = Rooms.query.filter_by(room_code = data["room"]).first()
+    if room:
+        result = room.users_results.filter_by(user_id=int(data["id"])).first()
+    
+    list_procents = result.all_procents if result else ""
 
     emit("dots-diagram", {
         "list_question": list_question,
@@ -123,7 +126,7 @@ def column_diagram(data):
     for index in range(length_questions):
         list_question.append(index + 1)
 
-    count_people = len(room.users)
+    count_people = room.users_results.count() if room else 0
 
     correct_answers = []
     uncorrect_answers = []
@@ -145,7 +148,7 @@ def column_diagram(data):
 def time_diagram(data):
     room = Rooms.query.filter_by(room_code=data["room"]).first()
     test = Test.query.get(int(data["test_id"]))
-    users = room.users if room and room.users else []
+    users = room.users_results.all() if room else []
     length_questions = test.questions.count("?%?") + 1 
     
     avarage_time = []
@@ -156,7 +159,7 @@ def time_diagram(data):
         valid_users_count = 0 
         
         for user in users:
-            times = user.user_profile.avarage_time.split()
+            times = user.avarage_time.split()
             if len(times) > index:
                 sum_time += int(times[index]) 
                 valid_users_count += 1
@@ -175,8 +178,12 @@ def time_diagram(data):
 
 @socket.on("time-student")
 def time_student(data):
-    user : User = User.query.get(int(data["id"]))
-    user_time = user.user_profile.avarage_time.split()
+    room : Rooms = Rooms.query.filter_by(room_code = data["room"]).first()
+    if room:
+        result = room.users_results.filter_by(user_id=int(data["id"])).first()
+    
+    user_time = result.avarage_time.split() if result and result.avarage_time else []
+    
     avarage_time = []
     quesetions_list = []
     count = 1
@@ -195,7 +202,7 @@ def time_student(data):
 def return_result(data):
     room : Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
     test : Test = Test.query.get(int(data["test_id"]))
-    users = room.users
+    users = room.users_results.all() if room else []
 
     questions = test.questions.split("?%?")
     types = test.type_questions.split("?$?")
@@ -224,11 +231,10 @@ def return_result(data):
         count_chosen = [0, 0, 0, 0]
         users_variants = []
 
-
         for user in users:
-            user_answers = user.user_profile.all_answers.split()
-            
-            if len(user_answers) > 0 and user_answers[index] != "∅":
+            user_answers = user.user_answers.split()
+
+            if len(user_answers) > 0 and user_answers[index] != "∅" and len(right_answers) > 0:
                 total_answers += 1
                 if types[index] == "one-answer":
                     count_chosen[int(user_answers[index])] += 1

@@ -3,30 +3,31 @@ main {
     height: 100vh;
     display: flex;
     flex-direction: row;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: hidden;
 }
 
 .question-cont {
-    height: auto;
+    height: 100vh;
     width: 75vw;
     background-color: #3b3b3b;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
-    padding: 0 3vw;
+    justify-content: center;
     box-sizing: border-box;
     gap: 4vh;
 }
 
 .question-test {
+    height: 50vh;
     width: 100%;
-    max-width: 900px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 0;
     margin-top: 0;
+    padding: 1vw;
 }
 
 .num-question {
@@ -73,18 +74,17 @@ main {
     flex-direction: row;
     justify-content: center;
     align-items: stretch;
-    gap: 1.5vw;
+    gap: 1vw;
     width: 100%;
-    max-width: 1400px;
+    height: 50vh;
+    padding: 1vw;
     margin-top: auto;
-    margin-bottom: 4vh;
 }
 
 .block-answer {
     background-color: #9abcf7;
     color: #ffffff;
     border-radius: 15px;
-    /* padding: 2vh 1vw; */
     flex: 1;
     width: 0;
     min-height: 25vh; 
@@ -137,254 +137,6 @@ main {
     border-radius: 4px;
     border: 1px solid rgba(255, 255, 255, 0.2);
     z-index: 2;
-}
-
-.side-menu {
-    height: 100vh;
-    width: 25vw;
-    background-color: #3b3b4f;
-    color: #ffffff;
-    padding: 2vh 1.5vw;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-}
-
-.side-menu-container {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 100%;
-}
-
-.timer-section {
-    display: flex;
-    align-items: center;
-    margin-bottom: 2vh;
-    width: 100%;
-}
-
-.timer-box {
-    border: 2px solid #9d9bff;
-    border-radius: 12px;
-    padding: 1vh 2vw;
-    font-size: 4vh;
-    font-weight: 600;
-    color: #dcdfff;
-}
-
-.bell-btn {
-    background: none;
-    border: none;
-    color: #a0a0b0;
-    cursor: pointer;
-    position: relative;
-    width: 4vh;
-    height: 4vh;
-    transition: color 0.3s;
-}
-
-.bell-btn svg {
-    width: 3vh;
-    height: 3vh;
-}
-
-.bell-btn:hover {
-    color: #eecc66;
-}
-
-.notification-badge {
-    position: absolute;
-    top: -2px;
-    right: -2px;
-    background-color: #eecc66;
-    color: #000;
-    font-size: 1.5vh;
-    font-weight: bold;
-    border-radius: 50%;
-    width: 2vh;
-    height: 2vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.divider {
-    border: 0;
-    height: 1px;
-    background: rgba(255, 255, 255, 0.1);
-    margin-bottom: 2vh;
-    width: 100%;
-}
-
-.participants-section {
-    flex-grow: 1;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    margin-bottom: 2vh;
-}
-
-.section-header {
-    display: flex;
-    justify-content: space-between;
-    font-size: 1.8vh;
-    color: #ffffff;
-    text-transform: uppercase;
-    gap: 5px;
-    margin-bottom: 2vh;
-    font-weight: 600;
-}
-
-.section-header .count {
-    color: #a0a0b0;
-}
-
-.users-list-container {
-    overflow-y: auto;
-    padding-right: 5px;
-    display: flex;
-    flex-direction: column;
-    justify-content: start;
-    gap: 1.5vh;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.users-list-container::-webkit-scrollbar {
-    width: 5px;
-}
-
-.users-list-container::-webkit-scrollbar-thumb {
-    background: #5a5a75;
-    border-radius: 10px;
-}
-
-.user-card {
-    background-color: #45455e;
-    border-radius: 10px;
-    padding: 1.5vh 1vw;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: 0.2s;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-.user-card:hover {
-    background-color: #4f4f6b;
-}
-
-.user-info {
-    display: flex;
-    align-items: center;
-    gap: 1vw;
-}
-
-.user-name {
-    font-size: 2.2vh;
-    font-weight: 500;
-}
-
-.check-icon {
-    color: #7dc683;
-    font-weight: bold;
-}
-
-.check-icon.placeholder {
-    width: 10px;
-    display: inline-block;
-}
-
-.user-status {
-    width: 3vh;
-    height: 3vh;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.user-status.finished {
-    color: #7dc683;
-    font-size: 2.5vh;
-}
-
-.user-status.box {
-    border: 2px solid #6b6b85;
-    border-radius: 6px;
-    width: 2.5vh;
-    height: 2.5vh;
-}
-
-.controls-section {
-    margin-top: auto;
-    width: 100%;
-}
-
-.playback-controls {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2vh;
-    gap: 1vw;
-    width: 100%;
-}
-
-.ctrl-btn {
-    background-color: #45455e;
-    border: 2px solid transparent;
-    border-radius: 12px;
-    color: #cfcfff;
-    height: 6vh;
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s;
-    font-weight: bold;
-    font-size: 2vh;
-}
-
-.ctrl-btn svg {
-    width: 3vh;
-    height: 3vh;
-}
-
-.ctrl-btn:hover {
-    background-color: #555570;
-    border-color: #9d9bff;
-}
-
-.ctrl-btn.stop {
-    background-color: rgba(157, 155, 255, 0.1);
-}
-
-.view-answers-btn {
-    width: 100%;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 12px;
-    color: #ffffff;
-    padding: 2vh;
-    font-size: 2vh;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1vw;
-    transition: 0.3s;
-    box-sizing: border-box;
-}
-
-.view-answers-btn:hover {
-    background-color: rgba(255, 255, 255, 0.2);
-}
-
-.eye-icon {
-    width: 2.5vh;
-    height: 2.5vh;
 }
 
 .image-cont {
@@ -458,31 +210,18 @@ main {
     filter: none;
 }
 
-@media (max-width: 768px) {
-    .input-type {
-        width: 90%;
-        padding: 3vh 5vw;
-        min-height: 20vh;
-    }
-
-    .correct-answer-text {
-        font-size: 3vh;
-    }
-}
-
-@media (max-width: 1200px) {
-    .block-answer {
-        font-size: 1.8vh;
-    }
-    .text-part {
-        padding: 1.5vh;
-    }
+.open-menu{
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 @media (max-width: 1024px) {
     .answers-test {
         flex-wrap: wrap;
         justify-content: center;
+        height: auto; 
+        margin-bottom: 2vh; 
     }
     
     .block-answer {
@@ -498,59 +237,51 @@ main {
     }
 }
 
+
 @media (max-width: 768px) {
     main {
         flex-direction: column;
-        height: auto;
-        overflow-y: auto;
+        height: 100vh; 
+        overflow-y: scroll;
+        /* overflow: hidden;  */
     }
 
     .question-cont {
         width: 100vw;
-        height: auto;
-        min-height: 60vh;
-        padding: 4vh 5vw;
+        height: 100vh; 
+        padding: 2vh 5vw; 
         justify-content: flex-start;
+        gap: 2vh; 
     }
 
     .question-test {
         margin-top: 0;
-        margin-bottom: 4vh;
+        height: auto; 
+        max-height: 45vh; 
+        flex-shrink: 0; 
     }
 
     .question-text {
-        font-size: 2.5vh;
-    }
-
-    .side-menu {
-        width: 100vw;
-        height: auto;
-        min-height: 40vh;
-        padding: 3vh 5vw;
-    }
-
-    .users-list-container {
-        max-height: 25vh;
-    }
-
-    .playback-controls {
-        gap: 2vw;
+        font-size: 2.2vh;
     }
 
     .answers-test {
         flex-direction: column;
-        align-items: center;
-        gap: 2vh;
+        align-items: stretch;
+        gap: 1.5vh; 
         margin-top: 0;
         width: 100%;
+        flex: 1; 
+        height: auto;
     }
     
     .block-answer {
-        width: 95%;
-        max-width: 95%;
-        min-height: 15vh;
-        font-size: 2vh;
-        flex: none;
+        width: 100%; 
+        max-width: 100%;
+        min-height: 0; 
+        flex: 1; 
+        font-size: 1.8vh; 
+        padding: 1vh;
     }
     
     .timer-box {
@@ -558,9 +289,10 @@ main {
     }
 
     .image-cont {
-        height: 25vh;
+        height: auto; 
+        max-height: 20vh; 
         max-width: 100%;
-        margin-bottom: 2vh;
+        margin-bottom: 1vh;
     }
     
     .question-cont:has(.image-cont) .question-text {
@@ -568,8 +300,9 @@ main {
     }
 
     .input-type {
-        width: 90%;
+        width: 100%;
         padding: 3vh 5vw;
+        min-height: 20vh;
     }
 
     .input-type p:first-child {
@@ -579,15 +312,12 @@ main {
     .input-type p:last-child {
         font-size: 3vh;
     }
-}
 
-@media (max-aspect-ratio: 16/9) {
-    .image-cont {
-        width: 100%;
-        height: auto;
-        max-height: 25vh;
+    .question-bg {
+        width: 85%;
     }
 }
+
 
 .window-end {
     position: absolute;
@@ -709,7 +439,7 @@ main {
 
 .answer-img-wrapper {
     width: 100%;
-    height: 12vh; 
+    height: 60%; 
     display: flex;
     justify-content: center;
     align-items: center;
