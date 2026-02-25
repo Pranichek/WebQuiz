@@ -22,7 +22,8 @@ socket.on("update_users", () => {
         {
             room: localStorage.getItem("room_code"), 
             test_id: localStorage.getItem("test_id"),
-            index_question: localStorage.getItem("index_question")
+            index_question: localStorage.getItem("index_question"),
+            page: "finish"
         }
     )
 
@@ -34,6 +35,9 @@ socket.on("update_users", () => {
 })
 
 socket.on("list_results", user_list => {  
+    // встановлення кількості питань
+    document.querySelector(".questions-mentor").textContent = `${parseInt(localStorage.getItem("index_question")) + 1}/${user_list.count_questions}`
+
     const topData = document.querySelector(".top-data")
     const usersRatings = document.querySelector(".users-list-container")
     
@@ -63,6 +67,8 @@ socket.on("list_results", user_list => {
             countMissed++
         }
     })
+
+    document.querySelector(".text-people").textContent = `${countRight + countUncorrect}/${countRight + countUncorrect + countMissed}`
 
     if (user_list.type_question == "one-answer" || user_list.type_question == "many-answers" || user_list.type_question == "input-gap") {
         if (topDiagram) topDiagram.style.display = "flex"
@@ -111,137 +117,500 @@ socket.on("list_results", user_list => {
         }
 
 
-        if (user_list.type_question == "one-answer" || user_list.type_question == "many-answers"){
-            const divDiagram = document.createElement("div")
-            divDiagram.className = "diagram"
-            divDiagram.style.flexGrow = "1" 
-            divDiagram.style.height = "100%"
-            divDiagram.style.display = "flex"
-            divDiagram.style.flexDirection = "column"
-            divDiagram.style.backgroundColor = "transparent"
+        if (user_list.type_question == "one-answer" || user_list.type_question == "many-answers" || user_list.type_question == "input-gap"){
+            const columnDiagram = document.querySelector(".column-diagram")
 
-            const textDiagram = document.createElement("p")
-            textDiagram.textContent = "Прогресс учнів:"
-            textDiagram.className = "text-diagram"
-            textDiagram.style.height = "10%"
+            if (columnDiagram){
+                columnDiagram.innerHTML = ""
 
-            const diagramInfo = document.createElement("div")
-            diagramInfo.className = "diagram-informations"
-            diagramInfo.style.height = "75%"
-            diagramInfo.style.position = "relative"
-            diagramInfo.style.display = "flex"
-            diagramInfo.style.flexDirection = "column"
-            diagramInfo.style.justifyContent = "space-between"
-            diagramInfo.style.borderBottom = "2px solid #ffffff" 
+                const chartDiv = document.createElement("div");
+                chartDiv.style.height = "100%";
+                chartDiv.style.width = "100%";
+                columnDiagram.append(chartDiv);
 
-            const divBlocks = document.createElement("div")
-            divBlocks.className = "blocks"
-            divBlocks.style.position = "absolute"
-            divBlocks.style.width = "100%"
-            divBlocks.style.height = "100%"
-            divBlocks.style.display = "flex"
-            divBlocks.style.alignItems = "flex-end" 
-            divBlocks.style.bottom = "0"
-            divBlocks.style.left = "0"
-            divBlocks.style.zIndex = "2"
+                let labels = user_list.answers; 
+                const dataPoints = user_list.count_answers; 
 
-            divDiagram.appendChild(textDiagram)
-            diagramInfo.appendChild(divBlocks)
-            divDiagram.appendChild(diagramInfo)
-
-            const divVariants = document.createElement("div")
-            divVariants.className = "variants"
-            divVariants.style.height = "auto"
-            divVariants.style.minHeight = "15%"
-            divVariants.style.display = "flex"
-            divVariants.style.width = "100%"
-            divVariants.style.alignItems = "stretch" 
-            divVariants.style.marginTop = "10px"
-
-            divDiagram.appendChild(divVariants)
-
-            if (topDiagram) {
-                topDiagram.appendChild(divDiagram)
-            } else {
-                topData.appendChild(divDiagram)
-            }
-
-            let answers = user_list.answers
-            let count = answers.length
-            let width = 100 / count
-
-            let countLines = user_list.users.length > 0 ? user_list.users.length : 1
-            for (let i = 0; i <= countLines; i++){
-                const line = document.createElement("div")
-                line.className = "line"
-                line.style.width = "100%"
-                line.style.borderTop = "1px solid rgba(255, 255, 255, 0.2)"
-                line.style.backgroundColor = "transparent"
-                diagramInfo.appendChild(line)
-            }
-
-            let heightStep = 100 / countLines
-
-            for (let i = 0; i < count; i++) {
-                const variantDiv = document.createElement("div")
-                variantDiv.className = "variant"
-                variantDiv.style.width = `${width}%`
-                variantDiv.style.display = "flex"
-                variantDiv.style.justifyContent = "center"
-                variantDiv.style.padding = "0 5px"
-
-                const variantOutline = document.createElement("div")
-                variantOutline.className = "variant-outline"
-                variantOutline.style.width = "100%"
-                variantOutline.style.height = "100%"
-                variantOutline.style.boxSizing = "border-box"
-                variantOutline.style.borderRadius = "12px"
-                variantOutline.style.backgroundColor = "rgba(195, 159, 228, 0.58)"
-                variantOutline.style.display = "flex"
-                variantOutline.style.alignItems = "center"
-                variantOutline.style.justifyContent = "center"
-                variantOutline.style.padding = "10px"
-
-                const paragraph = document.createElement("p")
-                paragraph.className = "variant-text"
-                paragraph.textContent = answers[i]
-                paragraph.style.margin = "0"
-                paragraph.style.wordBreak = "break-word"
-                paragraph.style.textAlign = "center"
-
-                variantOutline.appendChild(paragraph)
-                variantDiv.appendChild(variantOutline)
-                divVariants.appendChild(variantDiv)
-
-                const outlineBlock = document.createElement("div")
-                outlineBlock.className = "block"
-                outlineBlock.style.width = `${width}%`
-                outlineBlock.style.height = "100%"
-                outlineBlock.style.display = "flex"
-                outlineBlock.style.alignItems = "flex-end"
-                outlineBlock.style.justifyContent = "center"
-
-                const greenBlock = document.createElement("div")
-                greenBlock.className = "block-diagram"
-                greenBlock.style.width = "60%"
-                const right_indexes = user_list.right_indexes || []
-                if (right_indexes.includes(i)) {
-                    greenBlock.style.backgroundColor = "#8AF7D4" 
-                } else {
-                    greenBlock.style.backgroundColor = "#FF767C" 
+                if (user_list.type_question == "input-gap"){
+                    labels = ["правильно", "неправильно"]
                 }
-                // greenBlock.style.borderRadius = "6px 6px 0 0" 
-                greenBlock.style.height = "0%"
-                greenBlock.style.transition = "0.8s ease-out"
+                
+                // console.log(dataPoints)
+                const right_indexes = user_list.right_indexes || []
 
-                outlineBlock.appendChild(greenBlock)
-                divBlocks.appendChild(outlineBlock)
+                const backgroundColors = labels.map((_, index) => {
+                    return right_indexes.includes(index) ? "#8AF7D4" : "#FF767C";
+                });
 
-                setTimeout(() => {
-                    greenBlock.style.height = `${heightStep * parseInt(user_list.count_answers[i])}%`
-                }, 50)
+                const options = {
+                    series: [{
+                        name: 'Кількість учнів',
+                        data: dataPoints
+                    }],
+                    chart: {
+                        type: 'bar',
+                        height: '100%',
+                        width: '100%',
+                        toolbar: {
+                            show: false
+                        },
+                        animations: {
+                            enabled: true,
+                            easing: 'easeout',
+                            speed: 800
+                        }
+                    },
+                    plotOptions: {
+                        bar: {
+                            borderRadius: 0,
+                            columnWidth: '60%',
+                            distributed: true 
+                        }
+                    },
+                    colors: backgroundColors,
+                    dataLabels: {
+                        enabled: false
+                    },
+                    legend: {
+                        show: false
+                    },
+                    xaxis: {
+                        categories: labels,
+                        labels: {
+                            rotate: 0,
+                            trim: true, 
+                            maxHeight: 40, 
+                            style: {
+                                colors: '#ffffff',
+                                fontSize: '14px'
+                            },
+                            formatter: function (val) {
+                                if (typeof val === 'string' && val.length > 15) {
+                                    return val.substring(0, 15) + '...';
+                                }
+                                return val;
+                            }
+                        },
+                        axisBorder: {
+                            show: false
+                        },
+                        axisTicks: {
+                            show: false
+                        },
+                        tooltip: {
+                            enabled: false
+                        }
+                    },
+                    yaxis: {
+                        labels: {
+                            style: {
+                                colors: '#ffffff'
+                            },
+                            // округление
+                            formatter: function (val) {
+                                return Math.floor(val); 
+                            }
+                        }
+                    },
+                    grid: {
+                        borderColor: 'rgba(255, 255, 255, 0.2)',
+                        xaxis: {
+                            lines: {
+                                show: false
+                            }
+                        },
+                        yaxis: {
+                            tickAmount: 1,
+                            lines: {
+                                show: true
+                            }
+                        }
+                    },
+                    tooltip: {
+                        theme: 'dark'
+                    }
+                };
+
+                new ApexCharts(chartDiv, options).render();
+
+                
             }
-        }else{
+            const byAnswer = document.querySelector(".by-answer")
+
+
+            if (byAnswer){
+                byAnswer.innerHTML = ""
+
+                const chartDiv = document.createElement("div");
+                chartDiv.style.height = "100%";
+                chartDiv.style.width = "100%";
+                byAnswer.append(chartDiv);
+
+                const num_questions = user_list.questions; 
+                const dataPoints = user_list.accuracy_questions;
+                if (dataPoints.length < num_questions.length){
+                    while (dataPoints.length < num_questions.length){
+                        dataPoints.push(null)
+                    }
+                }
+
+                const options = {
+                series: [{
+                    name: 'Процент правильних',
+                    data: dataPoints
+                }],
+                chart: {
+                    type: 'line',
+                    height: '100%',
+                    width: '100%',
+                    toolbar: {
+                        show: false
+                    },
+                    animations: {
+                        enabled: true,
+                        easing: 'easeout',
+                        speed: 800
+                    }
+                },
+                    colors: ['#FF767C'],
+                    stroke: {
+                        curve: 'straight', 
+                        width: 2
+                    },
+                    markers: {
+                        size: 5, 
+                        colors: ['#FF767C'],
+                        strokeColors: '#FF767C',
+                        strokeWidth: 2,
+                        hover: {
+                            size: 7
+                        }
+                    },
+                    xaxis: {
+                        categories: num_questions,
+                        // title: {
+                        //     text: 'Питання',
+                        //     style: {
+                        //         color: 'rgba(255, 255, 255, 0.6)',
+                        //         fontSize: '14px',
+                        //         fontWeight: 'normal'
+                        //     }
+                        // },
+                        labels: {
+                            style: {
+                                colors: '#ffffff',
+                                fontSize: '14px'
+                            }
+                        },
+                        axisBorder: {
+                            show: false
+                        },
+                        axisTicks: {
+                            show: false
+                        },
+                        tooltip: {
+                            enabled: false
+                        }
+                    },
+                    yaxis: {
+                        min: 0,
+                        max: 100,
+                        tickAmount: 5,
+                        labels: {
+                            formatter: function (val) {
+                                return val.toFixed(0) + "%";
+                            },
+                            style: {
+                                colors: '#ffffff',
+                                fontSize: '14px'
+                            }
+                        }
+                    },
+                    grid: {
+                        borderColor: 'rgba(255, 255, 255, 0.1)', 
+                        strokeDashArray: 0,
+                        xaxis: {
+                            lines: {
+                                show: true 
+                            }
+                        },
+                        yaxis: {
+                            lines: {
+                                show: true 
+                            }
+                        }
+                    },
+                    dataLabels: {
+                        enabled: false 
+                    },
+                    legend: {
+                        show: false
+                    },
+                    tooltip: {
+                        theme: 'dark',
+                        y: {
+                            formatter: function (val) {
+                                return val + "%";
+                            }
+                        }
+                    }
+                };
+
+                new ApexCharts(chartDiv, options).render();
+
+                // "questions":  num_questions,
+                // "accuracy_questions":all_procents
+            }
+
+            // const dotsDiagram = document.querySelector(".dot-diagrams")
+
+            // if (dotsDiagram){
+            //     dotsDiagram.innerHTML = ""
+            //     const chartDiv = document.createElement("div");
+            //     chartDiv.style.height = "100%";
+            //     chartDiv.style.width = "100%";
+            //     dotsDiagram.append(chartDiv);
+
+            //     const dataPoints = user_list.students_procents; 
+
+            //     const scatterData = dataPoints.map((student, index) => {
+            //         return [index + 1, parseInt(student.percent)]; // 
+            //     });
+
+
+
+            //     const options = {
+            //         series: [{
+            //             name: 'Точність',
+            //             data: scatterData
+            //         }],
+            //         chart: {
+            //             type: 'scatter', 
+            //             height: '100%',
+            //             width: '100%',
+            //             toolbar: {
+            //                 show: false
+            //             },
+            //             animations: {
+            //                 enabled: true,
+            //                 easing: 'easeout',
+            //                 speed: 800
+            //             }
+            //         },
+            //         colors: ['#FF767C'],
+            //         markers: {
+            //             size: 6,
+            //             strokeWidth: 0, 
+            //             hover: {
+            //                 size: 9
+            //             }
+            //         },
+            //         xaxis: {
+            //             title: {
+            //                 text: 'Учні',
+            //                 style: {
+            //                     color: 'rgba(255, 255, 255, 0.6)',
+            //                     fontSize: '14px',
+            //                     fontWeight: 'normal'
+            //                 }
+            //             },
+            //             labels: {
+            //                 style: {
+            //                     colors: '#ffffff',
+            //                     fontSize: '14px'
+            //                 },
+            //                 formatter: function(val) {
+            //                     return Math.floor(val); 
+            //                 }
+            //             },
+            //             axisBorder: { show: false },
+            //             axisTicks: { show: false },
+            //             min: 0, // Початок осі X
+            //             max: dataPoints.length + 1,
+            //             tickAmount: dataPoints.length > 10 ? 10 : dataPoints.length 
+            //         },
+            //         yaxis: {
+            //             min: 0,
+            //             max: 100,
+            //             tickAmount: 5, 
+            //             labels: {
+            //                 formatter: function (val) {
+            //                     return val.toFixed(0) + "%"; 
+            //                 },
+            //                 style: {
+            //                     colors: '#ffffff',
+            //                     fontSize: '14px'
+            //                 }
+            //             }
+            //         },
+            //         grid: {
+            //             borderColor: 'rgba(255, 255, 255, 0.1)',
+            //             xaxis: {
+            //                 lines: { show: true }
+            //             },
+            //             yaxis: {
+            //                 lines: { show: true }
+            //             }
+            //         },
+            //         dataLabels: {
+            //             enabled: false
+            //         },
+            //         legend: {
+            //             show: false
+            //         },
+            //         tooltip: {
+            //             theme: 'dark',
+            //             y: {
+            //                 formatter: function (val) {
+            //                     return val + "%";
+            //                 }
+            //             },
+            //             x: {
+            //                 formatter: function (val) {
+            //                     const index = Math.round(val) - 1; 
+                                
+            //                     if (dataPoints[index] && dataPoints[index].name) {
+            //                         return dataPoints[index].name;
+            //                     }                                
+            //                 }
+            //             }
+            //         }
+            //     };
+
+            //     new ApexCharts(chartDiv, options).render();
+
+
+            // }
+            // const divDiagram = document.createElement("div")
+            // divDiagram.className = "diagram"
+            // divDiagram.style.flexGrow = "1" 
+            // divDiagram.style.height = "100%"
+            // divDiagram.style.display = "flex"
+            // divDiagram.style.flexDirection = "column"
+            // divDiagram.style.backgroundColor = "transparent"
+
+            // const textDiagram = document.createElement("p")
+            // textDiagram.textContent = "Прогресс учнів:"
+            // textDiagram.className = "text-diagram"
+            // textDiagram.style.height = "10%"
+
+            // const diagramInfo = document.createElement("div")
+            // diagramInfo.className = "diagram-informations"
+            // diagramInfo.style.height = "75%"
+            // diagramInfo.style.position = "relative"
+            // diagramInfo.style.display = "flex"
+            // diagramInfo.style.flexDirection = "column"
+            // diagramInfo.style.justifyContent = "space-between"
+            // diagramInfo.style.borderBottom = "2px solid #ffffff" 
+
+            // const divBlocks = document.createElement("div")
+            // divBlocks.className = "blocks"
+            // divBlocks.style.position = "absolute"
+            // divBlocks.style.width = "100%"
+            // divBlocks.style.height = "100%"
+            // divBlocks.style.display = "flex"
+            // divBlocks.style.alignItems = "flex-end" 
+            // divBlocks.style.bottom = "0"
+            // divBlocks.style.left = "0"
+            // divBlocks.style.zIndex = "2"
+
+            // divDiagram.appendChild(textDiagram)
+            // diagramInfo.appendChild(divBlocks)
+            // divDiagram.appendChild(diagramInfo)
+
+            // const divVariants = document.createElement("div")
+            // divVariants.className = "variants"
+            // divVariants.style.height = "auto"
+            // divVariants.style.minHeight = "15%"
+            // divVariants.style.display = "flex"
+            // divVariants.style.width = "100%"
+            // divVariants.style.alignItems = "stretch" 
+            // divVariants.style.marginTop = "10px"
+
+            // divDiagram.appendChild(divVariants)
+
+            // if (topDiagram) {
+            //     topDiagram.appendChild(divDiagram)
+            // } else {
+            //     topData.appendChild(divDiagram)
+            // }
+
+            // let answers = user_list.answers
+            // let count = answers.length
+            // let width = 100 / count
+
+            // let countLines = user_list.users.length > 0 ? user_list.users.length : 1
+            // for (let i = 0; i <= countLines; i++){
+            //     const line = document.createElement("div")
+            //     line.className = "line"
+            //     line.style.width = "100%"
+            //     line.style.borderTop = "1px solid rgba(255, 255, 255, 0.2)"
+            //     line.style.backgroundColor = "transparent"
+            //     diagramInfo.appendChild(line)
+            // }
+
+            // let heightStep = 100 / countLines
+
+            // for (let i = 0; i < count; i++) {
+            //     const variantDiv = document.createElement("div")
+            //     variantDiv.className = "variant"
+            //     variantDiv.style.width = `${width}%`
+            //     variantDiv.style.display = "flex"
+            //     variantDiv.style.justifyContent = "center"
+            //     variantDiv.style.padding = "0 5px"
+
+            //     const variantOutline = document.createElement("div")
+            //     variantOutline.className = "variant-outline"
+            //     variantOutline.style.width = "100%"
+            //     variantOutline.style.height = "100%"
+            //     variantOutline.style.boxSizing = "border-box"
+            //     variantOutline.style.borderRadius = "12px"
+            //     variantOutline.style.backgroundColor = "rgba(195, 159, 228, 0.58)"
+            //     variantOutline.style.display = "flex"
+            //     variantOutline.style.alignItems = "center"
+            //     variantOutline.style.justifyContent = "center"
+            //     variantOutline.style.padding = "10px"
+
+            //     const paragraph = document.createElement("p")
+            //     paragraph.className = "variant-text"
+            //     paragraph.textContent = answers[i]
+            //     paragraph.style.margin = "0"
+            //     paragraph.style.wordBreak = "break-word"
+            //     paragraph.style.textAlign = "center"
+
+            //     variantOutline.appendChild(paragraph)
+            //     variantDiv.appendChild(variantOutline)
+            //     divVariants.appendChild(variantDiv)
+
+            //     const outlineBlock = document.createElement("div")
+            //     outlineBlock.className = "block"
+            //     outlineBlock.style.width = `${width}%`
+            //     outlineBlock.style.height = "100%"
+            //     outlineBlock.style.display = "flex"
+            //     outlineBlock.style.alignItems = "flex-end"
+            //     outlineBlock.style.justifyContent = "center"
+
+            //     const greenBlock = document.createElement("div")
+            //     greenBlock.className = "block-diagram"
+            //     greenBlock.style.width = "60%"
+            //     const right_indexes = user_list.right_indexes || []
+            //     if (right_indexes.includes(i)) {
+            //         greenBlock.style.backgroundColor = "#8AF7D4" 
+            //     } else {
+            //         greenBlock.style.backgroundColor = "#FF767C" 
+            //     }
+            //     // greenBlock.style.borderRadius = "6px 6px 0 0" 
+            //     greenBlock.style.height = "0%"
+            //     greenBlock.style.transition = "0.8s ease-out"
+
+            //     outlineBlock.appendChild(greenBlock)
+            //     divBlocks.appendChild(outlineBlock)
+
+            //     setTimeout(() => {
+            //         greenBlock.style.height = `${heightStep * parseInt(user_list.count_answers[i])}%`
+            //     }, 50)
+            // }
+        } else {
             // создай тут диаграмму которая подойдет для типа вопроса input-gap через chart.js
             const divDiagram = document.createElement("div")
             divDiagram.className = "diagram"
@@ -276,7 +645,7 @@ socket.on("list_results", user_list => {
             let answerCounts = {}
             user_list.users.forEach(u => {
                 let ans = u.last_answer && u.last_answer.length > 0 ? u.last_answer.join(" ") : "Пропущено"
-                if (!ans.trim() || ans === "......" || ans === "∅") ans = "Пропущено"
+                if (!ans.trim() || ans === "..." || ans === "∅") ans = "Пропущено"
                 
                 if (!answerCounts[ans]) {
                     answerCounts[ans] = { count: 0, isCorrect: (parseInt(u.right_wrong) === 1) }
@@ -351,7 +720,7 @@ socket.on("list_results", user_list => {
                     }
                 }
             })
-
+        
         }
 
     } 
@@ -367,39 +736,32 @@ socket.on("list_results", user_list => {
     usersConts = document.querySelector(".users-list-container");
 
     user_list.users.forEach((element, index) => {
-        let statusIcon = "";
         let statusClass = "";
 
-        // Проверяем правильность ответа для иконки и цвета
-        if (parseInt(element.right_wrong) === 1) {
-            statusIcon = "✔";
+        if (parseInt(element.right_wrong) == 1) {
             statusClass = "correct-status";
-        } else if (parseInt(element.right_wrong) === 0) {
-            statusIcon = "✖";
+        } else if (parseInt(element.right_wrong) == 0) {
             statusClass = "wrong-status";
         } else {
-            statusIcon = "➖";
             statusClass = "missed-status";
         }
 
-        // Если с сервера приходят очки, используем их. Иначе 0.
         let points = element.points !== undefined ? element.points : 0;
 
-        // Формируем HTML карточки по вашему дизайну
         const cardHTML = `
-            <div class="user-card active" data-id="${element.id}">
+            <div class="user-card" data-id="${element.id}">
                 <div class="user-info">
-                    <span class="place-students">№${index + 1}</span>
-                    
-                    <div class="user-text-data">
-                        <span class="user-name">${element.username}</span>
-                        <span class="user-stats">Точність: ${parseInt(element.accuracy)}%</span>
+                    <div class="place-part">
+                        <div class="circle-answer ${statusClass}"></div>
+                        <span class="place-students">${index + 1}</span>
                     </div>
+                    
+                    <span class="user-name">${element.username}</span>
+                    <span class="accuracy-user">${element.accuracy}</span>
+                    <span class="user-points">${element.points}</span>
                 </div>
-
-                <div class="user-status  ${statusClass}">${statusIcon}</div>
             </div>
-        `;
+        `
 
         usersConts.insertAdjacentHTML('beforeend', cardHTML);
     });
@@ -428,7 +790,7 @@ socket.on("list_results", user_list => {
 
     if (fill) {
         fill.style.transition = "none"
-        fill.style.width = "0%"  /
+        fill.style.width = "0%"
         void fill.offsetWidth    
         fill.style.transition = "width 1s ease-in-out" 
         fill.style.width = Math.round(accuracy) + "%" 

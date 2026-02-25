@@ -111,9 +111,7 @@
             <p class="username">Грінченко Володимир</p>
             <div class="cont">
                 <div class="left-part">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#22A67D" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-                        <polyline points="20 6 9 17 4 12"></polyline>
-                    </svg>
+                    <img src="{{ url_for('student.static', filename = 'images/student/correct.svg') }}" alt="sign-correct">
                     <p>Правильних:</p>
                 </div>
                 <p class="correct_answers">0</p>
@@ -121,10 +119,7 @@
 
             <div class="cont">
                 <div class="left-part">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#E05359" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-                        <line x1="18" y1="6" x2="6" y2="18"></line>
-                        <line x1="6" y1="6" x2="18" y2="18"></line>
-                    </svg>
+                    <img src="{{ url_for('student.static', filename = 'images/student/uncorrect.svg') }}" alt="sign-uncorrect">
                     <p>Неправильних:</p>
                 </div>
                 <p class="uncorrect_answers">0</p>
@@ -132,10 +127,7 @@
 
             <div class="cont">
                 <div class="left-part">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#a0a0b0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="8" y1="12" x2="16" y2="12"></line>
-                    </svg>
+                    <img src="{{ url_for('student.static', filename = 'images/student/skip.svg') }}" alt="sign-skip">
                     <p>Пропущено:</p>
                 </div>
                 <p class="skip_answers">0</p>
@@ -143,11 +135,7 @@
 
             <div class="cont">
                 <div class="left-part">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#94C4FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <circle cx="12" cy="12" r="6"></circle>
-                        <circle cx="12" cy="12" r="2"></circle>
-                    </svg>
+                    <img src="{{ url_for('student.static', filename = 'images/student/accuracy.svg') }}" alt="sign-accuracy">
                     <p>Точність:</p>
                 </div>
                 <p class="accuracy-text">0%</p>
@@ -155,9 +143,7 @@
 
             <div class="cont">
                 <div class="left-part">
-                    <svg viewBox="0 0 24 24" fill="none" stroke="#FFB700" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20">
-                        <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-                    </svg>
+                    <img src="{{ url_for('student.static', filename = 'images/student/points.svg') }}" alt="sign-points">
                     <p>Бали:</p>
                 </div>
                 <p class="points-text">0</p>
@@ -213,6 +199,7 @@
     <script src="{{ url_for('student.static', filename='js/count_bonus.js') }}"></script> 
     <script src="{{ url_for('student.static', filename='js/count_money.js') }}"></script> 
     <script src="{{ url_for('student.static', filename='js/check_student.js') }}"></script>
+    <script src="{{ url_for('student.static', filename='js/leave_test.js') }}"></script>
     <!-- <script src="{{ url_for('student.static', filename='js/leave_test.js') }}"></script> -->
     <script src="{{ url_for('student.static', filename='js/side_menu.js') }}"></script>
     <script src="{{ url_for('student.static', filename='js/load_users.js') }}"></script>

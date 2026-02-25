@@ -56,8 +56,11 @@ document.addEventListener('click', (e) => {
                 <div class="users">
                     <div class="head-titles">
                         <div class="left-category">
-                            <p class="place">місце</p>
+                            <p class="place">№</p>
                             <p class="name">ім'я учня</p>
+                        </div>
+                        <div class="answers-icons">
+                            <p>відповіді</p>
                         </div>
                         <div class="right-category">
                             <p class="points">бали</p>

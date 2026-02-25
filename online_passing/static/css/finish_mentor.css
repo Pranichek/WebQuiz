@@ -76,7 +76,7 @@ main{
 .left-part, .right-part{
     width: 59%;
     height: 100%;
-    border: 1px #C48AF7 solid;
+    border: 1px #3b3b4f solid;
     border-radius: 12px;
     background-color: rgba(255, 255, 255, 0.1);
     z-index: 10;
@@ -92,7 +92,7 @@ main{
     height: 91%;
     width: 100%;
     border-radius: 6px;
-    border: 1px #C48AF7 solid;
+    border: 1px #3b3b4f solid;
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -103,7 +103,7 @@ main{
 .head-titles{
     height: 8%;
     width: 100%;
-    background-color: rgba(196, 138, 247, 0.3);
+    background-color: rgba(126, 162, 206, 0.3);
     display: flex;
 }
 
@@ -121,7 +121,7 @@ main{
     width: 100%;
     display: flex;
     flex-direction: row;
-    background-color: rgba(196, 138, 247, 0.5);
+    background-color: rgba(126, 162, 206, 0.5);
     transition: all 0.3s ease; 
     cursor: pointer;
     position: relative; 
@@ -129,14 +129,14 @@ main{
 
 
 .user:hover {
-    background-color: rgba(196, 138, 247, 0.7);
+    background-color: rgba(126, 162, 206, 0.7);
     transform:  scale(1.01);
     z-index: 5;
     border-radius: 8px; 
 }
 
 .dark{
-    background-color: rgba(196, 138, 247, 0.3);
+    background-color: rgba(126, 162, 206, 0.3);
 }
 
 .outline-accuracy{
@@ -153,7 +153,7 @@ main{
 .fill-accuracy{
     height: 100%;
     width: 50%;
-    background-color: #B9BDF5;
+    background-color: #7EA2CE;
     transition: width 1s ease-in-out;
 }
 
@@ -163,24 +163,70 @@ main{
     padding-left: 0.5vw
 }
 
+
+.answers-icons {
+    height: 100%;
+    width: 45%;
+    display: flex;
+    align-items: center; 
+    position: relative;
+}
+
+.outline-answers {
+    /* background-color: orange; */
+    display: flex;
+    justify-content: center; 
+    align-items: center;
+    gap: 4px; 
+    width: 90%;
+    height: 100%;
+}
+
+.square {
+    flex: 1 1 0;
+    min-width: 0; 
+    min-height: 0;
+    max-height: 80%;
+    aspect-ratio: 1 / 1; 
+    border-radius: 50%;
+}
+
+.correct-square{
+    background-color: #86C586;
+}
+
+.uncorrect-square{
+    background-color: #FF767C;
+}
+
+.skip-square{
+    background-color: #D7D7D7;
+}
+
 .left-category, .right-category{
     height: 100%;
-    width: 50%;
+    width: 35%;
     /* background-color: green; */
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: start;
-    padding-left: 0.5vw;
     font-size: 2vh;
 }
 
+.right-category{
+    width: 30%;
+}
+
+.user-card{
+    padding: 0 1.5vw;
+}
 
 .place{
     height: 100%;
     width: 20%;
     display: flex;
-    justify-content: start;
+    justify-content: center;
 }
 
 .points{
@@ -213,7 +259,7 @@ main{
 }
 
 .page{
-    background-color: rgba(196, 138, 247, 0.3);
+    background-color: rgba(126, 162, 206, 0.3);
     border-radius: 12px;
     display: flex;
     height: 80%;
@@ -231,7 +277,7 @@ main{
 .all-users, .solo-data, .save-result{
     font-size: 2vh;
     height: 70%;
-    background-color: #C48AF7;
+    background-color: #3b3b4f;
     border-radius: 6px;
     padding: 0 1vw;
     display: flex;
@@ -249,7 +295,7 @@ main{
 }
 
 .solo-data:hover, .all-users:hover{
-    background-color: #b571f0;
+    background-color: #7EA2CE;
 }
 
 .solo-data{

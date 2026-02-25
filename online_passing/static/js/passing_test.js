@@ -101,39 +101,12 @@ function countMoney(value) {
 socket.on("page_waiting", 
     data => {
         localStorage.setItem("next_page", "waiting_student")    
-        
-        setTimeout(() => {
-            // localStorage.setItem("next_page", "none")
-            // let index = localStorage.getItem("index_question")
-            // index = parseInt(index) + 1;
-            localStorage.setItem("index_question", index)
-            // window.location.replace("/waiting_student")
-        }, 2000);
     }
 )
 
 socket.on("next_question",
     data => {
         localStorage.setItem("next_page", "result_student")
-
-        // localStorage.setItem('time_question', "set")
-        // let chekcookies = localStorage.getItem("users_answers") 
-        // let spitedcookies = localStorage.getItem("users_answers").split(",")
-        // if (spitedcookies.length != parseInt(localStorage.getItem("index_question"))){
-        //     if (chekcookies){
-        //         // отримуємо старі відповіді якщо вони були
-        //         let oldCookie = localStorage.getItem("users_answers")
-        //         let cookieList = oldCookie.split(",")   
-        //         cookieList.push("∅")
-
-        //         localStorage.setItem("users_answers", cookieList)
-        //     }else{
-        //         localStorage.setItem("users_answers", "∅")
-        //     }
-
-        // }
-
-        // circle.style.background = `conic-gradient(#677689 ${0}deg, #8ABBF7 ${0}deg)`;
 
         let midletime = localStorage.getItem("wasted_time")
         midletime = (parseInt(localStorage.getItem("timeData")))
@@ -142,14 +115,10 @@ socket.on("next_question",
         localStorage.setItem("timeData", "0")
         localStorage.setItem("time_question", "set")
         
-
-        setTimeout(() => {
-            localStorage.setItem("next_page", "none")
-            let index = localStorage.getItem("index_question")
-            index = parseInt(index) + 1;
-            localStorage.setItem("index_question", index)
-            window.location.replace("/passing_student")
-        }, 2000);
+        localStorage.setItem("next_page", "none")
+        localStorage.setItem("index_question", parseInt(data.index_question))
+        location.reload()
+        
     }
 )
 
@@ -210,12 +179,14 @@ socket.on('student_question', (data) => {
                 window.location.replace("/result_student")
             }else if(localStorage.getItem("next_page") == "waiting_student"){
                 if (localStorage.getItem("checkCorrect") == "false"){
+                    document.querySelector(".modal").style.display = "block";
                     document.querySelector(".uncorrect-answer").classList.add("fade-in-anim")
                     document.querySelector(".sad_robot").classList.add("fade-in-anim-robot")
 
                     const audioNegative = document.querySelector("#incorrect-sound");
                     if (audioNegative) audioNegative.play();
                 }else{
+                    document.querySelector(".modal").style.display = "block";
                     document.querySelector(".right-answer").classList.add("fade-in-anim");
                     document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");
                     const audio = document.querySelector("#correct-sound");
@@ -405,11 +376,10 @@ socket.on('student_question', (data) => {
                             } else {
                                 localStorage.setItem("users_answers", block.dataset.value);
                             }
-                            // circle.style.background = `conic-gradient(#8ABBF7 0deg, #8ABBF7 360deg)`;
 
 
-                            block.style.border = "4px solid white"; // біла обводка
-                            block.style.transition = "all 0.3s ease"; // плавний перехід
+                            block.style.border = "4px solid white"; 
+                            block.style.transition = "all 0.3s ease"; 
                             let checkCorrect = false
 
                             if (correctIndexes.includes(parseInt(block.dataset.value))){
@@ -658,6 +628,7 @@ socket.on('student_question', (data) => {
 
                             if (checkCorrect){
                                 setTimeout(() => {
+                                    localStorage.setItem("checkCorrect", "true")
                                     document.querySelector(".modal").style.display = "block";
                                     document.querySelector(".right-answer").classList.add("fade-in-anim");
                                     document.querySelector(".happy_robot").classList.add("fade-in-anim-robot");

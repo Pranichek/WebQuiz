@@ -7,34 +7,23 @@
 
 {% block content %}
     <div class="main-part">
-        <div class="top-diagram">
+        <div class="open-menu" id="openMenuBtn">
+            <img src="{{ url_for('student.static', filename = 'images/click.svg') }}" alt="">
+        </div>
+
+       <div class="top-diagrams">
             <div class="circle-diagram">
 
             </div>
-            <div class="top-data">
+            <div class="column-diagram">
 
             </div>
-        </div>
-        <div class="accuracy-block">
-            <div class="outline-accruracy">
-                <div class="outline-accuracy">
-                    <div class="accuracy-gradient"></div>
-                </div>
-
-                <div class="accuracy-form">
-                    <div class="rate">
-                        <div class="fill"></div>
-                        <div class="quard">
-                            <img src="{{ url_for('mentor.static', filename = 'images/robot-acc.svg') }}" alt="">
-                            <div class="text-perc">
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>  
-                </div>
+       </div>
+       <div class="bottom-diagrams">
+            <div class="by-answer">
 
             </div>
-        </div>
+       </div>
     </div>
     <div class="side-menu">
         <button class="close-menu" id="closeMenuBtn">&times;</button>
@@ -42,10 +31,28 @@
 
         <div class="participants-section">
             <div class="section-header">
-                <span class="title">УЧАСНИКИ</span>
-                <span class="count text-people">0/0</span>
+                <div class="questions">
+                    <span>ПИТАННЯ</span>
+                    <span class="questions-mentor">5/10</span>
+                </div>
+                <div class="count-people">
+                    <span class="title">УЧАСНИКИ</span>
+                    <span class="count text-people">0/0</span>
+                </div>
             </div>
             
+            <div class="divider"></div>
+
+            <div class="table-data">
+                <p class="place-part">місце</p>
+                <div class="line-table"></div>
+                <p class="full-name">ПІБ</p>
+                <div class="line-table"></div>
+                <p class="accuracy-part">%</p>
+                <div class="line-table"></div>
+                <p class="points-part">бали</p>
+            </div>
+
             <div class="divider"></div>
 
             <div class="users-list-container outline-users">
@@ -66,6 +73,9 @@
         </div>
 
         <div class="controls-section">
+            <button class="view-answers-btn check-answers end-test open-modal-btn">
+                Завершити тест
+            </button>
             <button class="view-answers-btn check-answers next-question">
                 Наступне питання
             </button>
@@ -148,13 +158,22 @@
             <p class="remove_user">Видалити</p>
         </div>
     </div> -->
+     <div class="window-end">
+        <h1>Закінчення тесту</h1>
+        <p>Ви впевнені, що хочете примусово закінчити тест?</p>
+        <div>
+            <p class="decline-ending">Скасувати</p>
+            <p class="end_test">Завершити</p>
+        </div>
+    </div>
 {% endblock content %}
 
 {% block scripts %}
     {{ super() }}
     <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
     <script src="{{ url_for('mentor.static', filename='js/mentor_result.js') }}"></script>
     <script src="{{ url_for('mentor.static', filename='js/recconect.js') }}"></script>
+    <script src="{{ url_for('mentor.static', filename='js/end_test.js') }}"></script> 
+    <script src="{{ url_for('mentor.static', filename='js/side_menu.js') }}"></script>
 {% endblock %}

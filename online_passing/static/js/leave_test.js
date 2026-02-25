@@ -1,20 +1,3 @@
-document.querySelector(".leave_test").addEventListener(
-    'click',
-    () => {
-        socket.emit(
-            'leave_test',
-            {
-                room: localStorage.getItem("room_code"),
-                id_user: localStorage.getItem("")
-            }
-        )
-
-        location.replace("/")
-    }
-)
-
-
-
 // когда ментор досрочно завершает тест
 socket.on("last-end", 
     (data) => {
@@ -36,8 +19,6 @@ socket.on("last-end",
 
         }
         
-        console.log(localStorage.getItem("users_answers"), "klmdklsfvlkdfvlkdsfklmlkm")
-
         let midletime = localStorage.getItem("wasted_time")
         
         let stored = localStorage.getItem("users_answers");

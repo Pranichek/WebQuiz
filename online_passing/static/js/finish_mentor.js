@@ -35,8 +35,11 @@ document.addEventListener("click", (e) => {
             <div class="users">
                 <div class="head-titles">
                     <div class="left-category">
-                        <p class="place">місце</p>
+                        <p class="place">№</p>
                         <p class="name">ім'я учня</p>
+                    </div>
+                    <div class="answers-icons">
+                        <p>відповіді</p>
                     </div>
                     <div class="right-category">
                         <p class="points">бали</p>
@@ -104,11 +107,30 @@ socket.on("list_results", data => {
         let checkDark = count % 2 == 0 ? 'dark' : ''
         let accuracy = parseInt(user.accuracy)
 
-        htmlContent += `
+        let answersHTML = '';
+        const user_answers = user.user_answers;
+
+        user_answers.forEach((answer) => {
+            if (answer == "правильно"){
+                answersHTML += `<div class="square correct-square"></div>`; 
+            }else if(answer == "неправильно"){
+                answersHTML += `<div class="square uncorrect-square"></div>`; 
+            }else{
+                answersHTML += `<div class="square skip-square"></div>`; 
+            }
+        })
+
+
+        const userCard = `
             <div class="user ${checkDark}">
                 <div class="left-category">
-                    <p class="place">№${count}</p>
+                    <p class="place">${count}</p>
                     <p class="name">${user.username}</p>
+                </div>
+                <div class="answers-icons input-answers">
+                    <div class="outline-answers">
+                        ${answersHTML}
+                    </div>
                 </div>
                 <div class="right-category">
                     <p class="points">${user.count_points}</p>
@@ -120,7 +142,14 @@ socket.on("list_results", data => {
                 </div>
             </div>
         `
+
+
+        htmlContent += userCard
     })
+
+
+    
+    // "
 
     userCointainer.innerHTML = htmlContent
 
@@ -326,15 +355,26 @@ function openUserModal(userId) {
         const blockanswers = document.querySelector(".questions-cont")
         for (let index = 0; index < data.questions.length; index++) {
             let dark = index % 2 == 0 ? "dark-example" : ""
+            let checkBox;
+            if (data.list_check[index] == "правильно"){
+                checkBox = "green"
+            }else if(data.list_check[index] == "неправильно") {
+                checkBox = "red"
+            }else{
+                checkBox = "gray"
+            }
             blockanswers.innerHTML += `
                 <div class="question-example ${dark}">
                     <div class="nums"><p>${index + 1}</p></div>
                     <div class="question-block"><p>${data.questions[index]}</p></div>
                     <div class="answer-block"><p>${data.user_answers[index]}</p></div>
-                    <div class="result-block"><p>${data.list_check[index]}</p></div>
+                    <div class="result-block"><div class = "block-user ${checkBox}"></div></div>
                 </div>
             `
+
+
         }
+
 
         let avarage_time = Number(data.avarage_time)
         let timeString = ""

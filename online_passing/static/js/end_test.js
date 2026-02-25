@@ -1,4 +1,3 @@
-const foggy = document.querySelector("#overlay")
 const windowChoice = document.querySelector(".window-end")
 
 function closeWindow() {
@@ -10,12 +9,10 @@ function closeWindow() {
 
 document.querySelector(".open-modal-btn").addEventListener('click', () => {
     windowChoice.classList.add("active")
-    foggy.classList.add("active")
 })
 
 document.querySelector(".decline-ending").addEventListener('click', closeWindow)
 
-foggy.addEventListener('click', closeWindow)
 
 document.querySelector(".window-end .end_test").addEventListener('click', () => {
     socket.emit('alarm-end', {

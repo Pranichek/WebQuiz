@@ -73,12 +73,12 @@ socket.on("general_diagram",
         let dataLabels = []
 
         const colorArray = [
-    'rgba(138, 247, 212, 1)',  // Ваш мятно-салатовый (#8AF7D4)
-    'rgba(196, 138, 247, 1)',  // Ваш фирменный фиолетовый (#C48AF7)
-    'rgba(148, 196, 255, 1)',  // Ваш приятный голубой (#94C4FF)
-    'rgba(241, 226, 114, 1)',  // Ваш мягкий желтый (#f1e272)
-    'rgba(255, 118, 124, 1)'   // Ваш кораллово-красный (#FF767C)
-];
+            'rgba(138, 247, 212, 1)',  // Зеленый (мятно-салатовый)
+            'rgba(255, 118, 124, 1)',  // Красный (коралловый)
+            'rgba(126, 162, 206, 1)',  // Сине-голубой (#7EA2CE)
+            'rgba(59, 59, 79, 1)',     // Темно-синий/серый (#3b3b4f)
+            'rgba(241, 226, 114, 1)'   // Желтый
+        ];
 
         colorArray.sort(() => Math.random() - 0.5)
         let colorsDiagram = []
@@ -159,8 +159,8 @@ socket.on("general_diagram",
         }
 
         const gradientBar = ctxBar.createLinearGradient(0, 0, 400, 0)
-        gradientBar.addColorStop(0, 'rgba(107, 58, 126, 1)')
-        gradientBar.addColorStop(1, 'rgba(179, 134, 197, 1)')
+        gradientBar.addColorStop(0, 'rgba(59, 59, 79, 1)') // Темный #3b3b4f
+        gradientBar.addColorStop(1, 'rgba(126, 162, 206, 1)') // Светлый #7EA2CE
 
         new Chart(ctxBar, {
             type: 'bar',
@@ -254,13 +254,13 @@ socket.on("dots-diagram", data => {
             datasets: [{
                 label: 'Середній бал за питання (%)',
                 data: dataValues, 
-                backgroundColor: 'rgba(179, 134, 197, 1)', 
-                borderColor: 'rgba(179, 134, 197, 0.5)',   
+                backgroundColor: 'rgba(126, 162, 206, 1)', // Светлый #7EA2CE
+                borderColor: 'rgba(126, 162, 206, 0.5)',   // Полупрозрачный #7EA2CE
                 borderWidth: 2,
                 pointRadius: 6,       
                 pointHoverRadius: 8,  
                 pointBackgroundColor: '#ffffff', 
-                pointBorderColor: 'rgba(179, 134, 197, 1)', 
+                pointBorderColor: 'rgba(126, 162, 206, 1)', // Светлый #7EA2CE
                 pointBorderWidth: 2,
                 tension: 0.3, 
                 fill: true, 
@@ -268,8 +268,8 @@ socket.on("dots-diagram", data => {
                 backgroundColor: (context) => {
                     const ctx = context.chart.ctx
                     const gradient = ctx.createLinearGradient(0, 0, 0, 400)
-                    gradient.addColorStop(0, 'rgba(179, 134, 197, 0.5)')
-                    gradient.addColorStop(1, 'rgba(179, 134, 197, 0)')
+                    gradient.addColorStop(0, 'rgba(126, 162, 206, 0.5)') // Полупрозрачный #7EA2CE
+                    gradient.addColorStop(1, 'rgba(126, 162, 206, 0)')
                     return gradient
                 }
             }]
@@ -330,7 +330,7 @@ socket.on("column-diagram", data => {
                 {
                     label: 'Правильні',
                     data: correctData,
-                    backgroundColor: 'rgba(75, 192, 192, 0.8)',
+                    backgroundColor: 'rgba(75, 192, 192, 0.8)', // Зеленый для правильных ответов
                     borderRadius: {
                         topLeft: 4,
                         topRight: 4,
@@ -342,7 +342,7 @@ socket.on("column-diagram", data => {
                 {
                     label: 'Неправильні',
                     data: incorrectDataNegative,
-                    backgroundColor: 'rgba(255, 99, 132, 0.8)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.8)', // Красный для неправильных ответов
                     borderRadius: {
                         topLeft: 0,
                         topRight: 0,
@@ -421,8 +421,8 @@ socket.on("time_diagrams", data => {
     }
 
     const gradient = ctx.createLinearGradient(0, 0, 0, 400);
-    gradient.addColorStop(0, 'rgba(107, 58, 126, 1)');   
-    gradient.addColorStop(1, 'rgba(179, 134, 197, 1)'); 
+    gradient.addColorStop(0, 'rgba(59, 59, 79, 1)');   // Темный #3b3b4f
+    gradient.addColorStop(1, 'rgba(126, 162, 206, 1)'); // Светлый #7EA2CE
 
     currentChart = new Chart(ctx, {
         type: 'bar', 

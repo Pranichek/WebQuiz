@@ -535,9 +535,6 @@
 }
 
 
-.user-card:hover{
-    border-color: #df434a;
-}
 
 .left-part{
     height: 100%;
@@ -552,7 +549,7 @@
     color: #FFB700;
     white-space: nowrap;   
     text-overflow: ellipsis;
-    font-size: 2vh;
+    font-size: 16px;
 }
 
 .avatar{
@@ -748,6 +745,10 @@
 
 
 /* --------------- */
+.main{
+    flex-direction: row;
+}
+
 .main-part{
     height: 100vh;
     width: 75vw;
@@ -756,171 +757,99 @@
     justify-content: start;
 }
 
-.top-diagram{
-    width: 75vw;
-    height: 88vh;
+.top-diagrams, .bottom-diagrams{
+    width: 100%;
+    height: 50%;
+    /* background-color: green; */
     display: flex;
+    flex-direction: row;
     justify-content: space-between;
 }
+/* 
+.bottom-diagrams{
+    background-color: aqua;
+} */
 
 .circle-diagram{
+    width: 40%;
     height: 100%;
-    width: 30%;
+    display: flex;
 }
 
-.accuracy-block{
+.by-answer{
     width: 100%;
-    height: 10vh;
+    height: 100%;
     display: flex;
+    /* background-color: green; */
 }
 
-.main{
-    flex-direction: row;
+.column-diagram, .dot-diagrams{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    /* background-color: blueviolet; */
 }
 
-/* Выравниваем блок по центру, убираем левый отступ */
-.accuracy-form {
+.open-modal-btn{
+    margin-bottom: 5px;
+}
+
+.open-menu{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+}
+
+.section-header{
     width: 100%;
-    height: 20%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center; 
-    padding-left: 0;
 }
 
-.rate {
-    width: 90%;         
-    height: 90%;      
-    background-color: #ffff;
-    border-radius: 1vh;
-    position: relative;
-    display: flex;
-    align-items: center; 
-}
-
-.fill {
-    background: #94C4FF;
-    transition: width 1s ease-in-out;
-    position: absolute;
-    top: 0;              
-    left: 0;
-    height: 100%;            
-    width: 0%;   
-    border-radius: 1vh;
-}
-
-.quard {
-    position: absolute;
-    height: 8vh;
-    width: auto;  
-    left: 0; 
-    top: 50%;
-    transform: translate(-50%, -50%); 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: left 1s ease-in-out;
-    z-index: 10;
-}
-
-.quard img {
-    width: 8vh;
-    z-index: 100;
-    /* filter: drop-shadow(0 0 20px rgba(115, 238, 115, 0.492)); */
-}
-
-.text-perc {
-    display: flex;
-    height: 4vh;
-    width: max-content;
-    padding: 0 1vw;
-    font-size: 2vh;
-    color: #ffff;
-    background-color: #29292A;
-    border: 0.3vh solid #94C4FF;
-    border-radius: 1vh;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: -5vh;
-    left: 50%;
-    transform: translateX(-50%); 
-    white-space: nowrap;
-}
-
-.accuracy-gradient {
-    position: absolute; 
-    top: 0;
-    left: 0;
+.table-data{
+    padding: 5px 0;
+    font-size: 14px;
+    /* height: 2vh; */
     width: 100%;
-    height: 100%; 
-    background: linear-gradient(90deg, #C49BE9 0%, #3C3C3C 50%, #70E6C1 100%); 
-    filter: blur(6.25vw);
-    z-index: -1;
-    opacity: 0.3;
-}
-
-.quard {
-    position: absolute;
-    height: 8vh;
-    width: auto;  
-    left: 0; 
-    top: 50%;
-    transform: translate(-50%, -50%); 
+    /* background-color: green; */
     display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: left 1s ease-in-out;
-    z-index: 10;
-    cursor: pointer; /* Добавляем курсор в виде руки при наведении на робота */
+    justify-content: space-between;
+    margin-bottom: 2vh;
 }
 
-.quard img {
-    width: 8vh;
-    z-index: 100;
-    /* Свечение убрано, как вы и просили */
-}
-
-.text-perc {
+.full-name{
+    width: 64%;
     display: flex;
-    height: 4vh;
-    width: max-content;
-    padding: 0 1vw;
-    font-size: 2vh;
-    color: #ffff;
-    background-color: #29292A;
-    border: 0.3vh solid #94C4FF;
-    border-radius: 1vh;
-    align-items: center;
-    justify-content: center;
-    position: absolute;
-    top: -5vh;
-    left: 50%;
-    transform: translateX(-50%); 
-    white-space: nowrap;
-    
-    /* Скрываем элемент по умолчанию */
-    opacity: 0;
-    visibility: hidden;
-    /* Плавное появление */
-    transition: opacity 0.3s ease, visibility 0.3s ease; 
-    /* Чтобы текст не перекрывал клики по самому насекомому/роботу */
-    pointer-events: none; 
 }
 
-/* Показываем надпись при наведении на контейнер с роботом */
-.quard:hover .text-perc {
-    opacity: 1;
-    visibility: visible;
+.line-table{
+    height: 100%;
+    border: 0;
+    background: rgba(255, 255, 255, 0.1);
+    width: 1px;
 }
 
-@media(max-width: 900px){
-    .user-card{
-        width: 66%;
-    }
+.user-name{
+    width: 64%;
+    display: block; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    text-align: center;
+}
 
-    .body-ratings{
-        justify-content: center;
+.accuracy-user, .user-points{
+    width: 12%;
+    height: 100%;
+}
+
+main{
+    overflow: hidden;
+}
+
+
+@media (max-width: 768px){
+    .main-part{
+        width: 100dvw;
+        height: 100dvh;
     }
 }

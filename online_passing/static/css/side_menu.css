@@ -3,7 +3,7 @@
     width: 25vw;
     background-color: #3b3b4f;
     color: #ffffff;
-    padding: 2vh 1.5vw;
+    padding: 2vh 1vw;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -122,7 +122,7 @@
 
 .users-list-container {
     overflow-y: auto;
-    padding-right: 5px;
+    /* padding-right: 5px; */
     display: flex;
     flex-direction: column;
     justify-content: start;
@@ -132,14 +132,14 @@
     overflow-x: hidden;
 }
 
-.users-list-container::-webkit-scrollbar {
+/* .users-list-container::-webkit-scrollbar {
     width: 5px;
 }
 
 .users-list-container::-webkit-scrollbar-thumb {
     background: #5a5a75;
     border-radius: 10px;
-}
+} */
 
 .user-card {
     background-color: #45455e;
@@ -164,8 +164,12 @@
 }
 
 .user-name {
-    font-size: 2.2vh;
+    font-size: 16px;
     font-weight: 500;
+}
+
+.accuracy-user, .user-points{
+    font-size: 16px;
 }
 
 .check-icon {
@@ -191,16 +195,34 @@
     font-size: 2.5vh;
 }
 
+.place-part{
+    width: 12%;
+    height: 100%;
+    display: flex;
+    justify-content: space-between;
+    background-color: orange;
+}
+
+.circle-answer{
+    height: 2vh;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+}
+
+
 .correct-status{
     color: #7dc683;
+    background-color: #7dc683;
 }
 
 .wrong-status{
     color: #FF767C;
+    background-color: #FF767C;
 }
 
 .missed-status{
     color: #848282;
+    background-color: #848282;
 }
 
 .user-status.box {
@@ -223,10 +245,19 @@
     width: 100%;
     font-weight: 200;
     flex-wrap: wrap;
+    height: 2.5vh;
 }
 
+
 .left-part{
+    height: 100%;
+    align-items: end;
     display: flex;
+}
+
+.left-part img{
+    height: 100%;
+    object-fit: contain;
 }
 
 .student-control{

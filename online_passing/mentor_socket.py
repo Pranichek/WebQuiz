@@ -8,6 +8,7 @@ from Project.db import DATABASE
 from operator import itemgetter
 from os.path import exists, join, abspath
 from userprofile.models import DataUser
+from .correct_answers import return_answers
 
 
 
@@ -47,14 +48,31 @@ def users_results(data):
     avarage_accuracy = 0
     count_people = 0
     
+    if type_question != "input-gap":
+        count_people_answes = []
+        for answer in clear_answers:
+            count_people_answes.append(0)
+    else:
+        count_people_answes = [0, 0]
 
-    count_people_answes = []
-    for answer in clear_answers:
-        count_people_answes.append(0)
+    if type_question != "input-gap":
+        count = 0
+        count_image = 1
+        for answer in clear_answers:
+            if answer == "image?#$?image":
+                clear_answers[count] = f"зображення   {count_image}"
+                count_image += 1
+            count+=1
+
+
+    # count_people = 1 if count_people <= 0 else count_people
 
     count_correct = 0
     count_uncorrect = 0
     count_skip = 0
+
+    # for dots diagram
+    students_answer = []
 
     for user in user_ids:
         # user : User  = User.query.get(int(user_id))
@@ -75,11 +93,16 @@ def users_results(data):
                     users_answers[count] = f"{count+1}){users_answers[count]}"
                     count+=1
 
+            students_answer.append({
+                "name":user.username,
+                "percent": int(float(user.user_profile.last_answered.split("𒀱")[1]))
+                })
+
             user_list.append({
                 "username": user.username,
                 "email": user.email,
                 "ready": user.user_profile.answering_answer,
-                "count_points": user.user_profile.count_points,
+                "points": user.user_profile.count_points,
                 "user_avatar": avatar_url,
                 "avatar_size": user.size_avatar,
                 "last_answer": users_answers,
@@ -91,7 +114,6 @@ def users_results(data):
             if int(user.user_profile.last_answered.split("𒀱")[2]) == 1:
                 count_correct += 1
                 avarage_accuracy += 100
-                print("loko")
             elif int(user.user_profile.last_answered.split("𒀱")[2]) == 0:
                 count_uncorrect += 1
             else:
@@ -112,20 +134,17 @@ def users_results(data):
                             count_people_answes[2] = count_people_answes[2]+1
                         else:
                             count_people_answes[3] = count_people_answes[3]+1
+            else:
+                answer = user.user_profile.last_answered.split("𒀱")[3].split("@")
 
-    if type_question != "input-gap":
-        count = 0
-        count_image = 1
-        for answer in clear_answers:
-            if answer == "image?#$?image":
-                clear_answers[count] = f"зображення   {count_image}"
-                count_image += 1
-            count+=1
+                if str(answer) in clear_answers:
+                    count_people_answes[0] = count_people_answes[0]+1
+                else:
+                    count_people_answes[1] = count_people_answes[1]+1
 
-    count_people = 1 if count_people <= 0 else count_people
 
     # проверка на лучший вопрос
-    print(avarage_accuracy, count_people, "sok")
+    print(avarage_accuracy, count_people, "mkmn")
     avarage_accuracy = avarage_accuracy // count_people
     best_question = room.best_question
     worst_question = room.worst_question
@@ -158,7 +177,7 @@ def users_results(data):
         DATABASE.session.commit()
 
     # черещ встроенній модуль делаем филтрацию словаря за "count_points" и делаем реверс чтобі біло от большего к меньшему
-    user_list = sorted(user_list, key=itemgetter("count_points"), reverse=True)
+    user_list = sorted(user_list, key=itemgetter("points"), reverse=True)
 
     # была ли картинка к вопросу
     path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(index_question + 1)))
@@ -177,8 +196,11 @@ def users_results(data):
 
     if name_img:
         img_url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{index_question + 1}/{name_img}")
+    # numbers questions
+    num_questions = [index + 1 for index in range(len(test.questions.split("?%?")))]
 
     emit("list_results", {
+        "count_questions": len(test.questions.split("?%?")),
         "avarage_accuracy": avarage_accuracy,
         "users": user_list, 
         "answers": clear_answers, 
@@ -188,6 +210,9 @@ def users_results(data):
         "image_url":img_url,
         "right_indexes": right_indexes,
         "answer_options": answers if type_question != "input-gap" else answers.replace("(?%+", "").replace("+%?)", " ").split(),
+        "questions":  num_questions,
+        "accuracy_questions":all_procents,
+        "students_procents": students_answer
     })
 
 
@@ -342,6 +367,7 @@ def stop_time(data):
 def finish_test(data):
     user_list = []
     room : Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
+    test : Test = Test.query.get(int(data["test_id"]))
 
     # одразу зберігаємо результати усіх користувачів
     if room.users_results.count() == 0:
@@ -403,19 +429,85 @@ def finish_test(data):
     # index_worst = int(room.worst_question.split(" ")[-1])
     # question_worst = test.questions.split("?%?")[index_worst]
 
+    correct_indexes = []
+
+    questions = test.questions.split("?%?")
+
+    for index in range(len(questions)):
+        correct_answers = return_answers(index= index, test_id= int(int(data["test_id"])))
+        
+        correct_indexes.append(correct_answers)
+
     for user in user_ids:
         # user : User  = User.query.get(int(user_id))
         # user.answering_answer = "відповідає"
         # DATABASE.session.commit()
         
         if user:
-            print(user.id, "lokd")
+            
+            list_check = []
+                
+            user_answers = user.user_answers.split()
+            types = test.type_questions.split("?$?")
+            for i in range(len(user_answers)):
+                time_data = []
+                if len(correct_indexes[i]) > 0:
+                    if user_answers[i] != "∅":
+                        if types[i] == "one-answer":
+                            if int(correct_indexes[i][0]) == int(user_answers[i]):
+                                list_check.append("правильно")
+                            else:
+                                list_check.append("неправильно")
+
+                        elif types[i] == "many-answers":
+                            correct = 0
+                            uncorrect = 0
+                            list_answs = user_answers[i].split("@")
+
+                            for ans in list_answs:
+                                if int(ans) in correct_indexes[i]:
+                                    correct += 1
+                                else:
+                                    uncorrect += 1
+                            
+                            # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
+                            count_min = len(correct_indexes[i]) / 2 
+
+                            if correct > int(count_min) and uncorrect == 0:
+                                list_check.append("правильно")
+                            else:
+                                list_check.append("неправильно")
+
+                        elif types[i] == "input-gap":
+                            user_answer_value = user_answers[i]
+                            answers_gaps = test.answers.split("?@?")[i].split("+%?)")
+                            if "" in answers_gaps:
+                                answers_gaps.remove("")
+                            new_answers = []
+                            for answer in answers_gaps:
+                                answer = answer.replace("(?%+", "").replace("+%?)", "")
+                                new_answers.append(answer)
+
+                            if user_answer_value in new_answers:
+                                list_check.append("правильно")
+                            else:
+                                list_check.append("неправильно")
+                    else:
+                        # не ответил
+                        list_check.append("пропустив")
+                else:
+                    if user_answers[i] != "∅":
+                        list_check.append("правильно")
+                    else:
+                        list_check.append("пропустив")
+
             user_list.append({
                 "id": user.user_id,
                 "username": user.username,
                 "email": user.email,
                 "count_points": user.count_points,
                 "accuracy": user.accuracy,
+                "user_answers": list_check
             })
 
             accuracy = int(user.accuracy) 
@@ -458,7 +550,7 @@ def finish_test(data):
     bar_labels = list(stats_bins.keys())  
     bar_values = list(stats_bins.values())
 
-
+    # print("zalupa)
     emit("list_results", {
         "users": user_list,
         "accuracy_result": accuracy_result,
