@@ -51,7 +51,7 @@ def handle_join(data):
                     border = 2
                 )
                 # задаємо посилання на яке буде вести QR-код
-                qr.add_data(f"https://xntyw-77-239-164-153.a.free.pinggy.link/input_username?room_code={code}")
+                qr.add_data(f"https://unneighbourly-noncorrodible-deena.ngrok-free.dev/input_username?room_code={code}")
                 # створюємо QR-код, але у вигляді закодовоного коду
                 qr.make(fit = True)
 
@@ -85,8 +85,6 @@ def handle_join(data):
             room.users.append(current_user)
             DATABASE.session.commit()
 
-
-    emit("user_joined", {"username": current_user.username}, room=room_code, broadcast=True)
     # -------------
     url_qrcode = flask.url_for("profile.static", filename = f"images/edit_avatar/{flask_login.current_user.email}/qrcodes/code.png")
     emit("set_qrcode", {"url_qrcode":url_qrcode})
@@ -96,6 +94,15 @@ def handle_join(data):
     # тернарній опертор
     user_ids = room.users if room and room.users else []
 
+    current_user_data = {
+        "username": current_user.username,
+        "ready": current_user.user_profile.answering_answer,
+        "count_points": current_user.user_profile.count_points,
+        "id": current_user.id,
+        "email": current_user.email,
+        "user_avatar": flask.url_for('profile.static', filename=f'images/edit_avatar/{current_user.name_avatar}'),
+        "pet_img": flask.url_for('profile.static', filename=f'images/pets_id/{current_user.user_profile.pet_id}.png'),
+    }
 
     for user in user_ids:
         # user = User.query.get(int(user_id))
@@ -117,7 +124,17 @@ def handle_join(data):
                 "pet_img": pet_url,
             })
 
-    emit("update_users", {"user_list":user_list, "code":room_code, "id_test": room.id_test}, room=room_code, broadcast=True)
+    emit("update_users", {
+        "user_list": user_list, 
+        "code": room_code, 
+        "id_test": room.id_test
+    }, room=request.sid) 
+
+    emit("user_connected", {
+        "new_user": current_user_data,
+        "mentor_id": room.user_id
+    }, room=room_code, include_self=False)
+
 
 
 @socket.on("send_message")
@@ -149,7 +166,7 @@ def handle_send_message(data):
         "avatar_img":img_url
     }, room=room, include_self=False, broadcast=True)
 
-@socket.on("start_passing")
+@socket.on("start_test")
 def handle_start_test(data):
     room = data["room"]
     emit("start_passing", {"sender": str(current_user.username), "code": room}, room=room, broadcast=True)

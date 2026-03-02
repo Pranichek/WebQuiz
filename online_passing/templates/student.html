@@ -1,118 +1,53 @@
-{% extends 'base.html' %}
+<html lang="uk">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="{{ url_for('static', filename= 'css/base_passing.css') }}">
+        <title>Сторінка проходження студента</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ url_for('test_pass.static', filename = 'css/passing_test.css') }}">
+        <link rel="stylesheet" href="{{ url_for('mentor.static', filename = 'css/side_menu.css') }}">
+    </head>
+    <body>
+        <audio id="correct-sound" src="{{ url_for('test_pass.static', filename='audio/right.mp3') }}" preload="auto"></audio>
+        <audio id="incorrect-sound" src="{{ url_for('test_pass.static', filename='audio/false.mp3') }}" preload="auto"></audio>
 
-{% block links %}
-    <link rel="stylesheet" href="{{ url_for('student.static', filename='css/student.css') }}">
-    <link rel="stylesheet" href="{{ url_for('mentor.static', filename ='css/chat.css') }}">
-{% endblock links %}
+        <main class="main">
 
-{% block content %}
-    <p style="display: none;" data-id="{{ user.id }}" class="id"></p>
-    <div class="blur-wrapper">
-        <div class="background-blur"></div>
-    </div>
+        </main>
 
-    <div class="user-data">
-        <div class="outline">
-            <div class="top-data">
-                <div class="main-data">
-                    <div class="cont-ava">
-                        <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.name_avatar ) }}" alt="avatar">
-                    </div>
-                    <div class="text-data">
-                        <p class="user-nickname" data-value="{{ user.username }}">{{ user.username }}</p>
-                        <p class="gmail-text email" data-value="{{ user.email }}">{{ user.email }}</p>
-                        
-                    </div>
-                </div>
-                <div class="join-data">
-                    <div class="code-join">
-                        <p>Kод приєднання</p>
-                        <div class="right-cont">
-                            <div class="outline-code">
-                                <p class="code-room"></p>
-                            </div> 
-                            <img class="copy copy-code img-copy" src="{{ url_for('mentor.static', filename='images/mentor/copy.svg') }}" alt="copy icon">
-                        </div>
-                    </div>
+        <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 
-                    <div class="link-join">
-                        <p>Скопіюйте посилання</p>
-                        <div class="right-cont copy-url">
-                            <p class="link-copy copy-url">joinquiz.com</p>
-                            <img class="copy img-copy copy-url" src="{{ url_for('mentor.static', filename='images/mentor/copy.svg') }}" alt="copy icon">
-                        </div>
-                    </div>
-                   
-                </div>
-            </div>
-            <div class="bottom-data">
-                <div class="two-blocks">
-                    <div class="block-data money-block">
-                        <p>ваші бали</p>
-                        <div class="outline-block">
-                            30
-                        </div>
-                    </div>
-                    <div class="block-data pet-block">
-                        <p>улюбленець</p>
-                        <div class="outline-block pet-outline">
-                            <img class="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/' ~ user.user_profile.pet_id ~ '.png') }}" alt="pet">
-                        </div>
-                    </div>
-                </div>
-                <div class="count-people">
-                    <p>кількість учасників</p>
-                    <p class="count">0</p>
-                </div>
-            </div>
-        </div>
-    </div>
+        <script>
+            <!-- ОДИИИИН сокет на все страницы -->
+            window.socket = io(); 
+        </script>
 
-    <div class="data-users users">
+        <script type="module" src="{{ url_for('mentor.static', filename='js/recconect.js') }}"></script>
+        <script type="module" src="{{ url_for('mentor.static', filename='js/student_code/student_lobby.js') }}"></script>
+        <script src="{{ url_for('mentor.static', filename='js/side_menu.js') }}"></script>
 
-    </div>
 
-    <div class="chat-icon">
-        <div class="chat-osnova">
-            <div class="header-chat">
-                <div class="avatar-circle-chat">
-                    <div class="ava-cont">
-                        <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.name_avatar ) }}" alt="avatar">
-                    </div>
-                    <span class="username">{{ user.username }}</span>
-                </div>
-                
-                <p class="main-text">Груповий чат</p>
+        <script type="module">
+            let state = localStorage.getItem("check");
+            import { loadLobby, loadPassingStudent } from "{{ url_for('mentor.static', filename='js/student_code/student_lobby.js') }}";
 
-                <div class="avatar-circle-chat robot">
-                    <img class="robots" src="{{ url_for('mentor.static', filename='images/chat/chat_robots.svg') }}" alt="">
-                </div>
-            </div>
-            
-            <div class="messages">
-                
-            </div>
+            if (!state){
+                localStorage.setItem("check", "lobby_page");
+                state = "lobby_page";
+            }
 
-            <div class="input-text">
-                <div class="main-input">
-                    <input type="text" placeholder="повідомлення" class="message-input">
-                    <span class="send-message"><img class="img-btn" src="{{ url_for('mentor.static', filename='images/chat/send_button.svg') }}" alt="btn"></span>
-                </div>
-            </div>
-        </div>
-        
+            if (state == "lobby_page"){
+                loadLobby();
+            }else if(state == "passing_page"){
+                loadPassingStudent();
+            }
+        </script>
 
-        <div class="check-click">
-            <img id="open-chat" src="{{ url_for('mentor.static', filename='images/chat_robot.png') }}" alt="">
-            Відкрити чат
-        </div>
-    </div>
-{% endblock content %} 
 
-{% block scripts %}
-    {{ super() }}
-    <!-- <script type="module" src="{{ url_for('student.static', filename='js/route.js') }}"></script> -->
-    <script src="{{ url_for('student.static', filename='js/student.js') }}"></script>
-    <script src="{{ url_for('student.static', filename='js/chat.js') }}"></script>
-    <script src="{{ url_for('student.static', filename='js/check_student.js') }}"></script>
-{% endblock scripts %}
+    </body>
+</html>

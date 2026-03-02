@@ -56,19 +56,7 @@
             <div class="divider"></div>
 
             <div class="users-list-container outline-users">
-                <!-- <div class="user-card active">
-                    <div class="user-info">
-                        <span class="user-name">Вова</span>
-                    </div>
-                    <div class="user-status finished">✔</div>
-                </div>
 
-                <div class="user-card">
-                    <div class="user-info">
-                        <span class="user-name">Анна</span>
-                    </div>
-                    <div class="user-status box"></div>
-                </div> -->
             </div>
         </div>
 
@@ -81,84 +69,8 @@
             </button>
         </div>
     </div>
-    <!-- <img data-open="{{ url_for('mentor.static', filename='images/open_eye.svg') }}" class="open-eye">
-    <img data-close="{{ url_for('mentor.static', filename='images/close_eye.svg') }}" class="close-eye">
-    <span id="arrow-img-path" data-src="{{ url_for('student.static', filename='images/show_more.svg') }}"></span>
-    <div class="overlay" id="overlay"></div>
 
-    <img data-src="{{ url_for('mentor.static', filename='images/people.svg') }}" class="hide">
-    <div class="pseudo-header">
-        <p class="join-text">приєднатися по коду<span class="code-room"></span></p>
-        
-        <div id="settingsButtons">
-            <button id="showAnswer" data-state="hide">Показати відповіді</button>
-            <button type="button" class="next-question">наступне питання</button>
-        </div>
-    </div>
-
-    <div class="main-block">
-        <div class="accuracy-block">
-            <div class="outline-accruracy">
-                <div class="outline-accuracy">
-                    <div class="accuracy-gradient"></div>
-                </div>
-
-                <div class="accuracy-form">
-                    <div class="rate">
-                        <div class="fill"></div>
-                        <div class="quard">
-                            <img src="{{ url_for('mentor.static', filename = 'images/robot-acc.svg') }}" alt="">
-                            <div class="text-perc">
-                                <p></p>
-                            </div>
-                        </div>
-                    </div>  
-                </div>
-
-            </div>
-        </div>
-
-        <div class="users-data">
-            <div class="top-data">
-                <div class="data-answers">
-
-                    <div class="circle-info">
-                        <div class="circle right-circle">
-                            <p class="right-text">0</p>
-                        </div>
-                        <p> - Правильних відповідей</p>
-                    </div>
-
-                    <div class="circle-info">
-                        <div class="circle wrong-circle">
-                            <p class="wrong-text">0</p>
-                        </div>
-                        <p> - Неправильних відповідей</p>
-                    </div>
-
-                    <div class="circle-info">
-                        <div class="circle simple-circle">
-                            <p class="simple-text">0</p>
-                        </div>
-                        <p> - Інше</p>
-                    </div>
-                </div>
-            </div>
-            <div class="users-ratings">
-
-            </div>
-        </div>
-    </div>
-
-    <div class="window-choice">
-        <h1>Видалити учасника з кімнати</h1>
-        <p>Ви впевнені, що хочете видалити цього учасника з кімнати?</p>
-        <div>
-            <p class="decline">Скасувати</p>
-            <p class="remove_user">Видалити</p>
-        </div>
-    </div> -->
-     <div class="window-end">
+    <div class="window-end">
         <h1>Закінчення тесту</h1>
         <p>Ви впевнені, що хочете примусово закінчити тест?</p>
         <div>
@@ -170,8 +82,7 @@
 
 {% block scripts %}
     {{ super() }}
-    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    
     <script src="{{ url_for('mentor.static', filename='js/mentor_result.js') }}"></script>
     <script src="{{ url_for('mentor.static', filename='js/recconect.js') }}"></script>
     <script src="{{ url_for('mentor.static', filename='js/end_test.js') }}"></script> 

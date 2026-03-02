@@ -7,7 +7,6 @@
 
 {% block content %}
     <p style="display: none;" data-id="{{ user.id }}" class="id"></p>
-    <a href="/finish_test?test_id="></a>
 
     <img class="sad_robot" src="{{ url_for('test_pass.static', filename='images/sad_robot.svg') }}" alt="">
     <img class="happy_robot" src="{{ url_for('test_pass.static', filename='images/happy_robot.svg') }}" alt="">
@@ -41,8 +40,6 @@
             </div>
         </div>
 
-        <audio id="correct-sound" src="{{ url_for('test_pass.static', filename='audio/right.mp3') }}" preload="auto"></audio>
-        <audio id="incorrect-sound" src="{{ url_for('test_pass.static', filename='audio/false.mp3') }}" preload="auto"></audio>
         <div class="modal"></div>
 
         <div class="coin-anim">
@@ -54,7 +51,6 @@
             <img class="sighn-plus" src="{{ url_for('test_pass.static', filename = 'images/plus.svg') }}" alt="">
         </div>
 
-        <!-- </head> -->
         <div class= 'question'>
             
         </div>
@@ -65,12 +61,6 @@
         <div class= "answers">
             
         </div>
-
-        <!-- <div class = "circle-send">
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24" fill="currentColor">
-                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/>
-            </svg>
-        </div> -->
     </div>
 
     <div class="side-menu">
@@ -91,19 +81,6 @@
             </div>
             
             <div class="users-list-container outline-users">
-                <!-- <div class="user-card active">
-                    <div class="user-info">
-                        <span class="user-name">Вова</span>
-                    </div>
-                    <div class="user-status finished">✔</div>
-                </div>
-
-                <div class="user-card">
-                    <div class="user-info">
-                        <span class="user-name">Анна</span>
-                    </div>
-                    <div class="user-status box"></div>
-                </div> -->
             </div>
         </div>
 
@@ -148,49 +125,7 @@
                 </div>
                 <p class="points-text">0</p>
             </div>
-    </div>
-
-
-    <!-- <div class="answers-image">
-        <div class="top-answers">
-        </div>
-        <div class= 'question-image'>
-          
-        </div>
-        <div class="bottom-answers">
-        </div>
-    </div> -->
-    
-    <!--  -->
-    <!-- <div class="footer-test">
-        <div class="bonus-data">
-            {% if user.size_avatar %}
-                <p class="text-kem">{{ user.username }}</p>
-            {% else %}
-                <p class="text-kem">Guest</p>
-            {% endif %}
-            {% if user.user_profile %}
-                <p class="count-money" data-value="{{ user.user_profile.count_money }}">{{ user.user_profile.count_money }}</p>
-            {% else %}
-                <p class="count-money" data-value="0">0</p>
-            {% endif %}
-            <img class="money" src="{{ url_for('test_pass.static', filename='images/money.svg') }}" alt="avatar">
-        </div>
-
-        <div class="submit">
-            
-        </div>
-
-        <div class="ai-timer">
-            <div class="circle">
-                <div class="inside-circle">
-                    <p class="timer"></p>
-                </div>
-            </div>
-        </div>
-
-    </div> -->
-    </body>
+    </div>    
 {% endblock content %}
 
 {% block scripts %}

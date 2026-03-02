@@ -1,149 +1,114 @@
 {% extends 'base.html' %}
 
 {% block links %}
-    <link rel="stylesheet" href="{{ url_for('mentor.static', filename ='css/finish_student.css') }}">
-{% endblock links %}
+    <link rel="stylesheet" href="{{ url_for('mentor.static', filename='css/finish_mentor.css') }}">
+    <link rel="stylesheet" href="{{ url_for('mentor.static', filename='css/personal_user.css') }}">
+    <link rel="stylesheet" href="{{ url_for('mentor.static', filename='css/questions_diagrams.css') }}">
+{% endblock %}
 
 {% block content %}
-    <div class="background-blur"></div>
+    <div class="user_id" data-id="{{ current_user.id }}" style="display:none;"></div>
 
-    <div class="switch-buttons">
-        <button>Результати тесту</button>
-        <a href="/questions" class="button">Огляд питань</a>
+    <div class="blur"></div>
+    <span style="display: none;" data-src="{{ url_for('mentor.static', filename='images/finish_mentor/show_more.svg') }}" class="arrow-src"></span>
+    
+    <div class="pseudo-header">
+        <p class="text-result">Успіхи тесту:</p>
+        <div class="buttons">
+            <div class="button-question button-header">
+                <p>перелік питань</p>
+            </div>
+        </div>
     </div>
 
-    <div class="bottom-info">
+    <div class="main-data">
         <div class="left-part">
-
-            <div class="big-div">
-                <div class="small-div">
-
-                    <div class="info">
-                        <div class="name-div">
-                            {% if user.user_profile %}
-                                <p class="name">{{ user.username }}</p>
-                                <p class="email-user"><a href="/profile" class="email-user" style="text-decoration: none;">{{ user.email }}</a></p>
-                            {% else %}
-                                <p>Guest</p>
-                                <p>guest@gmail.com</p>
-                            {% endif %}
+            <div class="head-buttons">
+                <div class="left-buttons">
+                    <div class="solo-wrapper">
+                        <div class="solo-data">
+                            <p class="text-button js-username">Завантаження...</p>
                         </div>
-                        <div class="note">
-                            <p>ваші бали</p>
-                            <div class="note-div">
-                                {% if user.user_profile %}
-                                    <p>{{ user.user_profile.count_money }}</p>
-                                {% else %}
-                                    <p>0</p>
-                                {% endif %}
-                                <img class="money" src="{{ url_for('finish_test.static', filename='images/coin.svg'  ) }}" alt="avatar">
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="midle-info">
-                        <div class="avatar-circle da">
-                            {% if user.is_authenticated %}
-                                <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.name_avatar ) }}" alt="avatar">
-                            {% else %}
-                                <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.name_avatar ) }}" alt="avatar">
-                            {% endif %}
-                        </div>
-                    </div>
-                    
-
-                    <div class="prt-2">
-                        <div class="r">
-                            <div class="anim">
-                                <p>Улюбленець</p>
-                                <div class="animal">
-                                    {% if user.user_profile %}
-                                        <!-- <div class="pet1"> -->
-                                        <img id="own-pet" src="{{ url_for('profile.static', filename='images/pets_id/' ~ user.user_profile.pet_id ~ '.png') }}" alt="pet">
-                                        <!-- </div> -->
-                                    {% else %}
-                                        <div class="pet1">
-                                            <p class="text">немає</p>
-                                        </div>
-                                    {% endif %}
-                                </div>
-                            </div>
-                            
-                            
-                            <div class="tests">
-                                <p class="passed-tests">пройдені тести:</p>
-                                {% if user.user_profile %}
-                                    <p class="num">{{ user.user_profile.count_tests }}</p>
-                                {% else %}
-                                    <p class="num">не зареєстрован</p>
-                                {% endif %}
-                            </div>
-                        </div>
-                        
-                        <div class="buttons">
-                            <button type="button" class="btn-1 copy-result">поділитися результатом </button>
-                            <button class="btn-2 add-favorite">додати у вибране</button>
-                        </div>
+                        <div class="dropdown-users"></div>
                     </div>
                 </div>
             </div>
 
-            <div class="bottom-data">
-                <div class="result">
+            <div class="personal-data">
+                <div class="points-user">
+                    <p class="points-text js-points">--/--</p>
+                    <div class="block-accuracy">
+                        <p>Бали</p>
+                    </div>
+                </div>
+
+                <div class="personal-accuracy">
+                    <p class='student-accuracy js-accuracy'>--%</p>
                     <p>Точність</p>
-                    <div class="line">
-                        <div class="fill"></div>
-                        <div class="quard">
-                            <div class="text-perc">
-                                <p>0%</p>
-                            </div>
-                        </div>
-                    </div>  
                 </div>
 
-                <div class="justify-btn">
-                    <button class="btn play_again" value="">пройти знов</button>
-                    <button class="btn" onclick="window.location.replace('/')">знайти інший тест</button>
+                <div class="avarage-time">
+                    Середній час:
+                    <div class="time-text">
+                        <p class='student-time js-time'>-- сек</p>
+                    </div>
+                </div>
+            </div> 
+
+            <div class="user-questions">
+                <p class="info-text">Детальний аналіз відповідей</p>
+                <div class="all-questions">
+                    <div class="question-header">
+                        <div class="nums">#</div>
+                        <div class="question-part">Питання</div>
+                        <div class="answer-part">Ваша відповідь</div>
+                        <div class="part-result">Успіх</div>
+                    </div>
+                    <div class="questions-cont"></div>
+                </div>
+            </div> 
+        </div>
+
+        <div class="right-part">
+            <div class="first-diagram">
+                <div class="top-part">
+                    <p>Загальна точність: <span class="accuracy-result js-accuracy-result">--%</span></p>
+                    <select id="choice-diagram" name="diagram" value="general">
+                        <option value="general-student">Загальна успішність</option>
+                        <option value="time-diagram-student">Аналіз часу</option>
+                    </select>
+                </div>
+
+                <div class="diagram-pie">
+                    <canvas id="myChart" class="myChart"></canvas>
                 </div>
             </div>
 
-    
-        </div>
-        <div class="right-part">
-            <div class="prt1">
-                <img class="big-confeti" src="{{ url_for('finish_test.static', filename='images/confeti.svg') }}">
-                <img class="small-confeti" src="{{ url_for('finish_test.static', filename='images/confeti.svg') }}">
-                <img class="second-robot" src="{{ url_for('finish_test.static', filename='images/robot.svg') }}">
-                <div class="block-4 block">
-
-                    <div class="correct-avatar">
-                        <h1>skldfmvklsdmfdd</h1>
-                        {% if user.user_profile %}
-                            <img data-size="{{ user.size_avatar }}" class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/' + user.name_avatar ) }}" alt="avatar">
-                        {% else %}
-                            <img class="avatar" src="{{ url_for('profile.static', filename='images/edit_avatar/default_avatar.svg') }}" alt="avatar">
-                        {% endif %}
+            <div class="line"></div>
+                
+            <div class="data-accuracy">
+                <div class="user-tips">
+                    <div class="correct-answers div-answer">
+                        <div class="left-block">
+                            <div class="sighn-correct"></div>
+                            <p>Правильні</p>
+                        </div>
+                        <div class="text-num"><p class="js-count-correct">-</p></div>
                     </div>
-                    <p class="mark"></p>
-                    <p class="text-mark"></p>
-                </div>
-
-                <div class="block-1 block">
-                    <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/del.svg'  ) }}" alt="img">
-                    <p class="uncorrect-answers"></p>
-                    <p>Невірних відповідей</p>
-                </div>
-                <div class="block-2 block">
-                    <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/done.svg'  ) }}" alt="img">
-                    <p class="correct-answers"></p>
-                    <p>Вірних відповідей</p>
-                </div>
-                <div class="block-3 block">
-                    <img class="img-achiv" src="{{ url_for('finish_test.static', filename='images/time.svg'  ) }}" alt="img">
-                    <div class="seckond">
-                        <p class="midle-time"></p>
+                    <div class="uncorrect-answers div-answer">
+                        <div class="left-block">
+                            <div class="sighn-uncorrect"></div>
+                            <p>Не правильні</p>
+                        </div>
+                        <div class="text-num"><p class="js-count-incorrect">-</p></div>
                     </div>
-                    <p>Час/питання</p>
+                    <div class="unanswered-answers div-answer">
+                        <div class="left-block">
+                            <div class="sighn-skip"></div>
+                            <p>Пропущені</p>
+                        </div>
+                        <div class="text-num"><p class="js-count-skipped">-</p></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -152,6 +117,9 @@
 
 {% block scripts %}
     {{ super() }}
-    <script src="{{ url_for('student.static', filename='js/student_result.js') }}"></script>
-    <script src="{{ url_for('student.static', filename='js/recconect.js') }}" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('mentor.static', filename='js/student_chart.js') }}" defer></script>
+    <script src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <script src="{{ url_for('mentor.static', filename='js/finish_student.js') }}" defer></script>
+    <script src="{{ url_for('mentor.static', filename='js/recconect.js') }}" defer></script>
 {% endblock %}

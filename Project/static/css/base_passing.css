@@ -1,8 +1,26 @@
+*{
+    margin: 0; 
+    padding: 0;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter';
+    color: #ffffff;
+    line-height: 1.1;
+}
+
+body{
+    background-color: #3C3C3C;
+
+}
+
 main {
     width: 100vw;
     height: 100vh;
     display: flex;
+    background-color: #3C3C3C;
 }
+
 
 .window-choice{
     position: absolute;

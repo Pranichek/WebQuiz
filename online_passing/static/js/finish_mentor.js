@@ -122,7 +122,7 @@ socket.on("list_results", data => {
 
 
         const userCard = `
-            <div class="user ${checkDark}">
+            <div id="${user.id}" class="user ${checkDark}">
                 <div class="left-category">
                     <p class="place">${count}</p>
                     <p class="name">${user.username}</p>
@@ -209,7 +209,7 @@ socket.on("list_results", data => {
             {wch: 15}  
         ]
         worksheet['!cols'] = wscols
-        XLSX.utils.book_append_sheet(workbook, worksheet, "Результати")
+        XLSX.utils.book_append_sheet(workbook, worksheet, "Успіхи")
 
         XLSX.writeFile(workbook, `Results_Room_${localStorage.getItem("room_code")}.xlsx`)
     })
@@ -273,7 +273,6 @@ function openUserModal(userId) {
                     <p class="points-text">200/200</p>
                     <div class="block-accuracy">
                         <p>Бали</p>
-                        <p>Точність</p>
                     </div>
                 </div>
 
@@ -297,7 +296,7 @@ function openUserModal(userId) {
                         <div class="nums">#</div>
                         <div class="question-part">Питання</div>
                         <div class="answer-part">Ваша відповідь</div>
-                        <div class="part-result">Результат</div>
+                        <div class="part-result">Успіх</div>
                     </div>
                     <div class="questions-cont"></div>
                 </div>
@@ -396,3 +395,19 @@ function openUserModal(userId) {
         })
     })
 }
+
+
+
+document.addEventListener("click", (e) => {
+    const userBlock = e.target.closest(".user")
+    
+    if (!userBlock) {
+        return;
+    }
+
+    const userId = userBlock.id
+
+    if (userId) {
+        openUserModal(userId)
+    }
+})

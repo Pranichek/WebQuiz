@@ -121,21 +121,23 @@ main {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    padding: 10px 10px 10px 22px;
+    padding: 0 10px;
     z-index: 1000;
 }
 
+
 .bonus-block {
     position: relative;
-    width: auto;
+    width: 20%;
     height: auto;
     background-color: #636363;
     border-radius: 4px;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     padding: 10px 14px;
+    max-width: 100px;
 }
 
 .text-bonus {
@@ -513,7 +515,7 @@ header {
     transition: 0.5s ease;
 }
 
-.right-answer, .uncorrect-answer {
+.right-answer, .uncorrect-answer , .skip-answer{
     position: fixed;
     background-color: #2D2D2D;
     width: 120vw;
@@ -528,6 +530,7 @@ header {
     transform: translate(-50%, 500%);
     z-index: 401;
     overflow: hidden;
+    transition: transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .sad_robot, .happy_robot {
@@ -538,14 +541,14 @@ header {
     height: 40vh;
     min-width: 160px;
     min-height: 160px;
-    transform: translate(-48%, 150%);
+    transform: translate(-50%, 500%);
     z-index: 401;
+    transition: transform 0.67s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
 .fade-in-anim-robot {
     min-width: 160px;
     min-height: 160px;
-    transition: 0.88s;
     transform: translate(-48%, -75%);
 }
 
@@ -663,13 +666,17 @@ header {
 
 .fade-in-anim {
     overflow: visible;
-    transition: 0.9s ease;
     transform: translate(-50%, -50%);
 }
 
 .uncorrect-answer {
     background-color: #E05359;
     border: #E05359 2px solid;
+}
+
+.skip-answer{
+    background-color: #bdbdbd;
+    border: #8e8c8c 2px solid;
 }
 
 .count-money {
@@ -770,40 +777,19 @@ header {
     letter-spacing: 0.5px;
 }
 
-/* кнопка відправки даних на телефоні */
-.circle-send{
-    background-color: #343434;
-    border-radius: 50%;
-    height: 10vh;
-    width: 10vh;
-    position: fixed;
-    display: none;
-    right: 10px;
-    bottom: 10px;
-    transition: 0.2s ease;
-    cursor: pointer;
+.circle-send {
+    display: none; 
 }
 
-.circle-send:hover{
-    background-color: #484747;
-}
-
-.circle-send svg{
-    height: 50%; 
-    width: 50%;
-}
-
-
-/* Специальная раскладка для вопросов с вводом текста */
 .answers.input-gap-layout {
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Центрируем по вертикали */
-    align-items: center;     /* Центрируем по горизонтали */
-    gap: 4vh;                /* ОДИНАКОВОЕ расстояние между текстом, полем и кнопкой */
+    justify-content: center; 
+    align-items: center;    
+    gap: 4vh;                
     height: 35vh;
     background-color: #414040;
-    border-radius: 10px;     /* Слегка скруглим углы для красоты */
+    border-radius: 10px;     
     padding: 20px;
 }
 
@@ -837,8 +823,33 @@ header {
 }
 
 @media (max-width: 768px) {
-    .circle-send{
+    .circle-send {
         display: flex;
+        position: fixed;
+        bottom: 0; 
+        left: 0;
+        width: 100vw;
+        height: 8vh; 
+        min-height: 50px;
+        background-color: #C39FE4;
+        color: white;
+        justify-content: center;
+        align-items: center;
+        font-weight: bold;
+        font-size: 2.2vh;
+        z-index: 9999;
+        cursor: pointer;        
+        border-radius: 6px 6px 0 0;        
+        transform: translateY(100%);
+        transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.2s ease;
+    }
+
+    .circle-send:hover {
+        background-color: #b085d6;
+    }
+
+    .circle-send.show-btn {
+        transform: translateY(0);
     }
 
     body, main, .main-part {
@@ -965,15 +976,15 @@ header {
         width: 100% !important;
     }
 
-    .right-answer, .uncorrect-answer {
+    .right-answer, .uncorrect-answer, .skip-answer{
         width: 100vw;      
         height: 12vh;       
         left: 0;           
-        transform: translate(0, 500%); 
+        transform: translate(0, 500%);
     }
 
     .right-answer.fade-in-anim, 
-    .uncorrect-answer.fade-in-anim {
+    .uncorrect-answer.fade-in-anim , .skip-answer.fade-in-anim {
         transform: translate(0, -50%); 
         top: 50%;
     }
@@ -981,5 +992,11 @@ header {
     .sad_robot, .happy_robot {
         width: 60vw;
         height: 60vw;
+        left: 50%;
+        transform: translate(-50%, 500%);
+    }
+    
+    .fade-in-anim-robot {
+        transform: translate(-50%, -75%);
     }
 }

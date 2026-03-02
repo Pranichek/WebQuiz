@@ -1,4 +1,5 @@
 let cards = document.querySelectorAll(".card")
+localStorage.setItem("check", "lobby_page");
 
 
 for (let card of cards){

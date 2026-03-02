@@ -3,6 +3,8 @@ if (localStorage.getItem("room_code")){
     localStorage.removeItem("room_code")
 }
 
+localStorage.setItem("check", "lobby_page")
+
 // створення localstorage для відсліджування у якій вкладці зараз користувач
 // recently-passed - недавнопройдені тести
 // saved - збережені

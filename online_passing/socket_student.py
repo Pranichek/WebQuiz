@@ -1,5 +1,5 @@
 from Project.socket_config import socket
-import flask_login, flask, os, random as r
+import flask_login, flask, os, random 
 from quiz.models import Test
 from flask_socketio import emit, join_room
 from os.path import abspath, join, exists
@@ -31,7 +31,7 @@ def connect_to_room(data):
     id_test = int(data["test_id"])
     index_question = int(data["index"])  
 
-    join_room(room=data["code"])
+    # join_room(room=data["code"])
 
     change_check(code=data["code"], id=flask_login.current_user.id)
 
@@ -57,6 +57,15 @@ def connect_to_room(data):
         current_answers.append(ans_clean)
 
     current_answers = current_answers[0].split('*|*|*')
+    del current_answers[-1]
+
+    new_answers = []
+
+    for index in range(len(current_answers)):
+        new_answers.append([index, current_answers[index]])
+
+
+    random.shuffle(new_answers)
 
     path = abspath(join(__file__, "..", "..", "userprofile", "static", "images", "edit_avatar", str(test.user.email), "user_tests", str(test.title_test), str(index_question + 1)))
     if exists(path):
@@ -76,7 +85,6 @@ def connect_to_room(data):
     else:
         img_url = "not"
 
-    del current_answers[-1]
 
     # проверка на то что есть ли в ответах картинки или нет
     image_urls = ["none", "none", "none", "none"]
@@ -92,7 +100,7 @@ def connect_to_room(data):
         "answers_image": image_urls,
         "type": current_type,
         "question": current_question,
-        "answers": current_answers,
+        "answers": new_answers if current_type != "input-gap" else current_answers,
         "index": index_question + 1,
         "amount_question": len(questions),
         "test_time": int(test_time) if test_time.isdigit() else test_time,
@@ -157,6 +165,27 @@ def answer_the_question(data):
     except Exception as e:
         print(f"Error calculating score: {e}") 
         pass
+
+    if "finish" in data and data["finish"] is True:
+        test_obj = Test.query.get(int(data["id_test"]))
+        total_questions = len(test_obj.questions.split("?%?"))
+        current_index = int(data["index"])
+
+        for ind in range(current_index , total_questions - 1):
+            flask_login.current_user.user_profile.all_answers += "∅ "
+            flask_login.current_user.user_profile.all_procents += " 0"
+            flask_login.current_user.user_profile.avarage_time += " 0"
+
+            stats = flask_login.current_user.user_profile.data_questions.split("/")
+            if len(stats) == 3:
+                flask_login.current_user.user_profile.data_questions = f"{stats[0]}/{stats[1]}/{int(stats[2]) + 1}"
+            
+        DATABASE.session.commit()
+        
+        emit("finish_student")
+        
+        return
+    
 
     if 'value_bonus' in data.keys():
         if int(data["value_bonus"]) > 0 and flask_login.current_user.is_authenticated:
@@ -296,7 +325,7 @@ def answer_the_question(data):
     count_skip = 0
     # список для того чтобы понимать правильно он ответил последний вопрос или нет
     check_answers = []  
-
+    
     for i in range(len(user_answers)):
         if  i + 1 <= len(correct_indexes) and len(correct_indexes[i]) > 0:
             if list_users_answers[i][0] != "∅":
@@ -406,39 +435,78 @@ def answer_the_question(data):
 
     count_answered = 0
     count_people = 0
+    
     for user in user_ids:
-        # user = User.query.get(int(user_id))
-        if user and user.id != room.user_id:
+        if user.id != room.user_id: 
             count_people += 1
             if user.user_profile.answering_answer == "відповів":
                 count_answered += 1
-
-            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
-            pet_url = flask.url_for(
-                'profile.static',
-                filename=f'images/pets_id/{user.user_profile.pet_id}.png'
-            )
-
-            user_list.append({
-                "username": user.username,
-                "ready": user.user_profile.answering_answer,
-                "count_points": user.user_profile.count_points,
-                "user_avatar": avatar_url,
-                "pet_img": pet_url,
-                "id": user.id
-            })
-    if "finish" in data.keys():
-        DATABASE.session.commit()
-        emit("finish_student")
-    elif count_answered >= count_people or "check_end" in data.keys():
+    
+    if count_answered >= count_people or "check_end" in data.keys():
         room.sockets_users.clear()
         DATABASE.session.commit()
+        
+        user_list = [] 
+        for user in user_ids:
+             if user.id != room.user_id:
+                avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
+                pet_url = flask.url_for('profile.static', filename=f'images/pets_id/{user.user_profile.pet_id}.png')
+                user_list.append({
+                    "username": user.username,
+                    "ready": user.user_profile.answering_answer,
+                    "count_points": user.user_profile.count_points,
+                    "user_avatar": avatar_url,
+                    "pet_img": pet_url,
+                    "id": user.id
+                })
+        
         emit("update_users", {"user_list": user_list}, room=data["code"], broadcast=True)
         emit("page_result", room=data["code"], broadcast=True)
         emit("page_waiting")
+
     else:
-        emit("update_users", {"user_list":user_list}, room=data["code"], broadcast=True)
+        emit("single_student_answered", {
+            "user_id": flask_login.current_user.id,
+            "status": "відповів",
+            "answered_count": count_answered,
+            "total_count": count_people
+        }, room=data["code"], broadcast=True)
+        
         emit("page_waiting")
+
+    # for user in user_ids:
+    #     # user = User.query.get(int(user_id))
+    #     if user and user.id != room.user_id:
+    #         count_people += 1
+    #         if user.user_profile.answering_answer == "відповів":
+    #             count_answered += 1
+
+    #         avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
+    #         pet_url = flask.url_for(
+    #             'profile.static',
+    #             filename=f'images/pets_id/{user.user_profile.pet_id}.png'
+    #         )
+
+    #         user_list.append({
+    #             "username": user.username,
+    #             "ready": user.user_profile.answering_answer,
+    #             "count_points": user.user_profile.count_points,
+    #             "user_avatar": avatar_url,
+    #             "pet_img": pet_url,
+    #             "id": user.id
+    #         })
+    if "finish" in data.keys():
+        DATABASE.session.commit()
+        emit("finish_student")
+    # elif count_answered >= count_people or "check_end" in data.keys():
+    #     room.sockets_users.clear()
+    #     DATABASE.session.commit()
+    #     emit("update_users", {"user_list": user_list}, room=data["code"], broadcast=True)
+    #     emit("page_result", room=data["code"], broadcast=True)
+    #     emit("page_waiting")
+    # else:
+    #     emit("update_users", {"user_list":user_list}, room=data["code"], broadcast=True)
+    #     emit("page_waiting")
 
     DATABASE.session.commit()
 

@@ -1,4 +1,4 @@
-main {
+/* main {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -7,7 +7,7 @@ main {
     height: 90vh;
     padding-left: 2%;
     box-sizing: border-box;
-}
+} */
 
 .general_container_rect {
     display: flex;

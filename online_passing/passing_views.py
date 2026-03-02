@@ -69,9 +69,7 @@ def render_finish_mentor():
 def render_finish_student():
     return flask.render_template(
         'finish_student.html',
-        user = flask_login.current_user,
-        test_page = True,
-        progress = find_percentage([10, 10, 10, 10, 18, 2, 20, 0, 10, 10]),
+        user = flask_login.current_user
     )
 
 def find_percentage(data: list) -> list:

@@ -144,7 +144,7 @@
 .user-card {
     background-color: #45455e;
     border-radius: 10px;
-    padding: 1.5vh 1vw;
+    padding: 1.5vh 1.5vw;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -160,17 +160,12 @@
 .user-info {
     display: flex;
     align-items: center;
-    gap: 1vw;
+    width: 100%;
+    justify-content: space-between;
+    /* background-color: orange; */
+    /* gap: 1vw; */
 }
 
-.user-name {
-    font-size: 16px;
-    font-weight: 500;
-}
-
-.accuracy-user, .user-points{
-    font-size: 16px;
-}
 
 .check-icon {
     color: #7dc683;
@@ -199,9 +194,23 @@
     width: 12%;
     height: 100%;
     display: flex;
-    justify-content: space-between;
-    background-color: orange;
+    justify-content: start;
+    gap: 3px;
+    /* background-color: orange; */
+    /* background-color: orange; */
 }
+
+.accuracy-part{
+    /* background-color: pink; */
+    text-align: center;
+    width: 20%;
+}
+
+.points-part{
+    text-align: center;
+    width: 20%;
+}
+
 
 .circle-answer{
     height: 2vh;
@@ -346,6 +355,11 @@
     right: 4vw;
     z-index: 10001;
     line-height: 1;
+}
+
+.outline-click{
+    width: 20%;
+    max-width: 100px;
 }
 
 .open-menu {

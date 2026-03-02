@@ -137,14 +137,13 @@ def users_results(data):
             else:
                 answer = user.user_profile.last_answered.split("𒀱")[3].split("@")
 
-                if str(answer) in clear_answers:
+                if str(answer[0]) in clear_answers:
                     count_people_answes[0] = count_people_answes[0]+1
                 else:
                     count_people_answes[1] = count_people_answes[1]+1
 
 
     # проверка на лучший вопрос
-    print(avarage_accuracy, count_people, "mkmn")
     avarage_accuracy = avarage_accuracy // count_people
     best_question = room.best_question
     worst_question = room.worst_question
@@ -336,7 +335,6 @@ def no_time(data):
 
     emit("no_time", {"index_question": data["index"]}, room=room_code, broadcast=True)
 
-
 @socket.on("next_one")
 def next_question(data):
     index_question = int(data["index"])
@@ -382,7 +380,7 @@ def finish_test(data):
 
             all_procents = profile.all_procents.split()
             sum_prcoents = sum(int(x) for x in all_procents)
-            accuracy = sum_prcoents // len(all_procents)
+            accuracy = int(profile.all_procents.split()[-1])
             
             mark = (12 * accuracy) // 100
             
@@ -439,9 +437,6 @@ def finish_test(data):
         correct_indexes.append(correct_answers)
 
     for user in user_ids:
-        # user : User  = User.query.get(int(user_id))
-        # user.answering_answer = "відповідає"
-        # DATABASE.session.commit()
         
         if user:
             
@@ -449,8 +444,9 @@ def finish_test(data):
                 
             user_answers = user.user_answers.split()
             types = test.type_questions.split("?$?")
+            # print(user_answers, "lols")
+            # print(user.all_procents)
             for i in range(len(user_answers)):
-                time_data = []
                 if len(correct_indexes[i]) > 0:
                     if user_answers[i] != "∅":
                         if types[i] == "one-answer":
@@ -506,11 +502,11 @@ def finish_test(data):
                 "username": user.username,
                 "email": user.email,
                 "count_points": user.count_points,
-                "accuracy": user.accuracy,
+                "accuracy": int(user.all_procents.split()[-1]),
                 "user_answers": list_check
             })
 
-            accuracy = int(user.accuracy) 
+            accuracy = int(user.all_procents.split()[-1]) 
             check = False
 
             for elem in accuracy_result:
@@ -543,14 +539,13 @@ def finish_test(data):
 
     user_list = sorted(user_list, key=itemgetter("count_points"), reverse=True)
     if passed_test > 0:
-        average_accuracy = total_accuracy // passed_test
+        average_accuracy = total_accuracy // passed_test 
     else:
         average_accuracy = 0
 
     bar_labels = list(stats_bins.keys())  
     bar_values = list(stats_bins.values())
 
-    # print("zalupa)
     emit("list_results", {
         "users": user_list,
         "accuracy_result": accuracy_result,

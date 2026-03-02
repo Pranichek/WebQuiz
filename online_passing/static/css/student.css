@@ -255,6 +255,12 @@ main{
     font-size: 2vh;
 }
 
+.outline-block img{
+    height: 80%;
+    width: auto;
+    object-fit: contain;
+}
+
 .pet-outline {
     border: 1px #C48AF7 solid;
 }

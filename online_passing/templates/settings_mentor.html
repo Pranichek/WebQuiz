@@ -2,7 +2,6 @@
 
 {% block links %}
     <link rel="stylesheet" href="{{ url_for('mentor.static', filename = 'css/settings_mentor.css') }}">
-    <link rel="stylesheet" href="{{ url_for('mentor.static', filename = 'css/side_menu.css') }}">
 {% endblock links %}
 
 {% block content %}
@@ -18,10 +17,6 @@
                 <p class="num-que"></p>
             </div>
 
-            <!-- <div class="image-cont">
-                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTFYqoKTu_o3Zns2yExbst2Co84Gpc2Q1RJbA&s" alt="">
-            </div>  -->
-
             <div class= "question-bg">
                 <p class="question-text">
                 </p>
@@ -31,19 +26,6 @@
 
 
         <div class="answers-test">
-            <!-- <div class="input-type">
-                <p>правильна відповідь:</p>
-                <p>поки схована</p>
-            </div> -->
-<!-- 
-            <div class="block-answer">
-                <div class="sign"></div>
-                <div class="text-part">
-                    <p>
-                        привіт
-                    </p>
-                </div>
-            </div> -->
 
         </div>
     </div>
@@ -66,19 +48,7 @@
             </div>
             
             <div class="users-list-container outline-users">
-                <!-- <div class="user-card active">
-                    <div class="user-info">
-                        <span class="user-name">Вова</span>
-                    </div>
-                    <div class="user-status finished">✔</div>
-                </div>
 
-                <div class="user-card">
-                    <div class="user-info">
-                        <span class="user-name">Анна</span>
-                    </div>
-                    <div class="user-status box"></div>
-                </div> -->
             </div>
         </div>
 
@@ -106,85 +76,6 @@
         </div>
     </div>
 
-    <!-- <div class="overlay" id="overlay"></div>
-    <span data-cross="{{ url_for('mentor.static', filename='images/cross_student.svg') }}" class="hide-ava"></span>
-    <div class="test-part">
-        <div class="question-test">
-            <div class="num-question">
-                <p class="num-que">1/1</p>
-            </div>
-            <div class= "question-bg">
-                <p class="question-text"></p>
-            </div>
-        </div>
-        <div class="answers-test">
-
-        </div>
-
-        <div class="test-settings">
-            <div class="count-persons">
-                <img src="{{ url_for('mentor.static', filename = 'images/people.svg') }}" alt="">
-                <span class="num-people">12</span>
-            </div>
-
-            <p class="time-text">УПРАВЛІННЯ<br>ЧАСОМ</p>
-            <div class="part-timer">
-                <img class="robo-img" src="{{ url_for('mentor.static', filename = 'images/robot-time.svg') }}" alt="kjn">
-                <div class="main-taimer">
-                    <div class="left-part">
-                        
-                    </div>
-                    <div class="right-part">
-                    </div>
-                </div>
-                <div class="time">
-
-                </div>
-            </div>
-
-            <div class="line"></div>
-
-            <div class="first-buttons-group">
-                <button class="first-button stop-button">Зупинити<br>час</button>
-                <button class="first-button end_question">Завершити питання</button>
-                <button class="first-button add-time">+15 Секунд</button>
-            </div>
-
-            <div class="second-buttons-group">
-                <button class="button-second end-test">закінчення тесту</button>
-                <button class="button-second check-answers" data-state="hide">подивитися відповіді</button>
-            </div>
-        </div>
-    </div>
-
-    <div class="users">
-        <div class="count-answered">
-            <p class="count-answered-people"></p>
-            <span class="count-people"></span>
-        </div>
-        
-        <div class="outline-users">
-
-        </div>
-    </div>
-
-    <div class="window-choice">
-        <h1>Видалити учасника з кімнати</h1>
-        <p>Ви впевнені, що хочете видалити цього учасника з кімнати?</p>
-        <div>
-            <p class="decline">Скасувати</p>
-            <p class="remove_user">Видалити</p>
-        </div>
-    </div>
-
-    <div class="window-end">
-        <h1>Закінчення тесту</h1>
-        <p>Ви впевнені, що хочете примусово закінчити тест?</p>
-        <div>
-            <p class="decline-ending">Скасувати</p>
-            <p class="end_test">Завершити</p>
-        </div>
-    </div> -->
     <div class="window-end">
         <h1>Закінчення тесту</h1>
         <p>Ви впевнені, що хочете примусово закінчити тест?</p>
