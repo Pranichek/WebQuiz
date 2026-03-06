@@ -110,35 +110,6 @@ def connect_to_room(data):
     })
 
 
-
-    # code = data["code"]
-    # room = Rooms.query.filter_by(room_code=code).first()
-
-    # user_ids = room.users.split() if room.users is not None else []
-    # if str(flask_login.current_user.id) not in user_ids:
-    #     user_ids.append(str(flask_login.current_user.id))
-    #     room.users = " ".join(user_ids)
-    #     DATABASE.session.commit()
-
-    # user_list = []
-    # room = Rooms.query.filter_by(room_code = data["code"]).first()
-    # user_ids = room.users.split() if room and room.users else []
-
-    # for user_id in user_ids:
-    #     user = User.query.get(int(user_id))
-    #     if user and user.id != room.user_id:
-    #         user_list.append({
-    #             "username": user.username,
-    #             "email": user.email,
-    #             "ready": user.user_profile.answering_answer,
-    #             "count_points": user.user_profile.count_points
-    #         })
-
-    # emit("users_data", {"user_list":user_list}, room=data["code"], broadcast=True)
-
-# remaining_time = max(total_time - time_taken, 0)
-# score = max_score * (0.5 + (1 - 0.5) * (remaining_time / total_time))
-
 @socket.on("answered")
 def answer_the_question(data):
     
@@ -325,7 +296,7 @@ def answer_the_question(data):
     count_skip = 0
     # список для того чтобы понимать правильно он ответил последний вопрос или нет
     check_answers = []  
-    
+
     for i in range(len(user_answers)):
         if  i + 1 <= len(correct_indexes) and len(correct_indexes[i]) > 0:
             if list_users_answers[i][0] != "∅":
@@ -419,7 +390,7 @@ def answer_the_question(data):
     prof.avarage_time = " ".join(all_time)
     DATABASE.session.commit()
 
-
+    print(check_answers, "pddk")
     if len(ready_answers.split()) == 1: 
         flask_login.current_user.user_profile.last_answered = f"{ready_answers.split()[0]}𒀱{accuracy}𒀱{check_answers[int(data['index'])]}𒀱{data['lastanswers']}"
     else:
@@ -880,13 +851,13 @@ def return_users(data):
         for answers in user_answers:
             list_users_answers.append(answers.split("@"))
     
-    test = Test.query.get(int(test_id))
+    test = Test.query.get(int(room.id_test))
     questions = test.questions.split("?%?")
     types = test.type_questions.split("?$?")
     correct_indexes = []
 
     for index in range(len(questions)):
-        correct_answers = return_answers(index= index, test_id= int(test_id))
+        correct_answers = return_answers(index= index, test_id= int(room.id_test))
         
         correct_indexes.append(correct_answers)
 

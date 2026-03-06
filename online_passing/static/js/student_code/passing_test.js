@@ -22,8 +22,10 @@ export async function renderStudentPassing(params) {
     });
 
     socket.on("end_test", data => {
+        document.cookie = "test_status=finished; path=/; max-age=3600";
         window.location.replace("/online_finish");
     });
+
 
     function give_answer(checkFlag){
         let midletime = localStorage.getItem("wasted_time") || 0;
@@ -926,6 +928,7 @@ export async function renderStudentPassing(params) {
             }
         } else {
             setTimeout(() => {
+                document.cookie = "test_status=finished; path=/; max-age=3600";
                 window.location.replace('/online_finish');
             }, 1000);
         }

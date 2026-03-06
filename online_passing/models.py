@@ -13,6 +13,8 @@ class Rooms(DATABASE.Model):
     
     room_code = DATABASE.Column(DATABASE.String)
     id_test =  DATABASE.Column(DATABASE.Integer)
+    status = DATABASE.Column(DATABASE.String)
+    index_question =  DATABASE.Column(DATABASE.Integer, default = 0)
     # айді тіпочков которіе находятся в кімнаті (1 2 3)
     # users = DATABASE.Column(DATABASE.String)
     users = DATABASE.relationship(

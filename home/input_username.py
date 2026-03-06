@@ -33,6 +33,7 @@ def render_input_username():
                 DATABASE.session.add(user)
                 DATABASE.session.commit()
                 flask_login.login_user(user)
+                flask.session["current_room_code"] = room_code
                 return flask.redirect(f"student?room_code={room_code}")
             except Exception as eroorr:
                 DATABASE.session.rollback()
@@ -42,6 +43,7 @@ def render_input_username():
             if flask_login.current_user not in room.blocked_users:
                 flask_login.current_user.username = flask.request.form.get("username")
                 DATABASE.session.commit()
+                flask.session["current_room_code"] = room_code
                 return flask.redirect(f"student?room_code={room_code}")
             else:
                 return flask.redirect("/")

@@ -162,8 +162,6 @@
     align-items: center;
     width: 100%;
     justify-content: space-between;
-    /* background-color: orange; */
-    /* gap: 1vw; */
 }
 
 
@@ -200,17 +198,26 @@
     /* background-color: orange; */
 }
 
-.accuracy-part{
+.accuracy-part, .accuracy-user{
     /* background-color: pink; */
     text-align: center;
     width: 20%;
 }
 
-.points-part{
+.points-part, .user-points{
     text-align: center;
     width: 20%;
 }
 
+.user-name {
+    /* Если имя длиннее ширины блока, ставим троеточие */
+    white-space: nowrap;      /* Запрещаем перенос строк */
+    overflow: hidden;         /* Скрываем то, что не влезло */
+    text-overflow: ellipsis;  /* Добавляем "..." в конце */
+    
+    display: block;           /* Нужно для работы ellipsis */
+    max-width: 150px;         /* Ограничиваем ширину (подберите под свой дизайн) */
+}
 
 .circle-answer{
     height: 2vh;
@@ -244,7 +251,6 @@
 .controls-section {
     margin-top: auto;
     width: 100%;
-    /* background-color: gray; */
 }
 
 .cont{

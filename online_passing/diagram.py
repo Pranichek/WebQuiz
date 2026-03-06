@@ -69,7 +69,7 @@ def general_diagran(data):
     else:
         average_accuracy = 0
 
-    bar_labels = list(stats_bins.keys())   # ['<40%', '40-59%', ...]
+    bar_labels = list(stats_bins.keys())   
     bar_values = list(stats_bins.values())
     
     emit("general_diagram", {

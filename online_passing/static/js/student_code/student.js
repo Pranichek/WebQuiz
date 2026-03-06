@@ -95,7 +95,6 @@ export async function lobbyStudent() {
     });
 
     socket.on("update_users", data => {
-        localStorage.setItem("test_id", data["id_test"]);
         document.querySelector(".code-room").textContent = data.code;
         
         const mentorEmail = localStorage.getItem("email_mentor");
@@ -138,50 +137,7 @@ export async function lobbyStudent() {
         }
     );
 
-    const copyLink = document.querySelector(".copy-url");
-    copyLink.addEventListener(
-        'click',
-        async () => { 
-            let code = localStorage.getItem("room_code");
-            let link = window.location.origin + `/student?room_code=${code}`;
-            if (link) {
-                try {
-                    await navigator.clipboard.writeText(link); 
-                } catch (err) {
-                    console.error('Не вдалося скопіювати текст');
-                }
-            }
-            const copyLinkInner = document.querySelector(".link-copy");
-            copyLinkInner.classList.add('copied');
-            setTimeout(() => {
-                copyLinkInner.classList.remove('copied');
-            }, 400);
-        }
-    );
-
-    socket.on(
-        "load_chat",
-        data => {
-            const chat = document.querySelector(".messages");
-            chat.innerHTML = ""; 
-
-            localStorage.setItem("email_mentor", data["mentor_email"]);
-
-            let dataList = data["chat_data"];
-
-            for (let dictData of dataList){
-                if (dictData["email"] == document.querySelector(".email").textContent){
-                    chat.innerHTML += `<div class="message user">
-                                <p>${dictData["message"]}</p>
-                            </div>`;
-                } else {
-                    chat.innerHTML += `<div class="message another-user">
-                                <p>${dictData["message"]}</p>
-                            </div>`;
-                }
-            }
-        }
-    );
+    
 
     socket.on("leave_user", data => {
         if (parseInt(data["id"]) == parseInt(document.querySelector(".id").dataset.id)){
@@ -222,4 +178,18 @@ export async function lobbyStudent() {
             }
         }
     );
+
+    socket.on("save_id",
+        data => {
+            localStorage.setItem("test_id", data.id_test)
+        }
+    )
+
+    window.checkStatusInterval = setInterval(() => {
+        socket.emit("check_room_status", { 
+            room: localStorage.getItem("room_code")
+        });
+    }, 3000);
+
+
 }

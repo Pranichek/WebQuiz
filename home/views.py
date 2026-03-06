@@ -12,16 +12,24 @@ from flask_login import current_user
 from Project.check_room import check_room
 
 
+
 #Просто головна сторінка
 @check_room
 def render_home():
     flask.session["code"] = ''
     if flask.request.method == "POST":
         input_code = flask.request.form.get("input_room")
-
         room = Rooms.query.filter_by(room_code = input_code).first()
             
         if room:
+
+            if current_user.is_authenticated and len(str(current_user.password)) == 1:
+                last_room = flask.session.get("current_room_code")
+                
+                if last_room and last_room != input_code:
+                    flask_login.logout_user()
+                    flask.session.clear()
+
             return flask.redirect(f"/input_username?room_code={input_code}")
 
     if not current_user.is_authenticated or str(current_user.password) == "1":

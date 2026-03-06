@@ -16,6 +16,7 @@ from .correct_answers import return_answers
 def users_results(data):
     user_list = []
     room : Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
+    room.status = "result"
     user_ids = room.users if room and room.users else []
 
 
@@ -268,6 +269,8 @@ def load_question_mentor(data):
                 url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{index_question + 1}/{str(index)}/{os.listdir(current_path)[0]}")
                 image_urls[index - 1] = url
     
+    print(answer_options.replace("(?%+", "").replace("+%?)", " ").split(), "kmknk")
+
     emit("data_question_mentor", {
         "user_list": user_list,
         "text_question": text_question,
@@ -280,10 +283,9 @@ def load_question_mentor(data):
     })
     emit("update_users", {"user_list": user_list})
 
-    check_room = room.sockets_users
-
-    if len(check_room) != len(room.users):
-        emit("check_connect", {"page": "start_passing"}, room=data["room"])
+    room.status = "started"
+    room.index_question = int(index_question)
+    DATABASE.session.commit()
 
 @socket.on("check_users")
 def check_users(data):
@@ -317,8 +319,6 @@ def check_users(data):
                         "id": user.id
                     })
             emit("update_users", {"user_list": user_list})
-
-            # emit("upload_data", {"status":"ok"}, room = data["room_code"])
 
     if len(check_room) != len(room.users):
         if data["page"] == "passing":
@@ -365,6 +365,7 @@ def stop_time(data):
 def finish_test(data):
     user_list = []
     room : Rooms = Rooms.query.filter_by(room_code= data["room"]).first()
+    room.status = "finish"
     test : Test = Test.query.get(int(data["test_id"]))
 
     # одразу зберігаємо результати усіх користувачів
@@ -418,15 +419,6 @@ def finish_test(data):
         '100%': 0
     }
 
-    # отримання найкращого питання
-    # index_best = int(room.best_question.split(" ")[-1])
-    # test : Test = Test.query.get(int(room.id_test))
-    # question = test.questions.split("?%?")[index_best]
-
-    # # отримання найгіршого питання
-    # index_worst = int(room.worst_question.split(" ")[-1])
-    # question_worst = test.questions.split("?%?")[index_worst]
-
     correct_indexes = []
 
     questions = test.questions.split("?%?")
@@ -435,6 +427,8 @@ def finish_test(data):
         correct_answers = return_answers(index= index, test_id= int(int(data["test_id"])))
         
         correct_indexes.append(correct_answers)
+
+        
 
     for user in user_ids:
         
@@ -546,7 +540,7 @@ def finish_test(data):
     bar_labels = list(stats_bins.keys())  
     bar_values = list(stats_bins.values())
 
-    emit("list_results", {
+    emit("results_list", {
         "users": user_list,
         "accuracy_result": accuracy_result,
         "average_accuracy": average_accuracy,

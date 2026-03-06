@@ -27,31 +27,31 @@ def handle_mentor_ajax():
 
         if data:
             test : Test = Test.query.get(int(data["test_id"]))
-            user = flask_login.current_user
-            avatar_url = flask.url_for('profile.static', filename=f"images/edit_avatar/{user.name_avatar}")
-            test_url = None
-            if "default" in test.image.split("/"):
-                test_url = flask.url_for("test_pass.static", filename = f"images/{test.image.split('/')[-1]}")
-            else:
-                test_url = flask.url_for("edit_avatar.static", filename = f"images/edit_avatar/{test.user.email}/user_tests/{test.title_test}/{test.image}")
+            test_time = test.question_time.split("?#?")
+            count_sec = 0
 
-            copy_img = flask.url_for('mentor.static', filename = 'images/mentor/copy.svg')
-            exit_img = flask.url_for('mentor.static', filename='images/mentor/exit.svg')
+            for sec in test_time:
+                count_sec += int(sec)
+
+            min = ""
+            sec = ""
+            print(count_sec , "djd")
+            if count_sec > 60:
+                min = f"{count_sec // 60} хвилин"
+                sec = f" {count_sec - (60 * (count_sec // 60))} секунд" if count_sec % 60 != 0 else ""
+            else:
+                sec = f"{count_sec} секунд"
+            
             chat_robots = flask.url_for('mentor.static', filename='images/chat/chat_robots.svg')
             send_button = flask.url_for('mentor.static', filename='images/chat/send_button.svg')
             chat_robot = flask.url_for('mentor.static', filename='images/chat_robot.png')
+            exit_img = flask.url_for('mentor.static', filename='images/mentor/exit.svg')
 
             response = {
-                "username": user.username,
-                "email": user.email,
-                "avatar_url":avatar_url,
-                "test_url": test_url,
                 "title_test": test.title_test,
-                "copy_img": copy_img,
-                "exit_img": exit_img,
-                "chat_robots": chat_robots,
-                "send_button": send_button,
-                "chat_robot": chat_robot
+                "count_question": test.questions.count("?%?") + 1,
+                "time": min + sec,
+                "exit_img":exit_img
             }
 
             return jsonify(response), 200

@@ -8,11 +8,52 @@
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="{{ url_for('mentor.static', filename = 'css/settings_mentor.css') }}">
+        <link rel="stylesheet" href="{{ url_for('mentor.static', filename = 'css/side_menu.css') }}">
     </head>
     <body>
 
-        <main class="main">
-            
+        <main>
+            <div class="window-end">
+                <h1>Закінчення тесту</h1>
+                <p>Ви впевнені, що хочете примусово закінчити тест?</p>
+                <div>
+                    <p class="decline-ending">Скасувати</p>
+                    <p class="end_test">Завершити</p>
+                </div>
+            </div>
+
+            <div class="main">
+                
+            </div>
+
+            <div class="side-menu">
+                <button class="close-menu" id="closeMenuBtn">&times;</button>
+
+                <div class="section-header">
+                    <span class="title">УЧАСНИКИ</span>
+                    <span class="count text-people count-users"></span>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="participants-section">
+                    
+                    <div class="users-list-container outline-users">
+
+                    </div>
+                </div>
+                
+
+                <div class="controls-section">
+                    <button class="view-answers-btn start">
+                        почати зараз
+                    </button>
+
+                    <button class="view-answers-btn end">
+                        кінець уроку
+                    </button>
+                </div>
+            </div>
         </main>
 
         <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
@@ -43,7 +84,7 @@
                 loadPassingMentor();
             }else if(state == "result_mentor"){
                 mentorResult()
-            }
+            } 
         </script>
 
     </body>

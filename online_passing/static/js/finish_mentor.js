@@ -1,11 +1,15 @@
 const socket = io()
 const cardsContainer = document.querySelector(".user-list")
 
-socket.emit("finish_mentor",{
+
+const requestData = {
     test_id: localStorage.getItem("test_id"),
     room: localStorage.getItem("room_code"),
     question_index: localStorage.getItem("index_question")
-})
+}
+
+socket.emit("finish_mentor", requestData)
+
 
 setInterval(() => {
     socket.emit("check_users", {room_code: localStorage.getItem("room_code"), page: "finish_test", index_question: localStorage.getItem("index_question")})
@@ -85,15 +89,11 @@ document.addEventListener("click", (e) => {
         room: localStorage.getItem("room_code"),
         question_index: localStorage.getItem("index_question")
     })
-
-    socket.emit("general-diagram",{
-        test_id: localStorage.getItem("test_id"),
-        room: localStorage.getItem("room_code"),
-        question_index: localStorage.getItem("index_question")
-    })
 })
 
-socket.on("list_results", data => {
+socket.on("results_list", data => {
+    socket.emit("general-diagram", requestData)
+
     let users = data.users
     document.querySelector(".count-users").textContent = users.length
 

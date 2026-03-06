@@ -2,11 +2,6 @@ let currentChart = null
 
 let diagramChoice = document.querySelector("#choice-diagram")
 
-socket.emit("general-diagram",{
-    test_id: localStorage.getItem("test_id"),
-    room: localStorage.getItem("room_code"),
-    question_index: localStorage.getItem("index_question")
-})
 
 // чтобы можно было вибирать диграмы после того как заново нажал на кнопку все участники
 document.addEventListener('change', (event) => {
@@ -42,42 +37,43 @@ document.addEventListener('change', (event) => {
     }
 })
 
-diagramChoice.onchange = (event) => {
-    const diagramValue = diagramChoice.value
+// diagramChoice.onchange = (event) => {
+//     const diagramValue = diagramChoice.value
 
-    if (diagramValue == "general"){
-        socket.emit("general-diagram",{
-            test_id: localStorage.getItem("test_id"),
-            room: localStorage.getItem("room_code"),
-            question_index: localStorage.getItem("index_question")
-        })
-    }else if(diagramValue == "dots-diagram"){
-        socket.emit("dots-diagram",{
-            test_id: localStorage.getItem("test_id"),
-            room: localStorage.getItem("room_code"),
-            question_index: localStorage.getItem("index_question")
-        })
-    }else{
-        socket.emit("column-diagram",{
-            test_id: localStorage.getItem("test_id"),
-            room: localStorage.getItem("room_code"),
-            question_index: localStorage.getItem("index_question")
-        })
-    }
-}
+//     if (diagramValue == "general"){
+//         socket.emit("general-diagram",{
+//             test_id: localStorage.getItem("test_id"),
+//             room: localStorage.getItem("room_code"),
+//             question_index: localStorage.getItem("index_question")
+//         })
+//     }else if(diagramValue == "dots-diagram"){
+//         socket.emit("dots-diagram",{
+//             test_id: localStorage.getItem("test_id"),
+//             room: localStorage.getItem("room_code"),
+//             question_index: localStorage.getItem("index_question")
+//         })
+//     }else{
+//         socket.emit("column-diagram",{
+//             test_id: localStorage.getItem("test_id"),
+//             room: localStorage.getItem("room_code"),
+//             question_index: localStorage.getItem("index_question")
+//         })
+//     }
+// }
 
 socket.on("general_diagram",
     data => {
+        console.log("loh ebanu")
         let accuracyResult = data.accuracy_result
         let dataDiagram = []
         let dataLabels = []
 
         const colorArray = [
-            'rgba(138, 247, 212, 1)',  // Зеленый (мятно-салатовый)
-            'rgba(255, 118, 124, 1)',  // Красный (коралловый)
-            'rgba(126, 162, 206, 1)',  // Сине-голубой (#7EA2CE)
-            'rgba(59, 59, 79, 1)',     // Темно-синий/серый (#3b3b4f)
-            'rgba(241, 226, 114, 1)'   // Желтый
+            'rgba(138, 247, 212, 1)',  
+            'rgba(255, 118, 124, 1)', 
+            'rgba(126, 162, 206, 1)', 
+            'rgba(59, 59, 79, 1)',    
+            'rgba(241, 226, 114, 1)' 
         ];
 
         colorArray.sort(() => Math.random() - 0.5)

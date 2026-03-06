@@ -36,6 +36,7 @@ export async function loadLobby(){
     const urlParams = new URLSearchParams(window.location.search);
     const id_test = urlParams.get('id_test');
 
+
     return fetch('/student_data', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -118,6 +119,42 @@ export async function loadLobby(){
     })
 }
 
+socket.on("start_test", (data) => {
+    if (window.checkStatusInterval) {
+        clearInterval(window.checkStatusInterval);
+        window.checkStatusInterval = null;
+    }
+
+    socket.off("update_user")
+
+    localStorage.setItem("check", "passing_page");
+    localStorage.setItem("checkOportunity", "able");
+
+
+    if (parseInt(data.index) != 0){
+        for (let index = parseInt(localStorage.getItem("index_question")); index <= parseInt(data.index); index++){
+            let chekcookies = localStorage.getItem("users_answers")
+            if (chekcookies){
+                let oldCookie = localStorage.getItem("users_answers")
+                let cookieList = oldCookie.split(",")   
+
+                if (cookieList.length < parseInt(data.index)){
+                    cookieList.push("∅")
+
+                    localStorage.setItem("users_answers", cookieList)
+                }
+            }else{
+                localStorage.setItem("users_answers", "∅")
+            }
+
+        }
+    }
+
+    localStorage.setItem("index_question", data.index)
+
+    loadPassingStudent()
+})
+
 socket.on(
     'start_passing',
     data => {
@@ -132,21 +169,23 @@ socket.on(
 
 socket.on("next_question",
     data => {
-        socket.off("side_users")
-        localStorage.setItem("next_page", "result_student")
+        if (localStorage.getItem("check") != "lobby_page"){
+            socket.off("side_users")
+            localStorage.setItem("next_page", "result_student")
 
-        let midletime = localStorage.getItem("wasted_time")
-        midletime = (parseInt(localStorage.getItem("timeData")))
-        localStorage.setItem("wasted_time", midletime);
+            let midletime = localStorage.getItem("wasted_time")
+            midletime = (parseInt(localStorage.getItem("timeData")))
+            localStorage.setItem("wasted_time", midletime);
 
-        localStorage.setItem("timeData", "0")
-        localStorage.setItem("time_question", "set")
-        
-        localStorage.setItem("next_page", "none")
-        localStorage.setItem("index_question", parseInt(data.index_question))
-        localStorage.setItem("check", "passing_page");
-        localStorage.setItem("checkOportunity", "able");
-        loadPassingStudent()
+            localStorage.setItem("timeData", "0")
+            localStorage.setItem("time_question", "set")
+            
+            localStorage.setItem("next_page", "none")
+            localStorage.setItem("index_question", parseInt(data.index_question))
+            localStorage.setItem("check", "passing_page");
+            localStorage.setItem("checkOportunity", "able");
+            loadPassingStudent()
+        }
     }
 )
 
@@ -155,6 +194,11 @@ export async function loadPassingStudent(){
 
     socket.off("last-end");      
     socket.off("finish_student")
+
+    if (window.checkStatusInterval) {
+        clearInterval(window.checkStatusInterval);
+        window.checkStatusInterval = null;
+    }
 
     if (window.lobbyInterval) clearInterval(window.lobbyInterval);
 

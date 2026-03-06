@@ -44,6 +44,7 @@ def get_user_detail_stats():
     count_right_answers = 0
     count_uncorrect_answers = 0
 
+    print(user_answers, "haha")
     for i in range(len(user_answers)):
         time_data = []
         if len(correct_indexes[i]) > 0:

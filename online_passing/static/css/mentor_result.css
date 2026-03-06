@@ -23,7 +23,7 @@
 }
 
 
-.next-question, #showAnswer{
+/* .next-question, #showAnswer{
     font-size: 2vh;
     padding: 5px 10px;
     background-color: #E05359;
@@ -34,7 +34,7 @@
     flex-direction: row;
     cursor: pointer;
     transition: 0.3s;
-}
+} */
 
 #showAnswer{
     background-color: #555;
@@ -43,10 +43,10 @@
 #showAnswer:hover{
     background-color: #676666;
 }
-
+/* 
 .next-question:hover{
     background-color: #c93e45;
-}
+} */
 
 .join-text{
     font-size: 2vh;
@@ -759,7 +759,7 @@
 
 
 /* --------------- */
-.main{
+main{
     flex-direction: row;
 }
 
@@ -1011,7 +1011,7 @@
 }
 
 .user-name{
-    width: 64%;
+    width: 48%;
     display: block; 
     white-space: nowrap; 
     overflow: hidden; 
@@ -1022,10 +1022,6 @@
     padding: 1.5vw 0.2vw;
 }
 
-.accuracy-user, .user-points{
-    width: 12%;
-    height: 100%;
-}
 
 main{
     overflow: hidden;

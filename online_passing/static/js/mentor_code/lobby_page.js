@@ -47,116 +47,77 @@ export async function loadLobby(){
     .then(response => response.json())
     .then(async (data) => {
         mainBlock.innerHTML = `
-            <div class="background-blur"></div>
-                <div class="overlay" id="overlay"></div>
+            <div id="overlay"></div>
+            <div class="overlay" id="overlay"></div>
 
-                <div class="window-choice">
-                    <h1>Видалити учасника з кімнати</h1>
-                    <p>Ви впевнені, що хочете видалити цього учасника з кімнати?</p>
-                    <div>
-                        <p class="decline">Скасувати</p>
-                        <p class="remove_user">Видалити</p>
-                    </div>
+            <div class="window-choice">
+                <h1>Видалити учасника з кімнати</h1>
+                <p>Ви впевнені, що хочете видалити цього учасника з кімнати?</p>
+                <div>
+                    <p class="decline">Скасувати</p>
+                    <p class="remove_user">Видалити</p>
                 </div>
+            </div>
+            <div class="outline-data">
+                <div class="test-container">
 
-                <div class="general_container_rect">
+                    <h1 class="test-title">Тест: ${ data.title_test }</h1>
 
-                    <div class="mentor-layout">
+                    <div class="test-info">
 
-                        <div class="mentor-info-card">
-                            <div class="mentor-header">
-                                
-                                <div class="mentor-info">
-                                    <span data-value="${data.username}" class="mentor_name user-nickname">${data.username}</span>
-                                    <span data-value="${data.email}" class="email">${data.email}</span>
-                                </div>
-
-                                <div class="mentor-avatar">
-                                    <img data-size="100" class="avatar" src="${data.avatar_url}" alt="avatar">
-                                    <p class="you">ВИ</p>
-                                </div>
-                            </div>
-                            <div class="topic">
-                                <img class="image-test" src="${data.test_url}" alt="Зображення тесту">
-                                <p class="topic-text">${data.title_test}</p>
-                            </div>
-
+                        <div class="info-row">
+                            <span class="label">Кількість запитань</span>
+                            <span class="value">${ data.count_question }</span>
                         </div>
-                    
-                        <div class="mentor-card">
-                            <div class="mentor-join-info">
-                                <div class="join">
-                                    <span>Приєднуйтесь за посиланням</span>
-                                    <div class="url copy-url">
-                                        <p class="link-copy" id="link-text">joinquiz.com</p>
-                                        <img class="copy" src="${data.copy_img}" alt="copy icon">
-                                    </div>
-                                </div>
 
-                                <div class="join-code">
-                                    <span>Код приєднання</span>
-                                    <div class="code copy-code">
-                                        <span id="code"></span>
-                                        <img class="copy" src="${data.copy_img}" alt="copy icon">
-                                    </div>
-                                </div>
-
-                                <div class="user-count">
-                                    <span>Kількість учасників</span>
-                                    <span id="amount_users">0</span>
-                                </div>
-
-                                <div class="qr-code">
-                                    <p>Скануй QR-Code <br>та приєднуйся до тесту </p>
-                                    <a class="qr-code-outline" href="" onclick="event.preventDefault(); showQR()">
-                                        <img class="img-qrcode qr-code-img">
-                                    </a>
-                                </div>
-
-                                <div class="modal-window" id="qrModal">
-                                    <div class="modal-content">
-                    
-                                        <div class="qrcode">
-                                            <div class="nameofcode">
-                                                <h2>QR-код</h2>
-                                                <div class="close-btn" onclick="hideQR()">
-                                                    <img src="${data.exit_img}" alt="exit">
-                                                </div>
-                                            </div>
-                                            
-                                            <div class="qr-code-div">
-                                                <img class="qr-code-img" src="" alt="QR код">
-                                            </div>
-                                        </div>
-
-                                        <div class="bottom-part">
-                                            <h3 id="for-text">Або приєднуйся по коду!</h3>
-                                            <h2 class="code-room"></h2>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="mentor-buttons">
-                                    <button class="start">почати зараз</button>
-                                    <button class="end">кінець уроку</button>
-                                </div>
-                            </div>
+                        <div class="info-row">
+                            <span class="label">Час на тест</span>
+                            <span class="value">${ data.time }</span>
                         </div>
+
+                        <div class="info-row">
+                            <span class="label">Код приєднання</span>
+                            <span class="value code" id="code"></span>
+                        </div>
+
+                        <div class="info-row">
+                            <span class="label">Посилання</span>
+                            <span class="copy-url value link">joinquiz.com</span>
+                        </div>
+                        
 
                     </div>
-                </div>
 
-
-
-                <div class="participants-section">
-                    <div class="users">
-                        <div class="header-title">
-                            <p class="count-users">Учасники(0)</p>
+                    <div class="qr-section">
+                        <div class="qr-placeholder qr-code-outline " onclick="event.preventDefault(); showQR()">
+                            <img class="qr-code-img"></img>
                         </div>
-                        <div class="students-card">                
-                        </div>
+                        <p class="qr-text">Скануй QR-код та приєднуйся до тесту</p>
                     </div>
                 </div>
+            </div>
+            <div class="modal-window" id="qrModal">
+                <div class="modal-content">
+
+                    <div class="qrcode">
+                        <div class="nameofcode">
+                            <h2>QR-код</h2>
+                            <div class="close-btn" onclick="hideQR()">
+                                <img src="${data.exit_img}" alt="exit">
+                            </div>
+                        </div>
+                        
+                        <div class="qr-code-div">
+                            <img class="qr-code-img" src="" alt="QR код">
+                        </div>
+                    </div>
+
+                    <div class="bottom-part">
+                        <h3 id="for-text">Або приєднуйся по коду!</h3>
+                        <h2 class="code-room"></h2>
+                    </div>
+                </div>
+            </div>
         `
 
         await loadCSS('/mentor/static/css/mentor.css');
@@ -165,7 +126,6 @@ export async function loadLobby(){
         await mentorRoom();
     })
 }
-
 
 socket.on(
     "start_passing",
@@ -178,6 +138,7 @@ socket.on(
         localStorage.setItem("test_id", id_test);
         localStorage.setItem("check", "settings_page");
         localStorage.setItem("flag_time", "true")
+        document.querySelector(".users-list-container").innerHTML = ``
         loadPassingMentor()
     }
 );
@@ -187,6 +148,82 @@ socket.on("next_question", data => {
     localStorage.setItem("check", "settings_page");
     loadPassingMentor()
 })
+
+function restoreSideMenuToQuestionMode() {
+    const sideMenu = document.querySelector(".side-menu");
+    if (!sideMenu) return;
+
+    const existingUsersList = sideMenu.querySelector(".outline-users");
+    
+    if (existingUsersList) {
+        const statusDivs = existingUsersList.querySelectorAll(".circle-answer");
+        statusDivs.forEach(div => div.className = "circle-answer"); 
+    }
+
+    sideMenu.innerHTML = `
+        <button class="close-menu" id="closeMenuBtn">&times;</button>
+
+        <div class="timer-section margin-timer">
+            <div class="timer-box">
+                <span id="timer-display">00:00</span>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <div class="participants-section">
+            <div class="section-header">
+                <span class="title">УЧАСНИКИ</span>
+                <span class="count text-people count-users">0</span>
+            </div>
+            
+            </div>
+
+        <div class="controls-section">
+            <div class="playback-controls">
+                <button class="ctrl-btn pause stop-button">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                </button>
+                <button class="ctrl-btn add-time">+15</button>
+
+                <button class="ctrl-btn next end_question">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path>
+                    </svg>
+                </button>
+
+                <button class="ctrl-btn stop open-modal-btn">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12"></rect></svg>
+                </button>
+            </div>
+
+            <button class="view-answers-btn check-answers">
+                Переглянути відповіді
+            </button>
+        </div>
+    `;
+
+    const participantsSection = sideMenu.querySelector(".participants-section");
+    if (existingUsersList) {
+        participantsSection.appendChild(existingUsersList);
+    } else {
+        const newList = document.createElement("div");
+        newList.className = "users-list-container outline-users";
+        participantsSection.appendChild(newList);
+    }
+
+    const countSpan = sideMenu.querySelector(".count-users");
+    if (countSpan && existingUsersList) {
+        countSpan.textContent = existingUsersList.children.length;
+    }
+
+    const closeBtn = sideMenu.querySelector("#closeMenuBtn");
+    if (closeBtn) {
+        closeBtn.addEventListener("click", () => {
+            sideMenu.classList.remove("active-menu");
+        });
+    }
+}
 
 export async function loadPassingMentor(){
     // отключаем старые финтеплющки по цсс и джс
@@ -244,62 +281,11 @@ export async function loadPassingMentor(){
 
                 </div>
             </div>
-
-            <div class="side-menu">
-                <button class="close-menu" id="closeMenuBtn">&times;</button>
-
-                <div class="timer-section margin-timer">
-                    <div class="timer-box">
-                        <span id="timer-display">00:00</span>
-                    </div>
-                </div>
-
-                <div class="divider"></div>
-
-                <div class="participants-section">
-                    <div class="section-header">
-                        <span class="title">УЧАСНИКИ</span>
-                        <span class="count text-people">0/0</span>
-                    </div>
-                    
-                    <div class="users-list-container outline-users">
-
-                    </div>
-                </div>
-
-                <div class="controls-section">
-                    <div class="playback-controls">
-                        <button class="ctrl-btn pause stop-button">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-                        </button>
-                        <button class="ctrl-btn add-time">+15</button>
-
-                    <button class="ctrl-btn next end_question">
-                            <svg viewBox="0 0 24 24" fill="currentColor">
-                                <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path>
-                            </svg>
-                        </button>
-
-                        <button class="ctrl-btn stop open-modal-btn">
-                            <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12"></rect></svg>
-                        </button>
-                    </div>
-
-                    <button class="view-answers-btn check-answers">
-                        Переглянути відповіді
-                    </button>
-                </div>
-            </div>
-
-            <div class="window-end">
-                <h1>Закінчення тесту</h1>
-                <p>Ви впевнені, що хочете примусово закінчити тест?</p>
-                <div>
-                    <p class="decline-ending">Скасувати</p>
-                    <p class="end_test">Завершити</p>
-                </div>
-            </div>
         `   
+
+
+        restoreSideMenuToQuestionMode();
+
         // await loadCSS('/mentor/static/css/settings_mentor.css');
         
 
@@ -382,9 +368,17 @@ export async function mentorResult(){
                 </div>
             </div>
             </div>
-            <div class="side-menu">
+        `
+        const rightMenu = document.querySelector(".side-menu");
+
+        if (rightMenu) {
+            const existingUsersList = rightMenu.querySelector(".outline-users");
+            if (existingUsersList) {
+                existingUsersList.remove(); 
+            }
+
+            rightMenu.innerHTML = `
                 <button class="close-menu" id="closeMenuBtn">&times;</button>
-                
 
                 <div class="participants-section">
                     <div class="section-header">
@@ -412,10 +406,7 @@ export async function mentorResult(){
 
                     <div class="divider"></div>
 
-                    <div class="users-list-container outline-users">
-
                     </div>
-                </div>
 
                 <div class="controls-section">
                     <button class="view-answers-btn check-answers end-test open-modal-btn">
@@ -425,18 +416,22 @@ export async function mentorResult(){
                         Наступне питання
                     </button>
                 </div>
-            </div>
+            `;
 
-            <div class="window-end">
-                <h1>Закінчення тесту</h1>
-                <p>Ви впевнені, що хочете примусово закінчити тест?</p>
-                <div>
-                    <p class="decline-ending">Скасувати</p>
-                    <p class="end_test">Завершити</p>
-                </div>
-            </div>
-        `
+            const participantsSection = rightMenu.querySelector(".participants-section");
+            
+            if (existingUsersList) {
+                participantsSection.appendChild(existingUsersList);
+            } else {
+                const newList = document.createElement("div");
+                newList.className = "users-list-container outline-users";
+                participantsSection.appendChild(newList);
+            }
+        }
+        
         mainCont.style.opacity = '1';
+
+
 
 
         await renderMentorResult()

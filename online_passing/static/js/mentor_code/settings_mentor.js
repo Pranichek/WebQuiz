@@ -20,7 +20,7 @@ export async function mentorSettings() {
             if (user.ready == "відповів") {
                 count_answered++;
                 user_card = `
-                    <div class="user-card active" data-id="${user.id}"> 
+                    <div class="user-card active" data-id="${user.id}" title="${user.username}"> 
                         <div class="user-info">
                             <span class="user-name">${user.username}</span>
                         </div>
@@ -29,7 +29,7 @@ export async function mentorSettings() {
                 `;
             } else {
                 user_card = `
-                    <div class="user-card" data-id="${user.id}">
+                    <div class="user-card" data-id="${user.id}" title="${user.username}">
                         <div class="user-info">
                             <span class="user-name">${user.username}</span>
                         </div>

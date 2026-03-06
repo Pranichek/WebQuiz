@@ -14,8 +14,74 @@
         <audio id="correct-sound" src="{{ url_for('test_pass.static', filename='audio/right.mp3') }}" preload="auto"></audio>
         <audio id="incorrect-sound" src="{{ url_for('test_pass.static', filename='audio/false.mp3') }}" preload="auto"></audio>
 
-        <main class="main">
+        <main>
+            <div class="main">
 
+            </div>
+            
+            <div class="side-menu">
+                <button class="close-menu" id="closeMenuBtn">&times;</button>
+
+                <div class="timer-section margin-timer">
+                    <div class="timer-box">
+                        <span class="timer-display" id="timer-display">00:00</span>
+                    </div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="participants-section">
+                    <div class="section-header">
+                        <span class="title">УЧАСНИКИ</span>
+                        <span class="count text-people">0/0</span>
+                    </div>
+                    
+                    <div class="users-list-container outline-users">
+                    </div>
+                </div>
+
+                <div class="controls-section student-control">
+                    <p class="username">Грінченко Володимир</p>
+                    <div class="cont">
+                        <div class="left-part">
+                            <img src="${data.correct}" alt="sign-correct">
+                            <p>Правильних:</p>
+                        </div>
+                        <p class="correct_answers">0</p>
+                    </div>
+
+                    <div class="cont">
+                        <div class="left-part">
+                            <img src="${data.uncorrect}" alt="sign-uncorrect">
+                            <p>Неправильних:</p>
+                        </div>
+                        <p class="uncorrect_answers">0</p>
+                    </div>
+
+                    <div class="cont">
+                        <div class="left-part">
+                            <img src="${data.skip}" alt="sign-skip">
+                            <p>Пропущено:</p>
+                        </div>
+                        <p class="skip_answers">0</p>
+                    </div>
+
+                    <div class="cont">
+                        <div class="left-part">
+                            <img src="${data.accuracy}" alt="sign-accuracy">
+                            <p>Точність:</p>
+                        </div>
+                        <p class="accuracy-text">0%</p>
+                    </div>
+
+                    <div class="cont">
+                        <div class="left-part">
+                            <img src="${data.points}" alt="sign-points">
+                            <p>Бали:</p>
+                        </div>
+                        <p class="points-text">0</p>
+                    </div>
+            </div> 
         </main>
 
         <script src="https://cdn.socket.io/4.3.2/socket.io.min.js"></script>
@@ -40,7 +106,7 @@
                 localStorage.setItem("check", "lobby_page");
                 state = "lobby_page";
             }
-
+            
             if (state == "lobby_page"){
                 loadLobby();
             }else if(state == "passing_page"){

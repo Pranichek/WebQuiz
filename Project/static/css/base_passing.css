@@ -22,6 +22,16 @@ main {
 }
 
 
+.main{
+    height: 100vh;
+    width: 75vw;
+    display: flex;
+}
+
+.main-student{
+    width: 100vw;
+}
+
 .window-choice{
     position: absolute;
     justify-content: center;
@@ -116,4 +126,10 @@ main {
     font-weight: 600;
     cursor: pointer;
     transition: 0.2s;
+}
+
+@media (max-width: 768px){
+    .main{
+        width: 100vw;
+    }
 }

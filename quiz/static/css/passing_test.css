@@ -546,6 +546,11 @@ header {
     transition: transform 0.67s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+.user-name{
+    min-width: 80%;
+}
+
+
 .fade-in-anim-robot {
     min-width: 160px;
     min-height: 160px;

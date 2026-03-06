@@ -25,7 +25,7 @@ def handle_join(data):
     flag = data["flag"]
 
 
-    room = Rooms.query.filter_by(room_code=room_code).first()
+    room : Rooms = Rooms.query.filter_by(room_code=room_code).first()
 
     if not room:
         if flag != "student":
@@ -35,7 +35,8 @@ def handle_join(data):
                 room = Rooms(
                     room_code=code,
                     user_id=current_user.id,
-                    id_test=data["id_test"]
+                    id_test=data["id_test"],
+                    status = "lobby"
                 )
                 room_code = code
                 DATABASE.session.add(room)
@@ -135,6 +136,8 @@ def handle_join(data):
         "mentor_id": room.user_id
     }, room=room_code, include_self=False)
 
+    emit("save_id", {"id_test": room.id_test})
+
 
 
 @socket.on("send_message")
@@ -171,13 +174,29 @@ def handle_start_test(data):
     room = data["room"]
     emit("start_passing", {"sender": str(current_user.username), "code": room}, room=room, broadcast=True)
 
-@socket.on("copy_code")
-def handle_copy_code(data):
-    pyperclip.copy(data["code_room"])
+# перевірка якщо студент приєднався після початку тесту
+@socket.on("check_room_status")
+def handle_check_status(data):
+    room_code = data["room"]
+    room : Rooms = Rooms.query.filter_by(room_code=room_code).first()
 
-@socket.on("copy_link")
-def handle_copy_link(data):
-    pyperclip.copy(data["link_room"])
+        
+    if  room.index_question != 0 and len(flask_login.current_user.user_profile.all_procents.split()) - 1 != int(room.index_question):
+        for ind in range(len(flask_login.current_user.user_profile.all_procents.split()) , room.index_question):
+            flask_login.current_user.user_profile.all_answers += "∅ "
+            flask_login.current_user.user_profile.all_procents += " 0"
+            flask_login.current_user.user_profile.avarage_time += " 0"
+
+            stats = flask_login.current_user.user_profile.data_questions.split("/")
+            if len(stats) == 3:
+                flask_login.current_user.user_profile.data_questions = f"{stats[0]}/{stats[1]}/{int(stats[2]) + 1}"
+
+            DATABASE.session.commit()
+
+    if room and room.status == 'started': 
+
+
+        emit('start_test', {"index": room.index_question}, room=room_code)
 
 @socket.on("mentor_email")
 def save_mentor_email(data):
@@ -191,38 +210,82 @@ def save_mentor_email(data):
 def connect_to_room(data):
     join_room(data["code"])
 
-@socket.on("disconnect")
-def handle_disconnect():
-    user = current_user
+
+# @socket.on("disconnect")
+# def handle_disconnect():
+#     if not current_user.is_authenticated:
+#         return
+    
+
+#     if flask.session.get("safe_exit"):
+#         # flask.session.pop("safe_exit", None) 
+#         return
+
+#     for room in current_user.rooms:
+#         changed = False
+#         if current_user in room.sockets_users:
+#             room.sockets_users.remove(current_user)
+#             changed = True
         
-    for room in user.rooms:
-        if user in room.users:
-            if user in room.sockets_users:
-                room.sockets_users.remove(user)
+#         if current_user in room.users:
+#             room.users.remove(current_user)
+#             changed = True
 
-            DATABASE.session.commit()
+#         if changed:
+#             DATABASE.session.commit()
+            
+#             user_list = []
+#             for u in room.users:
+#                 if u.id == room.user_id:
+#                     continue
+                
+#                 avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{u.name_avatar}')
+#                 pet_url = flask.url_for('profile.static', filename=f'images/pets_id/{u.user_profile.pet_id}.png')
+                
+#                 user_list.append({
+#                     "username": u.username,
+#                     "ready": u.user_profile.answering_answer,
+#                     "count_points": u.user_profile.count_points,
+#                     "id": u.id,
+#                     "email": u.email,
+#                     "user_avatar": avatar_url,
+#                     "pet_img": pet_url,
+#                 })
 
-            user_ids = room.sockets_users if room and room.users else []
+#             emit("update_users", {
+#                 "user_list": user_list, 
+#                 "code": room.room_code, 
+#                 "id_test": room.id_test
+#             }, room=room.room_code)
+    
+    # for room in user.rooms:
+    #     if user in room.users:
+    #         if user in room.sockets_users:
+    #             room.sockets_users.remove(user)
 
-            user_list = []
-            for user_id in user_ids:
-                user = User.query.get(int(user_id))
-                if user and int(user.id) != int(room.user_id):
-                    avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
-                    pet_url = flask.url_for(
-                        'profile.static',
-                        filename=f'images/pets_id/{user.user_profile.pet_id}.png'
-                    )
+    #         DATABASE.session.commit()
+
+    #         user_ids = room.sockets_users if room and room.users else []
+
+    #         user_list = []
+    #         for user_id in user_ids:
+    #             user = User.query.get(int(user_id))
+    #             if user and int(user.id) != int(room.user_id):
+    #                 avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
+    #                 pet_url = flask.url_for(
+    #                     'profile.static',
+    #                     filename=f'images/pets_id/{user.user_profile.pet_id}.png'
+    #                 )
                     
-                    user_list.append({
-                        "username": user.username,
-                        "ready": user.user_profile.answering_answer,
-                        "count_points": user.user_profile.count_points,
-                        "user_avatar": avatar_url,
-                        "pet_img": pet_url,
-                        "id": user.id,
-                        "email": user.email
-                    })
+    #                 user_list.append({
+    #                     "username": user.username,
+    #                     "ready": user.user_profile.answering_answer,
+    #                     "count_points": user.user_profile.count_points,
+    #                     "user_avatar": avatar_url,
+    #                     "pet_img": pet_url,
+    #                     "id": user.id,
+    #                     "email": user.email
+    #                 })
 
             # emit("update_users", {"user_list":user_list, "code":room.room_code, "id_test": room.id_test}, room= room.room_code, broadcast=True)
 
