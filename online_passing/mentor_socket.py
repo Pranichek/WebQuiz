@@ -109,6 +109,7 @@ def users_results(data):
                 "last_answer": users_answers,
                 "accuracy": user.user_profile.last_answered.split("𒀱")[1],
                 "right_wrong": user.user_profile.last_answered.split("𒀱")[2],
+                "input_answer":  user.user_profile.last_answered.split("𒀱")[0],
                 "id":user.id
             })
 
@@ -436,9 +437,11 @@ def finish_test(data):
             
             list_check = []
                 
-            user_answers = user.user_answers.split()
+            user_answers = user.user_answers.split("?#$?")
             types = test.type_questions.split("?$?")
-            # print(user_answers, "lols")
+            # print(user_answers, "lol")
+            if '' == user_answers[-1]:
+                del user_answers[-1]
             # print(user.all_procents)
             for i in range(len(user_answers)):
                 if len(correct_indexes[i]) > 0:

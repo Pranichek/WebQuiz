@@ -235,7 +235,10 @@ def return_result(data):
         users_variants = []
 
         for user in users:
-            user_answers = user.user_answers.split()
+            user_answers = user.user_answers.split("?#$?")
+
+            if '' == user_answers[-1]:
+                del user_answers[-1]
 
             if len(user_answers) > 0 and user_answers[index] != "∅" and len(right_answers) > 0:
                 total_answers += 1

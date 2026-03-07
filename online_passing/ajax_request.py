@@ -22,7 +22,9 @@ def get_user_detail_stats():
         
         correct_indexes.append(correct_answers)
     
-    user_answers = user.user_profile.all_answers.split()
+    user_answers = user.user_profile.all_answers.split("?#$?")
+    if '' == user_answers[-1]:
+        del user_answers[-1]
     list_check = []
     types = test.type_questions.split("?$?")
     questions = test.questions.split("?%?")

@@ -143,7 +143,7 @@ def answer_the_question(data):
         current_index = int(data["index"])
 
         for ind in range(current_index , total_questions - 1):
-            flask_login.current_user.user_profile.all_answers += "∅ "
+            flask_login.current_user.user_profile.all_answers += "∅?#$?"
             flask_login.current_user.user_profile.all_procents += " 0"
             flask_login.current_user.user_profile.avarage_time += " 0"
 
@@ -395,7 +395,7 @@ def answer_the_question(data):
     else:
         flask_login.current_user.user_profile.last_answered = f"{ready_answers}𒀱{accuracy}𒀱{check_answers[int(data['index'])]}𒀱{data['lastanswers']}"
     
-    flask_login.current_user.user_profile.all_answers += data['lastanswers'] + " "
+    flask_login.current_user.user_profile.all_answers += data['lastanswers'] + "?#$?"
     
     # --------------------
 

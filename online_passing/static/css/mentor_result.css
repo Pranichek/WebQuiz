@@ -1026,6 +1026,70 @@ main{
     overflow: hidden;
 }
 
+.answers-grid-container {
+    display: flex;
+    flex-wrap: wrap; 
+    gap: 10px;
+    padding: 10px;
+    align-content: flex-start;
+    overflow-y: auto;
+}
+
+.answer-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: auto;          
+    min-width: 80px;     
+    max-width: 100%;          
+    padding: 6px 12px;
+    background-color: #29292A; 
+    border: 1px solid #555;    
+    border-left: 4px solid #555; 
+    border-radius: 6px;
+    
+    transition: none;
+}
+
+.answer-card.neutral {
+    border-left-color: #888;
+}
+
+.answer-card.correct {
+    border-left-color: #8AF7D4; 
+    background-color: rgba(138, 247, 212, 0.05); 
+    border-color: rgba(138, 247, 212, 0.3);
+}
+
+.answer-card.wrong {
+    border-left-color: #FF767C; 
+    background-color: rgba(255, 118, 124, 0.05);
+    border-color: rgba(255, 118, 124, 0.3);
+}
+
+
+.card-top {
+    margin-bottom: 2px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.card-name {
+    font-size: 11px;
+    color: #aaa;
+    font-weight: 500;    
+    white-space: nowrap; 
+}
+
+.card-bottom {
+    display: flex;
+    align-items: center;
+}
+
+.card-text {
+    font-size: 14px;
+    color: #fff;    
+    white-space: nowrap; 
+}
 
 @media (max-width: 768px){
     .main-part{

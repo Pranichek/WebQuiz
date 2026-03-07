@@ -124,7 +124,7 @@ export async function renderMentorResult() {
             if (user_list.type_question == "one-answer" || user_list.type_question == "many-answers" || user_list.type_question == "input-gap"){
                 const columnDiagram = document.querySelector(".column-diagram")
 
-                if (columnDiagram){
+                if (columnDiagram && user_list.type_question != "input-gap"){
                     columnDiagram.innerHTML = ""
 
                     const chartDiv = document.createElement("div");
@@ -135,13 +135,10 @@ export async function renderMentorResult() {
                     let labels = user_list.answers; 
                     const dataPoints = user_list.count_answers; 
 
-                    console.log(dataPoints, "user_ok")
-
                     if (user_list.type_question == "input-gap"){
                         labels = ["правильно", "неправильно"]
                     }
                     
-                    // console.log(dataPoints)
                     const right_indexes = user_list.right_indexes || []
                     let backgroundColors;
                     if (dataPoints[0] == 0 && user_list.type_question == "input-gap"){
@@ -246,6 +243,32 @@ export async function renderMentorResult() {
                     new ApexCharts(chartDiv, options).render();
 
                     
+                }else{
+                    columnDiagram.innerHTML = "";
+                    columnDiagram.classList.add('answers-grid-container');
+
+                    user_list.users.forEach(user => {
+                        let statusClass;
+                        if (user.right_wrong == "1"){
+                            statusClass = "correct"; 
+                        }else if(user.right_wrong == "0"){
+                            statusClass = "wrong"
+                        }else{
+                            statusClass = "neutral"
+                        }
+                    
+                        const cardHTML = `
+                            <div class="answer-card ${statusClass}">
+                                <div class="card-top">
+                                    <span class="card-name">${user.username}</span>
+                                </div>
+                                <div class="card-bottom">
+                                    <span class="card-text">${user.input_answer}</span>
+                                </div>
+                            </div>
+                        `;
+                        columnDiagram.innerHTML += cardHTML;
+    });
                 }
                 const byAnswer = document.querySelector(".by-answer")
 
@@ -374,7 +397,6 @@ export async function renderMentorResult() {
                     // "accuracy_questions":all_procents
                 }
             } else {
-                // создай тут диаграмму которая подойдет для типа вопроса input-gap через chart.js
                 const divDiagram = document.createElement("div")
                 divDiagram.className = "diagram"
                 divDiagram.style.flexGrow = "1" 
@@ -488,13 +510,6 @@ export async function renderMentorResult() {
 
         } 
 
-        // let usersConts = document.querySelector(".body-ratings")
-        // if (!usersConts) {
-        //     const ratingsHeader = document.createElement("div")
-        //     ratingsHeader.className = "ratings-header"
-        //     usersConts = document.createElement("div")
-        //     usersConts.className = "body-ratings"
-        // }
 
         const usersConts = document.querySelector(".users-list-container");
 

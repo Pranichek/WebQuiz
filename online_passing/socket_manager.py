@@ -175,7 +175,7 @@ def handle_check_status(data):
         
     if  room.index_question != 0 and len(flask_login.current_user.user_profile.all_procents.split()) - 1 != int(room.index_question):
         for ind in range(len(flask_login.current_user.user_profile.all_procents.split()) , room.index_question):
-            flask_login.current_user.user_profile.all_answers += "∅ "
+            flask_login.current_user.user_profile.all_answers += "∅?#$?"
             flask_login.current_user.user_profile.all_procents += " 0"
             flask_login.current_user.user_profile.avarage_time += " 0"
 
