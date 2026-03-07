@@ -18,7 +18,7 @@
             <div class="main">
 
             </div>
-            
+
             <div class="side-menu">
                 <button class="close-menu" id="closeMenuBtn">&times;</button>
 
@@ -33,7 +33,7 @@
                 <div class="participants-section">
                     <div class="section-header">
                         <span class="title">УЧАСНИКИ</span>
-                        <span class="count text-people">0/0</span>
+                        <span class="count text-people">0</span>
                     </div>
                     
                     <div class="users-list-container outline-users">
@@ -44,7 +44,7 @@
                     <p class="username">Грінченко Володимир</p>
                     <div class="cont">
                         <div class="left-part">
-                            <img src="${data.correct}" alt="sign-correct">
+                            <img src="{{ url_for('student.static', filename = 'images/student/correct.svg') }}" alt="sign-correct">
                             <p>Правильних:</p>
                         </div>
                         <p class="correct_answers">0</p>
@@ -52,7 +52,7 @@
 
                     <div class="cont">
                         <div class="left-part">
-                            <img src="${data.uncorrect}" alt="sign-uncorrect">
+                            <img src="{{ url_for('student.static', filename = 'images/student/uncorrect.svg') }}" alt="sign-uncorrect">
                             <p>Неправильних:</p>
                         </div>
                         <p class="uncorrect_answers">0</p>
@@ -60,7 +60,7 @@
 
                     <div class="cont">
                         <div class="left-part">
-                            <img src="${data.skip}" alt="sign-skip">
+                            <img src="{{ url_for('student.static', filename = 'images/student/skip.svg') }}" alt="sign-skip">
                             <p>Пропущено:</p>
                         </div>
                         <p class="skip_answers">0</p>
@@ -68,7 +68,7 @@
 
                     <div class="cont">
                         <div class="left-part">
-                            <img src="${data.accuracy}" alt="sign-accuracy">
+                            <img src="{{ url_for('student.static', filename = 'images/student/accuracy.svg') }}" alt="sign-accuracy">
                             <p>Точність:</p>
                         </div>
                         <p class="accuracy-text">0%</p>
@@ -76,7 +76,7 @@
 
                     <div class="cont">
                         <div class="left-part">
-                            <img src="${data.points}" alt="sign-points">
+                            <img src="{{ url_for('student.static', filename = 'images/student/points.svg') }}" alt="sign-points">
                             <p>Бали:</p>
                         </div>
                         <p class="points-text">0</p>

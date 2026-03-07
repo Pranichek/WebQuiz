@@ -390,7 +390,6 @@ def answer_the_question(data):
     prof.avarage_time = " ".join(all_time)
     DATABASE.session.commit()
 
-    print(check_answers, "pddk")
     if len(ready_answers.split()) == 1: 
         flask_login.current_user.user_profile.last_answered = f"{ready_answers.split()[0]}𒀱{accuracy}𒀱{check_answers[int(data['index'])]}𒀱{data['lastanswers']}"
     else:
@@ -420,65 +419,44 @@ def answer_the_question(data):
         user_list = [] 
         for user in user_ids:
              if user.id != room.user_id:
-                avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
-                pet_url = flask.url_for('profile.static', filename=f'images/pets_id/{user.user_profile.pet_id}.png')
                 user_list.append({
                     "username": user.username,
                     "ready": user.user_profile.answering_answer,
                     "count_points": user.user_profile.count_points,
-                    "user_avatar": avatar_url,
-                    "pet_img": pet_url,
-                    "id": user.id
+                    "accuracy": user.user_profile.last_answered.split("𒀱")[1],
+                    "right_wrong": user.user_profile.last_answered.split("𒀱")[2]
                 })
+            
+        user_list.sort(key=lambda x: x['count_points'], reverse=True)
         
         emit("update_users", {"user_list": user_list}, room=data["code"], broadcast=True)
         emit("page_result", room=data["code"], broadcast=True)
         emit("page_waiting")
 
     else:
-        emit("single_student_answered", {
-            "user_id": flask_login.current_user.id,
-            "status": "відповів",
-            "answered_count": count_answered,
-            "total_count": count_people
-        }, room=data["code"], broadcast=True)
+        user_list = []
+        for user_obj in user_ids:
+             if user_obj.id != room.user_id:
+                status_ready = user_obj.user_profile.answering_answer
+                
+                user_list.append({
+                    "username": user_obj.username,
+                    "ready": status_ready,
+                    "count_points": user_obj.user_profile.count_points,
+                    "accuracy": user_obj.user_profile.last_answered.split("𒀱")[1],
+                    "id": user_obj.id,
+                    "right_wrong": user_obj.user_profile.last_answered.split("𒀱")[2]
+                })
+
+        user_list.sort(key=lambda x: (x['count_points'], float(x['accuracy'])), reverse=True)
+
+        emit("update_users", {"user_list": user_list}, room=data["code"], broadcast=True)
         
         emit("page_waiting")
 
-    # for user in user_ids:
-    #     # user = User.query.get(int(user_id))
-    #     if user and user.id != room.user_id:
-    #         count_people += 1
-    #         if user.user_profile.answering_answer == "відповів":
-    #             count_answered += 1
-
-    #         avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
-    #         pet_url = flask.url_for(
-    #             'profile.static',
-    #             filename=f'images/pets_id/{user.user_profile.pet_id}.png'
-    #         )
-
-    #         user_list.append({
-    #             "username": user.username,
-    #             "ready": user.user_profile.answering_answer,
-    #             "count_points": user.user_profile.count_points,
-    #             "user_avatar": avatar_url,
-    #             "pet_img": pet_url,
-    #             "id": user.id
-    #         })
     if "finish" in data.keys():
         DATABASE.session.commit()
         emit("finish_student")
-    # elif count_answered >= count_people or "check_end" in data.keys():
-    #     room.sockets_users.clear()
-    #     DATABASE.session.commit()
-    #     emit("update_users", {"user_list": user_list}, room=data["code"], broadcast=True)
-    #     emit("page_result", room=data["code"], broadcast=True)
-    #     emit("page_waiting")
-    # else:
-    #     emit("update_users", {"user_list":user_list}, room=data["code"], broadcast=True)
-    #     emit("page_waiting")
-
     DATABASE.session.commit()
 
    

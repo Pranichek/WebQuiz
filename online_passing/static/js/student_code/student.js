@@ -1,62 +1,26 @@
 function renderUser(user) {
-    if (user.id == document.querySelector(".id").dataset.id) {
-        return;
+    const existingUser = document.getElementById(`student-${user.id}`);
+    if (existingUser) {
+        existingUser.remove();
     }
 
-    const mentorEmail = localStorage.getItem("email_mentor");
-    if (user.email === mentorEmail) {
-        return;
-    }
+    const blockUsers = document.querySelector(".outline-users");
 
-    const existingBlock = document.getElementById(`user-${user.id}`);
-    if (existingBlock) {
-        existingBlock.remove();
-    }
+    const userDiv = document.createElement("div");
 
-    const blockUsers = document.querySelector(".data-users");
+    userDiv.className = "user-card user-ourline"; 
+    userDiv.setAttribute("data-id", user.id);
+    userDiv.id = `student-${user.id}`;
 
-    const blockDiv = document.createElement("div");
-    blockDiv.classList.add("block");
-    blockDiv.setAttribute("id", `user-${user.id}`);
+    userDiv.innerHTML = `
+        <div class="user-info" style="justify-content: center;">
+            <span class="user-name">${user.username}</span>
+        </div>
+    `;
 
-    const infDiv = document.createElement("div");
-    infDiv.classList.add("inf");
+    blockUsers.appendChild(userDiv);
 
-    const avaObodok = document.createElement("div");
-    avaObodok.className = "ava-obodok";
-
-    const avatarImg = document.createElement("img");
-    avatarImg.classList.add("ava");
-    avatarImg.src = user.user_avatar;
-    avaObodok.appendChild(avatarImg);
-
-    const usernameP = document.createElement("p");
-    usernameP.textContent = user.username;
-
-    infDiv.appendChild(avaObodok);
-    infDiv.appendChild(usernameP);
-
-    const blockTextDiv = document.createElement("div");
-    blockTextDiv.classList.add("block-text");
-
-    const emailP = document.createElement("p");
-    emailP.className = "email-paragraph";
-
-    const blockPetDiv = document.createElement("div");
-    blockPetDiv.classList.add("block-pet");
-
-    const petImg = document.createElement("img");
-    petImg.classList.add("pet");
-    petImg.src = user.pet_img;
-
-    blockPetDiv.appendChild(petImg);
-    blockTextDiv.appendChild(emailP);
-    blockTextDiv.appendChild(blockPetDiv);
-
-    blockDiv.appendChild(infDiv);
-    blockDiv.appendChild(blockTextDiv);
-
-    blockUsers.appendChild(blockDiv);
+    document.querySelector(".count").textContent = document.querySelectorAll(".user-card").length
 }
 
 export async function lobbyStudent() {
@@ -95,15 +59,11 @@ export async function lobbyStudent() {
     });
 
     socket.on("update_users", data => {
-        document.querySelector(".code-room").textContent = data.code;
-        
         const mentorEmail = localStorage.getItem("email_mentor");
-
         const studentsList = data.user_list.filter(user => user.email !== mentorEmail);
 
-        document.querySelector(".count").textContent = studentsList.length;
 
-        const blockUsers = document.querySelector(".data-users");
+        const blockUsers = document.querySelector(".outline-users");
         blockUsers.innerHTML = "";
 
         studentsList.forEach(user => {
@@ -117,33 +77,14 @@ export async function lobbyStudent() {
         }
 
         renderUser(data.new_user);
-        
-        let currentCount = parseInt(document.querySelector(".count").textContent) || 0;
-        document.querySelector(".count").textContent = currentCount + 1;
     });
 
-    const copyCode = document.querySelector(".copy-code");
-    copyCode.addEventListener(
-        'click',
-        async () => { 
-            let code = localStorage.getItem("room_code");
-            if (code) {
-                try {
-                    await navigator.clipboard.writeText(code); 
-                } catch (err) {
-                    console.error('Не вдалося скопіювати текст');
-                }
-            }
-        }
-    );
-
-    
 
     socket.on("leave_user", data => {
         if (parseInt(data["id"]) == parseInt(document.querySelector(".id").dataset.id)){
             window.location.replace("/");
         } else {
-            const userBlock = document.getElementById(`user-${data.id}`);
+            const userBlock = document.getElementById(`student-${data.id}`);
             if (userBlock) {
                 userBlock.remove();
                 
@@ -159,7 +100,7 @@ export async function lobbyStudent() {
         if (parseInt(data["user_id"]) == parseInt(document.querySelector(".id").dataset.id)){
             window.location.href = "/";
         } else {
-            const userBlock = document.getElementById(`user-${data.user_id}`);
+            const userBlock = document.getElementById(`student-${data.user_id}`);
             if (userBlock) {
                 userBlock.remove();
                 
@@ -190,6 +131,4 @@ export async function lobbyStudent() {
             room: localStorage.getItem("room_code")
         });
     }, 3000);
-
-
 }

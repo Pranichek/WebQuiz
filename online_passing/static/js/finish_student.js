@@ -45,6 +45,7 @@ function loadPersonalStats() {
         setText(".js-count-skipped", answersCount[2]);
 
         const blockanswers = document.querySelector(".questions-cont");
+        console.log(data.user_answers, "che")
         if (blockanswers) {
             let questionsHtml = ""; 
             for (let index = 0; index < data.questions.length; index++) {

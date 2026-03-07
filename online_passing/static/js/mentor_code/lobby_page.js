@@ -50,6 +50,10 @@ export async function loadLobby(){
             <div id="overlay"></div>
             <div class="overlay" id="overlay"></div>
 
+             <div class="open-menu" id="openMenuBtn">
+                <img src="${data.click_img}" alt="">
+            </div>
+
             <div class="window-choice">
                 <h1>Видалити учасника з кімнати</h1>
                 <p>Ви впевнені, що хочете видалити цього учасника з кімнати?</p>
@@ -149,81 +153,6 @@ socket.on("next_question", data => {
     loadPassingMentor()
 })
 
-function restoreSideMenuToQuestionMode() {
-    const sideMenu = document.querySelector(".side-menu");
-    if (!sideMenu) return;
-
-    const existingUsersList = sideMenu.querySelector(".outline-users");
-    
-    if (existingUsersList) {
-        const statusDivs = existingUsersList.querySelectorAll(".circle-answer");
-        statusDivs.forEach(div => div.className = "circle-answer"); 
-    }
-
-    sideMenu.innerHTML = `
-        <button class="close-menu" id="closeMenuBtn">&times;</button>
-
-        <div class="timer-section margin-timer">
-            <div class="timer-box">
-                <span id="timer-display">00:00</span>
-            </div>
-        </div>
-
-        <div class="divider"></div>
-
-        <div class="participants-section">
-            <div class="section-header">
-                <span class="title">УЧАСНИКИ</span>
-                <span class="count text-people count-users">0</span>
-            </div>
-            
-            </div>
-
-        <div class="controls-section">
-            <div class="playback-controls">
-                <button class="ctrl-btn pause stop-button">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
-                </button>
-                <button class="ctrl-btn add-time">+15</button>
-
-                <button class="ctrl-btn next end_question">
-                    <svg viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path>
-                    </svg>
-                </button>
-
-                <button class="ctrl-btn stop open-modal-btn">
-                    <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12"></rect></svg>
-                </button>
-            </div>
-
-            <button class="view-answers-btn check-answers">
-                Переглянути відповіді
-            </button>
-        </div>
-    `;
-
-    const participantsSection = sideMenu.querySelector(".participants-section");
-    if (existingUsersList) {
-        participantsSection.appendChild(existingUsersList);
-    } else {
-        const newList = document.createElement("div");
-        newList.className = "users-list-container outline-users";
-        participantsSection.appendChild(newList);
-    }
-
-    const countSpan = sideMenu.querySelector(".count-users");
-    if (countSpan && existingUsersList) {
-        countSpan.textContent = existingUsersList.children.length;
-    }
-
-    const closeBtn = sideMenu.querySelector("#closeMenuBtn");
-    if (closeBtn) {
-        closeBtn.addEventListener("click", () => {
-            sideMenu.classList.remove("active-menu");
-        });
-    }
-}
 
 export async function loadPassingMentor(){
     // отключаем старые финтеплющки по цсс и джс
@@ -258,12 +187,6 @@ export async function loadPassingMentor(){
             <div class="overlay" id="overlay"></div>
 
             <div class="question-cont">
-                <div class="outline-click">
-                    <div class="open-menu" id="openMenuBtn">
-                        <img src="${data.click_img}" alt="click-img">
-                    </div>
-                </div>
-
                 <div class="question-test">
                     <div class="num-question">
                         <p class="num-que"></p>
@@ -284,7 +207,87 @@ export async function loadPassingMentor(){
         `   
 
 
-        restoreSideMenuToQuestionMode();
+        const rightMenu = document.querySelector(".side-menu");
+
+        if (rightMenu) {
+            const existingUsersList = rightMenu.querySelector(".outline-users");
+            if (existingUsersList) {
+                existingUsersList.remove(); 
+            }
+
+            rightMenu.innerHTML = `
+                <button class="close-menu" id="closeMenuBtn">&times;</button>
+
+                <div class="participants-section">
+                    <div class="section-header">
+                        <div class="questions">
+                            <span>ПИТАННЯ</span>
+                            <span class="questions-mentor">5/10</span>
+                        </div>
+
+                        <div class="timer-box">
+                            <span id="timer-display">00:00</span>
+                        </div>
+
+                        <div class="count-people">
+                            <span class="title">УЧАСНИКИ</span>
+                            <span class="count text-people">0/0</span>
+                        </div>
+                    </div>
+                    
+                    <div class="divider"></div>
+
+                    <div class="table-data">
+                        <p class="place-part">місце</p>
+                        <div class="line-table"></div>
+                        <p class="full-name">ПІБ</p>
+                        <div class="line-table"></div>
+                        <p class="accuracy-part">%</p>
+                        <div class="line-table"></div>
+                        <p class="points-part">бали</p>
+                    </div>
+
+                    <div class="divider"></div>
+
+                    </div>
+                </div>
+
+                    
+
+                <div class="controls-section">
+                    <div class="playback-controls">
+                        <button class="ctrl-btn pause stop-button">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="4" width="4" height="16"></rect><rect x="14" y="4" width="4" height="16"></rect></svg>
+                        </button>
+                        <button class="ctrl-btn add-time">+15</button>
+
+                        <button class="ctrl-btn next end_question">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M4 18l8.5-6L4 6v12zm9-12v12l8.5-6L13 6z"></path>
+                            </svg>
+                        </button>
+
+                        <button class="ctrl-btn stop open-modal-btn">
+                            <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12"></rect></svg>
+                        </button>
+                    </div>
+
+                    <button class="view-answers-btn check-answers">
+                        Переглянути відповіді
+                    </button>
+                </div>
+            `;
+
+            const participantsSection = rightMenu.querySelector(".participants-section");
+            
+            if (existingUsersList) {
+                participantsSection.appendChild(existingUsersList);
+            } else {
+                const newList = document.createElement("div");
+                newList.className = "users-list-container outline-users";
+                participantsSection.appendChild(newList);
+            }
+        }
 
         // await loadCSS('/mentor/static/css/settings_mentor.css');
         
@@ -348,10 +351,8 @@ export async function mentorResult(){
     .then(async (data) => {
         mainBlock.innerHTML =`
             <div class="main-part">
-                <div class="outline-click">
-                    <div class="open-menu" id="openMenuBtn">
-                        <img src="${data.click_img}" alt="">
-                    </div>
+                <div class="open-menu" id="openMenuBtn">
+                    <img src="${data.click_img}" alt="">
                 </div>
 
             <div class="top-diagrams">

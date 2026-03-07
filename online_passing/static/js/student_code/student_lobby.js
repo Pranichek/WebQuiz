@@ -46,69 +46,47 @@ export async function loadLobby(){
     .then(async (data) => {
         mainBlock.innerHTML = `
             <p style="display: none;" data-id="${data.user_id}" class="id"></p>
-            <div class="blur-wrapper">
-                <div class="background-blur"></div>
+            <div class="window-choice">
+                <h1>Видалити учасника з кімнати</h1>
+                <p>Ви впевнені, що хочете видалити цього учасника з кімнати?</p>
+                <div>
+                    <p class="decline">Скасувати</p>
+                    <p class="remove_user">Видалити</p>
+                </div>
             </div>
+            <div class="outline-data">
+                <div class="test-container">
 
-            <div class="user-data">
-                <div class="outline">
-                    <div class="top-data">
-                        <div class="main-data">
-                            <div class="cont-ava">
-                                <img data-size="" class="avatar" src="${data.avatar_url}" alt="avatar">
-                            </div>
-                            <div class="text-data">
-                                <p class="user-nickname" data-value="${ data.username }">${ data.username }</p>
-                                <p class="gmail-text email" data-value="${ data.email }">${ data.email }</p>
-                                
-                            </div>
-                        </div>
-                        <div class="join-data">
-                            <div class="code-join">
-                                <p>Kод приєднання</p>
-                                <div class="right-cont">
-                                    <div class="outline-code">
-                                        <p class="code-room"></p>
-                                    </div> 
-                                    <img class="copy copy-code img-copy" src="${ data.copy_img }" alt="copy icon">
-                                </div>
-                            </div>
+                    <h1 class="test-title">Тест: ${ data.title_test }</h1>
 
-                            <div class="link-join">
-                                <p>Скопіюйте посилання</p>
-                                <div class="right-cont copy-url">
-                                    <p class="link-copy copy-url">joinquiz.com</p>
-                                    <img class="copy img-copy copy-url" src="${ data.copy_img }" alt="copy icon">
-                                </div>
-                            </div>
-                        
+                    <div class="test-info">
+
+                        <div class="info-row">
+                            <span class="label">Ваше ім'я</span>
+                            <span class="value">${ data.username }</span>
                         </div>
-                    </div>
-                    <div class="bottom-data">
-                        <div class="two-blocks">
-                            <div class="block-data money-block">
-                                <p>ваші бали</p>
-                                <div class="outline-block">
-                                    30
-                                </div>
-                            </div>
-                            <div class="block-data pet-block">
-                                <p>улюбленець</p>
-                                <div class="outline-block pet-outline" class="own-pet{">
-                                    <img src="${data.pet_img}"></img>
-                                </div>
-                            </div>
+
+                        <div class="info-row">
+                            <span class="label">Кількість балів</span>
+                            <span class="value">${ data.points }</span>
                         </div>
-                        <div class="count-people">
-                            <p>кількість учасників</p>
-                            <p class="count">0</p>
+
+                        <div class="info-row">
+                            <span class="label">Кількість питант</span>
+                            <span class="value">${ data.count_question }</span>
                         </div>
+
+                        <div class="info-row">
+                            <span class="label">Код приєднання</span>
+                            <span class="value code" id="code">${ data.code_test }</span>
+                        </div>
+                    
                     </div>
                 </div>
             </div>
 
-            <div class="data-users users">
-
+            <div class="open-menu" id="openMenuBtn">
+                <img src="${data.click_img}">
             </div>
         `
 
@@ -118,6 +96,10 @@ export async function loadLobby(){
         await lobbyStudent();
     })
 }
+
+//  <div class="data-users users">
+
+// </div>
 
 socket.on("start_test", (data) => {
     if (window.checkStatusInterval) {
@@ -210,8 +192,10 @@ export async function loadPassingStudent(){
     })
     .then(response => response.json())
     .then(async (data) => {
-        // await loadCSS('/test_pass/static/css/passing_test.css');
-        // await loadCSS('/mentor/static/css/side_menu.css');
+        const usernameEl = document.querySelector(".side-menu .username");
+        if (usernameEl && data.username) { 
+            usernameEl.textContent = data.username;
+        }
 
         mainBlock.innerHTML = `
             <p style="display: none;" data-id="${data.user_id}" class="id"></p>
@@ -247,10 +231,8 @@ export async function loadPassingStudent(){
                         </div>
                     </div>
 
-                    <div class="outline-click">
-                        <div class="open-menu" id="openMenuBtn">
-                            <img src="${data.click_img}" alt="">
-                        </div>
+                    <div class="open-menu" id="openMenuBtn">
+                        <img src="${data.click_img}" alt="">
                     </div>
                 </div>
 
@@ -276,70 +258,6 @@ export async function loadPassingStudent(){
                     
                 </div>
             </div>
-
-            <div class="side-menu">
-                <button class="close-menu" id="closeMenuBtn">&times;</button>
-
-                <div class="timer-section margin-timer">
-                    <div class="timer-box">
-                        <span class="timer-display" id="timer-display">00:00</span>
-                    </div>
-                </div>
-
-                <div class="divider"></div>
-
-                <div class="participants-section">
-                    <div class="section-header">
-                        <span class="title">УЧАСНИКИ</span>
-                        <span class="count text-people">0/0</span>
-                    </div>
-                    
-                    <div class="users-list-container outline-users">
-                    </div>
-                </div>
-
-                <div class="controls-section student-control">
-                    <p class="username">Грінченко Володимир</p>
-                    <div class="cont">
-                        <div class="left-part">
-                            <img src="${data.correct}" alt="sign-correct">
-                            <p>Правильних:</p>
-                        </div>
-                        <p class="correct_answers">0</p>
-                    </div>
-
-                    <div class="cont">
-                        <div class="left-part">
-                            <img src="${data.uncorrect}" alt="sign-uncorrect">
-                            <p>Неправильних:</p>
-                        </div>
-                        <p class="uncorrect_answers">0</p>
-                    </div>
-
-                    <div class="cont">
-                        <div class="left-part">
-                            <img src="${data.skip}" alt="sign-skip">
-                            <p>Пропущено:</p>
-                        </div>
-                        <p class="skip_answers">0</p>
-                    </div>
-
-                    <div class="cont">
-                        <div class="left-part">
-                            <img src="${data.accuracy}" alt="sign-accuracy">
-                            <p>Точність:</p>
-                        </div>
-                        <p class="accuracy-text">0%</p>
-                    </div>
-
-                    <div class="cont">
-                        <div class="left-part">
-                            <img src="${data.points}" alt="sign-points">
-                            <p>Бали:</p>
-                        </div>
-                        <p class="points-text">0</p>
-                    </div>
-            </div> 
         `
 
         await renderStudentPassing();

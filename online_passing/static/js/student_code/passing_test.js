@@ -129,6 +129,17 @@ export async function renderStudentPassing(params) {
                 }
             }
 
+            const oldConfirmBtn = document.querySelector(".confirm-button");
+            if (oldConfirmBtn) {
+                oldConfirmBtn.remove();
+            }
+
+            const oldSend = document.querySelector(".view-answers-btn")
+
+            if (oldSend){
+                oldSend.remove();
+            }
+
             if (localStorage.getItem("next_page") && localStorage.getItem("next_page") != "none"){
                 if (localStorage.getItem("next_page") == "result_student"){
                     localStorage.setItem("next_page", "none");
@@ -442,13 +453,17 @@ export async function renderStudentPassing(params) {
                 manyBlock = document.querySelectorAll(".many-variant");
 
                 const sideMenu = document.querySelector(".controls-section");
-                sideMenu.innerHTML += `
-                    <button class="check-answers confirm-button">
-                        Надіслати відповідь
-                    </button>
-                `;
+                let confirm_button = document.createElement("button");
+                confirm_button.className = "check-answers confirm-button";
+                confirm_button.textContent = "Надіслати відповідь";
 
-                let confirm_button = document.querySelector(".confirm-button");
+                if (localStorage.getItem("checkOportunity") == "not") {
+                    confirm_button.disabled = true;
+                    confirm_button.style.pointerEvents = "none";
+                }
+
+                sideMenu.appendChild(confirm_button);
+
                 if (localStorage.getItem("checkOportunity") == "not") {
                     confirm_button.disabled = true;
                     confirm_button.style.pointerEvents = "none";
@@ -617,17 +632,15 @@ export async function renderStudentPassing(params) {
                 }
             } else if (typeQuestion == "input-gap"){
                 const sideMenu = document.querySelector(".controls-section");
-                sideMenu.innerHTML += `
-                    <button class="check-answers confirm-button">
-                        <p>Надіслати відповідь</p>
-                    </button>
-                `;
+                let confirm_button = document.createElement("button");
+                confirm_button.className = "check-answers confirm-button";
+                confirm_button.textContent = "Надіслати відповідь";
 
-                let confirm_button = document.querySelector(".confirm-button");
                 if (localStorage.getItem("checkOportunity") == "not") {
                     confirm_button.disabled = true;
                     confirm_button.style.pointerEvents = "none";
                 }
+                sideMenu.appendChild(confirm_button);
 
                 if (amountAnswers == 0){
                     const divparent = document.querySelector(".answers");
@@ -802,6 +815,9 @@ export async function renderStudentPassing(params) {
                     inputDiv.appendChild(input);
 
                     const sendBtnDiv = document.createElement("div");
+                    
+                    
+
                     sendBtnDiv.textContent = "Надіслати";
                     sendBtnDiv.className = "view-answers-btn check-answers";
                     sendBtnDiv.style.cursor = "pointer";

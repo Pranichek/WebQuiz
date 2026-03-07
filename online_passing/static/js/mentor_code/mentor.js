@@ -131,7 +131,7 @@ export async function mentorRoom() {
         const copyLink = document.querySelector(".copy-url");
         copyLink.addEventListener('click', async () => {
             let currentCode = localStorage.getItem("room_code");
-            let link = `https://unneighbourly-noncorrodible-deena.ngrok-free.dev/student?room_code=${currentCode}`;
+            let link = `https://unneighbourly-noncorrodible-deena.ngrok-free.dev/input_username?room_code=${currentCode}`;
             if (link) {
                 try { await navigator.clipboard.writeText(link); } 
                 catch (err) { console.error('Error copy'); }

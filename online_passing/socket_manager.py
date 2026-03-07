@@ -82,7 +82,7 @@ def handle_join(data):
             emit("fake_room", {"email": current_user.email})
             return
     else:
-        if current_user not in room.users:
+        if current_user not in room.users and current_user.id != room.user_id:
             room.users.append(current_user)
             DATABASE.session.commit()
 
@@ -106,13 +106,7 @@ def handle_join(data):
     }
 
     for user in user_ids:
-        # user = User.query.get(int(user_id))
         if user and int(user.id) != int(room.user_id):
-            avatar_url = flask.url_for('profile.static', filename=f'images/edit_avatar/{user.name_avatar}')
-            pet_url = flask.url_for(
-                'profile.static',
-                filename=f'images/pets_id/{user.user_profile.pet_id}.png'
-            )
             
             # user_ip = request.headers.get('X-Forwarded-For', request.remote_addr)
             user_list.append({
@@ -120,9 +114,7 @@ def handle_join(data):
                 "ready": user.user_profile.answering_answer,
                 "count_points": user.user_profile.count_points,
                 "id": user.id,
-                "email": user.email,
-                "user_avatar": avatar_url,
-                "pet_img": pet_url,
+                "email": user.email
             })
 
     emit("update_users", {

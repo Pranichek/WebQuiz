@@ -14,22 +14,19 @@ body{
 
 }
 
+.main{
+    width: 75vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+
 main {
     width: 100vw;
     height: 100vh;
     display: flex;
     background-color: #3C3C3C;
-}
-
-
-.main{
-    height: 100vh;
-    width: 75vw;
-    display: flex;
-}
-
-.main-student{
-    width: 100vw;
 }
 
 .window-choice{
@@ -129,7 +126,9 @@ main {
 }
 
 @media (max-width: 768px){
+
     .main{
+        height: 100vh;
         width: 100vw;
     }
 }

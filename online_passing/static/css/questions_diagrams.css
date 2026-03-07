@@ -3,8 +3,8 @@
     height: 100%;
     box-sizing: border-box; 
     border-radius: 34px;
-    border: 1px solid #C48AF7; 
-    background-color: rgba(138, 187, 247, 0.1);
+    border: 1px solid #7EA2CE; /* Замінено фіолетовий */
+    background-color: rgba(59, 59, 79, 0.4); /* Замінено на відтінок #3b3b4f */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -43,10 +43,10 @@
 }
 
 .result-card {
-    background: rgba(196, 138, 247, 0.15); 
+    background: rgba(59, 59, 79, 0.7); /* Замінено фіолетовий фон на #3b3b4f з прозорістю */
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(196, 138, 247, 0.3);
+    border: 1px solid rgba(126, 162, 206, 0.3); /* Замінено рамку на відтінок #7EA2CE */
     border-radius: 24px;
     padding: 20px;
     display: flex;
@@ -59,8 +59,8 @@
 }
 
 .result-card:hover {
-    box-shadow: 0 8px 24px rgba(196, 138, 247, 0.15);
-    border-color: #C48AF7;
+    box-shadow: 0 8px 24px rgba(126, 162, 206, 0.2); /* Тінь тепер синього відтінку */
+    border-color: #7EA2CE; /* Акцентний колір при наведенні */
 }
 
 .card-header {
@@ -93,7 +93,7 @@
 
 .details-btn {
     background: transparent;
-    border: 1px solid #C48AF7; 
+    border: 1px solid #7EA2CE; /* Замінено фіолетовий */
     color: #e0e0e0;
     padding: 6px 12px;
     border-radius: 6px;
@@ -103,7 +103,7 @@
 }
 
 .details-btn:hover {
-    background: #C48AF7; 
+    background: #7EA2CE; /* Замінено фіолетовий */
     color: #FFF;
 }
 
@@ -152,7 +152,7 @@
     top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     width: 70%; height: 70%;
-    background-color: #2b2b2b; 
+    background-color: #3b3b4f; /* Фон центру діаграми під колір карток */
     border-radius: 50%;
     display: flex;
     flex-direction: column;
@@ -266,7 +266,7 @@
     width: 4px;
 }
 .answers-cloud::-webkit-scrollbar-thumb {
-    background-color: rgba(196, 138, 247, 0.5);
+    background-color: rgba(126, 162, 206, 0.5); /* Замінено фіолетовий скрол на синій */
     border-radius: 4px;
 }
 
@@ -301,6 +301,7 @@
     text-align: center;
 }
 
+/* Зелений та червоний залишено без змін */
 .ans-tag.correct {
     background-color: rgba(187, 227, 179, 0.2); 
     border-color: #BBE3B3;

@@ -223,16 +223,18 @@ def load_question_mentor(data):
     user_ids = room.users if room and room.users else []
 
     for user in user_ids:
-        # user.user_profile.answering_answer = "відповідає"
-        # DATABASE.session.commit()
         if user and user.id != flask_login.current_user.id:
 
             user_list.append({
                 "username": user.username,
                 "ready": user.user_profile.answering_answer,
                 "count_points": user.user_profile.count_points,
-                "id": user.id
+                "id": user.id,
+                "accuracy": user.user_profile.last_answered.split("𒀱")[1],
+                "right_wrong": user.user_profile.last_answered.split("𒀱")[2]
             })
+
+    user_list.sort(key=lambda x: x['count_points'], reverse=True)
 
     test : Test = Test.query.get(room.id_test)
 
@@ -269,7 +271,7 @@ def load_question_mentor(data):
                 url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{index_question + 1}/{str(index)}/{os.listdir(current_path)[0]}")
                 image_urls[index - 1] = url
     
-    print(answer_options.replace("(?%+", "").replace("+%?)", " ").split(), "kmknk")
+    print(answer_options, "kmknk")
 
     emit("data_question_mentor", {
         "user_list": user_list,
@@ -373,7 +375,6 @@ def finish_test(data):
         user_ids = room.users if room and room.users else []
         
         for user in user_ids:
-            # Ментору результат не записываем
             if user.id == room.user_id:
                 continue
                 
@@ -385,7 +386,6 @@ def finish_test(data):
             
             mark = (12 * accuracy) // 100
             
-            # 1. Создаем отдельную модель с результатом
             model_result = TestResult(
                 user_id=user.id,
                 mark = mark,

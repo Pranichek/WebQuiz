@@ -10,6 +10,12 @@
     overflow-y: auto;
 }
 
+
+.window-end{
+    display: none;
+}
+
+
 .test-container {
     width: 70%;
     display: flex;
@@ -254,10 +260,25 @@
     text-align: center;
 }
 
+.section-header{
+    justify-content: center;
+}
+
 @media (max-width: 768px){
     .outline-data {
         width: 90vw;
-        height: 90vh;
+        height: 71vh;
+    }
+
+    .open-menu {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+    }
+
+    .outline-data {
+        width: 90vw;
+        height: 80vh;
     }
 
     .test-container {

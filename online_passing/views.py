@@ -6,6 +6,8 @@ from Project.db import DATABASE
 from quiz.models import Test
 from Project.settings import project
 from flask import Flask, render_template, request, jsonify
+from home.models import User
+from quiz.models import Test
 
 # just for load images
 @project.route("/image_data", methods = ['POST'])
@@ -42,16 +44,15 @@ def handle_mentor_ajax():
             else:
                 sec = f"{count_sec} секунд"
             
-            chat_robots = flask.url_for('mentor.static', filename='images/chat/chat_robots.svg')
-            send_button = flask.url_for('mentor.static', filename='images/chat/send_button.svg')
-            chat_robot = flask.url_for('mentor.static', filename='images/chat_robot.png')
+
             exit_img = flask.url_for('mentor.static', filename='images/mentor/exit.svg')
 
             response = {
                 "title_test": test.title_test,
                 "count_question": test.questions.count("?%?") + 1,
                 "time": min + sec,
-                "exit_img":exit_img
+                "exit_img":exit_img,
+                "click_img": flask.url_for('student.static', filename = 'images/click.svg')
             }
 
             return jsonify(response), 200
@@ -79,30 +80,21 @@ def render_mentor():
 @project.route("/student_data", methods = ['POST'])
 def handle_student_data():
     if request.method == "POST":
-        user = flask_login.current_user
+        user : User = flask_login.current_user
 
         user_id = user.id
-
-        avatar_url = flask.url_for('profile.static', filename=f"images/edit_avatar/{user.name_avatar}")
-        copy_img = flask.url_for('mentor.static', filename = 'images/mentor/copy.svg')
-        chat_robots = flask.url_for('mentor.static', filename='images/chat/chat_robots.svg')
-        send_button = flask.url_for('mentor.static', filename='images/chat/send_button.svg')
-        chat_robot = flask.url_for('mentor.static', filename='images/chat_robot.png')
-        pet_img = flask.url_for(
-                'profile.static',
-                filename=f'images/pets_id/{user.user_profile.pet_id}.png'
-            )
+        current_room = user.rooms[-1] 
+        test = Test.query.get(int(current_room.id_test))
+        title_test = test.title_test
 
         response = {
             "user_id": user_id,
-            "pet_img": pet_img,
-            "avatar_url": avatar_url,
             "username": user.username,
-            "email": user.email,
-            "copy_img": copy_img,
-            "chat_robots": chat_robots,
-            "send_button": send_button,
-            "chat_robot": chat_robot
+            "points": user.user_profile.count_points,
+            "title_test": title_test,
+            "count_question": test.questions.count("?%?") + 1,
+            "code_test": current_room.room_code,
+            "click_img": flask.url_for('student.static', filename = 'images/click.svg')
         }
 
         return jsonify(response), 200
@@ -141,14 +133,12 @@ def handle_passing():
 # @login_decorate
 def render_student():
     if flask_login.current_user.is_authenticated and str(flask_login.current_user.password) != "1":
-
         current_user.user_profile.count_points = 0
-        # flask_login.current_user.user_profile.last_answered = ""
         DATABASE.session.commit()
     if flask_login.current_user.is_authenticated and flask_login.current_user.user_profile.last_answered in ["" , " ", None]:
         flask_login.current_user.user_profile.last_answered = "пропустив𒀱0.0𒀱2𒀱∅"
         DATABASE.session.commit()
-
+     
     return flask.render_template(
         "student.html",
     )

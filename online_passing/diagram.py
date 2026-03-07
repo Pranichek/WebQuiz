@@ -228,7 +228,10 @@ def return_result(data):
         incorrect_answers = 0
         skip_answers = 0
         right_answers = return_answers(index= index, test_id= int(int(data["test_id"])))
-        count_chosen = [0, 0, 0, 0]
+        
+        number_of_options = len(list_answers[index])
+        count_chosen = [0] * (number_of_options if number_of_options > 0 else 4)
+
         users_variants = []
 
         for user in users:
@@ -237,8 +240,11 @@ def return_result(data):
             if len(user_answers) > 0 and user_answers[index] != "∅" and len(right_answers) > 0:
                 total_answers += 1
                 if types[index] == "one-answer":
-                    count_chosen[int(user_answers[index])] += 1
-                    if int(right_answers[0]) == int(user_answers[index]):
+                    ans_idx = int(user_answers[index])
+                    if ans_idx < len(count_chosen):
+                        count_chosen[ans_idx] += 1
+                    
+                    if int(right_answers[0]) == ans_idx:
                         correct_answers += 1
                     else:
                         incorrect_answers += 1
@@ -249,13 +255,15 @@ def return_result(data):
                     list_answs = user_answers[index].split("@")
 
                     for ans in list_answs:
-                        count_chosen[int(ans)] += 1
-                        if int(ans) in right_answers:
+                        ans_idx = int(ans)
+                        if ans_idx < len(count_chosen):
+                            count_chosen[ans_idx] += 1
+                        
+                        if ans_idx in right_answers:
                             correct += 1
                         else:
                             uncorrect += 1
                     
-                    # расчитіваем сколько минимум должно біть правильніх ответов чтобы засчитать бал
                     count_min = len(right_answers) / 2 
 
                     if correct > int(count_min) and uncorrect == 0:
@@ -280,7 +288,6 @@ def return_result(data):
                     else:
                         incorrect_answers += 1
             else:
-                # не ответил
                 skip_answers += 1
 
         current_answers = list_answers[index]
@@ -288,21 +295,21 @@ def return_result(data):
 
         for answer_index in range(len(current_answers)):
             answer = current_answers[answer_index]
+            
+            count_val = count_chosen[answer_index] if answer_index < len(count_chosen) else 0
+
             variants.append({
                 "label": answer_index + 1,
                 "text": answer,
                 "is_correct": True if answer_index in right_answers else False,
-                "count_choosen": count_chosen[answer_index]
+                "count_choosen": count_val
             })
         
-            
-
-
         time_dict = {
             "question_id": index + 1,
             "type_question": types[index],
             "question_text": questions[index],
-            "users_variants": users_variants, # варіанти, що написали люди при питанні де треба дати відповідь вручну
+            "users_variants": users_variants,
             "stats": {
                 "total_answers": total_answers,
                 "correct_count": correct_answers,

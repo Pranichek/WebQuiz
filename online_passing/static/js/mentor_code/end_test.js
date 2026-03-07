@@ -3,7 +3,7 @@ export async function endTest(){
 
     function closeWindow() {
         windowChoice.classList.remove("active")
-        foggy.classList.remove("active")
+        // foggy.classList.remove("active")
         let choiceWindow = document.querySelector(".window-choice")
         if(choiceWindow) choiceWindow.classList.remove("active")
     }

@@ -99,6 +99,7 @@ def get_user_detail_stats():
             else:
                 # не ответил
                 list_check.append("пропустив")
+                text_user_answers.append("не відповідав")
         else:
             if user_answers[i] != "∅":
                 list_check.append("правильно")
@@ -133,7 +134,6 @@ def get_user_detail_stats():
         sum_time += int(time)
     sum_time = sum_time // len(avarage_times)
     
-    # Приклад даних, які повертаємо:
     response_data = {
         "id": user.id,
         "username": user.username,

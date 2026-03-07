@@ -216,10 +216,6 @@ main {
     right: 10px;
 }
 
-.user-name{
-    min-width: 80%;
-}
-
 @media (max-width: 1024px) {
     .answers-test {
         flex-wrap: wrap;
@@ -247,7 +243,6 @@ main {
         flex-direction: column;
         height: 100vh; 
         overflow-y: scroll;
-        /* overflow: hidden;  */
     }
 
     .question-cont {

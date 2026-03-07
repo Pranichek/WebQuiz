@@ -6,7 +6,7 @@ bgMusic.volume = 0.3;
 export function playBackgroundMusic() {
     if (bgMusic.paused) {
         bgMusic.play().catch(error => {
-            console.warn("Автовоспроизведение заблокировано браузером. Нужна интеракция пользователя.", error);
+            console.log(error);
         });
     }
 }

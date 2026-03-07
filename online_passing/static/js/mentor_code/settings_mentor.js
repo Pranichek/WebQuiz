@@ -1,3 +1,30 @@
+function createUserCardHTML(user, index) {
+    const isAnswered = user.ready == "відповів";
+    const statusClass = isAnswered ? "finished" : "box"; // Або ваші класи correct-status/missed-status
+    const statusIcon = isAnswered ? "✔" : ""; 
+    // Примітка: підлаштуйте класи під ваш CSS, я використовую структуру з вашого питання
+    const circleClass = isAnswered ? "correct-status" : "missed-status";
+
+    const div = document.createElement('div');
+    div.className = "user-card";
+    div.setAttribute('data-id', user.id);
+    div.style.padding = "1.5vh 0.2vw";
+    div.style.transition = "transform 0.5s ease, background-color 0.3s"; // Додаємо плавність CSS
+
+    div.innerHTML = `
+        <div class="user-info">
+            <div class="place-part">
+                <div class="circle-answer ${circleClass}"></div>
+                <span class="place-students">${index}</span>
+            </div>
+            
+            <span title="${user.username}" class="user-name">${user.username}</span>
+            <span class="accuracy-user">${parseInt(user.accuracy)}%</span>
+            <span class="user-points">${user.count_points}</span>
+        </div>
+    `;
+    return div;
+}
 
 export async function mentorSettings() {
     if (localStorage.getItem("index_question")) {
@@ -10,72 +37,94 @@ export async function mentorSettings() {
 
     socket.on("update_users", data => {
         const blockUsers = document.querySelector(".outline-users");
-        blockUsers.innerHTML = "";
+        
+        const oldPositions = new Map();
+        const currentCards = blockUsers.querySelectorAll('.user-card');
+        currentCards.forEach(card => {
+            oldPositions.set(card.dataset.id, card.getBoundingClientRect().top);
+        });
 
         let count_answered = 0;
         let count_users = data.user_list.length;
-        
-        data.user_list.forEach(user => {
-            let user_card;
-            if (user.ready == "відповів") {
-                count_answered++;
-                user_card = `
-                    <div class="user-card active" data-id="${user.id}" title="${user.username}"> 
-                        <div class="user-info">
-                            <span class="user-name">${user.username}</span>
-                        </div>
-                        <div class="user-status finished">✔</div>
-                    </div>
-                `;
-            } else {
-                user_card = `
-                    <div class="user-card" data-id="${user.id}" title="${user.username}">
-                        <div class="user-info">
-                            <span class="user-name">${user.username}</span>
-                        </div>
-                        <div class="user-status box"></div>
-                    </div>
-                `;
+
+        data.user_list.forEach((user, index) => {
+            if (user.ready == "відповів") count_answered++;
+
+            let card = blockUsers.querySelector(`.user-card[data-id="${user.id}"]`);
+
+            if (!card) {
+                card = createUserCardHTML(user, index + 1);
+                blockUsers.appendChild(card);
             }
 
-            blockUsers.insertAdjacentHTML('beforeend', user_card);
+            const circle = card.querySelector('.circle-answer');
+
+            card.querySelector('.user-points').textContent = user.count_points;
+            card.querySelector('.accuracy-user').textContent = parseInt(user.accuracy); 
+            card.querySelector('.place-students').textContent = index + 1;
+            
+            console.log(user.right_wrong, "loli")
+            if (user.ready == "відповів" && user.right_wrong == "1") {
+                circle.className = "circle-answer correct-status";
+                card.classList.add("active");
+            } else if (user.ready == "відповів"){
+                circle.className = "circle-answer wrong-status";
+                card.classList.remove("active");
+            }else{
+                circle.className = "circle-answer missed-status";
+                card.classList.remove("active");
+            }
+
+
+            blockUsers.appendChild(card);
         });
-        
+
+        const newIds = new Set(data.user_list.map(u => String(u.id)));
+        currentCards.forEach(card => {
+            if (!newIds.has(card.dataset.id)) {
+                card.remove();
+            }
+        });
+
         document.querySelector(".text-people").textContent = `${count_answered}/${count_users}`;
+
+        const newCards = blockUsers.querySelectorAll('.user-card');
+        
+        newCards.forEach(card => {
+            const oldTop = oldPositions.get(card.dataset.id);
+            
+            if (oldTop !== undefined) {
+                const newTop = card.getBoundingClientRect().top;
+                const delta = oldTop - newTop;
+
+                if (delta !== 0) {
+                    card.style.transition = 'none';
+                    card.style.transform = `translateY(${delta}px)`;
+
+                    requestAnimationFrame(() => {
+                        requestAnimationFrame(() => {
+                            card.style.transition = 'transform 0.5s ease';
+                            card.style.transform = '';
+                        });
+                    });
+                }
+            } else {
+                card.style.animation = "fadeIn 0.5s";
+            }
+        });
 
         if (count_answered == count_users && count_users > 0) {
             if (window.questionTimer) clearInterval(window.questionTimer);
-
-            socket.emit("end_question", {
-                code: localStorage.getItem("room_code")
-            });
-        }
-    });
-
-    socket.on("single_student_answered", (data) => {
-        const userCard = document.querySelector(`.user-card[data-id="${data.user_id}"]`);
-
-        if (userCard) {
-            userCard.classList.add("active");
-
-            const statusBox = userCard.querySelector(".user-status");
             
-            if (statusBox) {
-                statusBox.classList.remove("box");
-                statusBox.classList.add("finished");
-                statusBox.textContent = "✔";
-            }
-        }
-
-        const counterText = document.querySelector(".text-people");
-        if (counterText) {
-            counterText.textContent = `${data.answered_count}/${data.total_count}`;
-        }
-
-        if (data.answered_count === data.total_count && data.total_count > 0) {
-             if (window.questionTimer) clearInterval(window.questionTimer);
+            setTimeout(() => {
+                socket.emit("end_question", {
+                    code: localStorage.getItem("room_code")
+                });
+            }, 1000);
         }
     });
+
+
 
     let formatTime = (seconds) => {
         const m = Math.floor(seconds / 60).toString().padStart(2, '0');
@@ -129,8 +178,9 @@ export async function mentorSettings() {
                 option = (option.slice(1, -1) == "image?#$?image") ? null : option.slice(1, -1);
 
                 let innerHTML = `<div class="sign"></div>`;
-
                 if (option !== null) {
+                    option = option.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
                     innerHTML += `
                         <div class="text-part">
                             <p>${option}</p>
@@ -139,10 +189,10 @@ export async function mentorSettings() {
                 }
 
                 if(data.image_urls[index] != "none") {
-                innerHTML += `
-                <div class = 'answer-img-wrapper'>
-                        <img src="${data.image_urls[index]}">
-                </div>`;
+                    innerHTML += `
+                    <div class = 'answer-img-wrapper'>
+                            <img src="${data.image_urls[index]}">
+                    </div>`;
                 }
 
                 let answerHTML = `

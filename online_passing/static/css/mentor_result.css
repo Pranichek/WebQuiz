@@ -502,13 +502,12 @@
 
 .body-ratings {
     width: 100%;
-    /* 100% минус высота верхних блоков (14% + 14%) */
     height: calc(100% - 28%); 
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    align-content: flex-start; /* Прижимает ряды к верху */
-    gap: 2%; /* Уменьшите gap или перейдите на px, если карточки прыгают */
+    align-content: flex-start; 
+    gap: 2%; 
     overflow-y: auto;
     margin-top: 2%;
 }
