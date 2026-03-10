@@ -12,6 +12,12 @@ def render_input_username():
     
     if not room_code:
         return flask.redirect("/")
+    
+    last_room = flask.session.get("current_room_code")
+                
+    if last_room and str(last_room) != str(room_code):
+        flask_login.logout_user()
+        flask.session.clear()
 
     if flask.request.method == "POST":
         room = Rooms.query.filter_by(room_code=room_code).first()

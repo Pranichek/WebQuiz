@@ -1,15 +1,17 @@
+let userToDeleteId;
+
 function createUserCardHTML(user, index) {
     const isAnswered = user.ready == "відповів";
-    const statusClass = isAnswered ? "finished" : "box"; // Або ваші класи correct-status/missed-status
+    const statusClass = isAnswered ? "finished" : "box"; 
     const statusIcon = isAnswered ? "✔" : ""; 
-    // Примітка: підлаштуйте класи під ваш CSS, я використовую структуру з вашого питання
     const circleClass = isAnswered ? "correct-status" : "missed-status";
 
     const div = document.createElement('div');
     div.className = "user-card";
+    div.id = user.id
     div.setAttribute('data-id', user.id);
     div.style.padding = "1.5vh 0.2vw";
-    div.style.transition = "transform 0.5s ease, background-color 0.3s"; // Додаємо плавність CSS
+    div.style.transition = "transform 0.5s ease, background-color 0.3s";
 
     div.innerHTML = `
         <div class="user-info">
@@ -23,6 +25,13 @@ function createUserCardHTML(user, index) {
             <span class="user-points">${user.count_points}</span>
         </div>
     `;
+
+    div.addEventListener("click", () => {
+        document.querySelector(".window-choice").classList.add("active");
+        document.querySelector("#overlay").classList.add("active");
+        userToDeleteId = user.id; 
+    });
+
     return div;
 }
 
@@ -34,6 +43,26 @@ export async function mentorSettings() {
             room: localStorage.getItem("room_code"),
         });
     }
+
+    document.querySelector(".remove_user").addEventListener("click", () => {
+        if (userToDeleteId) {
+            let currentCode = localStorage.getItem("room_code");
+            socket.emit("delete_user", {
+                room: currentCode,
+                id: userToDeleteId
+            });
+            
+            document.querySelector(".window-choice").classList.remove("active");
+            document.querySelector("#overlay").classList.remove("active");
+            userToDeleteId = null;
+        }
+    });
+
+    document.querySelector(".decline").addEventListener("click", () => {
+        document.querySelector(".window-choice").classList.remove("active");
+        document.querySelector("#overlay").classList.remove("active");
+        userToDeleteId = null;
+    });
 
     socket.on("update_users", data => {
         const blockUsers = document.querySelector(".outline-users");
@@ -63,7 +92,6 @@ export async function mentorSettings() {
             card.querySelector('.accuracy-user').textContent = parseInt(user.accuracy); 
             card.querySelector('.place-students').textContent = index + 1;
             
-            console.log(user.right_wrong, "loli")
             if (user.ready == "відповів" && user.right_wrong == "1") {
                 circle.className = "circle-answer correct-status";
                 card.classList.add("active");
@@ -124,7 +152,15 @@ export async function mentorSettings() {
         }
     });
 
+    socket.on('leave_user', (data) => {
+        const userId = data.id || data; 
 
+        const userCard = document.querySelector(`.user-card[data-id="${userId}"]`);
+
+        if (userCard) {
+            userCard.remove();
+        }
+    })
 
     let formatTime = (seconds) => {
         const m = Math.floor(seconds / 60).toString().padStart(2, '0');
@@ -135,7 +171,7 @@ export async function mentorSettings() {
     socket.on("data_question_mentor", data => {
         const check_answers = [];
         
-        document.querySelector(".num-que").textContent = `${parseInt(localStorage.getItem("index_question")) + 1}/${data.amount_question}`;
+        document.querySelector(".questions-mentor").textContent = `${parseInt(localStorage.getItem("index_question")) + 1}/${data.amount_question}`;
 
         const answersBlock = document.querySelector(".answers-test");
         answersBlock.innerHTML = "";
@@ -333,5 +369,6 @@ export async function mentorSettings() {
             test_id: localStorage.getItem("test_id"),
             room: localStorage.getItem("room_code")
         });
+        
     });  
 }

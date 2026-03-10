@@ -140,11 +140,10 @@ def answer_the_question(data):
     if "finish" in data and data["finish"] is True:
         test_obj = Test.query.get(int(data["id_test"]))
         total_questions = len(test_obj.questions.split("?%?"))
-        current_index = int(data["index"])
-
-        for ind in range(current_index , total_questions - 1):
+        # current_index = int(data["index"])
+        while len(flask_login.current_user.user_profile.all_answers.split("?#$?")) <= total_questions:
             flask_login.current_user.user_profile.all_answers += "∅?#$?"
-            flask_login.current_user.user_profile.all_procents += " 0"
+            flask_login.current_user.user_profile.all_procents += f" {flask_login.current_user.user_profile.all_procents.split()[-1]}"
             flask_login.current_user.user_profile.avarage_time += " 0"
 
             stats = flask_login.current_user.user_profile.data_questions.split("/")
@@ -424,9 +423,11 @@ def answer_the_question(data):
                     "ready": user.user_profile.answering_answer,
                     "count_points": user.user_profile.count_points,
                     "accuracy": user.user_profile.last_answered.split("𒀱")[1],
-                    "right_wrong": user.user_profile.last_answered.split("𒀱")[2]
+                    "right_wrong": user.user_profile.last_answered.split("𒀱")[2],
+                    "id": user.id
                 })
-            
+        
+        user_list.sort(key=lambda x: x['accuracy'], reverse=True)
         user_list.sort(key=lambda x: x['count_points'], reverse=True)
         
         emit("update_users", {"user_list": user_list}, room=data["code"], broadcast=True)
@@ -448,6 +449,7 @@ def answer_the_question(data):
                     "right_wrong": user_obj.user_profile.last_answered.split("𒀱")[2]
                 })
 
+        user_list.sort(key=lambda x: x['accuracy'], reverse=True)
         user_list.sort(key=lambda x: (x['count_points'], float(x['accuracy'])), reverse=True)
 
         emit("update_users", {"user_list": user_list}, room=data["code"], broadcast=True)

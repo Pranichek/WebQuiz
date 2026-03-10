@@ -79,23 +79,6 @@ export async function lobbyStudent() {
         renderUser(data.new_user);
     });
 
-
-    socket.on("leave_user", data => {
-        if (parseInt(data["id"]) == parseInt(document.querySelector(".id").dataset.id)){
-            window.location.replace("/");
-        } else {
-            const userBlock = document.getElementById(`student-${data.id}`);
-            if (userBlock) {
-                userBlock.remove();
-                
-                let currentCount = parseInt(document.querySelector(".count").textContent) || 0;
-                if (currentCount > 0) {
-                    document.querySelector(".count").textContent = currentCount - 1;
-                }
-            }
-        }
-    });
-
     socket.on("you_are_blocked", (data) => {
         if (parseInt(data["user_id"]) == parseInt(document.querySelector(".id").dataset.id)){
             window.location.href = "/";

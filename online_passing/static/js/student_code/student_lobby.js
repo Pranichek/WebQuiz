@@ -72,7 +72,7 @@ export async function loadLobby(){
                         </div>
 
                         <div class="info-row">
-                            <span class="label">Кількість питант</span>
+                            <span class="label">Кількість питань</span>
                             <span class="value">${ data.count_question }</span>
                         </div>
 
@@ -304,3 +304,19 @@ export async function loadPassingStudent(){
         }
     })
 }
+
+socket.on("leave_user", data => {
+    if (parseInt(data["id"]) == parseInt(document.querySelector(".id").dataset.id)){
+        window.location.replace("/");
+    } else {
+        const userBlock = document.getElementById(`student-${data.id}`);
+        if (userBlock) {
+            userBlock.remove();
+            
+            let currentCount = parseInt(document.querySelector(".count").textContent) || 0;
+            if (currentCount > 0) {
+                document.querySelector(".count").textContent = currentCount - 1;
+            }
+        }
+    }
+});

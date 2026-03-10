@@ -442,6 +442,16 @@ export async function renderStudentPassing(params) {
                         }
                     });
                 }
+
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter') {
+                        const confirmBtn = document.querySelector(".confirm-button");
+                        if (confirmBtn && !confirmBtn.disabled) {
+                            confirmBtn.click(); 
+                        }
+                    }
+                });
+
                                 
                 setTimeout(() => {
                     let divs = document.querySelectorAll(".many-variant");
@@ -631,6 +641,7 @@ export async function renderStudentPassing(params) {
                     }
                 }
             } else if (typeQuestion == "input-gap"){
+                
                 const sideMenu = document.querySelector(".controls-section");
                 let confirm_button = document.createElement("button");
                 confirm_button.className = "check-answers confirm-button";
@@ -640,6 +651,16 @@ export async function renderStudentPassing(params) {
                     confirm_button.disabled = true;
                     confirm_button.style.pointerEvents = "none";
                 }
+
+                document.addEventListener('keydown', function(event) {
+                    if (event.key === 'Enter') {
+                        if (confirm_button && !confirm_button.disabled) {
+                            confirm_button.click(); 
+                        }
+                    }
+                });
+
+
                 sideMenu.appendChild(confirm_button);
 
                 if (amountAnswers == 0){

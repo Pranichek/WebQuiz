@@ -38,9 +38,25 @@ export async function renderMentorResult() {
         if (variants) variants.remove()
     })
 
+    socket.on('leave_user', (data) => {
+        const userId = data.id || data; 
+
+        const userCard = document.querySelector(`.user-card[data-id="${userId}"]`);
+
+        if (userCard) {
+            userCard.remove();
+        }
+    })
+
     socket.on("list_results", user_list => {  
         // встановлення кількості питань
-        document.querySelector(".questions-mentor").textContent = `${parseInt(localStorage.getItem("index_question")) + 1}/${user_list.count_questions}`
+        const currentindex = parseInt(localStorage.getItem("index_question")) + 1
+        const generalQuestions = parseInt(user_list.count_questions)
+        document.querySelector(".questions-mentor").textContent = `${currentindex}/${generalQuestions}`
+
+        if (currentindex == generalQuestions){
+            if (document.querySelector(".next-question")) document.querySelector(".next-question").remove()
+        }
 
         const topData = document.querySelector(".top-data")
         const usersRatings = document.querySelector(".users-list-container")
@@ -513,6 +529,8 @@ export async function renderMentorResult() {
 
         const usersConts = document.querySelector(".users-list-container");
 
+        let userToDeleteId;
+
         user_list.users.forEach((element, index) => {
             let statusClass = "";
 
@@ -526,22 +544,53 @@ export async function renderMentorResult() {
 
             let points = element.points !== undefined ? element.points : 0;
 
-            const cardHTML = `
-                <div class="user-card" data-id="${element.id}" style="padding: 1.5vh 0.2vw;">
-                    <div class="user-info">
-                        <div class="place-part">
-                            <div class="circle-answer ${statusClass}"></div>
-                            <span class="place-students">${index + 1}</span>
-                        </div>
-                        
-                        <span title="${element.username}" class="user-name">${element.username}</span>
-                        <span class="accuracy-user">${parseInt(element.accuracy)}</span>
-                        <span class="user-points">${element.points}</span>
-                    </div>
-                </div>
-            `
+            const cardDiv = document.createElement('div');
+    
+            cardDiv.className = "user-card";
+            cardDiv.dataset.id = element.id;
+            cardDiv.id = element.id;
+            cardDiv.style.padding = "1.5vh 0.2vw";
 
-            usersConts.insertAdjacentHTML('beforeend', cardHTML);
+            cardDiv.innerHTML = `
+                <div class="user-info">
+                    <div class="place-part">
+                        <div class="circle-answer ${statusClass}"></div>
+                        <span class="place-students">${index + 1}</span>
+                    </div>
+                    
+                    <span title="${element.username}" class="user-name">${element.username}</span>
+                    <span class="accuracy-user">${parseInt(element.accuracy)}</span>
+                    <span class="user-points">${points}</span>
+                </div>
+            `;
+
+            cardDiv.addEventListener("click", () => {
+                document.querySelector(".window-choice").classList.add("active");
+                document.querySelector("#overlay").classList.add("active");
+                userToDeleteId = element.id; 
+            });
+
+            usersConts.append(cardDiv);
+        });
+
+        document.querySelector(".remove_user").addEventListener("click", () => {
+            if (userToDeleteId) {
+                let currentCode = localStorage.getItem("room_code");
+                socket.emit("delete_user", {
+                    room: currentCode,
+                    id: userToDeleteId
+                });
+                
+                document.querySelector(".window-choice").classList.remove("active");
+                document.querySelector("#overlay").classList.remove("active");
+                userToDeleteId = null;
+            }
+        });
+
+        document.querySelector(".decline").addEventListener("click", () => {
+            document.querySelector(".window-choice").classList.remove("active");
+            document.querySelector("#overlay").classList.remove("active");
+            userToDeleteId = null;
         });
 
 
@@ -643,13 +692,15 @@ export async function renderMentorResult() {
         window.location.replace("/finish_mentor")
     })
 
-    document.querySelector(".next-question").addEventListener('click', () => {
-        const oldData = parseInt(localStorage.getItem("index_question"))
-        localStorage.setItem("index_question", oldData + 1)
-        socket.emit('next_one', {
-            index: localStorage.getItem("index_question"),
-            test_id: localStorage.getItem("test_id"),
-            room: localStorage.getItem("room_code"),
+    if (document.querySelector(".next-question")){
+        document.querySelector(".next-question").addEventListener('click', () => {
+            const oldData = parseInt(localStorage.getItem("index_question"))
+            localStorage.setItem("index_question", oldData + 1)
+            socket.emit('next_one', {
+                index: localStorage.getItem("index_question"),
+                test_id: localStorage.getItem("test_id"),
+                room: localStorage.getItem("room_code"),
+            })
         })
-    })
+    }
 }

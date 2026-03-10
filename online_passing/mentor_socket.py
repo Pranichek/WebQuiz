@@ -235,6 +235,7 @@ def load_question_mentor(data):
                 "right_wrong": user.user_profile.last_answered.split("𒀱")[2]
             })
 
+    user_list.sort(key=lambda x: x['accuracy'], reverse=True)
     user_list.sort(key=lambda x: x['count_points'], reverse=True)
 
     test : Test = Test.query.get(room.id_test)
@@ -272,7 +273,6 @@ def load_question_mentor(data):
                 url = flask.url_for("profile.static", filename = f"images/edit_avatar/{email}/user_tests/{title}/{index_question + 1}/{str(index)}/{os.listdir(current_path)[0]}")
                 image_urls[index - 1] = url
     
-    print(answer_options, "kmknk")
 
     emit("data_question_mentor", {
         "user_list": user_list,

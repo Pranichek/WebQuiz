@@ -134,6 +134,9 @@ export async function loadLobby(){
 socket.on(
     "start_passing",
     data => {
+        socket.off("set_qrcode");
+
+        document.querySelector(".main").innerHTML = "";
         const urlParams = new URLSearchParams(window.location.search);
         const id_test = urlParams.get('id_test');
         
@@ -186,6 +189,15 @@ export async function loadPassingMentor(){
         mainBlock.innerHTML =  `
             <div class="overlay" id="overlay"></div>
 
+            <div class="window-choice">
+                <h1>Видалити учасника з кімнати</h1>
+                <p>Ви впевнені, що хочете видалити цього учасника з кімнати?</p>
+                <div>
+                    <p class="decline">Скасувати</p>
+                    <p class="remove_user">Видалити</p>
+                </div>
+            </div>
+
             <div class="question-cont">
                 <div class="question-test">
                     <div class="num-question">
@@ -222,7 +234,7 @@ export async function loadPassingMentor(){
                     <div class="section-header">
                         <div class="questions">
                             <span>ПИТАННЯ</span>
-                            <span class="questions-mentor">5/10</span>
+                            <span class="questions-mentor">1/10</span>
                         </div>
 
                         <div class="timer-box">
@@ -320,6 +332,12 @@ socket.on("page_result", data => {
     mentorResult()
 });
 
+socket.on("no_time", data => {
+    localStorage.setItem("check", "result_mentor");
+    mentorResult()
+});
+
+
 export async function mentorResult(){
     const mainCont = document.querySelector(".main");
     mainCont.style.transition = 'opacity 0.3s ease'; 
@@ -350,6 +368,17 @@ export async function mentorResult(){
     .then(response => response.json())
     .then(async (data) => {
         mainBlock.innerHTML =`
+            <div class="overlay" id="overlay"></div>
+
+            <div class="window-choice">
+                <h1>Видалити учасника з кімнати</h1>
+                <p>Ви впевнені, що хочете видалити цього учасника з кімнати?</p>
+                <div>
+                    <p class="decline">Скасувати</p>
+                    <p class="remove_user">Видалити</p>
+                </div>
+            </div>
+            
             <div class="main-part">
                 <div class="open-menu" id="openMenuBtn">
                     <img src="${data.click_img}" alt="">

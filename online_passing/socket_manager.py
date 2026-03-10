@@ -306,36 +306,38 @@ def delete_user(data):
                 broadcast=True
             )
 
-            user_list = []
-            for u in room.users:
-                if u.id == room.user_id:
-                    continue
+            # user_list = []
+            # for u in room.users:
+            #     if u.id == room.user_id:
+            #         continue
 
-                avatar_url = flask.url_for(
-                    'profile.static',
-                    filename=f'images/edit_avatar/{u.name_avatar}'
-                )
-                pet_url = flask.url_for(
-                    'profile.static',
-                    filename=f'images/pets_id/{u.user_profile.pet_id}.png'
-                )
+            #     avatar_url = flask.url_for(
+            #         'profile.static',
+            #         filename=f'images/edit_avatar/{u.name_avatar}'
+            #     )
+            #     pet_url = flask.url_for(
+            #         'profile.static',
+            #         filename=f'images/pets_id/{u.user_profile.pet_id}.png'
+            #     )
 
-                user_list.append({
-                        "username": u.username,
-                        "ready": u.user_profile.answering_answer,
-                        "count_points": u.user_profile.count_points,
-                        "user_avatar": avatar_url,
-                        "pet_img": pet_url,
-                        "id": u.id,
-                        "email": u.email
-                    })
+            #     user_list.append({
+            #             "username": u.username,
+            #             "ready": u.user_profile.answering_answer,
+            #             "count_points": u.user_profile.count_points,
+            #             "accuracy": u.user_profile.last_answered.split("𒀱")[1],
+            #             "right_wrong": u.user_profile.last_answered.split("𒀱")[2],
+            #             "user_avatar": avatar_url,
+            #             "pet_img": pet_url,
+            #             "id": u.id,
+            #             "email": u.email
+            #         })
 
-            emit(
-                "update_users",
-                {"user_list": user_list, "code": room.room_code, "id_test": room.id_test},
-                room=room.room_code,
-                broadcast=True
-            )
+            # emit(
+            #     "update_users",
+            #     {"user_list": user_list, "code": room.room_code, "id_test": room.id_test},
+            #     room=room.room_code,
+            #     broadcast=True
+            # )
 
 @socket.on("block_user")
 def block_user(data):
