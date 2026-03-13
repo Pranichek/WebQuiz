@@ -244,11 +244,6 @@
     bottom: -35px;
 }
 
-.user-card:hover{
-    cursor: pointer;
-    text-decoration: line-through;
-}
-
 .user-name{
     min-width: 100%;
     text-align: center;

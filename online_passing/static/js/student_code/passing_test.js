@@ -28,6 +28,7 @@ export async function renderStudentPassing(params) {
 
 
     function give_answer(checkFlag){
+        document.dispatchEvent(new CustomEvent('stopTestMusic'));
         let midletime = localStorage.getItem("wasted_time") || 0;
         midletime = parseInt(localStorage.getItem("timeData"));
         localStorage.setItem("wasted_time", midletime);
@@ -83,6 +84,7 @@ export async function renderStudentPassing(params) {
     }
 
     socket.on("page_waiting", data => {
+        console.log("zdi")
         localStorage.setItem("next_page", "waiting_student");
     });
 

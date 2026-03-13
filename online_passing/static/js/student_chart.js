@@ -27,9 +27,12 @@ document.addEventListener('change', (event) => {
 });
 
 socket.on("dots-diagram", data => { 
-    let rawProcents = data.list_procents || "";
+    let rawProcents = data.list_procents;
     let dataValues = rawProcents.split(" ").map(Number);
     let labels = data.list_question;
+
+    console.log(rawProcents, "sndjhdsnjk")
+    console.log(labels)
 
     const canvas = document.querySelector('.myChart');
     if (!canvas) return;
@@ -183,3 +186,11 @@ socket.on("time_diagrams", data => {
         }
     });
 });
+
+socket.on("students_graphics", () => {
+    socket.emit("student_diagram", {
+        id: localStorage.getItem("user_finish-id"),
+        test_id: localStorage.getItem("test_id"), 
+        room: localStorage.getItem("room_code") 
+    });
+})

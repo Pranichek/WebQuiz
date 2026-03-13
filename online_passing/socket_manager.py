@@ -130,6 +130,9 @@ def handle_join(data):
 
     emit("save_id", {"id_test": room.id_test})
 
+    if room and room.status == 'started': 
+        emit('start_test', {"index": room.index_question}, to=request.sid)
+
 
 
 @socket.on("send_message")
@@ -163,14 +166,22 @@ def handle_send_message(data):
 
 @socket.on("start_test")
 def handle_start_test(data):
-    room = data["room"]
-    emit("start_passing", {"sender": str(current_user.username), "code": room}, room=room, broadcast=True)
+    room_code = data["room"]
+    room = Rooms.query.filter_by(room_code=room_code).first()
+    
+    if room:
+        room.status = 'started' 
+        DATABASE.session.commit()
+
+    emit("start_test", {"index": room.index_question}, to=room_code)
 
 # перевірка якщо студент приєднався після початку тесту
 @socket.on("check_room_status")
 def handle_check_status(data):
-    room_code = data["room"]
+    room_code = data.get("room")
     room : Rooms = Rooms.query.filter_by(room_code=room_code).first()
+
+    print("daf")
 
         
     if  room.index_question != 0 and len(flask_login.current_user.user_profile.all_procents.split()) - 1 != int(room.index_question):
@@ -187,8 +198,7 @@ def handle_check_status(data):
 
     if room and room.status == 'started': 
 
-
-        emit('start_test', {"index": room.index_question}, room=room_code)
+        emit('start_test', {"index": room.index_question})
 
 @socket.on("mentor_email")
 def save_mentor_email(data):

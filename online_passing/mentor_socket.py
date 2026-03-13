@@ -383,7 +383,7 @@ def finish_test(data):
 
             all_procents = profile.all_procents.split()
             sum_prcoents = sum(int(x) for x in all_procents)
-            accuracy = int(profile.all_procents.split()[-1])
+            accuracy = int(profile.all_procents.split()[-1]) if len(profile.all_procents.split()) > 0 else 0
             
             mark = (12 * accuracy) // 100
             
@@ -499,11 +499,11 @@ def finish_test(data):
                 "username": user.username,
                 "email": user.email,
                 "count_points": user.count_points,
-                "accuracy": int(user.all_procents.split()[-1]),
+                "accuracy": int(user.all_procents.split()[-1]) if len(user.all_procents.split()) > 0 else 0,
                 "user_answers": list_check
             })
 
-            accuracy = int(user.all_procents.split()[-1]) 
+            accuracy = int(user.all_procents.split()[-1]) if len(user.all_procents.split()) > 0 else 0
             check = False
 
             for elem in accuracy_result:
@@ -550,6 +550,8 @@ def finish_test(data):
         "bar_labels": bar_labels,
         "bar_values": bar_values
     })
+
+    emit("students_graphics", {"data":"ready"}, room=data["room"])
 
 @socket.on("alarm-end")
 def alarm_end(data):

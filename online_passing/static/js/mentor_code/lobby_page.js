@@ -132,7 +132,7 @@ export async function loadLobby(){
 }
 
 socket.on(
-    "start_passing",
+    "start_test",
     data => {
         socket.off("set_qrcode");
 

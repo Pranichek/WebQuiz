@@ -20,7 +20,7 @@ function renderUser(user) {
 
     blockUsers.appendChild(userDiv);
 
-    document.querySelector(".count").textContent = document.querySelectorAll(".user-card").length
+    document.querySelector(".count").textContent = document.querySelectorAll(".user-card").length;
 }
 
 export async function lobbyStudent() {
@@ -62,7 +62,6 @@ export async function lobbyStudent() {
         const mentorEmail = localStorage.getItem("email_mentor");
         const studentsList = data.user_list.filter(user => user.email !== mentorEmail);
 
-
         const blockUsers = document.querySelector(".outline-users");
         blockUsers.innerHTML = "";
 
@@ -95,23 +94,28 @@ export async function lobbyStudent() {
         }
     });
 
-    socket.on("fake_room",
-        data => {
-            if (data["email"] == document.querySelector(".email").textContent){
-                window.location.replace("/");
-            }
+    socket.on("fake_room", data => {
+        if (data["email"] == document.querySelector(".email").textContent){
+            window.location.replace("/");
         }
-    );
+    });
 
-    socket.on("save_id",
-        data => {
-            localStorage.setItem("test_id", data.id_test)
-        }
-    )
+    socket.on("save_id", data => {
+        localStorage.setItem("test_id", data.id_test);
+    });
+
 
     window.checkStatusInterval = setInterval(() => {
+        if (socket.connected) { 
+            socket.emit("check_room_status", { 
+                room: localStorage.getItem("room_code")
+            });
+        }
+    }, 3000);
+
+    document.addEventListener("visibilitychange", () => {
         socket.emit("check_room_status", { 
             room: localStorage.getItem("room_code")
         });
-    }, 3000);
+    });
 }

@@ -1,6 +1,7 @@
 import { lobbyStudent } from './student.js';
 import { renderStudentPassing } from './passing_test.js'
 import { loadUsers } from './load_users.js'
+import { playBackgroundMusic, stopBackgroundMusic } from './top_music.js'; 
 
 export async function removeOldCSS() {
     const oldStyles = document.querySelectorAll('link.dynamic-css');
@@ -9,6 +10,7 @@ export async function removeOldCSS() {
         link.remove(); 
     });
 }
+
 
 export async function loadCSS(href) {
     if (document.querySelector(`link[href="${href}"]`)) {
@@ -177,12 +179,16 @@ export async function loadPassingStudent(){
     socket.off("last-end");      
     socket.off("finish_student")
 
+
     if (window.checkStatusInterval) {
         clearInterval(window.checkStatusInterval);
+        
         window.checkStatusInterval = null;
     }
 
     if (window.lobbyInterval) clearInterval(window.lobbyInterval);
+
+    playBackgroundMusic();
 
     const mainBlock = document.querySelector(".main")
 

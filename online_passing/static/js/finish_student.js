@@ -37,8 +37,8 @@ function loadPersonalStats() {
 
         setText(".js-username", data.username);
         setText(".js-points", `${data.points}/${data.max_points}`);
-        setText(".js-accuracy", `${data.accuracy}%`);
-        setText(".js-accuracy-result", `${data.accuracy}%`);
+        setText(".js-accuracy", `${data.accuracy}`);
+        setText(".js-accuracy-result", `${data.accuracy}`);
         setText(".js-time", timeString);
         setText(".js-count-correct", answersCount[0]);
         setText(".js-count-incorrect", answersCount[1]);
@@ -129,23 +129,15 @@ document.addEventListener('click', (e) => {
                 </div>
 
                 <div class="personal-data">
-                    <div class="points-user">
-                        <p class="points-text js-points">--/--</p>
-                        <div class="block-accuracy">
-                            <p>Бали</p>
-                        </div>
+                    <div class="header-data">
+                        <div class="header-block"><p>Бали</p></div>
+                        <div class="header-block"><p>Точність(%)</p></div>
+                        <div class="header-block"><p>Середній час(сек)</p></div>
                     </div>
-
-                    <div class="personal-accuracy">
-                        <p class='student-accuracy js-accuracy'>--%</p>
-                        <p>Точність</p>
-                    </div>
-
-                    <div class="avarage-time">
-                        Середній час:
-                        <div class="time-text">
-                            <p class='student-time js-time'>-- сек</p>
-                        </div>
+                    <div class="bottom-data">
+                        <div class="bottom-block"><p class="js-points"></p></div>
+                        <div class="bottom-block"><p class="js-accuracy"></p></div>
+                        <div class="bottom-block"><p class="js-time"></p></div>
                     </div>
                 </div> 
 

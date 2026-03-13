@@ -269,23 +269,15 @@ function openUserModal(userId) {
 
         dataCont.insertAdjacentHTML('beforeend', `
             <div class="personal-data">
-                <div class="points-user">
-                    <p class="points-text">200/200</p>
-                    <div class="block-accuracy">
-                        <p>Бали</p>
-                    </div>
+                <div class="header-data">
+                    <div class="header-block"><p>Бали</p></div>
+                    <div class="header-block"><p>Точність(%)</p></div>
+                    <div class="header-block"><p>Середній час(сек)</p></div>
                 </div>
-
-                <div class="personal-accuracy">
-                    <p class='student-accuracy'>100%</p>
-                    <p>Точність</p>
-                </div>
-
-                <div class="avarage-time">
-                    Середній час:
-                    <div class="time-text">
-                        <p class='student-time'>12хв</p>
-                    </div>
+                <div class="bottom-data">
+                    <div class="bottom-block"><p class="js-points points-text"></p></div>
+                    <div class="bottom-block"><p class="js-accuracy student-accuracy"></p></div>
+                    <div class="bottom-block"><p class="js-time student-time"></p></div>
                 </div>
             </div> 
 

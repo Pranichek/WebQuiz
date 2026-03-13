@@ -143,7 +143,8 @@ def answer_the_question(data):
         # current_index = int(data["index"])
         while len(flask_login.current_user.user_profile.all_answers.split("?#$?")) <= total_questions:
             flask_login.current_user.user_profile.all_answers += "∅?#$?"
-            flask_login.current_user.user_profile.all_procents += f" {flask_login.current_user.user_profile.all_procents.split()[-1]}"
+            procents = flask_login.current_user.user_profile.all_procents.split()
+            flask_login.current_user.user_profile.all_procents += f" {procents[-1]}" if len(procents) > 0 else f" {0}" 
             flask_login.current_user.user_profile.avarage_time += " 0"
 
             stats = flask_login.current_user.user_profile.data_questions.split("/")

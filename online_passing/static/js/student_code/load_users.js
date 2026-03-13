@@ -88,16 +88,24 @@ export async function loadUsers(){
                 if (user.ready === "відповів") {
                     if (!existingCard.classList.contains("active")) {
                         existingCard.classList.add("active");
-                        statusDiv.classList.remove("box");
-                        statusDiv.classList.add("finished");
-                        statusDiv.textContent = "✔";
+                        
+                        // НОВАЯ ПРОВЕРКА: Если элемент statusDiv существует
+                        if (statusDiv) {
+                            statusDiv.classList.remove("box");
+                            statusDiv.classList.add("finished");
+                            statusDiv.textContent = "✔";
+                        }
                     }
                 } else {
                     if (existingCard.classList.contains("active")) {
                         existingCard.classList.remove("active");
-                        statusDiv.classList.remove("finished");
-                        statusDiv.classList.add("box");
-                        statusDiv.textContent = "";
+                        
+                        // НОВАЯ ПРОВЕРКА: Если элемент statusDiv существует
+                        if (statusDiv) {
+                            statusDiv.classList.remove("finished");
+                            statusDiv.classList.add("box");
+                            statusDiv.textContent = "";
+                        }
                     }
                 }
 
